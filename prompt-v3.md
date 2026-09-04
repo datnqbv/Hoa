@@ -438,14 +438,6 @@ function loop() {
     const offsetX = (canvasW - W * fitScale) / 2;
     const offsetY = (canvasH - H * fitScale) / 2;
 
-    if (flashTimer > 0) {
-        ctx.save();
-        ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
-        ctx.fillRect(0, 0, canvasW, canvasH); // hiệu ứng flash phủ toàn canvas thật, cũng vẽ ngoài khối scale
-        ctx.restore();
-        flashTimer--;
-    }
-
     const sceneScale = getSceneScale();
     const sceneOffsetX = (W - W * sceneScale) / 2;
     ctx.save();
@@ -877,10 +869,10 @@ Bố cục canvas ngang 760×380: ống nghiệm ở trung tâm, bàn thí nghi�
 Trình tự animation theo từng thao tác:
 Bước	Nút học sinh bấm	Animation canvas	Trạng thái ống nghiệm sau thao tác
 1	"Cho phenol vào ống nghiệm"	Spatula xuất hiện với một đống phenol trắng nhìn rõ trên lòng thìa, di chuyển đến miệng ống rồi nghiêng chậm. Lượng phenol trên thìa giảm dần trong khi khoảng 20–30 hạt riêng biệt rơi có gia tốc, lệch ngang nhẹ và tích tụ tự nhiên ở đáy. Phenol nằm trong ống phải có màu trắng ngà sáng, hạt đủ lớn và có viền nâu xám mảnh để vẫn nhìn rõ qua lớp kính; không được vẽ trắng mờ hòa vào nền. Sau đó thìa rút ra và nhãn "C₆H₅OH — 0,5 g" xuất hiện cạnh ống.	Chất rắn trắng ở đáy ống nghiệm.
-2	"Thêm H₂SO₄ đặc"	Ống nhỏ giọt thêm từ từ 1,5 mL H₂SO₄ đặc vào ống nghiệm. Mỗi giọt làm mực chất lỏng trong ống tăng dần một cách liên tục từ đáy lên mức cuối; tuyệt đối không bật mực nước lên ngay lập tức. Các hạt phenol vẫn còn nhìn thấy trong chất lỏng để thể hiện hỗn hợp chưa đồng nhất. Nhãn "H₂SO₄ đặc — 1,5 mL" xuất hiện.	Hỗn hợp chưa đồng nhất.
+2	"Thêm H₂SO₄ đặc"	Ống nhỏ giọt thêm từ từ 1,5 mL H₂SO₄ đặc vào ống nghiệm. Mỗi giọt làm mực chất lỏng trong ống tăng dần một cách liên tục từ đáy lên mức cuối; tuyệt đối không bật mực nước lên ngay lập tức. Các hạt phenol vẫn còn nhìn thấy trong chất lỏng để thể hiện hỗn hợp chưa đồng nhất. Chỉ tạo gợn nhỏ tại điểm giọt chạm, không dùng hiệu ứng nháy hoặc lớp màu phủ toàn canvas. Nhãn "H₂SO₄ đặc — 1,5 mL" xuất hiện.	Hỗn hợp chưa đồng nhất.
 3	"Đun nóng"	Ống nghiệm được kẹp và đun nóng nhẹ bằng đèn cồn vẽ đầy đủ bình, cồn, nắp và bấc. Ngọn lửa theo phong cách minh họa dạng giọt đứng: vỏ đỏ đậm có viền, lớp cam bên trong và lõi vàng sáng; thân lửa dày, chóp hơi nghiêng và chỉ dao động nhẹ để vẫn giữ hình rõ. Có quầng nhiệt vừa phải nhưng không che ống nghiệm. Hỗn hợp tan dần đến khi trở thành chất lỏng đồng nhất.	Chất lỏng đồng nhất.
 4	"Làm lạnh"	Ống nghiệm được đặt vào chậu nước đá. Nhiệt kế hiển thị nhiệt độ giảm dần; các bông tuyết nhiều kích thước tỏa ra quanh chậu và ống nghiệm, xoay rồi mờ dần. Ống nghiệm giữ ổn định trước khi thêm HNO₃.	Hỗn hợp đồng nhất đã được làm lạnh.
-5	"Nhỏ HNO₃ đặc + lắc nhẹ"	Dùng ống nhỏ giọt thêm từ từ 1 mL HNO₃ đặc vào ống nghiệm đang được làm lạnh. Sau khi thêm hết, dùng kẹp ống nghiệm lắc nhẹ để trộn đều. Nhãn "HNO₃ đặc — 1 mL" xuất hiện. Hỗn hợp dần nhuốm màu đỏ tối.	Hỗn hợp màu đỏ tối, đồng nhất.
+5	"Nhỏ HNO₃ đặc + lắc nhẹ"	Dùng ống nhỏ giọt thêm từ từ 1 mL HNO₃ đặc vào ống nghiệm đang được làm lạnh. Sau khi thêm hết, dùng kẹp ống nghiệm lắc nhẹ để trộn đều. Không dùng hiệu ứng nháy hoặc lớp màu phủ toàn canvas trong lúc nhỏ giọt. Nhãn "HNO₃ đặc — 1 mL" xuất hiện. Hỗn hợp dần nhuốm màu đỏ tối.	Hỗn hợp màu đỏ tối, đồng nhất.
 6	"Đun cách thủy"	Ống nghiệm được đặt vào cốc nước nóng/bể cách thủy. Đồng hồ đếm ngược 15 phút nhưng animation được tăng tốc; hơi nước bốc nhẹ.	Hỗn hợp vẫn có màu đỏ tối trong quá trình đun cách thủy.
 7	"Để nguội"	Ống nghiệm được lấy khỏi bể cách thủy và đặt trên giá đến khi nhiệt độ giảm về gần nhiệt độ phòng.	Hỗn hợp đỏ tối, đã nguội.
 8	"Rót vào nước lạnh"	Animation kéo dài khoảng 6–7 giây: ống nghiệm được nâng lên, di chuyển đến xô nước lạnh khoảng 20 mL rồi nghiêng chậm. Dòng hỗn hợp liên tục phải bám đúng miệng ống sau khi xoay, chảy theo đường cong vào trong xô, có vệt phản sáng, ripple và hạt bắn tại điểm chạm. Mực nước dâng dần, màu đỏ tối khuếch tán rồi nhạt dần; tinh thể vàng hình thành từng phần và lắng xuống đáy. Cuối cùng dòng rót dừng, ống nghiệm nghiêng lại và trở về giá. Không hiển thị tên sản phẩm ở bước này.	Xô chứa dung dịch nhạt màu và tinh thể vàng ở đáy.

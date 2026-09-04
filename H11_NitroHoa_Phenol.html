@@ -368,7 +368,7 @@
     const canvas = document.getElementById('labCanvas');
     const ctx = canvas.getContext('2d');
     let canvasW = W, canvasH = H;
-    let time = 0, lastFrame = performance.now(), flashTimer = 0;
+    let time = 0, lastFrame = performance.now();
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const stepData = [
@@ -594,7 +594,6 @@
         scene.nitric=smoothstep(.18,.58,t); emitTimedDrops(t,.18,.55,5,'#f1e6bf',252);
         if(t>.2&&t<.68)scene.dark=smoothstep(.28,.72,t);
         if(t>.6&&t<.92)scene.shake=Math.sin(t*80)*.075*(1-smoothstep(.82,.93,t)); else scene.shake=0;
-        if(t>.31&&flashTimer<=0&&scene.dark<.08)flashTimer=18;
       }else if(step===6){
         scene.waterBath=smoothstep(.05,.25,t); scene.temp=lerp(10,78,smoothstep(.2,.82,t)); scene.clock=Math.max(0,Math.ceil(15*(1-smoothstep(.18,.88,t))));
         if(t>.22&&t<.92&&Math.random()<.11)spawnSteam(380,292);
@@ -659,7 +658,7 @@
           if(p.y>=p.targetY){p.y=p.targetY;p.life=0;}
         }else if(p.type==='drop'){
           p.y+=p.vy*f;
-          if(p.y>=p.targetY){p.life=0;spawnSplash(p.x,p.targetY,p.color);flashTimer=Math.max(flashTimer,8);}
+          if(p.y>=p.targetY){p.life=0;spawnSplash(p.x,p.targetY,p.color);}
         }else if(p.type==='bubble'){
           p.y-=p.vy*f;p.x+=Math.sin(time*3+p.phase)*.35*f;p.life-=.006*f;p.size+=.012*f;if(p.y<p.topY)p.life=0;
         }else if(p.type==='steam'){
@@ -907,7 +906,6 @@
       resizeCanvas();const dt=Math.min(40,now-lastFrame||16.67);lastFrame=now;time+=dt/1000;updateStepAnimation(now);updateParticles(dt);
       ctx.clearRect(0,0,canvasW,canvasH);drawGrid();
       const scaleX=canvasW/W,scaleY=canvasH/H,fitScale=Math.min(scaleX,scaleY),offsetX=(canvasW-W*fitScale)/2,offsetY=(canvasH-H*fitScale)/2;
-      if(flashTimer>0){ctx.save();ctx.fillStyle=`rgba(232,162,74,${flashTimer/70})`;ctx.fillRect(0,0,canvasW,canvasH);ctx.restore();flashTimer--;}
       const sceneScale=getSceneScale(),sceneOffsetX=(W-W*sceneScale)/2;
       ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(fitScale,fitScale);
       ctx.translate(sceneOffsetX,0);ctx.scale(sceneScale,sceneScale);drawScene();
@@ -1023,7 +1021,7 @@
 
     function resetLab(){
       if(!window.confirm('Bạn muốn làm lại toàn bộ thí nghiệm từ đầu?'))return;
-      state=freshState();particles=[];rings=[];flashTimer=0;rebuildScene();
+      state=freshState();particles=[];rings=[];rebuildScene();
       document.querySelectorAll('.obs-select,.fill-select').forEach(el=>{el.value='';el.disabled=false;});
       document.querySelectorAll('.inline-feedback').forEach(el=>{el.textContent='';el.className='inline-feedback';});
       ['conclusionFeedback','hypothesisFeedback'].forEach(id=>{$(id).className='';$(id).textContent='';});
