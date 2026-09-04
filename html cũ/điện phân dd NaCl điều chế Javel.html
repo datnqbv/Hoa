@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm: Điều chế và thử tính tẩy màu của Nước Javel</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css" rel="stylesheet">
+
+    <style>
+        /* === TYPOGRAPHY & DESIGN SYSTEM === */
+        :root {
+            --primary: #0f4c81;
+            --secondary: #1a7a5e;
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --border: #cbd5e1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+            min-height: 100vh;
+        }
+
+        .block {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .label-sm {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        h2 {
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* === HEADER === */
+        header.block {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            border: none;
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 250px;
+            height: 250px;
+            top: -80px;
+            right: -50px;
+        }
+
+        header::after {
+            width: 120px;
+            height: 120px;
+            bottom: -30px;
+            left: 5%;
+        }
+
+        .header-badge {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title,
+        .header-desc {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-title {
+            color: #ffffff;
+            font-size: 24px;
+        }
+
+        .header-desc {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* === INFO PANEL === */
+        .info-panel {
+            display: flex;
+            border-left: none;
+            gap: 0;
+            overflow: hidden;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 16px 20px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border-right: none;
+            border-left: 4px solid #ffabc7;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border-left: 1px solid #e0e8ef;
+            border-right: 4px solid #7bb9e5;
+        }
+
+        .info-col:first-child .label-sm {
+            color: #d4548a;
+        }
+
+        .info-col:last-child .label-sm {
+            color: #3a8fc7;
+        }
+
+        .info-col .label-sm {
+            margin-bottom: 8px;
+        }
+
+        .info-col p,
+        .info-col ul {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .info-col ul {
+            padding-left: 20px;
+            margin-top: 4px;
+        }
+
+        /* === CANVAS === */
+        .canvas-container {
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* === CONTROLS === */
+        .controls {
+            padding: 20px;
+            background: #f5f0eb;
+            border: 1px solid #e0d5ca;
+        }
+
+        .step-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .reset-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #d9cfc4;
+        }
+
+        button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            background: #ffffff;
+            border: 1px solid #d4c9be;
+            color: var(--text-main);
+        }
+
+        button i {
+            font-size: 16px;
+        }
+
+        button:hover:not(:disabled) {
+            background: #eee8e2;
+            border-color: #b8a99a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        button.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.active:hover {
+            background: #0d3f6b;
+            border-color: #0d3f6b;
+        }
+
+        button:disabled {
+            opacity: 1;
+            background: #e8e2dc;
+            cursor: not-allowed;
+            border-color: #d4c9be;
+            color: var(--text-main);
+        }
+
+        button.btn-reset {
+            background: #ffffff;
+            border: 1.5px solid #d4c9be;
+            color: var(--text-sub);
+            padding: 8px 24px;
+        }
+
+        button.btn-reset:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: #eef9f3;
+        }
+
+        /* === EXPLANATION BOX === */
+        .explanation-box {
+            padding: 20px;
+            border-left: 4px solid #a87cc4;
+            background: #f5f0fa;
+            border-color: #d4c0e8;
+            transition: all 0.3s ease;
+        }
+
+        .explanation-box.success {
+            border-left-color: #6dc9a0;
+            background: #eef9f3;
+        }
+
+        .explanation-box.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .exp-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .exp-header i {
+            font-size: 20px;
+        }
+
+        .explanation-box.success .exp-header {
+            color: var(--secondary);
+        }
+
+        .exp-content {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="block">
+
+        <h2 class="header-title">Điện phân NaCl & Thử tính tẩy màu Nước Javel</h2>
+        <p class="header-desc">Khảo sát phản ứng điện phân không màng ngăn và tính oxi hóa mạnh của NaClO</p>
+    </header>
+
+    <div class="block info-panel">
+        <div class="info-col">
+            <div class="label-sm"><i class="ti ti-target"></i> Mục đích thí nghiệm</div>
+            <p>Điều chế <strong>nước Javel</strong> trực tiếp từ phản ứng điện phân dung dịch NaCl bão hòa (không có
+                màng ngăn), sau đó dùng cánh hoa hồng để chứng minh tính tẩy màu (tính oxi hóa mạnh) của sản phẩm.</p>
+        </div>
+        <div class="info-col">
+            <div class="label-sm"><i class="ti ti-list-check"></i> Hướng dẫn thao tác</div>
+            <ul>
+                <li>Cho dung dịch NaCl bão hòa vào cốc</li>
+                <li>Lắp nắp đậy & điện cực than chì</li>
+                <li>Bật nguồn DC, điện phân ~5 phút</li>
+                <li>Thử tính tẩy màu với cánh hoa hồng</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="block canvas-container">
+        <canvas id="simCanvas" width="760" height="460"></canvas>
+    </div>
+
+    <div class="block controls">
+        <div class="step-buttons">
+            <button id="btn1" class="step-btn active" onclick="triggerStep(1)">
+                <i class="ti ti-droplet-filled"></i> 1. Thêm dd NaCl
+            </button>
+            <button id="btn2" class="step-btn" disabled onclick="triggerStep(2)">
+                <i class="ti ti-plug"></i> 2. Lắp điện cực
+            </button>
+            <button id="btn3" class="step-btn" disabled onclick="triggerStep(3)">
+                <i class="ti ti-bolt"></i> 3. Điện phân
+            </button>
+            <button id="btn4" class="step-btn" disabled onclick="triggerStep(4)">
+                <i class="ti ti-flower"></i> 4. Thử Javel
+            </button>
+        </div>
+        <div class="reset-row">
+            <button id="btnReset" class="btn-reset" onclick="resetSim()">
+                <i class="ti ti-refresh"></i> Làm lại từ đầu
+            </button>
+        </div>
+    </div>
+
+    <div id="explanationBox" class="block explanation-box">
+        <div class="exp-header" id="expTitle">
+            <i class="ti ti-info-circle"></i> Trạng thái chờ
+        </div>
+        <div class="exp-content" id="expText">
+            Hệ thống đã sẵn sàng. Hãy nhấn nút <strong>"1. Thêm dd NaCl"</strong> để bắt đầu chuẩn bị dung dịch điện
+            phân.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('simCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+        const DPR = window.devicePixelRatio || 1;
+        canvas.width = 760 * DPR; canvas.height = 460 * DPR;
+        canvas.style.width = '760px'; canvas.style.height = '460px';
+        ctx.scale(DPR, DPR);
+
+        const TABLE_Y = 378;
+        const B1 = { x: 245, y: 200, w: 135, h: 170 };
+        const B2 = { x: 530, y: 268, w: 90, h: 110 };
+        const PSU = { x: 252, y: 18, w: 120, h: 75 };
+        const FLOWER_REST = { x: 610, y: 330 };
+
+        let currentStep = 0, isAnimating = false;
+        let animStart = 0, animProgress = 0;
+        let naclLevel = 0, javelLevel = 0;
+        let electrodeY = -200;
+        let isElectrolyzing = false, electroTime = 0;
+        let psuOn = false, solutionProg = 0;
+        let flowerColor = 1.0, flowerInBeaker = false;
+        let bubbles = [], sparkles = [];
+        let pip = { active: false, x: 0, y: -100, hasLiq: false, dropY: 0, dropping: false, phase: 0, timer: 0 };
+        let lidRemoved = false;
+        let time = 0;
+
+        function ease(t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; }
+        function lerp(a, b, t) { return a + (b - a) * Math.max(0, Math.min(1, t)); }
+        function lerpC(a, b, t) { t = Math.max(0, Math.min(1, t)); return [Math.round(a[0] + (b[0] - a[0]) * t), Math.round(a[1] + (b[1] - a[1]) * t), Math.round(a[2] + (b[2] - a[2]) * t)]; }
+        function rgb(c, a) { return a != null ? `rgba(${c[0]},${c[1]},${c[2]},${a})` : `rgb(${c[0]},${c[1]},${c[2]})`; }
+
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y); ctx.lineTo(x + w - r, y); ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r); ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h); ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r); ctx.quadraticCurveTo(x, y, x + r, y); ctx.closePath();
+        }
+
+        // =================== BACKGROUND ===================
+        function drawBg() {
+            let bg = ctx.createLinearGradient(0, 0, 0, TABLE_Y);
+            bg.addColorStop(0, '#f8fafc'); bg.addColorStop(1, '#eef2f7');
+            ctx.fillStyle = bg; ctx.fillRect(0, 0, W, TABLE_Y);
+            ctx.strokeStyle = 'rgba(0,0,0,0.04)'; ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, TABLE_Y); ctx.stroke(); }
+            for (let y = 0; y <= TABLE_Y; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+            let tg = ctx.createLinearGradient(0, TABLE_Y, 0, H);
+            tg.addColorStop(0, '#d5dbe3'); tg.addColorStop(0.15, '#c8cfd9'); tg.addColorStop(1, '#bcc4cf');
+            ctx.fillStyle = tg; ctx.fillRect(0, TABLE_Y, W, H - TABLE_Y);
+            ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(0, TABLE_Y); ctx.lineTo(W, TABLE_Y); ctx.stroke();
+            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+            ctx.beginPath(); ctx.moveTo(0, TABLE_Y + 1); ctx.lineTo(W, TABLE_Y + 1); ctx.stroke();
+        }
+
+        // =================== PSU ===================
+        function drawPSU() {
+            ctx.save();
+            let p = PSU, t = time;
+            ctx.shadowColor = 'rgba(0,0,0,0.15)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 4;
+            let caseG = ctx.createLinearGradient(p.x, p.y, p.x, p.y + p.h);
+            caseG.addColorStop(0, '#2d3748'); caseG.addColorStop(0.5, '#1a202c'); caseG.addColorStop(1, '#171923');
+            ctx.fillStyle = caseG; roundRect(p.x, p.y, p.w, p.h, 10); ctx.fill();
+            ctx.shadowColor = 'transparent';
+
+            ctx.strokeStyle = 'rgba(255,255,255,0.08)'; ctx.lineWidth = 1;
+            roundRect(p.x, p.y, p.w, p.h, 10); ctx.stroke();
+
+            let panelG = ctx.createLinearGradient(p.x + 6, p.y + 6, p.x + 6, p.y + p.h - 12);
+            panelG.addColorStop(0, '#1e293b'); panelG.addColorStop(1, '#0f172a');
+            ctx.fillStyle = panelG; roundRect(p.x + 6, p.y + 6, p.w - 12, p.h - 12, 6); ctx.fill();
+
+            ctx.font = 'bold 10px "Plus Jakarta Sans",Arial'; ctx.textAlign = 'center';
+            ctx.fillStyle = '#94a3b8'; ctx.fillText('DC POWER SUPPLY', p.x + p.w / 2, p.y + 22);
+
+            let screenY = p.y + 28, screenH = 22;
+            let sG = ctx.createLinearGradient(p.x + 14, screenY, p.x + 14, screenY + screenH);
+            sG.addColorStop(0, '#0c1220'); sG.addColorStop(1, '#111827');
+            ctx.fillStyle = sG; roundRect(p.x + 14, screenY, p.w - 28, screenH, 3); ctx.fill();
+            ctx.strokeStyle = 'rgba(100,116,139,0.3)'; ctx.lineWidth = 0.5;
+            roundRect(p.x + 14, screenY, p.w - 28, screenH, 3); ctx.stroke();
+
+            if (psuOn) {
+                ctx.font = 'bold 14px monospace'; ctx.fillStyle = '#4ade80';
+                let blink = Math.sin(t * 3) > -0.3 ? 1 : 0.6;
+                ctx.globalAlpha = blink;
+                ctx.fillText('12.0 V', p.x + p.w / 2, screenY + 16);
+                ctx.globalAlpha = 1;
+            } else {
+                ctx.font = 'bold 14px monospace'; ctx.fillStyle = '#334155';
+                ctx.fillText('- - -', p.x + p.w / 2, screenY + 16);
+            }
+
+            let ledY = p.y + 56;
+            if (psuOn) {
+                let glow = 0.7 + Math.sin(t * 5) * 0.3;
+                ctx.shadowColor = 'rgba(74,222,128,0.6)'; ctx.shadowBlur = 8;
+                ctx.fillStyle = `rgba(74,222,128,${glow})`;
+                ctx.beginPath(); ctx.arc(p.x + p.w / 2, ledY, 3.5, 0, Math.PI * 2); ctx.fill();
+                ctx.shadowBlur = 0; ctx.shadowColor = 'transparent';
+            } else {
+                ctx.fillStyle = '#374151';
+                ctx.beginPath(); ctx.arc(p.x + p.w / 2, ledY, 3.5, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.font = 'bold 7px Arial';
+            ctx.fillStyle = psuOn ? '#4ade80' : '#4b5563';
+            ctx.fillText(psuOn ? 'ON' : 'OFF', p.x + p.w / 2, ledY + 12);
+
+            let tPosR = p.x + p.w - 22, tPosL = p.x + 22, tY = p.y + p.h - 3;
+            [{ cx: tPosR, color: '#dc2626', darkC: '#991b1b', label: '+' }, { cx: tPosL, color: '#2563eb', darkC: '#1e40af', label: '−' }].forEach(term => {
+                let tG = ctx.createRadialGradient(term.cx - 1, tY - 1, 0, term.cx, tY, 8);
+                tG.addColorStop(0, term.color); tG.addColorStop(1, term.darkC);
+                ctx.fillStyle = tG;
+                ctx.beginPath(); ctx.arc(term.cx, tY, 7, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(term.cx, tY, 7, 0, Math.PI * 2); ctx.stroke();
+                ctx.fillStyle = '#fff'; ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center';
+                ctx.fillText(term.label, term.cx, tY + 4);
+            });
+            ctx.restore();
+        }
+
+        // =================== WIRES ===================
+        function getWirePoints(fromX, fromY, toX, toY, side) {
+            let pts = [], steps = 40;
+            for (let i = 0; i <= steps; i++) {
+                let t = i / steps;
+                let offX = side === 'right' ? 15 : -15;
+                let midX = fromX + offX, midY = (fromY + toY) * 0.5;
+                let x = (1 - t) * (1 - t) * fromX + 2 * (1 - t) * t * midX + t * t * toX;
+                let y = (1 - t) * (1 - t) * fromY + 2 * (1 - t) * t * midY + t * t * toY;
+                pts.push({ x, y });
+            }
+            return pts;
+        }
+
+        function drawWire(pts, color, glowColor) {
+            ctx.save();
+            if (psuOn) {
+                ctx.strokeStyle = glowColor; ctx.lineWidth = 8; ctx.lineCap = 'round';
+                ctx.globalAlpha = 0.25 + Math.sin(time * 4) * 0.1;
+                ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+                for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+                ctx.stroke(); ctx.globalAlpha = 1;
+            }
+            ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+            for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+            ctx.stroke();
+
+            if (psuOn) {
+                let dotCount = 4, speed = time * 2;
+                for (let d = 0; d < dotCount; d++) {
+                    let pos = ((speed + d / dotCount) % 1) * pts.length;
+                    let idx = Math.floor(pos);
+                    if (idx >= pts.length - 1) idx = pts.length - 2;
+                    let frac = pos - idx;
+                    let px = lerp(pts[idx].x, pts[idx + 1].x, frac);
+                    let py = lerp(pts[idx].y, pts[idx + 1].y, frac);
+                    ctx.fillStyle = '#fff';
+                    ctx.shadowColor = glowColor; ctx.shadowBlur = 6;
+                    ctx.beginPath(); ctx.arc(px, py, 2.5, 0, Math.PI * 2); ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+            }
+            ctx.restore();
+        }
+
+        function drawClamp(cx, cy, color) {
+            ctx.save();
+            let g = ctx.createLinearGradient(cx - 8, cy - 6, cx + 8, cy + 10);
+            g.addColorStop(0, '#9ca3af'); g.addColorStop(0.5, color); g.addColorStop(1, '#4b5563');
+            ctx.fillStyle = g;
+            ctx.beginPath();
+            ctx.moveTo(cx - 8, cy - 6); ctx.lineTo(cx + 8, cy - 6);
+            ctx.lineTo(cx + 6, cy + 10); ctx.lineTo(cx - 6, cy + 10);
+            ctx.closePath(); ctx.fill();
+            ctx.strokeStyle = 'rgba(0,0,0,0.25)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(cx - 8, cy - 6); ctx.lineTo(cx + 8, cy - 6);
+            ctx.lineTo(cx + 6, cy + 10); ctx.lineTo(cx - 6, cy + 10); ctx.closePath(); ctx.stroke();
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.fillRect(cx - 6, cy - 5, 3, 14);
+            ctx.restore();
+        }
+
+        function drawAllWires() {
+            if (currentStep < 2 || lidRemoved) return;
+            let ex = B1.x + B1.w / 2, ey = B1.y + electrodeY;
+            let anodeX = ex - 24, cathodeX = ex + 24;
+            let clampY = ey - 16;
+            let ptsR = getWirePoints(PSU.x + PSU.w - 22, PSU.y + PSU.h - 3, anodeX, clampY, 'right');
+            let ptsL = getWirePoints(PSU.x + 22, PSU.y + PSU.h - 3, cathodeX, clampY, 'left');
+            drawWire(ptsR, '#ef4444', 'rgba(239,68,68,0.6)');
+            drawWire(ptsL, '#3b82f6', 'rgba(59,130,246,0.6)');
+            drawClamp(anodeX, clampY, '#b91c1c');
+            drawClamp(cathodeX, clampY, '#1d4ed8');
+        }
+
+        // =================== BEAKER ===================
+        function drawBeaker(b, label, liq, liqColor, showScale) {
+            ctx.save();
+            ctx.shadowColor = 'rgba(0,0,0,0.1)'; ctx.shadowBlur = 8; ctx.shadowOffsetY = 4;
+            ctx.fillStyle = 'rgba(200,210,225,0.08)';
+            ctx.fillRect(b.x + 2, b.y + 2, b.w - 4, b.h);
+            ctx.shadowColor = 'transparent';
+
+            if (liq > 0) {
+                let waveA = isElectrolyzing ? 3 : 1.5;
+                let surfY = b.y + b.h - liq;
+                ctx.save(); ctx.beginPath();
+                ctx.moveTo(b.x + 3, b.y + b.h - 3); ctx.lineTo(b.x + b.w - 3, b.y + b.h - 3);
+                ctx.lineTo(b.x + b.w - 3, surfY - 8); ctx.lineTo(b.x + 3, surfY - 8); ctx.closePath(); ctx.clip();
+
+                let depthG = ctx.createLinearGradient(0, surfY, 0, b.y + b.h);
+                depthG.addColorStop(0, liqColor);
+                let darker = liqColor.replace(/[\d.]+\)$/, s => (parseFloat(s) + 0.15).toFixed(2) + ')');
+                depthG.addColorStop(1, darker);
+                ctx.fillStyle = depthG;
+                ctx.beginPath(); ctx.moveTo(b.x + 3, b.y + b.h - 3);
+                ctx.lineTo(b.x + b.w - 3, b.y + b.h - 3);
+                for (let x = b.x + b.w - 3; x >= b.x + 3; x -= 2) {
+                    let wave = Math.sin((x * 0.06) + time * 2.5) * waveA + Math.sin((x * 0.1) + time * 3.8) * waveA * 0.4;
+                    ctx.lineTo(x, surfY + wave);
+                }
+                ctx.closePath(); ctx.fill();
+
+                let surfG = ctx.createLinearGradient(b.x, surfY - 4, b.x, surfY + 4);
+                surfG.addColorStop(0, 'rgba(255,255,255,0.35)'); surfG.addColorStop(1, 'rgba(255,255,255,0.05)');
+                ctx.fillStyle = surfG;
+                ctx.beginPath();
+                for (let x = b.x + 3; x <= b.x + b.w - 3; x += 2) {
+                    let wave = Math.sin((x * 0.06) + time * 2.5) * waveA + Math.sin((x * 0.1) + time * 3.8) * waveA * 0.4;
+                    if (x === b.x + 3) ctx.moveTo(x, surfY + wave);
+                    else ctx.lineTo(x, surfY + wave);
+                }
+                for (let x = b.x + b.w - 3; x >= b.x + 3; x -= 2) {
+                    let wave = Math.sin((x * 0.06) + time * 2.5) * waveA + Math.sin((x * 0.1) + time * 3.8) * waveA * 0.4;
+                    ctx.lineTo(x, surfY + wave + 5);
+                }
+                ctx.closePath(); ctx.fill();
+                ctx.restore();
+            }
+
+            ctx.strokeStyle = 'rgba(148,163,184,0.55)'; ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(b.x, b.y);
+            ctx.lineTo(b.x, b.y + b.h - 8);
+            ctx.quadraticCurveTo(b.x, b.y + b.h, b.x + 8, b.y + b.h);
+            ctx.lineTo(b.x + b.w - 8, b.y + b.h);
+            ctx.quadraticCurveTo(b.x + b.w, b.y + b.h, b.x + b.w, b.y + b.h - 8);
+            ctx.lineTo(b.x + b.w, b.y);
+            ctx.stroke();
+
+            let glR = ctx.createLinearGradient(b.x, 0, b.x + 12, 0);
+            glR.addColorStop(0, 'rgba(255,255,255,0.22)'); glR.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = glR; ctx.fillRect(b.x + 2, b.y + 5, 10, b.h - 15);
+
+            let glR2 = ctx.createLinearGradient(b.x + b.w - 8, 0, b.x + b.w, 0);
+            glR2.addColorStop(0, 'rgba(255,255,255,0)'); glR2.addColorStop(1, 'rgba(255,255,255,0.1)');
+            ctx.fillStyle = glR2; ctx.fillRect(b.x + b.w - 8, b.y + 5, 6, b.h - 15);
+
+            ctx.strokeStyle = 'rgba(148,163,184,0.5)'; ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(b.x - 6, b.y + 2); ctx.lineTo(b.x - 3, b.y - 4);
+            ctx.lineTo(b.x + b.w + 3, b.y - 4); ctx.lineTo(b.x + b.w + 6, b.y + 2);
+            ctx.stroke();
+
+            if (showScale) {
+                ctx.strokeStyle = 'rgba(148,163,184,0.25)'; ctx.lineWidth = 0.8;
+                ctx.font = '7px Arial'; ctx.fillStyle = 'rgba(148,163,184,0.4)'; ctx.textAlign = 'right';
+                for (let ml = 20; ml <= 100; ml += 20) {
+                    let sy = b.y + b.h - (ml / 100 * b.h * 0.82);
+                    if (sy > b.y + 10) {
+                        ctx.beginPath(); ctx.moveTo(b.x + b.w - 3, sy); ctx.lineTo(b.x + b.w - 14, sy); ctx.stroke();
+                        ctx.fillText(ml + 'mL', b.x + b.w - 16, sy + 3);
+                    }
+                }
+            }
+
+            ctx.fillStyle = '#475569'; ctx.font = '600 11px "Plus Jakarta Sans",Arial'; ctx.textAlign = 'center';
+            ctx.fillText(label, b.x + b.w / 2, b.y + b.h + 18);
+            ctx.restore();
+        }
+
+        // =================== LID & ELECTRODES ===================
+        function drawLidAndElectrodes(){
+            if(electrodeY<-190&&currentStep<2) return;
+            if(lidRemoved) return;
+            ctx.save();
+            let ex=B1.x+B1.w/2, ey=B1.y+electrodeY;
+            let anodeX=ex-24, cathodeX=ex+24;
+            let rodH=148;
+
+            [anodeX,cathodeX].forEach(rx=>{
+                let rg=ctx.createLinearGradient(rx-6,0,rx+6,0);
+                rg.addColorStop(0,'#4a5568'); rg.addColorStop(0.3,'#2d3748'); rg.addColorStop(0.7,'#1a202c'); rg.addColorStop(1,'#2d3748');
+                ctx.fillStyle=rg;
+                roundRect(rx-6,ey+8,12,rodH,2); ctx.fill();
+                ctx.strokeStyle='rgba(255,255,255,0.06)'; ctx.lineWidth=0.5;
+                roundRect(rx-6,ey+8,12,rodH,2); ctx.stroke();
+                ctx.fillStyle='rgba(255,255,255,0.1)'; ctx.fillRect(rx-5,ey+10,2,rodH-6);
+            });
+
+            let lidW=B1.w+20;
+            let lg=ctx.createLinearGradient(0,ey-2,0,ey+10);
+            lg.addColorStop(0,'#b8c4d0'); lg.addColorStop(0.4,'#9ba8b8'); lg.addColorStop(1,'#8695a6');
+            ctx.fillStyle=lg;
+            roundRect(ex-lidW/2,ey-2,lidW,12,4); ctx.fill();
+            ctx.strokeStyle='rgba(0,0,0,0.1)'; ctx.lineWidth=0.8;
+            roundRect(ex-lidW/2,ey-2,lidW,12,4); ctx.stroke();
+            ctx.fillStyle='rgba(255,255,255,0.2)';
+            ctx.fillRect(ex-lidW/2+4,ey,lidW-8,2);
+
+            [anodeX,cathodeX].forEach(hx=>{
+                ctx.fillStyle='#64748b';
+                ctx.beginPath(); ctx.ellipse(hx,ey+4,8,5,0,0,Math.PI*2); ctx.fill();
+                ctx.fillStyle='#475569';
+                ctx.beginPath(); ctx.ellipse(hx,ey+4,6,3.5,0,0,Math.PI*2); ctx.fill();
+            });
+
+            if(currentStep>=2&&electrodeY>=-5){
+                ctx.font='bold 9px "Plus Jakarta Sans",Arial'; ctx.textAlign='center';
+                ctx.fillStyle='#dc2626'; ctx.fillText('Anode (+)',anodeX,B1.y+B1.h+34);
+                ctx.fillStyle='#2563eb'; ctx.fillText('Cathode (−)',cathodeX,B1.y+B1.h+34);
+            }
+            ctx.restore();
+        }
+
+        // =================== BUBBLES ===================
+        function spawnBubbles() {
+            if (!isElectrolyzing) return;
+            let ex = B1.x + B1.w / 2, bottom = B1.y + electrodeY + 148;
+            let aX = ex - 24, cX = ex + 24;
+            if (Math.random() > 0.4) bubbles.push({
+                x: aX - 3 + Math.random() * 6, y: bottom - Math.random() * 40, r: Math.random() * 3 + 1.2,
+                vx: (Math.random() - 0.5) * 0.3, vy: -(Math.random() * 0.8 + 0.5), life: 1, type: 'cl2'
+            });
+            if (Math.random() > 0.3) bubbles.push({
+                x: cX - 3 + Math.random() * 6, y: bottom - Math.random() * 40, r: Math.random() * 2.5 + 0.8,
+                vx: (Math.random() - 0.5) * 0.3, vy: -(Math.random() * 1 + 0.6), life: 1, type: 'h2'
+            });
+        }
+
+        function drawBubbles() {
+            let surfY = B1.y + B1.h - naclLevel;
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                let b = bubbles[i];
+                b.y += b.vy; b.x += b.vx + Math.sin(time * 6 + i) * 0.2;
+                b.vx *= 0.99;
+                let distToSurf = (b.y - surfY) / (B1.h * 0.5);
+                b.life = Math.max(0, Math.min(1, distToSurf));
+                if (b.y < surfY + 2) {
+                    sparkles.push({ x: b.x, y: surfY, r: b.r * 1.5, life: 1 });
+                    bubbles.splice(i, 1); continue;
+                }
+                let alpha = b.life * 0.7;
+                let col = b.type === 'cl2' ? `rgba(134,239,172,${alpha})` : `rgba(220,230,255,${alpha})`;
+                ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = col; ctx.fill();
+                ctx.strokeStyle = b.type === 'cl2' ? `rgba(74,222,128,${alpha * 0.5})` : `rgba(200,215,245,${alpha * 0.5})`;
+                ctx.lineWidth = 0.6; ctx.stroke();
+                ctx.fillStyle = `rgba(255,255,255,${alpha * 0.8})`;
+                ctx.beginPath(); ctx.arc(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.3, 0, Math.PI * 2); ctx.fill();
+            }
+
+            for (let i = sparkles.length - 1; i >= 0; i--) {
+                let s = sparkles[i];
+                s.life -= 0.05; s.r += 0.3;
+                if (s.life <= 0) { sparkles.splice(i, 1); continue; }
+                ctx.strokeStyle = `rgba(255,255,255,${s.life * 0.5})`;
+                ctx.lineWidth = 0.8;
+                ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.stroke();
+            }
+
+            if (isElectrolyzing && bubbles.length > 0) {
+                let ex = B1.x + B1.w / 2, aX = ex - 24, cX = ex + 24;
+                let alpha = 0.6 + Math.sin(time * 3) * 0.3;
+                ctx.save(); ctx.globalAlpha = alpha;
+                ctx.font = 'bold 10px "Plus Jakarta Sans",Arial'; ctx.textAlign = 'center';
+                ctx.fillStyle = '#22c55e'; ctx.fillText('Cl₂ ↑', aX, surfY - 10);
+                ctx.fillStyle = '#94a3b8'; ctx.fillText('H₂ ↑', cX, surfY - 10);
+                ctx.restore();
+            }
+        }
+
+        // =================== PETAL ===================
+        function drawFlower(fx, fy, sc, prog) {
+            ctx.save(); ctx.translate(fx, fy); ctx.scale(sc, sc);
+            ctx.rotate(-0.15 + Math.sin(time * 1.2) * 0.03);
+
+            let deepPink = [220, 30, 75], midPink = [230, 90, 130], lightPink = [240, 160, 180];
+            let fadedDeep = [235, 160, 175], fadedMid = [240, 185, 200], fadedLight = [245, 210, 218];
+            let cBot = lerpC(fadedDeep, deepPink, prog);
+            let cMid = lerpC(fadedMid, midPink, prog);
+            let cTop = lerpC(fadedLight, lightPink, prog);
+
+            ctx.beginPath();
+            ctx.moveTo(0, 28);
+            ctx.bezierCurveTo(-6, 22, -20, 8, -22, -10);
+            ctx.bezierCurveTo(-23, -22, -18, -34, -8, -40);
+            ctx.bezierCurveTo(-2, -44, 4, -44, 10, -40);
+            ctx.bezierCurveTo(20, -34, 24, -20, 22, -8);
+            ctx.bezierCurveTo(20, 10, 6, 22, 0, 28);
+            ctx.closePath();
+
+            let pg = ctx.createLinearGradient(0, 30, 0, -42);
+            pg.addColorStop(0, rgb(cBot)); pg.addColorStop(0.45, rgb(cMid)); pg.addColorStop(1, rgb(cTop));
+            ctx.fillStyle = pg; ctx.fill();
+
+            ctx.strokeStyle = rgb(lerpC([200, 140, 155], [180, 40, 80], prog), 0.4);
+            ctx.lineWidth = 0.8; ctx.stroke();
+
+            ctx.save(); ctx.clip();
+            ctx.strokeStyle = rgb(lerpC([220, 170, 185], [200, 60, 100], prog), 0.15);
+            ctx.lineWidth = 0.6;
+            for (let i = 0; i < 7; i++) {
+                let ox = (i - 3) * 4;
+                ctx.beginPath(); ctx.moveTo(ox * 0.3, 26);
+                ctx.quadraticCurveTo(ox * 0.8, -5, ox * 1.2, -35);
+                ctx.stroke();
+            }
+            ctx.restore();
+
+            ctx.fillStyle = `rgba(255,255,255,${0.08 + Math.sin(time * 2) * 0.03})`;
+            ctx.beginPath();
+            ctx.ellipse(-8, -15, 5, 18, 0.25, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        // =================== PIPETTE ===================
+        function drawPipette() {
+            if (!pip.active) return;
+            ctx.save();
+            let px = pip.x, py = pip.y;
+
+            ctx.fillStyle = '#b91c1c';
+            ctx.beginPath();
+            ctx.moveTo(px - 9, py - 10);
+            ctx.quadraticCurveTo(px - 14, py - 35, px, py - 40);
+            ctx.quadraticCurveTo(px + 14, py - 35, px + 9, py - 10);
+            ctx.closePath(); ctx.fill();
+            let bulbG = ctx.createLinearGradient(px - 10, py - 35, px + 10, py - 35);
+            bulbG.addColorStop(0, 'rgba(255,255,255,0.2)'); bulbG.addColorStop(1, 'rgba(0,0,0,0.1)');
+            ctx.fillStyle = bulbG;
+            ctx.beginPath();
+            ctx.moveTo(px - 9, py - 10);
+            ctx.quadraticCurveTo(px - 14, py - 35, px, py - 40);
+            ctx.quadraticCurveTo(px + 14, py - 35, px + 9, py - 10);
+            ctx.closePath(); ctx.fill();
+
+            ctx.fillStyle = 'rgba(230,240,255,0.45)';
+            ctx.strokeStyle = 'rgba(148,163,184,0.7)'; ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(px - 7, py - 10); ctx.lineTo(px - 7, py + 22);
+            ctx.lineTo(px - 2, py + 50); ctx.lineTo(px + 2, py + 50);
+            ctx.lineTo(px + 7, py + 22); ctx.lineTo(px + 7, py - 10);
+            ctx.closePath(); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = 'rgba(255,255,255,0.15)'; ctx.fillRect(px - 6, py - 8, 3, 55);
+
+            if (pip.hasLiq) {
+                ctx.fillStyle = 'rgba(200,225,245,0.55)';
+                ctx.beginPath();
+                ctx.moveTo(px - 5, py); ctx.lineTo(px - 2, py + 45);
+                ctx.lineTo(px + 2, py + 45); ctx.lineTo(px + 5, py);
+                ctx.closePath(); ctx.fill();
+            }
+
+            if (pip.dropping) {
+                let dy = pip.dropY;
+                ctx.fillStyle = 'rgba(200,225,245,0.8)';
+                ctx.beginPath();
+                ctx.moveTo(px, dy - 9);
+                ctx.quadraticCurveTo(px - 5, dy - 2, px - 4, dy + 1);
+                ctx.quadraticCurveTo(px, dy + 5, px + 4, dy + 1);
+                ctx.quadraticCurveTo(px + 5, dy - 2, px, dy - 9);
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                ctx.beginPath(); ctx.arc(px - 1, dy - 4, 1.5, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        // =================== MAIN LOOP ===================
+        function loop(ts) {
+            time = ts * 0.001;
+            ctx.clearRect(0, 0, 760, 460);
+            drawBg();
+            drawPSU();
+
+            if (!flowerInBeaker) {
+                drawFlower(FLOWER_REST.x, FLOWER_REST.y, 0.85, flowerColor);
+                ctx.save(); ctx.font = '600 9px "Plus Jakarta Sans",Arial';
+                ctx.fillStyle = '#94a3b8'; ctx.textAlign = 'center';
+                ctx.fillText('Cánh hoa hồng', FLOWER_REST.x, FLOWER_REST.y + 55); ctx.restore();
+            }
+
+            let liqC;
+            if (currentStep >= 3) {
+                solutionProg = Math.min(solutionProg + 0.004, 1);
+                let c = lerpC([195, 215, 245], [200, 235, 210], solutionProg);
+                liqC = rgb(c, 0.4);
+            } else liqC = 'rgba(195,215,245,0.4)';
+            drawBeaker(B1, 'Cốc điện phân (100 mL)', naclLevel, liqC, true);
+
+            drawLidAndElectrodes();
+            drawAllWires();
+
+            if (currentStep >= 4 || (currentStep >= 3 && !isAnimating)) {
+                drawBeaker(B2, 'Cốc thử nghiệm', javelLevel, 'rgba(200,235,210,0.35)', false);
+                if (flowerInBeaker) {
+                    let fy = B2.y + B2.h - 25;
+                    if (javelLevel > 20) fy = B2.y + B2.h - javelLevel + 8;
+                    drawFlower(B2.x + B2.w / 2, fy, 0.55, flowerColor);
+                }
+            }
+
+            if (isAnimating) updateAnimation();
+            drawBubbles();
+            drawPipette();
+            requestAnimationFrame(loop);
+        }
+
+        function updateAnimation() {
+            if (currentStep === 1) {
+                naclLevel = lerp(naclLevel, 120, 0.04);
+                if (naclLevel > 118) { naclLevel = 120; finishStepAnimation(); }
+            } else if (currentStep === 2) {
+                electrodeY = lerp(electrodeY, 0, 0.045);
+                if (electrodeY > -1) { electrodeY = 0; finishStepAnimation(); }
+            } else if (currentStep === 3) {
+                psuOn = true; isElectrolyzing = true;
+                spawnBubbles(); electroTime++;
+                if (electroTime > 280) { isElectrolyzing = false; finishStepAnimation(); }
+            } else if (currentStep === 4) {
+                if (pip.phase === 0) {
+                    electrodeY = lerp(electrodeY, -200, 0.05);
+                    if (electrodeY < -195) { electrodeY = -200; lidRemoved = true; pip.phase = 0.3; pip.timer = 0; }
+                }
+                else if (pip.phase === 0.3) { flowerInBeaker = true; pip.phase = 0.5; pip.timer = 0; }
+                else if (pip.phase === 0.5) { pip.timer++; if (pip.timer > 35) { pip.active = true; pip.x = B1.x + B1.w / 2; pip.y = B1.y - 150; pip.phase = 1; } }
+                else if (pip.phase === 1) { pip.y = lerp(pip.y, B1.y + 15, 0.06); if (pip.y > B1.y + 12) { pip.hasLiq = true; pip.phase = 2; } }
+                else if (pip.phase === 2) { pip.y = lerp(pip.y, B1.y - 90, 0.06); if (pip.y < B1.y - 87) pip.phase = 3; }
+                else if (pip.phase === 3) { pip.x = lerp(pip.x, B2.x + B2.w / 2, 0.05); if (pip.x > B2.x + B2.w / 2 - 2) { pip.x = B2.x + B2.w / 2; pip.phase = 4; } }
+                else if (pip.phase === 4) { pip.y = lerp(pip.y, B2.y - 20, 0.06); if (pip.y > B2.y - 22) { pip.phase = 5; pip.dropping = true; pip.dropY = pip.y + 50; } }
+                else if (pip.phase === 5) {
+                    pip.dropY += 3;
+                    if (pip.dropY > B2.y + B2.h - javelLevel) {
+                        javelLevel += 14; pip.dropY = pip.y + 50;
+                        if (javelLevel >= 55) { pip.dropping = false; pip.hasLiq = false; pip.active = false; pip.phase = 6; }
+                    }
+                }
+                else if (pip.phase === 6) {
+                    flowerColor -= 0.005;
+                    if (flowerColor <= 0.65) { flowerColor = 0.65; finishStepAnimation(); }
+                }
+            }
+        }
+
+        requestAnimationFrame(loop);
+
+        const expBox = document.getElementById('explanationBox');
+        const expTitle = document.getElementById('expTitle');
+        const expText = document.getElementById('expText');
+
+        function updateUI(step, running) {
+            document.querySelectorAll('.step-btn').forEach((btn, i) => {
+                let s = i + 1;
+                if (running) { btn.disabled = true; }
+                else { btn.disabled = s !== step; s === step ? btn.classList.add('active') : btn.classList.remove('active'); }
+            });
+            document.getElementById('btnReset').disabled = running;
+        }
+
+        function setExplanation(title, text, success = false) {
+            expBox.classList.add('fade');
+            setTimeout(() => {
+                success ? expBox.classList.add('success') : expBox.classList.remove('success');
+                expTitle.innerHTML = title; expText.innerHTML = text;
+                expBox.classList.remove('fade');
+            }, 200);
+        }
+
+        function triggerStep(step) {
+            if (isAnimating) return;
+            currentStep = step; isAnimating = true;
+            updateUI(step, true);
+            if (step === 1) setExplanation('<i class="ti ti-droplet"></i> Bước 1 — Thêm dung dịch NaCl', 'Cho khoảng <b>80 mL</b> dung dịch NaCl bão hòa vào cốc thủy tinh 100 mL.');
+            else if (step === 2) setExplanation('<i class="ti ti-plug"></i> Bước 2 — Lắp nắp & điện cực', 'Đặt nắp đậy (đã đục 2 lỗ) lên miệng cốc. Hai thanh điện cực than chì xuyên qua nắp, ngập chìm trong dung dịch. Kẹp kim loại nối dây dẫn đến nguồn DC.');
+            else if (step === 3) setExplanation('<i class="ti ti-bolt"></i> Bước 3 — Điện phân (~5 phút)', 'Bật nguồn DC. Tại <b>Anode (+)</b>: ion Cl⁻ bị oxi hóa → khí <b>Cl₂</b> (bọt xanh lục). Tại <b>Cathode (−)</b>: H₂O bị khử → khí <b>H₂</b> (bọt trắng) + OH⁻.<br>Do <b>không có màng ngăn</b>, Cl₂ phản ứng với NaOH vừa sinh ra → <b>NaCl + NaClO</b> (nước Javel).');
+            else if (step === 4) { pip.phase = 0; setExplanation('<i class="ti ti-flower"></i> Bước 4 — Thử tính tẩy màu', 'Cho cánh hoa hồng vào cốc nhỏ, dùng ống hút lấy dung dịch Javel nhỏ vào. Quan sát cánh hoa dần mất màu…'); }
+        }
+
+        function finishStepAnimation() {
+            isAnimating = false;
+            let next = currentStep + 1;
+            if (currentStep === 1) { setExplanation('<i class="ti ti-check"></i> Dung dịch đã sẵn sàng', 'Đã thêm ~80 mL dung dịch NaCl bão hòa. Nhấn bước tiếp để lắp nắp đậy và điện cực.'); updateUI(next, false); }
+            else if (currentStep === 2) { setExplanation('<i class="ti ti-check"></i> Mạch điện phân hoàn chỉnh', 'Nắp đậy đã gắn chặt, 2 điện cực than chì ngập trong dung dịch, dây dẫn nối tới nguồn DC. Sẵn sàng điện phân.'); updateUI(next, false); }
+            else if (currentStep === 3) { psuOn = false; setExplanation('<i class="ti ti-flask"></i> Điều chế Javel thành công!', 'Tắt nguồn điện. Dung dịch trong cốc giờ là <b>nước Javel</b> (hỗn hợp NaCl + NaClO). Nhấn bước 4 để thử tính tẩy màu.'); updateUI(next, false); }
+            else if (currentStep === 4) {
+                setExplanation('<i class="ti ti-circle-check"></i> Kết quả: Cánh hoa bị nhạt màu', '<b>Kết luận:</b> Nước Javel chứa gốc <b>hypochlorite (ClO⁻)</b> — chất oxi hóa mạnh — đã bắt đầu phá vỡ các liên kết tạo màu trong cánh hoa hồng, khiến cánh hoa <b>nhạt màu đi một chút</b>. Thí nghiệm chứng minh tính tẩy màu của nước Javel điều chế từ điện phân NaCl <b>thành công!</b>', true);
+                document.querySelectorAll('.step-btn').forEach(b => b.disabled = true);
+                document.getElementById('btnReset').disabled = false;
+            }
+        }
+
+        function resetSim() {
+            if (isAnimating) return;
+            currentStep = 0; naclLevel = 0; javelLevel = 0; electrodeY = -200; electroTime = 0;
+            bubbles = []; sparkles = []; flowerColor = 1.0; flowerInBeaker = false;
+            pip.active = false; pip.dropping = false; pip.hasLiq = false;
+            psuOn = false; solutionProg = 0; lidRemoved = false;
+            updateUI(1, false);
+            setExplanation('<i class="ti ti-info-circle"></i> Trạng thái chờ', 'Hệ thống đã sẵn sàng. Hãy nhấn nút <strong>"1. Thêm dd NaCl"</strong> để bắt đầu thí nghiệm.');
+        }
+        updateUI(1, false);
+    </script>
+</body>
+
+</html>

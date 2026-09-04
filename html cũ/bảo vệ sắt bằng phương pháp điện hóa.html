@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảo Vệ Sắt Bằng Phương Pháp Điện Hóa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f4c81;
+            --teal: #1a7a5e;
+            --teal-dark: #0f6e56;
+            --border: #cbd5e1;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --surface: #ffffff;
+            --bg: #f0f4f8;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px 40px;
+            min-height: 100vh;
+        }
+
+        .header {
+            width: 100%;
+            max-width: 760px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            top: -80px;
+            right: -60px;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            bottom: -60px;
+            left: 30px;
+        }
+
+        .header-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.90);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 10px;
+        }
+
+        .header-badge i {
+            font-size: 1.1rem;
+        }
+
+        .header h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 0.875rem;
+            line-height: 1.5;
+            max-width: 520px;
+        }
+
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            border-radius: 14px;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 1.1rem 1.4rem;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+            border-radius: 14px 0 0 14px;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+            border-radius: 0 14px 14px 0;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .info-label i {
+            font-size: 14px;
+        }
+
+        .info-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .info-col ul li {
+            font-size: 0.83rem;
+            color: var(--text-sub);
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+        }
+
+        .info-col ul li i {
+            color: var(--navy);
+            font-size: 13px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .canvas-wrap {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 360px;
+        }
+
+        .controls {
+            width: 100%;
+            max-width: 760px;
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .ctrl-row {
+            display: flex;
+            align-items: center;
+            padding: 0.85rem 1.4rem;
+            gap: 12px;
+        }
+
+        .ctrl-row:nth-child(1) {
+            background: #fef9f0;
+            border: 1px solid #e5c68a;
+            border-radius: 14px 14px 0 0;
+        }
+
+        .ctrl-row:nth-child(2) {
+            background: #f0faf4;
+            border: 1px solid #8bc4a0;
+            border-top: none;
+        }
+
+        .ctrl-row:nth-child(3) {
+            background: #f5f0fa;
+            border: 1px solid #b8a0d8;
+            border-top: none;
+            border-radius: 0 0 14px 14px;
+        }
+
+        .ctrl-label {
+            min-width: 200px;
+            font-size: 0.84rem;
+            color: var(--text-main);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .ctrl-label i {
+            color: var(--navy);
+            font-size: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 7px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--navy);
+            color: var(--navy);
+            background: #dfe9f3;
+        }
+
+        button.active {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        button.btn-run {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+            padding: 8px 22px;
+            font-size: 0.85rem;
+        }
+
+        button.btn-run:hover:not(:disabled) {}
+
+        button.btn-reset {
+            border: 1.5px dashed var(--border);
+            background: #0d4070;
+            color: white;
+        }
+
+        button.btn-reset:hover {}
+
+        .time-track {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .time-track input[type=range] {
+            flex: 1;
+            accent-color: var(--navy);
+            cursor: pointer;
+        }
+
+        .time-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            background: var(--navy);
+            color: #fff;
+            padding: 3px 10px;
+            border-radius: 20px;
+            min-width: 90px;
+            text-align: center;
+        }
+
+        .status-bar {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 0.8rem 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.83rem;
+            color: var(--text-sub);
+        }
+
+        .status-bar i {
+            color: var(--navy);
+            font-size: 16px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #94a3b8;
+            flex-shrink: 0;
+            transition: background 0.4s;
+        }
+
+        .status-dot.active {
+            background: #22c55e;
+        }
+
+        .status-dot.done {
+            background: var(--navy);
+        }
+
+        .ti {
+            line-height: normal;
+        }
+
+        .eb {
+            width: 100%;
+            max-width: 760px;
+            background: #f0f5fa;
+            border: 1px solid #a8c4de;
+            border-left: 4px solid var(--navy);
+            border-radius: 14px;
+            padding: 1.2rem 1.4rem;
+            transition: border-left-color 0.4s, background 0.4s, border-color 0.4s, opacity 0.2s, transform 0.2s;
+        }
+
+        .eb.reacted {
+            border-left-color: var(--teal-dark);
+            background: #edf8f2;
+            border-color: #8dc4a8;
+        }
+
+        .eb.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .eb-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
+            letter-spacing: -0.2px;
+        }
+
+        .eb-title i {
+            font-size: 17px;
+        }
+
+        .eb.reacted .eb-title {
+            color: var(--teal-dark);
+        }
+
+        .eb-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .eb-card {
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            background: #f8fafc;
+        }
+
+        .eb-card.tube1 {
+            border-top: 3px solid #b45309;
+        }
+
+        .eb-card.tube2 {
+            border-top: 3px solid var(--teal);
+        }
+
+        .eb-card-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 5px;
+        }
+
+        .eb-card.tube1 .eb-card-label {
+            color: #b45309;
+        }
+
+        .eb-card.tube2 .eb-card-label {
+            color: var(--teal-dark);
+        }
+
+        .eb-card p {
+            font-size: 0.79rem;
+            color: var(--text-sub);
+            line-height: 1.55;
+        }
+
+        .eb-explain {
+            font-size: 0.82rem;
+            color: var(--text-sub);
+            line-height: 1.6;
+            padding: 10px 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .eb-explain strong {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 540px) {
+            .info-panel {
+                flex-direction: column;
+            }
+
+            .info-col:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .eb-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ctrl-label {
+                min-width: 130px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-inner">
+            <h1>Bảo Vệ Sắt Bằng Phương Pháp Điện Hóa</h1>
+            <p>Khám phá cơ chế kẽm hoạt động như kim loại hy sinh, bảo vệ sắt khỏi ăn mòn điện hóa trong môi trường
+                nước.</p>
+        </div>
+    </header>
+
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-target"></i>Mục đích thí nghiệm</div>
+            <ul>
+                <li><i class="ti ti-point-filled"></i>So sánh tốc độ ăn mòn đinh sắt khi có và không có lá kẽm bảo vệ
+                </li>
+                <li><i class="ti ti-point-filled"></i>Minh họa nguyên lý bảo vệ catot (kim loại hy sinh) trong thực tiễn
+                </li>
+                <li><i class="ti ti-point-filled"></i>Quan sát màu nước và trạng thái đinh sau 3 ngày trong không khí
+                </li>
+            </ul>
+        </div>
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-hand-pointer"></i>Hướng dẫn thao tác</div>
+            <ul>
+                <li><i class="ti ti-point-filled"></i>Cho đinh sắt thứ nhất vào ống nghiệm 1. Quấn lá kẽm vào đinh sắt
+                    thứ hai, sau đó cho vào ống nghiệm 2.</li>
+                <li><i class="ti ti-point-filled"></i>Đổ nước máy ngập đinh sắt trong cả hai ống nghiệm.</li>
+                <li><i class="ti ti-point-filled"></i>Để các ống nghiệm trong không khí khoảng 3 ngày và quan sát hiện
+                    tượng.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="canvas-wrap">
+        <canvas id="c"></canvas>
+    </div>
+
+    <div class="controls">
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-clock"></i>Giai đoạn / Thời gian</div>
+            <div class="time-track">
+                <input type="range" id="timeSlider" min="0" max="4" step="0.01" value="0">
+                <div class="time-badge" id="timeBadge">Bắt đầu</div>
+            </div>
+        </div>
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-player-play"></i>Điều khiển thí nghiệm</div>
+            <div class="btn-group">
+                <button class="btn-run" id="btnRun"><i class="ti ti-player-play"></i>Tiến hành thí nghiệm</button>
+                <button class="btn-reset" id="btnReset"><i class="ti ti-refresh"></i>Làm lại</button>
+            </div>
+        </div>
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-flask-2"></i>Điều kiện thí nghiệm</div>
+            <div class="btn-group">
+                <button class="active" style="cursor:default;pointer-events:none;">
+                    <i></i>Ống 1: Chỉ đinh sắt
+                </button>
+                <button
+                    style="background:var(--teal);border-color:var(--teal);color:#fff;cursor:default;pointer-events:none;box-shadow:0 4px 12px rgba(26,122,94,0.25);">
+                    <i class=""></i>Ống 2: Đinh sắt + Lá kẽm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="status-bar">
+        <div class="status-dot" id="statusDot"></div>
+        <i class="ti ti-info-circle"></i>
+        <span id="statusText">Nhấn "Tiến hành thí nghiệm" để bắt đầu quan sát toàn bộ quá trình.</span>
+    </div>
+
+    <div class="eb" id="eb">
+        <div class="eb-title"><i class="ti ti-info-circle"></i>Chuẩn bị thí nghiệm</div>
+        <div class="eb-explain">
+            Hai đinh sắt đã được rửa sạch. Ống nghiệm 2 có thêm <strong>lá kẽm quấn quanh đinh</strong>. Nhấn "Tiến hành
+            thí nghiệm" để xem từng bước: đổ nước → quan sát 3 ngày.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('c');
+        const ctx = canvas.getContext('2d');
+        const timeSlider = document.getElementById('timeSlider');
+        const timeBadge = document.getElementById('timeBadge');
+        const btnRun = document.getElementById('btnRun');
+        const btnReset = document.getElementById('btnReset');
+        const statusDot = document.getElementById('statusDot');
+        const statusText = document.getElementById('statusText');
+        const eb = document.getElementById('eb');
+
+        /* ─── Phases:
+           t ∈ [0, 1)  → Phase 0: trạng thái ban đầu (đinh khô, không nước)
+           t ∈ [1, 2)  → Phase 1: đổ nước (nước dâng từ 0 → đầy)
+           t ∈ [2, 5]  → Phase 2: quan sát 3 ngày (rỉ sét dần)
+        ──────────────────────────────────────── */
+        const TOTAL = 4;   // slider max
+        let t = 0;
+        let animating = false, animStart = null;
+        const ANIM_DURATION = 7000;
+
+        let W, H;
+        function resize() {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            W = canvas.width = rect.width * dpr;
+            H = canvas.height = rect.height * dpr;
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+        resize();
+        window.addEventListener('resize', () => { resize(); draw(); });
+
+        function dW() { return canvas.width / (window.devicePixelRatio || 1); }
+        function dH() { return canvas.height / (window.devicePixelRatio || 1); }
+
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function lerp(a, b, f) { return a + (b - a) * f; }
+        function easeOut(f) { return 1 - (1 - f) * (1 - f); }
+        function lerpColor(c0, c1, f) {
+            f = clamp(f, 0, 1);
+            return `rgb(${Math.round(lerp(c0.r, c1.r, f))},${Math.round(lerp(c0.g, c1.g, f))},${Math.round(lerp(c0.b, c1.b, f))})`;
+        }
+
+        /* ─── Đọc state từ t ─── */
+        function getPhase(t) {
+            if (t < 1) return { phase: 0, pf: t };          // chưa có nước
+            if (t < 2) return { phase: 1, pf: t - 1 };      // đổ nước
+            return { phase: 2, pf: clamp((t - 2) / 2, 0, 1) }; // 3 ngày
+        }
+
+        /* ─── GRID NỀN ─── */
+        function drawGrid() {
+            const W2 = dW(), H2 = dH();
+            ctx.save();
+            ctx.strokeStyle = 'rgba(148,163,184,0.10)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W2; x += 32) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H2); ctx.stroke(); }
+            for (let y = 0; y <= H2; y += 32) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W2, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        /* ─── VẼ ĐINH SẮT ─── */
+        // nailTop: tọa độ Y mũ đinh
+        // rustFrac: 0→1 mức rỉ sét
+        // protected: có kẽm bọc không
+        function drawNail(cx, nailTop, rustFrac, isProtected) {
+            ctx.save();
+            const headW = 12, headH = 4, shaftW = 5, shaftH = 90;
+
+            /* Màu sắc thân đinh – interpolate sang rỉ nâu */
+            const nailColor = isProtected
+                ? '#64748b'
+                : lerpColor({ r: 100, g: 116, b: 139 }, { r: 120, g: 50, b: 15 }, clamp(rustFrac * 1.3, 0, 1));
+
+            /* Mũ đinh */
+            ctx.fillStyle = nailColor;
+            ctx.fillRect(cx - headW / 2, nailTop, headW, headH);
+
+            /* Thân đinh */
+            ctx.fillRect(cx - shaftW / 2, nailTop + headH, shaftW, shaftH);
+
+            /* Mũi đinh tam giác */
+            ctx.beginPath();
+            ctx.moveTo(cx - shaftW / 2, nailTop + headH + shaftH);
+            ctx.lineTo(cx + shaftW / 2, nailTop + headH + shaftH);
+            ctx.lineTo(cx, nailTop + headH + shaftH + 12);
+            ctx.closePath();
+            ctx.fillStyle = nailColor;
+            ctx.fill();
+
+            /* Rỉ sét đốm */
+            if (!isProtected && rustFrac > 0.08) {
+                const spots = [
+                    [cx - 1, nailTop + headH + 10],
+                    [cx + 2, nailTop + headH + 28],
+                    [cx - 2, nailTop + headH + 48],
+                    [cx + 1, nailTop + headH + 68],
+                    [cx - 1, nailTop + headH + 82],
+                ];
+                ctx.fillStyle = `rgba(160,70,20,${clamp(rustFrac * 0.8, 0, 0.82)})`;
+                spots.forEach(([sx, sy]) => {
+                    ctx.beginPath();
+                    ctx.arc(sx, sy, rustFrac * 3.5, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+            }
+
+            ctx.restore();
+        }
+
+        /* ─── VẼ KẼM QUẤN QUANH ĐINH (ống 2) ─── */
+        function drawZincWraps(cx, nailTop) {
+            ctx.save();
+            const headH = 4;
+            const startY = nailTop + headH + 12; // bắt đầu quấn từ dưới mũ đinh
+            const shaftW = 5;
+
+            for (let i = 0; i < 5; i++) {
+                const wy = startY + i * 14;
+
+                /* Dải kẽm chính – rộng hơn thân đinh 3px mỗi bên */
+                ctx.fillStyle = '#e2e8f0';
+                ctx.fillRect(cx - shaftW / 2 - 3, wy, shaftW + 6, 5);
+
+                /* Cạnh phải tối hơn → tạo khối 3D */
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillRect(cx + shaftW / 2 + 1, wy, 2, 5);
+
+                /* Cạnh trên sáng hơn → highlight */
+                ctx.fillStyle = 'rgba(255,255,255,0.6)';
+                ctx.fillRect(cx - shaftW / 2 - 3, wy, shaftW + 6, 1);
+            }
+
+            /* Nhãn "Zn" bên cạnh */
+            ctx.font = 'bold 10px Arial';
+            ctx.fillStyle = '#5b8ba3';
+            ctx.textAlign = 'left';
+            ctx.fillText('Zn', cx + shaftW / 2 + 7, startY + 35);
+
+            ctx.restore();
+        }
+
+        /* ─── VẼ ỐNG NGHIỆM ─── */
+        // ty: miệng ống (top)
+        // waterFill: 0→1 mực nước (0=khô, 1=đầy)
+        // rustFrac: mức rỉ sét 0→1
+        // isProtected: ống 2 có kẽm
+        function drawTube(cx, ty, waterFill, rustFrac, isProtected, label, sublabel) {
+            ctx.save();
+            const TW = 40, TH = 140, RB = 20; // rộng, cao, bán kính đáy
+
+            /* ─── Viền ống thủy tinh ─── */
+            ctx.beginPath();
+            ctx.moveTo(cx - TW / 2, ty);
+            ctx.lineTo(cx - TW / 2, ty + TH - RB);
+            ctx.quadraticCurveTo(cx - TW / 2, ty + TH, cx, ty + TH);
+            ctx.quadraticCurveTo(cx + TW / 2, ty + TH, cx + TW / 2, ty + TH - RB);
+            ctx.lineTo(cx + TW / 2, ty);
+            ctx.fillStyle = 'rgba(220,235,255,0.18)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            /* ─── Nước bên trong ─── */
+            if (waterFill > 0) {
+                const maxWaterH = TH - 12;
+                const currentWH = waterFill * maxWaterH;
+                const waterTop = ty + TH - currentWH;
+
+                const waterColor = isProtected
+                    ? lerpColor({ r: 220, g: 235, b: 255 }, { r: 235, g: 240, b: 242 }, rustFrac)
+                    : lerpColor({ r: 220, g: 235, b: 255 }, { r: 180, g: 95, b: 35 }, clamp(rustFrac * 1.2, 0, 1));
+
+                /* Clip theo hình ống nghiệm để nước không lòi ra ngoài */
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(cx - TW / 2 + 1, ty);
+                ctx.lineTo(cx - TW / 2 + 1, ty + TH - RB);
+                ctx.quadraticCurveTo(cx - TW / 2 + 1, ty + TH - 1, cx, ty + TH - 1);
+                ctx.quadraticCurveTo(cx + TW / 2 - 1, ty + TH - 1, cx + TW / 2 - 1, ty + TH - RB);
+                ctx.lineTo(cx + TW / 2 - 1, ty);
+                ctx.closePath();
+                ctx.clip();
+
+                /* Khối nước */
+                ctx.fillStyle = waterColor;
+                ctx.fillRect(cx - TW / 2, waterTop, TW, ty + TH - waterTop);
+
+                /* Cặn rỉ lắng đáy (ống 1) */
+                if (!isProtected && rustFrac > 0.3) {
+                    const sedH = rustFrac * 22;
+                    ctx.fillStyle = `rgba(139,60,15,${clamp(rustFrac * 0.8, 0, 0.75)})`;
+                    ctx.fillRect(cx - TW / 2, ty + TH - sedH, TW, sedH);
+                }
+
+                /* Hạt lơ lửng (ống 1 = rỉ, ống 2 = Zn(OH)2 trắng) */
+                if (rustFrac > 0.1) {
+                    const cnt = Math.floor(rustFrac * 14);
+                    for (let i = 0; i < cnt; i++) {
+                        const px = cx - TW / 2 + 5 + ((i * 73) % 30);
+                        const py = waterTop + 5 + ((i * 47) % Math.max(currentWH - 20, 1));
+                        const alpha = clamp(rustFrac * 0.75, 0, 0.8);
+                        ctx.beginPath();
+                        ctx.arc(px, py, 1.5 + (i % 3) * 0.8, 0, Math.PI * 2);
+                        ctx.fillStyle = isProtected
+                            ? `rgba(200,215,220,${alpha})`
+                            : `rgba(160,70,20,${alpha})`;
+                        ctx.fill();
+                    }
+                }
+
+                /* Sóng mặt nước nhẹ */
+                ctx.beginPath();
+                ctx.moveTo(cx - TW / 2 + 3, waterTop);
+                for (let xi = 0; xi <= TW - 6; xi += 4) {
+                    const wY = waterTop + Math.sin(xi * 0.5) * 1.5;
+                    ctx.lineTo(cx - TW / 2 + 3 + xi, wY);
+                }
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            /* ─── Vệt sáng thủy tinh ─── */
+            ctx.beginPath();
+            ctx.moveTo(cx - TW / 2 + 6, ty + 6);
+            ctx.lineTo(cx - TW / 2 + 6, ty + TH - 35);
+            ctx.strokeStyle = 'rgba(255,255,255,0.45)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            /* ─── Miệng ống ─── */
+            ctx.beginPath();
+            ctx.moveTo(cx - TW / 2, ty);
+            ctx.lineTo(cx + TW / 2, ty);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+
+            /* ─── Nhãn ─── */
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '700 11px "Plus Jakarta Sans", Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, cx, ty + TH + 22);
+            ctx.fillStyle = '#64748b';
+            ctx.font = '500 10px "Plus Jakarta Sans", Arial';
+            ctx.fillText(sublabel, cx, ty + TH + 36);
+
+            ctx.restore();
+
+            return { tubeTop: ty, TH, RB, nailTop: ty + 22 };
+        }
+
+        /* ─── VẼ NƯỚC ĐANG ĐỔ (phase 1) ─── */
+        function drawPouring(cx, ty, pf) {
+            ctx.save();
+            const streamX = cx - 5;
+            const streamTop = ty - 50;
+            const streamBottom = ty + 20;
+            const alpha = easeOut(Math.min(pf * 3, 1));
+
+            /* Tia nước */
+            ctx.beginPath();
+            ctx.moveTo(streamX - 2, streamTop);
+            ctx.lineTo(streamX - 2, streamBottom);
+            ctx.lineTo(streamX + 2, streamBottom);
+            ctx.lineTo(streamX + 2, streamTop);
+            ctx.fillStyle = `rgba(148,210,240,${alpha * 0.7})`;
+            ctx.fill();
+
+            /* Vài giọt nhỏ */
+            for (let i = 0; i < 3; i++) {
+                const gy = streamTop + (pf * 60 + i * 18) % 60;
+                ctx.beginPath();
+                ctx.arc(streamX + (i % 2 === 0 ? -1 : 2), gy, 2, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(148,210,240,${alpha * 0.5})`;
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        /* ─── NHÃN BƯỚC ─── */
+        function drawStepBadge(W2, H2, text, color) {
+            ctx.save();
+            const bw = ctx.measureText(text).width + 28;
+            const bh = 26;
+            const bx = (W2 - bw) / 2;
+            const by = H2 - 38;
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.roundRect(bx, by, bw, bh, 13);
+            ctx.fill();
+            ctx.fillStyle = '#fff';
+            ctx.font = '600 11px "Plus Jakarta Sans", Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, W2 / 2, by + 17);
+            ctx.restore();
+        }
+
+        /* ─── MAIN DRAW ─── */
+        function draw() {
+            const W2 = dW(), H2 = dH();
+            ctx.clearRect(0, 0, W2, H2);
+            drawGrid();
+
+            const { phase, pf } = getPhase(t);
+            const cx1 = W2 * 0.30;
+            const cx2 = W2 * 0.70;
+            const ty = 50;    // miệng ống
+
+            /* Tính waterFill và rustFrac theo phase */
+            let waterFill, rustFrac;
+            if (phase === 0) {
+                waterFill = 0;
+                rustFrac = 0;
+            } else if (phase === 1) {
+                waterFill = easeOut(pf);   // nước dâng 0→1
+                rustFrac = 0;
+            } else {
+                waterFill = 1;
+                rustFrac = clamp(pf, 0, 1);
+            }
+
+            /* Vẽ ống 1: đinh sắt đơn */
+            const r1 = drawTube(cx1, ty, waterFill, rustFrac, false, 'Ống nghiệm 1', 'Fe (không bảo vệ)');
+            drawNail(cx1, r1.nailTop, rustFrac, false);
+
+            /* Vẽ ống 2: đinh sắt + kẽm */
+            const r2 = drawTube(cx2, ty, waterFill, rustFrac, true, 'Ống nghiệm 2', 'Fe + Zn (bảo vệ catot)');
+            drawNail(cx2, r2.nailTop, rustFrac, true);
+            drawZincWraps(cx2, r2.nailTop);
+
+            /* Hiệu ứng đổ nước phase 1 */
+            if (phase === 1) {
+                drawPouring(cx1, ty, pf);
+                drawPouring(cx2, ty, pf);
+            }
+
+            /* Badge giai đoạn */
+            if (phase === 0) {
+                drawStepBadge(W2, H2, 'Bước 1 & 2: Chuẩn bị đinh sắt', '#0f4c81');
+            } else if (phase === 1) {
+                drawStepBadge(W2, H2, 'Bước 3: Đổ nước máy ngập đinh sắt', '#1a7a5e');
+            } else {
+                const d = (rustFrac * 3).toFixed(1);
+                const label = rustFrac >= 0.99 ? 'Bước 4: Sau 3 ngày — Kết quả' : `Bước 4: Đang chờ... Ngày ${d}/3`;
+                drawStepBadge(W2, H2, label, rustFrac >= 0.99 ? '#0f6e56' : '#0f4c81');
+            }
+
+            /* Cập nhật badge thời gian */
+            if (phase === 0) timeBadge.textContent = 'Chuẩn bị';
+            else if (phase === 1) timeBadge.textContent = 'Đổ nước...';
+            else {
+                const d = (rustFrac * 3).toFixed(rustFrac >= 0.99 ? 0 : 1);
+                timeBadge.textContent = rustFrac >= 0.99 ? 'Ngày 3 ✓' : `Ngày ${d}`;
+            }
+        }
+
+        /* ─── EXPLANATION ─── */
+        function updateExplanation() {
+            const { phase, pf } = getPhase(t);
+            const rustFrac = phase === 2 ? clamp(pf, 0, 1) : 0;
+
+            eb.classList.add('fade');
+            setTimeout(() => {
+                if (phase === 0) {
+                    eb.classList.remove('reacted');
+                    eb.innerHTML = `
+        <div class="eb-title"><i class="ti ti-info-circle"></i>Bước 1 & 2: Chuẩn bị</div>
+        <div class="eb-explain">
+          <strong>Ống 1:</strong> Cho đinh sắt thứ nhất vào ống nghiệm 1.<br>
+          <strong>Ống 2:</strong> Quấn lá kẽm vào đinh sắt thứ hai, sau đó cho vào ống nghiệm 2.
+          Lá kẽm tiếp xúc trực tiếp với đinh sắt tạo thành <strong>cặp điện hóa Fe–Zn</strong>.
+        </div>`;
+                } else if (phase === 1) {
+                    eb.classList.remove('reacted');
+                    eb.innerHTML = `
+        <div class="eb-title"><i class="ti ti-droplet"></i>Bước 3: Đổ nước máy</div>
+        <div class="eb-explain">
+          Đổ nước máy ngập đinh sắt trong <strong>cả hai ống nghiệm</strong>. Nước máy chứa O₂ hòa tan và ion khoáng,
+          đóng vai trò <strong>dung dịch điện li</strong> — điều kiện cần thiết để xảy ra ăn mòn điện hóa.
+        </div>`;
+                } else if (rustFrac < 0.35) {
+                    eb.classList.remove('reacted');
+                    eb.innerHTML = `
+        <div class="eb-title"><i class="ti ti-clock"></i>Ngày ${(rustFrac * 3).toFixed(1)} — Giai đoạn đầu</div>
+        <div class="eb-grid">
+          <div class="eb-card tube1"><div class="eb-card-label"><i class="ti ti-flask"></i>Ống 1</div>
+            <p>Nước bắt đầu ngả vàng nhạt. Bề mặt đinh xuất hiện đốm rỉ sắt đầu tiên (Fe₂O₃·nH₂O).</p></div>
+          <div class="eb-card tube2"><div class="eb-card-label"><i class="ti ti-shield-check"></i>Ống 2</div>
+            <p>Đinh sắt còn bóng, chưa có rỉ. Kẽm bắt đầu bị oxy hóa nhẹ, hình thành Zn(OH)₂.</p></div>
+        </div>
+        <div class="eb-explain"><strong>Cơ chế:</strong> Cặp điện hóa Zn–Fe hình thành. Kẽm là <strong>anot</strong> (bị oxy hóa): Zn → Zn²⁺ + 2e⁻. Sắt là <strong>catot</strong>, nhận electron từ kẽm nên không bị oxy hóa.</div>`;
+                } else if (rustFrac < 0.9) {
+                    eb.classList.add('reacted');
+                    eb.innerHTML = `
+        <div class="eb-title"><i class="ti ti-circle-check"></i>Ngày ${(rustFrac * 3).toFixed(1)} — Phản ứng rõ rệt</div>
+        <div class="eb-grid">
+          <div class="eb-card tube1"><div class="eb-card-label"><i class="ti ti-flask"></i>Ống 1</div>
+            <p>Nước chuyển cam nâu đậm. Cặn rỉ sắt lắng xuống đáy. Đinh bị ăn mòn nghiêm trọng.</p></div>
+          <div class="eb-card tube2"><div class="eb-card-label"><i class="ti ti-shield-check"></i>Ống 2</div>
+            <p>Nước vẩn trắng nhẹ (Zn(OH)₂ phân tán). Đinh sắt hoàn toàn không bị rỉ sét.</p></div>
+        </div>
+        <div class="eb-explain"><strong>Giải thích:</strong> E°(Zn²⁺/Zn) = −0,76V &lt; E°(Fe²⁺/Fe) = −0,44V → kẽm hoạt động mạnh hơn, luôn bị oxy hóa trước. Sắt liên tục nhận electron từ kẽm → <strong>được bảo vệ hoàn toàn</strong>.</div>`;
+                } else {
+                    eb.classList.add('reacted');
+                    eb.innerHTML = `
+        <div class="eb-title"><i class="ti ti-circle-check"></i>Sau 3 ngày — Kết quả thí nghiệm</div>
+        <div class="eb-grid">
+          <div class="eb-card tube1"><div class="eb-card-label"><i class="ti ti-flask"></i>Ống 1 — Bị ăn mòn</div>
+            <p>Nước <strong>cam nâu sậm</strong>. Nhiều cặn rỉ (Fe₂O₃·nH₂O) lắng đáy. Đinh sắt rỉ sét nghiêm trọng.</p></div>
+          <div class="eb-card tube2"><div class="eb-card-label"><i class="ti ti-shield-check"></i>Ống 2 — Được bảo vệ</div>
+            <p>Nước <strong>vẩn đục trắng nhẹ</strong> (Zn(OH)₂). Đinh sắt hoàn toàn không bị rỉ — kẽm đã "hy sinh".</p></div>
+        </div>
+        <div class="eb-explain">
+          <strong>Kết luận:</strong> Bảo vệ điện hóa bằng kim loại hy sinh hoạt động hoàn toàn hiệu quả.
+          Ứng dụng thực tiễn: mạ kẽm tôn lợp mái, gắn khối kẽm bảo vệ thân tàu biển, bảo vệ đường ống thép ngầm.<br><br>
+          <strong>Phương trình:</strong> Anot Zn: Zn − 2e⁻ → Zn²⁺ &nbsp;|&nbsp; Catot Fe: O₂ + 2H₂O + 4e⁻ → 4OH⁻
+        </div>`;
+                }
+                eb.classList.remove('fade');
+            }, 200);
+        }
+
+        /* ─── STATUS BAR ─── */
+        function updateStatus() {
+            const { phase } = getPhase(t);
+            const rustFrac = phase === 2 ? clamp((t - 2) / 2, 0, 1) : 0;
+            if (t < 0.02) {
+                statusDot.className = 'status-dot';
+                statusText.textContent = 'Nhấn "Tiến hành thí nghiệm" để bắt đầu toàn bộ quá trình.';
+            } else if (phase === 1) {
+                statusDot.className = 'status-dot active';
+                statusText.textContent = 'Đang đổ nước máy vào cả hai ống nghiệm...';
+            } else if (phase === 2 && rustFrac < 0.99) {
+                statusDot.className = 'status-dot active';
+                statusText.textContent = `Đang quan sát ngày ${(rustFrac * 3).toFixed(1)}/3 — Ống 1 ăn mòn, Ống 2 được kẽm bảo vệ.`;
+            } else if (phase === 2) {
+                statusDot.className = 'status-dot done';
+                statusText.textContent = 'Thí nghiệm hoàn tất sau 3 ngày. Kẽm bảo vệ hoàn toàn đinh sắt ở Ống 2.';
+            } else {
+                statusDot.className = 'status-dot';
+                statusText.textContent = 'Chuẩn bị đinh sắt và lá kẽm trong ống nghiệm.';
+            }
+        }
+
+        /* ─── SLIDER ─── */
+        timeSlider.addEventListener('input', () => {
+            if (animating) { animating = false; btnRun.disabled = false; btnRun.innerHTML = '<i class="ti ti-player-play"></i>Tiến hành thí nghiệm'; }
+            t = parseFloat(timeSlider.value);
+            draw(); updateStatus(); updateExplanation();
+        });
+
+        /* ─── ANIMATION ─── */
+        function animate(ts) {
+            if (!animating) return;
+            if (!animStart) animStart = ts;
+            const prog = clamp((ts - animStart) / ANIM_DURATION, 0, 1);
+            t = prog * TOTAL;
+            timeSlider.value = t;
+            draw(); updateStatus(); updateExplanation();
+            if (prog < 1) {
+                requestAnimationFrame(animate);
+            } else {
+                animating = false; btnRun.disabled = false;
+                btnRun.innerHTML = '<i class="ti ti-player-play"></i>Tiến hành lại';
+            }
+        }
+
+        btnRun.addEventListener('click', () => {
+            if (animating) return;
+            t = 0; timeSlider.value = 0; animStart = null; animating = true;
+            btnRun.disabled = true; btnRun.innerHTML = '<i class="ti ti-player-pause"></i>Đang chạy...';
+            requestAnimationFrame(animate);
+        });
+
+        btnReset.addEventListener('click', () => {
+            animating = false; animStart = null; t = 0; timeSlider.value = 0;
+            btnRun.disabled = false; btnRun.innerHTML = '<i class="ti ti-player-play"></i>Tiến hành thí nghiệm';
+            draw(); updateStatus(); updateExplanation();
+        });
+
+        draw(); updateStatus();
+    </script>
+</body>
+
+</html>

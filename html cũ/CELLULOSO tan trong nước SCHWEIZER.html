@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí Nghiệm Tính Tan Của Cellulose</title>
+
+    <!-- IMPORT FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- IMPORT TABLER ICONS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        /* DESIGN SYSTEM VARIABLES */
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --success-border: #0f6e56;
+            --success-bg: #f8fffc;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* RESET & BASE STYLES */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            font-family: var(--font-stack);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .label-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* LAYOUT */
+        header,
+        .info-panel,
+        canvas,
+        .controls,
+        .explanation-box {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        /* HEADER */
+        header {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(15, 76, 129, 0.1);
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 220px;
+            height: 220px;
+            top: -80px;
+            right: -50px;
+        }
+
+        header::after {
+            width: 140px;
+            height: 140px;
+            bottom: -60px;
+            left: 15%;
+        }
+
+        .badge-header {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header .desc {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            position: relative;
+            z-index: 1;
+            max-width: 90%;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-col {
+            padding: 14px 18px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+            border-radius: 14px;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+            border-radius: 14px;
+        }
+
+        .info-col .label-badge {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .info-col ul {
+            columns: 2;
+            column-gap: 24px;
+        }
+
+        .info-col ul li {
+            break-inside: avoid;
+            margin-bottom: 4px;
+        }
+
+        .info-col p,
+        .info-col ul {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .info-col ul {
+            padding-left: 18px;
+        }
+
+        /* CANVAS */
+        canvas {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+        }
+
+        /* CONTROLS */
+        .controls {
+            background-color: #f5f0ff;
+            border: 1px solid #c4b5fd;
+            border-radius: 14px;
+            padding: 14px 20px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .control-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .control-label {
+            color: var(--text-sub);
+        }
+
+        .control-buttons {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #mainBtn {
+            min-width: 280px;
+            justify-content: center;
+        }
+
+        .btn-nav {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+            margin-left: auto;
+        }
+
+        button {
+            font-family: var(--font-stack);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            outline: none;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: #f1f5f9;
+        }
+
+        button.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .btn-run {
+            background-color: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+        }
+
+        .btn-run:hover:not(:disabled) {
+            background-color: #135d47;
+            border-color: #135d47;
+            box-shadow: 0 4px 12px rgba(26, 122, 94, 0.25);
+            color: white;
+        }
+
+        .btn-stir {
+            background-color: #f59e0b;
+            color: #ffffff;
+            border-color: #f59e0b;
+        }
+
+        .btn-stir:hover:not(:disabled) {
+            background-color: #d97706;
+            border-color: #d97706;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+            color: white;
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--text-sub);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .status-badge {
+            margin-left: auto;
+            background: rgba(15, 76, 129, 0.08);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 11.5px;
+        }
+
+        /* EXPLANATION BOX */
+        .explanation-box {
+            background-color: #fffbeb;
+            border: 1px solid #fbbf24;
+            border-radius: 14px;
+            border-left: 4px solid #f59e0b;
+            padding: 18px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .explanation-box.reacted {
+            background-color: #f0fdf4;
+            border-color: #86efac;
+            border-left-color: var(--success-border);
+        }
+
+        .eb-title {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .explanation-box.reacted .eb-title {
+            color: var(--success-border);
+        }
+
+        .eb-content {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text-main);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        @media (max-width: 600px) {
+            .info-panel {
+                flex-direction: column;
+            }
+
+            .info-col:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding-right: 0;
+                padding-bottom: 12px;
+            }
+
+            .control-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .status-badge {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>THÍ NGHIỆM: TÍNH TAN CỦA CELLULOSE TRONG NƯỚC SCHWEIZER</h1>
+        <p class="desc">Phân môn Hóa Học 12. Mô phỏng tuần tự 6 bước điều chế phức chất Đồng-Amoniac và quan sát tính
+            chất hòa tan đặc biệt của Cellulose.</p>
+    </header>
+
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="label-badge"><i class="ti ti-target-arrow"></i> Mục đích thí nghiệm</div>
+            <p>Chứng minh khả năng hòa tan của bông gòn (cellulose) trong một dung môi phức hợp đặc biệt là dung dịch
+                nước Schweizer (phức chất của Đồng và Amoniac).</p>
+        </div>
+        <div class="info-col">
+            <div class="label-badge"><i class="ti ti-list-check"></i> Hướng dẫn thao tác</div>
+            <ul>
+                <li>Cho khoảng 50ml dung dịch CuSO4 1M vào cốc thủy tinh 250ml.</li>
+                <li>Thêm tiếp 20ml dung dịch NaOH 20% vào cốc và khuấy đều bằng đũa thủy tinh để tạo ra kết tủa đồng(II)
+                    hydroxide.</li>
+                <li>Sử dụng phễu và giấy lọc để lọc tách phần kết tủa vừa tạo thành.</li>
+                <li>Lấy phần kết tủa trên giấy lọc cho vào một cốc thủy tinh 250ml khác.</li>
+                <li>Thêm từ từ khoảng 50ml dung dịch NH3 đặc vào cốc, tiếp tục khuấy đều cho đến khi kết tủa tan hoàn
+                    toàn, tạo thành dung dịch có màu xanh thẫm, đây chính là "nước Schweizer".</li>
+                <li>Cho một lượng nhỏ bông gòn (cellulose) vào cốc chứa nước Schweizer và khuấy đều.</li>
+            </ul>
+        </div>
+    </div>
+
+    <canvas id="labCanvas" width="760" height="440"></canvas>
+
+    <div class="controls">
+        <div class="control-header">
+            <div class="control-label label-badge"><i class="ti ti-player-track-next"></i> Bảng Điều Khiển</div>
+            <div id="statusBar" class="label-badge status-badge">
+                <i class="ti ti-clock"></i> Chuẩn bị sẵn sàng
+            </div>
+        </div>
+        <div class="control-buttons">
+            <button id="mainBtn" class="btn-run" onclick="handleMainAction()">
+                <i class="ti ti-player-play"></i> Bước 1: Rót CuSO₄ vào cốc
+            </button>
+            <div class="btn-nav">
+                <button id="backBtn" class="btn-reset" onclick="goBack()" disabled>
+                    <i class="ti ti-arrow-left"></i> Quay lại
+                </button>
+                <button id="resetBtn" class="btn-reset" onclick="resetSimulation()" disabled>
+                    <i class="ti ti-refresh"></i> Đặt lại
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="explanationBox" class="explanation-box">
+        <div id="ebTitle" class="eb-title label-badge">
+            <i class="ti ti-info-circle"></i> CHUẨN BỊ THÍ NGHIỆM
+        </div>
+        <div id="ebContent" class="eb-content">
+            Hệ thống đã sẵn sàng các dụng cụ. Nhấn <b>"Bước 1: Rót CuSO₄ vào cốc"</b> để bắt đầu thí nghiệm.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+        const TX = W / 2;
+        const TY = 300;
+
+        const STEP_NAMES = [
+            '',
+            'Rót CuSO₄ vào cốc',
+            'Thêm NaOH 20%',
+            'Lọc tách kết tủa',
+            'Chuyển kết tủa sang cốc 2',
+            'Rót NH₃ đặc',
+            'Thả bông gòn (Cellulose)'
+        ];
+
+        let step = 1;
+        let subStep = 0;
+        let animTimer = 0;
+        let particles = [];
+        let drips = [];
+
+        // Pre-generate fixed precipitate positions for step 3 idle display
+        let pptDisplay = [];
+        for (let i = 0; i < 18; i++) {
+            pptDisplay.push({
+                ox: -22 + Math.random() * 44,
+                oy: Math.random() * 28,
+                s: 2 + Math.random() * 2.5
+            });
+        }
+
+        function lerpColor(c1, c2, t) {
+            return 'rgba(' +
+                Math.round(c1.r + (c2.r - c1.r) * t) + ',' +
+                Math.round(c1.g + (c2.g - c1.g) * t) + ',' +
+                Math.round(c1.b + (c2.b - c1.b) * t) + ',' +
+                (c1.a + (c2.a - c1.a) * t).toFixed(3) + ')';
+        }
+
+        /* === UI === */
+        function updateUI() {
+            const btn = document.getElementById('mainBtn');
+            const resBtn = document.getElementById('resetBtn');
+            const backBtn = document.getElementById('backBtn');
+            const status = document.getElementById('statusBar');
+
+            resBtn.disabled = (step === 1 && subStep === 0);
+            backBtn.disabled = (step === 1 && subStep === 0) || subStep === 1 || subStep === 3;
+
+            if (subStep === 0) {
+                btn.disabled = false;
+                btn.className = 'btn-run';
+                btn.innerHTML = '<i class="ti ti-player-play"></i> Bước ' + step + ': ' + STEP_NAMES[step];
+                status.innerHTML = '<i class="ti ti-player-pause"></i> Chờ thao tác — ' + STEP_NAMES[step];
+            } else if (subStep === 1 || subStep === 3) {
+                btn.disabled = true;
+                status.innerHTML = '<i class="ti ti-loader"></i> Đang thực hiện Bước ' + step + '...';
+            } else if (subStep === 2) {
+                btn.disabled = false;
+                btn.className = 'btn-stir';
+                btn.innerHTML = '<i class="ti ti-ripple"></i> Khuấy đều dung dịch';
+                status.innerHTML = '<i class="ti ti-alert-circle"></i> Yêu cầu khuấy đều';
+            } else if (subStep === 4) {
+                btn.disabled = false;
+                btn.className = 'btn-run';
+                if (step < 6) {
+                    btn.innerHTML = '<i class="ti ti-arrow-right"></i> Bước ' + (step + 1) + ': ' + STEP_NAMES[step + 1];
+                    status.innerHTML = '<i class="ti ti-check"></i> Bước ' + step + ' hoàn tất.';
+                } else {
+                    btn.disabled = true;
+                    btn.innerHTML = '<i class="ti ti-flag-checkered"></i> Thí nghiệm kết thúc';
+                    status.innerHTML = '<i class="ti ti-check"></i> Hoàn thành toàn bộ thí nghiệm!';
+                }
+            }
+            updateExplanation();
+        }
+
+        function handleMainAction() {
+            if (subStep === 0) {
+                subStep = 1;
+                animTimer = 0;
+                drips = [];
+            } else if (subStep === 2) {
+                subStep = 3;
+                animTimer = 0;
+            } else if (subStep === 4 && step < 6) {
+                step++;
+                subStep = 0;
+                particles = [];
+                drips = [];
+            }
+            updateUI();
+        }
+
+        function resetSimulation() {
+            step = 1;
+            subStep = 0;
+            animTimer = 0;
+            particles = [];
+            drips = [];
+            updateUI();
+        }
+
+        function goBack() {
+            if (subStep === 1 || subStep === 3) return;
+            if (subStep === 2 || subStep === 4) {
+                subStep = 0;
+                animTimer = 0;
+                particles = [];
+                drips = [];
+            } else if (subStep === 0 && step > 1) {
+                step--;
+                subStep = 4;
+                animTimer = 1;
+                particles = [];
+                drips = [];
+            }
+            updateUI();
+        }
+
+        function getExplanationData() {
+            var t = '', c = '', reacted = false;
+            if (step === 1) {
+                t = '<i class="ti ti-flask"></i> BƯỚC 1: RÓT DUNG DỊCH CuSO₄';
+                if (subStep === 0) c = 'Nhấn <b>Bước 1</b> để rót 50ml dung dịch Đồng(II) sulfate (CuSO₄) 1M vào cốc.';
+                else c = 'Đang rót dung dịch CuSO₄ có màu xanh lam trong suốt vào cốc...';
+            } else if (step === 2) {
+                t = '<i class="ti ti-flask"></i> BƯỚC 2: TẠO KẾT TỦA Cu(OH)₂';
+                if (subStep === 0) c = 'Nhấn tiến hành để rót tiếp 20ml dung dịch NaOH 20% vào cốc chứa CuSO₄.';
+                else if (subStep === 1) c = 'Đang rót NaOH vào cốc... Sau khi rót, cần phải tác động cơ học.';
+                else if (subStep === 2) c = '<b>Yêu cầu:</b> Hãy nhấn nút <b>"Khuấy đều"</b> để phản ứng trao đổi ion diễn ra hoàn toàn.';
+                else c = 'Phản ứng sinh ra <b>kết tủa xanh nhạt</b> của Đồng(II) hydroxide lơ lửng: <br>CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄';
+            } else if (step === 3) {
+                t = '<i class="ti ti-filter"></i> BƯỚC 3: LỌC TÁCH KẾT TỦA';
+                if (subStep === 0) c = 'Cần tách kết tủa Cu(OH)₂ ra khỏi dung dịch Na₂SO₄. Nhấn tiến hành để đổ hỗn hợp qua phễu lọc.';
+                else c = 'Quan sát: Nước lọc nhỏ giọt xuống bình tam giác bên dưới, giữ lại phần kết tủa Cu(OH)₂ sạch, dạng keo trên giấy lọc.';
+            } else if (step === 4) {
+                t = '<i class="ti ti-recycle"></i> BƯỚC 4: CHUYỂN KẾT TỦA SANG CỐC MỚI';
+                if (subStep === 0) c = 'Nhấn tiến hành để gạt phần kết tủa Cu(OH)₂ tinh khiết trên giấy lọc vào một cốc 250ml mới.';
+                else c = 'Khối kết tủa Cu(OH)₂ đã được chuyển thành công sang Cốc 2 để chuẩn bị điều chế phức chất.';
+            } else if (step === 5) {
+                t = '<i class="ti ti-flask"></i> BƯỚC 5: ĐIỀU CHẾ NƯỚC SCHWEIZER';
+                if (subStep === 0) c = 'Nhấn tiến hành để rót từ từ 50ml dung dịch NH₃ đặc vào cốc chứa kết tủa Cu(OH)₂.';
+                else if (subStep === 1) c = 'Đang rót NH₃ đặc...';
+                else if (subStep === 2) c = '<b>Yêu cầu:</b> Hãy nhấn nút <b>"Khuấy đều"</b> để phản ứng tạo phức diễn ra.';
+                else c = 'Hòa tan thành công! Phản ứng tạo phức chất khiến kết tủa tan hoàn toàn tạo ra dung dịch <b>màu xanh thẫm đặc trưng</b> (Nước Schweizer):<br> Cu(OH)₂ + 4NH₃ → [Cu(NH₃)₄](OH)₂';
+            } else if (step === 6) {
+                reacted = true;
+                t = '<i class="ti ti-circle-check"></i> BƯỚC 6: CELLULOSE TAN TRONG NƯỚC SCHWEIZER';
+                if (subStep === 0) c = 'Nhấn tiến hành để thả một nhúm bông gòn (Cellulose) từ trên xuống vào cốc nước Schweizer.';
+                else if (subStep === 1) c = 'Bông gòn đang rơi vào cốc...';
+                else if (subStep === 2) c = '<b>Yêu cầu:</b> Hãy nhấn nút <b>"Khuấy đều"</b> để dung môi tương tác với Cellulose.';
+                else c = '<b>Kết quả:</b> Dưới tác động khuấy, Cellulose tan hoàn toàn vào dung dịch xanh thẫm. Nước Schweizer là dung môi hiếm hoi phá vỡ được liên kết hydro bền vững của mạng polymer Cellulose.';
+            }
+            return { title: t, content: c, reacted: reacted };
+        }
+
+        var lastExpContent = '';
+        function updateExplanation() {
+            var data = getExplanationData();
+            var newContent = data.title + data.content;
+            if (newContent === lastExpContent) return;
+            lastExpContent = newContent;
+
+            var eb = document.getElementById('explanationBox');
+            var title = document.getElementById('ebTitle');
+            var content = document.getElementById('ebContent');
+            content.classList.add('fade');
+            title.classList.add('fade');
+
+            setTimeout(function () {
+                if (data.reacted) eb.classList.add('reacted');
+                else eb.classList.remove('reacted');
+                title.innerHTML = data.title;
+                content.innerHTML = data.content;
+                content.classList.remove('fade');
+                title.classList.remove('fade');
+            }, 200);
+        }
+
+        /* === DRAWING HELPERS === */
+
+        function drawBeaker(x, y, label) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(x - 40, y - 90);
+            ctx.lineTo(x - 40, y + 45);
+            ctx.quadraticCurveTo(x - 40, y + 58, x - 28, y + 58);
+            ctx.lineTo(x + 28, y + 58);
+            ctx.quadraticCurveTo(x + 40, y + 58, x + 40, y + 45);
+            ctx.lineTo(x + 40, y - 90);
+            ctx.lineTo(x + 50, y - 98);
+            ctx.lineTo(x + 40, y - 98);
+            ctx.fillStyle = 'rgba(230, 240, 255, 0.25)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Graduation marks
+            ctx.beginPath();
+            ctx.moveTo(x - 40, y - 45); ctx.lineTo(x - 28, y - 45);
+            ctx.moveTo(x - 40, y); ctx.lineTo(x - 28, y);
+            ctx.moveTo(x - 40, y + 40); ctx.lineTo(x - 28, y + 40);
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            // Glass highlight
+            ctx.beginPath();
+            ctx.moveTo(x - 24, y - 80);
+            ctx.lineTo(x - 24, y + 45);
+            ctx.strokeStyle = 'rgba(255,255,255,0.7)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Label
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 11px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, x, y + 78);
+            ctx.restore();
+        }
+
+        function drawGlassRod(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.beginPath();
+            ctx.moveTo(-2.5, -95);
+            ctx.lineTo(-2.5, 65);
+            ctx.arc(0, 65, 2.5, Math.PI, 0, true);
+            ctx.lineTo(2.5, -95);
+            ctx.arc(0, -95, 2.5, 0, Math.PI, true);
+            ctx.fillStyle = 'rgba(220, 245, 255, 0.6)';
+            ctx.fill();
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawTestTubePouring(x, y, color, streamEndY) {
+            var angle = -Math.PI / 4.5;
+            var cosA = Math.cos(angle), sinA = Math.sin(angle);
+
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Tube body
+            ctx.beginPath();
+            ctx.moveTo(-10, -50); ctx.lineTo(-10, 30);
+            ctx.arc(0, 30, 10, Math.PI, 0, true);
+            ctx.lineTo(10, -50); ctx.closePath();
+            ctx.fillStyle = 'rgba(240,248,255,0.5)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+
+            // Liquid inside tube
+            ctx.beginPath();
+            ctx.moveTo(-10, -15); ctx.lineTo(-10, 30);
+            ctx.arc(0, 30, 10, Math.PI, 0, true);
+            ctx.lineTo(10, -15); ctx.closePath();
+            ctx.fillStyle = color; ctx.fill();
+            ctx.restore();
+
+            // Pour point = left edge of tube mouth in world coords
+            var pourX = x + (-10) * cosA - (-50) * sinA;
+            var pourY = y + (-10) * sinA + (-50) * cosA;
+
+            var endY = streamEndY !== undefined ? streamEndY : (TY + 55);
+
+            // Tapered stream from mouth to liquid surface
+            ctx.beginPath();
+            ctx.moveTo(pourX - 2.5, pourY);
+            ctx.lineTo(pourX - 1, endY);
+            ctx.lineTo(pourX + 1, endY);
+            ctx.lineTo(pourX + 2.5, pourY);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill();
+
+            // Splash drops at impact
+            for (var i = 0; i < 3; i++) {
+                ctx.beginPath();
+                var sx = pourX + (Math.random() - 0.5) * 14;
+                var sy = endY - Math.random() * 5;
+                ctx.arc(sx, sy, 1.5, 0, Math.PI * 2);
+                ctx.fillStyle = color;
+                ctx.fill();
+            }
+        }
+
+        function drawFilterSetup(x, y) {
+            ctx.save();
+
+            // Iron stand
+            ctx.fillStyle = '#78909c';
+            ctx.fillRect(x + 38, y - 75, 4, 175);
+            ctx.fillRect(x - 5, y + 96, 52, 4);
+            ctx.fillRect(x + 8, y - 68, 32, 3);
+
+            // Erlenmeyer flask
+            ctx.beginPath();
+            ctx.moveTo(x - 10, y - 10);
+            ctx.lineTo(x - 10, y + 20);
+            ctx.lineTo(x - 42, y + 85);
+            ctx.quadraticCurveTo(x - 48, y + 96, x - 32, y + 96);
+            ctx.lineTo(x + 32, y + 96);
+            ctx.quadraticCurveTo(x + 48, y + 96, x + 42, y + 85);
+            ctx.lineTo(x + 10, y + 20);
+            ctx.lineTo(x + 10, y - 10);
+            ctx.fillStyle = 'rgba(240, 248, 255, 0.3)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+
+            // Funnel
+            ctx.beginPath();
+            ctx.moveTo(x - 30, y - 58);
+            ctx.lineTo(x - 5, y - 10);
+            ctx.lineTo(x - 5, y + 28);
+            ctx.lineTo(x + 5, y + 28);
+            ctx.lineTo(x + 5, y - 10);
+            ctx.lineTo(x + 30, y - 58);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fill();
+            ctx.strokeStyle = '#b0bec5'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            // Filter paper
+            ctx.beginPath();
+            ctx.moveTo(x - 27, y - 55);
+            ctx.lineTo(x, y - 14);
+            ctx.lineTo(x + 27, y - 55);
+            ctx.fillStyle = '#f1f5f9';
+            ctx.fill();
+            ctx.strokeStyle = '#cbd5e1'; ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function generateParticles() {
+            if (particles.length === 0) {
+                for (var i = 0; i < 35; i++) {
+                    particles.push({
+                        x: TX - 28 + Math.random() * 56,
+                        y: TY + 10 + Math.random() * 40,
+                        size: 2 + Math.random() * 3
+                    });
+                }
+            }
+        }
+
+        function drawCottonBall(x, y, size, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = '#fff';
+            var offsets = [
+                [0, 0], [-0.4, -0.25], [0.35, -0.3], [0.45, 0.15],
+                [-0.35, 0.3], [-0.5, 0.05], [0.15, -0.5], [0.4, 0.35], [-0.2, 0.45]
+            ];
+            offsets.forEach(function (o) {
+                ctx.beginPath();
+                ctx.arc(x + o[0] * size, y + o[1] * size, size * 0.42, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            // Wispy fibers
+            ctx.strokeStyle = 'rgba(240,240,240,0.5)';
+            ctx.lineWidth = 1;
+            for (var i = 0; i < 7; i++) {
+                var a = (i / 7) * Math.PI * 2 + 0.2;
+                ctx.beginPath();
+                ctx.moveTo(x + Math.cos(a) * size * 0.25, y + Math.sin(a) * size * 0.25);
+                ctx.lineTo(x + Math.cos(a) * size * 0.85, y + Math.sin(a) * size * 0.7);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawPrecipitateBlob(x, y, scale) {
+            ctx.fillStyle = 'rgba(125, 211, 252, 0.9)';
+            ctx.beginPath();
+            ctx.ellipse(x, y, 18 * scale, 10 * scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x - 7 * scale, y - 4 * scale, 8 * scale, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(x + 6 * scale, y - 3 * scale, 9 * scale, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(203, 213, 225, 0.3)';
+            ctx.lineWidth = 1;
+            for (var i = 20; i < W; i += 20) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, H); ctx.stroke();
+            }
+            for (var j = 20; j < H; j += 20) {
+                ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(W, j); ctx.stroke();
+            }
+        }
+
+        function drawLiquidInBeaker(bx, by, topY, color) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(bx - 39, by - 89);
+            ctx.lineTo(bx - 39, by + 44);
+            ctx.quadraticCurveTo(bx - 39, by + 57, bx - 27, by + 57);
+            ctx.lineTo(bx + 27, by + 57);
+            ctx.quadraticCurveTo(bx + 39, by + 57, bx + 39, by + 44);
+            ctx.lineTo(bx + 39, by - 89);
+            ctx.closePath();
+            ctx.clip();
+            ctx.fillStyle = color;
+            ctx.fillRect(bx - 40, topY, 80, by + 58 - topY);
+            ctx.restore();
+        }
+
+        function drawStepLabel(text, x, y) {
+            ctx.fillStyle = '#64748b';
+            ctx.font = '11px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(text, x, y);
+        }
+
+        /* === MAIN LOOP === */
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            drawGrid();
+
+            // Animation timer
+            if (subStep === 1 || subStep === 3) {
+                animTimer += 0.008;
+                if (animTimer >= 1) {
+                    animTimer = 1;
+                    if (subStep === 1) {
+                        if (step === 2 || step === 5 || step === 6) subStep = 2;
+                        else subStep = 4;
+                    } else {
+                        subStep = 4;
+                    }
+                    updateUI();
+                }
+            }
+
+            /* ---- STEP 1: Pour CuSO4 ---- */
+            if (step === 1) {
+                drawBeaker(TX, TY, 'Cốc 1');
+                if (subStep > 0) {
+                    var h1 = subStep === 1 ? animTimer : 1;
+                    var liq1Y = TY + 53 - (50 * h1);
+                    drawLiquidInBeaker(TX, TY, liq1Y, 'rgba(56, 189, 248, 0.6)');
+                    if (subStep === 1) {
+                        drawTestTubePouring(TX + 42, TY - 88, 'rgba(56, 189, 248, 0.8)', liq1Y);
+                    }
+                }
+                drawStepLabel('50ml CuSO₄ 1M', TX, TY + 92);
+            }
+
+            /* ---- STEP 2: Add NaOH, stir -> precipitate ---- */
+            else if (step === 2) {
+                drawBeaker(TX, TY, 'Cốc 1');
+
+                // Base CuSO4 = 50px, NaOH adds 25px
+                var extra2 = (subStep >= 1) ? (subStep === 1 ? animTimer * 25 : 25) : 0;
+                var liq2Y = TY + 3 - extra2;
+                var liq2Color;
+                if (subStep <= 2) {
+                    liq2Color = 'rgba(56, 189, 248, 0.6)';
+                } else if (subStep === 3) {
+                    var cA2 = { r: 56, g: 189, b: 248, a: 0.6 };
+                    var cB2 = { r: 0, g: 180, b: 235, a: 0.85 };
+                    liq2Color = lerpColor(cA2, cB2, animTimer);
+                } else {
+                    liq2Color = 'rgba(0, 180, 235, 0.85)';
+                }
+                drawLiquidInBeaker(TX, TY, liq2Y, liq2Color);
+
+                // Pour animation
+                if (subStep === 1) {
+                    drawTestTubePouring(TX + 42, TY - 88, 'rgba(200, 230, 255, 0.6)', liq2Y);
+                }
+
+                // Glass rod
+                if (subStep >= 2) {
+                    var ang2 = subStep === 3 ? Math.sin(Date.now() * 0.012) * 0.3 : 0.1;
+                    drawGlassRod(TX + 5, TY - 30, ang2);
+                }
+
+                // Precipitate particles
+                if (subStep >= 3) {
+                    generateParticles();
+                    var pAlpha = subStep === 3 ? animTimer : 1;
+                    ctx.fillStyle = 'rgba(0, 210, 255, ' + pAlpha + ')';
+                    particles.forEach(function (p) {
+                        ctx.beginPath();
+                        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                        ctx.fill();
+                    });
+                }
+                drawStepLabel('CuSO₄ + NaOH', TX, TY + 92);
+            }
+
+            /* ---- STEP 3: Filter ---- */
+            else if (step === 3) {
+                var bx3 = 190, fx3 = 510;
+
+                // Filter setup on right
+                drawFilterSetup(fx3, TY - 20);
+
+                // Precipitate on filter paper (follows V-shape)
+                var pptA3 = subStep === 1 ? animTimer : (subStep >= 4 ? 1 : 0);
+                if (pptA3 > 0) {
+                    var pptH3 = 22 * pptA3;
+                    var pptTop3 = (TY - 34) - pptH3;
+                    var halfW3 = 27 * pptH3 / 41;
+                    ctx.beginPath();
+                    ctx.moveTo(fx3, TY - 34);
+                    ctx.lineTo(fx3 - halfW3, pptTop3);
+                    ctx.lineTo(fx3 + halfW3, pptTop3);
+                    ctx.closePath();
+                    ctx.fillStyle = 'rgba(0, 210, 255, ' + (pptA3 * 0.9) + ')';
+                    ctx.fill();
+                }
+
+                // Filtrate in flask (clipped to flask shape)
+                var vol3 = subStep === 1 ? animTimer : (subStep >= 4 ? 1 : 0);
+                if (vol3 > 0) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.moveTo(fx3 - 10, TY - 30);
+                    ctx.lineTo(fx3 - 10, TY);
+                    ctx.lineTo(fx3 - 42, TY + 65);
+                    ctx.quadraticCurveTo(fx3 - 48, TY + 76, fx3 - 32, TY + 76);
+                    ctx.lineTo(fx3 + 32, TY + 76);
+                    ctx.quadraticCurveTo(fx3 + 48, TY + 76, fx3 + 42, TY + 65);
+                    ctx.lineTo(fx3 + 10, TY);
+                    ctx.lineTo(fx3 + 10, TY - 30);
+                    ctx.closePath();
+                    ctx.clip();
+                    var liqTop3 = TY + 76 - (18 * vol3);
+                    ctx.fillStyle = 'rgba(200, 230, 250, 0.4)';
+                    ctx.fillRect(fx3 - 50, liqTop3, 100, TY + 76 - liqTop3);
+                    ctx.restore();
+                }
+
+                if (subStep === 0) {
+                    // Beaker with liquid + precipitate at starting position
+                    drawBeaker(bx3, TY, 'Cốc 1');
+                    drawLiquidInBeaker(bx3, TY, TY - 22, 'rgba(0, 180, 235, 0.85)');
+                    pptDisplay.forEach(function (p) {
+                        ctx.beginPath();
+                        ctx.arc(bx3 + p.ox, TY + 14 + p.oy, p.s, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(0, 210, 255, 0.8)';
+                        ctx.fill();
+                    });
+                }
+
+                if (subStep === 1) {
+                    var moveT = Math.min(animTimer / 0.3, 1);
+                    var tiltT = Math.max(0, Math.min((animTimer - 0.3) / 0.15, 1));
+                    var pourT = Math.max(0, (animTimer - 0.45) / 0.55);
+                    var bkAngle = tiltT * Math.PI / 4.5;
+
+                    // Beaker above funnel; pour corner (right edge) lands at funnel center
+                    var endX = fx3 - 70;
+                    var endY = TY - 120;
+                    var bkX = bx3 + (endX - bx3) * moveT;
+                    var bkY = TY + (endY - TY) * moveT - 40 * Math.sin(moveT * Math.PI);
+
+                    ctx.save();
+                    ctx.translate(bkX, bkY);
+                    ctx.rotate(bkAngle);
+                    ctx.beginPath();
+                    ctx.moveTo(-32, -70); ctx.lineTo(-32, 38);
+                    ctx.quadraticCurveTo(-32, 48, -22, 48);
+                    ctx.lineTo(22, 48);
+                    ctx.quadraticCurveTo(32, 48, 32, 38);
+                    ctx.lineTo(32, -70);
+                    ctx.fillStyle = 'rgba(230, 240, 255, 0.25)';
+                    ctx.fill();
+                    ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+                    var lvl3 = 55 * (1 - pourT * 0.85);
+                    if (lvl3 > 1) {
+                        ctx.fillStyle = 'rgba(0, 180, 235, ' + (0.85 * (1 - pourT * 0.6)) + ')';
+                        ctx.fillRect(-31, 46 - lvl3, 62, lvl3);
+                    }
+                    ctx.restore();
+
+                    // Thin stream from pour corner to funnel mouth
+                    if (pourT > 0) {
+                        var cosA3 = Math.cos(bkAngle), sinA3 = Math.sin(bkAngle);
+                        var pourX3 = bkX + 32 * cosA3 - (-70) * sinA3;
+                        var pourY3 = bkY + 32 * sinA3 + (-70) * cosA3;
+
+                        ctx.beginPath();
+                        ctx.moveTo(pourX3, pourY3);
+                        ctx.lineTo(fx3, TY - 78);
+                        ctx.strokeStyle = 'rgba(0, 180, 235, ' + (0.6 - pourT * 0.15) + ')';
+                        ctx.lineWidth = 3;
+                        ctx.stroke();
+
+                        if (Math.random() < 0.2) {
+                            drips.push({ x: fx3, y: TY + 8, vy: 1.2 });
+                        }
+                    }
+                }
+
+                if (subStep >= 4) {
+                    // Empty beaker returned to original position
+                    drawBeaker(bx3, TY, 'Cốc 1 (đã rót)');
+                }
+
+                // Animate drips
+                for (var di = drips.length - 1; di >= 0; di--) {
+                    var d = drips[di];
+                    d.y += d.vy;
+                    d.vy += 0.15;
+                    ctx.beginPath();
+                    ctx.arc(d.x + (Math.random() - 0.5) * 3, d.y, 2.5, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(200, 230, 255, 0.8)';
+                    ctx.fill();
+                    if (d.y > TY + 73) drips.splice(di, 1);
+                }
+
+                drawStepLabel('Cốc 1 (hỗn hợp)', bx3, TY + 92);
+                drawStepLabel('Phễu lọc + Bình tam giác', fx3, TY + 115);
+            }
+
+            /* ---- STEP 4: Transfer precipitate to beaker 2 ---- */
+            else if (step === 4) {
+                var bx4 = TX;
+                drawBeaker(bx4, TY, 'Cốc 2');
+
+                // Funnel drawing helper (just funnel + filter paper + precipitate)
+                function drawFunnelOnly(pptAmount) {
+                    ctx.beginPath();
+                    ctx.moveTo(-28, -40);
+                    ctx.lineTo(-5, 5);
+                    ctx.lineTo(-5, 30);
+                    ctx.lineTo(5, 30);
+                    ctx.lineTo(5, 5);
+                    ctx.lineTo(28, -40);
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.fill();
+                    ctx.strokeStyle = '#b0bec5'; ctx.lineWidth = 1.5; ctx.stroke();
+                    ctx.beginPath();
+                    ctx.moveTo(-25, -37); ctx.lineTo(0, 2); ctx.lineTo(25, -37);
+                    ctx.fillStyle = '#f1f5f9'; ctx.fill();
+                    ctx.strokeStyle = '#cbd5e1'; ctx.stroke();
+                    if (pptAmount > 0.05) {
+                        var ppH = 18 * pptAmount;
+                        var ppTop = -2 - ppH;
+                        var ppHW = 22 * ppH / 35;
+                        ctx.beginPath();
+                        ctx.moveTo(0, -2);
+                        ctx.lineTo(-ppHW, ppTop);
+                        ctx.lineTo(ppHW, ppTop);
+                        ctx.closePath();
+                        ctx.fillStyle = 'rgba(0, 210, 255, ' + (pptAmount * 0.9) + ')';
+                        ctx.fill();
+                    }
+                }
+
+                if (subStep === 0) {
+                    ctx.save();
+                    ctx.translate(180, TY - 40);
+                    drawFunnelOnly(1);
+                    ctx.restore();
+                    drawStepLabel('Phễu lọc (có kết tủa)', 180, TY + 50);
+                }
+
+                if (subStep === 1) {
+                    // Phase 1 (0-0.3): funnel arcs to above beaker
+                    // Phase 2 (0.3-0.55): funnel flips nearly upside down
+                    // Phase 3 (0.55-1.0): precipitate blob falls into beaker
+                    var moveT4 = Math.min(animTimer / 0.3, 1);
+                    var tiltT4 = Math.max(0, Math.min((animTimer - 0.3) / 0.25, 1));
+                    var fallT4 = Math.max(0, (animTimer - 0.55) / 0.45);
+
+                    var fAngle4 = tiltT4 * Math.PI * 0.75;
+                    var fEndX = bx4 - 10, fEndY = TY - 130;
+                    var fX4 = 180 + (fEndX - 180) * moveT4;
+                    var fY4 = (TY - 40) + (fEndY - (TY - 40)) * moveT4 - 40 * Math.sin(moveT4 * Math.PI);
+
+                    ctx.save();
+                    ctx.translate(fX4, fY4);
+                    ctx.rotate(fAngle4);
+                    drawFunnelOnly(fallT4 > 0 ? 0 : 1);
+                    ctx.restore();
+
+                    // Precipitate blob falls as one chunk
+                    if (fallT4 > 0) {
+                        var blobStartY = fY4 + 30;
+                        var blobEndY = TY + 42;
+                        var blobY4 = blobStartY + fallT4 * (blobEndY - blobStartY);
+                        drawPrecipitateBlob(bx4, blobY4, 0.9);
+                    }
+                }
+
+                if (subStep >= 4) {
+                    drawPrecipitateBlob(bx4, TY + 42, 1);
+                }
+
+                drawStepLabel('Cốc 2 (mới)', bx4, TY + 92);
+            }
+
+            /* ---- STEP 5: Add NH3, stir -> Schweizer ---- */
+            else if (step === 5) {
+                drawBeaker(TX, TY, 'Cốc 2');
+
+                // Precipitate at bottom (dissolves on stir)
+                if (subStep <= 2) {
+                    drawPrecipitateBlob(TX, TY + 42, 1);
+                } else if (subStep === 3) {
+                    drawPrecipitateBlob(TX, TY + 42, 1 - animTimer);
+                }
+
+                // Liquid
+                var liq5Y;
+                if (subStep === 0) {
+                    liq5Y = TY + 55;
+                } else if (subStep === 1) {
+                    liq5Y = TY + 55 - (45 * animTimer);
+                } else {
+                    liq5Y = TY + 10;
+                }
+
+                var color5 = 'rgba(200, 230, 255, 0.4)';
+                if (subStep >= 3) {
+                    var cA5 = { r: 200, g: 230, b: 255, a: 0.4 };
+                    var cB5 = { r: 20, g: 35, b: 110, a: 0.95 };
+                    color5 = subStep === 3 ? lerpColor(cA5, cB5, animTimer) : 'rgba(20, 35, 110, 0.95)';
+                }
+
+                if (subStep >= 1) {
+                    drawLiquidInBeaker(TX, TY, liq5Y, color5);
+                }
+
+                if (subStep === 1) {
+                    drawTestTubePouring(TX + 42, TY - 88, 'rgba(200, 230, 255, 0.6)', liq5Y);
+                }
+
+                if (subStep >= 2) {
+                    var ang5 = subStep === 3 ? Math.sin(Date.now() * 0.012) * 0.3 : 0.2;
+                    drawGlassRod(TX + 8, TY - 30, ang5);
+                }
+
+                if (subStep >= 4) drawStepLabel('Nước Schweizer', TX, TY + 92);
+                else drawStepLabel('Cu(OH)₂ + NH₃', TX, TY + 92);
+            }
+
+            /* ---- STEP 6: Cotton dissolves in Schweizer ---- */
+            else if (step === 6) {
+                drawBeaker(TX, TY, 'Cốc 2');
+
+                // Dark blue liquid
+                drawLiquidInBeaker(TX, TY, TY + 10, 'rgba(20, 35, 110, 0.95)');
+
+                // Cotton falling
+                if (subStep === 1) {
+                    var fall6Y = TY - 110 + (animTimer * 130);
+                    drawCottonBall(TX, fall6Y, 15, 1);
+                } else if (subStep >= 2) {
+                    // Cotton in liquid (fades on stir)
+                    if (subStep === 2 || (subStep === 3 && animTimer < 1)) {
+                        var cotAlpha = subStep === 3 ? 1 - animTimer : 1;
+                        drawCottonBall(TX, TY + 28, 15, cotAlpha);
+                    }
+                    var ang6 = subStep === 3 ? Math.sin(Date.now() * 0.015) * 0.4 : 0.2;
+                    drawGlassRod(TX + 8, TY - 30, ang6);
+                }
+
+                drawStepLabel('Nước Schweizer + Cellulose', TX, TY + 92);
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        updateUI();
+        loop();
+    </script>
+</body>
+
+</html>

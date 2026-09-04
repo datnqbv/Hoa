@@ -1,0 +1,3707 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 13 — Module 1: Liên kết Hydrogen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <script type="application/json" id="athena-context">
+{
+  "title": "Liên kết Hydrogen",
+  "subject": "Hóa học",
+  "grade": "10",
+  "objectives": [
+    "Giải thích được vì sao nước có nhiệt độ sôi cao hơn H₂S thông qua so sánh lực hút giữa các phân tử",
+    "Nhận diện được liên kết hydrogen dựa vào vị trí tương tác (Hδ+ liên kết trực tiếp với N, O, F ... cặp electron chưa liên kết trên N, O, F) và phân biệt với liên kết cộng hoá trị",
+    "Giải thích được các tính chất vật lí đặc biệt của nước (nhiệt độ sôi cao, khối lượng riêng của nước đá nhỏ hơn nước lỏng) bằng sự hình thành và phá vỡ liên kết hydrogen"
+  ],
+  "structure": [
+    { "id": "stage1", "title": "Vì sao nước có nhiệt độ sôi cao hơn H₂S?" },
+    { "id": "stage2", "title": "Liên kết hydrogen hình thành như thế nào?" },
+    { "id": "stage3", "title": "Liên kết hydrogen tạo nên những tính chất đặc biệt nào của nước?" }
+  ],
+  "athenaGuidance": "a) Học sinh trải qua 3 bước: (1) so sánh nhiệt độ sôi của H₂O và H₂S bằng cách nhấn nút Gia nhiệt ở hai buồng thí nghiệm riêng biệt; (2) kéo và xoay các phân tử (H₂O, H₂S, và thư viện HF/NH₃/CH₄) để tìm hướng tạo được liên kết hydrogen, sau đó so sánh liên kết O–H (nét liền) với liên kết hydrogen H···O (nét chấm); (3) kéo thanh trượt năng lượng để quan sát nước lỏng chuyển thành hơi, nhấn Đóng băng để quan sát mạng tinh thể nước đá, rồi hoàn thành bài kéo-thả 2 chuỗi nguyên nhân - kết quả. b) Danh sách câu hỏi trắc nghiệm nguyên văn: [stage1] 'Nhận xét nào phù hợp nhất với kết quả mô phỏng?' — A) Các phân tử H₂O nặng hơn nên khó bay hơi hơn H₂S. · B) Giữa các phân tử H₂O tồn tại lực hút mạnh hơn giữa các phân tử H₂S. · C) Khi nước sôi, phải phá vỡ các liên kết cộng hoá trị O–H bên trong phân tử. [stage2] 'Phát biểu nào mô tả đúng liên kết hydrogen trong các mô hình vừa quan sát?' — A) Liên kết hydrogen là liên kết O–H, N–H hoặc F–H nằm bên trong một phân tử. · B) Liên kết hydrogen hình thành giữa H mang δ+ đang liên kết trực tiếp với N, O hoặc F và cặp electron chưa liên kết trên N, O hoặc F của phân tử bên cạnh; được biểu diễn bằng nét chấm. · C) Chỉ cần phân tử có nguyên tử H thì chắc chắn tạo được liên kết hydrogen. [stage3] Bài kéo-thả hoàn thành hai chuỗi nguyên nhân - kết quả: 'Liên kết hydrogen làm tăng lực hút giữa các phân tử nước' → [Ô 1] → [Ô 2]; 'Khi đóng băng, liên kết hydrogen duy trì mạng cấu trúc mở' → [Ô 3] → [Ô 4] — các thẻ để kéo thả: 'Cần nhiệt độ cao hơn để các phân tử tách xa nhau.', 'Nước có nhiệt độ sôi cao hơn H₂S.', 'Trong cùng một lượng chất xuất hiện nhiều khoảng trống hơn.', 'Nước đá có thể tích lớn hơn và khối lượng riêng nhỏ hơn nước lỏng.'. c) Athena chỉ được gợi ý, nhắc học sinh quan sát lại mô phỏng liên quan; TUYỆT ĐỐI không nói thẳng đáp án đúng của bất kỳ câu nào ở trên."
+}
+    </script>
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --warning: #C58A2E;
+            --warning-bg: #F5E7CB;
+            --info: #4E7F92;
+            --info-bg: #DCE7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+            font-size: 1.125rem;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 0;
+            font-family: inherit;
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--jade-deep);
+            outline-offset: 2px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        /* ============ BUTTONS ============ */
+        .btn-primary,
+        .btn-secondary,
+        .btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 0 16px;
+            min-height: 44px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+            border: 1px solid var(--jade);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+            border-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        /* ============ INTRO TEXT ============ */
+        .intro-text {
+            width: 100%;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .intro-text {
+                padding: 0.9rem 1.1rem;
+                font-size: 14px;
+            }
+        }
+
+        /* ============ GOAL BAR ============ */
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        @media (max-width: 640px) {
+            .goal-text {
+                font-size: 15px;
+            }
+        }
+
+        /* ============ LAB WRAPPER (cột đơn) ============ */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        /* AI guide bar */
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-guide.state-idle {
+            background-color: var(--sage-pale);
+            border-left: 4px solid var(--jade);
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-guide.state-correct .ai-avatar {
+            border-color: var(--correct);
+        }
+
+        .ai-guide.state-wrong .ai-avatar {
+            border-color: var(--wrong);
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        /* ============ CONTROLS CARD — luôn đúng 1 hàng ============ */
+        .controls-card {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ctrl-row {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+        }
+
+        .ctrl-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .ctrl-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        .ctrl-row::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .ctrl-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 6px 2px;
+            background-color: var(--paper-line);
+        }
+
+        .ctrl-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--jade-text);
+            white-space: nowrap;
+        }
+
+        .ctrl-badge {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--jade-pale);
+            color: var(--jade-text);
+            border: 1px solid var(--sage);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 12.5px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .ctrl-chip {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink);
+            font-weight: 600;
+            font-size: 13px;
+            padding: 0 12px;
+            min-height: 44px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            white-space: nowrap;
+        }
+
+        .ctrl-chip.active {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .ctrl-chip:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .range-slider {
+            flex: 1 1 140px;
+            min-width: 100px;
+            height: 20px;
+            border-radius: 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            accent-color: var(--jade);
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 4px;
+            background: var(--paper-line);
+        }
+
+        input[type="range"]::-moz-range-track {
+            height: 6px;
+            border-radius: 4px;
+            background: var(--paper-line);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--jade);
+            border: 2px solid var(--cream);
+            margin-top: -7px;
+            box-shadow: 0 1px 3px rgba(26, 26, 26, 0.25);
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--jade);
+            border: 2px solid var(--cream);
+            box-shadow: 0 1px 3px rgba(26, 26, 26, 0.25);
+            cursor: pointer;
+        }
+
+        @media (max-width: 640px) {
+            input[type="range"]::-webkit-slider-thumb {
+                width: 26px;
+                height: 26px;
+                margin-top: -10px;
+            }
+
+            input[type="range"]::-moz-range-thumb {
+                width: 26px;
+                height: 26px;
+            }
+        }
+
+        .progress-dots {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .p-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--ink-2);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .p-dot.active {
+            width: 22px;
+            height: 22px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .p-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+            font-size: 10px;
+        }
+
+        /* ============ CANVAS ============ */
+        .canvas-card {
+            width: 100%;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 760 / 380;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        /* ============ Bảng quan sát ============ */
+        .side-card {
+            padding: 14px 16px;
+        }
+
+        .side-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .side-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .side-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 7px 8px;
+            text-align: left;
+        }
+
+        .side-card tbody td {
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+        }
+
+        .side-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .side-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        /* ============ Kết luận & trắc nghiệm ============ */
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .conclusion-body:empty::before {
+            content: 'Các kết luận và câu hỏi sẽ xuất hiện ở đây theo tiến trình.';
+            color: var(--ink-2);
+            font-size: 0.85rem;
+        }
+
+        .concl-block {
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .concl-block.is-done {
+            background-color: var(--correct-bg);
+            border-left-color: var(--correct);
+        }
+
+        .concl-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 13.5px;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+
+        .concl-title i {
+            color: var(--jade-text);
+        }
+
+        .concl-body-text {
+            font-size: 14.5px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        .quiz-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 10px 0 8px;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.45;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 24px;
+            font-weight: 700;
+            color: var(--ink-2);
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        .quiz-feedback {
+            font-size: 13.5px;
+            margin-top: 8px;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
+
+        .quiz-feedback.is-correct {
+            background: var(--correct-bg);
+            color: var(--jade-text);
+        }
+
+        .quiz-feedback.is-wrong {
+            background: var(--wrong-bg);
+            color: var(--wrong);
+        }
+
+        .aha-box {
+            margin-top: 4px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--jade);
+            border-radius: 8px;
+            padding: 10px 14px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .aha-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
+
+        .aha-adv-btn {
+            padding: 4px 14px !important;
+            min-height: 32px !important;
+            font-size: 13px !important;
+            border-radius: 6px !important;
+            font-weight: 600 !important;
+        }
+
+        /* ============ Kéo-thả nguyên nhân - kết quả (Stage 3) ============ */
+        .dnd-intro {
+            font-size: 13.5px;
+            color: var(--ink-2);
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .dnd-chain-line {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .dnd-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .dnd-chip {
+            padding: 8px 14px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink);
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: grab;
+            transition: all 0.18s ease;
+            touch-action: none;
+            user-select: none;
+        }
+
+        .dnd-chip:hover {
+            border-color: var(--sage);
+            background-color: var(--cream-2);
+        }
+
+        .dnd-chip.selected {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        .dnd-chip.dragging {
+            cursor: grabbing;
+            box-shadow: 0 8px 20px rgba(26, 26, 26, 0.2);
+            border-color: var(--jade);
+            transform: scale(1.05);
+            transition: none;
+        }
+
+        .dnd-chip.placed {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dnd-zones {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dnd-zone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1.5px dashed var(--paper-line);
+            background-color: var(--cream);
+            font-size: 13.5px;
+            min-height: 22px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dnd-zone:hover {
+            border-color: var(--sage);
+        }
+
+        .dnd-zone.drag-over {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+        }
+
+        .dnd-zone .zone-label {
+            font-weight: 700;
+            color: var(--jade-text);
+            flex: 0 0 46px;
+        }
+
+        .dnd-zone .zone-value {
+            color: var(--ink-2);
+        }
+
+        .dnd-zone.filled {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+        }
+
+        .dnd-zone.filled .zone-value {
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .dnd-zone.wrong-flash {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+        }
+
+        .dnd-check-wrap {
+            margin-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* ============ EM CÓ BIẾT ============ */
+        .info-box {
+            background-color: var(--info-bg);
+            border-left: 4px solid var(--info);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 4px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .info-box .info-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--info);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+        }
+
+        .info-box .info-content {
+            font-size: 13.5px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        /* ============ CHI TIẾT MỞ RỘNG (details/summary — native, không cần JS) ============ */
+        .detail-box {
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 4px 14px;
+            background-color: var(--cream);
+            margin-top: 4px;
+        }
+
+        .detail-box summary {
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13.5px;
+            color: var(--jade-text);
+            padding: 8px 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .detail-box summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .detail-box summary::before {
+            content: '\25B8';
+            display: inline-block;
+            transition: transform 0.15s ease;
+            color: var(--jade);
+        }
+
+        .detail-box[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .detail-box .detail-content {
+            font-size: 13.5px;
+            color: var(--ink-2);
+            line-height: 1.65;
+            padding: 0 0 10px 20px;
+        }
+
+        /* ============ MODAL HOÀN THÀNH ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 16px;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+            transform: translateY(10px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-2);
+            max-width: 100%;
+            margin: 0 auto 22px;
+        }
+
+        .modal-results {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin: 0 0 20px;
+            text-align: left;
+        }
+
+        .modal-result-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--ink-2);
+        }
+
+        .modal-result-row i.is-correct {
+            color: var(--correct);
+        }
+
+        .modal-result-row i.is-wrong {
+            color: var(--wrong);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ MOBILE ============ */
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                background: var(--cream-2);
+                border-top: 1px solid var(--paper-line);
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.10);
+                padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+                margin: 0 !important;
+                border-radius: 0;
+            }
+
+            body {
+                padding-bottom: 84px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .dnd-zone .zone-label {
+                flex: 0 0 34px;
+                font-size: 12px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+                scroll-behavior: auto !important;
+            }
+
+            .canvas-glow-wrap::before {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-text">Bạn sẽ mô phỏng nhiệt độ sôi của nước và H₂S, tự tay kéo — xoay các phân tử để tìm ra
+        hướng hình thành liên kết hydrogen, rồi khám phá vì sao liên kết này khiến nước sôi ở nhiệt độ cao và nước đá
+        nổi được trên nước lỏng.</div>
+
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Nhận biết và giải thích được liên kết hydrogen cùng các tính chất vật lí đặc biệt của
+            nước (nhiệt độ sôi cao, khối lượng riêng nước đá nhỏ hơn nước lỏng) dựa trên lực hút giữa các phân
+            tử.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <div class="ai-guide card state-idle" id="aiGuideBar">
+            <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp"
+                    alt="Athena AI"></div>
+            <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+        </div>
+
+        <div class="card controls-card" id="controlsCard">
+            <div class="ctrl-row" id="ctrlRow"></div>
+        </div>
+
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="380" role="img" tabindex="0"
+                    aria-label="Mô phỏng liên kết hydrogen giữa các phân tử nước. Có thể kéo chuột/chạm để thao tác, hoặc bấm phím 1 và 2 để chọn phân tử rồi dùng phím mũi tên để di chuyển, giữ Shift cùng mũi tên trái/phải để xoay."></canvas>
+            </div>
+        </div>
+
+        <div class="card side-card">
+            <h3><i class="ti ti-table"></i> Bảng quan sát</h3>
+            <div class="observe-wrap">
+                <table>
+                    <thead id="observeThead"></thead>
+                    <tbody id="observeTableBody">
+                        <tr>
+                            <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card side-card">
+            <h3><i class="ti ti-checklist"></i> Kết luận &amp; Câu hỏi</h3>
+            <div class="conclusion-body" id="conclusionBody"></div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành module <strong>Liên kết Hydrogen</strong> — giải thích được vì sao
+                nước sôi ở nhiệt độ cao hơn H₂S, nhận diện được liên kết hydrogen giữa Hδ+ và cặp electron chưa liên
+                kết trên N, O, F, và hiểu vì sao nước đá nhẹ hơn nước lỏng.</p>
+            <div class="modal-results" id="modalResultsList"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); goToStage(1);">
+                    <i class="ti ti-refresh"></i> Ôn lại từ đầu
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================================================
+        // LMS / ATHENA INSTRUMENTATION
+        // ======================================================
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+        const lmsAnswers = {};
+        let _lmsQCounter = 0;
+        let completed = false;
+        function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+            lmsAnswers[qid] = { stage: state.stage, prompt, options: options ? options.map(o => o.key + ') ' + o.text) : null, chosen, correct: !!correct };
+            LMS().event('answered', { id: qid, stage: state.stage, chosen, correct: !!correct });
+            LMS().progress({ done: Object.keys(lmsAnswers).length, total: STAGE_COUNT });
+        }
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStep: state.stage, totalSteps: STAGE_COUNT, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+        }
+        function reportHeight() { LMS().resize({ height: document.documentElement.scrollHeight }); }
+        window.addEventListener('load', reportHeight);
+        const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+        _lmsRo.observe(document.body);
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (savedState) {
+                if (savedState && savedState.currentStep) jumpToStage(savedState.currentStep);
+            };
+        }
+
+        // ======================================================
+        // UTILITIES
+        // ======================================================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 380;
+        let canvasW = W, canvasH = H;
+        let time = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+        function rgba(c, a) { return `rgba(${c.r},${c.g},${c.b},${a})`; }
+        // Vẽ nguyên tử dạng khối cầu có chiều sâu (gradient sáng-tối) thay vì hình tròn phẳng —
+        // vệt sáng lệch trên-trái mô phỏng ánh sáng chiếu vào, viền tối n hẹ tạo cảm giác 3D nhẹ.
+        function drawSphereAtom(x, y, r, c, alpha) {
+            alpha = alpha == null ? 1 : alpha;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            const grad = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.15, x, y, r * 1.05);
+            grad.addColorStop(0, `rgba(${Math.min(255, c.r + 70)},${Math.min(255, c.g + 70)},${Math.min(255, c.b + 70)},1)`);
+            grad.addColorStop(0.55, rgba(c, 1));
+            grad.addColorStop(1, `rgba(${Math.max(0, c.r - 40)},${Math.max(0, c.g - 40)},${Math.max(0, c.b - 40)},1)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = 'rgba(26,26,26,0.28)'; ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+        }
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const COLORS = {
+            jade: { r: 60, g: 165, b: 122 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 },
+            ink: { r: 26, g: 26, b: 26 },
+            ink2: { r: 81, g: 76, b: 68 },
+            paperLine: { r: 229, g: 222, b: 207 }
+        };
+        // Màu nguyên tử theo quy ước CPK — ngoại lệ được phép trong canvas
+        const ATOM_COLORS = {
+            O: { r: 224, g: 68, b: 68 },
+            H: { r: 248, g: 247, b: 242 },
+            N: { r: 78, g: 112, b: 224 },
+            F: { r: 138, g: 205, b: 122 },
+            S: { r: 232, g: 190, b: 60 },
+            C: { r: 74, g: 74, b: 78 }
+        };
+
+        // ======================================================
+        // CLICK / HITBOX TRÊN CANVAS — tap-to-toggle (chạy cho cả chuột lẫn cảm ứng)
+        // ======================================================
+        let canvasClickTargets = [];
+        function getLogicPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvasW / W, scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+            const px = (e.clientX - rect.left) * (canvasW / rect.width);
+            const py = (e.clientY - rect.top) * (canvasH / rect.height);
+            return { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+        }
+        function hitAt(p) {
+            for (let i = canvasClickTargets.length - 1; i >= 0; i--) {
+                const t = canvasClickTargets[i];
+                if (t.isRect) {
+                    if (p.x >= t.x && p.x <= t.x + t.w && p.y >= t.y && p.y <= t.y + t.h) return t;
+                } else {
+                    if (Math.hypot(p.x - t.x, p.y - t.y) < (t.radius || 20)) return t;
+                }
+            }
+            return null;
+        }
+        canvas.addEventListener('click', (e) => {
+            const hit = hitAt(getLogicPos(e));
+            if (hit && hit.onClick) hit.onClick();
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            if (state.stage === 2 && s2Drag) return;
+            const p = getLogicPos(e);
+            const hit = hitAt(p);
+            canvas.style.cursor = (hit && hit.onClick) ? 'pointer' : 'default';
+        });
+
+        // ======================================================
+        // TWEEN / PARTICLE / RING SYSTEM
+        // ======================================================
+        let tweens = [];
+        function tween(obj, prop, to, duration, ease, onComplete) {
+            ease = ease || easeOut;
+            tweens.push({ obj, prop, from: obj[prop], to, duration: reduceMotion ? Math.min(duration, 120) : duration, elapsed: 0, ease, onComplete, done: false });
+        }
+        function updateTweens(dt) {
+            for (const tw of tweens) {
+                if (tw.done) continue;
+                tw.elapsed += dt;
+                const t = clamp(tw.elapsed / tw.duration, 0, 1);
+                tw.obj[tw.prop] = lerp(tw.from, tw.to, tw.ease(t));
+                if (t >= 1) { tw.done = true; if (tw.onComplete) tw.onComplete(); }
+            }
+            tweens = tweens.filter(t => !t.done);
+        }
+
+        let particles = [], rings = [], flashTimer = 0;
+        function spawnParticles(x, y, colorRgb, count = 8) {
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2 + 0.4;
+                particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 0.5, life: 1.0, decay: Math.random() * 0.025 + 0.018, size: Math.random() * 2.5 + 1.5, rgb: colorRgb });
+            }
+        }
+        function spawnBubble(x, y, targetSurfaceY, rgb) {
+            const baseSize = Math.random() * 1 + 0.8;
+            particles.push({ x, y, vx: (Math.random() - 0.5) * 0.3, vy: -(Math.random() * 0.8 + 0.6), life: 1.0, decay: 0.012, size: baseSize, baseSize, spawnY: y, rgb: rgb || COLORS.paperLine, bubble: true, surfaceY: targetSurfaceY, wobble: Math.random() * 10 });
+        }
+        function spawnRing(x, y, rgb) { rings.push({ x, y, r: 2, alpha: 0.65, rgb: rgb || COLORS.jade }); }
+        function spawnVapor(x, y) {
+            particles.push({ x, y, vx: (Math.random() - 0.5) * 0.3, vy: -(Math.random() * 0.5 + 0.35), life: 0.8, decay: 0.012, size: Math.random() * 4 + 5, rgb: COLORS.paperLine, vapor: true });
+        }
+        function playSuccessFlash() { flashTimer = 16; }
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx + (p.bubble && !reduceMotion ? Math.sin(time * 3 + p.wobble) * 0.25 : 0);
+                p.y += p.vy;
+                if (!p.bubble && !p.vapor) p.vy += 0.03;
+                if (p.vapor) { p.size += 0.03; p.vy -= 0.002; }
+                if (p.bubble && p.surfaceY != null && p.spawnY != null) {
+                    // bọt khí to dần khi càng gần mặt thoáng (spec: bubble size gradient)
+                    const total = Math.max(1, p.spawnY - p.surfaceY);
+                    const progress = clamp((p.spawnY - p.y) / total, 0, 1);
+                    p.size = lerp(p.baseSize, p.baseSize + 2.6, progress);
+                }
+                p.life -= p.decay;
+                if (p.bubble && p.surfaceY != null && p.y <= p.surfaceY) p.life -= 0.15;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+        function updateRings() {
+            for (let i = rings.length - 1; i >= 0; i--) {
+                const r = rings[i];
+                r.r += 1.6; r.alpha -= 0.028;
+                if (r.alpha <= 0) rings.splice(i, 1);
+            }
+        }
+
+        // ======================================================
+        // VẼ NỀN LƯỚI
+        // ======================================================
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+            for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+            ctx.restore();
+        }
+        function labelFont(size) { return `bold ${size}px 'JetBrains Mono', monospace`; }
+
+        // ======================================================
+        // HÌNH HỌC PHÂN TỬ — dùng chung cho Stage 2 (kích thước to rõ ràng)
+        // ======================================================
+        const DEG = Math.PI / 180;
+        const BOND_LEN = 52, H_R = 14, CENTRAL_R = 22, LP_DIST = 32, HANDLE_DIST = 75, HANDLE_R = 12, HBOND_THRESHOLD = 36;
+        const MOLECULE_DEFS = {
+            H2O: { symbol: 'H₂O', central: 'O', bonds: [-52, 52], lonePairs: [140, 220], canDonor: true, canAccept: true },
+            HF: { symbol: 'HF', central: 'F', bonds: [0], lonePairs: [110, 180, 250], canDonor: true, canAccept: true },
+            NH3: { symbol: 'NH₃', central: 'N', bonds: [60, 180, 300], lonePairs: [0], canDonor: true, canAccept: true },
+            H2S: { symbol: 'H₂S', central: 'S', bonds: [-52, 52], lonePairs: [140, 220], canDonor: false, canAccept: false },
+            CH4: { symbol: 'CH₄', central: 'C', bonds: [0, 90, 180, 270], lonePairs: [], canDonor: false, canAccept: false }
+        };
+        function getAtomPositions(mol) {
+            const def = MOLECULE_DEFS[mol.type];
+            const hAtoms = def.bonds.map(a => {
+                const ang = mol.rot + a * DEG;
+                return { x: mol.x + Math.cos(ang) * BOND_LEN, y: mol.y + Math.sin(ang) * BOND_LEN, angle: ang };
+            });
+            const lonePairs = def.lonePairs.map(a => {
+                const ang = mol.rot + a * DEG;
+                return { x: mol.x + Math.cos(ang) * LP_DIST, y: mol.y + Math.sin(ang) * LP_DIST, angle: ang };
+            });
+            return { hAtoms, lonePairs, def };
+        }
+        function tryDonorAccept(donor, accept) {
+            const dPos = getAtomPositions(donor), aPos = getAtomPositions(accept);
+            if (!dPos.def.canDonor || !aPos.def.canAccept) return null;
+            let best = null;
+            dPos.hAtoms.forEach(h => {
+                aPos.lonePairs.forEach(lp => {
+                    const dist = Math.hypot(h.x - lp.x, h.y - lp.y);
+                    if (dist < HBOND_THRESHOLD && (!best || dist < best.dist)) {
+                        best = { dist, hPos: h, lpPos: lp };
+                    }
+                });
+            });
+            return best;
+        }
+        function checkHBondPair(m1, m2) {
+            const ab = tryDonorAccept(m1, m2);
+            const ba = tryDonorAccept(m2, m1);
+            if (ab && (!ba || ab.dist <= ba.dist)) return { formed: true, hPos: ab.hPos, lpPos: ab.lpPos, donor: m1, accept: m2 };
+            if (ba) return { formed: true, hPos: ba.hPos, lpPos: ba.lpPos, donor: m2, accept: m1 };
+            return { formed: false };
+        }
+        function drawMolecule(mol, opts) {
+            opts = opts || {};
+            const def = MOLECULE_DEFS[mol.type];
+            const pos = getAtomPositions(mol);
+            const cc = ATOM_COLORS[def.central];
+            ctx.save();
+            // liên kết cộng hoá trị (nét liền dày, rõ nét)
+            ctx.strokeStyle = 'rgba(26,26,26,0.6)';
+            ctx.lineWidth = 4.5;
+            pos.hAtoms.forEach(h => { ctx.beginPath(); ctx.moveTo(mol.x, mol.y); ctx.lineTo(h.x, h.y); ctx.stroke(); });
+            
+            // cặp electron chưa liên kết
+            if (def.canAccept) {
+                pos.lonePairs.forEach(lp => {
+                    const perpX = -Math.sin(lp.angle) * 5.2, perpY = Math.cos(lp.angle) * 5.2;
+                    ctx.fillStyle = 'rgba(30,41,59,0.85)';
+                    ctx.beginPath(); ctx.arc(lp.x + perpX, lp.y + perpY, 2.6, 0, Math.PI * 2); ctx.fill();
+                    ctx.beginPath(); ctx.arc(lp.x - perpX, lp.y - perpY, 2.6, 0, Math.PI * 2); ctx.fill();
+                });
+            }
+            
+            // nguyên tử H (khối cầu 3D lớn)
+            pos.hAtoms.forEach(h => {
+                drawSphereAtom(h.x, h.y, H_R, ATOM_COLORS.H);
+                ctx.fillStyle = '#0f172a';
+                ctx.font = labelFont(11); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('H', h.x, h.y);
+                if (def.canDonor) {
+                    ctx.fillStyle = '#9a3412';
+                    ctx.font = labelFont(11);
+                    const deltaX = h.x + Math.cos(h.angle) * 18, deltaY = h.y + Math.sin(h.angle) * 18;
+                    ctx.fillText('δ+', deltaX, deltaY);
+                }
+            });
+            
+            // nguyên tử trung tâm (khối cầu 3D lớn)
+            drawSphereAtom(mol.x, mol.y, CENTRAL_R, cc);
+            ctx.fillStyle = (def.central === 'H' || def.central === 'F') ? '#0f172a' : '#ffffff';
+            ctx.font = labelFont(14); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(def.central, mol.x, mol.y);
+            if (def.canAccept) {
+                ctx.fillStyle = '#0f172a';
+                ctx.font = labelFont(12);
+                ctx.fillText('δ-', mol.x, mol.y - CENTRAL_R - 9);
+            }
+            
+            // tay xoay (vùng chạm lớn cho mobile)
+            if (opts.interactive) {
+                const hAng = mol.rot - Math.PI / 2;
+                const hx = mol.x + Math.cos(hAng) * HANDLE_DIST, hy = mol.y + Math.sin(hAng) * HANDLE_DIST;
+                ctx.strokeStyle = 'rgba(60,165,122,0.6)'; ctx.lineWidth = 2.2; ctx.setLineDash([4, 4]);
+                ctx.beginPath(); ctx.moveTo(mol.x, mol.y); ctx.lineTo(hx, hy); ctx.stroke(); ctx.setLineDash([]);
+                ctx.fillStyle = rgba(COLORS.jade, 0.95); ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+                ctx.beginPath(); ctx.arc(hx, hy, HANDLE_R, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(hx, hy, 5, -Math.PI * 0.8, Math.PI * 0.4);
+                ctx.stroke();
+                mol._handlePos = { x: hx, y: hy };
+            }
+            ctx.restore();
+        }
+        function drawMoleculeLegend() {
+            ctx.save();
+            const x = W - 188, y = 10, w = 178, h = 68;
+            ctx.fillStyle = 'rgba(250,247,240,0.94)'; ctx.strokeStyle = 'rgba(168,201,184,0.9)'; ctx.lineWidth = 1.4;
+            roundRect(x, y, w, h, 8); ctx.fill(); ctx.stroke();
+            ctx.font = labelFont(9.5); ctx.fillStyle = '#514C44'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+            ctx.fillText('δ+ trên H · δ- trên N/O/F', x + 8, y + 15);
+            ctx.beginPath(); ctx.arc(x + 12, y + 34, 2.4, 0, Math.PI * 2); ctx.arc(x + 18, y + 34, 2.4, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(30,41,59,0.85)'; ctx.fill();
+            ctx.fillStyle = '#514C44'; ctx.fillText('cặp e⁻ chưa liên kết', x + 26, y + 34);
+            ctx.strokeStyle = 'rgba(45,139,111,0.9)'; ctx.setLineDash([3, 4]); ctx.lineWidth = 2.4;
+            ctx.beginPath(); ctx.moveTo(x + 6, y + 52); ctx.lineTo(x + 24, y + 52); ctx.stroke(); ctx.setLineDash([]);
+            ctx.fillText('liên kết hydrogen', x + 30, y + 52);
+            ctx.restore();
+        }
+        function drawHBondLine(hPos, lpPos) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(45,139,111,0.95)';
+            ctx.lineWidth = 4.2;
+            ctx.setLineDash([4, 6]);
+            ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(hPos.x, hPos.y); ctx.lineTo(lpPos.x, lpPos.y); ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        }
+
+        // ======================================================
+        // MAIN LOOP
+        // ======================================================
+        function loop() {
+            resizeCanvas();
+            time += 0.045;
+            updateTweens(16.7);
+            canvasClickTargets = [];
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid();
+
+            const scaleX = canvasW / W;
+            const scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            if (flashTimer > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                ctx.restore();
+                flashTimer--;
+            }
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: drawStage2(); break;
+                case 3: drawStage3(); break;
+            }
+
+            updateRings();
+            rings.forEach(r => {
+                ctx.save();
+                ctx.globalAlpha = clamp(r.alpha, 0, 1);
+                ctx.strokeStyle = `rgb(${r.rgb.r},${r.rgb.g},${r.rgb.b})`;
+                ctx.lineWidth = clamp(3 - r.r / 14, 0.5, 3);
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+            });
+
+            updateParticles();
+            particles.forEach(p => {
+                ctx.save();
+                ctx.globalAlpha = clamp(p.life, 0, 1);
+                if (p.vapor) {
+                    ctx.fillStyle = `rgba(255,255,255,${0.4 * clamp(p.life, 0, 1)})`;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                } else if (p.bubble) {
+                    ctx.fillStyle = 'rgba(255,255,255,0.55)';
+                    ctx.strokeStyle = 'rgba(148,163,184,0.6)'; ctx.lineWidth = 1;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size + 1.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                } else {
+                    ctx.fillStyle = `rgb(${p.rgb.r},${p.rgb.g},${p.rgb.b})`;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                }
+                ctx.restore();
+            });
+
+            ctx.restore();
+            requestAnimationFrame(loop);
+        }
+
+        // ======================================================
+        // STATE
+        // ======================================================
+        const STAGE_COUNT = 3;
+        const state = {
+            stage: 1,
+            isAnimating: false,
+            s1: {
+                tempH2O: 20, tempH2S: -80,
+                heatingH2O: false, heatingH2S: false,
+                boiledH2O: false, boiledH2S: false,
+                quizDone: false
+            },
+            s2: {
+                phase: 'pairH2O', // pairH2O -> pairH2S -> library -> rule
+                molA: null, molB: null,
+                h2oAligned: false,
+                h2sInteracted: false,
+                libSlotA: null, libSlotB: null,
+                libraryTests: [],
+                testAnimating: false,
+                ruleClickedOH: false, ruleClickedHBond: false,
+                quizDone: false
+            },
+            s3: {
+                energy: 0,
+                autoRunning: false,
+                mode: 'liquid',
+                frozenOnce: false,
+                molecules: [],
+                escapedCount: 0,
+                taskADone: false,
+                observedLiquid: false,
+                observedIce: false,
+                dndDone: false,
+                quizDone: false
+            }
+        };
+
+        // ======================================================
+        // AI GUIDE / ROBOT SPEECH
+        // ======================================================
+        function setRobotSpeech(text, type) {
+            type = type || 'idle';
+            const bar = document.getElementById('aiGuideBar');
+            if (bar) bar.className = `ai-guide card state-${type}`;
+            const el = document.getElementById('aiText');
+            if (el) { el.classList.remove('fade-in'); void el.offsetWidth; el.innerHTML = text; el.classList.add('fade-in'); }
+        }
+
+        // ======================================================
+        // QUIZ GENERIC (gated single-choice)
+        // ======================================================
+        function appendConclusionBlock(id, titleHtml, bodyHtml, done) {
+            const wrap = document.getElementById('conclusionBody');
+            let block = document.getElementById(id);
+            if (!block) {
+                block = document.createElement('div');
+                block.className = 'concl-block';
+                block.id = id;
+                wrap.appendChild(block);
+            }
+            block.classList.toggle('is-done', !!done);
+            block.innerHTML = `<div class="concl-title">${titleHtml}</div><div class="concl-body-text">${bodyHtml}</div>`;
+            setTimeout(() => {
+                block.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 1000);
+            return block;
+        }
+        function renderQuizInto(block, question, options, correctKey, correctMsg, wrongMsg, onCorrect) {
+            const qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            const holder = document.createElement('div');
+            holder.innerHTML = `<div class="quiz-question">${question}</div>
+                <ul class="quiz-options-list"></ul>
+                <div class="quiz-feedback" style="display:none;"></div>`;
+            block.appendChild(holder);
+            const list = holder.querySelector('.quiz-options-list');
+            const feedback = holder.querySelector('.quiz-feedback');
+            options.forEach(opt => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option-btn';
+                btn.innerHTML = `<span class="quiz-option-key">${opt.key}</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon"></span>`;
+                btn.onclick = () => {
+                    const btns = list.querySelectorAll('.quiz-option-btn');
+                    if (opt.key === correctKey) {
+                        btns.forEach(b => b.disabled = true);
+                        btn.classList.add('opt-correct');
+                        btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                        feedback.style.display = 'block'; feedback.className = 'quiz-feedback is-correct'; feedback.innerHTML = correctMsg;
+                        playSuccessFlash();
+                        setRobotSpeech(correctMsg, 'correct');
+                        lmsRecordAnswer(qid, question, options, opt.key, true);
+                        lmsReportState('answered:' + qid);
+                        onCorrect();
+                    } else {
+                        btn.classList.add('opt-wrong'); btn.disabled = true;
+                        btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+                        btns.forEach(b => { if (!b.classList.contains('opt-wrong')) b.disabled = false; });
+                        feedback.style.display = 'block'; feedback.className = 'quiz-feedback is-wrong'; feedback.innerHTML = wrongMsg;
+                        setRobotSpeech(wrongMsg, 'wrong');
+                        lmsRecordAnswer(qid, question, options, opt.key, false);
+                    }
+                };
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+
+        // ======================================================
+        // KÉO-THẢ NGUYÊN NHÂN — KẾT QUẢ (dùng cho Stage 3)
+        // ======================================================
+        let orderState = null;
+        function renderOrderDndInto(block, introHtml, poolItems, slotLabels, correctOrder, onDone) {
+            const qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            orderState = { slots: new Array(slotLabels.length).fill(null), correctOrder, onDone, locked: false, selected: null, qid, poolItems, slotLabels };
+            const holder = document.createElement('div');
+            holder.innerHTML = `<div class="dnd-intro">${introHtml}</div>
+                <div class="dnd-pool" id="dndPool"></div>
+                <div class="dnd-zones" id="dndZones"></div>
+                <div class="dnd-check-wrap" id="dndCheckWrap"></div>`;
+            block.appendChild(holder);
+            const pool = holder.querySelector('#dndPool');
+            const shuffled = poolItems.slice().sort(() => Math.random() - 0.5);
+            shuffled.forEach(item => {
+                const chip = document.createElement('div');
+                chip.className = 'dnd-chip';
+                chip.innerText = item.label;
+                chip.dataset.key = item.key;
+                chip.onclick = () => { if (!chip._didDrag) selectOrderChip(chip, item.key); };
+                bindChipDrag(chip, item.key);
+                pool.appendChild(chip);
+            });
+            const zones = holder.querySelector('#dndZones');
+            slotLabels.forEach((lbl, idx) => {
+                const zone = document.createElement('div');
+                zone.className = 'dnd-zone';
+                zone.dataset.slot = idx;
+                zone.innerHTML = `<span class="zone-label">${lbl}</span><span class="zone-value">— thả vào đây —</span>`;
+                zone.onclick = () => handleZoneClick(zone, idx);
+                zones.appendChild(zone);
+            });
+        }
+        function selectOrderChip(chipEl, key) {
+            if (chipEl.classList.contains('placed')) return;
+            document.querySelectorAll('.dnd-chip').forEach(c => c.classList.remove('selected'));
+            chipEl.classList.add('selected');
+            orderState.selected = { el: chipEl, key };
+        }
+        function bindChipDrag(chip, key) {
+            chip.addEventListener('pointerdown', (e) => {
+                if (chip.classList.contains('placed') || orderState.locked) return;
+                const startX = e.clientX, startY = e.clientY;
+                const rect = chip.getBoundingClientRect();
+                const offX = startX - rect.left, offY = startY - rect.top;
+                let dragging = false, hoverZone = null;
+                const onMove = (ev) => {
+                    const dx = ev.clientX - startX, dy = ev.clientY - startY;
+                    if (!dragging && Math.hypot(dx, dy) > 6) {
+                        dragging = true; chip._didDrag = true;
+                        chip.classList.add('dragging', 'selected');
+                        chip.style.position = 'fixed'; chip.style.width = rect.width + 'px';
+                        chip.style.zIndex = 1000; chip.style.pointerEvents = 'none';
+                    }
+                    if (dragging) {
+                        chip.style.left = (ev.clientX - offX) + 'px';
+                        chip.style.top = (ev.clientY - offY) + 'px';
+                        const el = document.elementFromPoint(ev.clientX, ev.clientY);
+                        const zoneEl = el ? el.closest('.dnd-zone') : null;
+                        if (zoneEl !== hoverZone) {
+                            if (hoverZone) hoverZone.classList.remove('drag-over');
+                            hoverZone = zoneEl;
+                            if (hoverZone) hoverZone.classList.add('drag-over');
+                        }
+                    }
+                };
+                const onUp = () => {
+                    document.removeEventListener('pointermove', onMove);
+                    document.removeEventListener('pointerup', onUp);
+                    if (hoverZone) hoverZone.classList.remove('drag-over');
+                    if (dragging) {
+                        chip.classList.remove('dragging', 'selected');
+                        chip.style.position = ''; chip.style.left = ''; chip.style.top = ''; chip.style.width = ''; chip.style.zIndex = ''; chip.style.pointerEvents = '';
+                        if (hoverZone && !orderState.locked) {
+                            const idx = Number(hoverZone.dataset.slot);
+                            if (orderState.slots[idx] !== null) removeFromSlot(idx);
+                            placeIntoSlot(hoverZone, idx, { el: chip, key });
+                        }
+                        setTimeout(() => { chip._didDrag = false; }, 0);
+                    }
+                };
+                document.addEventListener('pointermove', onMove);
+                document.addEventListener('pointerup', onUp);
+            });
+        }
+        function handleZoneClick(zoneEl, idx) {
+            if (orderState.locked) return;
+            if (orderState.slots[idx]) { removeFromSlot(idx); return; }
+            if (orderState.selected) placeIntoSlot(zoneEl, idx, orderState.selected);
+        }
+        function placeIntoSlot(zoneEl, idx, chipInfo) {
+            zoneEl.classList.add('filled'); zoneEl.classList.remove('wrong-flash');
+            zoneEl.querySelector('.zone-value').innerText = chipInfo.el.innerText;
+            chipInfo.el.classList.add('placed'); chipInfo.el.classList.remove('selected');
+            orderState.slots[idx] = chipInfo.key;
+            orderState.selected = null;
+            renderDndCheckButton();
+        }
+        function removeFromSlot(idx) {
+            const key = orderState.slots[idx];
+            const zone = document.querySelector(`.dnd-zone[data-slot="${idx}"]`);
+            if (zone) { zone.classList.remove('filled'); zone.querySelector('.zone-value').innerText = '— thả vào đây —'; }
+            orderState.slots[idx] = null;
+            const chip = Array.from(document.querySelectorAll('.dnd-chip')).find(c => c.dataset.key === key);
+            if (chip) chip.classList.remove('placed');
+            renderDndCheckButton();
+        }
+        function renderDndCheckButton() {
+            const wrap = document.getElementById('dndCheckWrap');
+            if (!wrap) return;
+            const allFilled = orderState.slots.every(s => s !== null);
+            if (allFilled && !orderState.locked) {
+                wrap.innerHTML = `<button class="btn-primary" id="dndCheckBtn">Kiểm tra <i class="ti ti-check"></i></button>`;
+                document.getElementById('dndCheckBtn').onclick = checkOrderDnd;
+            } else { wrap.innerHTML = ''; }
+        }
+        function checkOrderDnd() {
+            const isCorrect = orderState.slots.every((k, i) => k === orderState.correctOrder[i]);
+            const dOptions = orderState.slotLabels.map((lbl, i) => ({ key: String(i), text: lbl }));
+            const dChosen = orderState.slots.map((k, i) => orderState.slotLabels[i] + '=' + k).join('; ');
+            if (isCorrect) {
+                orderState.locked = true;
+                document.querySelectorAll('.dnd-zone').forEach(z => z.onclick = null);
+                playSuccessFlash();
+                spawnParticles(W / 2, H / 2, COLORS.jade, 14);
+                const wrap = document.getElementById('dndCheckWrap'); if (wrap) wrap.innerHTML = '';
+                lmsRecordAnswer(orderState.qid, 'Hoàn thành hai chuỗi nguyên nhân - kết quả', dOptions, dChosen, true);
+                lmsReportState('dnd-correct');
+                orderState.onDone(true);
+            } else {
+                document.querySelectorAll('.dnd-zone').forEach(z => { z.classList.add('wrong-flash'); setTimeout(() => z.classList.remove('wrong-flash'), 400); });
+                lmsRecordAnswer(orderState.qid, 'Hoàn thành hai chuỗi nguyên nhân - kết quả', dOptions, dChosen, false);
+                orderState.onDone(false);
+            }
+        }
+
+        // ======================================================
+        // AHA MOMENT + CHUYỂN STAGE
+        // ======================================================
+        function appendAhaAndAdvance(id, text, nextLabel, onAdvance) {
+            const wrap = document.getElementById('conclusionBody');
+            const box = document.createElement('div');
+            box.className = 'aha-box'; box.id = id;
+            const btnText = nextLabel || 'Tiếp tục';
+            box.innerHTML = `
+                <div class="aha-header">
+                    <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+                    <button class="btn-primary aha-adv-btn" id="${id}_advBtn">${btnText} <i class="ti ti-arrow-right"></i></button>
+                </div>
+                <div class="aha-content">${text}</div>`;
+            wrap.appendChild(box);
+            box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            document.getElementById(id + '_advBtn').onclick = onAdvance;
+        }
+
+        function goToStage(n) {
+            state.stage = n;
+            initStageByIndex(n);
+            lmsReportState('goToStage=' + n);
+        }
+        function initStageByIndex(s) {
+            if (s === 1) initStage1();
+            else if (s === 2) initStage2();
+            else if (s === 3) initStage3();
+        }
+
+        // ======================================================
+        // CONTROLS / OBSERVE TABLE — dispatcher chung
+        // ======================================================
+        function renderProgressDots() {
+            const wrap = document.createElement('div');
+            wrap.className = 'progress-dots';
+            const stageNames = ['Giai đoạn 1: So sánh nhiệt độ sôi H₂O và H₂S', 'Giai đoạn 2: Bản chất liên kết hydrogen', 'Giai đoạn 3: Ảnh hưởng đến tính chất của nước'];
+            for (let i = 1; i <= 3; i++) {
+                const d = document.createElement('div');
+                const isCurrent = state.stage === i;
+                const isDone = state.stage > i || (i === 3 && completed);
+                d.className = 'p-dot' + (isCurrent ? ' active' : (isDone ? ' done' : ''));
+                d.innerHTML = isDone ? '<i class="ti ti-check"></i>' : String(i);
+                d.title = `Chuyển tới ${stageNames[i - 1]}`;
+                d.style.cursor = 'pointer';
+                d.onclick = () => goToStage(i);
+                wrap.appendChild(d);
+            }
+            return wrap;
+        }
+
+        function renderControls() {
+            const row = document.getElementById('ctrlRow');
+            row.innerHTML = '';
+
+            // Phía bên trái: Progress Dots theo Stage
+            const leftGroup = document.createElement('div');
+            leftGroup.className = 'ctrl-left';
+            leftGroup.appendChild(renderProgressDots());
+            row.appendChild(leftGroup);
+
+            // Phía bên phải: Các nút điều khiển dồn sang góc phải
+            const rightGroup = document.createElement('div');
+            rightGroup.className = 'ctrl-right';
+            row.appendChild(rightGroup);
+
+            if (state.stage === 1) renderControlsStage1(rightGroup);
+            else if (state.stage === 2) renderControlsStage2(rightGroup);
+            else if (state.stage === 3) renderControlsStage3(rightGroup);
+        }
+        function refreshObserveTable() {
+            if (state.stage === 1) refreshObserveTableStage1();
+            else if (state.stage === 2) refreshObserveTableStage2();
+            else if (state.stage === 3) refreshObserveTableStage3();
+        }
+        function ctrlDivider(row) { const d = document.createElement('div'); d.className = 'ctrl-divider'; row.appendChild(d); return d; }
+        function ctrlButton(row, cls, iconClass, label, onclick, disabled, loading) {
+            const btn = document.createElement('button');
+            btn.className = cls;
+            btn.innerHTML = `<i class="ti ${loading ? 'ti-loader spin' : iconClass}"></i> ${label}`;
+            btn.disabled = !!disabled;
+            btn.onclick = onclick;
+            row.appendChild(btn);
+            return btn;
+        }
+
+        // ======================================================
+        // STAGE 1 — Vì sao nước có nhiệt độ sôi cao hơn H₂S?
+        // ======================================================
+        const S1_BOIL_H2O = 100, S1_START_H2O = 20;
+        const S1_BOIL_H2S = -60, S1_START_H2S = -80;
+        const S1_LEFT = { x: 78, y: 46, w: 245, h: 200 };
+        const S1_RIGHT = { x: 438, y: 46, w: 245, h: 200 };
+        let s1MolH2O = [], s1MolH2S = [];
+        let s1Escaping = []; // phân tử thoát khỏi bề mặt chất lỏng, bay lên vùng khí khi đang sôi (giữ nguyên cấu tạo phân tử)
+
+        function initStage1() {
+            state.s1 = {
+                tempH2O: S1_START_H2O,
+                tempH2S: S1_START_H2S,
+                isHeating: false,
+                boiledH2O: false,
+                boiledH2S: false,
+                isFrozen: false,
+                freezeTimer: 0,
+                quizDone: false
+            };
+            s1MolH2O = []; s1MolH2S = []; s1Escaping = [];
+            const liqTopL = chamberSurfaceY(S1_LEFT) + 12, liqBotL = S1_LEFT.y + S1_LEFT.h - 14;
+            const liqTopR = chamberSurfaceY(S1_RIGHT) + 12, liqBotR = S1_RIGHT.y + S1_RIGHT.h - 14;
+            for (let i = 0; i < 9; i++) {
+                s1MolH2O.push({ x: S1_LEFT.x + 20 + Math.random() * (S1_LEFT.w - 40), y: liqTopL + Math.random() * Math.max(10, liqBotL - liqTopL), vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4 });
+                s1MolH2S.push({ x: S1_RIGHT.x + 20 + Math.random() * (S1_RIGHT.w - 40), y: liqTopR + Math.random() * Math.max(10, liqBotR - liqTopR), vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4 });
+            }
+            particles = []; rings = [];
+            renderControls();
+            refreshObserveTableStage1();
+            setRobotSpeech('Hai chất được khảo sát riêng để ban đầu đều ở trạng thái lỏng. Hãy nhấn nút "Gia nhiệt" để bắt đầu quá trình cấp nhiệt đồng thời cho cả hai buồng.', 'idle');
+            document.getElementById('conclusionBody').innerHTML = '';
+        }
+
+        function startStage1Heating() {
+            if (state.s1.isHeating || state.s1.isFrozen || (state.s1.boiledH2O && state.s1.boiledH2S)) return;
+            state.s1.isHeating = true;
+            state.s1.isFrozen = false;
+            renderControls();
+            setRobotSpeech('Đang gia nhiệt đồng thời cho cả hai buồng. Hãy quan sát cột nhiệt kế và trạng thái phân tử ở từng buồng.', 'idle');
+        }
+
+        function stage1Tick() {
+            // Khi animation đã dừng ở khung hình sôi hoàn tất, giữ nguyên không cập nhật
+            if (state.s1.isFrozen) return;
+
+            // 1. Khi đang gia nhiệt: tăng nhiệt độ chậm rãi, mượt mà
+            if (state.s1.isHeating) {
+                // Buồng H₂S: tăng từ -80°C lên đúng -60°C (sôi trước sau ~4.4s)
+                if (!state.s1.boiledH2S) {
+                    state.s1.tempH2S = clamp(state.s1.tempH2S + 0.075, S1_START_H2S, S1_BOIL_H2S);
+                    if (state.s1.tempH2S >= S1_BOIL_H2S) {
+                        state.s1.tempH2S = S1_BOIL_H2S;
+                        onStage1Boiled('H2S');
+                    }
+                }
+
+                // Buồng H₂O: tăng từ 20°C lên đúng 100°C (sôi sau tại ~9.8s)
+                if (!state.s1.boiledH2O) {
+                    state.s1.tempH2O = clamp(state.s1.tempH2O + 0.135, S1_START_H2O, S1_BOIL_H2O);
+                    if (state.s1.tempH2O >= S1_BOIL_H2O) {
+                        state.s1.tempH2O = S1_BOIL_H2O;
+                        onStage1Boiled('H2O');
+                    }
+                }
+
+                // Khi cả hai buồng đều đã sôi: tạo bọt khí & bay hơi đầy đủ rồi dừng ở khung hình sôi
+                if (state.s1.boiledH2O && state.s1.boiledH2S) {
+                    state.s1.freezeTimer = (state.s1.freezeTimer || 0) + 1;
+                    if (state.s1.freezeTimer > 45) {
+                        state.s1.isFrozen = true;
+                        state.s1.isHeating = false;
+                        renderControls();
+                        showStage1Quiz();
+                    }
+                }
+            }
+
+            // 2. Chuyển động phân tử mini (khi chưa đun: nhẹ nhàng; khi đun: tăng theo nhiệt độ)
+            const jitterH2O = lerp(0.28, 2.1, (state.s1.tempH2O - S1_START_H2O) / (S1_BOIL_H2O - S1_START_H2O));
+            const jitterH2S = lerp(0.28, 2.1, (state.s1.tempH2S - S1_START_H2S) / (S1_BOIL_H2S - S1_START_H2S));
+            moveMiniMols(s1MolH2O, S1_LEFT, jitterH2O);
+            moveMiniMols(s1MolH2S, S1_RIGHT, jitterH2S);
+
+            // 3. Hiện tượng sôi (bọt khí trắng bạc, hơi phân tử thoát lên)
+            if (state.s1.boiledH2S) {
+                if (Math.random() < 0.38) spawnBubble(S1_RIGHT.x + 30 + Math.random() * (S1_RIGHT.w - 60), S1_RIGHT.y + S1_RIGHT.h - 16, chamberSurfaceY(S1_RIGHT), COLORS.paperLine);
+                if (Math.random() < 0.12) spawnVapor(S1_RIGHT.x + 40 + Math.random() * (S1_RIGHT.w - 80), chamberSurfaceY(S1_RIGHT) - 5);
+                if (Math.random() < 0.025) s1Escaping.push({ kind: 'H2S', x: S1_RIGHT.x + 40 + Math.random() * (S1_RIGHT.w - 80), y: chamberSurfaceY(S1_RIGHT) - 6, vy: -0.55, life: 1 });
+            }
+
+            if (state.s1.boiledH2O) {
+                if (Math.random() < 0.40) spawnBubble(S1_LEFT.x + 30 + Math.random() * (S1_LEFT.w - 60), S1_LEFT.y + S1_LEFT.h - 16, chamberSurfaceY(S1_LEFT), COLORS.paperLine);
+                if (Math.random() < 0.14) spawnVapor(S1_LEFT.x + 40 + Math.random() * (S1_LEFT.w - 80), chamberSurfaceY(S1_LEFT) - 5);
+                if (Math.random() < 0.03) s1Escaping.push({ kind: 'H2O', x: S1_LEFT.x + 40 + Math.random() * (S1_LEFT.w - 80), y: chamberSurfaceY(S1_LEFT) - 6, vy: -0.55, life: 1 });
+            }
+
+            for (let i = s1Escaping.length - 1; i >= 0; i--) {
+                const e = s1Escaping[i];
+                e.y += e.vy; e.x += Math.sin(time * 2 + i) * 0.15;
+                const rect = e.kind === 'H2O' ? S1_LEFT : S1_RIGHT;
+                if (e.y < rect.y + 16) e.life -= 0.04;
+                if (e.life <= 0) s1Escaping.splice(i, 1);
+            }
+        }
+
+        function moveMiniMols(list, rect, jitter) {
+            const jitterAmp = reduceMotion ? 0.02 : 0.05;
+            const minX = rect.x + 14, maxX = rect.x + rect.w - 14;
+            const minY = chamberSurfaceY(rect) + 8, maxY = rect.y + rect.h - 12;
+            list.forEach(m => {
+                m.x += m.vx * jitter; m.y += m.vy * jitter;
+                m.vx += (Math.random() - 0.5) * jitterAmp; m.vy += (Math.random() - 0.5) * jitterAmp;
+                m.vx = clamp(m.vx, -1.4, 1.4); m.vy = clamp(m.vy, -1.4, 1.4);
+                if (m.x < minX) { m.x = minX; m.vx *= -1; } if (m.x > maxX) { m.x = maxX; m.vx *= -1; }
+                if (m.y < minY) { m.y = minY; m.vy *= -1; } if (m.y > maxY) { m.y = maxY; m.vy *= -1; }
+            });
+        }
+
+        function onStage1Boiled(which) {
+            if (which === 'H2S') {
+                state.s1.boiledH2S = true;
+                playSuccessFlash();
+                refreshObserveTableStage1(true);
+                setRobotSpeech('Ở −60°C, H₂S đã bắt đầu sôi mạnh và phân tử thoát lên vùng khí, trong khi H₂O vẫn ở trạng thái lỏng và tiếp tục tăng nhiệt độ...', 'idle');
+            } else if (which === 'H2O') {
+                state.s1.boiledH2O = true;
+                playSuccessFlash();
+                refreshObserveTableStage1(true);
+                renderControls();
+                setRobotSpeech('H₂O có phân tử khối nhỏ hơn H₂S nhưng lại sôi ở nhiệt độ cao hơn rất nhiều. Kết quả này gợi cho em điều gì về lực hút giữa các phân tử?', 'idle');
+                showStage1Quiz();
+            }
+        }
+
+        function showStage1Quiz() {
+            const block = appendConclusionBlock('s1_quiz', '<i class="ti ti-help-circle"></i> Câu hỏi', 'Nhận xét nào phù hợp nhất với kết quả mô phỏng?');
+            renderQuizInto(block,
+                'Nhận xét nào phù hợp nhất với kết quả mô phỏng?',
+                [
+                    { key: 'A', text: 'Các phân tử H₂O nặng hơn nên khó bay hơi hơn H₂S.' },
+                    { key: 'B', text: 'Giữa các phân tử H₂O tồn tại lực hút mạnh hơn giữa các phân tử H₂S.' },
+                    { key: 'C', text: 'Khi nước sôi, phải phá vỡ các liên kết cộng hoá trị O–H bên trong phân tử.' }
+                ],
+                'B',
+                'Chính xác! Khi chất lỏng chuyển thành khí, các phân tử phải tách xa nhau. H₂O sôi ở nhiệt độ cao hơn cho thấy cần thắng lực hút giữa các phân tử mạnh hơn.',
+                'Hãy quan sát lại: H₂O có phân tử khối nhỏ hơn nhưng nhiệt độ sôi cao hơn rất nhiều. Khi sôi, các phân tử tách xa nhau; liên kết O–H bên trong mỗi phân tử không bị phá vỡ.',
+                () => {
+                    state.s1.quizDone = true;
+                    block.classList.add('is-done');
+                    appendAhaAndAdvance('s1_aha',
+                        'Giữa các phân tử H₂O tồn tại lực hút mạnh hơn giữa các phân tử H₂S.',
+                        'Tiếp tục',
+                        () => goToStage(2));
+                    setRobotSpeech('Lực hút mạnh hơn giữa các phân tử nước xuất hiện ở vị trí nào và cần những điều kiện gì?', 'correct');
+                    appendDetailsBox('s1_detail', 'Vì sao phân tử khối nhỏ hơn mà lại sôi cao hơn?',
+                        `Nhiệt độ sôi phản ánh năng lượng cần cung cấp để các phân tử <em>tách rời nhau</em>
+                        ra khỏi thể lỏng — hoàn toàn không liên quan đến việc phá vỡ liên kết cộng hoá trị
+                        O–H hay S–H bên trong từng phân tử (các liên kết đó vẫn nguyên vẹn ở thể khí).
+                        Oxygen có độ âm điện lớn hơn hẳn sulfur, nên cặp electron liên kết trong O–H bị kéo
+                        lệch mạnh hơn, tạo ra Hδ+ và Oδ- rõ rệt hơn nhiều so với Hδ+/Sδ- trong H₂S. Điện tích
+                        riêng phần lớn hơn ⇒ lực hút tĩnh điện giữa các phân tử H₂O (liên kết hydrogen) mạnh
+                        hơn hẳn lực hút giữa các phân tử H₂S ⇒ cần nhiều năng lượng nhiệt hơn để thắng lực
+                        hút đó, nên H₂O sôi ở nhiệt độ cao hơn dù nhẹ hơn.`);
+                }
+            );
+        }
+
+        function drawThermometer(cx, cy, h, temp, minTemp, maxTemp, majorTicks, label) {
+            const frac = clamp((temp - minTemp) / (maxTemp - minTemp), 0, 1);
+            ctx.save();
+
+            const stemW = 12;
+            const stemX = cx - stemW / 2;
+            const stemY = cy + 22;
+            const stemH = h - 46;
+            const bulbR = 12;
+            const bulbY = stemY + stemH + 2;
+
+            // Thân thủy tinh ngoài
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.6;
+
+            ctx.beginPath();
+            ctx.moveTo(stemX, stemY + 6);
+            ctx.quadraticCurveTo(stemX, stemY, stemX + 6, stemY);
+            ctx.quadraticCurveTo(stemX + stemW, stemY, stemX + stemW, stemY + 6);
+            ctx.lineTo(stemX + stemW, bulbY - bulbR * 0.7);
+            ctx.arc(cx, bulbY, bulbR, -Math.PI * 0.28, Math.PI * 1.28, false);
+            ctx.lineTo(stemX, stemY + 6);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Rãnh mao dẫn
+            const capW = 3.2;
+            const capX = cx - capW / 2;
+            const capH = stemH - 6;
+            ctx.fillStyle = 'rgba(226, 232, 240, 0.85)';
+            ctx.fillRect(capX, stemY + 6, capW, capH);
+
+            // Bầu chất lỏng đỏ ở đáy
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath();
+            ctx.arc(cx, bulbY, bulbR - 2.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Cột chất lỏng đỏ dâng lên
+            const fillH = capH * frac;
+            const fillY = (stemY + 6 + capH) - fillH;
+
+            const gradLiquid = ctx.createLinearGradient(capX, 0, capX + capW, 0);
+            gradLiquid.addColorStop(0, '#b91c1c');
+            gradLiquid.addColorStop(0.5, '#ef4444');
+            gradLiquid.addColorStop(1, '#dc2626');
+            ctx.fillStyle = gradLiquid;
+
+            ctx.beginPath();
+            ctx.rect(capX, fillY, capW, fillH + (bulbR * 0.7));
+            ctx.fill();
+
+            // Vệt sáng thủy tinh
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fillRect(stemX + 1.5, stemY + 3, 2, stemH + 2);
+
+            // Vạch chia độ (ticks)
+            const isLeft = cx < W / 2;
+            const tickDir = isLeft ? -1 : 1;
+            const tickStartX = isLeft ? (stemX - 2) : (stemX + stemW + 2);
+
+            ctx.fillStyle = '#475569';
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 1;
+            ctx.font = labelFont(8);
+            ctx.textAlign = isLeft ? 'right' : 'left';
+            ctx.textBaseline = 'middle';
+
+            majorTicks.forEach(tVal => {
+                const tFrac = clamp((tVal - minTemp) / (maxTemp - minTemp), 0, 1);
+                const ty = (stemY + 6 + capH) - capH * tFrac;
+
+                ctx.beginPath();
+                ctx.moveTo(tickStartX, ty);
+                ctx.lineTo(tickStartX + tickDir * 6, ty);
+                ctx.stroke();
+
+                const isCurrentBoil = (temp >= 100 && tVal === 100) || (temp >= -60 && tVal === -60);
+                ctx.fillStyle = isCurrentBoil ? 'rgb(45,139,111)' : '#514C44';
+                ctx.fillText(`${tVal}°`, tickStartX + tickDir * 9, ty);
+            });
+
+            // Số đo nhiệt độ hiện tại trên đỉnh nhiệt kế
+            ctx.save();
+            ctx.font = labelFont(10.5);
+            ctx.textAlign = 'center';
+            ctx.fillStyle = (temp >= maxTemp || (temp >= 100 && maxTemp === 120) || (temp >= -60 && maxTemp === 0)) ? 'rgb(45,139,111)' : '#1A1A1A';
+            ctx.fillText(`${Math.round(temp)}°C`, cx, cy + 8);
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        const CHAMBER_HEADSPACE_FRAC = 0.50;
+        function chamberSurfaceY(rect) { return rect.y + rect.h * CHAMBER_HEADSPACE_FRAC; }
+
+        function drawChamber(rect, kind, label, isHeating, isBoiled) {
+            ctx.save();
+
+            const wall = 3;
+            const bottomH = 3;
+            const surfaceY = chamberSurfaceY(rect);
+            const wave = (reduceMotion || !isHeating) ? 0 : Math.sin(time * 2.5) * (isBoiled ? 2 : 1);
+            const liquidColor = (kind === 'H2O') ? 'rgba(110, 180, 245, 0.32)' : 'rgba(235, 195, 80, 0.28)';
+
+            // Khung làm lạnh riêng cho H₂S
+            if (kind === 'H2S') {
+                ctx.save();
+                ctx.strokeStyle = 'rgba(125, 211, 252, 0.65)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 3]);
+                roundRect(rect.x - 7, rect.y - 6, rect.w + 14, rect.h + 12, 16);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.restore();
+            }
+
+            // Vùng khí phía trên mặt thoáng (Headspace)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.beginPath();
+            ctx.moveTo(rect.x + wall, rect.y + 2);
+            ctx.lineTo(rect.x + rect.w - wall, rect.y + 2);
+            ctx.lineTo(rect.x + rect.w - wall, surfaceY);
+            ctx.lineTo(rect.x + wall, surfaceY);
+            ctx.closePath();
+            ctx.fill();
+
+            // Dung dịch lỏng bên trong cốc — khớp khít 100% không hở 2 bên và không tràn đáy
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(rect.x + wall, surfaceY);
+            ctx.quadraticCurveTo(rect.x + rect.w / 2, surfaceY + 2 + wave, rect.x + rect.w - wall, surfaceY);
+            ctx.lineTo(rect.x + rect.w - wall, rect.y + rect.h - 12);
+            ctx.quadraticCurveTo(rect.x + rect.w - wall, rect.y + rect.h - bottomH, rect.x + rect.w - 12, rect.y + rect.h - bottomH);
+            ctx.lineTo(rect.x + 12, rect.y + rect.h - bottomH);
+            ctx.quadraticCurveTo(rect.x + wall, rect.y + rect.h - bottomH, rect.x + wall, rect.y + rect.h - 12);
+            ctx.closePath();
+            ctx.fillStyle = liquidColor;
+            ctx.fill();
+
+            // Vệt sáng mặt thoáng
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(rect.x + wall + 2, surfaceY);
+            ctx.quadraticCurveTo(rect.x + rect.w / 2, surfaceY + 2 + wave, rect.x + rect.w - wall - 2, surfaceY);
+            ctx.stroke();
+            ctx.restore();
+
+            // Vạch chia thể tích trên thành cốc
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.5)';
+            ctx.lineWidth = 1;
+            for (let i = 1; i <= 3; i++) {
+                const vy = rect.y + rect.h - 16 - i * 22;
+                ctx.beginPath();
+                ctx.moveTo(rect.x + wall, vy);
+                ctx.lineTo(rect.x + wall + 8, vy);
+                ctx.stroke();
+            }
+
+            // Thành cốc và đáy cốc thủy tinh
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(rect.x - 2, rect.y);
+            ctx.lineTo(rect.x + rect.w + 2, rect.y);
+            ctx.moveTo(rect.x, rect.y);
+            ctx.lineTo(rect.x, rect.y + rect.h - 12);
+            ctx.quadraticCurveTo(rect.x, rect.y + rect.h, rect.x + 12, rect.y + rect.h);
+            ctx.lineTo(rect.x + rect.w - 12, rect.y + rect.h);
+            ctx.quadraticCurveTo(rect.x + rect.w, rect.y + rect.h, rect.x + rect.w, rect.y + rect.h - 12);
+            ctx.lineTo(rect.x + rect.w, rect.y);
+            ctx.stroke();
+
+            // Tiêu đề buồng
+            ctx.font = labelFont(11.5);
+            ctx.fillStyle = '#1A1A1A';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, rect.x + rect.w / 2, rect.y - 12);
+
+            ctx.restore();
+        }
+
+        function drawCanvasButton(rect, text, isActive, isDone, onClick) {
+            ctx.save();
+            let bg = 'rgba(255, 255, 255, 0.92)';
+            let border = 'rgb(60, 165, 122)';
+            let textColor = '#1B5E48';
+
+            if (isDone) {
+                bg = 'rgba(220, 245, 230, 0.95)';
+                border = 'rgb(45, 139, 111)';
+                textColor = '#166534';
+            } else if (isActive) {
+                bg = 'rgba(254, 243, 199, 0.95)';
+                border = 'rgb(232, 162, 74)';
+                textColor = '#9a3412';
+            }
+
+            ctx.fillStyle = bg;
+            ctx.strokeStyle = border;
+            ctx.lineWidth = 1.8;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.08)';
+            ctx.shadowBlur = 5;
+            ctx.shadowOffsetY = 2;
+            roundRect(rect.x, rect.y, rect.w, rect.h, 8);
+            ctx.fill();
+            ctx.stroke();
+
+            if (isActive && !reduceMotion) {
+                ctx.strokeStyle = 'rgba(232, 162, 74, 0.5)';
+                ctx.lineWidth = 3.2;
+                roundRect(rect.x - 2, rect.y - 2, rect.w + 4, rect.h + 4, 10);
+                ctx.stroke();
+            }
+
+            ctx.shadowColor = 'transparent';
+            ctx.font = labelFont(10.5);
+            ctx.fillStyle = textColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, rect.x + rect.w / 2, rect.y + rect.h / 2);
+
+            ctx.restore();
+
+            if (!isDone && !isActive) {
+                canvasClickTargets.push({
+                    x: rect.x, y: rect.y, w: rect.w, h: rect.h, isRect: true,
+                    onClick
+                });
+            }
+        }
+
+        function drawMiniMolecule(x, y, kind) {
+            // Phân tử nước H₂O và H₂S được vẽ với màu sắc trang nhã, không dùng màu đỏ hay vàng
+            const cc = kind === 'H2O' ? { r: 96, g: 165, b: 250 } : { r: 148, g: 163, b: 184 };
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.35)'; ctx.lineWidth = 1.3;
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - 5.5, y + 4.5); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 5.5, y + 4.5); ctx.stroke();
+            drawSphereAtom(x - 5.5, y + 4.5, 2.5, ATOM_COLORS.H);
+            drawSphereAtom(x + 5.5, y + 4.5, 2.5, ATOM_COLORS.H);
+            drawSphereAtom(x, y, 4.5, cc);
+            ctx.restore();
+        }
+
+        function drawStage1() {
+            stage1Tick();
+
+            const isHeatingActive = state.s1.isHeating;
+
+            // 1. Vẽ buồng thí nghiệm
+            drawChamber(S1_LEFT, 'H2O', 'H₂O (Nước lỏng)', isHeatingActive, state.s1.boiledH2O);
+            drawChamber(S1_RIGHT, 'H2S', 'H₂S (Buồng làm lạnh)', isHeatingActive, state.s1.boiledH2S);
+
+            // 2. Bộ đèn cồn & giá kiềng sắt phòng thí nghiệm chuẩn (lửa cháy khi đang gia nhiệt, tắt hẳn khi hoàn thành)
+            drawAlcoholBurnerAndStand(S1_LEFT.x + S1_LEFT.w / 2, S1_LEFT.y + S1_LEFT.h, state.s1.isHeating);
+            drawAlcoholBurnerAndStand(S1_RIGHT.x + S1_RIGHT.w / 2, S1_RIGHT.y + S1_RIGHT.h, state.s1.isHeating);
+
+            // 3. Phân tử chuyển động bên trong lòng dung dịch (giữ nguyên cấu tạo phân tử)
+            s1MolH2O.forEach(m => drawMiniMolecule(m.x, m.y, 'H2O'));
+            s1MolH2S.forEach(m => drawMiniMolecule(m.x, m.y, 'H2S'));
+            s1Escaping.forEach(e => { ctx.save(); ctx.globalAlpha = clamp(e.life, 0, 1); drawMiniMolecule(e.x, e.y, e.kind); ctx.restore(); });
+
+            // 4. Nhiệt kế chân thực với đầy đủ vạch chia và thang đo chính xác
+            drawThermometer(36, S1_LEFT.y, S1_LEFT.h, state.s1.tempH2O, 0, 120, [0, 20, 40, 60, 80, 100, 120], 'H₂O');
+            drawThermometer(724, S1_RIGHT.y, S1_RIGHT.h, state.s1.tempH2S, -100, 0, [-100, -80, -60, -40, -20, 0], 'H₂S');
+
+            // 5. Nút Gia nhiệt dùng chung ở chính giữa phía dưới Canvas
+            const isCompleted = state.s1.isFrozen || (state.s1.boiledH2O && state.s1.boiledH2S);
+            const btnCenterRect = { x: W / 2 - 90, y: S1_LEFT.y + S1_LEFT.h + 30, w: 180, h: 32 };
+            const btnCenterText = isCompleted ? 'Đã hoàn thành quan sát' : (state.s1.isHeating ? 'Đang gia nhiệt…' : 'Gia nhiệt');
+
+            drawCanvasButton(btnCenterRect, btnCenterText, state.s1.isHeating, isCompleted, () => startStage1Heating());
+
+            // 6. Chú thích phía ngoài đáy canvas
+            ctx.save();
+            ctx.font = labelFont(10);
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'center';
+            ctx.fillText('Mỗi chất được khảo sát riêng ở điều kiện thích hợp để ban đầu đều ở trạng thái lỏng.', W / 2, H - 10);
+            ctx.restore();
+        }
+
+        // ======================================================
+        // BỘ ĐÈN CỒN THỦY TINH & GIÁ KIỀNG SẮT PHÒNG THÍ NGHIỆM CHUẨN
+        // ======================================================
+        function drawAlcoholBurnerAndStand(cx, baseY, isBurning) {
+            ctx.save();
+
+            // 1. GIÁ KIỀNG SẮT (TRIPOD STAND) & LƯỚI AMIĂNG (WIRE GAUZE)
+            const gauzeY = baseY + 2;
+            const gauzeW = 60;
+            const legTopY = gauzeY + 2;
+            const legBotY = baseY + 58;
+            const legSpread = 44;
+
+            // Chân sau (mờ hơn tạo chiều sâu 3D)
+            ctx.save();
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, legTopY);
+            ctx.lineTo(cx, legBotY - 4);
+            ctx.stroke();
+            ctx.restore();
+
+            // Chân trái & Chân phải
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 2.4;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(cx - 24, legTopY);
+            ctx.lineTo(cx - legSpread, legBotY);
+            ctx.moveTo(cx + 24, legTopY);
+            ctx.lineTo(cx + legSpread, legBotY);
+            ctx.stroke();
+
+            // Đế chân kiềng
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(cx - legSpread - 2, legBotY - 2, 4, 3);
+            ctx.fillRect(cx + legSpread - 2, legBotY - 2, 4, 3);
+            ctx.fillRect(cx - 2, legBotY - 6, 4, 3);
+
+            // Vành kiềng kim loại
+            ctx.strokeStyle = '#334155';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(cx - gauzeW / 2 - 2, gauzeY);
+            ctx.lineTo(cx + gauzeW / 2 + 2, gauzeY);
+            ctx.stroke();
+
+            // Tấm lưới amiăng (Wire Gauze)
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.7)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(cx - gauzeW / 2, gauzeY - 1, gauzeW, 2);
+
+            // Lớp sứ truyền nhiệt ở giữa lưới amiăng
+            ctx.fillStyle = isBurning ? 'rgba(254, 243, 199, 0.95)' : 'rgba(241, 245, 249, 0.9)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 0.8;
+            roundRect(cx - 16, gauzeY - 1.5, 32, 3, 1.5);
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. THÂN ĐÈN CỒN THỦY TINH (ALCOHOL BURNER BOTTLE)
+            const lampTopY = baseY + 30;
+            const lampBotY = baseY + 56;
+            const lampH = lampBotY - lampTopY;
+            const lampW = 38;
+            const neckW = 12;
+            const neckTopY = lampTopY - 6;
+
+            // Thân bình thủy tinh
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(cx - neckW / 2, lampTopY);
+            ctx.lineTo(cx - lampW / 2, lampBotY - 4);
+            ctx.quadraticCurveTo(cx - lampW / 2, lampBotY, cx - lampW / 2 + 4, lampBotY);
+            ctx.lineTo(cx + lampW / 2 - 4, lampBotY);
+            ctx.quadraticCurveTo(cx + lampW / 2, lampBotY, cx + lampW / 2, lampBotY - 4);
+            ctx.lineTo(cx + neckW / 2, lampTopY);
+            ctx.closePath();
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(100, 116, 139, 0.85)';
+            ctx.lineWidth = 1.6;
+            ctx.stroke();
+
+            // Dung dịch cồn bên trong bình
+            ctx.save();
+            ctx.clip();
+            const alcoholY = lampTopY + 8;
+            ctx.fillStyle = 'rgba(147, 197, 253, 0.45)';
+            ctx.fillRect(cx - lampW / 2 - 4, alcoholY, lampW + 8, lampH);
+            ctx.strokeStyle = 'rgba(96, 165, 250, 0.6)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cx - lampW / 2, alcoholY);
+            ctx.lineTo(cx + lampW / 2, alcoholY);
+            ctx.stroke();
+            ctx.restore();
+
+            // Vệt sáng phản quang trên bình thủy tinh
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.65)';
+            ctx.beginPath();
+            ctx.moveTo(cx - lampW / 2 + 5, lampTopY + 4);
+            ctx.lineTo(cx - lampW / 2 + 3, lampBotY - 5);
+            ctx.lineTo(cx - lampW / 2 + 5, lampBotY - 5);
+            ctx.lineTo(cx - lampW / 2 + 7, lampTopY + 4);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // Cổ đèn bằng đồng kim loại
+            ctx.fillStyle = '#d97706';
+            ctx.strokeStyle = '#92400e';
+            ctx.lineWidth = 1;
+            roundRect(cx - neckW / 2 - 1, neckTopY + 2, neckW + 2, 5, 1.5);
+            ctx.fill();
+            ctx.stroke();
+
+            // Ống giữ tim đèn
+            ctx.fillStyle = '#b45309';
+            ctx.fillRect(cx - 3, neckTopY - 2, 6, 4);
+
+            // Tim đèn (Wick)
+            const wickTopY = neckTopY - 5;
+            ctx.strokeStyle = isBurning ? '#1e293b' : '#cbd5e1';
+            ctx.lineWidth = 2.5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(cx, neckTopY);
+            ctx.lineTo(cx, wickTopY);
+            ctx.stroke();
+
+            // 3. NGỌN LỬA ĐÈN CỒN (ALCOHOL FLAME)
+            if (isBurning) {
+                const flicker = reduceMotion ? 0 : Math.sin(time * 15) * 1.5 + Math.sin(time * 23 + 1) * 1.0;
+                const flameH = 20 + flicker;
+                const flameTopY = wickTopY - flameH;
+                const flameBaseY = wickTopY + 1;
+                const flameW = 11;
+
+                // Ánh sáng tỏa xung quanh (Glow)
+                ctx.save();
+                const radGlow = ctx.createRadialGradient(cx, flameBaseY - flameH * 0.4, 2, cx, flameBaseY - flameH * 0.4, flameH * 1.3);
+                radGlow.addColorStop(0, 'rgba(251, 191, 36, 0.35)');
+                radGlow.addColorStop(0.6, 'rgba(245, 158, 11, 0.12)');
+                radGlow.addColorStop(1, 'rgba(245, 158, 11, 0)');
+                ctx.fillStyle = radGlow;
+                ctx.beginPath();
+                ctx.arc(cx, flameBaseY - flameH * 0.4, flameH * 1.3, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                // Ngọn lửa chính (Tầng ngoài)
+                ctx.save();
+                const gradOuter = ctx.createLinearGradient(cx, flameBaseY, cx, flameTopY);
+                gradOuter.addColorStop(0, 'rgba(59, 130, 246, 0.85)');
+                gradOuter.addColorStop(0.25, 'rgba(249, 115, 22, 0.95)');
+                gradOuter.addColorStop(0.7, 'rgba(251, 191, 36, 0.95)');
+                gradOuter.addColorStop(1, 'rgba(254, 240, 138, 0.95)');
+
+                ctx.fillStyle = gradOuter;
+                ctx.beginPath();
+                ctx.moveTo(cx, flameBaseY);
+                ctx.quadraticCurveTo(cx - flameW, flameBaseY - flameH * 0.45, cx - 2, flameTopY);
+                ctx.quadraticCurveTo(cx, flameTopY - 2, cx + 2, flameTopY);
+                ctx.quadraticCurveTo(cx + flameW, flameBaseY - flameH * 0.45, cx, flameBaseY);
+                ctx.closePath();
+                ctx.fill();
+
+                // Lõi xanh ngọn lửa cồn (Inner blue cone)
+                const innerH = flameH * 0.45;
+                const innerW = flameW * 0.5;
+                const gradInner = ctx.createLinearGradient(cx, flameBaseY, cx, flameBaseY - innerH);
+                gradInner.addColorStop(0, 'rgba(37, 99, 235, 0.9)');
+                gradInner.addColorStop(0.6, 'rgba(56, 189, 248, 0.85)');
+                gradInner.addColorStop(1, 'rgba(254, 240, 138, 0.7)');
+
+                ctx.fillStyle = gradInner;
+                ctx.beginPath();
+                ctx.moveTo(cx, flameBaseY);
+                ctx.quadraticCurveTo(cx - innerW, flameBaseY - innerH * 0.5, cx, flameBaseY - innerH);
+                ctx.quadraticCurveTo(cx + innerW, flameBaseY - innerH * 0.5, cx, flameBaseY);
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        function renderControlsStage1(row) {
+            ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage1(), false);
+        }
+
+        function refreshObserveTableStage1(flash) {
+            document.getElementById('observeThead').innerHTML = '<tr><th>Chất</th><th>Phân tử khối</th><th>Nhiệt độ sôi</th></tr>';
+            const tbody = document.getElementById('observeTableBody');
+            const rowH2O = `<tr><td>H₂O</td><td>18</td><td class="${state.s1.boiledH2O ? (flash ? 'flash' : '') : 'muted'}">${state.s1.boiledH2O ? '100°C' : '?'}</td></tr>`;
+            const rowH2S = `<tr><td>H₂S</td><td>34</td><td class="${state.s1.boiledH2S ? (flash ? 'flash' : '') : 'muted'}">${state.s1.boiledH2S ? '−60°C' : '?'}</td></tr>`;
+            tbody.innerHTML = rowH2O + rowH2S;
+        }
+
+        // ======================================================
+        // STAGE 2 — Liên kết hydrogen hình thành như thế nào?
+        // ======================================================
+        const LIBRARY_TYPES = ['HF', 'H2O', 'NH3', 'H2S', 'CH4'];
+        const LIB_LABELS = { HF: 'HF', H2O: 'H₂O', NH3: 'NH₃', H2S: 'H₂S', CH4: 'CH₄' };
+        const S2_PHASE_IDX = { pairH2O: 1, pairH2S: 2, library: 3, rule: 4 };
+
+        // Tính sẵn 1 cặp vị trí/góc xoay "đã căn chỉnh đúng" để: (1) minh hoạ ở phase 'rule', và
+        // (2) tự động xoay đúng hướng khi "Đưa lại gần" ở thư viện (nếu cặp đó về bản chất hoá học có
+        // thể tạo liên kết). Đặt donor bên trái, acceptor cách bên phải đúng BOND_LEN + LP_DIST — khi đó
+        // donor xoay để bond[0] chỉ sang phải (góc 0) và acceptor xoay để lonePair[0] chỉ sang trái (góc
+        // 180°) sẽ khiến vị trí H của donor và vị trí cặp electron của acceptor trùng khít nhau.
+        function computeAlignedTemplate(donorDef, acceptDef, cx, cy) {
+            const donorRot = -donorDef.bonds[0] * DEG;
+            const acceptRot = Math.PI - acceptDef.lonePairs[0] * DEG;
+            const gap = BOND_LEN + LP_DIST;
+            return { donorX: cx, donorY: cy, donorRot, acceptX: cx + gap, acceptY: cy, acceptRot };
+        }
+
+        function initStage2() {
+            state.s2 = {
+                phase: 'pairH2O',
+                molA: { type: 'H2O', x: 230, y: 200, rot: 190 * DEG },
+                molB: { type: 'H2O', x: 530, y: 200, rot: 20 * DEG },
+                h2oAligned: false, h2sInteracted: false,
+                libSlotA: null, libSlotB: null, libraryTests: [], testedPairs: new Set(), testAnimating: false,
+                ruleClickedOH: false, ruleClickedHBond: false, ruleSelectedOH: false, ruleSelectedHBond: false,
+                quizShown: false, quizDone: false
+            };
+            renderControls();
+            refreshObserveTable();
+            document.getElementById('conclusionBody').innerHTML = '';
+            setRobotSpeech('Các liên kết O–H đã phân cực ngay trong từng phân tử. Hãy kéo và xoay hai phân tử nước để tìm hướng mà chúng hút nhau rõ nhất — kéo phần thân để di chuyển, kéo chấm xanh để xoay.', 'idle');
+        }
+
+        function isLibraryTypeDisabled(type) {
+            const s2 = state.s2;
+            if (!s2 || s2.phase !== 'library') return false;
+            if (!s2.testedPairs) s2.testedPairs = new Set();
+
+            // Nếu đang chọn chất thứ nhất (libSlotA) và chưa có libSlotB:
+            // Chất `type` này sẽ bị disable nếu cặp [libSlotA.type, type] đã được thử nghiệm trước đó
+            if (s2.libSlotA && !s2.libSlotB) {
+                const pairKey = [s2.libSlotA.type, type].sort().join('–');
+                return s2.testedPairs.has(pairKey);
+            }
+
+            // Nếu chưa chọn chất nào (libSlotA trống):
+            // Chất `type` này chỉ bị disable nếu nó đã được thử nghiệm với TẤT CẢ các chất
+            if (!s2.libSlotA) {
+                const allTested = LIBRARY_TYPES.every(other => s2.testedPairs.has([type, other].sort().join('–')));
+                return allTested;
+            }
+
+            return false;
+        }
+
+        function stage2ActiveMols() {
+            if (state.s2.phase === 'pairH2O' || state.s2.phase === 'pairH2S') return [state.s2.molA, state.s2.molB];
+            if (state.s2.phase === 'library' && !state.s2.testAnimating) return [state.s2.libSlotA, state.s2.libSlotB].filter(Boolean);
+            return [];
+        }
+
+        let s2Drag = null;
+        let s2FocusedMol = null;
+        canvas.addEventListener('pointerdown', (e) => {
+            if (state.stage !== 2) return;
+            const pos = getLogicPos(e);
+            const mols = stage2ActiveMols();
+            for (let i = mols.length - 1; i >= 0; i--) {
+                const mol = mols[i];
+                if (mol._handlePos && Math.hypot(pos.x - mol._handlePos.x, pos.y - mol._handlePos.y) < HANDLE_R + 14) {
+                    s2Drag = { mol, mode: 'rotate', moved: false };
+                    s2FocusedMol = mol;
+                    canvas.setPointerCapture(e.pointerId);
+                    return;
+                }
+            }
+            for (let i = mols.length - 1; i >= 0; i--) {
+                const mol = mols[i];
+                if (Math.hypot(pos.x - mol.x, pos.y - mol.y) < 55) {
+                    s2Drag = { mol, mode: 'translate', offX: mol.x - pos.x, offY: mol.y - pos.y, moved: false };
+                    s2FocusedMol = mol;
+                    canvas.setPointerCapture(e.pointerId);
+                    return;
+                }
+            }
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            if (!s2Drag) return;
+            const pos = getLogicPos(e);
+            s2Drag.moved = true;
+            if (s2Drag.mode === 'rotate') {
+                const dx = pos.x - s2Drag.mol.x, dy = pos.y - s2Drag.mol.y;
+                s2Drag.mol.rot = Math.atan2(dy, dx) + Math.PI / 2;
+            } else {
+                s2Drag.mol.x = clamp(pos.x + s2Drag.offX, 40, W - 40);
+                s2Drag.mol.y = clamp(pos.y + s2Drag.offY, 40, H - 40);
+            }
+        });
+        function endStage2Drag(e) {
+            if (!s2Drag) return;
+            if (state.s2.phase === 'pairH2S' && s2Drag.moved) { state.s2.h2sInteracted = true; renderControls(); }
+            try { canvas.releasePointerCapture(e.pointerId); } catch (err) { }
+            s2Drag = null;
+        }
+        canvas.addEventListener('pointerup', endStage2Drag);
+        canvas.addEventListener('pointercancel', endStage2Drag);
+        // Hỗ trợ bàn phím (dự phòng khi không kéo chuột/chạm được): bấm 1/2 để chọn phân tử A/B rồi
+        // dùng phím mũi tên để di chuyển, giữ Shift + mũi tên trái/phải để xoay.
+        canvas.addEventListener('keydown', (e) => {
+            if (state.stage !== 2) return;
+            if (e.key === '1') { s2FocusedMol = state.s2.molA || state.s2.libSlotA; return; }
+            if (e.key === '2') { s2FocusedMol = state.s2.molB || state.s2.libSlotB; return; }
+            if (!s2FocusedMol) return;
+            const mol = s2FocusedMol;
+            const step = 6;
+            if (e.key === 'ArrowLeft') { e.shiftKey ? (mol.rot -= 6 * DEG) : (mol.x = clamp(mol.x - step, 50, W - 50)); e.preventDefault(); }
+            else if (e.key === 'ArrowRight') { e.shiftKey ? (mol.rot += 6 * DEG) : (mol.x = clamp(mol.x + step, 50, W - 50)); e.preventDefault(); }
+            else if (e.key === 'ArrowUp') { mol.y = clamp(mol.y - step, 50, H - 50); e.preventDefault(); }
+            else if (e.key === 'ArrowDown') { mol.y = clamp(mol.y + step, 50, H - 50); e.preventDefault(); }
+            if (state.s2.phase === 'pairH2S') { state.s2.h2sInteracted = true; renderControls(); }
+        });
+
+        function stage2GoPairH2S() {
+            state.s2.phase = 'pairH2S';
+            state.s2.h2sInteracted = false;
+            state.s2.molA = { type: 'H2S', x: 230, y: 200, rot: 150 * DEG };
+            state.s2.molB = { type: 'H2S', x: 530, y: 200, rot: 340 * DEG };
+            renderControls(); refreshObserveTable();
+            setRobotSpeech('Hãy kéo hoặc xoay hai phân tử H₂S lại gần nhau để khảo sát tương tác giữa chúng.', 'idle');
+        }
+        function stage2GoLibrary() {
+            state.s2.phase = 'library';
+            state.s2.libSlotA = null; state.s2.libSlotB = null; state.s2.libraryTests = [];
+            renderControls(); refreshObserveTable();
+            setRobotSpeech('Nhấp vào hai ô phân tử ở phía trên để đưa vào vùng thử nghiệm, rồi nhấn "Đưa lại gần". Hãy thử ít nhất 4 cặp.', 'idle');
+        }
+        function stage2PickLibrary(type) {
+            if (state.s2.testAnimating) return;
+            if (isLibraryTypeDisabled(type)) return;
+
+            if (!state.s2.libSlotA) {
+                state.s2.libSlotA = { type, x: 250, y: 210, rot: 15 * DEG };
+                setRobotSpeech(`Đã chọn ${LIB_LABELS[type]}. Hãy nhấp chọn chất thứ hai để ghép đôi thử nghiệm.`, 'idle');
+            } else if (!state.s2.libSlotB) {
+                state.s2.libSlotB = { type, x: 510, y: 210, rot: 200 * DEG };
+                setRobotSpeech(`Đã chọn cặp ${LIB_LABELS[state.s2.libSlotA.type]} – ${LIB_LABELS[type]}. Nhấn "Đưa lại gần" để kiểm tra tương tác.`, 'idle');
+            } else {
+                state.s2.libSlotA = { type, x: 250, y: 210, rot: 15 * DEG };
+                state.s2.libSlotB = null;
+                setRobotSpeech(`Đã chọn ${LIB_LABELS[type]}. Hãy nhấp chọn chất thứ hai.`, 'idle');
+            }
+            renderControls();
+        }
+        function stage2RunAlignTest() {
+            const a = state.s2.libSlotA, b = state.s2.libSlotB;
+            if (!a || !b || state.s2.testAnimating) return;
+            state.s2.testAnimating = true; renderControls();
+            const defA = MOLECULE_DEFS[a.type], defB = MOLECULE_DEFS[b.type];
+            const compatible = (defA.canDonor && defB.canAccept) || (defB.canDonor && defA.canAccept);
+            if (compatible) {
+                const donorFirst = defA.canDonor && defB.canAccept;
+                const donor = donorFirst ? a : b, accept = donorFirst ? b : a;
+                const donorDef = MOLECULE_DEFS[donor.type], acceptDef = MOLECULE_DEFS[accept.type];
+                const tpl = computeAlignedTemplate(donorDef, acceptDef, 340, 210);
+                tween(donor, 'x', tpl.donorX, 750); tween(donor, 'y', tpl.donorY, 750); tween(donor, 'rot', tpl.donorRot, 750);
+                tween(accept, 'x', tpl.acceptX, 750); tween(accept, 'y', tpl.acceptY, 750);
+                tween(accept, 'rot', tpl.acceptRot, 750, easeOut, () => stage2FinalizeTest(a, b));
+            } else {
+                const midX = (a.x + b.x) / 2;
+                tween(a, 'x', midX - 85, 750); tween(a, 'y', 210, 750);
+                tween(b, 'x', midX + 85, 750); tween(b, 'y', 210, 750, easeOut, () => stage2FinalizeTest(a, b));
+            }
+        }
+        function stage2FinalizeTest(a, b) {
+            const result = checkHBondPair(a, b);
+            const label = LIB_LABELS[a.type] + '–' + LIB_LABELS[b.type];
+            let posLabel = 'Không có đường chấm hydrogen';
+            if (result.formed) {
+                const donorDef = MOLECULE_DEFS[result.donor.type], acceptDef = MOLECULE_DEFS[result.accept.type];
+                posLabel = 'H···' + acceptDef.central;
+                playSuccessFlash();
+                spawnParticles((a.x + b.x) / 2, (a.y + b.y) / 2, COLORS.jade, 12);
+                spawnRing((a.x + b.x) / 2, (a.y + b.y) / 2, COLORS.jade);
+                setRobotSpeech(`Cặp ${label}: đã xuất hiện đường chấm hydrogen (${posLabel}).`, 'correct');
+            } else {
+                setRobotSpeech(`Cặp ${label}: không xuất hiện đường chấm hydrogen dù đã đưa lại gần.`, 'idle');
+            }
+            if (!state.s2.testedPairs) state.s2.testedPairs = new Set();
+            state.s2.testedPairs.add([a.type, b.type].sort().join('–'));
+            state.s2.libraryTests.push({ label, success: result.formed, posLabel });
+            refreshObserveTable();
+            setTimeout(() => {
+                state.s2.testAnimating = false;
+                state.s2.libSlotA = null; state.s2.libSlotB = null;
+                renderControls();
+            }, 1200);
+        }
+        function stage2CanShowRule() {
+            const tests = state.s2.libraryTests;
+            const ok = tests.filter(t => t.success).length, fail = tests.length - tests.filter(t => t.success).length;
+            return tests.length >= 4 && ok >= 2 && fail >= 2;
+        }
+        function stage2GoRule() {
+            state.s2.phase = 'rule';
+            state.s2.libSlotA = null; state.s2.libSlotB = null;
+            state.s2.ruleSelectedOH = false; state.s2.ruleSelectedHBond = false;
+            state.s2.ruleClickedOH = false; state.s2.ruleClickedHBond = false;
+            renderControls(); refreshObserveTable();
+            setRobotSpeech('Nhấp vào đường O–H (nét liền) và đường H···O (nét chấm) trên mô phỏng để phân biệt hai loại liên kết.', 'idle');
+        }
+        function stage2SelectRuleLine(which) {
+            if (which === 'oh') {
+                state.s2.ruleSelectedOH = true;
+                state.s2.ruleClickedOH = true;
+                playSuccessFlash();
+                spawnParticles(280, 190, COLORS.jade, 8);
+                setRobotSpeech('Liên kết cộng hoá trị — giữ O và H trong cùng một phân tử.', 'correct');
+                refreshObserveTable();
+            } else {
+                state.s2.ruleSelectedHBond = true;
+                state.s2.ruleClickedHBond = true;
+                playSuccessFlash();
+                spawnParticles(450, 190, COLORS.jade, 8);
+                setRobotSpeech('Liên kết hydrogen — lực hút có định hướng giữa hai phân tử.', 'correct');
+                refreshObserveTable();
+            }
+            if (state.s2.ruleClickedOH && state.s2.ruleClickedHBond && !state.s2.quizShown) {
+                state.s2.quizShown = true;
+                setTimeout(showStage2Quiz, 1000);
+            }
+        }
+        function showStage2Quiz() {
+            const block = appendConclusionBlock('s2_quiz', '<i class="ti ti-help-circle"></i> Câu hỏi', 'Phát biểu nào mô tả đúng liên kết hydrogen trong các mô hình vừa quan sát?');
+            renderQuizInto(block,
+                'Phát biểu nào mô tả đúng liên kết hydrogen trong các mô hình vừa quan sát?',
+                [
+                    { key: 'A', text: 'Liên kết hydrogen là liên kết O–H, N–H hoặc F–H nằm bên trong một phân tử.' },
+                    { key: 'B', text: 'Liên kết hydrogen hình thành giữa H mang δ+ đang liên kết trực tiếp với N, O hoặc F và cặp electron chưa liên kết trên N, O hoặc F của phân tử bên cạnh; được biểu diễn bằng nét chấm.' },
+                    { key: 'C', text: 'Chỉ cần phân tử có nguyên tử H thì chắc chắn tạo được liên kết hydrogen.' }
+                ],
+                'B',
+                'Chính xác! Một phía cung cấp Hδ+ đang gắn trực tiếp với N, O hoặc F; phía kia cung cấp cặp electron chưa liên kết trên N, O hoặc F. Nét chấm biểu diễn liên kết hydrogen, khác với liên kết cộng hoá trị nét liền trong phân tử.',
+                'Hãy xem lại các cặp tạo được và không tạo được đường chấm. Chú ý nguyên tử gắn trực tiếp với H, cặp electron chưa liên kết và sự khác nhau giữa nét liền với nét chấm.',
+                () => {
+                    state.s2.quizDone = true;
+                    block.classList.add('is-done');
+                    appendAhaAndAdvance('s2_aha',
+                        'Liên kết hydrogen là lực hút có định hướng giữa Hδ+ gắn trực tiếp với N, O hoặc F và cặp electron chưa liên kết trên N, O hoặc F của phân tử bên cạnh; nó được biểu diễn bằng nét chấm, khác với liên kết cộng hoá trị nét liền.',
+                        'Tiếp tục',
+                        () => goToStage(3));
+                    setRobotSpeech('Khi nhiều liên kết hydrogen cùng tồn tại giữa các phân tử nước, chúng ảnh hưởng như thế nào đến sự chuyển thể và sự sắp xếp của nước?', 'correct');
+                    appendDetailsBox('s2_detail', 'Vì sao H₂S và CH₄ không tạo được liên kết hydrogen?',
+                        `Muốn có liên kết hydrogen cần đủ cả hai điều kiện: (1) một nguyên tử H đang liên kết
+                        trực tiếp với N, O hoặc F — ba nguyên tử có độ âm điện đủ lớn để kéo electron mạnh,
+                        khiến H mang δ+ rõ rệt (mẹo nhớ nhanh ba nguyên tử này: <strong>F, O, N</strong>);
+                        và (2) một cặp electron chưa liên kết trên N, O hoặc F của phân tử bên cạnh để "đón"
+                        Hδ+ đó. Sulfur trong H₂S kém âm điện hơn nhiều so với O, N, F nên H gắn với S không
+                        đủ phân cực; carbon trong CH₄ gần như không phân cực và cũng không còn cặp electron
+                        chưa liên kết nào (đã dùng hết 4 electron hoá trị để tạo 4 liên kết C–H). Vì vậy dù
+                        có xoay hướng nào, hai phân tử H₂S hay hai phân tử CH₄ cũng không thể hình thành liên
+                        kết hydrogen — khác hẳn với HF, H₂O, NH₃.`);
+                }
+            );
+        }
+
+        // Phân tử không bao giờ đứng yên tuyệt đối kể cả khi không kéo — dao động nhẹ quanh vị trí hiện
+        // tại (biên độ nhỏ, có tính tuần hoàn nên không trôi dạt) để mô phỏng chuyển động nhiệt liên tục.
+        function applyIdleJitter(mol) {
+            if (!mol || (s2Drag && s2Drag.mol === mol)) return;
+            if (mol._seed == null) mol._seed = Math.random() * 100;
+            const amp = reduceMotion ? 0.035 : 0.11;
+            mol.x += Math.sin(time * 1.3 + mol._seed) * amp;
+            mol.y += Math.cos(time * 1.05 + mol._seed * 1.7) * amp;
+        }
+        function drawStage2() {
+            const s2 = state.s2;
+            if (s2.phase !== 'library') drawMoleculeLegend();
+            if (s2.phase === 'pairH2O' || s2.phase === 'pairH2S') {
+                applyIdleJitter(s2.molA); applyIdleJitter(s2.molB);
+                const result = checkHBondPair(s2.molA, s2.molB);
+                const centerDist = Math.hypot(s2.molA.x - s2.molB.x, s2.molA.y - s2.molB.y);
+                if (!result.formed && centerDist < 95) {
+                    s2.closeTimer = (s2.closeTimer || 0) + 1;
+                    if (s2.closeTimer === 90 && !s2.hintedThisPass) {
+                        s2.hintedThisPass = true;
+                        setRobotSpeech(s2.phase === 'pairH2O'
+                            ? 'Chưa xuất hiện đường chấm. Hãy thử đưa H mang δ+ về phía nguyên tử O có cặp electron chưa liên kết.'
+                            : 'Hai phân tử H₂S vẫn có thể tiến lại gần nhưng sẽ không tự căn chỉnh theo một hướng cố định như nước.', 'idle');
+                    }
+                } else if (centerDist >= 95) { s2.closeTimer = 0; s2.hintedThisPass = false; }
+                
+                if (s2.phase === 'pairH2S' && centerDist < 120 && !s2.h2sInteracted) {
+                    s2.h2sInteracted = true;
+                    playSuccessFlash();
+                    refreshObserveTable();
+                    renderControls();
+                    setRobotSpeech('Hai phân tử H₂S vẫn chuyển động và có thể tiến lại gần do tương tác giữa các phân tử yếu, nhưng không tự căn chỉnh theo một hướng cố định và không xuất hiện đường chấm biểu diễn liên kết hydrogen.', 'idle');
+                }
+
+                if (result.formed) {
+                    drawHBondLine(result.hPos, result.lpPos, true);
+                    const dx = s2.molB.x - s2.molA.x, dy = s2.molB.y - s2.molA.y;
+                    s2.molA.x += dx * 0.006; s2.molA.y += dy * 0.006;
+                    s2.molB.x -= dx * 0.006; s2.molB.y -= dy * 0.006;
+                    if (s2.phase === 'pairH2O' && !s2.h2oAligned) {
+                        s2.h2oAligned = true; playSuccessFlash();
+                        spawnParticles((s2.molA.x + s2.molB.x) / 2, (s2.molA.y + s2.molB.y) / 2, COLORS.jade, 12);
+                        setRobotSpeech('Đường chấm H···O đã xuất hiện! Hai phân tử tự căn chỉnh nhẹ theo hướng này. Hãy nhấn "Chuyển sang H₂S" để so sánh.', 'correct');
+                        renderControls(); refreshObserveTable();
+                    }
+                }
+                drawMolecule(s2.molA, { interactive: true });
+                drawMolecule(s2.molB, { interactive: true });
+                ctx.save(); ctx.font = labelFont(11); ctx.fillStyle = '#514C44'; ctx.textAlign = 'center';
+                ctx.fillText('Kéo thân phân tử để di chuyển · kéo chấm xanh để xoay · hoặc bấm 1/2 rồi dùng phím mũi tên', W / 2, H - 14);
+                ctx.restore();
+            } else if (s2.phase === 'library') {
+                if (!s2.libSeeds) s2.libSeeds = {};
+                LIBRARY_TYPES.forEach((type, i) => {
+                    const cx = 80 + i * 150, cy = 40;
+                    const isUsed = (s2.libSlotA && s2.libSlotA.type === type) || (s2.libSlotB && s2.libSlotB.type === type);
+                    const isDisabled = isLibraryTypeDisabled(type);
+
+                    if (!s2.testAnimating && !isDisabled) {
+                        canvasClickTargets.push({
+                            x: cx - 65, y: cy - 30, w: 130, h: 60, isRect: true,
+                            onClick: () => stage2PickLibrary(type)
+                        });
+                    }
+
+                    ctx.save();
+                    if (isDisabled) {
+                        ctx.fillStyle = 'rgba(235, 235, 235, 0.55)';
+                        ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
+                        ctx.lineWidth = 1.2;
+                    } else if (isUsed) {
+                        ctx.fillStyle = 'rgba(60, 165, 122, 0.25)';
+                        ctx.strokeStyle = 'rgb(45, 139, 111)';
+                        ctx.lineWidth = 2.4;
+                    } else {
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                        ctx.strokeStyle = 'rgba(148, 163, 184, 0.8)';
+                        ctx.lineWidth = 1.6;
+                    }
+                    roundRect(cx - 65, cy - 30, 130, 60, 10);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.restore();
+
+                    if (s2.libSeeds[type] == null) s2.libSeeds[type] = Math.random() * 10;
+                    ctx.save();
+                    if (isDisabled) ctx.globalAlpha = 0.32;
+                    ctx.translate(cx, cy - 4); ctx.scale(0.44, 0.44); ctx.translate(-cx, -(cy - 4));
+                    drawMolecule({ type, x: cx, y: cy - 4, rot: time * 0.15 + s2.libSeeds[type] }, { interactive: false });
+                    ctx.restore();
+
+                    ctx.save();
+                    ctx.font = labelFont(11.5);
+                    if (isDisabled) {
+                        ctx.fillStyle = 'rgba(81, 76, 68, 0.45)';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(`${LIB_LABELS[type]} (đã thử)`, cx, cy + 22);
+                    } else {
+                        ctx.fillStyle = isUsed ? 'rgb(27,94,72)' : '#1e293b';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(LIB_LABELS[type], cx, cy + 22);
+                    }
+                    ctx.restore();
+                });
+
+                ctx.save();
+                ctx.strokeStyle = 'rgba(148,163,184,0.6)'; ctx.setLineDash([5, 5]);
+                roundRect(15, 78, 730, 268, 14); ctx.stroke(); ctx.setLineDash([]);
+                ctx.font = labelFont(12); ctx.fillStyle = '#475569'; ctx.textAlign = 'center';
+                ctx.fillText('Vùng thử nghiệm — nhấp vào 2 ô phân tử ở trên để đưa vào đây, rồi nhấn "Đưa lại gần"', W / 2, 98);
+                ctx.restore();
+
+                if (!s2.testAnimating) { applyIdleJitter(s2.libSlotA); applyIdleJitter(s2.libSlotB); }
+                if (s2.libSlotA && s2.libSlotB) {
+                    const result = checkHBondPair(s2.libSlotA, s2.libSlotB);
+                    if (result.formed) drawHBondLine(result.hPos, result.lpPos, true);
+                }
+                if (s2.libSlotA) drawMolecule(s2.libSlotA, { interactive: !s2.testAnimating });
+                if (s2.libSlotB) drawMolecule(s2.libSlotB, { interactive: !s2.testAnimating });
+
+                ctx.save(); ctx.font = labelFont(12); ctx.fillStyle = '#1e293b'; ctx.textAlign = 'center';
+                ctx.fillText(`Đã thử: ${s2.libraryTests.length} cặp (cần ≥4 cặp: gồm ≥2 tạo được và ≥2 không tạo được liên kết)`, W / 2, H - 12);
+                ctx.restore();
+            } else if (s2.phase === 'rule') {
+                drawStage2RuleDiagram();
+            }
+        }
+
+        function drawStage2RuleDiagram() {
+            const s2 = state.s2;
+            ctx.save();
+
+            // 1. Tiêu đề
+            ctx.font = labelFont(12);
+            ctx.fillStyle = '#1A1A1A';
+            ctx.textAlign = 'center';
+            ctx.fillText('MÔ HÌNH PHÂN BIỆT HAI LOẠI LIÊN KẾT: O–H···O', W / 2, 34);
+
+            // Toạ độ các nguyên tử (khoảng cách rộng rãi, không chồng chữ)
+            const O1 = { x: 210, y: 190 };
+            const H1a = { x: 350, y: 190 };
+            const H1b = { x: 150, y: 260 };
+
+            const O2 = { x: 550, y: 190 };
+            const lpPos = { x: 485, y: 190 };
+            const H2a = { x: 615, y: 135 };
+            const H2b = { x: 615, y: 245 };
+
+            // 2. LIÊN KẾT CỘNG HÓA TRỊ O-H (NÉT LIỀN)
+            const isOH = s2.ruleSelectedOH;
+            ctx.save();
+            if (isOH) {
+                ctx.strokeStyle = 'rgba(60, 165, 122, 0.4)';
+                ctx.lineWidth = 14;
+                ctx.beginPath(); ctx.moveTo(O1.x, O1.y); ctx.lineTo(H1a.x, H1a.y); ctx.stroke();
+                ctx.strokeStyle = 'rgb(45, 139, 111)';
+                ctx.lineWidth = 5.5;
+            } else {
+                const pulse = 0.5 + Math.sin(time * 4) * 0.25;
+                ctx.strokeStyle = `rgba(232, 162, 74, ${pulse * 0.5})`;
+                ctx.lineWidth = 10;
+                ctx.beginPath(); ctx.moveTo(O1.x, O1.y); ctx.lineTo(H1a.x, H1a.y); ctx.stroke();
+                ctx.strokeStyle = '#334155';
+                ctx.lineWidth = 4.5;
+            }
+            ctx.beginPath(); ctx.moveTo(O1.x, O1.y); ctx.lineTo(H1a.x, H1a.y); ctx.stroke();
+            ctx.restore();
+
+            // Liên kết O1 - H1b
+            ctx.save();
+            ctx.strokeStyle = '#475569'; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(O1.x, O1.y); ctx.lineTo(H1b.x, H1b.y); ctx.stroke();
+            ctx.restore();
+
+            // Liên kết O2 - H2a & O2 - H2b
+            ctx.save();
+            ctx.strokeStyle = '#475569'; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(O2.x, O2.y); ctx.lineTo(H2a.x, H2a.y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(O2.x, O2.y); ctx.lineTo(H2b.x, H2b.y); ctx.stroke();
+            ctx.restore();
+
+            // 3. LIÊN KẾT HYDROGEN H···O (NÉT CHẤM)
+            const isHB = s2.ruleSelectedHBond;
+            ctx.save();
+            if (isHB) {
+                ctx.strokeStyle = 'rgba(60, 165, 122, 0.35)';
+                ctx.lineWidth = 14;
+                ctx.beginPath(); ctx.moveTo(H1a.x, H1a.y); ctx.lineTo(O2.x, O2.y); ctx.stroke();
+                ctx.strokeStyle = 'rgb(45, 139, 111)';
+                ctx.lineWidth = 5;
+            } else {
+                const pulse = 0.5 + Math.cos(time * 4) * 0.25;
+                ctx.strokeStyle = `rgba(232, 162, 74, ${pulse * 0.5})`;
+                ctx.lineWidth = 10;
+                ctx.beginPath(); ctx.moveTo(H1a.x, H1a.y); ctx.lineTo(O2.x, O2.y); ctx.stroke();
+                ctx.strokeStyle = '#475569';
+                ctx.lineWidth = 4;
+            }
+            ctx.setLineDash([4, 6]);
+            ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(H1a.x, H1a.y); ctx.lineTo(O2.x, O2.y); ctx.stroke();
+            ctx.restore();
+
+            // 4. CẶP ELECTRON CHƯA LIÊN KẾT TRÊN O2 (PHÁT SÁNG NHẸ)
+            ctx.save();
+            const lpPulse = 0.6 + Math.sin(time * 5) * 0.4;
+            const radGlow = ctx.createRadialGradient(lpPos.x, lpPos.y, 2, lpPos.x, lpPos.y, 18);
+            radGlow.addColorStop(0, `rgba(232, 162, 74, ${lpPulse * 0.6})`);
+            radGlow.addColorStop(1, 'rgba(232, 162, 74, 0)');
+            ctx.fillStyle = radGlow;
+            ctx.beginPath(); ctx.arc(lpPos.x, lpPos.y, 18, 0, Math.PI * 2); ctx.fill();
+
+            // Hai hạt electron
+            ctx.fillStyle = isHB ? 'rgb(27, 94, 72)' : '#1e293b';
+            ctx.beginPath(); ctx.arc(lpPos.x, lpPos.y - 4, 3.2, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(lpPos.x, lpPos.y + 4, 3.2, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+
+            // 5. VẼ CÁC NGUYÊN TỬ 3D RÕ RÀNG
+            // Nguyên tử O1
+            drawSphereAtom(O1.x, O1.y, 24, ATOM_COLORS.O);
+            ctx.save();
+            ctx.font = labelFont(14); ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('O', O1.x, O1.y);
+            ctx.font = labelFont(11); ctx.fillStyle = '#0f172a';
+            ctx.fillText('δ-', O1.x, O1.y - 32);
+            ctx.restore();
+
+            // Nguyên tử O2
+            drawSphereAtom(O2.x, O2.y, 24, ATOM_COLORS.O);
+            ctx.save();
+            ctx.font = labelFont(14); ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('O', O2.x, O2.y);
+            ctx.font = labelFont(11); ctx.fillStyle = '#0f172a';
+            ctx.fillText('δ-', O2.x, O2.y - 32);
+            ctx.restore();
+
+            // Nguyên tử H1a (ở giữa)
+            drawSphereAtom(H1a.x, H1a.y, 16, ATOM_COLORS.H);
+            ctx.save();
+            ctx.font = labelFont(12); ctx.fillStyle = '#0f172a'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('H', H1a.x, H1a.y);
+            ctx.font = labelFont(11); ctx.fillStyle = '#9a3412';
+            ctx.fillText('δ+', H1a.x, H1a.y - 24);
+            ctx.restore();
+
+            // Nguyên tử H1b, H2a, H2b
+            [H1b, H2a, H2b].forEach((h, idx) => {
+                drawSphereAtom(h.x, h.y, 14, ATOM_COLORS.H);
+                ctx.save();
+                ctx.font = labelFont(11); ctx.fillStyle = '#0f172a'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('H', h.x, h.y);
+                ctx.font = labelFont(10); ctx.fillStyle = '#9a3412';
+                ctx.fillText('δ+', h.x + (idx === 0 ? -18 : 18), h.y);
+                ctx.restore();
+            });
+
+            // 6. THẺ NHÃN / NÚT NHẤP TƯƠNG TÁC RÕ RÀNG
+            // Card O-H (nét liền)
+            const badgeOH_X = 280, badgeOH_Y = 100, badgeOH_W = 160, badgeOH_H = 36;
+            ctx.save();
+            ctx.fillStyle = isOH ? 'rgba(60, 165, 122, 0.22)' : 'rgba(255, 255, 255, 0.9)';
+            ctx.strokeStyle = isOH ? 'rgb(45, 139, 111)' : 'rgba(100, 116, 139, 0.8)';
+            ctx.lineWidth = isOH ? 2.2 : 1.5;
+            roundRect(badgeOH_X - badgeOH_W / 2, badgeOH_Y - badgeOH_H / 2, badgeOH_W, badgeOH_H, 8);
+            ctx.fill(); ctx.stroke();
+
+            ctx.font = labelFont(11);
+            ctx.fillStyle = isOH ? 'rgb(27, 94, 72)' : '#1e293b';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(isOH ? '✓ O–H (nét liền)' : 'O–H (nét liền)', badgeOH_X, badgeOH_Y);
+
+            // Mũi tên chỉ xuống O-H
+            ctx.strokeStyle = isOH ? 'rgb(45, 139, 111)' : 'rgba(100, 116, 139, 0.8)';
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(badgeOH_X, badgeOH_Y + badgeOH_H / 2);
+            ctx.lineTo(badgeOH_X, 170);
+            ctx.lineTo(badgeOH_X - 4, 163);
+            ctx.moveTo(badgeOH_X, 170);
+            ctx.lineTo(badgeOH_X + 4, 163);
+            ctx.stroke();
+            ctx.restore();
+
+            // Card H···O (nét chấm)
+            const badgeHB_X = 450, badgeHB_Y = 280, badgeHB_W = 170, badgeHB_H = 36;
+            ctx.save();
+            ctx.fillStyle = isHB ? 'rgba(60, 165, 122, 0.22)' : 'rgba(255, 255, 255, 0.9)';
+            ctx.strokeStyle = isHB ? 'rgb(45, 139, 111)' : 'rgba(100, 116, 139, 0.8)';
+            ctx.lineWidth = isHB ? 2.2 : 1.5;
+            roundRect(badgeHB_X - badgeHB_W / 2, badgeHB_Y - badgeHB_H / 2, badgeHB_W, badgeHB_H, 8);
+            ctx.fill(); ctx.stroke();
+
+            ctx.font = labelFont(11);
+            ctx.fillStyle = isHB ? 'rgb(27, 94, 72)' : '#1e293b';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(isHB ? '✓ H···O (nét chấm)' : 'H···O (nét chấm)', badgeHB_X, badgeHB_Y);
+
+            // Mũi tên chỉ lên H···O
+            ctx.strokeStyle = isHB ? 'rgb(45, 139, 111)' : 'rgba(100, 116, 139, 0.8)';
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(badgeHB_X, badgeHB_Y - badgeHB_H / 2);
+            ctx.lineTo(badgeHB_X, 210);
+            ctx.lineTo(badgeHB_X - 4, 217);
+            ctx.moveTo(badgeHB_X, 210);
+            ctx.lineTo(badgeHB_X + 4, 217);
+            ctx.stroke();
+            ctx.restore();
+
+            // 7. HITBOX TƯƠNG TÁC
+            canvasClickTargets.push({
+                x: 180, y: 80, w: 200, h: 140, isRect: true,
+                onClick: () => stage2SelectRuleLine('oh')
+            });
+            canvasClickTargets.push({
+                x: 350, y: 160, w: 240, h: 160, isRect: true,
+                onClick: () => stage2SelectRuleLine('hbond')
+            });
+
+            // 8. Chú thích đáy
+            ctx.save();
+            ctx.font = labelFont(10.5);
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'center';
+            ctx.fillText('Nhấp lần lượt vào đường nét liền và đường nét chấm để phân biệt hai loại liên kết', W / 2, H - 12);
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        function renderControlsStage2(row) {
+            const s2 = state.s2;
+            if (s2.phase === 'pairH2O') {
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage2(), s2.testAnimating);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-primary', 'ti-arrow-right', 'Chuyển sang H₂S', stage2GoPairH2S, !s2.h2oAligned);
+            } else if (s2.phase === 'pairH2S') {
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage2(), s2.testAnimating);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-primary', 'ti-books', 'Vào thư viện phân tử', stage2GoLibrary, !s2.h2sInteracted);
+            } else if (s2.phase === 'library') {
+                ctrlButton(row, 'btn-secondary', 'ti-arrows-join-2', s2.testAnimating ? 'Đang thử…' : 'Đưa lại gần', stage2RunAlignTest, !(s2.libSlotA && s2.libSlotB) || s2.testAnimating, s2.testAnimating);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-primary', 'ti-bulb', 'Rút ra quy luật', stage2GoRule, !stage2CanShowRule() || s2.testAnimating);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage2(), s2.testAnimating);
+            } else if (s2.phase === 'rule') {
+                const lbl = document.createElement('span'); lbl.className = 'ctrl-label';
+                lbl.innerHTML = '<i class="ti ti-pointer"></i> Nhấp 2 đường nối trên hình';
+                row.appendChild(lbl);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage2(), false);
+            }
+        }
+
+        function refreshObserveTableStage2() {
+            const s2 = state.s2;
+            if (s2.phase === 'rule') {
+                document.getElementById('observeThead').innerHTML = '<tr><th>Liên kết</th><th>Loại liên kết &amp; Bản chất</th></tr>';
+                const tbody = document.getElementById('observeTableBody');
+                let rows = '';
+                const rowOH = `<tr><td><strong>O–H (nét liền)</strong></td><td class="${s2.ruleClickedOH ? 'flash' : 'muted'}">${s2.ruleClickedOH ? '<strong>Liên kết cộng hoá trị</strong> — giữ O và H trong cùng một phân tử' : 'Nhấp vào đường nét liền trên mô phỏng...'}</td></tr>`;
+                const rowHB = `<tr><td><strong>H···O (nét chấm)</strong></td><td class="${s2.ruleClickedHBond ? 'flash' : 'muted'}">${s2.ruleClickedHBond ? '<strong>Liên kết hydrogen</strong> — lực hút có định hướng giữa hai phân tử' : 'Nhấp vào đường nét chấm trên mô phỏng...'}</td></tr>`;
+                tbody.innerHTML = rowOH + rowHB;
+                return;
+            }
+
+            document.getElementById('observeThead').innerHTML = '<tr><th>Phân tử</th><th>Đặc điểm quan sát</th></tr>';
+            const tbody = document.getElementById('observeTableBody');
+            let rows = '';
+            if (state.s2.h2oAligned) {
+                rows += `<tr><td>H₂O</td><td class="flash">Có đường chấm định hướng</td></tr>`;
+            } else if (state.s2.phase === 'pairH2O') {
+                rows += `<tr><td>H₂O</td><td class="muted">Chưa tạo liên kết</td></tr>`;
+            }
+            if (state.s2.phase === 'pairH2S' || state.s2.h2sInteracted || state.s2.phase === 'library') {
+                rows += `<tr><td>H₂S</td><td class="${state.s2.h2sInteracted ? 'flash' : ''}">Không có đường chấm hydrogen</td></tr>`;
+            }
+            if (state.s2.phase === 'library') {
+                state.s2.libraryTests.forEach(t => {
+                    rows += `<tr><td>${t.label}</td><td class="flash">${t.success ? `Có đường chấm định hướng (${t.posLabel})` : 'Không có đường chấm hydrogen'}</td></tr>`;
+                });
+            }
+            tbody.innerHTML = rows || '<tr><td class="muted" colspan="2">Chưa có dữ liệu quan sát.</td></tr>';
+        }
+
+        // ======================================================
+        // STAGE 3 — Liên kết hydrogen tạo nên những tính chất đặc biệt nào của nước?
+        // ======================================================
+        // Khung chứa chung to toàn diện (chiếm trọn Canvas 680 x 280px)
+        const S3_CHAMBER_RECT = { x: 40, y: 38, w: 680, h: 280 };
+        // Ở thể lỏng: tầng dưới là nước lỏng (h = 194), tầng trên là vùng khí (h = 86)
+        const S3_LIQUID_RECT = { x: 40, y: 124, w: 680, h: 194 };
+        const S3_GAS_RECT = { x: 40, y: 38, w: 680, h: 86 };
+        const S3_ICE_RECT = { x: 40, y: 38, w: 680, h: 280 };
+        const S3_ESCAPE_ENERGY = 68, S3_MAX_ESCAPED = 4, S3_N_MOL = 12;
+
+        // Mạng tinh thể nước đá cấu trúc mở (2 vòng lục giác rỗng ở giữa, mở rộng trọn khung 680 x 280)
+        const S3_ICE_LATTICE = (function () {
+            const pts = [];
+            const R = 88;
+            // Vòng lục giác 1 (trái, tâm 225, 178)
+            const c1 = { x: 225, y: 178 };
+            for (let i = 0; i < 6; i++) {
+                const ang = (i * 60) * DEG;
+                pts.push({ x: c1.x + Math.cos(ang) * R, y: c1.y + Math.sin(ang) * R, rot: ang + Math.PI / 2 });
+            }
+            // Vòng lục giác 2 (phải, tâm 535, 178)
+            const c2 = { x: 535, y: 178 };
+            for (let i = 0; i < 6; i++) {
+                const ang = (i * 60) * DEG;
+                pts.push({ x: c2.x + Math.cos(ang) * R, y: c2.y + Math.sin(ang) * R, rot: ang + Math.PI / 2 });
+            }
+            return pts;
+        })();
+
+        function initStage3() {
+            state.s3 = { energy: 0, autoRunning: false, mode: 'liquid', frozenOnce: false, molecules: [], escapedCount: 0, taskADone: false, observedLiquid: false, observedIce: false, compareRevealed: false, dndDone: false, quizDone: false };
+            for (let i = 0; i < S3_N_MOL; i++) {
+                state.s3.molecules.push({
+                    x: S3_LIQUID_RECT.x + 40 + Math.random() * (S3_LIQUID_RECT.w - 80),
+                    y: S3_LIQUID_RECT.y + 40 + Math.random() * (S3_LIQUID_RECT.h - 80),
+                    vx: (Math.random() - 0.5) * 0.7, vy: (Math.random() - 0.5) * 0.7,
+                    rot: Math.random() * Math.PI * 2, rotSpeed: (Math.random() - 0.5) * 0.012,
+                    phase: 'liquid', iceTarget: null, _seed: Math.random() * 100
+                });
+            }
+            particles = []; rings = []; s3Snow = [];
+            renderControls(); refreshObserveTable();
+            document.getElementById('conclusionBody').innerHTML = '';
+            setRobotSpeech('Hãy kéo thanh năng lượng từ thấp lên cao và theo dõi đồng thời chuyển động phân tử, đường chấm hydrogen và khoảng cách giữa các phân tử.', 'idle');
+        }
+
+        function stage3ToggleAutoRun() { state.s3.autoRunning = !state.s3.autoRunning; renderControls(); }
+        function stage3Freeze() {
+            if (!state.s3.taskADone || state.s3.mode === 'ice') return;
+            state.s3.mode = 'ice'; state.s3.frozenOnce = true; state.s3.autoRunning = false; state.s3.energy = 0;
+            state.s3.molecules.forEach((m, i) => { m.phase = 'ice'; m.iceTarget = S3_ICE_LATTICE[i]; });
+            renderControls();
+            setRobotSpeech('Bây giờ hãy quan sát: số lượng đúng 12 phân tử như ở nước lỏng, nhưng chúng khóa vào mạng cấu trúc mở có nhiều khoảng trống và thể tích lớn hơn.', 'idle');
+            setTimeout(() => { state.s3.observedIce = true; checkStage3BothObserved(); refreshObserveTable(); }, 1600);
+        }
+        function stage3ShowLiquid() {
+            if (state.s3.mode === 'liquid') return;
+            state.s3.mode = 'liquid';
+            state.s3.molecules.forEach(m => {
+                m.phase = 'liquid';
+                m.x = S3_LIQUID_RECT.x + 40 + Math.random() * (S3_LIQUID_RECT.w - 80);
+                m.y = S3_LIQUID_RECT.y + 40 + Math.random() * (S3_LIQUID_RECT.h - 80);
+            });
+            renderControls();
+            state.s3.observedLiquid = true;
+            checkStage3BothObserved(); refreshObserveTable();
+            setRobotSpeech('Hãy chuyển qua lại giữa nước lỏng và nước đá để so sánh đặc điểm cấu trúc và hoàn thành chuỗi kết luận.', 'idle');
+        }
+        function stage3ShowIce() {
+            if (state.s3.mode === 'ice') return;
+            state.s3.mode = 'ice';
+            state.s3.molecules.forEach((m, i) => { m.phase = 'ice'; if (!m.iceTarget) m.iceTarget = S3_ICE_LATTICE[i]; });
+            renderControls();
+            setTimeout(() => { state.s3.observedIce = true; checkStage3BothObserved(); refreshObserveTable(); }, 1200);
+        }
+        function checkStage3BothObserved() {
+            if (state.s3.observedLiquid && state.s3.observedIce && !state.s3.compareRevealed) {
+                state.s3.compareRevealed = true;
+                refreshObserveTable();
+                showStage3DndQuiz();
+            }
+        }
+
+        function stage3Tick() {
+            const s3 = state.s3;
+            if (s3.autoRunning && s3.mode === 'liquid') {
+                s3.energy = clamp(s3.energy + 100 / (7 * 60), 0, 100);
+                const el = document.getElementById('s3Energy'); if (el) el.value = Math.round(s3.energy);
+                if (s3.energy >= 100) s3.autoRunning = false;
+            }
+            s3.molecules.forEach(m => {
+                if (m.phase === 'liquid') {
+                    const speed = lerp(0.3, 2.2, s3.energy / 100);
+                    m.x += m.vx * speed; m.y += m.vy * speed;
+                    m.vx += (Math.random() - 0.5) * 0.06; m.vy += (Math.random() - 0.5) * 0.06;
+                    m.vx = clamp(m.vx, -1.6, 1.6); m.vy = clamp(m.vy, -1.6, 1.6);
+                    const minX = S3_LIQUID_RECT.x + 35, maxX = S3_LIQUID_RECT.x + S3_LIQUID_RECT.w - 35;
+                    const minY = S3_LIQUID_RECT.y + 35, maxY = S3_LIQUID_RECT.y + S3_LIQUID_RECT.h - 30;
+                    if (m.x < minX) { m.x = minX; m.vx *= -1; } if (m.x > maxX) { m.x = maxX; m.vx *= -1; }
+                    if (m.y < minY) { m.y = minY; m.vy *= -1; } if (m.y > maxY) { m.y = maxY; m.vy *= -1; }
+                    m.rot += m.rotSpeed * (1 + s3.energy / 50);
+                    if (s3.energy >= S3_ESCAPE_ENERGY && s3.escapedCount < S3_MAX_ESCAPED && m.y < minY + 30 && Math.random() < 0.012) {
+                        m.phase = 'gas'; m.vy = -1.5; m.vx = (Math.random() - 0.5) * 0.6;
+                        s3.escapedCount++;
+                        spawnParticles(m.x, m.y, ATOM_COLORS.O, 8);
+                        if (s3.escapedCount >= 3 && !s3.taskADone) {
+                            s3.taskADone = true; s3.observedLiquid = true;
+                            renderControls(); refreshObserveTable();
+                            setRobotSpeech('Các phân tử đã thắng lực hút và thoát lên vùng khí! Hãy nhấn nút "Đóng băng" để khảo sát cấu trúc nước đá.', 'idle');
+                            appendConclusionBlock('s3_recall', '<i class="ti ti-history"></i> Nhắc lại số liệu Stage 1',
+                                'H₂O sôi ở 100 °C · H₂S sôi ở −60 °C — nhiệt độ sôi cao vượt trội của H₂O cho thấy lực hút giữa các phân tử H₂O (liên kết hydrogen) mạnh hơn nhiều so với H₂S.');
+                        }
+                    }
+                } else if (m.phase === 'gas') {
+                    if (m.y > S3_GAS_RECT.y + S3_GAS_RECT.h - 15) { m.vy = -0.8; }
+                    else {
+                        m.x += m.vx; m.y += m.vy;
+                        m.vx += (Math.random() - 0.5) * 0.05; m.vy += (Math.random() - 0.5) * 0.05;
+                        m.vx = clamp(m.vx, -1.2, 1.2); m.vy = clamp(m.vy, -1.2, 1.2);
+                        if (m.x < S3_GAS_RECT.x + 35) { m.x = S3_GAS_RECT.x + 35; m.vx *= -1; }
+                        if (m.x > S3_GAS_RECT.x + S3_GAS_RECT.w - 35) { m.x = S3_GAS_RECT.x + S3_GAS_RECT.w - 35; m.vx *= -1; }
+                        if (m.y < S3_GAS_RECT.y + 24) { m.y = S3_GAS_RECT.y + 24; m.vy *= -1; }
+                    }
+                    m.rot += m.rotSpeed;
+                } else if (m.phase === 'ice') {
+                    m.x = lerp(m.x, m.iceTarget.x, 0.06); m.y = lerp(m.y, m.iceTarget.y, 0.06);
+                    m.x += Math.sin(time * 2 + m._seed) * 0.18; m.y += Math.cos(time * 2 + m._seed) * 0.18;
+                    m.rot = lerp(m.rot, m.iceTarget.rot, 0.06);
+                }
+            });
+        }
+
+        // Vẽ phân tử H2O trong Stage 3 to rõ ràng
+        function drawWaterMol3(m) {
+            ctx.save();
+            const bondLen = 22, rH = 6.5, rO = 12;
+            const h1x = m.x + Math.cos(m.rot - 0.9) * bondLen, h1y = m.y + Math.sin(m.rot - 0.9) * bondLen;
+            const h2x = m.x + Math.cos(m.rot + 0.9) * bondLen, h2y = m.y + Math.sin(m.rot + 0.9) * bondLen;
+
+            // Liên kết O-H (luôn là nét liền, không bị đứt)
+            ctx.strokeStyle = '#334155'; ctx.lineWidth = 3.2;
+            ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(h1x, h1y); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(m.x, m.y); ctx.lineTo(h2x, h2y); ctx.stroke();
+
+            // Hai nguyên tử H
+            drawSphereAtom(h1x, h1y, rH, ATOM_COLORS.H);
+            drawSphereAtom(h2x, h2y, rH, ATOM_COLORS.H);
+            ctx.fillStyle = '#0f172a'; ctx.font = labelFont(8); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('H', h1x, h1y); ctx.fillText('H', h2x, h2y);
+
+            // Nguyên tử O
+            drawSphereAtom(m.x, m.y, rO, ATOM_COLORS.O);
+            ctx.fillStyle = '#ffffff'; ctx.font = labelFont(10); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('O', m.x, m.y);
+
+            ctx.restore();
+        }
+
+        function drawLiquidHBonds(mols) {
+            const liquidMols = mols.filter(m => m.phase === 'liquid');
+            ctx.save(); ctx.strokeStyle = 'rgba(45,139,111,0.85)'; ctx.setLineDash([3, 5]); ctx.lineCap = 'round';
+            for (let i = 0; i < liquidMols.length; i++) for (let j = i + 1; j < liquidMols.length; j++) {
+                const a = liquidMols[i], b = liquidMols[j], d = Math.hypot(a.x - b.x, a.y - b.y);
+                if (d < 95) {
+                    ctx.globalAlpha = clamp((1 - d / 95) * 0.9, 0.2, 0.85);
+                    ctx.lineWidth = 2.6;
+                    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+                }
+            }
+            ctx.restore();
+        }
+
+        function drawIceBonds(mols) {
+            const iceMols = mols.filter(m => m.phase === 'ice');
+            ctx.save(); ctx.strokeStyle = 'rgba(45,139,111,0.9)'; ctx.setLineDash([4, 6]); ctx.lineWidth = 3.2; ctx.lineCap = 'round';
+            
+            // Nối các cạnh trong vòng 1 (đỉnh 0 -> 5)
+            for (let i = 0; i < 6; i++) {
+                const a = iceMols[i], b = iceMols[(i + 1) % 6];
+                if (a && b) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+            }
+            // Nối các cạnh trong vòng 2 (đỉnh 6 -> 11)
+            for (let i = 6; i < 12; i++) {
+                const a = iceMols[i], b = iceMols[6 + ((i - 6 + 1) % 6)];
+                if (a && b) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+            }
+            // Nối liên kết hydrogen giữa hai vòng lục giác (đỉnh 0 của vòng 1 và đỉnh 3 của vòng 2)
+            if (iceMols[0] && iceMols[9]) {
+                ctx.beginPath(); ctx.moveTo(iceMols[0].x, iceMols[0].y); ctx.lineTo(iceMols[9].x, iceMols[9].y); ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawContainerGlass(rect, radius, tint) {
+            ctx.save();
+            ctx.fillStyle = tint || 'rgba(220,235,255,0.25)'; ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2.2;
+            roundRect(rect.x, rect.y, rect.w, rect.h, radius); ctx.fill(); ctx.stroke();
+            ctx.save(); ctx.clip();
+            const hlX = rect.x + rect.w * 0.16;
+            const grad = ctx.createLinearGradient(hlX - 18, 0, hlX + 18, 0);
+            grad.addColorStop(0, 'rgba(255,255,255,0)'); grad.addColorStop(0.5, 'rgba(255,255,255,0.4)'); grad.addColorStop(1, 'rgba(255,255,255,0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(hlX - 18, rect.y, 36, rect.h);
+            ctx.restore();
+            ctx.restore();
+        }
+
+        let s3Snow = [];
+        function drawSnow(rect) {
+            if (s3Snow.length < 28 && Math.random() < 0.5) s3Snow.push({ x: rect.x + Math.random() * rect.w, y: rect.y - 4, vy: Math.random() * 0.35 + 0.2, drift: Math.random() * 0.3 - 0.15, size: Math.random() * 2 + 1.2 });
+            ctx.save(); ctx.fillStyle = 'rgba(255,255,255,0.85)';
+            for (let i = s3Snow.length - 1; i >= 0; i--) {
+                const f = s3Snow[i];
+                if (!reduceMotion) { f.y += f.vy; f.x += f.drift + Math.sin(time + i) * 0.1; }
+                ctx.beginPath(); ctx.arc(f.x, f.y, f.size, 0, Math.PI * 2); ctx.fill();
+                if (f.y > rect.y + rect.h) s3Snow.splice(i, 1);
+            }
+            ctx.restore();
+        }
+
+        function drawStage3() {
+            stage3Tick();
+            const s3 = state.s3;
+            if (s3.mode === 'ice') {
+                // Khung viền mốc thể tích nước lỏng ban đầu (ở tầng dưới)
+                ctx.save(); ctx.strokeStyle = 'rgba(148,163,184,0.55)'; ctx.setLineDash([5, 5]); ctx.lineWidth = 1.8;
+                roundRect(S3_LIQUID_RECT.x, S3_LIQUID_RECT.y, S3_LIQUID_RECT.w, S3_LIQUID_RECT.h, 14); ctx.stroke(); ctx.setLineDash([]);
+                ctx.font = labelFont(11); ctx.fillStyle = 'rgba(100,116,139,0.9)'; ctx.textAlign = 'center';
+                ctx.fillText('Mức thể tích nước lỏng ban đầu (chỉ chiếm tầng dưới)', S3_LIQUID_RECT.x + S3_LIQUID_RECT.w / 2, S3_LIQUID_RECT.y + S3_LIQUID_RECT.h - 10);
+                ctx.restore();
+
+                // Khung nước đá nở rộng ra toàn bộ khung chứa
+                drawContainerGlass(S3_ICE_RECT, 18, 'rgba(225,245,255,0.35)');
+                drawSnow(S3_ICE_RECT);
+                ctx.save(); ctx.font = labelFont(12); ctx.fillStyle = '#0f172a'; ctx.textAlign = 'center';
+                ctx.fillText('NƯỚC ĐÁ — Mạng cấu trúc mở, nhiều khoảng trống (Nở rộng toàn bộ khung)', S3_ICE_RECT.x + S3_ICE_RECT.w / 2, S3_ICE_RECT.y - 12);
+                ctx.restore();
+                drawIceBonds(s3.molecules);
+            } else {
+                // Toàn bộ khung chứa to lớn (gồm vùng khí ở trên và nước lỏng ở dưới)
+                drawContainerGlass(S3_CHAMBER_RECT, 18);
+
+                // Nước lỏng ở tầng dưới (phần có màu xanh nước biển nhạt)
+                ctx.save();
+                ctx.fillStyle = 'rgba(186, 230, 253, 0.35)';
+                roundRect(S3_LIQUID_RECT.x + 2, S3_LIQUID_RECT.y, S3_LIQUID_RECT.w - 4, S3_LIQUID_RECT.h - 2, 14);
+                ctx.fill();
+                ctx.restore();
+
+                // Mặt thoáng phân cách giữa vùng lỏng và vùng khí
+                ctx.save();
+                ctx.strokeStyle = 'rgba(56, 189, 248, 0.85)'; ctx.lineWidth = 2.2; ctx.setLineDash([6, 4]);
+                ctx.beginPath(); ctx.moveTo(S3_LIQUID_RECT.x + 4, S3_LIQUID_RECT.y); ctx.lineTo(S3_LIQUID_RECT.x + S3_LIQUID_RECT.w - 4, S3_LIQUID_RECT.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.restore();
+
+                // Nhãn chỉ dẫn vùng khí và nước lỏng
+                ctx.save();
+                ctx.font = labelFont(11.5); ctx.fillStyle = '#475569'; ctx.textAlign = 'center';
+                ctx.fillText('VÙNG KHÍ (HƠI NƯỚC)', S3_GAS_RECT.x + S3_GAS_RECT.w / 2, S3_GAS_RECT.y + 24);
+                ctx.font = labelFont(12); ctx.fillStyle = '#0f172a';
+                ctx.fillText('NƯỚC LỎNG (12 phân tử H₂O — xếp sít hơn)', S3_LIQUID_RECT.x + S3_LIQUID_RECT.w / 2, S3_LIQUID_RECT.y - 12);
+                ctx.restore();
+
+                drawLiquidHBonds(s3.molecules);
+                if (s3.escapedCount > 0) {
+                    ctx.save(); ctx.font = labelFont(11); ctx.fillStyle = 'rgb(45,139,111)'; ctx.textAlign = 'right';
+                    ctx.fillText(`Đã bay hơi: ${s3.escapedCount}/${S3_MAX_ESCAPED}`, S3_GAS_RECT.x + S3_GAS_RECT.w - 18, S3_GAS_RECT.y + 24);
+                    ctx.restore();
+                }
+                if (s3.energy >= S3_ESCAPE_ENERGY) {
+                    ctx.save(); ctx.font = labelFont(10.5); ctx.fillStyle = 'rgb(193,95,60)'; ctx.textAlign = 'center';
+                    ctx.fillText('Năng lượng cao: phân tử chuyển động nhanh, thắng lực hút và thoát lên vùng khí', S3_LIQUID_RECT.x + S3_LIQUID_RECT.w / 2, S3_LIQUID_RECT.y + S3_LIQUID_RECT.h + 20);
+                    ctx.restore();
+                }
+            }
+            s3.molecules.forEach(m => drawWaterMol3(m));
+        }
+
+        function renderControlsStage3(row) {
+            const s3 = state.s3;
+            if (!s3.frozenOnce) {
+                const badge = document.createElement('span'); badge.className = 'ctrl-badge';
+                badge.innerHTML = '<i class="ti ti-droplet"></i> Nước lỏng';
+                row.appendChild(badge);
+                const slider = document.createElement('input');
+                slider.type = 'range'; slider.min = 0; slider.max = 100; slider.value = Math.round(s3.energy);
+                slider.className = 'range-slider'; slider.id = 's3Energy';
+                slider.setAttribute('aria-label', 'Năng lượng cung cấp');
+                slider.addEventListener('input', (e) => { s3.energy = Number(e.target.value); s3.autoRunning = false; });
+                row.appendChild(slider);
+                ctrlButton(row, 'ctrl-chip', s3.autoRunning ? 'ti-loader spin' : 'ti-player-play', 'Tự động chạy', stage3ToggleAutoRun, false);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-primary', 'ti-snowflake', 'Đóng băng', stage3Freeze, !s3.taskADone);
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage3(), false);
+            } else {
+                const badge = document.createElement('span'); badge.className = 'ctrl-badge';
+                badge.innerHTML = s3.mode === 'ice' ? '<i class="ti ti-snowflake"></i> Nước đá' : '<i class="ti ti-droplet"></i> Nước lỏng';
+                row.appendChild(badge);
+                ctrlButton(row, 'ctrl-chip' + (s3.mode === 'liquid' ? ' active' : ''), 'ti-droplet', 'Nước lỏng', stage3ShowLiquid, s3.mode === 'liquid');
+                ctrlButton(row, 'ctrl-chip' + (s3.mode === 'ice' ? ' active' : ''), 'ti-snowflake', 'Nước đá', stage3ShowIce, s3.mode === 'ice');
+                ctrlDivider(row);
+                ctrlButton(row, 'btn-reset', 'ti-refresh', 'Làm lại', () => initStage3(), false);
+            }
+        }
+        function refreshObserveTableStage3() {
+            document.getElementById('observeThead').innerHTML = '<tr><th>Tiêu chí</th><th>Nước lỏng</th><th>Nước đá</th></tr>';
+            const tbody = document.getElementById('observeTableBody');
+            if (!state.s3.compareRevealed) { tbody.innerHTML = '<tr><td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td></tr>'; return; }
+            tbody.innerHTML = `
+                <tr><td>Chuyển động phân tử</td><td class="flash">Liên tục</td><td class="flash">Rất hạn chế</td></tr>
+                <tr><td>Liên kết hydrogen</td><td>Liên tục hình thành và đứt</td><td>Ổn định hơn trong mạng</td></tr>
+                <tr><td>Cách sắp xếp</td><td>Xếp sít hơn</td><td>Mạng cấu trúc mở, nhiều khoảng trống</td></tr>`;
+        }
+        function showStage3DndQuiz() {
+            const block = appendConclusionBlock('s3_dnd', '<i class="ti ti-arrows-shuffle"></i> Hoàn thành chuỗi nguyên nhân — kết quả', 'Kéo 4 thẻ bên dưới vào đúng ô để hoàn thành hai chuỗi.');
+            const intro = `
+                <div class="dnd-chain-line">① "Liên kết hydrogen làm tăng lực hút giữa các phân tử nước" → <b>Ô 1</b> → <b>Ô 2</b></div>
+                <div class="dnd-chain-line">② "Khi đóng băng, liên kết hydrogen duy trì mạng cấu trúc mở" → <b>Ô 3</b> → <b>Ô 4</b></div>`;
+            renderOrderDndInto(block, intro,
+                [
+                    { key: 'c1', label: 'Cần nhiệt độ cao hơn để các phân tử tách xa nhau.' },
+                    { key: 'c2', label: 'Nước có nhiệt độ sôi cao hơn H₂S.' },
+                    { key: 'c3', label: 'Trong cùng một lượng chất xuất hiện nhiều khoảng trống hơn.' },
+                    { key: 'c4', label: 'Nước đá có thể tích lớn hơn và khối lượng riêng nhỏ hơn nước lỏng.' }
+                ],
+                ['Ô 1', 'Ô 2', 'Ô 3', 'Ô 4'],
+                ['c1', 'c2', 'c3', 'c4'],
+                (isCorrect) => {
+                    if (isCorrect) {
+                        state.s3.dndDone = true;
+                        block.classList.add('is-done');
+                        appendAhaAndAdvance('s3_aha',
+                            'Sự hình thành và phá vỡ liên kết hydrogen giữa các phân tử làm nước có nhiệt độ sôi cao; khi đóng băng, mạng hydrogen có cấu trúc mở làm nước đá nở ra và có khối lượng riêng nhỏ hơn nước lỏng.',
+                            'Hoàn thành',
+                            () => completeModule());
+                        appendInfoBox('s3_info',
+                            'Nhờ liên kết hydrogen giữ cho mạng tinh thể nước đá có cấu trúc mở, nước đá luôn nhẹ hơn và nổi trên bề mặt nước lỏng — lớp băng nổi này cách nhiệt, giúp bảo vệ sinh vật sống bên dưới trong mùa đông thay vì để cả khối nước đóng băng từ đáy lên.');
+                        appendDetailsBox('s3_detail', 'Vì sao cần cung cấp năng lượng thì các phân tử mới tách xa nhau?',
+                            `Trong nước lỏng, mỗi phân tử H₂O liên tục hình thành rồi phá vỡ liên kết hydrogen
+                            với vài phân tử lân cận — đó chính là lực giữ chúng ở gần nhau. Khi tăng năng lượng
+                            (nhiệt độ), các phân tử chuyển động nhanh hơn, liên kết hydrogen đứt nhanh hơn so
+                            với tốc độ hình thành lại; đến một mức năng lượng đủ lớn, một số phân tử có đủ
+                            động năng để thắng hẳn lực hút này và thoát hoàn toàn ra khỏi bề mặt chất lỏng —
+                            đó là hiện tượng bay hơi/sôi. Ngược lại khi hạ năng lượng (làm lạnh), các phân tử
+                            chuyển động chậm dần, liên kết hydrogen trở nên bền và ổn định hơn, cuối cùng khoá
+                            các phân tử vào đúng vị trí trong mạng tinh thể — đó là nước đá.`);
+                    }
+                }
+            );
+        }
+        function appendDetailsBox(id, summary, bodyHtml) {
+            const wrap = document.getElementById('conclusionBody');
+            const det = document.createElement('details');
+            det.className = 'detail-box'; det.id = id;
+            det.innerHTML = `<summary>${summary}</summary><div class="detail-content">${bodyHtml}</div>`;
+            wrap.appendChild(det);
+        }
+        function appendInfoBox(id, text) {
+            const wrap = document.getElementById('conclusionBody');
+            const box = document.createElement('div');
+            box.className = 'info-box'; box.id = id;
+            box.innerHTML = `<div class="info-title"><i class="ti ti-info-circle"></i> Em có biết?</div><div class="info-content">${text}</div>`;
+            wrap.appendChild(box);
+        }
+        function completeModule() {
+            const btn = document.getElementById('s3_aha_advBtn');
+            if (btn) { btn.innerHTML = 'Đã hoàn thành <i class="ti ti-confetti"></i>'; btn.disabled = true; }
+            spawnParticles(W / 2, H / 2, COLORS.jade, 18);
+            showCompletionModal();
+            if (!completed) {
+                completed = true;
+                const items = Object.keys(lmsAnswers).map(qid => Object.assign({ id: qid }, lmsAnswers[qid]));
+                const score = items.filter(it => it.correct).length;
+                LMS().complete({ summary: 'Hoàn thành module Liên kết Hydrogen.', score, max: items.length, items });
+                lmsReportState('completed');
+                setRobotSpeech('Bạn đã hoàn thành module Liên kết Hydrogen! Chúc mừng bạn.', 'correct');
+            }
+        }
+
+        // ======================================================
+        // MODAL HOÀN THÀNH
+        // ======================================================
+        const QUESTION_TITLES = { 1: 'Câu 1 — So sánh nhiệt độ sôi H₂O/H₂S', 2: 'Câu 2 — Bản chất liên kết hydrogen', 3: 'Câu 3 — Chuỗi nguyên nhân · kết quả' };
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            const list = document.getElementById('modalResultsList');
+            if (list) {
+                list.innerHTML = '';
+                const finalByStage = {};
+                Object.values(lmsAnswers).forEach(a => { if (a.correct) finalByStage[a.stage] = a; });
+                [1, 2, 3].forEach(stage => {
+                    if (!finalByStage[stage]) return;
+                    const row = document.createElement('div');
+                    row.className = 'modal-result-row';
+                    row.innerHTML = `<i class="ti ti-circle-check is-correct"></i> ${QUESTION_TITLES[stage]}`;
+                    list.appendChild(row);
+                });
+            }
+            modal.style.display = 'flex';
+            requestAnimationFrame(() => modal.classList.add('show'));
+        }
+        function hideCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 250);
+        }
+        document.getElementById('completionModal').addEventListener('click', (e) => { if (e.target.id === 'completionModal') hideCompletionModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('completionModal').classList.contains('show')) hideCompletionModal(); });
+
+        // ======================================================
+        // KHỞI CHẠY
+        // ======================================================
+        initStage1();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

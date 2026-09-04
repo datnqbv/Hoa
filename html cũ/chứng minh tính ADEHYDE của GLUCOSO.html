@@ -1,0 +1,1517 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Liệu Điện Tử Tương Tác: Tính Chất Aldehyde Của Glucose</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+
+    <style>
+        /* ================= DESIGN SYSTEM & TYPOGRAPHY ================= */
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --primary-light: #246a9e;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --btn-normal-bg: #f8fafc;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .block-element {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        /* ================= HEADER BLOCK ================= */
+        header.block-element {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 150px;
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 220px;
+            height: 220px;
+            top: -60px;
+            right: -30px;
+        }
+
+        header::after {
+            width: 320px;
+            height: 320px;
+            bottom: -160px;
+            left: -60px;
+        }
+
+        .header-badge {
+            align-self: flex-start;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .header-badge i {
+            font-size: 1.25rem;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+            line-height: 1.4;
+        }
+
+        /* ================= NAVIGATION TABS ================= */
+        .tabs-container {
+            display: flex;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            padding: 0;
+            margin-top: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .tab-btn i {
+            font-size: 18px;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        /* ================= INFO PANEL ================= */
+        .info-panel.block-element {
+            display: flex;
+            background: transparent;
+            border: none;
+            gap: 12px;
+            padding: 0;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: 12px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-content {
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* ================= CANVAS VÙNG MÔ PHỎNG ================= */
+        .canvas-container {
+            position: relative;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background: #e2e8f0;
+        }
+
+        canvas {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ================= CONTROLS BAR (Kiểu B - Stepper) ================= */
+        .controls.block-element {
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #f0f6fb;
+            border: 1px solid #b0d4f1;
+        }
+
+        .ctrl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .ctrl-header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-counter {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-sub);
+        }
+
+        /* Progress Dots */
+        .progress-dots {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: 4px 0;
+        }
+
+        .progress-dots::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: var(--text-sub);
+        }
+
+        .dot.done {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+
+        .dot.active {
+            border-color: var(--primary);
+            border-width: 3px;
+            transform: scale(1.18);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Step Card */
+        .step-card {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-left: 3px solid #d97706;
+            border-radius: 8px;
+            padding: 14px 18px;
+            min-height: 80px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            border: none;
+            background: var(--btn-normal-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 9px 18px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #ffffff;
+        }
+
+        button.btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.btn-primary:hover:not(:disabled) {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+            color: #ffffff;
+        }
+
+        button.btn-shake-mode {
+            background: #d97706;
+            border-color: #d97706;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+        }
+
+        button.btn-shake-mode:hover:not(:disabled) {
+            background: #b45309;
+            border-color: #b45309;
+            color: #ffffff;
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--border);
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: #ffffff;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            font-weight: 500;
+            text-align: right;
+            margin-top: 6px;
+        }
+
+        /* ================= EXPLANATION BOX ================= */
+        .explanation.block-element {
+            border: 1px solid #e9d5ff;
+            border-left: 4px solid #7c3aed;
+            background: #faf5ff;
+            padding: 18px 22px;
+            transition: all 0.3s ease;
+        }
+
+        .explanation.success.block-element {
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #16a34a;
+            background: #f0fdf4;
+        }
+
+        .explanation-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .explanation-header i {
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .explanation.success .explanation-header i {
+            color: var(--secondary);
+        }
+
+        .explanation-text {
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        /* Utility System Classes */
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .fade-transition {
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin-icon {
+            animation: spin 0.9s linear infinite;
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+        }
+
+        sub {
+            bottom: -0.25em;
+        }
+
+        sup {
+            top: -0.5em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="block-element">
+
+        <h1>Tính chất Aldehyde của Glucose</h1>
+        <p>Mô phỏng động học chuỗi phản ứng oxi hóa chứng minh sự tồn tại của nhóm chức formyl (-CHO) trong cấu trúc
+            mạch hở phân tử glucose.</p>
+    </header>
+
+    <div class="block-element tabs-container">
+        <button class="tab-btn active" onclick="changeTab(0)">
+            <i class="ti ti-flame"></i> Phản ứng với Cu(OH)₂
+        </button>
+        <button class="tab-btn" onclick="changeTab(1)">
+            <i class="ti ti-sparkles"></i> Phản ứng Tráng bạc
+        </button>
+        <button class="tab-btn" onclick="changeTab(2)">
+            <i class="ti ti-droplet-filled"></i> Tác dụng nước Bromine
+        </button>
+    </div>
+
+    <div class="block-element info-panel">
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-target"></i> Mục đích khoa học</div>
+            <div class="info-content" id="info-purpose">Đang tải nội dung...</div>
+        </div>
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-list-check"></i> Hướng dẫn thí nghiệm</div>
+            <div class="info-content" id="info-action">Đang tải hướng dẫn...</div>
+        </div>
+    </div>
+
+    <div class="block-element canvas-container">
+        <canvas id="labCanvas" width="760" height="460"></canvas>
+    </div>
+
+    <div class="block-element controls">
+        <div class="ctrl-header">
+            <div class="ctrl-header-left">
+                <i class="ti ti-settings"></i> Trình điều khiển tương tác quy trình tuần tự
+            </div>
+            <div class="step-counter" id="stepCounter">Bước 1 / 4</div>
+        </div>
+
+        <div class="progress-dots" id="progressDots"></div>
+
+        <div class="step-card" id="stepCard">
+            <div class="step-title" id="stepTitle">Đang nạp dữ liệu</div>
+            <div class="step-desc" id="stepDesc">Vui lòng đợi giây lát...</div>
+        </div>
+
+        <div class="nav-actions">
+            <div class="nav-left">
+                <button class="btn-reset" id="btnReset" onclick="resetExperiment()">
+                    <i class="ti ti-refresh"></i> Tiến hành lại từ đầu
+                </button>
+            </div>
+            <div>
+                <button class="btn-primary" id="btnNext" onclick="handleControlClick()">
+                    Bắt đầu thực hiện <i class="ti ti-arrow-right"></i>
+                </button>
+                <div class="status-text" id="statusText">Hệ thống đang sẵn sàng</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-element explanation fade-transition" id="explanationBox">
+        <div class="explanation-header" id="expHeader">
+            <i class="ti ti-info-circle"></i> Trạng thái chuẩn bị
+        </div>
+        <div class="explanation-text" id="expText">
+            Chưa tiến hành nạp hóa chất. Vui lòng bấm "Bắt đầu thực hiện" để tiến hành bước đầu tiên trong quy trình thí
+            nghiệm.
+        </div>
+    </div>
+
+    <script>
+        // ================= MATHEMATICAL UTILS =================
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgba(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)},${c1.a + (c2.a - c1.a) * t})`;
+        }
+
+        function parseColor(str) {
+            let m = str.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
+            if (m) return { r: parseInt(m[1]), g: parseInt(m[2]), b: parseInt(m[3]), a: m[4] ? parseFloat(m[4]) : 1 };
+            return { r: 255, g: 255, b: 255, a: 0 };
+        }
+
+        // ================= CANVAS GRAPHICS CONFIGURATION =================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width, H = canvas.height;
+        const TX = W / 2, TY = 160;
+        let time = 0;
+
+        let tools = {};
+        let activeToolKey = null;
+
+        // Simulation Liquid/Visual State Parameters
+        let liquidLevel = 0;
+        let liquidColor = { r: 255, g: 255, b: 255, a: 0.05 };
+        let targetLiquidColor = { r: 255, g: 255, b: 255, a: 0.05 };
+        let startLiquidColor = { r: 255, g: 255, b: 255, a: 0.05 };
+        let currentVisualColor = { r: 255, g: 255, b: 255, a: 0.05 }; // Dùng để lerp màu liên tục thời gian thực khi nhỏ/đổ dịch
+        let startLiquidLevel = 0;
+        let targetLiquidLvl = 0;
+        let silverMirrorAlpha = 0;
+        let flashAlpha = 0;
+        let tubeAngle = 0;
+
+        let drop = { active: false, x: 0, y: 0, color: '' };
+        let particles = [];
+        let bubbles = [];
+        let ripples = [];
+
+        // App State Machine
+        let currentTab = 0;
+        let currentStep = 0;
+        let subStep = 0; // 0: Idle, 1: Animation Sequence Active, 2: Wait User Action, 3: Interactive Progress, 4: Done
+        let animTimer = 0;
+
+        // ================= RIGOROUS PEDAGOGICAL SCIENTIFIC DATA =================
+        const experiments = [
+            {
+                purpose: "Nghiên cứu tính chất của nhóm chức anđehit (-CHO) trong phân tử glucose thông qua phản ứng oxi hóa khử với đồng(II) hydroxide Cu(OH)₂ trong môi trường kiềm mạnh. Thí nghiệm chứng minh khả năng tạo phức đa chức ở nhiệt độ thường (màu xanh lam đậm) và phản ứng oxi hóa cắt mạch tạo kết tủa Cu₂O đỏ gạch đặc trưng khi đun nóng.",
+                guide: `<ol style="padding-left: 16px; margin-bottom: 8px;">
+                            <li>Dùng ống hút nhỏ giọt cho khoảng 2 ml dung dịch NaOH 10% vào một ống nghiệm sạch.</li>
+                            <li>Cho thêm khoảng 0.5 ml dung dịch CuSO₄ 5% vào ống nghiệm đó và lắc nhẹ. Xuất hiện kết tủa màu xanh nhạt.</li>
+                            <li>Cho tiếp khoảng 3 ml dung dịch glucose 1% vào ống nghiệm và lắc đều. Kết tủa xanh tan ra, tạo thành dung dịch có màu xanh lam đậm.</li>
+                            <li>Đưa đáy ống nghiệm lên đun nóng trực tiếp bằng ngọn lửa đèn cồn trong vài phút.</li>
+                        </ol>`,
+                setup: {
+                    naoh: { type: 'dropper', label: 'NaOH 10%', color: 'rgba(240,240,240,0.9)', homeX: 90, homeY: 340, x: 90, y: 340, targetX: TX, targetY: 100, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    cuso4: { type: 'dropper', label: 'CuSO4 5%', color: 'rgba(0,110,230,0.9)', homeX: 180, homeY: 340, x: 180, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    glucose: { type: 'dropper', label: 'Glucose 1%', color: 'rgba(250,250,250,0.9)', homeX: 670, homeY: 340, x: 670, y: 340, targetX: TX, targetY: 100, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    lamp: { type: 'lamp', label: 'Đèn cồn', homeX: 560, homeY: 410, x: 560, y: 410, targetX: TX, targetY: 410, isOn: false }
+                },
+                steps: [
+                    {
+                        tool: 'naoh', title: "Bước 1: Nạp môi trường kiềm (NaOH 10%)", desc: "Dùng ống hút nhỏ giọt lấy khoảng 2 ml dung dịch sodium hydroxide (NaOH 10%) từ lọ nguyên liệu, di chuyển đều vào trung tâm và nạp vào đáy ống nghiệm sạch. Đây là môi trường kiềm bắt buộc để tiến hành tạo kết tủa Cu(OH)₂ ở bước tiếp theo.",
+                        targetLevel: 25, immediateColor: "rgba(225,228,232,0.9)", targetColor: "rgba(225,228,232,0.9)", requiresShake: false,
+                        resultTitle: "Hoàn tất nạp kiềm NaOH", resultText: "Dung dịch NaOH 10% trong suốt đã được nạp định lượng chính xác ở đáy ống nghiệm, sẵn sàng làm môi trường nền."
+                    },
+                    {
+                        tool: 'cuso4', title: "Bước 2: Tạo kết tủa Copper(II) Hydroxide", desc: "Ống hút lấy tiếp khoảng 0.5 ml dung dịch copper(II) sulfate (CuSO₄ 5%) màu xanh dương đặc trưng đổ vào ống nghiệm. Dung dịch sẽ chuyển màu ngay lập tức tại điểm tiếp xúc. Sau đó, hệ thống sẽ yêu cầu lắc nhẹ để phản ứng xảy ra hoàn toàn tạo kết tủa xanh nhạt.",
+                        targetLevel: 36, immediateColor: "rgba(0,110,230,0.85)", targetColor: "rgba(0,110,230,0.95)", requiresShake: true, spawnParticles: "blue",
+                        resultTitle: "Hình thành kết tủa Cu(OH)₂ màu xanh nhạt", resultText: "Phương trình phản ứng điều chế: CuSO₄ + 2NaOH → Cu(OH)₂↓ (xanh nhạt) + Na₂SO₄. Kết tủa dạng keo xanh lơ lửng, không tan xuất hiện trong ống nghiệm."
+                    },
+                    {
+                        tool: 'glucose', title: "Bước 3: Bổ sung Glucose & Phản ứng tạo phức đa chức", desc: "Tiếp tục lấy khoảng 3 ml dung dịch glucose 1% nạp vào ống nghiệm. Ban đầu dung dịch phân lớp, sau khi thực hiện thao tác lắc cơ học đều đặn, toàn bộ kết tủa xanh nhạt sẽ bị hòa tan hoàn toàn, biến đổi thành dung dịch đồng nhất phức đồng-glucose màu xanh lam đậm đặc trưng.",
+                        targetLevel: 62, immediateColor: "rgba(110,150,240,0.75)", targetColor: "rgba(0, 75, 190, 0.92)", requiresShake: true, removeParticles: true,
+                        resultTitle: "Tạo dung dịch phức đồng màu xanh lam đậm", resultText: "Ở nhiệt độ thường, do phân tử glucose chứa nhiều nhóm -OH liền kề (tính chất polyalcol), nó hòa tan kết tủa Cu(OH)₂ tạo thành phức chất đồng-glucose hòa tan, đồng nhất, có màu xanh lam rất đậm."
+                    },
+                    {
+                        tool: 'lamp', title: "Bước 4: Kích hoạt nhiệt độ đun nóng khử aldehyde", desc: "Di chuyển ngọn lửa đèn cồn vào đáy ống nghiệm, đun nóng trực tiếp trong vài phút. Nhiệt độ cao kích hoạt phản ứng oxi hóa nhóm chức anđehit (-CHO) của glucose bởi Cu(OH)₂, làm biến đổi dung dịch từ màu xanh lam đậm chuyển dần sang kết tủa màu đỏ gạch.",
+                        targetLevel: 62, immediateColor: "rgba(0, 75, 190, 0.92)", targetColor: "rgba(166,45,23,0.95)", requiresShake: false, isHeating: true, spawnParticles: "red",
+                        resultTitle: "Phản ứng oxi hóa khử tạo kết tủa đỏ gạch Cu₂O", resultText: "Phương trình hóa học: CH₂OH[CHOH]₄CHO + 2Cu(OH)₂ + NaOH -t°→ CH₂OH[CHOH]₄COONa + Cu₂O↓ (đỏ gạch) + 3H₂O. Kết tủa đồng(I) oxide màu đỏ gạch chứng minh glucose có tính chất khử mạnh của một anđehit mạch hở.", success: true
+                    }
+                ]
+            },
+            {
+                purpose: "Khảo sát phản ứng oxi hóa glucose bằng phức chất silver nitrate trong môi trường ammonia (Thuốc thử Tollens). Đây là phản ứng oxi hóa cắt mạch chọn lọc nhóm chức formyl (-CHO), giải phóng kim loại bạc nguyên chất bám chặt lên thành thủy tinh, thường gọi là phản ứng tráng bạc hoặc tráng gương ứng dụng trong công nghiệp.",
+                guide: `<ol style="padding-left: 16px; margin-bottom: 8px;">
+                            <li>Cho khoảng 2 ml dung dịch AgNO₃ 1% vào một ống nghiệm sạch.</li>
+                            <li>Thêm từ từ dung dịch ammonia 5% vào ống nghiệm và lắc đều cho đến khi kết tủa tan hết, tạo thành dung dịch trong suốt.</li>
+                            <li>Thêm vào ống nghiệm chứa thuốc thử Tollens khoảng 2 ml dung dịch glucose 1% và lắc đều.</li>
+                            <li>Ngâm ống nghiệm này vào một cốc thủy tinh chứa nước nóng trong vài phút.</li>
+                        </ol>`,
+                setup: {
+                    agno3: { type: 'dropper', label: 'AgNO3 1%', color: 'rgba(225,228,232,0.9)', homeX: 90, homeY: 340, x: 90, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    nh3: { type: 'dropper', label: 'NH3 5%', color: 'rgba(225,228,232,0.9)', homeX: 180, homeY: 340, x: 180, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    glucose: { type: 'dropper', label: 'Glucose 1%', color: 'rgba(225,228,232,0.9)', homeX: 670, homeY: 340, x: 670, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    beaker: { type: 'beaker', label: 'nước nóng', homeX: 560, homeY: 410, x: 560, y: 410, targetX: TX, targetY: 340 }
+                },
+                steps: [
+                    {
+                        tool: 'agno3', title: "Bước 1: Cung cấp muối bạc nguồn (AgNO₃ 1%)", desc: "Ống hút tự động di chuyển lấy khoảng 2 ml dung dịch silver nitrate (AgNO₃ 1%) nạp trực tiếp vào ống nghiệm sạch. Dung dịch ban đầu hoàn toàn nguyên chất, trong suốt và không màu.",
+                        targetLevel: 22, immediateColor: "rgba(225,228,232,0.9)", targetColor: "rgba(225,228,232,0.9)", requiresShake: false,
+                        resultTitle: "Nạp thành công muối bạc", resultText: "Dung dịch silver nitrate 1% sẵn sàng trong ống nghiệm, cung cấp các ion Ag⁺ cần thiết làm chất oxi hóa cấu trúc."
+                    },
+                    {
+                        tool: 'nh3', title: "Bước 2: Tạo lập thuốc thử phức Tollens đặc trưng", desc: "Nhỏ từ từ dung dịch ammonia (NH₃ 5%) vào. Ngay khi tiếp xúc, dung dịch xuất hiện vệt đục kết tủa xám nâu của Ag₂O. Tuy nhiên, khi kích hoạt thao tác lắc đều liên tục, lượng ammonia dư sẽ hòa tan toàn bộ kết tủa để tái tạo một dung dịch phức trong suốt gọi là thuốc thử Tollens.",
+                        targetLevel: 42, immediateColor: "rgba(120,95,75,0.5)", targetColor: "rgba(225,228,232,0.9)", requiresShake: true, flashColor: "rgba(110,85,60,0.6)",
+                        resultTitle: "Điều chế thành công thuốc thử Tollens", resultText: "Phản ứng tạo phức diễn ra qua hai giai đoạn: Đầu tiên tạo Ag₂O kết tủa xám nâu, sau đó kết tủa tan trong NH₃ dư tạo phức chất trong suốt [Ag(NH₃)₂]OH ổn định."
+                    },
+                    {
+                        tool: 'glucose', title: "Bước 3: Nạp mẫu thử Glucose 1%", desc: "Nhỏ tiếp khoảng 2 ml dung dịch glucose 1% vào ống nghiệm chứa thuốc thử phức Tollens vừa điều chế. Ở điều kiện nhiệt độ phòng bình thường, các phân tử chỉ hòa loãng vào nhau, hoàn toàn không xuất hiện hiện tượng biến đổi hóa học nào.",
+                        targetLevel: 60, immediateColor: "rgba(225,228,232,0.9)", targetColor: "rgba(225,228,232,0.9)", requiresShake: true,
+                        resultTitle: "Hỗn hợp nạp sẵn ở nhiệt độ phòng", resultText: "Glucose đã hòa trộn đồng nhất với thuốc thử Tollens. Tuy nhiên phản ứng oxi hóa khử chưa thể kích hoạt do thiếu hụt năng lượng hoạt hóa."
+                    },
+                    {
+                        tool: 'beaker', title: "Bước 4: Ngâm cách thủy kích hoạt giải phóng bạc", desc: "Di chuyển cốc thủy tinh chứa nước nóng (khoảng 70-80°C) tiến vào bao bọc toàn bộ phần đáy ống nghiệm. Nhiệt lượng truyền qua thành thủy tinh kích hoạt phản ứng oxi hóa khử diễn ra mạnh mẽ, ion bạc phức bị khử tạo thành kim loại bạc bám trực tiếp lên thành thành lớp kính bóng.",
+                        targetLevel: 60, immediateColor: "rgba(225,228,232,0.9)", targetColor: "rgba(225,228,232,0.15)", requiresShake: false, isBathing: true,
+                        resultTitle: "Phản ứng tráng bạc hoàn tất xuất sắc", resultText: "Phương trình hóa học phản ứng: CH₂OH[CHOH]₄CHO + 2[Ag(NH₃)₂]OH -t°→ CH₂OH[CHOH]₄COONH₄ + 2Ag↓ (gương bạc) + 3NH₃ + H₂O. Lớp bạc kim loại bám chặt trên thành ống nghiệm sáng loáng như gương chứng tỏ tính chất anđehit tuyệt đối của glucose.", success: true
+                    }
+                ]
+            },
+            {
+                purpose: "Nghiên cứu khả năng oxi hóa chọn lọc của nước Bromine đối với glucose. Khác với các chất oxi hóa mạnh như Tollens hay Cu(OH)₂ có thể oxi hóa cả fructose qua dạng trung gian chuyển đổi, nước bromine chỉ oxi hóa nhóm chức -CHO của glucose ở điều kiện êm dịu, làm mất màu vàng cam của dung dịch mà không tác dụng với fructose, giúp nhận biết phân biệt hai loại đường.",
+                guide: `<ol style="padding-left: 16px; margin-bottom: 8px;">
+                            <li>Cho khoảng 1 ml nước bromine loãng (có màu vàng cam) vào một ống nghiệm.</li>
+                            <li>Thêm tiếp từ từ khoảng 2 ml dung dịch glucose 1% vào ống nghiệm và lắc đều.</li>
+                            <li>Hơ nhẹ ống nghiệm trên ngọn lửa đèn cồn.</li>
+                        </ol>`,
+                setup: {
+                    br2: { type: 'dropper', label: 'Bromine', color: 'rgba(230,100,0,0.85)', homeX: 130, homeY: 340, x: 130, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    glucose: { type: 'dropper', label: 'Glucose 1%', color: 'rgba(225,228,232,0.9)', homeX: 630, homeY: 340, x: 630, y: 340, targetX: TX, targetY: 135, isFilled: false, bulbSqueeze: 0, bottleLevel: 1.0 },
+                    lamp: { type: 'lamp', label: 'Đèn cồn', homeX: 560, homeY: 410, x: 560, y: 410, targetX: TX, targetY: 410, isOn: false }
+                },
+                steps: [
+                    {
+                        tool: 'br2', title: "Bước 1: Nạp dung dịch nước Bromine loãng", desc: "Ống hút tự động lấy khoảng 1 ml nước bromine loãng từ lọ bảo quản nạp vào đáy ống nghiệm sạch. Bromine tan trong nước tạo nên màu vàng cam đặc trưng, rất nhạy cảm với các chất có tính khử.",
+                        targetLevel: 22, immediateColor: "rgba(224,110,16,0.75)", targetColor: "rgba(224,110,16,0.75)", requiresShake: false,
+                        resultTitle: "Nạp dung dịch nước Bromine", resultText: "Dung dịch nước bromine loãng đã sẵn sàng ở đáy ống với sắc màu vàng cam thuần khiết."
+                    },
+                    {
+                        tool: 'glucose', title: "Bước 2: Bổ sung Glucose & Khởi động hòa trộn", desc: "Lấy tiếp khoảng 2 ml dung dịch glucose 1% nhỏ trực tiếp vào ống nghiệm. Khi vừa nhỏ, dung dịch loang ra làm màu nhạt bớt do thể tích chung tăng lên. Hệ thống yêu cầu lắc nhẹ để các phân tử chất khử và chất oxi hóa phân tán va chạm hiệu quả với nhau.",
+                        targetLevel: 45, immediateColor: "rgba(242,165,68,0.5)", targetColor: "rgba(242,165,68,0.45)", requiresShake: true,
+                        resultTitle: "Hỗn hợp phân tán đồng đều", resultText: "Dung dịch glucose hòa trộn đồng đều với nước bromine làm sắc cam vàng nhạt đi do hiệu ứng pha loãng hình học, phản ứng khử xảy ra chậm ở nhiệt độ thường."
+                    },
+                    {
+                        tool: 'lamp', title: "Bước 3: Hơ nóng kích hoạt phản ứng khử màu", desc: "Di chuyển đèn cồn đun nhẹ ống nghiệm. Nhiệt độ gia tốc động năng làm các phân tử bromine phản ứng cực nhanh với nhóm formyl (-CHO) của glucose, biến đổi bromine phân tử màu cam thành ion bromide không màu, khiến dung dịch mất màu hoàn toàn.",
+                        targetLevel: 45, immediateColor: "rgba(242,165,68,0.45)", targetColor: "rgba(240,248,255,0.15)", requiresShake: false, isHeating: true, noBubbles: true,
+                        resultTitle: "Mất màu nước Bromine hoàn toàn trong suốt", resultText: "Phương trình phản ứng oxi hóa: CH₂OH[CHOH]₄CHO + Br₂ + H₂O -t°→ CH₂OH[CHOH] ... (Acid gluconic) + 2HBr (Không màu). Sự mất màu nhanh chóng này chứng minh glucose mang đặc trưng của một anđehit, dùng để phân biệt chính xác với fructose.", success: true
+                    }
+                ]
+            }
+        ];
+
+        // ================= APPLICATION STATE CONTROLLER =================
+        function init() {
+            changeTab(0);
+            requestAnimationFrame(loop);
+        }
+
+        function changeTab(index) {
+            if (subStep > 0 && subStep < 4) return;
+            currentTab = index;
+            currentStep = 0;
+            resetCanvas();
+            renderTabs();
+            updateUI();
+        }
+
+        function resetCanvas() {
+            liquidLevel = 0;
+            liquidColor = parseColor("rgba(255,255,255,0.05)");
+            targetLiquidColor = parseColor("rgba(255,255,255,0.05)");
+            currentVisualColor = parseColor("rgba(255,255,255,0.05)");
+            silverMirrorAlpha = 0; flashAlpha = 0; tubeAngle = 0;
+            particles = []; bubbles = []; ripples = [];
+            drop.active = false; subStep = 0; animTimer = 0; activeToolKey = null;
+            tools = JSON.parse(JSON.stringify(experiments[currentTab].setup));
+        }
+
+        function resetExperiment() {
+            resetCanvas();
+            currentStep = 0;
+            updateUI();
+        }
+
+        function renderTabs() {
+            document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+                btn.className = 'tab-btn ' + (idx === currentTab ? 'active' : '');
+            });
+            document.getElementById('info-purpose').innerText = experiments[currentTab].purpose;
+            document.getElementById('info-action').innerHTML = experiments[currentTab].guide;
+        }
+
+        function updateUI() {
+            const exp = experiments[currentTab];
+            const stepData = exp.steps[currentStep];
+            const total = exp.steps.length;
+
+            document.getElementById('stepCounter').innerText = `Bước ${currentStep + 1} / ${total}`;
+            document.getElementById('stepTitle').innerText = stepData.title;
+            document.getElementById('stepDesc').innerText = stepData.desc;
+
+            let dotsHTML = '';
+            for (let i = 0; i < total; i++) {
+                let cls = 'dot' + (i < currentStep ? ' done' : (i === currentStep ? ' active' : ''));
+                let icon = i < currentStep ? '<i class="ti ti-check"></i>' : (i + 1);
+                dotsHTML += `<div class="${cls}">${icon}</div>`;
+            }
+            document.getElementById('progressDots').innerHTML = dotsHTML;
+
+            const expBox = document.getElementById('explanationBox');
+            expBox.classList.add('fade');
+            setTimeout(() => {
+                if (currentStep === 0 && subStep === 0) {
+                    expBox.className = 'block-element explanation fade-transition';
+                    document.getElementById('expHeader').innerHTML = `<i class="ti ti-info-circle"></i> Trạng thái chuẩn bị`;
+                    document.getElementById('expText').innerText = "Chưa tiến hành nạp hóa chất. Vui lòng bấm 'Bắt đầu thực hiện' để tiến hành bước đầu tiên trong quy trình thí nghiệm.";
+                } else if (subStep === 2) {
+                    expBox.className = 'block-element explanation fade-transition';
+                    document.getElementById('expHeader').innerHTML = `<i class="ti ti-hand-finger"></i> Yêu cầu tương tác cơ học bắt buộc`;
+                    document.getElementById('expText').innerText = "Hóa chất gốc đã được đưa vào ống nghiệm thành công nhưng đang phân lớp hoặc phản ứng chưa đồng nhất. Vui lòng bấm nút 'Lắc đều ống nghiệm' màu cam ở trình điều khiển để tiến hành hòa trộn.";
+                } else if (subStep === 4 || (currentStep > 0 && subStep === 0)) {
+                    let data = subStep === 4 ? stepData : exp.steps[currentStep - 1];
+                    expBox.className = `block-element explanation fade-transition ${data.success ? 'success' : ''}`;
+                    document.getElementById('expHeader').innerHTML = `<i class="ti ${data.success ? 'ti-circle-check' : 'ti-info-circle'}"></i> ${data.resultTitle}`;
+                    document.getElementById('expText').innerText = data.resultText;
+                }
+                expBox.classList.remove('fade');
+            }, 180);
+
+            const btnNext = document.getElementById('btnNext');
+            const btnReset = document.getElementById('btnReset');
+            const statusText = document.getElementById('statusText');
+
+            if (subStep === 1) {
+                btnNext.disabled = true; btnReset.disabled = true;
+                btnNext.className = "btn-primary";
+                btnNext.innerHTML = `<i class="ti ti-loader spin-icon"></i> Hệ thống đang mô phỏng tự động...`;
+                statusText.innerText = "Đang diễn ra hành trình lấy và nạp mẫu...";
+            } else if (subStep === 2) {
+                btnNext.disabled = false; btnReset.disabled = true;
+                btnNext.className = "btn-primary btn-shake-mode";
+                btnNext.innerHTML = `Lắc đều ống nghiệm tương tác <i class="ti ti-arrows-shake"></i>`;
+                statusText.innerText = "Đợi thao tác lắc cơ học từ học viên...";
+            } else if (subStep === 3) {
+                btnNext.disabled = true; btnReset.disabled = true;
+                btnNext.className = "btn-primary btn-shake-mode";
+                btnNext.innerHTML = `<i class="ti ti-arrows-shake spin-icon"></i> Đang thực hiện trộn phản ứng thời gian thực`;
+                statusText.innerText = "Đang tính toán động lực học hòa trộn...";
+            } else {
+                btnReset.disabled = false; btnNext.disabled = false;
+                btnNext.className = "btn-primary";
+                if (currentStep >= total - 1 && subStep === 4) {
+                    btnNext.disabled = true;
+                    btnNext.innerHTML = `Thí nghiệm Hoàn tất <i class="ti ti-check"></i>`;
+                    statusText.innerText = "Học liệu điện tử kết thúc thành công.";
+                } else {
+                    btnNext.innerHTML = subStep === 4 ? `Chuyển bước tiếp theo <i class="ti ti-arrow-right"></i>` : `Bắt đầu thực hiện <i class="ti ti-arrow-right"></i>`;
+                    statusText.innerText = "Hệ thống sẵn sàng cho thao tác kế tiếp.";
+                }
+            }
+        }
+
+        function handleControlClick() {
+            if (subStep === 4) {
+                currentStep++; subStep = 0; updateUI(); return;
+            }
+            if (subStep === 2) {
+                subStep = 3; animTimer = 0; startLiquidColor = { ...liquidColor }; updateUI(); return;
+            }
+
+            const stepData = experiments[currentTab].steps[currentStep];
+            activeToolKey = stepData.tool;
+            startLiquidLevel = liquidLevel;
+            startLiquidColor = { ...liquidColor };
+            currentVisualColor = { ...liquidColor };
+            if (stepData.targetLevel !== undefined) targetLiquidLvl = stepData.targetLevel;
+
+            subStep = 1; animTimer = 0;
+            updateUI();
+        }
+
+        // ================= MATHEMATICAL ANIMATION ENGINE CONTROLLER =================
+        function processAnimation(dt) {
+            if (subStep === 0 || subStep === 4) return;
+            animTimer += dt;
+            const tool = tools[activeToolKey];
+            const stepData = experiments[currentTab].steps[currentStep];
+
+            if (subStep === 1) {
+                if (tool.type === 'dropper') {
+                    // Chuỗi 6 pha hoạt động cơ học cực kỳ chi tiết của ống hút nhỏ giọt
+                    if (animTimer < 0.6) {
+                        // Pha A: Hạ ống xuống lọ hóa chất nền cố định trên bàn
+                        let t = animTimer / 0.6;
+                        tool.y = lerp(tool.homeY, tool.homeY + 42, easeOut(t));
+                    }
+                    else if (animTimer < 1.2) {
+                        // Pha B: Bóp và nhả cao su để nạp đầy dịch lỏng vào lòng ống hút thủy tinh
+                        let t = (animTimer - 0.6) / 0.6;
+                        tool.bulbSqueeze = Math.sin(t * Math.PI);
+                        if (t > 0.5) {
+                            tool.isFilled = true;
+                            // Dung dịch trong lọ giảm dần khi dịch được hút vào dropper
+                            tool.bottleLevel = lerp(1.0, 0.75, (t - 0.5) / 0.5);
+                        }
+                    }
+                    else if (animTimer < 2.2) {
+                        // Pha C: Nhấc ống lên cao khỏi lọ nền và tịnh tiến mượt mà sang tâm ống thử chính TX
+                        let t = (animTimer - 1.2) / 1.0;
+                        tool.x = lerp(tool.homeX, tool.targetX, easeInOut(t));
+                        tool.y = lerp(tool.homeY + 42, tool.targetY, easeInOut(t));
+                    }
+                    else if (animTimer < 3.4) {
+                        // Pha D: Bơm xả dịch lỏng thành dòng/giọt rơi thực tế, thay đổi màu sắc ngay khi tiếp xúc nền
+                        let actionProgress = animTimer - 2.2;
+
+                        // Kích hoạt chu kỳ rơi của giọt nước hình học
+                        if (!drop.active && actionProgress > 0.1 && actionProgress < 0.7) {
+                            drop.active = true; drop.x = TX; drop.y = tool.y - 15; drop.color = tool.color;
+                        }
+
+                        if (drop.active) {
+                            let tDrop = (actionProgress - 0.1) / 0.35;
+                            let edgeY = TY + 160 - liquidLevel;
+                            drop.y = lerp(tool.y - 15, edgeY, tDrop * tDrop);
+                            if (tDrop >= 1) {
+                                drop.active = false; flashAlpha = 0.8;
+                                if (stepData.flashColor) {
+                                    startLiquidColor = parseColor(stepData.flashColor); liquidColor = { ...startLiquidColor };
+                                }
+                                spawnSplash();
+                            }
+                        }
+
+                        // Mực nước bắt đầu dâng lên đồng bộ, màu sắc biến chuyển cục bộ ngay lập tức (ImmediateColor)
+                        if (actionProgress >= 0.45 && actionProgress <= 1.2) {
+                            let tLvl = (actionProgress - 0.45) / 0.75;
+                            liquidLevel = lerp(startLiquidLevel, targetLiquidLvl, easeOut(tLvl));
+
+                            // Tối ưu lõi: Khi nhỏ hóa chất vào, dung dịch đổi sang màu hòa loãng lập tức trước khi lắc đều
+                            let immediateCol = parseColor(stepData.immediateColor);
+                            currentVisualColor = parseColor(lerpColor(startLiquidColor, immediateCol, tLvl));
+                            liquidColor = { ...currentVisualColor };
+                        }
+                    }
+                    else if (animTimer < 4.2) {
+                        // Pha E: Rút ống trống tịnh tiến quay về đỉnh lọ bảo quản ban đầu trên bàn
+                        tool.isFilled = false;
+                        let t = (animTimer - 3.4) / 0.8;
+                        tool.x = lerp(tool.targetX, tool.homeX, easeInOut(t));
+                        tool.y = lerp(tool.targetY, tool.homeY + 42, easeInOut(t));
+                    }
+                    else if (animTimer < 4.7) {
+                        // Pha F: Hạ ống cắm trả lại khay cố định hoàn chỉnh chu trình cơ học tuần tự
+                        let t = (animTimer - 4.2) / 0.5;
+                        tool.y = lerp(tool.homeY + 42, tool.homeY, easeInOut(t));
+                    }
+                    else {
+                        // Xác định xem bước này có đòi hỏi tương tác lắc cơ học hay chuyển thẳng sang done
+                        if (stepData.requiresShake) { subStep = 2; }
+                        else {
+                            targetLiquidColor = parseColor(stepData.targetColor);
+                            liquidColor = { ...targetLiquidColor };
+                            subStep = 4; activeToolKey = null;
+                        }
+                        updateUI();
+                    }
+                }
+                else if (tool.type === 'lamp' || tool.type === 'beaker') {
+                    let tIn = clamp(animTimer / 0.9, 0, 1);
+                    tool.x = lerp(tool.homeX, tool.targetX, easeOut(tIn));
+                    tool.y = lerp(tool.homeY, tool.targetY, easeOut(tIn));
+                    if (tIn === 1) { subStep = 2; animTimer = 0; updateUI(); }
+                }
+            }
+            else if (subStep === 2) {
+                // Đun nóng hoặc Ngâm cách thủy chạy tự động hóa pha tương tác không cần ép nút lắc
+                if (stepData.isHeating || stepData.isBathing) { subStep = 3; animTimer = 0; updateUI(); }
+            }
+            else if (subStep === 3) {
+                if (stepData.requiresShake) {
+                    let shakeDuration = 2.2;
+                    let tShake = clamp(animTimer / shakeDuration, 0, 1);
+
+                    // Tạo góc lắc dao động điều hòa biên độ nhỏ tần số cao quanh miệng ống thử
+                    tubeAngle = Math.sin(animTimer * 30) * 0.07;
+
+                    // Màu sắc chuyển dịch mượt mà từ màu loãng (immediateColor) sang màu phản ứng đích hoàn chỉnh (targetColor)
+                    let immediateCol = parseColor(stepData.immediateColor);
+                    let finalTargetCol = parseColor(stepData.targetColor);
+                    liquidColor = parseColor(lerpColor(immediateCol, finalTargetCol, tShake));
+
+                    // Kích thích chuyển dịch hỗn loạn của các hệ hạt keo tụ bên trong lòng ống khi lắc cơ học
+                    particles.forEach(p => {
+                        p.x += (Math.random() - 0.5) * 5; p.y += (Math.random() - 0.5) * 2.5;
+
+                        // Giới hạn trong thành ống nghiệm theo phương ngang (bán kính 11px cực kỳ an toàn)
+                        p.x = clamp(p.x, TX - 11, TX + 11);
+
+                        // Giới hạn y không vượt quá bề mặt chất lỏng và đáy
+                        let lY = TY + 160 - liquidLevel;
+                        p.y = clamp(p.y, lY + 5, TY + 153);
+
+                        // Giới hạn bo tròn đáy chữ U ống nghiệm (bán kính 11px)
+                        let centerY = TY + 142;
+                        if (p.y > centerY) {
+                            let dx = p.x - TX;
+                            let dy = p.y - centerY;
+                            let dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist > 11) {
+                                p.x = TX + (dx / dist) * 11;
+                                p.y = centerY + (dy / dist) * 11;
+                            }
+                        }
+                    });
+
+                    if (tShake === 1) {
+                        tubeAngle = 0;
+                        if (stepData.spawnParticles) spawnPrecipitate(stepData.spawnParticles);
+                        if (stepData.removeParticles) particles = [];
+                        subStep = 4; activeToolKey = null; updateUI();
+                    }
+                }
+                else if (stepData.isHeating) {
+                    tool.isOn = true;
+                    let heatDuration = 3.5;
+                    let tHeat = clamp(animTimer / heatDuration, 0, 1);
+
+                    let srcCol = parseColor(stepData.immediateColor);
+                    let dstCol = parseColor(stepData.targetColor);
+                    liquidColor = parseColor(lerpColor(srcCol, dstCol, tHeat));
+
+                    // Sinh bọt khí tăng dần động năng sôi thực tế ở đáy ống nghiệm (nếu không có cấu hình noBubbles)
+                    if (!stepData.noBubbles && Math.random() < 0.25) spawnBubble();
+                    if (animTimer > 1.0 && stepData.spawnParticles === 'red' && particles.length < 65) spawnPrecipitate('red');
+
+                    if (tHeat === 1) {
+                        tool.isOn = false;
+                        // Thu hồi đèn cồn về lại vị trí cũ
+                        subStep = 3; animTimer = 0;
+                        let backStep = function (timestamp) {
+                            let tOut = clamp((performance.now() - timestamp) / 1000 / 0.8, 0, 1);
+                            tool.x = lerp(tool.targetX, tool.homeX, easeInOut(tOut));
+                            tool.y = lerp(tool.targetY, tool.homeY, easeInOut(tOut));
+                            if (tOut < 1) requestAnimationFrame(() => backStep(timestamp));
+                        };
+                        backStep(performance.now());
+                        subStep = 4; activeToolKey = null; updateUI();
+                    }
+                }
+                else if (stepData.isBathing) {
+                    let bathDuration = 3.5;
+                    let tBath = clamp(animTimer / bathDuration, 0, 1);
+                    silverMirrorAlpha = easeInOut(tBath);
+
+                    let srcCol = parseColor(stepData.immediateColor);
+                    let dstCol = parseColor(stepData.targetColor);
+                    liquidColor = parseColor(lerpColor(srcCol, dstCol, tBath));
+
+                    if (Math.random() < 0.28) spawnBubble(true); // sinh bọt tản mát bên ngoài cốc nước nóng
+
+                    if (tBath === 1) {
+                        // Thu hồi cốc nước nóng về lại vị trí cũ
+                        subStep = 3; animTimer = 0;
+                        let backStep = function (timestamp) {
+                            let tOut = clamp((performance.now() - timestamp) / 1000 / 0.8, 0, 1);
+                            tool.x = lerp(tool.targetX, tool.homeX, easeInOut(tOut));
+                            tool.y = lerp(tool.targetY, tool.homeY, easeInOut(tOut));
+                            if (tOut < 1) requestAnimationFrame(() => backStep(timestamp));
+                        };
+                        backStep(performance.now());
+                        subStep = 4; activeToolKey = null; updateUI();
+                    }
+                }
+            }
+        }
+
+        // ================= HIGH QUALITY GRAPHICAL VISUAL EFFECT GENERATORS =================
+        function spawnSplash() {
+            ripples.push({ r: 2, alpha: 0.75 });
+            for (let i = 0; i < 5; i++) {
+                bubbles.push({ x: TX + (Math.random() - 0.5) * 14, y: TY + 160 - liquidLevel, vx: (Math.random() - 0.5) * 3, vy: -(Math.random() * 2.0 + 1.2), life: 1.0, type: 'splash' });
+            }
+        }
+
+        function spawnPrecipitate(color) {
+            let count = color === 'blue' ? 16 : 35; // Kết tủa nhẹ ở bước 2, kết tủa dày hơn ở bước 4
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: TX + (Math.random() - 0.5) * 25, y: TY + 160 - liquidLevel + Math.random() * 25,
+                    targetY: TY + 155 - Math.random() * 14, vy: 0.38 + Math.random() * 0.42,
+                    wobbleOffset: Math.random() * Math.PI * 2, amp: 1.3 + Math.random(),
+                    color: color === 'blue' ? 'rgba(0, 70, 160, 0.9)' : 'rgba(180,45,20,0.95)',
+                    size: color === 'blue' ? (0.9 + Math.random() * 0.8) : (1.5 + Math.random())
+                });
+            }
+        }
+
+        function spawnBubble(inBath = false) {
+            bubbles.push({
+                x: inBath ? TX + (Math.random() > 0.5 ? 1 : -1) * (18 + Math.random() * 24) : TX + (Math.random() - 0.5) * 22,
+                y: inBath ? TY + 160 : TY + 153, vy: -(0.7 + Math.random() * 1.5), life: 1.0, type: 'bubble'
+            });
+        }
+
+        // ================= DETAILED CANVAS DRAWINGS PATTERNS =================
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(15,76,129,0.03)'; ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+
+            // Mặt bàn phẳng phòng thí nghiệm vững chãi
+            ctx.fillStyle = 'rgba(215, 225, 235, 0.4)'; ctx.fillRect(0, 410, W, 50);
+            ctx.beginPath(); ctx.moveTo(0, 410); ctx.lineTo(W, 410);
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.stroke();
+        }
+
+        function drawReagentBottle(x, y, label, colorStr, bottleLevel = 1.0) {
+            ctx.save();
+            // Thân thủy tinh lưu trữ dung dịch gốc tĩnh trên khay bàn thí nghiệm
+            ctx.fillStyle = 'rgba(235, 242, 252, 0.45)'; ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(x - 22, y); ctx.lineTo(x - 22, y - 45); ctx.quadraticCurveTo(x - 22, y - 55, x - 12, y - 55);
+            ctx.lineTo(x - 12, y - 65); ctx.lineTo(x + 12, y - 65); ctx.lineTo(x + 12, y - 55);
+            ctx.quadraticCurveTo(x + 22, y - 55, x + 22, y - 45); ctx.lineTo(x + 22, y); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+            // Chất lỏng bên trong lọ nguyên mẫu gốc
+            ctx.fillStyle = colorStr; ctx.beginPath();
+            let liquidHeight = 44 * bottleLevel;
+            let topY = y - 2 - liquidHeight;
+            ctx.moveTo(x - 19, y - 2);
+            ctx.lineTo(x - 19, topY + 2);
+            ctx.quadraticCurveTo(x - 19, topY, x, topY);
+            ctx.quadraticCurveTo(x + 19, topY, x + 19, topY + 2);
+            ctx.lineTo(x + 19, y - 2);
+            ctx.closePath();
+            ctx.fill();
+
+            // Nhãn mác dán thông số hóa học trắng tinh tế bóng mượt
+            ctx.fillStyle = '#ffffff'; ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1;
+            ctx.fillRect(x - 18, y - 30, 36, 16); ctx.strokeRect(x - 18, y - 30, 36, 16);
+            ctx.fillStyle = '#1e293b'; ctx.font = 'bold 8.5px Arial'; ctx.textAlign = 'center';
+            ctx.fillText(label.split(' ')[0], x, y - 18);
+            ctx.restore();
+        }
+
+        function drawDropper(t) {
+            let x = t.x, y = t.y - 65; // Đẩy cao độ tương đối bám khớp với cổ lọ gốc khi nghỉ
+            ctx.save();
+
+            let sq = t.bulbSqueeze * 3.5;
+            ctx.fillStyle = '#e53e3e'; ctx.beginPath(); ctx.moveTo(x - 9 + sq, y - 10);
+            ctx.quadraticCurveTo(x - 14, y - 35, x, y - 41); ctx.quadraticCurveTo(x + 14, y - 35, x + 9 - sq, y - 10); ctx.fill();
+
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.45)'; ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(x - 7, y - 10); ctx.lineTo(x - 7, y + 22); ctx.lineTo(x - 2, y + 50); ctx.lineTo(x + 2, y + 50); ctx.lineTo(x + 7, y + 22); ctx.lineTo(x + 7, y - 10); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+            if (t.isFilled) {
+                ctx.fillStyle = t.color; ctx.beginPath(); ctx.moveTo(x - 5, y); ctx.lineTo(x - 2, y + 45); ctx.lineTo(x + 2, y + 45); ctx.lineTo(x + 5, y); ctx.fill();
+            }
+
+            ctx.fillStyle = '#1e293b'; ctx.font = 'bold 11px Arial'; ctx.textAlign = 'center';
+            ctx.fillText(t.label, x, y - 48);
+            ctx.restore();
+        }
+
+        function drawLamp(t) {
+            let lx = t.x, ly = t.y;
+            ctx.save();
+            ctx.fillStyle = 'rgba(210, 215, 225, 0.7)'; ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(lx - 25, ly - 30); ctx.lineTo(lx - 35, ly); ctx.lineTo(lx + 35, ly); ctx.lineTo(lx + 25, ly - 30); ctx.closePath(); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = '#475569'; ctx.fillRect(lx - 7, ly - 40, 14, 10);
+
+            if (t.isOn) {
+                let flicker = Math.sin(time * 18) * 2.2;
+                ctx.fillStyle = 'rgba(255, 140, 0, 0.85)'; ctx.beginPath(); ctx.moveTo(lx, ly - 68 + flicker);
+                ctx.quadraticCurveTo(lx - 14, ly - 46, lx - 6, ly - 40); ctx.lineTo(lx + 6, ly - 40); ctx.quadraticCurveTo(lx + 14, ly - 46, lx, ly - 68 + flicker); ctx.fill();
+                ctx.fillStyle = 'rgba(255, 235, 10, 0.95)'; ctx.beginPath(); ctx.moveTo(lx, ly - 57 + flicker * 0.5);
+                ctx.quadraticCurveTo(lx - 8, ly - 44, lx - 4, ly - 40); ctx.lineTo(lx + 4, ly - 40); ctx.quadraticCurveTo(lx + 8, ly - 44, lx, ly - 57 + flicker * 0.5); ctx.fill();
+            }
+
+            if (t.label) {
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 11px var(--font-stack)';
+                ctx.textAlign = 'right';
+                ctx.fillText(t.label, lx - 42, ly - 12);
+
+                // Vẽ một đường chỉ nhỏ thanh mảnh hướng từ nhãn chữ vào thân đèn cồn
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(lx - 40, ly - 15);
+                ctx.lineTo(lx - 32, ly - 15);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawBeakerBack(t) {
+            let bx = t.x, by = t.y;
+            ctx.save();
+            ctx.fillStyle = 'rgba(210, 225, 245, 0.15)';
+            ctx.beginPath(); ctx.moveTo(bx - 60, by - 120); ctx.lineTo(bx - 60, by - 10); ctx.quadraticCurveTo(bx - 60, by, bx - 50, by); ctx.lineTo(bx + 50, by); ctx.quadraticCurveTo(bx + 60, by, bx + 60, by - 10); ctx.lineTo(bx + 60, by - 120); ctx.fill();
+
+            const waterY = by - 80; ctx.fillStyle = 'rgba(145, 195, 255, 0.25)';
+            ctx.beginPath(); ctx.moveTo(bx - 58, waterY); ctx.lineTo(bx - 58, by - 10); ctx.quadraticCurveTo(bx - 58, by - 2, bx - 50, by - 2); ctx.lineTo(bx + 50, by - 2); ctx.quadraticCurveTo(bx + 58, by - 2, bx + 58, by - 10); ctx.lineTo(bx + 58, waterY);
+            let waveOffset = Math.sin(time * 2.5) * 1.8; ctx.quadraticCurveTo(bx, waterY + 4 + waveOffset, bx - 58, waterY); ctx.fill();
+            ctx.restore();
+        }
+
+        function drawBeakerFront(t) {
+            let bx = t.x, by = t.y;
+            ctx.save();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(bx - 60, by - 120); ctx.lineTo(bx - 60, by - 10); ctx.quadraticCurveTo(bx - 60, by, bx - 50, by); ctx.lineTo(bx + 50, by); ctx.quadraticCurveTo(bx + 60, by, bx + 60, by - 10); ctx.lineTo(bx + 60, by - 120); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(bx - 52, by - 110); ctx.lineTo(bx - 52, by - 20); ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)'; ctx.lineWidth = 3; ctx.stroke();
+
+            if (t.label) {
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 11px var(--font-stack)';
+                ctx.textAlign = 'right';
+                ctx.fillText(t.label, bx - 66, by - 60);
+
+                // Vẽ một đường chỉ nhỏ thanh mảnh hướng từ nhãn chữ vào thành cốc
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(bx - 64, by - 63);
+                ctx.lineTo(bx - 60, by - 63);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            if (tubeAngle !== 0) {
+                ctx.translate(tx, ty); ctx.rotate(tubeAngle); ctx.translate(-tx, -ty);
+            }
+
+            ctx.beginPath(); ctx.moveTo(tx - 35, ty + 20); ctx.lineTo(tx - 18, ty + 20); ctx.moveTo(tx + 18, ty + 20); ctx.lineTo(tx + 35, ty + 20); ctx.strokeStyle = '#64748b'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.stroke();
+
+            ctx.beginPath(); ctx.moveTo(tx - 18, ty); ctx.lineTo(tx - 18, ty + 140); ctx.quadraticCurveTo(tx - 18, ty + 160, tx, ty + 160); ctx.quadraticCurveTo(tx + 18, ty + 160, tx + 18, ty + 140); ctx.lineTo(tx + 18, ty); ctx.fillStyle = 'rgba(220, 235, 255, 0.18)'; ctx.fill();
+
+            if (liquidLevel > 0) {
+                ctx.save();
+                let lY = ty + 160 - liquidLevel;
+                ctx.beginPath(); ctx.moveTo(tx - 17, lY); ctx.lineTo(tx - 17, ty + 140); ctx.quadraticCurveTo(tx - 17, ty + 158, tx, ty + 158); ctx.quadraticCurveTo(tx + 17, ty + 158, tx + 17, ty + 140); ctx.lineTo(tx + 17, lY);
+                ctx.quadraticCurveTo(tx, lY + 3.5, tx - 17, lY); // Meniscus đường cong mặt khum chất lỏng lõm tự nhiên cực đẹp
+
+                let fillG;
+                const stepData = experiments[currentTab].steps[currentStep];
+
+                let isDrippingAndContact = (subStep === 1 && animTimer >= 2.65);
+                let isWaitingOrShaking = (subStep === 2 || subStep === 3);
+
+                if (stepData && stepData.requiresShake && (isDrippingAndContact || isWaitingOrShaking)) {
+                    fillG = ctx.createLinearGradient(tx, lY, tx, ty + 160);
+
+                    if (currentTab === 0 && currentStep === 1) { // CuSO4 + NaOH (Phân lớp Xanh trên Trắng đục)
+                        if (subStep === 3) { // Đang lắc trộn đều dần
+                            let tShake = clamp(animTimer / 2.2, 0, 1);
+                            let startTop = parseColor("rgba(0,110,230,0.85)");
+                            let startBot = parseColor("rgba(225,228,232,0.9)");
+                            let targetCol = parseColor(stepData.targetColor);
+
+                            let currentTop = lerpColor(startTop, targetCol, tShake);
+                            let currentBot = lerpColor(startBot, targetCol, tShake);
+                            fillG.addColorStop(0, currentTop);
+                            fillG.addColorStop(0.35, currentTop);
+                            fillG.addColorStop(0.75, currentBot);
+                            fillG.addColorStop(1, currentBot);
+                        } else { // Chưa lắc
+                            fillG.addColorStop(0, "rgba(0,110,230,0.85)");
+                            fillG.addColorStop(0.35, "rgba(0,110,230,0.85)");
+                            fillG.addColorStop(0.75, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(1, "rgba(225,228,232,0.9)");
+                        }
+                    }
+                    else if (currentTab === 0 && currentStep === 2) { // Glucose + Cu(OH)2 (Phân lớp Trắng mờ trên Xanh nhạt)
+                        if (subStep === 3) { // Đang lắc trộn đều sang xanh lam đậm
+                            let tShake = clamp(animTimer / 2.2, 0, 1);
+                            let startTop = parseColor("rgba(225,228,232,0.9)");
+                            let startBot = parseColor("rgba(0,110,230,0.95)");
+                            let targetCol = parseColor(stepData.targetColor);
+
+                            let currentTop = lerpColor(startTop, targetCol, tShake);
+                            let currentBot = lerpColor(startBot, targetCol, tShake);
+                            fillG.addColorStop(0, currentTop);
+                            fillG.addColorStop(0.35, currentTop);
+                            fillG.addColorStop(0.75, currentBot);
+                            fillG.addColorStop(1, currentBot);
+                        } else { // Chưa lắc
+                            fillG.addColorStop(0, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(0.35, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(0.75, "rgba(0,110,230,0.95)");
+                            fillG.addColorStop(1, "rgba(0,110,230,0.95)");
+                        }
+                    }
+                    else if (currentTab === 1 && currentStep === 1) { // NH3 + AgNO3 (Phân lớp Nâu đen kết tủa trên Trắng)
+                        if (subStep === 3) { // Đang lắc tan kết tủa về trong suốt
+                            let tShake = clamp(animTimer / 2.2, 0, 1);
+                            let startTop = parseColor("rgba(100,80,60,0.7)");
+                            let startBot = parseColor("rgba(225,228,232,0.9)");
+                            let targetCol = parseColor(stepData.targetColor);
+
+                            let currentTop = lerpColor(startTop, targetCol, tShake);
+                            let currentBot = lerpColor(startBot, targetCol, tShake);
+                            fillG.addColorStop(0, currentTop);
+                            fillG.addColorStop(0.35, currentTop);
+                            fillG.addColorStop(0.75, currentBot);
+                            fillG.addColorStop(1, currentBot);
+                        } else { // Chưa lắc
+                            fillG.addColorStop(0, "rgba(100,80,60,0.7)");
+                            fillG.addColorStop(0.35, "rgba(100,80,60,0.7)");
+                            fillG.addColorStop(0.75, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(1, "rgba(225,228,232,0.9)");
+                        }
+                    }
+                    else if (currentTab === 2 && currentStep === 1) { // Glucose + Bromine (Phân lớp Trắng mờ trên Vàng cam)
+                        if (subStep === 3) { // Đang lắc trộn loãng màu
+                            let tShake = clamp(animTimer / 2.2, 0, 1);
+                            let startTop = parseColor("rgba(225,228,232,0.9)");
+                            let startBot = parseColor("rgba(224,110,16,0.75)");
+                            let targetCol = parseColor(stepData.targetColor);
+
+                            let currentTop = lerpColor(startTop, targetCol, tShake);
+                            let currentBot = lerpColor(startBot, targetCol, tShake);
+                            fillG.addColorStop(0, currentTop);
+                            fillG.addColorStop(0.35, currentTop);
+                            fillG.addColorStop(0.75, currentBot);
+                            fillG.addColorStop(1, currentBot);
+                        } else { // Chưa lắc
+                            fillG.addColorStop(0, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(0.35, "rgba(225,228,232,0.9)");
+                            fillG.addColorStop(0.75, "rgba(224,110,16,0.75)");
+                            fillG.addColorStop(1, "rgba(224,110,16,0.75)");
+                        }
+                    }
+                    else {
+                        fillG = `rgba(${liquidColor.r},${liquidColor.g},${liquidColor.b},${liquidColor.a})`;
+                    }
+                } else {
+                    fillG = `rgba(${liquidColor.r},${liquidColor.g},${liquidColor.b},${liquidColor.a})`;
+                }
+
+                ctx.fillStyle = fillG;
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(255,255,255,0.3)'; ctx.beginPath(); ctx.ellipse(tx, lY + 1.5, 16, 2.5, 0, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.7)'; ctx.lineWidth = 1; ctx.stroke(); // Viền sáng cho meniscus
+                ctx.restore();
+            }
+
+            ripples.forEach(r => {
+                ctx.strokeStyle = `rgba(255,255,255,${r.alpha})`; ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.ellipse(tx, ty + 160 - liquidLevel + 1.5, r.r, r.r / 3.5, 0, 0, Math.PI * 2); ctx.stroke();
+            });
+
+            particles.forEach(p => {
+                ctx.fillStyle = p.color; ctx.beginPath();
+                let swirl = (subStep === 3) ? Math.sin(time * 26 + p.y) * p.amp : Math.sin(p.wobbleOffset + time * 4) * p.amp;
+                ctx.arc(p.x + swirl, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+            });
+
+            bubbles.forEach(b => {
+                ctx.fillStyle = 'rgba(255,255,255,0.55)'; ctx.beginPath();
+                let progressHeight = (ty + 160 - b.y) / liquidLevel;
+                let calculatedRadius = b.type === 'splash' ? 1.5 : lerp(1, 3.4, clamp(progressHeight, 0, 1)); // Bubble size gradient
+                ctx.arc(b.x, b.y, calculatedRadius, 0, Math.PI * 2); ctx.fill();
+            });
+
+            if (flashAlpha > 0) {
+                let fG = ctx.createRadialGradient(tx, ty + 160 - liquidLevel, 4, tx, ty + 160 - liquidLevel, 28);
+                fG.addColorStop(0, `rgba(255,255,255,${flashAlpha})`); fG.addColorStop(1, `rgba(255,255,255,0)`);
+                ctx.fillStyle = fG; ctx.fillRect(tx - 30, ty + 100, 60, 60);
+            }
+
+            if (silverMirrorAlpha > 0) {
+                let startY = ty + 160 - targetLiquidLvl - 10;
+
+                // 1. Vẽ lớp bạc bám đậm ở phần thân trên (startY đến ty + 120)
+                ctx.save();
+                let gradTop = ctx.createLinearGradient(tx - 18, 0, tx + 18, 0);
+                gradTop.addColorStop(0, `rgba(170,170,170,${silverMirrorAlpha})`);
+                gradTop.addColorStop(0.2, `rgba(240,240,240,${silverMirrorAlpha})`);
+                gradTop.addColorStop(0.5, `rgba(140,140,140,${silverMirrorAlpha})`);
+                gradTop.addColorStop(0.8, `rgba(220,220,220,${silverMirrorAlpha})`);
+                gradTop.addColorStop(1, `rgba(90,90,90,${silverMirrorAlpha})`);
+                ctx.fillStyle = gradTop;
+                ctx.beginPath();
+                ctx.moveTo(tx - 18, startY);
+                ctx.lineTo(tx - 18, ty + 120);
+                ctx.lineTo(tx + 18, ty + 120);
+                ctx.lineTo(tx + 18, startY);
+                ctx.fill();
+                ctx.restore();
+
+                // 2. Vẽ lớp bạc bám vừa phải ở phần thân giữa (ty + 120 đến ty + 140)
+                ctx.save();
+                let gradMid = ctx.createLinearGradient(tx - 18, 0, tx + 18, 0);
+                let midAlpha = silverMirrorAlpha * 0.65;
+                gradMid.addColorStop(0, `rgba(170,170,170,${midAlpha})`);
+                gradMid.addColorStop(0.2, `rgba(240,240,240,${midAlpha})`);
+                gradMid.addColorStop(0.5, `rgba(140,140,140,${midAlpha})`);
+                gradMid.addColorStop(0.8, `rgba(220,220,220,${midAlpha})`);
+                gradMid.addColorStop(1, `rgba(90,90,90,${midAlpha})`);
+                ctx.fillStyle = gradMid;
+                ctx.beginPath();
+                ctx.moveTo(tx - 18, ty + 120);
+                ctx.lineTo(tx - 18, ty + 140);
+                ctx.lineTo(tx + 18, ty + 140);
+                ctx.lineTo(tx + 18, ty + 120);
+                ctx.fill();
+                ctx.restore();
+
+                // 3. Vẽ lớp bạc bám ở phần đáy chữ U (ty + 140 đến ty + 160)
+                ctx.save();
+                let gradBot = ctx.createLinearGradient(tx - 18, 0, tx + 18, 0);
+                let botAlpha = silverMirrorAlpha * 0.8;
+                gradBot.addColorStop(0, `rgba(120,120,120,${botAlpha})`);
+                gradBot.addColorStop(0.2, `rgba(210,210,210,${botAlpha})`);
+                gradBot.addColorStop(0.5, `rgba(90,90,90,${botAlpha})`);
+                gradBot.addColorStop(0.8, `rgba(180,180,180,${botAlpha})`);
+                gradBot.addColorStop(1, `rgba(60,60,60,${botAlpha})`);
+                ctx.fillStyle = gradBot;
+                ctx.beginPath();
+                ctx.moveTo(tx - 18, ty + 140);
+                ctx.quadraticCurveTo(tx - 18, ty + 160, tx, ty + 160);
+                ctx.quadraticCurveTo(tx + 18, ty + 160, tx + 18, ty + 140);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(tx - 18, ty); ctx.lineTo(tx - 18, ty + 140); ctx.quadraticCurveTo(tx - 18, ty + 160, tx, ty + 160); ctx.quadraticCurveTo(tx + 18, ty + 160, tx + 18, ty + 140); ctx.lineTo(tx + 18, ty); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(tx - 13, ty + 10); ctx.lineTo(tx - 13, ty + 145); ctx.strokeStyle = 'rgba(255, 255, 255, 0.65)'; ctx.lineWidth = 3; ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(tx - 21, ty); ctx.lineTo(tx + 21, ty); ctx.lineWidth = 3; ctx.stroke();
+            ctx.restore();
+        }
+
+        // ================= MAIN RENDER PIPELINE LOOP =================
+        let lastTime = performance.now();
+        function loop(timestamp) {
+            let dt = (timestamp - lastTime) / 1000; lastTime = timestamp; time += dt;
+
+            processAnimation(dt);
+
+            if (flashAlpha > 0) flashAlpha -= dt * 2.2;
+            particles.forEach(p => { if (p.y < p.targetY) p.y += p.vy; });
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                let b = bubbles[i];
+                if (b.type === 'splash') {
+                    b.vy += dt * 18; // Gia tốc trọng lực kéo các giọt bắn rơi xuống
+                }
+                b.x += b.vx || (Math.sin(time * 6 + i) * 0.4);
+                b.y += b.vy;
+                b.life -= dt * (b.type === 'splash' ? 3.2 : 1);
+
+                // Giới hạn va chạm thành ống nghiệm (TX - 16.5px đến TX + 16.5px)
+                if (b.x < TX - 16.5) {
+                    b.x = TX - 16.5;
+                    b.vx = -b.vx * 0.4; // Nảy lại nhẹ khi va chạm thành bên trái
+                }
+                if (b.x > TX + 16.5) {
+                    b.x = TX + 16.5;
+                    b.vx = -b.vx * 0.4; // Nảy lại nhẹ khi va chạm thành bên phải
+                }
+
+                let isSplashReturned = (b.type === 'splash' && b.y > TY + 160 - liquidLevel);
+                let isBubbleReachedSurface = (b.type === 'bubble' && b.y < TY + 160 - liquidLevel);
+                if (b.life <= 0 || isSplashReturned || isBubbleReachedSurface) {
+                    bubbles.splice(i, 1);
+                }
+            }
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                ripples[i].r += dt * 42; ripples[i].alpha -= dt * 1.6;
+                if (ripples[i].alpha <= 0) ripples.splice(i, 1);
+            }
+
+            ctx.clearRect(0, 0, W, H);
+            drawGrid();
+
+            if (tools.beaker) drawBeakerBack(tools.beaker);
+
+            drawTestTube();
+
+            if (tools.beaker) drawBeakerFront(tools.beaker);
+
+            // Vẽ các lọ hóa chất tĩnh trên bàn
+            Object.keys(tools).forEach(key => {
+                let t = tools[key];
+                if (t.type === 'dropper') {
+                    drawReagentBottle(t.homeX, 410, t.label, t.color, t.bottleLevel !== undefined ? t.bottleLevel : 1.0);
+                }
+            });
+
+            // Vẽ các dụng cụ nhàn rỗi không kích hoạt
+            Object.values(tools).forEach(t => {
+                if (t.type === 'dropper' && t !== tools[activeToolKey]) drawDropper(t);
+                if (t.type === 'lamp' && t !== tools[activeToolKey]) drawLamp(t);
+            });
+
+            // Vẽ dụng cụ chuyển động lên lớp trên cùng (Dropper / Lamp)
+            if (activeToolKey && tools[activeToolKey].type === 'dropper') drawDropper(tools[activeToolKey]);
+            if (activeToolKey && tools[activeToolKey].type === 'lamp') drawLamp(tools[activeToolKey]);
+
+            // Vẽ dòng giọt rơi tự do định hình đầu tròn đuôi nhọn thực tế
+            if (drop.active) {
+                ctx.fillStyle = drop.color; ctx.beginPath();
+                ctx.moveTo(drop.x, drop.y - 9); ctx.quadraticCurveTo(drop.x - 5, drop.y - 2, drop.x - 4, drop.y + 1); ctx.quadraticCurveTo(drop.x, drop.y + 5, drop.x + 4, drop.y + 1); ctx.quadraticCurveTo(drop.x + 5, drop.y - 2, drop.x, drop.y - 9); ctx.fill();
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        window.onload = init;
+    </script>
+</body>
+
+</html>

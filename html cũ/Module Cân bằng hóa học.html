@@ -1,0 +1,3135 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cân Bằng Hóa Học: 2NO₂ ⇌ N₂O₄ và Nguyên Lí Le Chatelier</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap&subset=vietnamese"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --font-main: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .heading {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* HEADER */
+        .header {
+            width: 100%;
+            max-width: 1720px;
+            background-image: linear-gradient(rgba(20, 24, 20, 0.4), rgba(20, 24, 20, 0.4)), url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header::before,
+        .header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        .header::before {
+            width: 250px;
+            height: 250px;
+            top: -100px;
+            right: -50px;
+        }
+
+        .header::after {
+            width: 150px;
+            height: 150px;
+            bottom: -60px;
+            right: 180px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: clamp(1.9rem, 4vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 1.05rem;
+            max-width: 64ch;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* GOAL BAR */
+        .goal-bar {
+            width: 100%;
+            max-width: 1720px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* LAB WRAPPER */
+        .lab-wrapper {
+            display: grid;
+            grid-template-columns: minmax(230px, 0.9fr) minmax(0, 2.2fr) minmax(280px, 1.1fr);
+            grid-template-areas:
+                "sideLeft guide    sideRight"
+                "sideLeft controls sideRight"
+                "sideLeft canvas   sideRight";
+            grid-template-rows: auto auto 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 1720px;
+            align-items: stretch;
+        }
+
+        .lab-side-left,
+        .lab-side-right {
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 0;
+            max-height: 600px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--sage) transparent;
+            padding-right: 4px;
+        }
+
+        .lab-side-left::-webkit-scrollbar,
+        .lab-side-right::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lab-side-left::-webkit-scrollbar-thumb,
+        .lab-side-right::-webkit-scrollbar-thumb {
+            background-color: var(--sage);
+            border-radius: 3px;
+        }
+
+        .lab-side-left::-webkit-scrollbar-track,
+        .lab-side-right::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .lab-side-left {
+            grid-area: sideLeft;
+        }
+
+        .lab-side-right {
+            grid-area: sideRight;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        .tool-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tool-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--ink);
+            transition: all 0.18s ease;
+        }
+
+        .tool-chip i {
+            color: var(--jade);
+        }
+
+        .tool-chip.active {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+        }
+
+        .steps-card {
+            flex: none;
+        }
+
+        .steps-body {
+            padding-right: 2px;
+        }
+
+        .step-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 10px;
+        }
+
+        .step-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            transition: all 0.18s ease;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-text {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: var(--ink-2);
+        }
+
+        .step-row.is-active {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+        }
+
+        .step-row.is-active .step-num {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .step-row.is-active .step-text {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .step-row.is-done .step-num {
+            background-color: transparent;
+        }
+
+        .step-row.is-done .step-num i {
+            color: var(--jade);
+            font-size: 13px;
+        }
+
+        .safety-box {
+            flex-shrink: 0;
+            margin-top: 10px;
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+            padding: 8px 12px;
+            font-size: 0.85rem;
+            color: var(--ink-2);
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        .safety-box i {
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* AI GUIDE */
+        .ai-guide {
+            grid-area: guide;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+            background-color: var(--jade-pale);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: var(--jade);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+            transition: opacity 200ms ease, transform 200ms ease;
+        }
+
+        .ai-text.fade {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        .ai-guide-badge {
+            flex-shrink: 0;
+            background-color: var(--cream);
+            border: 1px solid var(--sage);
+            color: var(--jade-text);
+            font-weight: 700;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        /* CANVAS CARD */
+        .canvas-card {
+            grid-area: canvas;
+            padding: 4px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        /* CONTROLS CARD */
+        .controls-card {
+            grid-area: controls;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ctrl-row {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            min-height: 40px;
+        }
+
+        .ctrl-row-dots {
+            min-height: 22px;
+            justify-content: center;
+        }
+
+        .ctrl-row-dots .progress-dots {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .ctrl-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            background-color: var(--paper-line);
+            margin: 4px 0;
+        }
+
+        .ctrl-action-area {
+            flex: 1 1 auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ctrl-action-area button {
+            white-space: nowrap;
+        }
+
+        .ctrl-nav {
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 150ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+            background: transparent;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        button.btn-primary {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        button.btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+            border-color: var(--jade-deep);
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background: transparent;
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        button.btn-active {
+            background-color: var(--jade);
+            color: var(--cream);
+            border-color: var(--jade);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .progress-dots {
+            flex-shrink: 0;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--ink-2);
+            transition: all 200ms ease;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .progress-dot:hover {
+            border-color: var(--jade);
+            transform: scale(1.15);
+        }
+
+        .progress-dot.active {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            transform: scale(1.2);
+        }
+
+        .progress-dot.completed {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .slider-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 140px;
+        }
+
+        .slider-chip {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            padding: 3px 9px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: var(--paper-line);
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--jade);
+            cursor: pointer;
+        }
+
+        /* RIGHT SIDEBAR */
+        .side-card table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+        }
+
+        .side-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            padding: 6px 5px;
+            text-align: left;
+            word-break: break-word;
+        }
+
+        .side-card thead th:nth-child(1) {
+            width: 16%;
+        }
+
+        .side-card thead th:nth-child(2) {
+            width: 22%;
+        }
+
+        .side-card thead th:nth-child(3) {
+            width: 38%;
+        }
+
+        .side-card thead th:nth-child(4) {
+            width: 24%;
+        }
+
+        .side-card tbody td {
+            padding: 6px 5px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+            word-break: break-word;
+        }
+
+        .side-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .side-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .right-card {
+            flex: none;
+        }
+
+        .right-card .concl-subtitle {
+            margin-top: 4px;
+            padding-top: 12px;
+            border-top: 1px solid var(--paper-line);
+        }
+
+        .right-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .concl-block {
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--accent);
+            border-radius: 0 10px 10px 0;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: all 250ms cubic-bezier(.4, 0, .2, 1);
+        }
+
+        .concl-block.state-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--sage);
+            border-left-color: var(--correct);
+        }
+
+        .concl-block.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .concl-header {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .concl-header i {
+            color: var(--jade-text);
+        }
+
+        .concl-desc {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--ink);
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: inherit;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            border-color: var(--jade);
+            background-color: var(--sage-pale);
+        }
+
+        .quiz-option-btn.selected-correct {
+            border-color: var(--correct);
+            background-color: var(--correct-bg);
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .quiz-option-btn.selected-wrong {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.reveal-correct {
+            border-color: var(--correct);
+            background-color: var(--correct-bg);
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .quiz-option-btn.dim {
+            opacity: 0.55;
+        }
+
+        .quiz-option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .opt-idx {
+            flex: 0 0 22px;
+            font-weight: 700;
+            color: var(--ink-2);
+        }
+
+        .quiz-option-btn.selected-correct .opt-idx,
+        .quiz-option-btn.reveal-correct .opt-idx {
+            color: var(--jade-text);
+        }
+
+        .opt-text {
+            flex: 1;
+        }
+
+        .opt-status-icon {
+            flex: 0 0 18px;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        .hint-box {
+            background-color: var(--cream);
+            border: 1px dashed var(--sage);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.83rem;
+            color: var(--ink-2);
+        }
+
+        .blank-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 6px 0;
+        }
+
+        .blank-label {
+            width: 38px;
+            flex-shrink: 0;
+            font-size: 0.85rem;
+            color: var(--ink-2);
+            font-weight: 600;
+        }
+
+        .blank-choice {
+            min-width: 66px;
+            padding: 5px 12px;
+            border-radius: 8px;
+            border: 1.5px solid var(--paper-line);
+            background-color: var(--cream);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--ink);
+            transition: all 150ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .blank-choice:hover:not(:disabled) {
+            border-color: var(--jade);
+        }
+
+        .blank-choice.is-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .blank-choice.is-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+            animation: shakeX 0.35s ease;
+        }
+
+        .blank-choice:disabled {
+            cursor: not-allowed;
+        }
+
+        @keyframes shakeX {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            75% {
+                transform: translateX(4px);
+            }
+        }
+
+        .choice-row {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .choice-pill {
+            padding: 8px 14px;
+            border-radius: 8px;
+            border: 1.5px solid var(--jade);
+            background: transparent;
+            color: var(--jade-text);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .choice-pill.active {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        textarea.expl-input {
+            width: 100%;
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            color: var(--ink);
+            background-color: var(--cream);
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        textarea.expl-input:focus {
+            outline: 2px solid var(--jade);
+            outline-offset: 1px;
+        }
+
+        /* LINK SECTION */
+        .link-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            max-width: 1720px;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-top: 12px;
+        }
+
+        .link-fish img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--sage);
+        }
+
+        .link-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .link-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .link-info p {
+            font-size: 0.95rem;
+            color: var(--ink-2);
+        }
+
+        .link-url {
+            color: var(--jade-text);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 150ms ease;
+            font-size: 0.95rem;
+            align-self: start;
+        }
+
+        .link-url:hover {
+            color: var(--jade-deep);
+            text-decoration: underline;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        button:focus-visible,
+        .blank-choice:focus-visible,
+        .choice-pill:focus-visible,
+        .quiz-option-btn:focus-visible,
+        textarea:focus-visible,
+        input[type=range]:focus-visible {
+            outline: 2px solid var(--jade-deep);
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 1100px) {
+            .lab-wrapper {
+                grid-template-columns: 1fr;
+                grid-template-areas: "guide" "controls" "canvas" "sideRight" "sideLeft";
+            }
+
+            .lab-side-left,
+            .lab-side-right {
+                height: auto;
+                max-height: none;
+                align-self: auto;
+                overflow-y: visible;
+            }
+
+            .canvas-glow-wrap {
+                min-height: 360px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .link-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .link-fish img {
+                width: 56px;
+                height: 56px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0s !important;
+                transition-duration: 0s !important;
+            }
+
+            .spin {
+                animation: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <button class="header-badge" disabled>
+            <i class="ti ti-arrows-shuffle-2"></i> Module 3 · Hóa học 11 · Cân bằng hóa học
+        </button>
+        <h1>Cân Bằng Hóa Học &amp; Nguyên Lí Le Chatelier</h1>
+        <p>Quan sát phản ứng thuận nghịch 2NO₂(g) ⇌ N₂O₄(g) đang ở trạng thái cân bằng, rồi tác động vào nhiệt độ,
+            nồng độ và áp suất để tự khám phá nguyên lí Le Chatelier.</p>
+    </header>
+
+    <!-- GOAL BAR -->
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text" id="goalText">
+            Quan sát và giải thích được chiều dịch chuyển của cân bằng 2NO₂(g) ⇌ N₂O₄(g) khi thay đổi nhiệt độ, nồng
+            độ và áp suất; từ đó phát biểu được nguyên lí chuyển dịch cân bằng Le Chatelier.
+        </span>
+    </div>
+
+    <!-- LAB WRAPPER -->
+    <main class="lab-wrapper">
+
+        <!-- SIDEBAR TRÁI -->
+        <div class="lab-side-left">
+            <div class="card side-card" id="toolsCard">
+                <h3><i class="ti ti-flask-2"></i> Dụng cụ &amp; vật liệu</h3>
+                <div class="tool-chips" id="toolChips"></div>
+            </div>
+            <div class="card side-card steps-card" id="stepsCard">
+                <h3><i class="ti ti-list-numbers"></i> Cách làm</h3>
+                <div class="steps-body">
+                    <ul class="step-list" id="stepList"></ul>
+                </div>
+                <div class="safety-box">
+                    <i class="ti ti-alert-triangle"></i>
+                    <span>Chỉ đọc kết quả sau khi hai kim đồng hồ tốc độ đã bằng nhau — thao tác quá sớm sẽ không phản
+                        ánh đúng cân bằng mới.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI GUIDE -->
+        <div class="ai-guide card" id="aiGuideBar">
+            <div class="ai-avatar" id="aiAvatar"><i class="ti ti-robot"></i></div>
+            <div class="ai-text" id="robotMessage" aria-live="polite">Xin chào! Trong mô phỏng này, bạn sẽ quan sát
+                phản ứng 2NO₂ ⇌ N₂O₄ đang ở trạng thái cân bằng, rồi lần lượt tác động vào nhiệt độ, nồng độ và áp
+                suất để xem điều gì xảy ra. Sẵn sàng chưa?</div>
+            <span class="ai-guide-badge" id="aiStepBadge">Bước 1/13</span>
+        </div>
+
+        <!-- CONTROLS -->
+        <div class="card controls-card" id="controlsCard"></div>
+
+        <!-- CANVAS -->
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="460" role="img"
+                    aria-label="Mô phỏng cân bằng hóa học 2NO2 nghịch đảo N2O4"></canvas>
+            </div>
+        </div>
+
+        <!-- SIDEBAR PHẢI (1 khối gộp: Bảng quan sát + Kết luận & Câu hỏi) -->
+        <div class="lab-side-right">
+            <div class="card side-card right-card" id="rightCard">
+                <h3><i class="ti ti-table"></i> Bảng quan sát</h3>
+                <div class="observe-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Yếu tố</th>
+                                <th>Tác động</th>
+                                <th>Hiện tượng màu</th>
+                                <th>Chiều dịch</th>
+                            </tr>
+                        </thead>
+                        <tbody id="observeTableBody"></tbody>
+                    </table>
+                </div>
+                <h3 class="concl-subtitle"><i class="ti ti-checklist"></i> Kết luận &amp; Câu hỏi</h3>
+                <div class="right-card-body" id="conclList"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- LINK SECTION -->
+    <div class="link-section">
+        <div class="link-fish">
+            <img src="https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png"
+                alt="Mascot Aiducation">
+        </div>
+        <div class="link-info">
+            <h3>Hóa Học Aiducation – Học liệu tương tác</h3>
+            <p>Module tiếp theo: Hằng số cân bằng K · Nguyên lí Le Chatelier · Ứng dụng công nghiệp.</p>
+            <a class="link-url" href="https://www.aiducation.edu.vn" target="_blank" rel="noopener">
+                <i class="ti ti-external-link"></i> Truy cập aiducation.edu.vn
+            </a>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================================
+           UTILITIES
+        ========================================================= */
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { t = clamp(t, 0, 1); return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { t = clamp(t, 0, 1); return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return { r: lerp(c1.r, c2.r, t), g: lerp(c1.g, c2.g, t), b: lerp(c1.b, c2.b, t), a: lerp(c1.a, c2.a, t) };
+        }
+        function rgba(c) { return `rgba(${Math.round(c.r)},${Math.round(c.g)},${Math.round(c.b)},${c.a.toFixed(3)})`; }
+        function shuffle(arr) {
+            const a = arr.slice();
+            for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+            }
+            return a;
+        }
+        function wrapText(ctx, text, x, y, maxWidth, lineHeight, align) {
+            const words = text.split(' ');
+            let line = '';
+            let ly = y;
+            const lines = [];
+            for (let n = 0; n < words.length; n++) {
+                const testLine = line + words[n] + ' ';
+                if (ctx.measureText(testLine).width > maxWidth && n > 0) {
+                    lines.push(line.trim());
+                    line = words[n] + ' ';
+                } else {
+                    line = testLine;
+                }
+            }
+            lines.push(line.trim());
+            ctx.textAlign = align || 'left';
+            lines.forEach((l, i) => ctx.fillText(l, x, ly + i * lineHeight));
+            return lines.length * lineHeight;
+        }
+
+        /* =========================================================
+           CANVAS SETUP
+        ========================================================= */
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 460;
+        let canvasW = W, canvasH = H;
+        let time = 0;
+
+        // Layout dùng chung cho stage 3-6 (bình phản ứng / xi-lanh + thanh màu) — chỉnh 1 chỗ, áp dụng mọi nơi
+        const VX = 180, VY = 260, VW = 400, VH = 110;      // bình phản ứng
+        const CBX = 660, CBY = 60, CBW = 24, CBH = 150;    // thanh màu dọc
+        // Nhãn trạng thái đứng SÁT ngay bên phải bình, canh giữa chiều cao — mọc chữ sang phải (align: 'left')
+        // nên không bao giờ lấn ngược vào thân bình dù chữ dài ngắn khác nhau.
+        const BADGE_X = VX + VW + 14;
+        const BADGE_Y = VY + VH / 2 - 13;
+        const POPUP_Y = VY + VH + 6;                        // popup Giai đoạn — hàng riêng, ngay dưới bình
+        const WARN_Y = (CBY + CBH + VY) / 2 - 6;            // dòng cảnh báo (khe hở giữa cụm đồng hồ và bình)
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        /* =========================================================
+           CANVAS HIT-TEST — cho phép bấm trực tiếp vào vật thể trong canvas
+           (ví dụ 2 ống bơm ở Stage 5) thay vì chỉ bấm nút ở controls-card.
+           hitRegions được dọn & nạp lại mỗi frame bởi chính hàm vẽ liên quan
+           (xem drawConcPumpIcons) — toạ độ luôn theo hệ logic W×H.
+        ========================================================= */
+        let viewFitScale = 1, viewOffsetX = 0, viewOffsetY = 0;
+        let hitRegions = [];
+        let hoverRegionId = null;
+
+        function toLogicalXY(clientX, clientY) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: (clientX - rect.left - viewOffsetX) / viewFitScale,
+                y: (clientY - rect.top - viewOffsetY) / viewFitScale
+            };
+        }
+        function pointInRegion(lx, ly, r) {
+            return lx >= r.x && lx <= r.x + r.w && ly >= r.y && ly <= r.y + r.h;
+        }
+        canvas.addEventListener('click', (e) => {
+            const p = toLogicalXY(e.clientX, e.clientY);
+            const hit = hitRegions.find(r => pointInRegion(p.x, p.y, r));
+            if (hit) hit.onClick();
+        });
+        canvas.addEventListener('mousemove', (e) => {
+            const p = toLogicalXY(e.clientX, e.clientY);
+            const hit = hitRegions.find(r => pointInRegion(p.x, p.y, r));
+            hoverRegionId = hit ? hit.id : null;
+            canvas.style.cursor = hit ? 'pointer' : '';
+        });
+        canvas.addEventListener('mouseleave', () => { hoverRegionId = null; canvas.style.cursor = ''; });
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+            for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        /* =========================================================
+           CHEMISTRY COLOR MODEL
+        ========================================================= */
+        const GAS_LIGHT = { r: 253, g: 248, b: 238, a: 0.10 };   // gần như không màu (N2O4)
+        const GAS_DARK = { r: 137, g: 43, b: 20, a: 0.82 };      // nâu đỏ đậm (NO2)
+        function gasColorAt(level) { return rgba(lerpColor(GAS_LIGHT, GAS_DARK, level)); }
+
+        let particles = [];
+        let rings = [];
+        let molecules = [];
+
+        function seedMolecules(n) {
+            molecules = [];
+            for (let i = 0; i < n; i++) {
+                molecules.push({
+                    x: 210 + Math.random() * 340,
+                    y: 260 + Math.random() * 110,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.4,
+                    isNO2: Math.random() < state.colorLevel,
+                    wobble: Math.random() * 10
+                });
+            }
+        }
+
+        // Hạt chạm rìa tròn (đầu viên nang) thì phản xạ theo pháp tuyến của đường tròn đó,
+        // thay vì bay thẳng ra ngoài — dùng chung cho cả 2 hướng viên nang (ngang/dọc).
+        function reflectMoleculeInCap(m, cx, cy, r) {
+            const dx = m.x - cx, dy = m.y - cy;
+            const dist = Math.hypot(dx, dy) || 0.001;
+            if (dist > r) {
+                const nx = dx / dist, ny = dy / dist;
+                m.x = cx + nx * r; m.y = cy + ny * r;
+                const vn = m.vx * nx + m.vy * ny;
+                m.vx -= 2 * vn * nx; m.vy -= 2 * vn * ny;
+            }
+        }
+
+        function updateMolecules(bounds) {
+            const targetNO2Ratio = clamp(state.colorLevel, 0.05, 0.95);
+            const { x1, y1, x2, y2, rounded } = bounds;
+            const w = x2 - x1, h = y2 - y1;
+            molecules.forEach((m) => {
+                m.x += m.vx;
+                m.y += m.vy;
+
+                if (rounded && w >= h) {
+                    // Viên nang NGANG: 2 đầu tròn trái/phải, bán kính = nửa chiều cao
+                    const capR = h / 2;
+                    const cx1 = x1 + capR, cx2 = x2 - capR, cy = (y1 + y2) / 2;
+                    if (m.x < cx1) reflectMoleculeInCap(m, cx1, cy, capR);
+                    else if (m.x > cx2) reflectMoleculeInCap(m, cx2, cy, capR);
+                    else {
+                        if (m.y < y1) { m.y = y1; m.vy *= -1; }
+                        if (m.y > y2) { m.y = y2; m.vy *= -1; }
+                    }
+                } else if (rounded) {
+                    // Viên nang DỌC (bình bị nén hẹp hơn cao): 2 đầu tròn trên/dưới
+                    const capR = w / 2;
+                    const cy1 = y1 + capR, cy2 = y2 - capR, cx = (x1 + x2) / 2;
+                    if (m.y < cy1) reflectMoleculeInCap(m, cx, cy1, capR);
+                    else if (m.y > cy2) reflectMoleculeInCap(m, cx, cy2, capR);
+                    else {
+                        if (m.x < x1) { m.x = x1; m.vx *= -1; }
+                        if (m.x > x2) { m.x = x2; m.vx *= -1; }
+                    }
+                } else {
+                    if (m.x < x1) { m.x = x1; m.vx *= -1; }
+                    if (m.x > x2) { m.x = x2; m.vx *= -1; }
+                    if (m.y < y1) { m.y = y1; m.vy *= -1; }
+                    if (m.y > y2) { m.y = y2; m.vy *= -1; }
+                }
+
+                if (Math.random() < 0.004) m.isNO2 = Math.random() < targetNO2Ratio;
+            });
+        }
+
+        function drawMolecules() {
+            molecules.forEach(m => {
+                ctx.save();
+                if (m.isNO2) {
+                    ctx.fillStyle = 'rgba(160, 55, 25, 0.75)';
+                    ctx.beginPath(); ctx.arc(m.x, m.y, 2.6, 0, Math.PI * 2); ctx.fill();
+                } else {
+                    ctx.fillStyle = 'rgba(140, 130, 115, 0.35)';
+                    ctx.beginPath(); ctx.arc(m.x, m.y, 4, 0, Math.PI * 2); ctx.fill();
+                }
+                ctx.restore();
+            });
+        }
+
+        function spawnSplash(x, y, color) {
+            for (let i = 0; i < 5; i++) {
+                particles.push({
+                    x, y, vx: (Math.random() - 0.5) * 3, vy: -(Math.random() * 2 + 1),
+                    life: 1, size: 1.5 + Math.random(), color: color || 'rgba(160,55,25,0.7)'
+                });
+            }
+            rings.push({ x, y, r: 2, alpha: 0.6, color: color || 'rgba(160,55,25,0.6)' });
+        }
+
+        // Khí bơm từ vòi vào bình — trôi vào trong (không rơi xuống như giọt lỏng), tỏa nhẹ rồi tan.
+        function spawnGasPuff(x, y, color, n) {
+            for (let i = 0; i < n; i++) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 6,
+                    y: y + Math.random() * 6,
+                    vx: 0.7 + Math.random() * 1.3,
+                    vy: 0.25 + Math.random() * 0.5,
+                    life: 1, size: 1.5 + Math.random() * 1.8, color
+                });
+            }
+        }
+
+        // Vòng flash trắng đánh dấu thời điểm cân bằng bắt đầu dịch chuyển (ranh giới Pha 1 → Pha 2).
+        function spawnReactionFlash(x, y) {
+            rings.push({ x, y, r: 6, alpha: 0.55, color: 'rgba(255,255,255,0.85)' });
+        }
+
+        function updateParticles() {
+            particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.life -= 0.04; });
+            particles = particles.filter(p => p.life > 0);
+            rings.forEach(r => { r.r += 0.5; r.alpha -= 0.025; });
+            rings = rings.filter(r => r.alpha > 0);
+        }
+
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.save(); ctx.globalAlpha = clamp(p.life, 0, 1); ctx.fillStyle = p.color;
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+            });
+            rings.forEach(r => {
+                ctx.save(); ctx.globalAlpha = clamp(r.alpha, 0, 1); ctx.strokeStyle = r.color;
+                ctx.lineWidth = lerp(2, 0.5, 1 - r.alpha / 0.6);
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke(); ctx.restore();
+            });
+        }
+
+        /* =========================================================
+           SHARED DRAW HELPERS
+        ========================================================= */
+        function drawEquilibriumArrow(cx, cy, w) {
+            ctx.save();
+            ctx.strokeStyle = '#1A1A1A';
+            ctx.lineWidth = 2.2;
+            ctx.lineCap = 'round';
+            // top arrow → (pointing right)
+            ctx.beginPath(); ctx.moveTo(cx - w / 2, cy - 5); ctx.lineTo(cx + w / 2, cy - 5); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(cx + w / 2, cy - 5); ctx.lineTo(cx + w / 2 - 8, cy - 9); ctx.lineTo(cx + w / 2 - 8, cy - 1); ctx.closePath();
+            ctx.fillStyle = '#1A1A1A'; ctx.fill();
+            // bottom arrow ← (pointing left)
+            ctx.beginPath(); ctx.moveTo(cx - w / 2, cy + 5); ctx.lineTo(cx + w / 2, cy + 5); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(cx - w / 2, cy + 5); ctx.lineTo(cx - w / 2 + 8, cy + 1); ctx.lineTo(cx - w / 2 + 8, cy + 9); ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Vẽ công thức hóa học trong canvas với chỉ số dưới (subscript) đúng cỡ nhỏ —
+        // mọi chữ số đứng ngay sau một chữ cái được coi là chỉ số dưới, chữ số đứng đầu
+        // (hệ số tỉ lượng, ví dụ "2" trong "2NO2") giữ nguyên cỡ chữ bình thường.
+        function fillChemText(ctx, text, x, y, size, weight, color, align, baseline) {
+            weight = weight || 700;
+            align = align || 'left';
+            baseline = baseline || 'alphabetic';
+            const subSize = size * 0.62;
+            const subShift = size * 0.22;
+            const isSubAt = i => /[0-9]/.test(text[i]) && i > 0 && /[A-Za-z]/.test(text[i - 1]);
+
+            ctx.save();
+            ctx.textBaseline = baseline;
+            ctx.textAlign = 'left';
+
+            let totalWidth = 0;
+            for (let i = 0; i < text.length; i++) {
+                ctx.font = `${weight} ${(isSubAt(i) ? subSize : size).toFixed(1)}px 'Be Vietnam Pro'`;
+                totalWidth += ctx.measureText(text[i]).width;
+            }
+
+            let cx = x;
+            if (align === 'center') cx = x - totalWidth / 2;
+            else if (align === 'right') cx = x - totalWidth;
+
+            ctx.fillStyle = color;
+            for (let i = 0; i < text.length; i++) {
+                const sub = isSubAt(i);
+                ctx.font = `${weight} ${(sub ? subSize : size).toFixed(1)}px 'Be Vietnam Pro'`;
+                ctx.fillText(text[i], cx, y + (sub ? subShift : 0));
+                cx += ctx.measureText(text[i]).width;
+            }
+            ctx.restore();
+            return totalWidth;
+        }
+
+        function drawEquationCustom(cx, cy, size, leftText, rightText, leftColor, rightColor) {
+            const gap = size * 2.1;
+            fillChemText(ctx, leftText, cx - gap / 2, cy, size, 800, leftColor, 'right', 'middle');
+            fillChemText(ctx, rightText, cx + gap / 2, cy, size, 800, rightColor, 'left', 'middle');
+            drawEquilibriumArrow(cx, cy, gap * 0.62);
+        }
+
+        function drawEquationLine(cx, cy, size) {
+            drawEquationCustom(cx, cy, size, '2NO2(g)', 'N2O4(g)', '#9C3B1E', '#1A1A1A');
+        }
+
+        // Path viên nang (2 đầu bo tròn hết cỡ, r = min(h/2, w/2)) — dùng chung cho cả thân bình
+        // (drawGlassCapsule) lẫn vầng sáng bao quanh (drawVesselGlow) để 2 hình LUÔN cùng 1 dáng.
+        function capsulePath(x, y, w, h) {
+            // dùng roundRect gốc: tự bo đúng 2 đầu tròn dù bình nằm ngang (w>=h) hay bị nén
+            // hẹp hơn cao (h>w) — công thức arc thủ công cũ chỉ đúng khi w>=h, khi bị nén
+            // dọc nó vẽ sai thành 1 hình tròn nằm lệch + 1 vệt thừa (khiến hạt bay lọt ra ngoài).
+            const r = Math.min(w, h) / 2;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, r);
+            return r;
+        }
+
+        function drawGlassCapsule(x, y, w, h, fillColor) {
+            ctx.save();
+            const r = capsulePath(x, y, w, h);
+            ctx.fillStyle = fillColor;
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.2;
+            ctx.stroke();
+            // highlight
+            ctx.beginPath();
+            ctx.moveTo(x + r * 0.7, y + h * 0.18);
+            ctx.lineTo(x + w - r * 0.7, y + h * 0.18);
+            ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.restore();
+            // rounded:true báo cho updateMolecules() biết đây là viên nang thật (2 đầu tròn),
+            // không phải hình chữ nhật phẳng, để kẹp hạt đúng theo dáng tròn thay vì theo góc vuông.
+            return { x1: x + 10, y1: y + 10, x2: x + w - 10, y2: y + h - 10, rounded: true };
+        }
+
+        // Vầng sáng ôm sát đúng dáng viên nang của bình (không lệch góc như roundRect cố định) —
+        // 2 lớp stroke (dày+mờ ở ngoài, mảnh+sáng ở trong) + shadowBlur để có chiều sâu, không "hời hợt".
+        function drawVesselGlow(x, y, w, h, color, intensity) {
+            if (intensity <= 0) return;
+            const pad = 7;
+            ctx.save();
+            ctx.shadowColor = color;
+            ctx.shadowBlur = 16;
+            ctx.globalAlpha = clamp(intensity, 0, 1);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 6;
+            capsulePath(x - pad, y - pad, w + pad * 2, h + pad * 2);
+            ctx.stroke();
+            ctx.shadowBlur = 4;
+            ctx.lineWidth = 2;
+            ctx.globalAlpha = clamp(intensity * 0.95, 0, 1);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawGauge(cx, cy, r, value, maxValue, color, label) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI);
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            const frac = clamp(value / maxValue, 0, 1);
+            ctx.beginPath();
+            ctx.arc(cx, cy, r, Math.PI, Math.PI + Math.PI * frac);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // needle
+            const ang = Math.PI + Math.PI * frac;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(cx + Math.cos(ang) * (r - 4), cy + Math.sin(ang) * (r - 4));
+            ctx.strokeStyle = '#1A1A1A';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+            ctx.beginPath(); ctx.arc(cx, cy, 3.5, 0, Math.PI * 2); ctx.fillStyle = '#1A1A1A'; ctx.fill();
+
+            ctx.font = "700 12px 'Be Vietnam Pro'";
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, cx, cy + 22);
+            ctx.font = "800 13px 'Be Vietnam Pro'";
+            ctx.fillStyle = color;
+            ctx.fillText(value.toFixed(1) + '/' + maxValue, cx, cy - r - 8);
+            ctx.restore();
+        }
+
+        function drawColorBar(x, y, w, h, level) {
+            ctx.save();
+            const grad = ctx.createLinearGradient(0, y + h, 0, y);
+            grad.addColorStop(0, gasColorAt(0));
+            grad.addColorStop(1, gasColorAt(1));
+            ctx.fillStyle = grad;
+            ctx.fillRect(x, y, w, h);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(x, y, w, h);
+
+            const py = y + h - level * h;
+            ctx.beginPath();
+            ctx.moveTo(x + w + 4, py);
+            ctx.lineTo(x + w + 14, py - 6);
+            ctx.lineTo(x + w + 14, py + 6);
+            ctx.closePath();
+            ctx.fillStyle = '#1A1A1A';
+            ctx.fill();
+
+            ctx.font = "600 10px 'Be Vietnam Pro'";
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'left';
+            ctx.fillText('đậm', x + w + 18, y + 10);
+            ctx.fillText('nhạt', x + w + 18, y + h - 4);
+            ctx.restore();
+        }
+
+        function drawStatusBadge(x, y, text, color, bg, align) {
+            ctx.save();
+            ctx.font = "700 12px 'Be Vietnam Pro'";
+            const tw = ctx.measureText(text).width;
+            const pad = 10, bh = 26;
+            const bw = tw + pad * 2;
+            const bx = align === 'left' ? x : x - bw; // 'left': x = mép trái (chữ mọc dần sang phải); mặc định: x = mép phải
+            ctx.fillStyle = bg;
+            ctx.beginPath();
+            ctx.roundRect(bx, y, bw, bh, 13);
+            ctx.fill();
+            ctx.fillStyle = color;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, bx + bw / 2, y + bh / 2 + 1);
+            ctx.restore();
+        }
+
+        function drawPhasePopup(text, customY) {
+            if (!text) return;
+            ctx.save();
+            ctx.font = "700 14px 'Be Vietnam Pro'";
+            const tw = ctx.measureText(text).width;
+            const y = customY || POPUP_Y;
+            const x = W / 2 - tw / 2 - 14, w = tw + 28, h = 32;
+            ctx.fillStyle = 'rgba(220, 234, 225, 0.95)';
+            ctx.beginPath(); ctx.roundRect(x, y, w, h, 10); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.2; ctx.stroke();
+            ctx.restore();
+            fillChemText(ctx, text, x + w / 2, y + h / 2 + 1, 14, 700, '#1B5E48', 'center', 'middle');
+        }
+
+        function drawWarning(text, alpha, y) {
+            if (alpha <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = clamp(alpha, 0, 1);
+            ctx.font = "600 11.5px 'Be Vietnam Pro'";
+            ctx.fillStyle = '#C15F3C';
+            ctx.textAlign = 'center';
+            wrapText(ctx, text, W / 2, y, 660, 15, 'center');
+            ctx.restore();
+        }
+
+        /* =========================================================
+           STATE
+        ========================================================= */
+        const HYPOTHESIS_TEXT = 'Khi tác động vào một hệ đang ở trạng thái cân bằng (thay đổi nhiệt độ, nồng độ hoặc áp suất), cân bằng sẽ luôn dịch chuyển theo chiều tạo ra nhiều sản phẩm hơn.';
+
+        const REPORT_ROWS = [
+            { key: 'A1', factor: 'A. Nhiệt độ', impact: 'Tăng (25°C → 60°C)', done: false, phenomenon: 'Màu đậm hơn ban đầu (nâu đỏ đậm)', direction: 'Nghịch (←)' },
+            { key: 'A2', factor: 'A. Nhiệt độ', impact: 'Giảm (25°C → 0°C)', done: false, phenomenon: 'Màu nhạt hơn ban đầu', direction: 'Thuận (→)' },
+            { key: 'B1', factor: 'B. Nồng độ', impact: 'Thêm NO₂', done: false, phenomenon: 'Đậm tức thì, sau đó nhạt bớt (vẫn đậm hơn ban đầu)', direction: 'Thuận (→)' },
+            { key: 'B2', factor: 'B. Nồng độ', impact: 'Thêm N₂O₄', done: false, phenomenon: 'Không đổi tức thì, sau đó nhạt dần', direction: 'Nghịch (←)' },
+            { key: 'C1', factor: 'C. Áp suất', impact: 'Tăng (nén pít-tông)', done: false, phenomenon: 'Đậm tức thì (nén), sau đó nhạt dần', direction: 'Thuận (→)' },
+            { key: 'C2', factor: 'C. Áp suất', impact: 'Giảm (giãn pít-tông)', done: false, phenomenon: 'Nhạt tức thì (giãn), sau đó đậm dần', direction: 'Nghịch (←)' }
+        ];
+
+        const STEP_NAMES = [
+            'Chào mừng & Mục tiêu', 'Giả thuyết ban đầu', 'Cân bằng ban đầu', 'Ảnh hưởng nhiệt độ',
+            'Ảnh hưởng nồng độ', 'Ảnh hưởng áp suất', 'Kết luận Le Chatelier', 'Đánh giá giả thuyết',
+            'Câu hỏi 1: Nhiệt độ', 'Câu hỏi 2: Nồng độ', 'Câu hỏi 3: Áp suất', 'Câu hỏi 4: Vận dụng NH₃', 'Kết thúc module'
+        ];
+
+        const TOOLS = [
+            { key: 'vessel', icon: 'ti-flask-2', label: 'Bình phản ứng NO₂/N₂O₄', stages: [3, 4, 5, 6] },
+            { key: 'gauge', icon: 'ti-gauge', label: 'Đồng hồ tốc độ phản ứng', stages: [3, 4, 5, 6] },
+            { key: 'temp', icon: 'ti-temperature', label: 'Bộ điều khiển nhiệt độ', stages: [4] },
+            { key: 'inject', icon: 'ti-injection', label: 'Ống bơm nồng độ', stages: [5] },
+            { key: 'piston', icon: 'ti-arrows-horizontal', label: 'Xi-lanh pít-tông', stages: [6] },
+            { key: 'report', icon: 'ti-table', label: 'Bảng báo cáo thí nghiệm', stages: [4, 5, 6, 7, 8] },
+            { key: 'quiz', icon: 'ti-help-hexagon', label: 'Bộ câu hỏi trắc nghiệm', stages: [9, 10, 11, 12] }
+        ];
+
+        const QUESTIONS = {
+            9: {
+                prompt: 'Câu 1: Thực hiện mô phỏng với phản ứng 2NO₂(g) ⇌ N₂O₄(g) ở trạng thái cân bằng. Khi tăng nhiệt độ, màu sắc hỗn hợp khí thay đổi như thế nào và vì sao?',
+                options: [
+                    { text: 'Nhạt hơn, vì tăng nhiệt độ làm phản ứng thuận nhanh hơn, tạo nhiều N₂O₄ không màu.', correct: false },
+                    { text: 'Đậm hơn, vì phản ứng tỏa nhiệt nên tăng nhiệt độ làm cân bằng dịch theo chiều nghịch, tạo thêm NO₂.', correct: true },
+                    { text: 'Không đổi, vì nhiệt độ chỉ ảnh hưởng đến tốc độ phản ứng, không ảnh hưởng đến cân bằng.', correct: false },
+                    { text: 'Đậm hơn tức thì rồi nhạt lại, vì hệ tự điều chỉnh về trạng thái ban đầu.', correct: false }
+                ],
+                explainCorrect: 'Phản ứng 2NO₂ → N₂O₄ là phản ứng tỏa nhiệt (ΔrH° < 0). Theo Le Chatelier, tăng nhiệt độ → cân bằng dịch theo chiều thu nhiệt = chiều nghịch (phân hủy N₂O₄ thành NO₂). NO₂ tăng → màu đậm hơn.',
+                hint1: 'Hãy xem lại: phản ứng thuận (NO₂ → N₂O₄) là tỏa nhiệt hay thu nhiệt? Khi tăng nhiệt độ, Le Chatelier nói cân bằng dịch theo chiều nào để "chống lại" sự tăng nhiệt đó?',
+                hint2: 'Gợi ý thêm: hãy nhìn lại Stage 4 — khi tăng nhiệt độ, màu bình thay đổi theo chiều nào?'
+            },
+            10: {
+                prompt: 'Câu 2: Trong mô phỏng, khi thêm NO₂ vào hệ đang cân bằng, học sinh quan sát thấy màu đậm lên ngay lập tức rồi sau đó nhạt bớt (nhưng vẫn đậm hơn ban đầu). Giai đoạn màu "nhạt bớt" sau đó là do:',
+                options: [
+                    { text: 'NO₂ vừa thêm vào bị phân hủy nhiệt tự nhiên theo thời gian.', correct: false },
+                    { text: 'Cân bằng dịch chuyển theo chiều thuận, tiêu thụ bớt NO₂ vừa thêm vào để tạo N₂O₄.', correct: true },
+                    { text: 'Phản ứng nghịch tăng mạnh, phân hủy cả N₂O₄ cũ lẫn mới tạo thành.', correct: false },
+                    { text: 'Nhiệt độ trong bình tăng do phản ứng tỏa nhiệt, làm cân bằng dịch theo chiều nghịch.', correct: false }
+                ],
+                explainCorrect: 'Khi thêm NO₂ (tăng nồng độ chất đầu), Le Chatelier → cân bằng dịch thuận để tiêu thụ bớt NO₂ → tạo thêm N₂O₄ không màu → màu nhạt bớt so với đỉnh. Cân bằng mới có [NO₂] cao hơn ban đầu nhưng thấp hơn ngay sau khi thêm.',
+                hint1: 'Khi nồng độ NO₂ tăng đột ngột, theo Le Chatelier cân bằng sẽ dịch theo chiều nào để "giảm" nồng độ NO₂ trở lại? Chiều đó tạo ra chất gì?',
+                hint2: 'Gợi ý thêm: hãy nhìn lại Stage 5 — sau khi thêm NO₂, kim đồng hồ nào tăng rồi giảm dần?'
+            },
+            11: {
+                prompt: 'Câu 3: Khi nén bình (tăng áp suất) trong mô phỏng, học sinh thấy màu đậm lên tức thì rồi nhạt dần. Giải thích nào sau đây là ĐÚNG về giai đoạn màu nhạt dần?',
+                options: [
+                    { text: 'Áp suất cao làm NO₂ bị hóa lỏng nên màu khí nhạt đi.', correct: false },
+                    { text: 'Cân bằng dịch theo chiều thuận vì chiều này làm giảm số mol khí, từ đó giảm áp suất của hệ.', correct: true },
+                    { text: 'Cân bằng dịch theo chiều nghịch vì N₂O₄ kém bền hơn ở áp suất cao.', correct: false },
+                    { text: 'Màu nhạt là do hiệu ứng pha loãng: thể tích bình tăng sau khi nén.', correct: false }
+                ],
+                explainCorrect: 'Tăng áp suất → Le Chatelier → cân bằng dịch theo chiều làm giảm áp suất = chiều làm giảm số mol khí. Chiều thuận (2NO₂ → N₂O₄) giảm từ 2 mol xuống 1 mol → tạo thêm N₂O₄ không màu → màu nhạt dần.',
+                hint1: 'Đếm số mol khí ở hai vế: vế trái 2 mol (2NO₂), vế phải 1 mol (N₂O₄). Khi tăng áp suất, Le Chatelier nói cân bằng dịch về phía nào để "giảm" áp suất đó? Phía đó có ít hay nhiều mol khí hơn?',
+                hint2: 'Gợi ý thêm: hãy nhìn lại Stage 6 — khi nén pít-tông, cân bằng dịch về chiều có ít mol khí hơn để giảm áp suất.'
+            },
+            12: {
+                prompt: 'Câu 4: Trong công nghiệp tổng hợp NH₃ theo phản ứng N₂(g) + 3H₂(g) ⇌ 2NH₃(g) (ΔrH° < 0), người ta thực hiện ở áp suất rất cao (~200 bar) nhưng nhiệt độ lại chọn ở mức trung bình (~450°C) thay vì thấp nhất có thể. Giải thích nào đúng nhất?',
+                options: [
+                    { text: 'Nhiệt độ thấp có lợi cho cân bằng sinh NH₃ nhưng làm tốc độ phản ứng quá chậm dù có xúc tác — 450°C là điểm cân bằng giữa hiệu suất và tốc độ.', correct: true },
+                    { text: 'Áp suất cao bất lợi cho cân bằng nhưng cần thiết để tăng tốc độ phản ứng; nhiệt độ trung bình để cân bằng có lợi và tốc độ đủ nhanh.', correct: false },
+                    { text: 'Nhiệt độ 450°C là điều kiện duy nhất để xúc tác Fe hoạt động; áp suất không ảnh hưởng đến cân bằng phản ứng này.', correct: false },
+                    { text: 'Áp suất cao làm tăng tốc độ nhưng không ảnh hưởng đến cân bằng vì tổng số mol khí hai vế bằng nhau.', correct: false }
+                ],
+                explainCorrect: 'Phản ứng tỏa nhiệt → nhiệt độ thấp có lợi cho cân bằng (dịch thuận, tạo nhiều NH₃), nhưng quá chậm trong công nghiệp dù có xúc tác Fe. 450°C là điểm thỏa hiệp. Áp suất cao (200 bar) có lợi vì chiều thuận giảm từ 4 mol khí xuống 2 mol. Đây là ví dụ điển hình: tối ưu điều kiện công nghiệp ≠ tối ưu cân bằng đơn thuần.',
+                hint1: 'Xem xét riêng hai yếu tố: (1) Nhiệt độ thấp có lợi hay bất lợi cho cân bằng sinh NH₃? (2) Tại sao công nghiệp không thể dùng nhiệt độ thấp dù cân bằng có lợi hơn?',
+                hint2: 'Gợi ý thêm: ngoài cân bằng, còn yếu tố nào ảnh hưởng đến hiệu quả sản xuất theo thời gian?'
+            }
+        };
+
+        const state = {
+            stage: 1,
+            maxStage: 1,
+            isAnimating: false,
+            colorLevel: 0.42,
+            baseColorLevel: 0.42,
+            rateF: 5, rateBk: 5,
+            s3ObserveTimer: 0,
+            s3Notified: false,
+            temp: 25,
+            s4Phase: 'idle', s4Timer: 0, s4Dir: null, s4CooldownTimer: 0,
+            s4A1Done: false, s4A2Done: false, s4WarnTimer: 0,
+            s5Phase: 'idle', s5Timer: 0, s5Dir: null, s5CooldownTimer: 0,
+            s5B1Done: false, s5B2Done: false, s5Peak: 0,
+            volumePct: 100,
+            s6Phase: 'idle', s6Timer: 0, s6Dir: null, s6CooldownTimer: 0,
+            s6C1Done: false, s6C2Done: false,
+            blanks: [null, null, null, null],
+            blanksCorrect: [false, false, false, false],
+            hypothesisChoice: null,
+            hypothesisText: '',
+            quiz: {
+                9: { answered: false, attempts: 0, order: null, gotCorrect: false },
+                10: { answered: false, attempts: 0, order: null, gotCorrect: false },
+                11: { answered: false, attempts: 0, order: null, gotCorrect: false },
+                12: { answered: false, attempts: 0, order: null, gotCorrect: false }
+            }
+        };
+
+        const BLANKS_DEF = [
+            { options: ['thu', 'tỏa'], correct: 'thu', hint: 'Xem lại Bảng báo cáo — cân bằng dịch theo chiều nào khi tăng nhiệt độ?' },
+            { options: ['giảm', 'tăng'], correct: 'giảm', hint: 'Chiều thu nhiệt có tác dụng gì đến nhiệt độ của hệ?' },
+            { options: ['giảm', 'tăng'], correct: 'giảm', hint: 'Xem lại Bảng báo cáo — cân bằng dịch theo chiều nào khi tăng nồng độ NO₂?' },
+            { options: ['giảm', 'tăng'], correct: 'giảm', hint: 'Bạn có muốn xem lại animation Bước C1? Hãy phân biệt màu ở Giai đoạn 1 (nén vật lý) và màu ở Giai đoạn 2 (sau khi cân bằng mới thiết lập).' }
+        ];
+
+        seedMolecules(46);
+
+        /* =========================================================
+           AI GUIDE TEXT
+        ========================================================= */
+        function aiTextFor() {
+            const s = state.stage;
+            if (s === 1) return 'Xin chào! Trong mô phỏng này, bạn sẽ quan sát phản ứng 2NO₂ ⇌ N₂O₄ đang ở trạng thái cân bằng, rồi lần lượt tác động vào nhiệt độ, nồng độ và áp suất để xem điều gì xảy ra. Từ kết quả đó, bạn sẽ tự rút ra nguyên lí Le Chatelier. Sẵn sàng chưa?';
+            if (s === 2) return 'Trước khi bắt đầu, hãy đọc kỹ giả thuyết này. Đây là dự đoán ban đầu — đúng hay sai, bạn sẽ tự kiểm chứng qua mô phỏng. Nhấn "Bắt đầu mô phỏng" khi đã đọc xong.';
+            if (s === 3) {
+                if (state.s3ObserveTimer < 5) return 'Đây là hệ phản ứng 2NO₂ ⇌ N₂O₄ đang ở trạng thái cân bằng. Hãy quan sát hai điều: màu sắc của khí trong bình và hai kim đồng hồ tốc độ. Bạn thấy điều gì đặc biệt?';
+                return 'Đúng vậy — màu không đổi, và hai kim bằng nhau. Đó là dấu hiệu của trạng thái cân bằng: tốc độ thuận bằng tốc độ nghịch. Bây giờ, hãy xem điều gì xảy ra khi mình "phá vỡ" trạng thái này.';
+            }
+            if (s === 4) {
+                if (state.s4A1Done && state.s4A2Done) return 'Bạn đã quan sát xong. Hãy điền kết quả vào Bảng báo cáo — Phần A trước khi tiếp tục.';
+                return 'Hệ đang ở cân bằng 25°C. Hãy nhấn lần lượt từng nút — "Tăng nhiệt độ" trước, quan sát đến khi cân bằng mới thiết lập (hai kim bằng nhau), rồi mới nhấn "Giảm nhiệt độ". Chú ý màu sắc và chiều kim đồng hồ.';
+            }
+            if (s === 5) {
+                if (state.s5B1Done && state.s5B2Done) return 'Tốt lắm! Cả hai thí nghiệm nồng độ đã hoàn tất — hãy tiếp tục khi sẵn sàng.';
+                if (state.s5B1Done) return 'Bạn thấy màu đậm lên ngay, rồi nhạt bớt — nhưng vẫn đậm hơn ban đầu. Hãy thử tiếp với "Thêm N₂O₄" và so sánh.';
+                return 'Lần này mình tác động vào nồng độ. Nhấn "Thêm NO₂" và chú ý quan sát hai giai đoạn: ngay sau khi thêm và sau khi cân bằng mới thiết lập. Hai giai đoạn này có thể trái với trực giác của bạn.';
+            }
+            if (s === 6) {
+                if (state.s6C1Done && state.s6C2Done) return 'Hoàn tất! Bạn đã thấy rõ hai giai đoạn khi thay đổi áp suất — vật lý rồi hóa học.';
+                return 'Lần này mình tác động vào áp suất bằng cách kéo pít-tông. Chú ý: có hai giai đoạn đổi màu — giai đoạn 1 do nén/giãn vật lý, giai đoạn 2 mới là do phản ứng hóa học.';
+            }
+            if (s === 7) return 'Dựa vào Bảng báo cáo vừa hoàn thành, hãy điền vào các ô trống bên phải để hoàn thành kết luận.';
+            if (s === 8) return 'Đã đến lúc đối chiếu lại. Nhìn vào giả thuyết ban đầu và kết quả mô phỏng — theo bạn, giả thuyết đó đúng, sai, hay đúng một phần? Hãy chọn và giải thích bằng ít nhất một ví dụ cụ thể từ mô phỏng.';
+            if (s >= 9 && s <= 12) return 'Hãy đọc kỹ câu hỏi và chọn đáp án bên phải. Nếu chưa chắc, hãy nhớ lại animation ở các bước trước.';
+            if (s === 13) return 'Chúc mừng! Bạn vừa tự khám phá nguyên lí Le Chatelier qua mô phỏng. Hãy xem lại Bảng báo cáo nếu muốn kiểm tra lại kết quả quan sát của mình.';
+            return '';
+        }
+
+        function updateAIGuide() {
+            const el = document.getElementById('robotMessage');
+            const newText = aiTextFor();
+            if (el.dataset.text === newText) return;
+            el.dataset.text = newText;
+            el.classList.add('fade');
+            setTimeout(() => { el.textContent = newText; el.classList.remove('fade'); }, 200);
+            document.getElementById('aiStepBadge').textContent = state.stage === 13 ? 'Hoàn thành' : `Bước ${state.stage}/13`;
+        }
+
+        /* =========================================================
+           STAGE COMPLETION / NAVIGATION
+        ========================================================= */
+        function isStageComplete() {
+            switch (state.stage) {
+                case 1: return true;
+                case 2: return true;
+                case 3: return state.s3ObserveTimer >= 5;
+                case 4: return state.s4A1Done && state.s4A2Done && state.s4Phase === 'idle';
+                case 5: return state.s5B1Done && state.s5B2Done && state.s5Phase === 'idle';
+                case 6: return state.s6C1Done && state.s6C2Done && state.s6Phase === 'idle';
+                case 7: return state.blanksCorrect.every(v => v);
+                case 8: return state.hypothesisChoice !== null && state.hypothesisText.trim().length >= 10;
+                case 9: case 10: case 11: case 12: {
+                    const q = state.quiz[state.stage];
+                    return q.gotCorrect || q.attempts >= 3;
+                }
+                case 13: return false;
+                default: return false;
+            }
+        }
+
+        function primaryLabel() {
+            const s = state.stage;
+            if (s === 1) return 'Bắt đầu <i class="ti ti-arrow-right"></i>';
+            if (s === 2) return 'Bắt đầu mô phỏng <i class="ti ti-arrow-right"></i>';
+            if (s === 7) return 'Tiếp tục — Câu hỏi cuối bài <i class="ti ti-arrow-right"></i>';
+            if (s === 8) return 'Tiếp tục — Câu hỏi MCQ <i class="ti ti-arrow-right"></i>';
+            if (s >= 9 && s <= 12) {
+                const st = state.quiz[s];
+                if (st.gotCorrect || st.attempts >= 3) {
+                    return s === 12 ? 'Hoàn thành <i class="ti ti-flag-check"></i>' : 'Câu tiếp theo <i class="ti ti-arrow-right"></i>';
+                }
+                if (st.attempts === 1) return 'Thử lại <i class="ti ti-refresh"></i>';
+                if (st.attempts === 2) return 'Thử lại lần cuối <i class="ti ti-refresh"></i>';
+                return 'Hãy chọn 1 đáp án <i class="ti ti-arrow-right"></i>';
+            }
+            return 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+        }
+
+        function goStage(n) {
+            state.stage = clamp(n, 1, 13);
+            if (state.stage > state.maxStage) state.maxStage = state.stage;
+
+            // Xóa các khối câu hỏi trắc nghiệm của các bước khác (từ 9 đến 12) khỏi cột phải
+            for (let q = 9; q <= 12; q++) {
+                if (q !== state.stage) {
+                    const oldBlock = document.getElementById('block-quiz-' + q);
+                    if (oldBlock) oldBlock.remove();
+                }
+            }
+
+            if (state.stage === 7) buildConclusionStage7();
+            if (state.stage === 8) buildConclusionStage8();
+            if (state.stage >= 9 && state.stage <= 12) buildConclusionQuiz(state.stage);
+            if (state.stage === 13) buildConclusionStage13();
+            renderAll();
+        }
+
+        function nextStage() {
+            if (state.stage >= 9 && state.stage <= 12) {
+                const st = state.quiz[state.stage];
+                if (!st.gotCorrect && st.attempts < 3) {
+                    const blockEl = document.getElementById('block-quiz-' + state.stage);
+                    if (blockEl) blockEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    return;
+                }
+            }
+            if (!isStageComplete() || state.isAnimating) return;
+            goStage(state.stage + 1);
+        }
+        function backStage() {
+            if (state.isAnimating || state.stage <= 1) return;
+            goStage(state.stage - 1);
+        }
+        function redoStage() {
+            if (state.isAnimating) return;
+            switch (state.stage) {
+                case 3: state.s3ObserveTimer = 0; state.s3Notified = false; break;
+                case 4:
+                    state.temp = 25; state.s4Phase = 'idle'; state.s4Timer = 0; state.s4Dir = null;
+                    state.s4A1Done = false; state.s4A2Done = false; state.rateF = 5; state.rateBk = 5;
+                    state.colorLevel = state.baseColorLevel;
+                    REPORT_ROWS[0].done = false; REPORT_ROWS[1].done = false;
+                    break;
+                case 5:
+                    state.s5Phase = 'idle'; state.s5Timer = 0; state.s5Dir = null;
+                    state.s5B1Done = false; state.s5B2Done = false; state.rateF = 5; state.rateBk = 5;
+                    state.colorLevel = state.baseColorLevel;
+                    REPORT_ROWS[2].done = false; REPORT_ROWS[3].done = false;
+                    break;
+                case 6:
+                    state.volumePct = 100; state.s6Phase = 'idle'; state.s6Timer = 0; state.s6Dir = null;
+                    state.s6C1Done = false; state.s6C2Done = false; state.rateF = 5; state.rateBk = 5;
+                    state.colorLevel = state.baseColorLevel;
+                    REPORT_ROWS[4].done = false; REPORT_ROWS[5].done = false;
+                    break;
+                case 7: state.blanks = [null, null, null, null]; state.blanksCorrect = [false, false, false, false]; buildConclusionStage7(); break;
+                case 8: state.hypothesisChoice = null; state.hypothesisText = ''; buildConclusionStage8(); break;
+                case 9: case 10: case 11: case 12: {
+                    const q = state.quiz[state.stage];
+                    q.answered = false; q.attempts = 0; q.order = null; q.gotCorrect = false; q.wrongSet = [];
+                    buildConclusionQuiz(state.stage);
+                    break;
+                }
+            }
+            renderAll();
+        }
+
+        /* =========================================================
+           STAGE 4 — TEMPERATURE
+        ========================================================= */
+        function startTempChange(dir) {
+            if (state.isAnimating || state.s4Phase !== 'idle') {
+                state.s4WarnTimer = 180;
+                return;
+            }
+            if (dir === 'up' && state.s4A1Done) return;
+            if (dir === 'down' && state.s4A2Done) return;
+            state.s4Dir = dir;
+            state.s4Phase = 'anim';
+            state.s4Timer = 0;
+            state.isAnimating = true;
+            syncUI();
+        }
+
+        function updateStage4(dt) {
+            if (state.s4WarnTimer > 0) state.s4WarnTimer -= 1;
+            if (state.s4Phase === 'cooldown') {
+                state.s4CooldownTimer -= dt;
+                if (state.s4CooldownTimer <= 0) {
+                    state.temp = 25;
+                    state.colorLevel = state.baseColorLevel;
+                    state.rateF = 5; state.rateBk = 5;
+                    state.s4Phase = 'idle';
+                    syncUI();
+                }
+                return;
+            }
+            if (state.s4Phase !== 'anim') return;
+            state.s4Timer += dt;
+            const t = state.s4Timer;
+            const up = state.s4Dir === 'up';
+            const targetTemp = up ? 60 : 0;
+
+            if (t <= 1) {
+                state.temp = lerp(25, targetTemp, easeOut(t / 1));
+            } else {
+                state.temp = targetTemp;
+            }
+            if (t > 1 && t <= 3) {
+                const p = (t - 1) / 2;
+                if (up) { state.rateBk = lerp(5, 8, p); state.rateF = lerp(5, 3, p); }
+                else { state.rateF = lerp(5, 8, p); state.rateBk = lerp(5, 3, p); }
+            }
+            if (t > 3 && t <= 6) {
+                const p = (t - 3) / 3;
+                const target = up ? clamp(state.baseColorLevel + 0.30, 0, 1) : clamp(state.baseColorLevel - 0.22, 0, 1);
+                state.colorLevel = lerp(state.baseColorLevel, target, easeInOut(p));
+            }
+            if (t > 6 && t <= 8) {
+                const p = (t - 6) / 2;
+                if (up) { state.rateF = lerp(3, 6, p); state.rateBk = lerp(8, 6, p); }
+                else { state.rateF = lerp(8, 6, p); state.rateBk = lerp(3, 6, p); }
+            }
+            if (t > 8) {
+                state.rateF = 6; state.rateBk = 6;
+                if (up) { state.s4A1Done = true; REPORT_ROWS[0].done = true; }
+                else { state.s4A2Done = true; REPORT_ROWS[1].done = true; }
+                state.s4Phase = 'cooldown';
+                state.s4CooldownTimer = 3;
+                state.isAnimating = false;
+                syncUI();
+            }
+        }
+
+        function drawStage4() {
+            drawEquationLine(W / 2, 46, 26);
+            const bounds = drawGlassCapsule(VX, VY, VW, VH, gasColorAt(state.colorLevel));
+            updateMolecules(bounds); drawMolecules();
+
+            drawGauge(120, 130, 46, state.rateF, 10, '#E8A24A', 'Thuận (→)');
+            drawGauge(230, 130, 46, state.rateBk, 10, '#3B82C4', 'Nghịch (←)');
+            drawColorBar(CBX, CBY, CBW, CBH, state.colorLevel);
+
+            if (state.s4Phase === 'anim' && state.s4Timer <= 1) {
+                const glowColor = state.s4Dir === 'up' ? '#E8543A' : '#2F6FB0';
+                drawVesselGlow(VX, VY, VW, VH, glowColor, easeOut(1 - state.s4Timer));
+            }
+
+            let statusText = 'Đang ổn định', statusColor = '#1B5E48', statusBg = '#DCEAE1';
+            if (state.s4Phase === 'anim') { statusText = 'Đang đổi...'; statusColor = '#C15F3C'; statusBg = '#F3E2D6'; }
+            else if (state.s4A1Done || state.s4A2Done) { statusText = 'Cân bằng mới'; }
+            else { statusText = 'Cân bằng'; }
+            drawStatusBadge(BADGE_X, BADGE_Y, statusText, statusColor, statusBg, 'left');
+
+            // Nhãn nhiệt độ gắn ở góc trên-trái của bình (đối xứng với badge trạng thái ở góc trên-phải)
+            ctx.save();
+            ctx.font = "800 15px 'Be Vietnam Pro'";
+            ctx.fillStyle = '#1A1A1A';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText(Math.round(state.temp) + '°C', VX - 8, VY - 2);
+            ctx.restore();
+
+            drawWarning(state.s4WarnTimer > 0 ? 'Hệ chưa đạt cân bằng mới — hãy chờ hai kim đồng hồ bằng nhau trước khi thao tác tiếp.' : '', state.s4WarnTimer / 180, WARN_Y);
+        }
+
+        /* =========================================================
+           STAGE 5 — CONCENTRATION
+        ========================================================= */
+        const INJ_X = 205; // tâm miệng ống bơm, chạm đỉnh bình tại VY
+
+        function startConcChange(dir) {
+            if (state.isAnimating || state.s5Phase !== 'idle') return;
+            if (dir === 'no2' && state.s5B1Done) return;
+            if (dir === 'n2o4' && state.s5B2Done) return;
+            state.s5Dir = dir;
+            state.s5Phase = 'anim';
+            state.s5Timer = 0;
+            state.s5PuffAcc = 0;
+            state.s5FlashDone = false;
+            state.isAnimating = true;
+            spawnGasPuff(INJ_X, VY, dir === 'no2' ? 'rgba(181,69,31,0.75)' : 'rgba(255,255,255,0.5)', 7);
+            syncUI();
+        }
+
+        function updateStage5(dt) {
+            if (state.s5Phase === 'cooldown') {
+                state.s5CooldownTimer -= dt;
+                if (state.s5CooldownTimer <= 0) {
+                    state.colorLevel = state.baseColorLevel;
+                    state.rateF = 5; state.rateBk = 5;
+                    state.s5Phase = 'idle';
+                    syncUI();
+                }
+                return;
+            }
+            if (state.s5Phase !== 'anim') return;
+            state.s5Timer += dt;
+            const t = state.s5Timer;
+            const isNO2 = state.s5Dir === 'no2';
+
+            if (t <= 0.5) {
+                // khí tiếp tục phun vào bình suốt Pha 1 — không chỉ 1 cụm hạt lúc bấm nút
+                state.s5PuffAcc += dt;
+                if (state.s5PuffAcc >= 0.07) {
+                    state.s5PuffAcc = 0;
+                    spawnGasPuff(INJ_X, VY, isNO2 ? 'rgba(181,69,31,0.7)' : 'rgba(255,255,255,0.42)', 2);
+                }
+                const p = easeOut(t / 0.5); // "nhảy mạnh" — đổi nhanh dần, không tuyến tính đều đều
+                if (isNO2) {
+                    state.colorLevel = lerp(state.baseColorLevel, clamp(state.baseColorLevel + 0.42, 0, 1), p);
+                    state.rateF = lerp(5, 9, p);
+                } else {
+                    state.rateBk = lerp(5, 7, p);
+                }
+            } else if (t <= 4) {
+                if (!state.s5FlashDone) {
+                    state.s5FlashDone = true;
+                    spawnReactionFlash(VX + VW / 2, VY + VH / 2);
+                }
+                const p = (t - 0.5) / 3.5;
+                if (isNO2) {
+                    const peak = clamp(state.baseColorLevel + 0.42, 0, 1);
+                    const settle = clamp(state.baseColorLevel + 0.16, 0, 1);
+                    state.colorLevel = lerp(peak, settle, easeInOut(p));
+                    state.rateF = lerp(9, 6, p); state.rateBk = lerp(5, 6, p);
+                } else {
+                    const settle = clamp(state.baseColorLevel - 0.10, 0, 1);
+                    state.colorLevel = lerp(state.baseColorLevel, settle, easeInOut(p));
+                    state.rateBk = lerp(7, 6, p); state.rateF = lerp(5, 6, p);
+                }
+            } else {
+                state.rateF = 6; state.rateBk = 6;
+                if (isNO2) { state.s5B1Done = true; REPORT_ROWS[2].done = true; }
+                else { state.s5B2Done = true; REPORT_ROWS[3].done = true; }
+                state.s5Phase = 'cooldown';
+                state.s5CooldownTimer = 3;
+                state.isAnimating = false;
+                syncUI();
+            }
+        }
+
+        // 2 "nút" ống bơm mô tả trong kịch bản ("góc dưới trái") — bấm TRỰC TIẾP vào đây trong canvas
+        // để kích hoạt (không còn nút riêng ở controls-card). Đăng ký vùng bấm vào hitRegions mỗi frame.
+        function drawConcPumpIcons() {
+            const items = [
+                { id: 'pump-no2', x: 55, color: '#B5451F', label: 'Thêm NO2', done: state.s5B1Done, dir: 'no2' },
+                { id: 'pump-n2o4', x: 138, color: '#94a3b8', label: 'Thêm N2O4', done: state.s5B2Done, dir: 'n2o4' }
+            ];
+            const y = VY + VH + 8;
+            items.forEach(it => {
+                const active = state.s5Dir === it.dir && state.s5Phase !== 'idle';
+                const clickable = !it.done && state.s5Phase === 'idle';
+                const hovered = clickable && hoverRegionId === it.id;
+                const scale = hovered ? 1.1 : 1;
+                const w = 26 * scale, h = 32 * scale;
+                const bx = it.x - w / 2, by = y - (h - 32) / 2;
+
+                if (clickable) {
+                    hitRegions.push({ id: it.id, x: it.x - 20, y: y - 6, w: 40, h: 44, onClick: () => startConcChange(it.dir) });
+                }
+
+                ctx.save();
+                if (active || hovered) { ctx.shadowColor = it.color; ctx.shadowBlur = hovered ? 14 : 10; }
+                ctx.globalAlpha = it.done ? 0.4 : 1;
+                ctx.fillStyle = it.color;
+                ctx.beginPath(); ctx.roundRect(bx, by, w, h, 5); ctx.fill();
+                ctx.strokeStyle = hovered ? '#1A1A1A' : '#514C44'; ctx.lineWidth = hovered ? 1.8 : 1.3; ctx.stroke();
+                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                ctx.fillRect(it.x - w / 26 * 3, by + h * 0.16, w / 26 * 3, h * 0.68);
+                ctx.restore();
+                fillChemText(ctx, it.label, it.x, y + 46, 9, 700, '#514C44', 'center', 'alphabetic');
+                if (it.done) {
+                    ctx.save();
+                    ctx.fillStyle = '#2D8B6F'; ctx.font = "800 13px 'Be Vietnam Pro'"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText('✓', it.x, y + 16);
+                    ctx.restore();
+                }
+            });
+        }
+
+        function drawStage5() {
+            drawEquationLine(W / 2, 46, 26);
+            const bounds = drawGlassCapsule(VX, VY, VW, VH, gasColorAt(state.colorLevel));
+            updateMolecules(bounds); drawMolecules();
+            drawConcPumpIcons();
+
+            // Ống bơm chỉ xuất hiện khi đang thao tác (Pha 1 bơm khí vào) — không đứng yên sẵn trên bình lúc chưa bấm nút
+            const isNO2 = state.s5Dir === 'no2';
+            if (state.s5Phase === 'anim' && state.s5Timer <= 0.6) {
+                const pushIn = clamp(state.s5Timer / 0.15, 0, 1); // ống trượt xuống chạm miệng bình rồi mới bơm
+                const injY = VY - 46 + (1 - easeOut(pushIn)) * -18;
+                const squeeze = state.s5Timer <= 0.5 ? 1 - 0.12 * Math.sin(state.s5Timer / 0.5 * Math.PI) : 1;
+                ctx.save();
+                ctx.fillStyle = isNO2 ? '#B5451F' : '#94a3b8';
+                ctx.fillRect(190, injY, 30, 46 * squeeze);
+                ctx.strokeStyle = '#514C44'; ctx.lineWidth = 1.5; ctx.strokeRect(190, injY, 30, 46 * squeeze);
+                ctx.restore();
+                fillChemText(ctx, isNO2 ? 'NO2' : 'N2O4', 205, injY + 27, 10, 700, '#ffffff', 'center', 'alphabetic');
+            }
+
+            drawGauge(120, 130, 46, state.rateF, 10, '#E8A24A', 'Thuận (→)');
+            drawGauge(230, 130, 46, state.rateBk, 10, '#3B82C4', 'Nghịch (←)');
+            drawColorBar(CBX, CBY, CBW, CBH, state.colorLevel);
+
+            if (state.s5Phase === 'anim') {
+                const phaseText = state.s5Timer <= 0.5
+                    ? (isNO2 ? 'Giai đoạn 1: Vừa thêm NO2 — chưa có phản ứng' : 'Giai đoạn 1: Vừa thêm N2O4 — khí không màu nên chưa thấy đổi màu')
+                    : (isNO2 ? 'Giai đoạn 2: Cân bằng dịch thuận — tiêu thụ bớt NO2' : 'Giai đoạn 2: Cân bằng dịch nghịch — phân hủy bớt N2O4');
+                drawPhasePopup(phaseText);
+            }
+
+            let statusText = (state.s5B1Done || state.s5B2Done) ? 'Cân bằng mới' : 'Cân bằng';
+            if (state.s5Phase === 'anim') statusText = 'Đang đổi...';
+            drawStatusBadge(BADGE_X, BADGE_Y, statusText, '#1B5E48', '#DCEAE1', 'left');
+        }
+
+        /* =========================================================
+           STAGE 6 — PRESSURE
+        ========================================================= */
+        function startPressureChange(dir) {
+            if (state.isAnimating || state.s6Phase !== 'idle') return;
+            if (dir === 'compress' && state.s6C1Done) return;
+            if (dir === 'expand' && state.s6C2Done) return;
+            state.s6Dir = dir;
+            state.s6Phase = 'anim';
+            state.s6Timer = 0;
+            state.isAnimating = true;
+            syncUI();
+        }
+
+        function updateStage6(dt) {
+            if (state.s6Phase === 'cooldown') {
+                state.s6CooldownTimer -= dt;
+                if (state.s6CooldownTimer <= 0) {
+                    state.volumePct = 100;
+                    state.colorLevel = state.baseColorLevel;
+                    state.rateF = 5; state.rateBk = 5;
+                    state.s6Phase = 'idle';
+                    syncUI();
+                }
+                return;
+            }
+            if (state.s6Phase !== 'anim') return;
+            state.s6Timer += dt;
+            const t = state.s6Timer;
+            const compress = state.s6Dir === 'compress';
+            const targetVol = compress ? 50 : 200;
+
+            // Cân bằng mới: nén → tốc độ pư cao hơn ban đầu (khí đặc hơn); giãn → thấp hơn (khí loãng hơn)
+            const newEqRate = compress ? 6.4 : 3.6;
+
+            if (t <= 0.5) {
+                // (0–0.5s — Pha 1: Tức thì, THUẦN VẬT LÝ) Thể tích co/giãn, màu đậm/nhạt ngay.
+                // Kim đồng hồ (tốc độ PHẢN ỨNG) đứng yên ở đây — pop-up ghi rõ "không phải do phản ứng".
+                const p = t / 0.5;
+                state.volumePct = lerp(100, targetVol, easeOut(p));
+                state.colorLevel = compress
+                    ? lerp(state.baseColorLevel, clamp(state.baseColorLevel + 0.36, 0, 1), p)
+                    : lerp(state.baseColorLevel, clamp(state.baseColorLevel - 0.24, 0, 1), p);
+                state.rateF = 5; state.rateBk = 5;
+            } else if (t <= 4.0) {
+                // (0.5–4s — Pha 2: Dịch chuyển hóa học) Màu tiếp tục biến đổi; kim BẮT ĐẦU chuyển động ở đây.
+                const p = (t - 0.5) / 3.5;
+                // Kim "chủ đạo" vọt lên mạnh (đỉnh ở ~55% pha) rồi lắng dần về mức cân bằng mới;
+                // kim còn lại tăng/giảm êm để cùng gặp nhau tại mức cân bằng mới.
+                const bump = (from, peak, settle) => p <= 0.55
+                    ? lerp(from, peak, easeOut(p / 0.55))
+                    : lerp(peak, settle, easeInOut((p - 0.55) / 0.45));
+
+                if (compress) {
+                    const peak = clamp(state.baseColorLevel + 0.36, 0, 1);
+                    const settle = clamp(state.baseColorLevel + 0.12, 0, 1); // vẫn đậm hơn ban đầu, nhạt hơn đỉnh nén
+                    state.colorLevel = lerp(peak, settle, easeInOut(p));
+                    state.rateF = bump(5, 9.2, newEqRate);           // Kim thuận tăng mạnh
+                    state.rateBk = lerp(5, newEqRate, easeInOut(p)); // Kim nghịch tăng êm, gặp kim thuận ở cân bằng mới
+                } else {
+                    const trough = clamp(state.baseColorLevel - 0.24, 0, 1);
+                    const settle = clamp(state.baseColorLevel - 0.10, 0, 1); // vẫn nhạt hơn ban đầu, đậm hơn đáy giãn
+                    state.colorLevel = lerp(trough, settle, easeInOut(p));
+                    state.rateBk = bump(5, 8.5, newEqRate);          // Kim nghịch tăng mạnh
+                    state.rateF = lerp(5, newEqRate, easeInOut(p));  // Kim thuận giảm êm, gặp kim nghịch ở cân bằng mới
+                }
+            } else if (t <= 5.0) {
+                // (4–5s — Pha 3: Cân bằng mới) Đã ổn định, hai kim bằng nhau
+                state.rateF = newEqRate;
+                state.rateBk = newEqRate;
+            } else {
+                state.rateF = newEqRate; state.rateBk = newEqRate;
+                if (compress) { state.s6C1Done = true; REPORT_ROWS[4].done = true; }
+                else { state.s6C2Done = true; REPORT_ROWS[5].done = true; }
+                state.s6Phase = 'cooldown';
+                state.s6CooldownTimer = 3;
+                state.isAnimating = false;
+                syncUI();
+            }
+        }
+
+        function drawStage6() {
+            drawEquationLine(W / 2, 46, 26);
+
+            const volFrac = clamp(state.volumePct / 200, 0.2, 1);
+            const cylX = 140, cylY = VY, cylMaxW = 380, cylH = VH;
+            const cylW = cylMaxW * volFrac;
+
+            // Khung xi-lanh ngoài (cylinder outer frame)
+            ctx.save();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2.5;
+            ctx.strokeRect(cylX, cylY, cylMaxW, cylH);
+            ctx.restore();
+
+            const bounds = drawGlassCapsule(cylX + 4, cylY + 4, cylW - 8, cylH - 8, gasColorAt(state.colorLevel));
+            updateMolecules(bounds);
+            drawMolecules();
+
+            // Đầu pít-tông & thanh đẩy (Piston head & rod)
+            const pistonX = cylX + cylW;
+            ctx.save();
+            const grad = ctx.createLinearGradient(pistonX - 10, 0, pistonX + 10, 0);
+            grad.addColorStop(0, '#4a5568'); grad.addColorStop(0.5, '#2d3748'); grad.addColorStop(1, '#1a202c');
+            ctx.fillStyle = grad;
+            ctx.fillRect(pistonX - 8, cylY, 16, cylH);
+            ctx.fillRect(pistonX + 8, cylY + cylH / 2 - 4, 30, 8);
+
+            // Thanh kéo pít-tông tay cầm (Handle grip)
+            const handleX = pistonX + 38;
+            const handleY = cylY + cylH / 2;
+            const isHoveredHandle = hoverRegionId === 'piston-handle';
+            ctx.fillStyle = isHoveredHandle ? '#3CA57A' : '#475569';
+            ctx.beginPath();
+            ctx.roundRect(handleX - 5, handleY - 20, 10, 40, 4);
+            ctx.fill();
+            ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 1.2; ctx.stroke();
+            ctx.restore();
+
+            // Đăng ký hitRegion tương tác trực tiếp pít-tông trên Canvas khi idle
+            if (state.s6Phase === 'idle') {
+                if (!state.s6C1Done) {
+                    hitRegions.push({
+                        id: 'piston-compress',
+                        x: cylX, y: cylY - 10, w: cylW, h: cylH + 20,
+                        onClick: () => startPressureChange('compress')
+                    });
+                }
+                if (!state.s6C2Done) {
+                    hitRegions.push({
+                        id: 'piston-expand',
+                        x: pistonX - 10, y: cylY - 10, w: cylMaxW - cylW + 50, h: cylH + 20,
+                        onClick: () => startPressureChange('expand')
+                    });
+                }
+                hitRegions.push({
+                    id: 'piston-handle',
+                    x: handleX - 15, y: handleY - 25, w: 30, h: 50,
+                    onClick: () => {
+                        if (!state.s6C1Done) startPressureChange('compress');
+                        else if (!state.s6C2Done) startPressureChange('expand');
+                    }
+                });
+
+                // Dòng hướng dẫn thao tác đặt SẠCH SẼ BÊN DƯỚI XI-LANH (không đè lên pít-tông / tay cầm)
+                ctx.save();
+                ctx.font = "600 12.5px 'Be Vietnam Pro'";
+                ctx.fillStyle = '#1B5E48';
+                ctx.textAlign = 'center';
+                if (!state.s6C1Done) {
+                    ctx.fillText('💡 Nhấp / kéo pít-tông sang trái để Nén (C1)', cylX + cylMaxW / 2, cylY + cylH + 22);
+                } else if (!state.s6C2Done) {
+                    ctx.fillText('💡 Nhấp / kéo pít-tông sang phải để Giãn (C2)', cylX + cylMaxW / 2, cylY + cylH + 22);
+                }
+                ctx.restore();
+            }
+
+            // Nhãn thể tích V và Áp suất P ở trên xi-lanh
+            ctx.save();
+            ctx.font = "700 14px 'Be Vietnam Pro'"; ctx.fillStyle = '#1A1A1A'; ctx.textAlign = 'center';
+            const pVal = 100 / state.volumePct;
+            const pStr = (pVal % 1 === 0) ? pVal.toFixed(0) : pVal.toFixed(1);
+            ctx.fillText(`V = ${Math.round(state.volumePct)}%  |  P = ${pStr} atm`, cylX + cylMaxW / 2, cylY - 14);
+            ctx.restore();
+
+            drawGauge(110, 130, 40, state.rateF, 10, '#E8A24A', 'Thuận (→)');
+            drawGauge(205, 130, 40, state.rateBk, 10, '#3B82C4', 'Nghịch (←)');
+            drawColorBar(CBX, CBY, CBW, CBH, state.colorLevel);
+
+            // Pop-up giải thích 2 giai đoạn theo chuẩn kịch bản
+            if (state.s6Phase === 'anim') {
+                const compress = state.s6Dir === 'compress';
+                let phaseText = '';
+                if (state.s6Timer <= 0.5) {
+                    phaseText = compress
+                        ? '📌 Giai đoạn 1: Nén vật lý — khí đặc hơn trong không gian nhỏ hơn, không phải do phản ứng'
+                        : '📌 Giai đoạn 1: Giãn vật lý — khí loãng hơn';
+                } else if (state.s6Timer <= 4.0) {
+                    phaseText = compress
+                        ? '📌 Giai đoạn 2: Cân bằng dịch thuận — tạo N₂O₄ để giảm số mol khí, giảm áp suất'
+                        : '📌 Giai đoạn 2: Cân bằng dịch nghịch — tạo thêm NO₂ để tăng số mol khí, tăng áp suất';
+                } else {
+                    phaseText = '⚖️ Cân bằng mới';
+                }
+                drawPhasePopup(phaseText);
+            }
+
+            // Nhãn Badge trạng thái đặt bên phải ngoài khung xi-lanh, không bị đè hay lấn
+            let statusText = 'Cân bằng';
+            if (state.s6Phase === 'anim') {
+                statusText = state.s6Timer > 4.0 ? '⚖️ Cân bằng mới' : 'Đang đổi...';
+            } else if (state.s6C1Done || state.s6C2Done) {
+                statusText = '⚖️ Cân bằng mới';
+            }
+            drawStatusBadge(cylX + cylMaxW + 16, BADGE_Y, statusText, '#1B5E48', '#DCEAE1', 'left');
+        }
+
+        /* =========================================================
+           CANVAS: STAGE 1-3, 7-13 DRAW FUNCTIONS
+        ========================================================= */
+        function drawStage1() {
+            drawEquationLine(W / 2, 130, 34);
+            ctx.save();
+            ctx.font = "italic 400 15px 'Be Vietnam Pro'";
+            ctx.fillStyle = '#514C44'; ctx.textAlign = 'center';
+            ctx.fillText('Phản ứng thuận nghịch trong pha khí', W / 2, 168);
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = 'rgba(181,69,31,0.78)';
+            ctx.beginPath(); ctx.roundRect(150, 230, 190, 120, 12); ctx.fill();
+            ctx.restore();
+            fillChemText(ctx, 'NO2', 245, 285, 15, 700, '#fff', 'center', 'alphabetic');
+            ctx.save();
+            ctx.font = "600 12px 'Be Vietnam Pro'"; ctx.fillStyle = '#fff'; ctx.textAlign = 'center';
+            ctx.fillText('nâu đỏ', 245, 308);
+            ctx.restore();
+
+            ctx.save();
+            ctx.strokeStyle = '#A8C9B8'; ctx.setLineDash([6, 5]); ctx.lineWidth = 2;
+            ctx.strokeRect(420, 230, 190, 120);
+            ctx.setLineDash([]);
+            ctx.restore();
+            fillChemText(ctx, 'N2O4', 515, 285, 15, 700, '#1A1A1A', 'center', 'alphabetic');
+            ctx.save();
+            ctx.font = "600 12px 'Be Vietnam Pro'"; ctx.fillStyle = '#1A1A1A'; ctx.textAlign = 'center';
+            ctx.fillText('không màu', 515, 308);
+            ctx.restore();
+
+            updateMolecules({ x1: 60, y1: 400, x2: 700, y2: 500 });
+            drawMolecules();
+        }
+
+        function drawStage2() {
+            ctx.save();
+            ctx.fillStyle = 'rgba(232,162,74,0.10)';
+            ctx.strokeStyle = '#E8A24A'; ctx.setLineDash([7, 5]); ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.roundRect(60, 70, 640, 210, 14); ctx.fill(); ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = '#B5451F'; ctx.font = "700 13px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('GIẢ THUYẾT', 90, 105);
+
+            ctx.fillStyle = '#1A1A1A'; ctx.font = "italic 400 16px 'Be Vietnam Pro'";
+            wrapText(ctx, '"' + HYPOTHESIS_TEXT + '"', 90, 140, 580, 26, 'left');
+            ctx.restore();
+
+            ctx.save();
+            ctx.fillStyle = '#514C44'; ctx.font = "600 12px 'Be Vietnam Pro'"; ctx.textAlign = 'center';
+            ctx.fillText('Hệ thống đã ghi nhớ giả thuyết này. Bạn sẽ đối chiếu lại ở cuối bài.', W / 2, 320);
+            ctx.restore();
+
+            drawEquationLine(W / 2, 400, 22);
+        }
+
+        function drawStage3() {
+            drawEquationLine(W / 2, 46, 26);
+            const bounds = drawGlassCapsule(VX, VY, VW, VH, gasColorAt(state.colorLevel));
+            updateMolecules(bounds); drawMolecules();
+
+            state.rateF = 5 + Math.sin(time * 1.4) * 0.3;
+            state.rateBk = 5 + Math.sin(time * 1.4 + 0.3) * 0.3;
+
+            drawGauge(120, 130, 46, state.rateF, 10, '#E8A24A', 'Thuận (→)');
+            drawGauge(230, 130, 46, state.rateBk, 10, '#3B82C4', 'Nghịch (←)');
+            drawColorBar(CBX, CBY, CBW, CBH, state.colorLevel);
+
+            drawStatusBadge(BADGE_X, BADGE_Y, 'Cân bằng', '#1B5E48', '#DCEAE1', 'left');
+
+            ctx.save();
+            ctx.font = "600 12.5px 'Be Vietnam Pro'"; ctx.fillStyle = '#514C44'; ctx.textAlign = 'center';
+            const remain = Math.max(0, 5 - state.s3ObserveTimer);
+            ctx.fillText(remain > 0 ? `Đang quan sát... (${remain.toFixed(0)}s)` : 'Đã quan sát đủ — có thể tiếp tục', W / 2, VY + VH + 20);
+            ctx.restore();
+        }
+
+        function drawMiniRecap(kind) {
+            ctx.save();
+            let badgeText = '', level = 0.5, fRate = 5, bkRate = 5, tipText = '', cylW = 400;
+
+            if (kind === 'cold') {
+                badgeText = '🔥 THÍ NGHIỆM TĂNG NHIỆT ĐỘ (60°C)';
+                level = 0.75; fRate = 3.0; bkRate = 6.0;
+                tipText = '💡 Tăng nhiệt độ (tỏa nhiệt) → cân bằng dịch theo chiều thu nhiệt (nghịch) → tạo thêm NO₂ (màu đậm hơn).';
+            } else if (kind === 'add') {
+                badgeText = '💉 THÍ NGHIỆM THÊM NO₂';
+                level = 0.58; fRate = 6.0; bkRate = 5.0;
+                tipText = '💡 Thêm NO₂ → cân bằng dịch theo chiều thuận để tiêu thụ bớt NO₂ → tạo N₂O₄ (màu nhạt bớt).';
+            } else if (kind === 'press') {
+                badgeText = '🗜️ THÍ NGHIỆM NÉN PÍT-TÔNG (TĂNG ÁP SUẤT)';
+                level = 0.52; fRate = 6.0; bkRate = 5.0; cylW = 260;
+                tipText = '💡 Tăng áp suất → cân bằng dịch theo chiều giảm áp suất (thuận, 2 mol NO₂ → 1 mol N₂O₄) → màu nhạt dần.';
+            }
+
+            // 1. Badge tiêu đề thí nghiệm
+            ctx.font = "700 13px 'Be Vietnam Pro'";
+            const tw = ctx.measureText(badgeText).width;
+            ctx.fillStyle = '#DCEAE1';
+            ctx.beginPath(); ctx.roundRect(W / 2 - tw / 2 - 14, 100, tw + 28, 28, 8); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.2; ctx.stroke();
+            ctx.fillStyle = '#1B5E48'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(badgeText, W / 2, 115);
+
+            // 2. Bình phản ứng
+            const vx = W / 2 - cylW / 2, vy = 150, vh = 105;
+            const bounds = drawGlassCapsule(vx, vy, cylW, vh, gasColorAt(level));
+            updateMolecules(bounds); drawMolecules();
+
+            // 3. Đồng hồ tốc độ & Thanh màu
+            drawGauge(110, 190, 42, fRate, 10, '#E8A24A', 'Thuận (→)');
+            drawGauge(210, 190, 42, bkRate, 10, '#3B82C4', 'Nghịch (←)');
+            drawColorBar(CBX, 140, CBW, 140, level);
+
+            // 4. Mẹo giải thích ngắn bên dưới
+            ctx.fillStyle = '#FAF7F0';
+            ctx.beginPath(); ctx.roundRect(50, 375, 660, 45, 10); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.2; ctx.stroke();
+            ctx.fillStyle = '#1B5E48'; ctx.font = "600 12.5px 'Be Vietnam Pro'"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(tipText, W / 2, 397);
+
+            ctx.restore();
+        }
+
+        function drawStage7() {
+            drawEquationLine(W / 2, 70, 24);
+            ctx.save();
+            ctx.fillStyle = '#DCEAE1';
+            ctx.beginPath(); ctx.roundRect(90, 140, 580, 260, 14); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            ctx.fillStyle = '#1B5E48'; ctx.font = "700 15px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('KẾT LUẬN LE CHATELIER', 116, 175);
+
+            ctx.fillStyle = '#1A1A1A'; ctx.font = "400 15px 'Be Vietnam Pro'";
+            const b1 = state.blanks[0] ? `[ ${state.blanks[0]} ]` : '[___1___]';
+            const b2 = state.blanks[1] ? `[ ${state.blanks[1]} ]` : '[___2___]';
+            const b3 = state.blanks[2] ? `[ ${state.blanks[2]} ]` : '[___3___]';
+            const b4 = state.blanks[3] ? `[ ${state.blanks[3]} ]` : '[___4___]';
+
+            const text = `Khi tăng nhiệt độ, cân bằng dịch chuyển theo chiều phản ứng ${b1} nhiệt, tức là chiều làm ${b2} nhiệt độ của hệ. Khi tăng nồng độ một chất, cân bằng dịch chuyển theo chiều làm ${b3} nồng độ của chất đó. Khi tăng áp suất, cân bằng dịch chuyển theo chiều làm ${b4} số mol khí của hệ.`;
+            wrapText(ctx, text, 116, 210, 528, 26, 'left');
+            ctx.restore();
+        }
+
+        function drawStage8() {
+            drawEquationLine(W / 2, 38, 22);
+
+            // Thẻ trái (vàng nhạt) — Giả thuyết ban đầu từ Stage 2
+            ctx.save();
+            ctx.fillStyle = '#FFF9EE';
+            ctx.beginPath(); ctx.roundRect(45, 75, 325, 350, 14); ctx.fill();
+            ctx.strokeStyle = '#E8A24A'; ctx.setLineDash([6, 4]); ctx.lineWidth = 1.8; ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.fillStyle = '#B5451F'; ctx.font = "700 13.5px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('📌 GIẢ THUYẾT BAN ĐẦU (STAGE 2)', 65, 105);
+
+            ctx.fillStyle = '#1A1A1A'; ctx.font = "italic 400 14px 'Be Vietnam Pro'";
+            wrapText(ctx, '"' + HYPOTHESIS_TEXT + '"', 65, 138, 285, 23, 'left');
+
+            ctx.fillStyle = '#514C44'; ctx.font = "600 12px 'Be Vietnam Pro'";
+            ctx.fillText('💡 Dự đoán ban đầu của bạn trước khi thí nghiệm.', 65, 395);
+            ctx.restore();
+
+            // Thẻ phải (trắng) — Tóm tắt kết quả mô phỏng (A1–C2)
+            ctx.save();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath(); ctx.roundRect(390, 75, 325, 350, 14); ctx.fill();
+            ctx.strokeStyle = '#CBD5E1'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            ctx.fillStyle = '#1B5E48'; ctx.font = "700 13.5px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('📊 KẾT QUẢ MÔ PHỎNG (BÁO CÁO)', 410, 105);
+
+            const reportItems = [
+                { code: 'A1', title: 'Tăng nhiệt (60°C)', result: 'Nghịch (←)' },
+                { code: 'A2', title: 'Giảm nhiệt (0°C)', result: 'Thuận (→)' },
+                { code: 'B1', title: 'Thêm NO2', result: 'Thuận (→)' },
+                { code: 'B2', title: 'Thêm N2O4', result: 'Nghịch (←)' },
+                { code: 'C1', title: 'Nén (Tăng áp)', result: 'Thuận (→)' },
+                { code: 'C2', title: 'Giãn (Giảm áp)', result: 'Nghịch (←)' }
+            ];
+
+            let itemY = 135;
+            reportItems.forEach(it => {
+                ctx.fillStyle = '#F8FAFC';
+                ctx.beginPath(); ctx.roundRect(410, itemY - 14, 285, 32, 6); ctx.fill();
+                ctx.strokeStyle = '#E2E8F0'; ctx.lineWidth = 1; ctx.stroke();
+
+                ctx.fillStyle = '#334155'; ctx.font = "600 12px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+                ctx.fillText(`• ${it.code}. ${it.title}:`, 420, itemY + 6);
+
+                ctx.fillStyle = '#1B5E48'; ctx.font = "700 12.5px 'Be Vietnam Pro'"; ctx.textAlign = 'right';
+                ctx.fillText(it.result, 682, itemY + 6);
+
+                itemY += 44;
+            });
+
+            ctx.restore();
+        }
+
+        function drawStage12Canvas() {
+            drawEquationCustom(W / 2, 50, 24, 'N2(g) + 3H2(g)', '2NH3(g)', '#1A1A1A', '#1B5E48');
+
+            // Thẻ thông tin Haber-Bosch bên trái
+            ctx.save();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath(); ctx.roundRect(50, 90, 420, 320, 14); ctx.fill();
+            ctx.strokeStyle = '#CBD5E1'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            ctx.fillStyle = '#1B5E48'; ctx.font = "700 14px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('⚙️ QUY TRÌNH TỔNG HỢP NH₃ (HABER-BOSCH)', 70, 122);
+
+            ctx.fillStyle = '#334155'; ctx.font = "600 13px 'Be Vietnam Pro'";
+            ctx.fillText('• Áp suất rất cao: ~200 bar (giúp cân bằng dịch thuận)', 70, 158);
+            ctx.fillText('• Nhiệt độ trung bình: ~450°C (dung hòa hiệu suất & tốc độ)', 70, 190);
+            ctx.fillText('• Xúc tác: Bột sắt (Fe)', 70, 222);
+
+            ctx.fillStyle = '#FAF7F0';
+            ctx.beginPath(); ctx.roundRect(70, 245, 380, 145, 10); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.2; ctx.stroke();
+
+            ctx.fillStyle = '#1B5E48'; ctx.font = "400 12.5px 'Be Vietnam Pro'";
+            const tipText = '💡 Vì phản ứng tỏa nhiệt (ΔrH° < 0), nhiệt độ THẤP có lợi cho cân bằng nhưng làm phản ứng QUÁ CHẬM dù có xúc tác. Mức 450°C là điểm thỏa hiệp giữa hiệu suất và tốc độ sản xuất công nghiệp.';
+            wrapText(ctx, tipText, 84, 267, 352, 19, 'left');
+
+            ctx.restore();
+
+            // Tháp phản ứng công nghiệp bên phải
+            drawIndustryTower();
+        }
+
+        function drawIndustryTower() {
+            ctx.save();
+            const tx = 600, ty = 340;
+            const grad = ctx.createLinearGradient(tx - 35, ty - 220, tx + 35, ty);
+            grad.addColorStop(0, '#475569'); grad.addColorStop(1, '#0F172A');
+            ctx.fillStyle = grad;
+            ctx.beginPath(); ctx.roundRect(tx - 35, ty - 220, 70, 220, 12); ctx.fill();
+            ctx.strokeStyle = '#94A3B8'; ctx.lineWidth = 2; ctx.stroke();
+
+            // Ống dẫn khí vào/ra
+            ctx.strokeStyle = '#EF4444'; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(tx - 35, ty - 170); ctx.lineTo(tx - 75, ty - 170); ctx.stroke();
+            ctx.fillStyle = '#EF4444'; ctx.font = "700 10.5px 'Be Vietnam Pro'"; ctx.textAlign = 'right';
+            ctx.fillText('N₂ + H₂', tx - 80, ty - 166);
+
+            ctx.strokeStyle = '#10B981'; ctx.lineWidth = 4;
+            ctx.beginPath(); ctx.moveTo(tx + 35, ty - 60); ctx.lineTo(tx + 75, ty - 60); ctx.stroke();
+            ctx.fillStyle = '#10B981'; ctx.font = "700 10.5px 'Be Vietnam Pro'"; ctx.textAlign = 'left';
+            ctx.fillText('NH₃ ra', tx + 80, ty - 56);
+
+            // Nhãn tháp
+            ctx.font = "700 12px 'Be Vietnam Pro'"; ctx.fillStyle = '#1E293B'; ctx.textAlign = 'center';
+            ctx.fillText('THÁP NH₃', tx, ty + 24);
+            ctx.font = "600 10.5px 'Be Vietnam Pro'"; ctx.fillStyle = '#64748B';
+            ctx.fillText('200 bar · 450°C', tx, ty + 40);
+            ctx.restore();
+        }
+
+        function drawStage13() {
+            // Biểu tượng ✅ lớn ở trung tâm
+            ctx.save();
+            ctx.fillStyle = '#DCEAE1';
+            ctx.beginPath(); ctx.arc(W / 2, 130, 48, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 4; ctx.stroke();
+
+            ctx.strokeStyle = '#2D8B6F'; ctx.lineWidth = 6; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+            ctx.beginPath();
+            ctx.moveTo(W / 2 - 20, 130); ctx.lineTo(W / 2 - 5, 147); ctx.lineTo(W / 2 + 22, 110);
+            ctx.stroke();
+            ctx.restore();
+
+            // Tiêu đề
+            ctx.save();
+            ctx.font = "800 22px 'Be Vietnam Pro'"; ctx.fillStyle = '#1A1A1A'; ctx.textAlign = 'center';
+            ctx.fillText('Bạn đã hoàn thành mô phỏng!', W / 2, 215);
+            ctx.restore();
+
+            // Bảng tóm tắt điểm MCQ (Câu 1-4)
+            const labels = ['Câu 1', 'Câu 2', 'Câu 3', 'Câu 4'];
+            const startX = W / 2 - (labels.length * 115) / 2;
+            labels.forEach((lb, i) => {
+                const qKey = 9 + i;
+                const ok = state.quiz[qKey].gotCorrect;
+                const x = startX + i * 115 + 42, y = 280;
+                ctx.save();
+                ctx.fillStyle = ok ? '#DCEAE1' : '#F3E2D6';
+                ctx.beginPath(); ctx.roundRect(x - 46, y - 26, 92, 54, 10); ctx.fill();
+                ctx.strokeStyle = ok ? '#2D8B6F' : '#C15F3C'; ctx.lineWidth = 1.6; ctx.stroke();
+                ctx.fillStyle = ok ? '#1B5E48' : '#C15F3C';
+                ctx.font = "700 13px 'Be Vietnam Pro'"; ctx.textAlign = 'center';
+                ctx.fillText(lb, x, y - 4);
+                ctx.font = "800 18px 'Be Vietnam Pro'";
+                ctx.fillText(ok ? '✓' : '✗', x, y + 17);
+                ctx.restore();
+            });
+
+            // Ghi chú chốt kiến thức Le Chatelier ở đáy Canvas
+            ctx.save();
+            ctx.fillStyle = '#FAF7F0';
+            ctx.beginPath(); ctx.roundRect(50, 365, 660, 60, 10); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.2; ctx.stroke();
+
+            ctx.fillStyle = '#1B5E48'; ctx.font = "600 12.5px 'Be Vietnam Pro'"; ctx.textAlign = 'center';
+            ctx.fillText('📜 Nguyên lí Le Chatelier: "Khi một hệ đang ở trạng thái cân bằng chịu một tác động bên ngoài', W / 2, 388);
+            ctx.fillText('(thay đổi nồng độ, nhiệt độ, áp suất), cân bằng sẽ dịch chuyển theo chiều chống lại tác động đó."', W / 2, 408);
+            ctx.restore();
+        }
+
+        function drawStageCanvas() {
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: drawStage2(); break;
+                case 3: drawStage3(); break;
+                case 4: drawStage4(); break;
+                case 5: drawStage5(); break;
+                case 6: drawStage6(); break;
+                case 7: drawStage7(); break;
+                case 8: drawStage8(); break;
+                case 9: drawEquationLine(W / 2, 60, 24); drawMiniRecap('cold'); break;
+                case 10: drawEquationLine(W / 2, 60, 24); drawMiniRecap('add'); break;
+                case 11: drawEquationLine(W / 2, 60, 24); drawMiniRecap('press'); break;
+                case 12: drawStage12Canvas(); break;
+                case 13: drawStage13(); break;
+            }
+        }
+
+        /* =========================================================
+           CONTROLS RENDERING
+        ========================================================= */
+        function progressDotsHTML() {
+            let html = '';
+            for (let i = 1; i <= 13; i++) {
+                let cls = '', content = i;
+                if (i === state.stage) cls = 'active';
+                else if (i < state.stage) { cls = 'completed'; content = '<i class="ti ti-check" style="font-size:9px;"></i>'; }
+                html += `<div class="progress-dot ${cls}" onclick="jumpToStage(${i})" title="Đi tới Bước ${i}">${content}</div>`;
+            }
+            return html;
+        }
+
+        // Bấm trực tiếp vào 1 chấm bước để nhảy tới bước đó ngay (bỏ qua điều kiện hoàn thành) — phục vụ test nhanh.
+        function jumpToStage(n) {
+            if (state.isAnimating) return;
+            goStage(n);
+        }
+
+        function actionAreaHTML() {
+            const s = state.stage;
+            if (s === 4) {
+                return `
+                <button onclick="startTempChange('up')" ${(state.s4Phase !== 'idle' || state.s4A1Done) ? 'disabled' : ''}>
+                    <i class="ti ${state.s4Phase === 'anim' && state.s4Dir === 'up' ? 'ti-loader spin' : 'ti-flame'}"></i> Tăng nhiệt (→60°C)
+                </button>
+                <button onclick="startTempChange('down')" ${(state.s4Phase !== 'idle' || state.s4A2Done) ? 'disabled' : ''}>
+                    <i class="ti ${state.s4Phase === 'anim' && state.s4Dir === 'down' ? 'ti-loader spin' : 'ti-snowflake'}"></i> Giảm nhiệt (→0°C)
+                </button>
+            `;
+            }
+            if (s === 6) {
+                return `
+                <button onclick="startPressureChange('compress')" ${(state.s6Phase !== 'idle' || state.s6C1Done) ? 'disabled' : ''}>
+                    <i class="ti ${state.s6Phase === 'anim' && state.s6Dir === 'compress' ? 'ti-loader spin' : 'ti-arrow-bar-to-right'}"></i> Nén (tăng áp)
+                </button>
+                <button onclick="startPressureChange('expand')" ${(state.s6Phase !== 'idle' || state.s6C2Done) ? 'disabled' : ''}>
+                    <i class="ti ${state.s6Phase === 'anim' && state.s6Dir === 'expand' ? 'ti-loader spin' : 'ti-arrow-bar-to-left'}"></i> Giãn (giảm áp)
+                </button>
+            `;
+            }
+            return '';
+        }
+
+        function renderControls() {
+            const card = document.getElementById('controlsCard');
+            const disabledAll = state.isAnimating;
+            let nextBtn;
+            if (state.stage === 13) {
+                nextBtn = `<button class="btn-primary" onclick="restartModule()"><i class="ti ti-rotate-clockwise-2"></i> Ôn lại từ đầu</button>`;
+            } else {
+                nextBtn = `<button class="btn-primary" onclick="nextStage()" ${(disabledAll || !isStageComplete()) ? 'disabled' : ''}>${primaryLabel()}</button>`;
+            }
+            card.innerHTML = `
+            <div class="ctrl-row ctrl-row-dots">
+                <div class="progress-dots" title="Bước ${state.stage}/13">${progressDotsHTML()}</div>
+            </div>
+            <div class="ctrl-row">
+                <div class="ctrl-action-area">${actionAreaHTML()}</div>
+                <span class="ctrl-divider"></span>
+                <div class="ctrl-nav">
+                    <button onclick="backStage()" ${(disabledAll || state.stage <= 1) ? 'disabled' : ''}><i class="ti ti-arrow-left"></i> Quay lại</button>
+                    <button class="btn-reset" onclick="redoStage()" ${disabledAll ? 'disabled' : ''}><i class="ti ti-rotate"></i> Làm lại</button>
+                    ${nextBtn}
+                </div>
+            </div>
+        `;
+        }
+
+        /* =========================================================
+           TOOL CHIPS / STEP LIST / OBSERVE TABLE
+        ========================================================= */
+        function renderToolChips() {
+            const box = document.getElementById('toolChips');
+            box.innerHTML = TOOLS.map(t => `<span class="tool-chip ${t.stages.includes(state.stage) ? 'active' : ''}"><i class="ti ${t.icon}"></i> ${t.label}</span>`).join('');
+        }
+
+        function renderStepList() {
+            const ul = document.getElementById('stepList');
+            ul.innerHTML = STEP_NAMES.map((name, idx) => {
+                const n = idx + 1;
+                let cls = 'step-row', numContent = String(n);
+                if (n === state.stage) cls += ' is-active';
+                else if (n < state.stage) { cls += ' is-done'; numContent = '<i class="ti ti-check"></i>'; }
+                return `<li class="${cls}"><span class="step-num">${numContent}</span><span class="step-text">${name}</span></li>`;
+            }).join('');
+        }
+
+        const observePrev = {};
+        function renderObserveTable() {
+            const tbody = document.getElementById('observeTableBody');
+            tbody.innerHTML = REPORT_ROWS.map(r => {
+                const known = r.done;
+                const phen = known ? r.phenomenon : '?';
+                const dir = known ? r.direction : '?';
+                const flash = known && observePrev[r.key] !== phen;
+                observePrev[r.key] = phen;
+                return `<tr>
+                <td>${r.factor}</td>
+                <td class="${known ? '' : 'muted'}">${r.impact}</td>
+                <td class="${known ? '' : 'muted'}${flash ? ' flash' : ''}">${phen}</td>
+                <td class="${known ? '' : 'muted'}">${dir}</td>
+            </tr>`;
+            }).join('');
+        }
+
+        /* =========================================================
+           RIGHT SIDEBAR: KẾT LUẬN & CÂU HỎI (accumulating blocks)
+        ========================================================= */
+        function conclList() { return document.getElementById('conclList'); }
+
+        function ensureIntroBlock() {
+            const box = conclList();
+            if (box.dataset.inited) return;
+            box.dataset.inited = '1';
+            box.innerHTML = `<div class="concl-block"><div class="concl-header"><i class="ti ti-info-circle"></i> Bắt đầu</div>
+            <div class="concl-desc">Kết luận và câu hỏi của từng bước sẽ xuất hiện tại đây khi bạn hoàn thành thao tác tương ứng.</div></div>`;
+        }
+
+        function pushBlock(id, html) {
+            const box = conclList();
+            let el = document.getElementById(id);
+            if (el) { el.outerHTML = html; el = document.getElementById(id); }
+            else { box.insertAdjacentHTML('beforeend', html); el = document.getElementById(id); }
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function buildConclusionStage7() {
+            const rowsHtml = BLANKS_DEF.map((b, i) => {
+                const chosen = state.blanks[i];
+                const correctNow = state.blanksCorrect[i];
+                return `<div class="blank-row">
+                <span class="blank-label">Ô ${i + 1}:</span>
+                ${b.options.map(opt => {
+                    let cls = 'blank-choice';
+                    if (chosen === opt) {
+                        cls += correctNow ? ' is-correct' : ' is-wrong';
+                    }
+                    return `<button class="${cls}" ${correctNow ? 'disabled' : ''} onclick="chooseBlank(${i}, '${opt}')">${opt}</button>`;
+                }).join('')}
+                ${(chosen && !correctNow) ? `<span class="hint-box">${b.hint}</span>` : ''}
+            </div>`;
+            }).join('');
+            pushBlock('block-s7', `<div class="concl-block ${state.blanksCorrect.every(v => v) ? 'state-correct' : ''}" id="block-s7">
+            <div class="concl-header"><i class="ti ti-checklist"></i> Hoàn thành kết luận</div>
+            <div class="concl-desc">Dựa vào Bảng quan sát, hãy chọn từ đúng cho mỗi ô trống.</div>
+            ${rowsHtml}
+        </div>`);
+        }
+
+        function chooseBlank(i, val) {
+            state.blanks[i] = val;
+            const ok = val === BLANKS_DEF[i].correct;
+            state.blanksCorrect[i] = ok;
+            buildConclusionStage7();
+            syncUI();
+        }
+
+        function buildConclusionStage8() {
+            const choices = ['Đúng', 'Sai', 'Đúng một phần'];
+            const choicesHtml = choices.map(c => `<button class="choice-pill ${state.hypothesisChoice === c ? 'active' : ''}" onclick="chooseHypothesis('${c}')">${c}</button>`).join('');
+
+            const feedback = state.hypothesisChoice ? `
+                <div class="hint-box" style="margin-top:10px;border-left:3.5px solid var(--jade);background-color:var(--cream);">
+                    <div style="font-weight:700;color:var(--jade-text);margin-bottom:4px;"><i class="ti ti-bulb"></i> Phân tích hệ thống (Dùng để tham khảo &amp; so sánh với lập luận của bạn):</div>
+                    <div style="line-height:1.55;">Giả thuyết này đúng một phần. Đúng khi thêm chất đầu (thêm NO₂ → cân bằng dịch thuận → tạo thêm N₂O₄). Nhưng sai khi tăng nhiệt độ với phản ứng tỏa nhiệt: cân bằng dịch theo chiều NGHỊCH — không phải sản phẩm. Giả thuyết đã bỏ qua yếu tố chiều thu/tỏa nhiệt.</div>
+                    <div style="font-size:0.78rem;font-style:italic;color:var(--ink-2);margin-top:6px;">Lưu ý: Hệ thống không đánh giá câu trả lời của bạn đúng/sai, chỉ cung cấp phân tích để bạn tự đối chiếu.</div>
+                </div>
+            ` : '';
+
+            pushBlock('block-s8', `<div class="concl-block ${state.hypothesisChoice ? 'state-correct' : ''}" id="block-s8">
+                <div class="concl-header"><i class="ti ti-scale"></i> Đánh giá giả thuyết</div>
+                <div class="concl-desc">Dựa vào kết quả mô phỏng, giả thuyết ban đầu là:</div>
+                <div class="choice-row" style="margin-top:6px;margin-bottom:10px;">${choicesHtml}</div>
+                <div>
+                    <label style="font-size:0.83rem;font-weight:600;color:var(--ink-2);display:block;margin-bottom:4px;">Giải thích:</label>
+                    <textarea class="expl-input" placeholder="Giải thích ngắn gọn (ít nhất 10 ký tự, tối đa 3 câu)..." oninput="setHypothesisText(this.value)">${state.hypothesisText}</textarea>
+                </div>
+                ${feedback}
+            </div>`);
+        }
+
+        function chooseHypothesis(c) { state.hypothesisChoice = c; buildConclusionStage8(); syncUI(); }
+        function setHypothesisText(v) { state.hypothesisText = v; syncUI(); }
+
+        function buildConclusionQuiz(stageNum) {
+            const q = QUESTIONS[stageNum];
+            const st = state.quiz[stageNum];
+            st.order = [0, 1, 2, 3];
+            if (!st.wrongSet) st.wrongSet = [];
+
+            const optsHtml = st.order.map((origIdx, pos) => {
+                const opt = q.options[origIdx];
+                const letter = String.fromCharCode(65 + pos);
+                let cls = 'quiz-option-btn', icon = '';
+                const isWrongChosen = st.wrongSet.includes(origIdx);
+                let disabled = st.answered || isWrongChosen;
+
+                if (opt.correct && st.answered) {
+                    cls += ' selected-correct';
+                    icon = '<i class="ti ti-check"></i>';
+                } else if (isWrongChosen) {
+                    cls += ' selected-wrong';
+                    icon = '<i class="ti ti-x"></i>';
+                } else if (st.answered) {
+                    cls += ' dim';
+                }
+
+                return `<button class="${cls}" ${disabled ? 'disabled' : ''} onclick="answerQuiz(${stageNum}, ${origIdx})">
+                <span class="opt-idx">${letter}</span><span class="opt-text">${opt.text}</span><span class="opt-status-icon">${icon}</span>
+            </button>`;
+            }).join('');
+
+            let hintHtml = '';
+            if (st.wrongSet.length > 0 && !st.gotCorrect) {
+                hintHtml = `<div class="hint-box">${q.hint1}${st.attempts >= 2 ? '<br><br>' + q.hint2 : ''}</div>`;
+            }
+            if (st.gotCorrect) {
+                hintHtml = `<div class="hint-box" style="border-style:solid;border-color:var(--correct);color:var(--jade-text);">${q.explainCorrect}</div>`;
+            }
+            if (st.attempts >= 3 && !st.gotCorrect) {
+                hintHtml += `<div class="hint-box" style="border-style:solid;border-color:var(--correct);color:var(--jade-text);">Đáp án đúng: ${q.explainCorrect}</div>`;
+            }
+
+            pushBlock('block-quiz-' + stageNum, `<div class="concl-block ${st.gotCorrect ? 'state-correct' : ''}" id="block-quiz-${stageNum}">
+            <div class="concl-header"><i class="ti ti-help-hexagon"></i> Câu hỏi ${stageNum - 8}/4</div>
+            <div class="concl-desc">${q.prompt}</div>
+            <ul class="quiz-options">${optsHtml}</ul>
+            ${hintHtml}
+        </div>`);
+        }
+
+        function answerQuiz(stageNum, origIdx) {
+            const q = QUESTIONS[stageNum];
+            const st = state.quiz[stageNum];
+            if (!st.wrongSet) st.wrongSet = [];
+            if (st.gotCorrect || st.attempts >= 3) return;
+
+            const opt = q.options[origIdx];
+            st.attempts += 1;
+            if (opt.correct) {
+                st.gotCorrect = true;
+                st.answered = true;
+            } else {
+                if (!st.wrongSet.includes(origIdx)) st.wrongSet.push(origIdx);
+                if (st.attempts >= 3) st.answered = true;
+            }
+            buildConclusionQuiz(stageNum);
+            syncUI();
+        }
+
+        function buildConclusionStage13() {
+            const correctCount = [9, 10, 11, 12].filter(k => state.quiz[k].gotCorrect).length;
+            pushBlock('block-s13', `<div class="concl-block state-correct" id="block-s13">
+                <div class="concl-header"><i class="ti ti-trophy"></i> Hoàn thành module!</div>
+                <div class="concl-desc">Chúc mừng bạn đã tự khám phá thành công <strong>Nguyên lí Le Chatelier</strong> qua mô phỏng tương tác.<br><br>
+                📊 Kết quả trắc nghiệm: <strong>${correctCount}/4 câu đúng</strong>.</div>
+                <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+                    <button class="choice-pill active" onclick="scrollToReportTable()"><i class="ti ti-table"></i> Xem lại Bảng báo cáo</button>
+                    <button class="choice-pill" onclick="restartModule()"><i class="ti ti-rotate"></i> Ôn lại từ đầu</button>
+                </div>
+            </div>`);
+        }
+
+        function scrollToReportTable() {
+            const el = document.getElementById('observeTableBody') || document.querySelector('.side-card table');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        /* =========================================================
+           MISC
+        ========================================================= */
+        function restartModule() {
+            state.stage = 1; state.maxStage = 1;
+            state.colorLevel = state.baseColorLevel;
+            state.rateF = 5; state.rateBk = 5;
+            state.s3ObserveTimer = 0; state.s3Notified = false;
+            state.temp = 25; state.s4Phase = 'idle'; state.s4A1Done = false; state.s4A2Done = false;
+            state.s5Phase = 'idle'; state.s5B1Done = false; state.s5B2Done = false;
+            state.volumePct = 100; state.s6Phase = 'idle'; state.s6C1Done = false; state.s6C2Done = false;
+            state.blanks = [null, null, null, null]; state.blanksCorrect = [false, false, false, false];
+            state.hypothesisChoice = null; state.hypothesisText = '';
+            REPORT_ROWS.forEach(r => r.done = false);
+            [9, 10, 11, 12].forEach(k => { state.quiz[k] = { answered: false, attempts: 0, order: null, gotCorrect: false, wrongSet: [] }; });
+            const box = conclList(); box.innerHTML = ''; box.dataset.inited = '';
+            ensureIntroBlock();
+            goStage(1);
+        }
+
+        function renderAll() {
+            updateAIGuide();
+            renderControls();
+            renderToolChips();
+            renderStepList();
+            renderObserveTable();
+            syncSideColumnHeight();
+        }
+
+        function syncUI() {
+            updateAIGuide();
+            renderControls();
+            renderObserveTable();
+            syncSideColumnHeight();
+        }
+
+        // Đồng bộ chiều cao cột trái/phải khớp đúng chiều cao thật của cột giữa (guide+controls+canvas) —
+        // canvas có tỉ lệ cố định nên chiều cao thật của cột giữa đổi theo bề rộng màn hình, phải đo bằng JS.
+        function syncSideColumnHeight() {
+            const guide = document.getElementById('aiGuideBar');
+            const canvasCardEl = document.querySelector('.canvas-card');
+            const sides = document.querySelectorAll('.lab-side-left, .lab-side-right');
+            if (!guide || !canvasCardEl || sides.length === 0) return;
+
+            if (window.innerWidth <= 1100) {
+                sides.forEach(el => { el.style.maxHeight = ''; });
+                return;
+            }
+
+            const top = guide.getBoundingClientRect().top;
+            const bottom = canvasCardEl.getBoundingClientRect().bottom;
+            const h = Math.round(bottom - top);
+            // Chỉ ghi lại style khi chiều cao thực sự đổi — tránh mutate DOM liên tục
+            // (mỗi lần set style dù cùng giá trị vẫn khiến DevTools nhấp nháy phần tử).
+            const current = parseInt(sides[0].style.maxHeight, 10);
+            if (h > 0 && current !== h) {
+                sides.forEach(el => { el.style.maxHeight = h + 'px'; });
+            }
+        }
+        window.addEventListener('resize', syncSideColumnHeight);
+        setInterval(syncSideColumnHeight, 500);
+
+        // Stage 3 hoàn thành thuần túy theo thời gian (không có thao tác nào của học sinh để
+        // gắn vào), nên nút "Tiếp tục" cần được mở khóa đúng 1 lần khi bộ đếm 5s vừa đủ —
+        // không render lại toàn bộ controls-card liên tục (gây nhấp nháy DOM không cần thiết).
+        function checkPassiveCompletion() {
+            if (state.stage === 3 && !state.s3Notified && state.s3ObserveTimer >= 5) {
+                state.s3Notified = true;
+                renderControls();
+            }
+        }
+
+        ensureIntroBlock();
+        renderAll();
+
+        /* =========================================================
+           MAIN LOOP
+        ========================================================= */
+        let lastTs = 0;
+        function loop(ts) {
+            const dt = lastTs ? Math.min((ts - lastTs) / 1000, 0.05) : 0.0167;
+            lastTs = ts;
+            time += dt;
+
+            resizeCanvas();
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid();
+
+            const scaleX = canvasW / W;
+            const scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+            viewFitScale = fitScale; viewOffsetX = offsetX; viewOffsetY = offsetY;
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            if (state.stage === 3) { state.s3ObserveTimer += dt; checkPassiveCompletion(); }
+            if (state.stage === 4) updateStage4(dt);
+            if (state.stage === 5) updateStage5(dt);
+            if (state.stage === 6) updateStage6(dt);
+
+            hitRegions = [];
+            drawStageCanvas();
+
+            updateParticles();
+            drawParticles();
+
+            ctx.restore();
+
+            if (state.stage === 3 || state.stage === 4 || state.stage === 5 || state.stage === 6) {
+                renderObserveTable();
+            }
+
+            requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

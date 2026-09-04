@@ -1,0 +1,2304 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp Electron & Phân Lớp Electron</title>
+
+    <!-- Google Fonts: Playfair Display (subset vietnamese) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap&subset=vietnamese"
+        rel="stylesheet">
+
+    <!-- Tabler Icons Webfont -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <!-- Three.js — dựng quả cầu orbital 3D thật (WebGL) cho Stage 2, kéo chuột để xoay góc nhìn -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        /* ===== DESIGN SYSTEM ===== */
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: 'Be Vietnam Pro', 'Times New Roman', serif;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px 20px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            width: 100%;
+            max-width: 1080px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 2rem 2.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header::before,
+        .header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        .header::before {
+            width: 250px;
+            height: 250px;
+            top: -100px;
+            right: -50px;
+        }
+
+        .header::after {
+            width: 150px;
+            height: 150px;
+            bottom: -60px;
+            right: 180px;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            font-size: clamp(1.9rem, 4vw, 2.75rem);
+            font-weight: 800;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.72);
+            font-size: 1.05rem;
+            max-width: 64ch;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== INFO PANEL ===== */
+        .info-panel {
+            width: 100%;
+            max-width: 1080px;
+            background: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 14px 18px;
+        }
+
+        .info-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-content {
+            font-size: 1.05rem;
+            color: var(--ink);
+        }
+
+        .info-content ul {
+            margin: 0;
+            padding-left: 1.3em;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        /* ===== INTERACTIVE LAYOUT ===== */
+        .interactive-wrapper {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 1080px;
+        }
+
+        .interactive-left {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .canvas-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background-color: #FAF7F0;
+        }
+
+        /* Quả cầu orbital 3D thật (WebGL/Three.js) — overlay đè lên labCanvas ở đúng vị trí AO "outer" của Stage 2 */
+        #orbGL {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 40%;
+            aspect-ratio: 1 / 1;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            pointer-events: none;
+            background: transparent;
+            cursor: grab;
+            touch-action: none;
+        }
+        #orbGL:active {
+            cursor: grabbing;
+        }
+
+        /* ===== CONTROLS ===== */
+        .controls-card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .stepper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1.5px solid var(--paper-line);
+            padding-bottom: 10px;
+            gap: 8px 14px;
+        }
+
+        .stepper-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--ink);
+        }
+
+        .stepper-progress-text {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-2);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .progress-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink-2);
+            transition: all 200ms ease;
+        }
+
+        .progress-dot.active {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            transform: scale(1.15);
+        }
+
+        .progress-dot.completed {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .step-desc-card {
+            background-color: var(--jade-pale);
+            border-left: 3px solid var(--jade);
+            padding: 12px 14px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+
+        .controls-actions-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .controls-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-back-redo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-left: auto;
+        }
+
+        .status-small {
+            font-size: 0.82rem;
+            color: var(--ink-2);
+            font-style: italic;
+            min-height: 1.2em;
+        }
+
+        /* ===== BUTTONS ===== */
+        button {
+            padding: 10px 16px;
+            border-radius: 9px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 160ms ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+            background: transparent;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        button:focus-visible {
+            outline: 3px solid var(--sage);
+            outline-offset: 2px;
+        }
+
+        button.btn-primary {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        button.btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+            border-color: var(--jade-deep);
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background: transparent;
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .btn-arrow {
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            font-size: 1.3rem;
+            border-radius: 10px;
+        }
+
+        /* ===== AUX PANEL (tables) ===== */
+        .aux-panel {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: none;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .aux-panel.show {
+            display: flex;
+        }
+
+        .aux-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        table.summary {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 0.92rem;
+        }
+
+        table.summary th,
+        table.summary td {
+            border: 1px solid var(--paper-line);
+            padding: 7px 10px;
+            text-align: center;
+        }
+
+        table.summary th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            font-weight: 700;
+        }
+
+        table.summary tr.reveal td {
+            animation: fadeIn 300ms ease;
+        }
+
+        /* ===== RIGHT PANEL ===== */
+        .interactive-right {
+            position: sticky;
+            top: 24px;
+            align-self: start;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            min-width: 0;
+        }
+
+        .robot-card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .robot-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background-color: var(--sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cream);
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .robot-chat-bubble {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .robot-name {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--ink-2);
+        }
+
+        .robot-message {
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: var(--ink);
+            transition: opacity 200ms ease;
+        }
+
+        .robot-message.fade {
+            opacity: 0;
+        }
+
+        /* ===== EXPLANATION BOX ===== */
+        .explanationBox {
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--accent);
+            border-radius: 12px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 250ms cubic-bezier(.4, 0, .2, 1);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .explanationBox.state-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--sage);
+            border-left-color: var(--correct);
+        }
+
+        .explanationBox.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .explanation-header {
+            font-size: 1rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation-desc {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .aha {
+            background-color: var(--jade-pale);
+            border-left: 3px solid var(--jade);
+            border-radius: 0 8px 8px 0;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            color: var(--jade-text);
+            font-style: italic;
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 4px;
+        }
+
+        .quiz-question {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: inherit;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 200ms ease;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            border-color: var(--jade);
+            background-color: var(--sage-pale);
+        }
+
+        .quiz-option-btn.selected-correct {
+            border-color: var(--correct);
+            background-color: var(--correct-bg);
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .quiz-option-btn.selected-wrong {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn:disabled {
+            cursor: not-allowed;
+        }
+
+        .opt-idx {
+            flex: 0 0 24px;
+            font-weight: 700;
+            color: var(--ink-2);
+        }
+
+        .quiz-option-btn.selected-correct .opt-idx {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.selected-wrong .opt-idx {
+            color: var(--wrong);
+        }
+
+        .opt-text {
+            flex: 1;
+        }
+
+        .opt-status-icon {
+            flex: 0 0 20px;
+            text-align: right;
+            font-size: 1.1rem;
+        }
+
+        /* ===== LINK SECTION ===== */
+        .link-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            max-width: 1080px;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-top: 12px;
+        }
+
+        .link-fish img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--sage);
+        }
+
+        .link-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .link-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .link-info p {
+            font-size: 0.95rem;
+            color: var(--ink-2);
+        }
+
+        .link-url {
+            color: var(--jade-text);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: all 150ms ease;
+            font-size: 0.95rem;
+            align-self: start;
+        }
+
+        .link-url:hover {
+            color: var(--jade-deep);
+            text-decoration: underline;
+        }
+
+        /* ===== UTILITIES ===== */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .interactive-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .interactive-right {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .link-section {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 16px;
+            }
+
+            .link-fish img {
+                width: 56px;
+                height: 56px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            .robot-message,
+            .explanationBox,
+            button,
+            .progress-dot {
+                transition-duration: 0s !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <h1>Lớp Electron &amp; Phân Lớp Electron</h1>
+
+    </header>
+
+    <!-- INFO PANEL -->
+    <section class="info-panel">
+        <div class="info-title">
+            <i class="ti ti-target-arrow"></i> Mục tiêu học tập
+        </div>
+        <div class="info-content" id="infoContent">
+            <ul>
+                <li>Trình bày được khái niệm lớp, phân lớp electron và mối quan hệ về số lượng phân lớp trong một lớp.</li>
+                <li>Trình bày được khái niệm phân lớp electron và mối quan hệ về số lượng phân lớp trong một lớp.</li>
+                <li>Liên hệ được về số lượng AO trong một phân lớp, trong một lớp.</li>
+                <li>Xác định được số electron tối đa trong một lớp, trong một phân lớp.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- INTERACTIVE WRAPPER -->
+    <main class="interactive-wrapper">
+
+        <!-- LEFT COLUMN -->
+        <div class="interactive-left">
+            <div class="canvas-card">
+                <canvas id="labCanvas" width="760" height="470"></canvas>
+                <canvas id="orbGL"></canvas>
+            </div>
+
+            <div class="controls-card" id="controlsCard">
+                <div class="stepper-header">
+                    <span class="stepper-title"><i class="ti ti-route"></i> <span id="stageTitle">Nhìn lại nguyên
+                            tử</span></span>
+                    <div class="progress-dots" id="progressDots"></div>
+                    <span class="stepper-progress-text" id="stageProgressText">Giai đoạn 1 / 6</span>
+                </div>
+                <div class="step-desc-card" id="stepDesc">Quan sát mô hình nguyên tử đã học.</div>
+                <div class="controls-actions-row" id="controlsActionsRow">
+                    <div class="controls-actions" id="controlsActions"></div>
+                    <div class="nav-back-redo">
+                        <button class="btn-reset" id="btnBack"><i class="ti ti-arrow-left"></i> Quay lại</button>
+                        <button class="btn-reset" id="btnRedo"><i class="ti ti-refresh"></i> Làm lại</button>
+                    </div>
+                </div>
+                <div class="status-small" id="statusSmall"></div>
+            </div>
+
+            <!-- Aux table panel -->
+            <div class="aux-panel" id="auxPanel">
+                <div class="aux-title"><i class="ti ti-table"></i> <span id="auxTitle">Bảng tóm tắt</span></div>
+                <div id="auxBody"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="interactive-right">
+            <div class="robot-card">
+                <div class="robot-avatar"><i class="ti ti-robot"></i></div>
+                <div class="robot-chat-bubble">
+                    <span class="robot-name">Hướng dẫn viên AI</span>
+                    <p class="robot-message" id="robotMessage">Ở module trước, em đã biết electron tồn tại trong các
+                        orbital nguyên tử. Nhưng một nguyên tử có rất nhiều electron — theo em, chúng được sắp xếp như
+                        thế
+                        nào? Bấm <b>Bắt đầu khám phá</b> để tìm hiểu nhé.</p>
+                </div>
+            </div>
+
+            <div class="explanationBox" id="explanationBox">
+                <div class="explanation-header" id="explanationHeader">
+                    <i class="ti ti-info-circle" id="explanationIcon"></i>
+                    <span id="explanationTitle">Câu hỏi trung tâm</span>
+                </div>
+                <div class="explanation-desc" id="explanationDesc">
+                    Các chấm nhỏ chuyển động quanh hạt nhân là đám mây electron. Trong nguyên tử thật có rất nhiều
+                    electron cùng tồn tại — chúng không hỗn loạn mà được tổ chức theo một trật tự nhất định.
+                </div>
+                <div class="quiz-container" id="quizContainer" style="display:none;"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- LINK SECTION -->
+    <div class="link-section">
+        <div class="link-fish">
+            <img src="https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png"
+                alt="Mascot Aiducation">
+        </div>
+        <div class="link-info">
+            <h3>Hóa Học Aiducation – Học liệu tương tác</h3>
+            <p>Module tiếp theo: Cấu hình electron nguyên tử · Nguyên lí vững bền · Quy tắc Hund · Sơ đồ orbital.</p>
+            <a class="link-url" href="https://www.aiducation.edu.vn" target="_blank" rel="noopener">
+                <i class="ti ti-external-link"></i> Truy cập aiducation.edu.vn
+            </a>
+        </div>
+    </div>
+
+    <script>
+        /* ============ UTILITIES ============ */
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 470;
+        const CX = 300, CY = 235;          // atom center for ring/cloud stages
+        const NUCLEUS_R = 15;
+
+        /* Shell display data */
+        const SHELLS = [
+            { name: 'K', n: 1, r: 50, color: '#1D4ED8', tickY: 372 },
+            { name: 'L', n: 2, r: 92, color: '#3B9BE0', tickY: 300 },
+            { name: 'M', n: 3, r: 136, color: '#22A559', tickY: 228 },
+            { name: 'N', n: 4, r: 182, color: '#E0A81E', tickY: 156 }
+        ];
+        /* Subshell type colors */
+        const SUB_COLORS = { s: '#2F7DE0', p: '#F0872E', d: '#9B59D0', f: '#DA4A4A' };
+        const SUB_COUNT = { s: 1, p: 3, d: 5, f: 7 };
+
+        /* ============ GLOBAL STATE ============ */
+        let time = 0;
+
+        /* Đám mây electron 3D — đúng mô hình nguyên tử hoàn chỉnh cuối Module 2
+           (Thomson & Rutherford): point-cloud xoay 3D quanh hạt nhân là cụm proton/neutron. */
+        const colorProtonC = '#c15f3c';
+        const colorNeutronC = '#718096';
+        const CLOUD_SCALE = 0.65;
+        let cloud3D = [];
+        function initCloud3D() {
+            cloud3D = [];
+            const N = 1800;
+            for (let i = 0; i < N; i++) {
+                let r;
+                const rand = Math.random();
+                if (rand < 0.72) r = Math.pow(Math.random(), 1.5) * 105 + 5;
+                else if (rand < 0.93) r = Math.random() * 70 + 110;
+                else r = Math.random() * 70 + 180;
+
+                const theta = Math.random() * Math.PI * 2;
+                const phi = Math.acos(2 * Math.random() - 1);
+                const x = r * Math.sin(phi) * Math.cos(theta);
+                const y = r * Math.sin(phi) * Math.sin(theta);
+                const z = r * Math.cos(phi);
+
+                const baseSize = r < 110 ? (Math.random() * 1.6 + 0.6) : (Math.random() * 1.1 + 0.3);
+                const tiltAngle = Math.random() * Math.PI * 2;
+                const tiltFactor = Math.random() * 0.35;
+                const ux = Math.sin(tiltFactor) * Math.cos(tiltAngle);
+                const uy = Math.cos(tiltFactor);
+                const uz = Math.sin(tiltFactor) * Math.sin(tiltAngle);
+                const direction = Math.random() < 0.5 ? 1 : -1;
+                const omega = direction * (Math.random() * 0.008 + 0.004);
+
+                cloud3D.push({
+                    x, y, z,
+                    size: baseSize,
+                    baseAlpha: r < 110 ? (Math.random() * 0.6 + 0.4) : (Math.random() * 0.45 + 0.2),
+                    color: Math.random() > 0.4 ? '#3b82f6' : '#1d4ed8',
+                    ux, uy, uz, omega
+                });
+            }
+        }
+        initCloud3D();
+
+        const NUCLEUS_CLUSTER = [
+            { x: -10, y: -8, type: 'p' }, { x: 8, y: -10, type: 'n' },
+            { x: -4, y: 10, type: 'p' }, { x: 10, y: 6, type: 'n' },
+            { x: -12, y: 4, type: 'n' }, { x: 2, y: -2, type: 'p' },
+            { x: 6, y: -4, type: 'p' }
+        ];
+
+        function updateCloud3D() {
+            if (reduceMotion) return;
+            cloud3D.forEach(p => {
+                const th = p.omega, c = Math.cos(th), s = Math.sin(th), t = 1 - c;
+                const xNew = p.x * (c + p.ux * p.ux * t) + p.y * (p.ux * p.uy * t - p.uz * s) + p.z * (p.ux * p.uz * t + p.uy * s);
+                const yNew = p.x * (p.uy * p.ux * t + p.uz * s) + p.y * (c + p.uy * p.uy * t) + p.z * (p.uy * p.uz * t - p.ux * s);
+                const zNew = p.x * (p.uz * p.ux * t - p.uy * s) + p.y * (p.uz * p.uy * t + p.ux * s) + p.z * (c + p.uz * p.uz * t);
+                p.x = xNew; p.y = yNew; p.z = zNew;
+            });
+        }
+
+        function drawCloudPoint(p, cx, cy, alpha) {
+            const drawX = cx + p.x * CLOUD_SCALE, drawY = cy + p.y * CLOUD_SCALE;
+            const scale = 1 + p.z / 350;
+            const drawSize = p.size * clamp(scale, 0.4, 1.6) * CLOUD_SCALE * 2.2;
+            const depthAlpha = clamp((p.z + 260) / 520, 0.2, 1.0);
+            ctx.globalAlpha = alpha * p.baseAlpha * depthAlpha;
+            ctx.fillStyle = p.color;
+            const sizePulse = Math.max(0.3, drawSize + (reduceMotion ? 0 : Math.sin(time * 3 + p.x) * 0.15));
+            ctx.fillRect(drawX - sizePulse / 2, drawY - sizePulse / 2, sizePulse, sizePulse);
+        }
+
+        // Mô hình nguyên tử hoàn chỉnh: đám mây electron 3D + cụm hạt nhân proton/neutron
+        function drawElectronCloud(cx, cy, alpha) {
+            alpha = alpha == null ? 1 : alpha;
+            updateCloud3D();
+            const sorted = [...cloud3D].sort((a, b) => a.z - b.z);
+
+            ctx.save();
+            sorted.forEach(p => { if (p.z < 0) drawCloudPoint(p, cx, cy, alpha); });
+            ctx.restore();
+
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            const nRotTime = time * 0.6;
+            NUCLEUS_CLUSTER.forEach(pt => {
+                const angle = Math.atan2(pt.y, pt.x) + nRotTime;
+                const dist = Math.sqrt(pt.x * pt.x + pt.y * pt.y) * 0.2;
+                const rx = Math.cos(angle) * dist, ry = Math.sin(angle) * dist * 0.85;
+                const ptR = 7.5;
+                ctx.beginPath(); ctx.arc(cx + rx, cy + ry, ptR, 0, Math.PI * 2);
+                ctx.fillStyle = pt.type === 'p' ? colorProtonC : colorNeutronC;
+                ctx.fill();
+                ctx.beginPath(); ctx.arc(cx + rx - ptR * 0.3, cy + ry - ptR * 0.3, ptR * 0.25, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255,255,255,0.45)';
+                ctx.fill();
+            });
+            ctx.restore();
+
+            ctx.save();
+            sorted.forEach(p => { if (p.z >= 0) drawCloudPoint(p, cx, cy, alpha); });
+            ctx.restore();
+        }
+
+        const state = {
+            stage: 1,
+            anim: false,
+            s2: null, s3: null, s4: null, s5a: null, s5b: null, s6: null
+        };
+
+        /* ============ RIGHT PANEL HELPERS ============ */
+        const elRobot = document.getElementById('robotMessage');
+        const elBox = document.getElementById('explanationBox');
+        const elIcon = document.getElementById('explanationIcon');
+        const elTitle = document.getElementById('explanationTitle');
+        const elDesc = document.getElementById('explanationDesc');
+        const elQuiz = document.getElementById('quizContainer');
+
+        function setRobot(html) {
+            elRobot.classList.add('fade');
+            setTimeout(() => { elRobot.innerHTML = html; elRobot.classList.remove('fade'); }, reduceMotion ? 0 : 180);
+        }
+        function setExplanation(title, desc, icon, correct) {
+            elBox.classList.add('fade');
+            setTimeout(() => {
+                elTitle.textContent = title;
+                elDesc.innerHTML = desc;
+                elIcon.className = 'ti ' + (icon || 'ti-info-circle');
+                elBox.classList.toggle('state-correct', !!correct);
+                elBox.classList.remove('fade');
+            }, reduceMotion ? 0 : 160);
+        }
+
+        /* Quiz system */
+        function showQuiz(cfg) {
+            // cfg: {q, options:[], correct, onCorrect, correctMsg, wrongMsg}
+            let answered = false;
+            elQuiz.style.display = 'flex';
+            const letters = ['A', 'B', 'C', 'D', 'E'];
+            let html = `<div class="quiz-question">${cfg.q}</div><ul class="quiz-options">`;
+            cfg.options.forEach((opt, i) => {
+                html += `<li><button class="quiz-option-btn" data-i="${i}">
+                    <span class="opt-idx">${letters[i]}.</span>
+                    <span class="opt-text">${opt}</span>
+                    <span class="opt-status-icon"></span></button></li>`;
+            });
+            html += `</ul>`;
+            elQuiz.innerHTML = html;
+            elQuiz.querySelectorAll('.quiz-option-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    if (answered) return;
+                    const i = parseInt(btn.dataset.i);
+                    const iconSpan = btn.querySelector('.opt-status-icon');
+                    if (i === cfg.correct) {
+                        answered = true;
+                        btn.classList.add('selected-correct');
+                        iconSpan.innerHTML = '<i class="ti ti-circle-check"></i>';
+                        elQuiz.querySelectorAll('.quiz-option-btn').forEach(b => b.disabled = true);
+                        setExplanation('Chính xác!', cfg.correctMsg, 'ti-circle-check', true);
+                        if (cfg.onCorrect) cfg.onCorrect();
+                    } else {
+                        btn.classList.add('selected-wrong');
+                        iconSpan.innerHTML = '<i class="ti ti-x"></i>';
+                        btn.disabled = true;
+                        setExplanation('Chưa đúng', cfg.wrongMsg, 'ti-info-circle', false);
+                    }
+                });
+            });
+        }
+        function hideQuiz() { elQuiz.style.display = 'none'; elQuiz.innerHTML = ''; }
+
+        /* ============ CONTROLS HELPERS ============ */
+        const elStageTitle = document.getElementById('stageTitle');
+        const elProgText = document.getElementById('stageProgressText');
+        const elDots = document.getElementById('progressDots');
+        const elStepDesc = document.getElementById('stepDesc');
+        const elActions = document.getElementById('controlsActions');
+        const elStatus = document.getElementById('statusSmall');
+        const auxPanel = document.getElementById('auxPanel');
+        const auxTitle = document.getElementById('auxTitle');
+        const auxBody = document.getElementById('auxBody');
+        const btnBack = document.getElementById('btnBack');
+        const btnRedo = document.getElementById('btnRedo');
+
+        function renderNavButtons() {
+            btnBack.disabled = state.stage <= 1;
+            btnBack.onclick = () => { if (state.anim) return; gotoStage(state.stage - 1); };
+            btnRedo.onclick = () => { if (state.anim) return; gotoStage(state.stage); };
+        }
+
+        const STAGE_TITLES = ['Nhìn lại nguyên tử', 'Orbital → Lớp electron', 'Các lớp electron',
+            'Phân lớp bên trong lớp', 'AO & electron trong phân lớp', 'AO & electron trong lớp'];
+
+        function renderDots() {
+            elDots.innerHTML = '';
+            for (let i = 1; i <= 6; i++) {
+                const d = document.createElement('div');
+                d.className = 'progress-dot' + (i === state.stage ? ' active' : (i < state.stage ? ' completed' : ''));
+                d.innerHTML = i < state.stage ? '<i class="ti ti-check"></i>' : i;
+                elDots.appendChild(d);
+            }
+        }
+        function setStageHeader(idx, desc) {
+            elStageTitle.textContent = STAGE_TITLES[idx - 1];
+            elProgText.textContent = 'Giai đoạn ' + idx + ' / 6';
+            elStepDesc.textContent = desc;
+            renderDots();
+        }
+        function setStatus(t) { elStatus.textContent = t || ''; }
+        function setActions(html) { elActions.innerHTML = html; }
+        function disableActions(dis) {
+            elActions.querySelectorAll('button').forEach(b => { if (!b.dataset.keep) b.disabled = dis; });
+        }
+        function showAux(title, bodyHtml) {
+            auxTitle.textContent = title; auxBody.innerHTML = bodyHtml; auxPanel.classList.add('show');
+        }
+        function hideAux() { auxPanel.classList.remove('show'); }
+
+        /* ============ CANVAS DRAW PRIMITIVES ============ */
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+        function drawNucleus(cx, cy, r, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha == null ? 1 : alpha;
+            const g = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.3, r * 0.2, cx, cy, r);
+            g.addColorStop(0, '#F4A896');
+            g.addColorStop(1, '#C15F3C');
+            ctx.fillStyle = g;
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.beginPath(); ctx.arc(cx - r * 0.35, cy - r * 0.35, r * 0.28, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+        }
+        // s-orbital: sphere
+        function drawSphereAO(cx, cy, r, color, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            const g = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.35, r * 0.1, cx, cy, r);
+            g.addColorStop(0, 'rgba(255,255,255,0.85)');
+            g.addColorStop(0.4, color);
+            g.addColorStop(1, color + '00');
+            ctx.fillStyle = g;
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = color; ctx.globalAlpha = alpha * 0.5; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+            ctx.restore();
+        }
+        // ============ QUẢ CẦU ORBITAL "OUTER" 3D THẬT (WebGL/Three.js) ============
+        // Dựng lại đúng mesh + ánh sáng orbital 1s của Orbital_3D_v5_Final.html (bỏ trục xyz, bỏ
+        // hạt nhân, bỏ toàn bộ UI/sidebar). Có OrbitControls để kéo chuột xoay góc nhìn.
+        // Dùng CHUNG 1 canvas/scene/camera/OrbitControls cho 3 mode (outer / middle / inner) — mỗi
+        // mode là 1 THREE.Group build 1 lần rồi cache, chỉ group đang active mới add vào scene. Nhờ
+        // dùng chung camera+controls nên mode nào cũng kéo-xoay được, không cần setup riêng.
+        let orbGL = null;
+        function phongMat(hex, opacity) {
+            return new THREE.MeshPhongMaterial({
+                color: new THREE.Color(hex), transparent: true, opacity,
+                shininess: 70, specular: new THREE.Color(0x334466), side: THREE.DoubleSide, depthWrite: false
+            });
+        }
+        function wireMat(hex, opacity) {
+            return new THREE.MeshBasicMaterial({ color: new THREE.Color(hex), wireframe: true, transparent: true, opacity, side: THREE.DoubleSide });
+        }
+        // Mode "outer" — 1 quả cầu s, màu lavender (giống orbital 1s file gốc)
+        function buildOuterGroup() {
+            const g = new THREE.Group();
+            const geo = new THREE.SphereGeometry(.85, 68, 51);
+            g.add(new THREE.Mesh(geo, phongMat('#c4b5fd', .62)));
+            g.add(new THREE.Mesh(geo, wireMat('#c4b5fd', .18)));
+            return g;
+        }
+        // Mode "inner" — giống hệt "outer" nhưng nhỏ hơn (AO gần hạt nhân nhất)
+        function buildInnerGroup() {
+            const g = new THREE.Group();
+            const geo = new THREE.SphereGeometry(.5, 56, 42);
+            g.add(new THREE.Mesh(geo, phongMat('#c4b5fd', .62)));
+            g.add(new THREE.Mesh(geo, wireMat('#c4b5fd', .18)));
+            return g;
+        }
+        // Mesh "quả tạ" (2 thùy quả trứng dính liền) dọc trục Z cục bộ — bán kính r = R·cos²θ tự
+        // thu về ĐÚNG 0 tại gốc tọa độ (θ=90°), nên nhiều trục dùng chung mesh này sẽ giao đúng
+        // tại 1 điểm duy nhất ở tâm, không phình thành cục như ellipsoid kéo dài.
+        function buildDumbbellGeo(quality, R) {
+            const NT = quality, NP = Math.round(quality * 1.3);
+            const pos = [], nrm = [], idx = [];
+            const verts = [];
+            for (let i = 0; i <= NT; i++) {
+                verts.push([]);
+                const t = (i / NT) * Math.PI;
+                const cosT = Math.cos(t);
+                const r = R * cosT * cosT;
+                for (let j = 0; j <= NP; j++) {
+                    const p = (j / NP) * 2 * Math.PI;
+                    verts[i].push(new THREE.Vector3(r * Math.sin(t) * Math.cos(p), r * Math.sin(t) * Math.sin(p), r * cosT));
+                }
+            }
+            const id = (i, j) => i * (NP + 1) + j;
+            for (let i = 0; i <= NT; i++) for (let j = 0; j <= NP; j++) {
+                const v = verts[i][j]; pos.push(v.x, v.y, v.z);
+                const n = v.clone().normalize(); if (!n.length()) n.set(0, 0, 1);
+                nrm.push(n.x, n.y, n.z);
+            }
+            for (let i = 0; i < NT; i++) for (let j = 0; j < NP; j++) {
+                const a = id(i, j), b = id(i + 1, j), c = id(i + 1, j + 1), d = id(i, j + 1);
+                idx.push(a, b, c, a, c, d);
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+            geo.setAttribute('normal', new THREE.Float32BufferAttribute(nrm, 3));
+            geo.setIndex(idx);
+            return geo;
+        }
+        // Mode "middle" — 1 quả cầu s nhỏ + 3 quả tạ (2 thùy trứng) dọc 3 trục x/y/z, giao đúng tại
+        // tâm — vẫn khối đặc sáng bóng như "outer", không phải chấm hạt.
+        function buildMiddleGroup() {
+            const g = new THREE.Group();
+            const sGeo = new THREE.SphereGeometry(.42, 48, 36);
+            g.add(new THREE.Mesh(sGeo, phongMat('#93c5fd', .58)));
+
+            const dumbbellGeo = buildDumbbellGeo(56, 1.15);
+            [
+                { rot: [0, Math.PI / 2, 0], color: '#E05050' },  // trục x — đỏ
+                { rot: [-Math.PI / 2, 0, 0], color: '#50A050' }, // trục y — xanh lá
+                { rot: [0, 0, 0], color: '#5080E0' },            // trục z — xanh dương
+            ].forEach(def => {
+                const solid = new THREE.Mesh(dumbbellGeo, phongMat(def.color, .62));
+                solid.rotation.set(def.rot[0], def.rot[1], def.rot[2]);
+                g.add(solid);
+                const wire = new THREE.Mesh(dumbbellGeo, wireMat(def.color, .16));
+                wire.rotation.copy(solid.rotation);
+                g.add(wire);
+            });
+            return g;
+        }
+        const ORBGL_BUILDERS = { outer: buildOuterGroup, middle: buildMiddleGroup, inner: buildInnerGroup };
+
+        function initOrbGL() {
+            if (orbGL || typeof THREE === 'undefined') return;
+            const glCanvas = document.getElementById('orbGL');
+            const renderer = new THREE.WebGLRenderer({ canvas: glCanvas, antialias: true, alpha: true });
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(42, 1, .01, 100);
+            camera.position.set(2.6, 1.85, 2.6);
+            camera.lookAt(0, 0, 0);
+
+            const ctrl = new THREE.OrbitControls(camera, renderer.domElement);
+            ctrl.enableDamping = true;
+            ctrl.dampingFactor = 0.08;
+            ctrl.enableZoom = false;
+            ctrl.enablePan = false;
+            ctrl.minDistance = 1.5;
+            ctrl.maxDistance = 6;
+
+            scene.add(new THREE.AmbientLight(0x192035, 2));
+            const kl = new THREE.DirectionalLight(0xffffff, .9); kl.position.set(6, 10, 6); scene.add(kl);
+            const fl = new THREE.DirectionalLight(0x93c5fd, .5); fl.position.set(-5, 2, -4); scene.add(fl);
+            const rl = new THREE.DirectionalLight(0xfda4af, .4); rl.position.set(0, -6, 6); scene.add(rl);
+            const bl = new THREE.PointLight(0xc4b5fd, .6, 8); bl.position.set(0, 4, 0); scene.add(bl);
+
+            orbGL = { renderer, scene, camera, ctrl, canvas: glCanvas, groups: {}, activeMode: null };
+        }
+        function setOrbGLMode(mode) {
+            if (!orbGL || orbGL.activeMode === mode) return;
+            if (orbGL.activeMode) orbGL.scene.remove(orbGL.groups[orbGL.activeMode]);
+            if (!orbGL.groups[mode]) orbGL.groups[mode] = ORBGL_BUILDERS[mode]();
+            orbGL.scene.add(orbGL.groups[mode]);
+            orbGL.activeMode = mode;
+        }
+        function resizeOrbGL() {
+            if (!orbGL) return;
+            const w = orbGL.canvas.clientWidth, h = orbGL.canvas.clientHeight;
+            if (!w || !h) return;
+            if (w === orbGL.lastW && h === orbGL.lastH) return;
+            orbGL.lastW = w; orbGL.lastH = h;
+            orbGL.renderer.setSize(w, h, false);
+            orbGL.camera.aspect = w / h;
+            orbGL.camera.updateProjectionMatrix();
+        }
+        function renderOrbGL() {
+            if (!orbGL || !orbGL.activeMode) return;
+            resizeOrbGL();
+            orbGL.ctrl.update();
+            orbGL.renderer.render(orbGL.scene, orbGL.camera);
+        }
+        function showOrbGL(mode, alpha, scale) {
+            initOrbGL();
+            setOrbGLMode(mode);
+            const el = document.getElementById('orbGL');
+            el.style.opacity = String(clamp(alpha, 0, 1));
+            el.style.transform = `translate(-50%, -50%) scale(${scale == null ? 1 : scale})`;
+            el.style.pointerEvents = 'auto';
+        }
+        function hideOrbGL() {
+            const el = document.getElementById('orbGL');
+            if (el) { el.style.opacity = '0'; el.style.pointerEvents = 'none'; }
+        }
+        // p-orbital: two lobes (dumbbell) rotated
+        function drawPAO(cx, cy, len, color, alpha, angle) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(angle);
+            ctx.globalAlpha = alpha;
+            for (const s of [-1, 1]) {
+                const g = ctx.createRadialGradient(0, s * len * 0.55, 2, 0, s * len * 0.55, len * 0.55);
+                g.addColorStop(0, 'rgba(255,255,255,0.8)');
+                g.addColorStop(0.5, color);
+                g.addColorStop(1, color + '10');
+                ctx.fillStyle = g;
+                ctx.beginPath();
+                ctx.ellipse(0, s * len * 0.5, len * 0.32, len * 0.5, 0, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+        // Concentric ring
+        function drawRing(cx, cy, r, color, lw, alpha, dash) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.strokeStyle = color; ctx.lineWidth = lw;
+            if (dash) ctx.setLineDash([4, 6]);
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+            ctx.restore();
+        }
+        function label(text, x, y, color, size, bold, align) {
+            ctx.save();
+            ctx.fillStyle = color || '#1A1A1A';
+            ctx.font = (bold ? 'bold ' : '') + (size || 13) + 'px "Playfair Display", serif';
+            ctx.textAlign = align || 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+        // Orbital box with electron arrows
+        function drawBox(x, y, size, up, down) {
+            ctx.save();
+            ctx.strokeStyle = '#514C44'; ctx.lineWidth = 1.5;
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.beginPath(); ctx.rect(x - size / 2, y - size / 2, size, size); ctx.fill(); ctx.stroke();
+            const ah = size * 0.32;
+            function arrow(ax, dir) {
+                ctx.strokeStyle = '#1A1A1A'; ctx.lineWidth = 1.6; ctx.lineCap = 'round';
+                const top = y - size * 0.32, bot = y + size * 0.32;
+                ctx.beginPath();
+                if (dir > 0) { ctx.moveTo(ax, bot); ctx.lineTo(ax, top); ctx.moveTo(ax, top); ctx.lineTo(ax - 3, top + 4); ctx.moveTo(ax, top); ctx.lineTo(ax + 3, top + 4); }
+                else { ctx.moveTo(ax, top); ctx.lineTo(ax, bot); ctx.moveTo(ax, bot); ctx.lineTo(ax - 3, bot - 4); ctx.moveTo(ax, bot); ctx.lineTo(ax + 3, bot - 4); }
+                ctx.stroke();
+            }
+            if (up && down) { arrow(x - size * 0.2, 1); arrow(x + size * 0.2, -1); }
+            else if (up) arrow(x, 1);
+            else if (down) arrow(x, -1);
+            ctx.restore();
+        }
+        // A row of boxes filled by Hund's rule given e electrons
+        function drawBoxRow(x, y, count, size, gap, e) {
+            const singles = Math.min(e, count);
+            const doubles = Math.max(0, e - count);
+            let endX = x;
+            for (let i = 0; i < count; i++) {
+                const bx = x + i * (size + gap) + size / 2;
+                drawBox(bx, y, size, i < singles ? 1 : 0, i < doubles ? 1 : 0);
+                endX = bx + size / 2;
+            }
+            return endX;
+        }
+
+        /* ============ INFO PANEL — Mục tiêu học tập (cố định, giống nhau ở mọi giai đoạn) ============ */
+        const elInfoContent = document.getElementById('infoContent');
+        const FIXED_GOALS_HTML = `<ul>
+            <li>Trình bày được khái niệm lớp, phân lớp electron và mối quan hệ về số lượng phân lớp trong một lớp.</li>
+            <li>Trình bày được khái niệm phân lớp electron và mối quan hệ về số lượng phân lớp trong một lớp.</li>
+            <li>Liên hệ được về số lượng AO trong một phân lớp, trong một lớp.</li>
+            <li>Xác định được số electron tối đa trong một lớp, trong một phân lớp.</li>
+        </ul>`;
+        elInfoContent.innerHTML = FIXED_GOALS_HTML;
+        function setInfoPanel() { /* Mục tiêu học tập cố định — không đổi theo giai đoạn nữa */ }
+
+        /* ============ STAGE ROUTING ============ */
+        function gotoStage(n) {
+            state.stage = n;
+            state.anim = false;
+            hideQuiz();
+            hideAux();
+            setStatus('');
+            setInfoPanel(n);
+            if (n === 1) initStage1();
+            else if (n === 2) initStage2();
+            else if (n === 3) initStage3();
+            else if (n === 4) initStage4();
+            else if (n === 5) initStage5a();
+            else if (n === 6) initStage5b();
+            else if (n === 7) initEnd();
+            renderNavButtons();
+        }
+
+        /* ---------- STAGE 1 ---------- */
+        function initStage1() {
+            setStageHeader(1, 'Quan sát mô hình nguyên tử với đám mây electron.');
+            setActions('<button class="btn-primary" id="btnStart"><i class="ti ti-player-play"></i> Bắt đầu khám phá</button>');
+            document.getElementById('btnStart').onclick = () => gotoStage(2);
+            setRobot('Ở module trước, em đã biết electron tồn tại trong các <b>orbital nguyên tử</b> — mỗi orbital là vùng không gian có xác suất tìm thấy electron lớn. Nhưng một nguyên tử có rất nhiều electron. Theo em, chúng được sắp xếp thế nào? Bấm <b>Bắt đầu khám phá</b> nhé.');
+            setExplanation('Câu hỏi trung tâm', 'Các chấm nhỏ chuyển động quanh hạt nhân là đám mây electron. Trong nguyên tử thật có rất nhiều electron cùng tồn tại — liệu chúng có được tổ chức theo một trật tự nào không?', 'ti-help-circle', false);
+        }
+        function drawStage1() {
+            drawGrid();
+            drawElectronCloud(CX + 80, CY, 1);
+        }
+
+        /* ---------- STAGE 2 ---------- */
+        function initStage2() {
+            state.s2 = { step: 0, phase: 'idle', trans: 1, holdTimer: 0, from: 'cloud', to: 'cloud' };
+            setStageHeader(2, 'Nhấn mũi tên ► để zoom sâu dần vào bên trong nguyên tử (4 lần).');
+            renderStage2Controls();
+            setRobot('Hãy cùng zoom vào bên trong nguyên tử để xem các orbital được sắp xếp ra sao. Nhấn mũi tên <b>►</b> để bắt đầu.');
+            setExplanation('Đang quan sát', 'Camera sẽ zoom dần từ ngoài vào trong. Ở mỗi lớp em sẽ thấy các orbital khác nhau, rồi cuối cùng chúng được thay bằng mô hình các vòng tròn đồng tâm cho gọn.', 'ti-zoom-in', false);
+        }
+        const S2_LEVELS = ['cloud', 'outer', 'middle', 'inner', 'rings'];
+        function renderStage2Controls() {
+            const s2 = state.s2;
+            const busy = s2.phase === 'zooming' || s2.phase === 'holding';
+            const icon = s2.phase === 'zooming' ? '<i class="ti ti-loader spin"></i>'
+                : s2.phase === 'holding' ? '<i class="ti ti-eye"></i>'
+                    : '<i class="ti ti-chevron-right"></i>';
+            const zoomBtn = s2.phase === 'done' ? '' :
+                `<button class="btn-primary btn-arrow" id="btnZoom" title="Zoom vào">${icon}</button>` +
+                `<span style="font-size:0.9rem;color:var(--ink-2);">Bước zoom: ${s2.step} / 4</span>`;
+            const cont = s2.phase === 'done'
+                ? '<button class="btn-primary" id="btnNext2"><i class="ti ti-arrow-right"></i> Tiếp tục</button>'
+                : '';
+            setActions(zoomBtn + cont);
+            const bz = document.getElementById('btnZoom');
+            if (bz) { bz.disabled = busy; bz.onclick = zoomStep; }
+            const bn = document.getElementById('btnNext2');
+            if (bn) bn.onclick = () => gotoStage(3);
+        }
+        function zoomStep() {
+            const s2 = state.s2;
+            if (s2.phase !== 'idle' || s2.step >= 4) return;
+            s2.from = S2_LEVELS[s2.step];
+            s2.to = S2_LEVELS[s2.step + 1];
+            s2.step++;
+            s2.trans = 0;
+            s2.phase = 'zooming';
+            state.anim = true;
+            setStatus('Camera đang zoom vào...');
+            renderStage2Controls();
+        }
+        const S2_ROBOT = {
+            1: 'Đây là orbital ở <b>lớp ngoài cùng</b> — xa hạt nhân nhất. Nhấn tiếp để zoom sâu hơn.',
+            2: 'Một nhóm orbital khác hiện ra — <b>gần hạt nhân hơn</b> (1 hình cầu và 3 hình quả tạ). Nhấn tiếp nhé.',
+            3: 'Và đây là orbital <b>gần hạt nhân nhất</b>. Em có nhận thấy các orbital được sắp thành từng lớp không? Nhấn tiếp để xem mô hình đơn giản hơn.',
+            4: 'Để thuận tiện nghiên cứu, ta dùng mô hình <b>vòng tròn đồng tâm</b> này thay cho hình ảnh orbital phức tạp. Mỗi vòng đại diện cho một nhóm electron. Hãy khám phá các nhóm đó nhé.'
+        };
+        function updateStage2() {
+            const s2 = state.s2;
+            if (s2.phase === 'zooming') {
+                const dur = s2.step === 4 ? 1.5 : 1.4; // giây — camera zoom chậm, rõ quy trình
+                const inc = reduceMotion ? 0.2 : 1 / (60 * dur);
+                s2.trans += inc;
+                if (s2.trans >= 1) {
+                    s2.trans = 1;
+                    if (S2_ROBOT[s2.step]) setRobot(S2_ROBOT[s2.step]);
+                    if (s2.step >= 4) {
+                        s2.phase = 'done';
+                        state.anim = false;
+                        setStatus('Hoàn tất — nhấn Tiếp tục.');
+                    } else {
+                        s2.phase = 'holding';
+                        s2.holdTimer = 0;
+                        setStatus('Đang quan sát... (dừng 2 giây)');
+                    }
+                    renderStage2Controls();
+                }
+            } else if (s2.phase === 'holding') {
+                const holdFrames = reduceMotion ? 10 : 120; // ~2 giây @60fps
+                s2.holdTimer++;
+                if (s2.holdTimer >= holdFrames) {
+                    s2.phase = 'idle';
+                    state.anim = false;
+                    setStatus('Chờ thao tác — nhấn ► để tiếp tục.');
+                    renderStage2Controls();
+                }
+            }
+        }
+        function drawLevel(name, a, scale) {
+            if (a <= 0.01) return;
+            const cx = CX + 80, cy = CY;
+            if (name === 'cloud') { drawElectronCloud(cx, cy, a); }
+            else if (name === 'outer') {
+                drawNucleus(cx, cy, NUCLEUS_R, a);
+                showOrbGL('outer', a, scale);
+                label('Lớp ngoài cùng', cx, cy + 150 * scale + 18, '#514C44', 14, true);
+                label('(kéo chuột để xoay quả cầu)', cx, cy + 150 * scale + 38, '#A8A29E', 11, false);
+            }
+            else if (name === 'middle') {
+                drawNucleus(cx, cy, NUCLEUS_R, a);
+                showOrbGL('middle', a, scale);
+                label('Nhóm orbital lớp giữa', cx, cy + 150 * scale + 18, '#514C44', 14, true);
+                label('(kéo chuột để xoay)', cx, cy + 150 * scale + 38, '#A8A29E', 11, false);
+            }
+            else if (name === 'inner') {
+                drawNucleus(cx, cy, NUCLEUS_R, a);
+                showOrbGL('inner', a, scale * 0.7);
+                label('Orbital gần hạt nhân nhất', cx, cy + 60 * scale + 18, '#514C44', 14, true);
+                label('(kéo chuột để xoay)', cx, cy + 60 * scale + 38, '#A8A29E', 11, false);
+            }
+            else if (name === 'rings') {
+                SHELLS.forEach(sh => drawRing(cx, cy, sh.r, 'rgba(90,90,90,0.5)', 2, a));
+                drawNucleus(cx, cy, NUCLEUS_R, a);
+            }
+        }
+        // Vẽ riêng phần "khối" của mỗi level (không nhãn, không hạt nhân) để dùng trong hiệu ứng zoom —
+        // nhãn/hạt nhân bị scale theo sẽ méo chữ và tạo ảo giác nhân đôi hạt nhân.
+        // 'outer'/'middle'/'inner' không vẽ ở đây — đều là mesh 3D thật (WebGL), do drawZoomTransition điều khiển riêng.
+        function drawShapeOnly(name, a, cx, cy) {
+            if (a <= 0.01) return;
+            if (name === 'cloud') drawElectronCloud(cx, cy, a);
+            else if (name === 'rings') SHELLS.forEach(sh => drawRing(cx, cy, sh.r, 'rgba(90,90,90,0.5)', 2, a));
+        }
+        // Hiệu ứng "bay xuyên vào trong": lớp cũ phình to vọt lên & mờ dần (như lao xuyên qua nó),
+        // lớp mới bắt đầu từ 1 chấm nhỏ xíu rồi phình to dần ra (như đang tiến lại gần) — hạt nhân đứng yên làm điểm neo.
+        function drawZoomTransition(s2, t, cx, cy) {
+            const fromScale = lerp(1, 4.4, t);
+            const fromAlpha = clamp(1 - t / 0.7, 0, 1);
+            const toScale = lerp(0.05, 1, easeOut(t));
+            const toAlpha = clamp((t - 0.12) / 0.68, 0, 1);
+
+            ctx.save();
+            ctx.translate(cx, cy); ctx.scale(fromScale, fromScale); ctx.translate(-cx, -cy);
+            drawShapeOnly(s2.from, fromAlpha, cx, cy);
+            ctx.restore();
+
+            if (s2.from !== 'cloud') drawNucleus(cx, cy, NUCLEUS_R, 1);
+
+            ctx.save();
+            ctx.translate(cx, cy); ctx.scale(toScale, toScale); ctx.translate(-cx, -cy);
+            drawShapeOnly(s2.to, toAlpha, cx, cy);
+            ctx.restore();
+
+            // Mesh 3D thật (WebGL) — đứng ngoài phép biến đổi ctx.scale ở trên nên phải điều khiển
+            // scale/alpha riêng. Canvas WebGL dùng chung 1 scene nên chỉ hiện được 1 mode tại 1 thời
+            // điểm: nếu cả from lẫn to đều cần WebGL (outer→middle, middle→inner) thì đổi mode giữa
+            // chừng ở t=0.5.
+            const isGL = (n) => n === 'outer' || n === 'middle' || n === 'inner';
+            const sf = (n) => n === 'inner' ? 0.7 : 1; // 'inner' nhỏ hơn nên nhân thêm hệ số thu nhỏ
+            if (isGL(s2.from) && isGL(s2.to)) {
+                if (t < 0.5) showOrbGL(s2.from, fromAlpha, fromScale * sf(s2.from));
+                else showOrbGL(s2.to, toAlpha, toScale * sf(s2.to));
+            } else if (isGL(s2.from)) {
+                showOrbGL(s2.from, fromAlpha, fromScale * sf(s2.from));
+            } else if (isGL(s2.to)) {
+                showOrbGL(s2.to, toAlpha, toScale * sf(s2.to));
+            }
+        }
+        // Bước 4 riêng: tất cả AO đã thấy mờ dần đồng thời, các vòng tròn xuất hiện từ trong ra ngoài.
+        // Dùng bản 2D phẳng nhẹ cho cảnh hồi tưởng này (không thể hiện 3 mode WebGL cùng lúc trên 1 canvas).
+        function drawStep4Transition(t, cx, cy) {
+            const aoAlpha = (1 - t) * 0.8;
+            drawNucleus(cx, cy, NUCLEUS_R, 1);
+            if (aoAlpha > 0.01) {
+                drawSphereAO(cx, cy, 150, '#c4b5fd', aoAlpha * 0.6);
+                drawSphereAO(cx, cy, 46, '#93c5fd', aoAlpha);
+                drawPAO(cx, cy, 110, '#E05050', aoAlpha * 0.7, 0);
+                drawPAO(cx, cy, 110, '#50A050', aoAlpha * 0.7, Math.PI / 2);
+                drawPAO(cx, cy, 110, '#5080E0', aoAlpha * 0.7, Math.PI / 4);
+                drawSphereAO(cx, cy, 40, '#c4b5fd', aoAlpha);
+            }
+            SHELLS.forEach((sh, i) => {
+                const ringT = clamp((t - i * 0.12) / 0.55, 0, 1);
+                if (ringT > 0) drawRing(cx, cy, sh.r, 'rgba(90,90,90,0.5)', 2, ringT);
+            });
+        }
+        function drawStage2() {
+            drawGrid();
+            const s2 = state.s2;
+            const cx = CX + 80, cy = CY;
+            if (s2.phase !== 'zooming') { drawLevel(s2.to, 1, 1); return; }
+
+            const t = easeInOut(s2.trans);
+            if (s2.step === 4) {
+                drawStep4Transition(t, cx, cy);
+                return;
+            }
+            drawZoomTransition(s2, t, cx, cy);
+        }
+
+        /* ---------- STAGE 3 ---------- */
+        function initStage3() {
+            state.s3 = { timer: 0, quizShown: false, done: false };
+            setStageHeader(3, 'Quan sát các lớp sáng dần theo mức năng lượng, rồi trả lời câu hỏi.');
+            setActions('');
+            setRobot('Quan sát các vòng tròn sáng dần lên theo thứ tự. Chú ý vị trí của chúng trên <b>trục năng lượng</b> bên phải.');
+            setExplanation('Đang quan sát', 'Mỗi vòng tròn sáng lên tương ứng với một lớp electron, và được đánh dấu bằng một mức trên trục năng lượng bên phải.', 'ti-eye', false);
+        }
+        function updateStage3() {
+            const s3 = state.s3;
+            if (reduceMotion) s3.timer += 6; else s3.timer++;
+            if (!s3.quizShown && s3.timer > 320) {
+                s3.quizShown = true;
+                setRobot('Em thấy gì? Các electron được nhóm thành từng lớp — mỗi lớp nằm ở một mức năng lượng khác nhau. Lớp càng gần hạt nhân, năng lượng càng thấp. Bây giờ hãy trả lời câu hỏi:');
+                showQuiz({
+                    q: 'Electron trong cùng một lớp có đặc điểm gì?',
+                    options: ['Có cùng hình dạng orbital.', 'Có mức năng lượng gần bằng nhau.', 'Có cùng số electron.', 'Cùng nằm trên một vòng tròn quỹ đạo xác định.'],
+                    correct: 1,
+                    correctMsg: 'Đây chính là tiêu chí để xếp electron vào cùng một lớp — không phải hình dạng, không phải vị trí tuyệt đối, mà là <b>mức năng lượng gần bằng nhau</b>.<div class="aha">💡 Những electron có mức năng lượng gần bằng nhau được xếp vào cùng một lớp electron.</div>',
+                    wrongMsg: 'Hãy nhìn lại trục năng lượng bên phải — mỗi lớp nằm ở một mức năng lượng riêng. Thử chọn lại nhé.',
+                    onCorrect: () => { setActions('<button class="btn-primary" id="btnNext3"><i class="ti ti-arrow-right"></i> Tiếp tục</button>'); document.getElementById('btnNext3').onclick = () => gotoStage(4); }
+                });
+            }
+        }
+        function drawEnergyAxis(litCount) {
+            const ax = 585, top = 120, bot = 400;
+            ctx.save();
+            ctx.strokeStyle = '#514C44'; ctx.lineWidth = 2; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(ax, bot); ctx.lineTo(ax, top); ctx.stroke();
+            // arrow head
+            ctx.beginPath(); ctx.moveTo(ax, top); ctx.lineTo(ax - 5, top + 9); ctx.moveTo(ax, top); ctx.lineTo(ax + 5, top + 9); ctx.stroke();
+            label('Năng lượng', ax + 6, top - 6, '#514C44', 13, true, 'left');
+            for (let i = 0; i < litCount; i++) {
+                const sh = SHELLS[i];
+                ctx.strokeStyle = sh.color; ctx.lineWidth = 3;
+                ctx.beginPath(); ctx.moveTo(ax - 16, sh.tickY); ctx.lineTo(ax + 16, sh.tickY); ctx.stroke();
+                label(sh.name, ax + 26, sh.tickY, sh.color, 15, true, 'left');
+            }
+            if (litCount >= 4) label('...', ax + 26, SHELLS[3].tickY - 30, '#514C44', 18, true, 'left');
+            ctx.restore();
+        }
+        function drawStage3() {
+            drawGrid();
+            const s3 = state.s3;
+            SHELLS.forEach((sh, i) => {
+                const startF = 40 + i * 70;
+                const lp = clamp((s3.timer - startF) / 30, 0, 1);
+                // gray base ring
+                drawRing(CX, CY, sh.r, 'rgba(90,90,90,0.35)', 2, 1);
+                if (lp > 0) drawRing(CX, CY, sh.r, sh.color, 2 + 3 * lp, easeOut(lp));
+                if (lp > 0.4) label(sh.name, CX, CY - sh.r + 12, sh.color, 13, true);
+            });
+            drawNucleus(CX, CY, NUCLEUS_R, 1);
+            let lit = 0;
+            SHELLS.forEach((sh, i) => { if (s3.timer > 40 + i * 70 + 15) lit++; });
+            drawEnergyAxis(lit);
+        }
+
+        /* ---------- STAGE 4 ---------- */
+        function initStage4() {
+            state.s4 = { opened: [false, false, false, false], current: 0, animRing: -1, animT: 0, tableRows: 0 };
+            setStageHeader(4, 'Nhấn vào từng lớp (bắt đầu từ K) để mở và xem các phân lớp bên trong.');
+            setActions('');
+            setRobot('Bên trong mỗi lớp còn có gì? Hãy <b>nhấn vào lớp K</b> (vòng trong cùng) trên hình để mở nó ra.');
+            setExplanation('Khám phá phân lớp', 'Mỗi lớp electron lại được chia thành các <b>phân lớp</b> nhỏ hơn. Nhấn vào lớp đang được mũi tên trỏ tới để mở.', 'ti-hand-finger', false);
+            showAux('Bảng tóm tắt phân lớp', buildStage4Table());
+        }
+        const SUB_OF_SHELL = [['1s'], ['2s', '2p'], ['3s', '3p', '3d'], ['4s', '4p', '4d', '4f']];
+        function buildStage4Table() {
+            let rows = '';
+            const s4 = state.s4;
+            for (let i = 0; i < 4; i++) {
+                if (!s4.opened[i]) continue;
+                const sh = SHELLS[i];
+                rows += `<tr class="reveal"><td><b>${sh.name}</b> (n=${sh.n})</td><td>${sh.n}</td><td>${SUB_OF_SHELL[i].join(', ')}</td></tr>`;
+            }
+            return `<table class="summary"><thead><tr><th>Lớp</th><th>Số phân lớp</th><th>Phân lớp</th></tr></thead><tbody>${rows}</tbody></table>`;
+        }
+        const S4_QUIZ = [
+            { q: 'Lớp K có 1 phân lớp (1s). Theo em, lớp L sẽ có bao nhiêu phân lớp?', options: ['1', '2', '3', '4'], correct: 1 },
+            { q: 'Theo em, lớp M sẽ có bao nhiêu phân lớp?', options: ['2', '3', '4', '5'], correct: 1 },
+            { q: 'Theo em, lớp N sẽ có bao nhiêu phân lớp?', options: ['3', '4', '5', '6'], correct: 1 }
+        ];
+        const S4_ROBOT_AFTER = [
+            'Lớp K chỉ có <b>1 phân lớp</b> duy nhất, gọi là phân lớp 1s. Vậy lớp L — lớp tiếp theo — sẽ có bao nhiêu phân lớp? Hãy dự đoán.',
+            'Đúng rồi! Lớp L có <b>2 phân lớp</b>: 2s và 2p. Vậy theo em, lớp M sẽ có bao nhiêu phân lớp?',
+            'Chính xác! Lớp M có <b>3 phân lớp</b>: 3s, 3p, 3d. Tiếp theo, lớp N sẽ có bao nhiêu phân lớp?',
+            'Em đã nhận ra quy luật chưa? Nhìn lại bảng và trả lời câu hỏi cuối.'
+        ];
+        function openShell(i) {
+            const s4 = state.s4;
+            if (state.anim || s4.opened[i] || i !== s4.current) return;
+            s4.animRing = i; s4.animT = 0; state.anim = true;
+            setStatus('Đang mở lớp ' + SHELLS[i].name + '...');
+        }
+        function afterShellOpen(i) {
+            const s4 = state.s4;
+            s4.opened[i] = true;
+            s4.animRing = -1; state.anim = false;
+            setStatus('');
+            showAux('Bảng tóm tắt phân lớp', buildStage4Table());
+            setRobot(S4_ROBOT_AFTER[i]);
+            if (i < 3) {
+                showQuiz({
+                    q: S4_QUIZ[i].q, options: S4_QUIZ[i].options, correct: S4_QUIZ[i].correct,
+                    correctMsg: 'Nhấn vào lớp <b>' + SHELLS[i + 1].name + '</b> trên hình để kiểm chứng.',
+                    wrongMsg: 'Hãy nhìn lại: lớp K có 1 phân lớp, lớp L có 2 phân lớp... Em có nhận ra quy luật không? Thử lại nhé.',
+                    onCorrect: () => { s4.current = i + 1; hideQuiz(); setStatus('Nhấn vào lớp ' + SHELLS[i + 1].name + '.'); }
+                });
+            } else {
+                // N opened -> final rule quiz
+                setExplanation('Đã mở đủ 4 lớp', 'Nhìn lại bảng: K→1, L→2, M→3, N→4 phân lớp. Số phân lớp tăng đúng theo số thứ tự của lớp.', 'ti-circle-check', false);
+                showQuiz({
+                    q: 'Số phân lớp trong mỗi lớp bằng:',
+                    options: ['Số electron tối đa của lớp đó.', 'Số AO trong lớp đó.', 'Số thứ tự của lớp đó.', 'Luôn bằng 4.'],
+                    correct: 2,
+                    correctMsg: 'Lớp thứ n có <b>n phân lớp</b>. Đây là quy luật đơn giản nhưng rất quan trọng.<div class="aha">💡 Lớp thứ n có đúng n phân lớp.</div>',
+                    wrongMsg: 'Nhìn lại bảng: K(n=1)→1, L(n=2)→2, M(n=3)→3... Số phân lớp liên quan đến con số nào?',
+                    onCorrect: () => { setActions('<button class="btn-primary" id="btnNext4"><i class="ti ti-arrow-right"></i> Tiếp tục</button>'); document.getElementById('btnNext4').onclick = () => gotoStage(5); }
+                });
+            }
+        }
+        function updateStage4() {
+            const s4 = state.s4;
+            if (s4.animRing >= 0) {
+                s4.animT += reduceMotion ? 0.1 : 0.04;
+                if (s4.animT >= 1) afterShellOpen(s4.animRing);
+            }
+        }
+        function drawSubBands(i, cx, panelX) {
+            // draw n colored bands for shell i in a detail panel on the right
+            const subs = SUB_OF_SHELL[i];
+            const bandH = 26, gap = 10, startY = CY - (subs.length * (bandH + gap) - gap) / 2;
+            label('Lớp ' + SHELLS[i].name, panelX + 55, startY - 24, SHELLS[i].color, 15, true);
+            subs.forEach((name, k) => {
+                const type = name.slice(-1);
+                const y = startY + k * (bandH + gap);
+                ctx.save();
+                ctx.fillStyle = SUB_COLORS[type];
+                ctx.globalAlpha = 0.9;
+                roundRect(panelX, y, 110, bandH, 6); ctx.fill();
+                ctx.restore();
+                label(name, panelX + 55, y + bandH / 2, '#fff', 14, true);
+            });
+        }
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.arcTo(x + w, y, x + w, y + h, r);
+            ctx.arcTo(x + w, y + h, x, y + h, r);
+            ctx.arcTo(x, y + h, x, y, r);
+            ctx.arcTo(x, y, x + w, y, r);
+            ctx.closePath();
+        }
+        function drawStage4() {
+            drawGrid();
+            const s4 = state.s4;
+            const cx = CX, cy = CY;
+            SHELLS.forEach((sh, i) => {
+                const isCurrent = i === s4.current && !s4.opened[i];
+                const dim = (!s4.opened[i] && !isCurrent) ? 0.32 : 1;
+                const emph = s4.opened[i] ? 1 : (isCurrent ? 1 : 0.4);
+                let r = sh.r;
+                if (s4.animRing === i) r = sh.r * (1 + 0.08 * Math.sin(easeOut(s4.animT) * Math.PI));
+                drawRing(cx, cy, r, sh.color, s4.opened[i] ? 4 : 2.5, dim);
+                label(sh.name, cx, cy - sh.r + 12, sh.color, 13, true);
+                if (isCurrent) {
+                    // Gợi ý nhấp nháy đặt NGAY GIỮA dải có thể bấm của lớp này (khớp vùng click thật)
+                    const prevR = i === 0 ? 0 : SHELLS[i - 1].r;
+                    const midR = prevR + (sh.r - prevR) * 0.55;
+                    const hx = cx, hy = cy - midR;
+                    ctx.save();
+                    const pulse = (time * 0.4) % 1;
+                    ctx.globalAlpha = (1 - pulse) * 0.5;
+                    ctx.strokeStyle = '#E8A24A';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath(); ctx.arc(hx, hy, 6 + pulse * 16, 0, Math.PI * 2); ctx.stroke();
+                    ctx.globalAlpha = 0.65 + 0.35 * Math.sin(time * 4);
+                    ctx.fillStyle = '#E8A24A';
+                    ctx.beginPath(); ctx.arc(hx, hy, 5, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                }
+            });
+            drawNucleus(cx, cy, NUCLEUS_R, 1);
+            // detail panel: show most recently opened shell bands
+            let showIdx = -1;
+            if (s4.animRing >= 0) showIdx = s4.animRing;
+            else for (let i = 3; i >= 0; i--) { if (s4.opened[i]) { showIdx = i; break; } }
+            if (showIdx >= 0) {
+                ctx.save();
+                ctx.globalAlpha = s4.animRing === showIdx ? easeOut(s4.animT) : 1;
+                drawSubBands(showIdx, cx, 590);
+                ctx.restore();
+            }
+        }
+        // Canvas click for stage 4
+        canvas.addEventListener('click', (e) => {
+            if (state.stage !== 4) return;
+            const rect = canvas.getBoundingClientRect();
+            const sx = W / rect.width, sy = H / rect.height;
+            const mx = (e.clientX - rect.left) * sx, my = (e.clientY - rect.top) * sy;
+            const d = Math.hypot(mx - CX, my - CY);
+            // Bấm bất kỳ đâu trong vùng đĩa của lớp đó đều tính (K = từ tâm, L/M/N = phần đĩa giữa 2 vòng liền kề)
+            let idx = -1;
+            for (let i = 0; i < SHELLS.length; i++) {
+                const outerBound = SHELLS[i].r + (i === SHELLS.length - 1 ? 40 : 0);
+                if (d <= outerBound) { idx = i; break; }
+            }
+            if (idx >= 0) openShell(idx);
+        });
+
+        /* ---------- STAGE 5A ---------- */
+        const ORDER_5A = ['s', 'p', 'd', 'f'];
+        const SPOT_CX = 560, SPOT_CY = 140;
+        const ROW5A_Y = [110, 165, 220, 275];
+        const ROW5A_LABEL_X = 50, ROW5A_BOX_START = 150, ROW5A_BOX_SIZE = 22, ROW5A_BOX_GAP = 6;
+        const MAX_E_5A = { s: 2, p: 6, d: 10, f: 14 };
+
+        function initStage5a() {
+            state.s5a = {
+                stageSub: 'fadeOut', fadeT: 0,   // fadeOut -> spotlight -> ready -> filling -> done
+                current: 's', subPhase: 'in', rot: 0, timer: 0, collapseT: 0,
+                shown: { s: false, p: false, d: false, f: false },
+                filled: { s: 0, p: 0, d: 0, f: 0 },
+                fill: { active: false, row: 0, e: 0, timer: 0 }
+            };
+            setStageHeader(5, 'Xem số orbital (AO) trong mỗi phân lớp, rồi điền electron.');
+            setActions('');
+            setRobot('Ở module trước, em đã biết mỗi AO được biểu diễn bằng một ô vuông và chứa tối đa 2 electron. Bây giờ hãy xem mỗi phân lớp gồm bao nhiêu AO.');
+            setExplanation('Phân lớp và số AO', 'Phân lớp s, p, d, f lần lượt có số orbital khác nhau. Quan sát hình orbital rồi đếm số ô vuông tương ứng.', 'ti-atom', false);
+            state.anim = true;
+            setStatus('Đang chuyển cảnh...');
+        }
+        const SUB_INTRO_ROBOT = {
+            p: 'Đúng! Phân lớp p có <b>3 AO</b> theo 3 hướng trong không gian. Phân lớp d và f sẽ có số AO tăng theo cùng quy luật.',
+            ready: 'Bây giờ hãy nhấn <b>Điền electron</b> để xem mỗi phân lớp chứa tối đa bao nhiêu electron.',
+            done: 'Vì mỗi AO chứa tối đa 2 electron, số electron tối đa của mỗi phân lớp bằng <b>số AO × 2</b>. Bây giờ hãy trả lời câu hỏi kiểm tra.'
+        };
+        function s5aShowPQuiz() {
+            setRobot('Phân lớp s chỉ gồm <b>1 AO</b> — hình cầu. Còn phân lớp p thì sao? Nhìn hình đang xoay và đếm số orbital, rồi chọn đáp án.');
+            showQuiz({
+                q: 'Phân lớp p gồm bao nhiêu AO?',
+                options: ['1', '2', '3', '5'], correct: 2,
+                correctMsg: '3 orbital p theo 3 hướng trong không gian → <b>3 AO</b>.',
+                wrongMsg: 'Nhìn lại hình đang xoay — có bao nhiêu hình quả tạ riêng biệt?',
+                onCorrect: () => {
+                    hideQuiz();
+                    setRobot(SUB_INTRO_ROBOT.p);
+                    const s5 = state.s5a;
+                    s5.subPhase = 'hold'; s5.timer = 0;
+                    state.anim = true;
+                }
+            });
+        }
+        function advanceSubshell5a() {
+            const s5 = state.s5a;
+            const idx = ORDER_5A.indexOf(s5.current);
+            if (idx < 3) {
+                s5.current = ORDER_5A[idx + 1];
+                s5.subPhase = 'in';
+                s5.timer = 0;
+                s5.collapseT = 0;
+                setStatus('Đang hiện phân lớp ' + s5.current + '...');
+            } else {
+                s5.current = null;
+                s5.stageSub = 'ready';
+                state.anim = false;
+                setRobot(SUB_INTRO_ROBOT.ready);
+                setStatus('Sẵn sàng điền electron.');
+                setActions('<button class="btn-primary" id="btnFill5a"><i class="ti ti-battery-charging"></i> Điền electron</button>');
+                document.getElementById('btnFill5a').onclick = startFill5a;
+            }
+        }
+        function startFill5a() {
+            const s5 = state.s5a;
+            s5.stageSub = 'filling'; s5.fill = { active: true, row: 0, e: 0, timer: 0 };
+            state.anim = true;
+            setActions('<button class="btn-primary" disabled><i class="ti ti-loader spin"></i> Đang điền...</button>');
+            setStatus('Đang điền electron theo quy tắc Hund...');
+        }
+        function updateStage5a() {
+            const s5 = state.s5a;
+            if (s5.stageSub === 'fadeOut') {
+                s5.fadeT += reduceMotion ? 0.2 : 0.025;
+                if (s5.fadeT >= 1) {
+                    s5.fadeT = 1;
+                    s5.stageSub = 'spotlight';
+                    s5.current = 's'; s5.subPhase = 'in'; s5.timer = 0;
+                    setStatus('Đang hiện phân lớp s...');
+                }
+                return;
+            }
+            if (s5.stageSub === 'spotlight' && s5.current) {
+                if (!reduceMotion) s5.rot += 0.012;
+                if (s5.subPhase === 'in') {
+                    s5.timer++;
+                    const popFrames = reduceMotion ? 4 : 18;
+                    if (s5.timer >= popFrames) {
+                        if (s5.current === 'p') { s5.subPhase = 'quizWait'; s5.timer = 0; s5aShowPQuiz(); }
+                        else { s5.subPhase = 'hold'; s5.timer = 0; }
+                    }
+                } else if (s5.subPhase === 'hold') {
+                    s5.timer++;
+                    const holdFrames = reduceMotion ? 10 : 90; // 1,5 giây
+                    if (s5.timer >= holdFrames) { s5.subPhase = 'collapsing'; s5.collapseT = 0; setStatus('Đang thu gọn thành ô AO...'); }
+                } else if (s5.subPhase === 'collapsing') {
+                    s5.collapseT += reduceMotion ? 0.25 : 1 / 30;
+                    if (s5.collapseT >= 1) {
+                        s5.collapseT = 1;
+                        s5.shown[s5.current] = true;
+                        advanceSubshell5a();
+                    }
+                }
+                return;
+            }
+            if (s5.fill && s5.fill.active) {
+                s5.fill.timer += reduceMotion ? 6 : 1;
+                const interval = 18; // 0,3 giây / electron
+                if (s5.fill.timer >= interval) {
+                    s5.fill.timer = 0;
+                    const row = ORDER_5A[s5.fill.row];
+                    const maxE = MAX_E_5A[row];
+                    s5.fill.e++;
+                    s5.filled[row] = s5.fill.e;
+                    if (s5.fill.e >= maxE) {
+                        s5.fill.row++; s5.fill.e = 0;
+                        if (s5.fill.row >= 4) {
+                            s5.fill.active = false; state.anim = false;
+                            s5aDone();
+                        }
+                    }
+                }
+            }
+        }
+        function s5aDone() {
+            state.s5a.stageSub = 'done';
+            setStatus('Đã điền xong.');
+            setActions('');
+            setRobot(SUB_INTRO_ROBOT.done);
+            setExplanation('Số electron tối đa mỗi phân lớp', 'Vì mỗi AO chứa tối đa 2 electron: s→2, p→6, d→10, f→14.<br><span style="font-size:0.85rem;color:var(--ink-2)">💡 Thứ tự điền electron vào AO theo quy tắc cụ thể sẽ được học ở module tiếp theo.</span>', 'ti-circle-check', false);
+            showQuiz({
+                q: 'Phân lớp d chứa tối đa bao nhiêu electron?',
+                options: ['5', '6', '8', '10'], correct: 3,
+                correctMsg: '5 AO × 2 electron = <b>10 electron</b> tối đa.<div class="aha">💡 Phân lớp s, p, d, f lần lượt có 1, 3, 5, 7 AO và chứa tối đa 2, 6, 10, 14 electron.</div>',
+                wrongMsg: 'Nhìn lại hàng phân lớp d — có bao nhiêu ô? Mỗi ô chứa tối đa 2 electron. Thử tính lại nhé.',
+                onCorrect: () => { setActions('<button class="btn-primary" id="btnNext5a"><i class="ti ti-arrow-right"></i> Tiếp tục</button>'); document.getElementById('btnNext5a').onclick = () => gotoStage(6); }
+            });
+        }
+        // Point-cloud orbital hiển thị trong vùng "spotlight" — cùng kỹ thuật với "middle" (Stage 2,
+        // bước zoom 2/4): chấm vuông chiếu 3D lên canvas 2D, sort theo độ sâu. Tự xoay liên tục quanh
+        // trục Y (rot tăng dần mỗi frame), không cần kéo chuột vì chỉ hiện thoáng qua.
+        let s5aPoints = { s: [], p: [], d: [], f: [] };
+        function initS5aPoints() {
+            s5aPoints.s = [];
+            const numS = 1600;
+            for (let i = 0; i < numS; i++) {
+                const y = 1 - (i / (numS - 1)) * 2;
+                const r = Math.sqrt(1 - y * y);
+                const theta = 2.399963 * i;
+                s5aPoints.s.push({
+                    x: Math.cos(theta) * r * 50, y: y * 50, z: Math.sin(theta) * r * 50,
+                    color: SUB_COLORS.s, size: Math.random() * 1.3 + 0.5, baseAlpha: Math.random() * 0.5 + 0.35
+                });
+            }
+            const baseLobe = [];
+            const numP = 2200;
+            for (let i = 0; i < numP; i++) {
+                const theta = Math.acos(1 - 2 * (i / (numP - 1)));
+                const phi = 2.399963 * i;
+                const cosT = Math.cos(theta);
+                const r = 85 * cosT * cosT;
+                baseLobe.push({ x: r * Math.sin(theta) * Math.cos(phi), y: r * Math.sin(theta) * Math.sin(phi), z: r * cosT });
+            }
+            // Xoay 1 điểm (thùy gốc dọc trục Z) sang trùng với 1 trục hướng bất kỳ trong không gian 3D
+            // (công thức Rodrigues, trục quay = cross((0,0,1), axis) nên chỉ có thành phần x,y)
+            function rotateToAxis(p, axis) {
+                let ax = -axis.y, ay = axis.x;
+                const alen = Math.sqrt(ax * ax + ay * ay);
+                const dot = clamp(axis.z, -1, 1);
+                if (alen < 1e-6) {
+                    return dot > 0 ? { x: p.x, y: p.y, z: p.z } : { x: -p.x, y: -p.y, z: -p.z };
+                }
+                ax /= alen; ay /= alen;
+                const theta = Math.acos(dot);
+                const c = Math.cos(theta), s = Math.sin(theta), t = 1 - c;
+                const nx = p.x * (c + ax * ax * t) + p.y * (ax * ay * t) + p.z * (ay * s);
+                const ny = p.x * (ay * ax * t) + p.y * (c + ay * ay * t) + p.z * (-ax * s);
+                const nz = p.x * (-ay * s) + p.y * (ax * s) + p.z * c;
+                return { x: nx, y: ny, z: nz };
+            }
+            // n trục hướng phân bố đều trên nửa mặt cầu (Fibonacci sphere) — dùng cho d (5) và f (7)
+            function fibHemisphereAxes(n) {
+                const axes = [];
+                for (let i = 0; i < n; i++) {
+                    const y = (i + 0.5) / n;
+                    const r = Math.sqrt(1 - y * y);
+                    const theta = 2.399963 * i;
+                    axes.push({ x: Math.cos(theta) * r, y, z: Math.sin(theta) * r });
+                }
+                return axes;
+            }
+            ['p', 'd', 'f'].forEach(type => {
+                const n = SUB_COUNT[type];
+                const color = SUB_COLORS[type];
+                // p: đúng 3 trục x/y/z thật (khớp orbital p ở "middle") — d/f: tỏa đều nhiều hướng 3D
+                const axes = type === 'p'
+                    ? [{ x: 1, y: 0, z: 0 }, { x: 0, y: 1, z: 0 }, { x: 0, y: 0, z: 1 }]
+                    : fibHemisphereAxes(n);
+                const pts = [];
+                axes.forEach(axis => {
+                    baseLobe.forEach(p => {
+                        const rp = rotateToAxis(p, axis);
+                        pts.push({ x: rp.x, y: rp.y, z: rp.z, color, size: Math.random() * 1.2 + 0.5, baseAlpha: Math.random() * 0.45 + 0.3 });
+                    });
+                });
+                s5aPoints[type] = pts;
+            });
+        }
+        initS5aPoints();
+        function drawOrbitalCloud5a(type, cx, cy, rot, alpha) {
+            if (alpha <= 0.01) return;
+            const aX = -0.3, aY = rot;
+            const screenPts = s5aPoints[type].map(pt => {
+                const rx1 = pt.x * Math.cos(aY) - pt.z * Math.sin(aY);
+                const rz1 = pt.x * Math.sin(aY) + pt.z * Math.cos(aY);
+                const ry2 = pt.y * Math.cos(aX) - rz1 * Math.sin(aX);
+                const rz2 = pt.y * Math.sin(aX) + rz1 * Math.cos(aX);
+                return { sx: cx + rx1, sy: cy + ry2, depth: rz2, size: pt.size, baseAlpha: pt.baseAlpha, color: pt.color };
+            });
+            screenPts.sort((a, b) => a.depth - b.depth);
+            ctx.save();
+            screenPts.forEach(p => {
+                const sc = 1 + p.depth / 140;
+                let drawSize = (p.size || 1.2) * clamp(sc, 0.5, 1.5);
+                const depthAlpha = clamp((p.depth + 70) / 140, 0.3, 1.0);
+                drawSize = Math.max(0.2, drawSize + (reduceMotion ? 0 : Math.sin(time * 3 + p.sx) * 0.15));
+                ctx.globalAlpha = (p.baseAlpha || 0.6) * depthAlpha * alpha;
+                ctx.fillStyle = p.color;
+                ctx.fillRect(p.sx - drawSize / 2, p.sy - drawSize / 2, drawSize, drawSize);
+            });
+            ctx.restore();
+        }
+        function drawSubRow5a(type, i, filledCount, revealAlpha) {
+            if (revealAlpha <= 0.01) return;
+            const y = ROW5A_Y[i];
+            ctx.save();
+            ctx.globalAlpha = revealAlpha;
+            label('Phân lớp ' + type, ROW5A_LABEL_X, y, SUB_COLORS[type], 15, true, 'left');
+            const endX = drawBoxRow(ROW5A_BOX_START, y, SUB_COUNT[type], ROW5A_BOX_SIZE, ROW5A_BOX_GAP, filledCount);
+            label(SUB_COUNT[type] + ' AO', endX + 20, y, '#514C44', 13, true, 'left');
+            if (filledCount >= MAX_E_5A[type]) label('tối đa ' + MAX_E_5A[type] + 'e', endX + 86, y, SUB_COLORS[type], 13, true, 'left');
+            ctx.restore();
+        }
+        function drawStage5a() {
+            drawGrid();
+            const s5 = state.s5a;
+
+            // Canvas ban đầu: mô hình 4 lớp Stage 4 mờ dần rồi biến mất
+            if (s5.stageSub === 'fadeOut') {
+                const a = 1 - easeInOut(s5.fadeT);
+                if (a > 0.01) {
+                    SHELLS.forEach(sh => drawRing(CX, CY, sh.r, 'rgba(90,90,90,0.5)', 2, a));
+                    drawNucleus(CX, CY, NUCLEUS_R, a);
+                }
+                return;
+            }
+
+            // Các hàng phân lớp đã "chốt" (đã thu gọn xong)
+            ORDER_5A.forEach((type, i) => { if (s5.shown[type]) drawSubRow5a(type, i, s5.filled[type], 1); });
+
+            // Phân lớp đang trong vùng spotlight (đang hiện / đang thu gọn)
+            if (s5.stageSub === 'spotlight' && s5.current) {
+                const type = s5.current;
+                const i = ORDER_5A.indexOf(type);
+                if (s5.subPhase === 'collapsing') {
+                    const t = easeInOut(s5.collapseT);
+                    const rowAnchorX = ROW5A_BOX_START + 20, rowAnchorY = ROW5A_Y[i];
+                    const px = lerp(SPOT_CX, rowAnchorX, t);
+                    const py = lerp(SPOT_CY, rowAnchorY, t);
+                    const scale = lerp(1, 0.22, t);
+                    ctx.save();
+                    ctx.translate(px, py); ctx.scale(scale, scale); ctx.translate(-px, -py);
+                    drawOrbitalCloud5a(type, px, py, s5.rot, 1 - t);
+                    ctx.restore();
+                    if (1 - t > 0.01) {
+                        ctx.save();
+                        ctx.globalAlpha = 1 - t;
+                        label('Phân lớp ' + type, SPOT_CX, SPOT_CY + 92, SUB_COLORS[type], 15, true);
+                        ctx.restore();
+                    }
+                    drawSubRow5a(type, i, 0, t);
+                } else {
+                    const popT = s5.subPhase === 'in' ? easeOut(clamp(s5.timer / 18, 0, 1)) : 1;
+                    ctx.save();
+                    ctx.translate(SPOT_CX, SPOT_CY); ctx.scale(popT, popT); ctx.translate(-SPOT_CX, -SPOT_CY);
+                    drawOrbitalCloud5a(type, SPOT_CX, SPOT_CY, s5.rot, popT);
+                    ctx.restore();
+                    label('Phân lớp ' + type, SPOT_CX, SPOT_CY + 92, SUB_COLORS[type], 15, true);
+                }
+            }
+        }
+
+        /* ---------- STAGE 5B ---------- */
+        function initStage5b() {
+            state.s5b = {
+                phase: 'introKLM',   // introKLM -> askN -> showN -> askRule -> showCalc -> ready -> filling -> done
+                shown: [false, false, false, false],
+                revealTimer: 0, revealIdx: 0,
+                showCalc: false,
+                fill: { active: false, idx: 0, e: 0, timer: 0 }, filledE: [0, 0, 0, 0]
+            };
+            setStageHeader(6, 'Xem tổng số AO trong mỗi lớp (K→L→M), dự đoán lớp N, rồi tính số electron.');
+            setActions('');
+            setRobot('Bây giờ hãy xem mỗi lớp tổng cộng chứa bao nhiêu AO, bằng cách cộng AO của tất cả phân lớp trong lớp đó.');
+            setExplanation('Số AO trong mỗi lớp', 'Lớp K có 1 AO, lớp L có 4 AO, lớp M có 9 AO... Hãy quan sát và tìm quy luật.', 'ti-stack-2', false);
+            state.anim = true; setStatus('Đang hiện lớp K...');
+        }
+        const SHELL_AO = [1, 4, 9, 16];
+        const SHELL_E = [2, 8, 18, 32];
+        function updateStage5b() {
+            const s = state.s5b;
+            if (s.phase === 'introKLM') {
+                s.revealTimer += reduceMotion ? 8 : 1;
+                if (s.revealTimer > 70) {
+                    s.revealTimer = 0;
+                    s.shown[s.revealIdx] = true;
+                    s.revealIdx++;
+                    if (s.revealIdx >= 3) { s5bAskN(); }
+                    else setStatus('Đang hiện lớp ' + SHELLS[s.revealIdx].name + '...');
+                }
+            }
+            if (s.fill.active) {
+                s.fill.timer += reduceMotion ? 6 : 1;
+                if (s.fill.timer >= 8) {
+                    s.fill.timer = 0;
+                    const idx = s.fill.idx;
+                    s.fill.e++;
+                    s.filledE[idx] = s.fill.e;
+                    if (s.fill.e >= SHELL_E[idx]) {
+                        s.fill.idx++; s.fill.e = 0;
+                        if (s.fill.idx >= 4) { s.fill.active = false; state.anim = false; s5bDone(); }
+                    }
+                }
+            }
+        }
+        function s5bAskN() {
+            const s = state.s5b; s.phase = 'askN'; state.anim = false; setStatus('');
+            setRobot('K có 1 AO, L có 4 AO, M có 9 AO... Theo em, lớp <b>N</b> sẽ có bao nhiêu AO?');
+            showQuiz({
+                q: 'Lớp N (n=4) có bao nhiêu AO?',
+                options: ['12', '14', '16', '18'], correct: 2,
+                correctMsg: 'Đúng! Lớp N có <b>16 AO</b>.',
+                wrongMsg: 'Gợi ý: K=1, L=4, M=9. Con số tiếp theo trong dãy 1, 4, 9, ... là bao nhiêu?',
+                onCorrect: () => { hideQuiz(); s.shown[3] = true; s.phase = 'askRule'; s5bAskRule(); }
+            });
+        }
+        function s5bAskRule() {
+            const s = state.s5b;
+            setRobot('Đúng rồi — <b>16 AO</b>. Em có nhận ra quy luật không? Hãy chọn đáp án.');
+            showQuiz({
+                q: 'Số AO tối đa của lớp thứ n bằng:',
+                options: ['n', '2n', 'n²', '2n²'], correct: 2,
+                correctMsg: '1, 4, 9, 16 — đúng là <b>n²</b>.',
+                wrongMsg: 'Nhìn lại: K(n=1)→1, L(n=2)→4, M(n=3)→9. Thử tính n² cho từng trường hợp xem.',
+                onCorrect: () => {
+                    hideQuiz(); s.showCalc = true; s.phase = 'ready';
+                    setRobot('Số AO của lớp thứ n bằng <b>n²</b>. Rất dễ nhớ! Bây giờ nhấn <b>Điền electron</b> để tính số electron tối đa.');
+                    setExplanation('Quy luật số AO', 'Số AO của lớp thứ n là <b>n²</b>: K=1²=1, L=2²=4, M=3²=9, N=4²=16.', 'ti-circle-check', false);
+                    setActions('<button class="btn-primary" id="btnFill5b"><i class="ti ti-battery-charging"></i> Điền electron</button>');
+                    document.getElementById('btnFill5b').onclick = startFill5b;
+                }
+            });
+        }
+        function startFill5b() {
+            const s = state.s5b;
+            s.phase = 'filling'; s.fill = { active: true, idx: 0, e: 0, timer: 0 }; state.anim = true;
+            setActions('<button class="btn-primary" disabled><i class="ti ti-loader spin"></i> Đang điền...</button>');
+            setStatus('Đang điền electron...');
+        }
+        function s5bDone() {
+            const s = state.s5b; s.phase = 'done'; setStatus('Đã điền xong.'); setActions('');
+            setRobot('Vì mỗi AO chứa tối đa 2 electron, số electron tối đa của lớp thứ n bằng <b>2n²</b>. Hãy xác nhận bằng câu hỏi cuối.');
+            setExplanation('Số electron tối đa mỗi lớp', 'K→2e, L→8e, M→18e, N→32e. Tổng quát: lớp thứ n chứa tối đa <b>2n²</b> electron.', 'ti-circle-check', false);
+            showAux('Bảng tóm tắt lớp electron', buildStage5bTable());
+            s5bQuizFormula();
+        }
+        function buildStage5bTable() {
+            let rows = '';
+            for (let i = 0; i < 4; i++) {
+                rows += `<tr><td><b>${SHELLS[i].name}</b> (n=${SHELLS[i].n})</td><td>${SHELLS[i].n}</td><td>${SHELL_AO[i]}</td><td>${SHELL_E[i]}</td></tr>`;
+            }
+            return `<table class="summary"><thead><tr><th>Lớp</th><th>Số phân lớp</th><th>Số AO (n²)</th><th>e tối đa (2n²)</th></tr></thead><tbody>${rows}</tbody></table>`;
+        }
+        function s5bQuizFormula() {
+            showQuiz({
+                q: 'Số electron tối đa của lớp thứ n bằng:',
+                options: ['n²', '2n', '2n²', 'n³'], correct: 2,
+                correctMsg: 'n² AO × 2 electron mỗi AO = <b>2n²</b> electron.',
+                wrongMsg: 'Mỗi AO chứa tối đa 2 electron, và lớp n có n² AO. Vậy tổng electron tối đa là bao nhiêu?',
+                onCorrect: () => s5bQuizApply()
+            });
+        }
+        function s5bQuizApply() {
+            setRobot('Câu hỏi cuối — hãy áp dụng tổng hợp mọi thứ em vừa học.');
+            showQuiz({
+                q: 'Lớp M (n=3) có bao nhiêu phân lớp? Chứa tối đa bao nhiêu electron?',
+                options: ['2 phân lớp — 8 electron', '3 phân lớp — 18 electron', '3 phân lớp — 9 electron', '4 phân lớp — 32 electron'],
+                correct: 1,
+                correctMsg: 'Lớp M (n=3): <b>3 phân lớp</b> (3s, 3p, 3d) và 2×3² = <b>18 electron</b> tối đa.<div class="aha">💡 Lớp thứ n có n² AO và chứa tối đa 2n² electron.</div>',
+                wrongMsg: 'Áp dụng từng bước: số phân lớp = n = 3; số electron tối đa = 2n² = 2×9 = 18. Thử lại nhé.',
+                onCorrect: () => { setActions('<button class="btn-primary" id="btnEnd"><i class="ti ti-flag-checkered"></i> Tổng kết Module</button>'); document.getElementById('btnEnd').onclick = () => gotoStage(7); }
+            });
+        }
+        function drawStage5b() {
+            drawGrid();
+            const s = state.s5b;
+            const rowY = [100, 190, 280, 370];
+            const labelX = 40, boxStart = 130, size = 21, gap = 5;
+            for (let i = 0; i < 4; i++) {
+                if (!s.shown[i]) continue;
+                const y = rowY[i];
+                label('Lớp ' + SHELLS[i].name, labelX, y, SHELLS[i].color, 17, true, 'left');
+                const endX = drawBoxRow(boxStart, y, SHELL_AO[i], size, gap, s.filledE[i]);
+                if (s.showCalc) label(SHELLS[i].n + '² = ' + SHELL_AO[i] + ' AO', endX + 16, y, '#1A1A1A', 16, true, 'left');
+                else label(SHELL_AO[i] + ' AO', endX + 16, y, '#1A1A1A', 16, true, 'left');
+                if (s.phase === 'done') label('→ ' + SHELL_E[i] + 'e', endX + 138, y, SHELLS[i].color, 17, true, 'left');
+            }
+        }
+
+        /* ---------- END ---------- */
+        function initEnd() {
+            state.s6 = { timer: 0, level: 0 };
+            elProgText.textContent = 'Hoàn thành';
+            elStageTitle.textContent = 'Tổng kết Module';
+            elStepDesc.textContent = 'Sơ đồ phân cấp tổ chức electron trong nguyên tử.';
+            renderDots();
+            document.querySelectorAll('.progress-dot').forEach(d => { d.classList.remove('active'); d.classList.add('completed'); d.innerHTML = '<i class="ti ti-check"></i>'; });
+            setActions('<button class="btn-reset" id="btnRestart"><i class="ti ti-refresh"></i> Học lại từ đầu</button>');
+            document.getElementById('btnRestart').onclick = () => gotoStage(1);
+            setRobot('Em đã hoàn thành <b>Module 3</b>! Từ orbital → phân lớp → lớp electron, em đã khám phá cách các electron được tổ chức bên trong nguyên tử theo một hệ thống rất logic. Ở module tiếp theo, ta sẽ tìm hiểu electron phân bố vào các AO theo thứ tự nào để tạo nên cấu hình electron.');
+            setExplanation('Hoàn thành Module 3', 'Toàn bộ trật tự tổ chức electron: <b>Electron → Orbital (AO) → Phân lớp → Lớp electron</b>. Xem bảng tóm tắt các quy luật quan trọng bên dưới.', 'ti-award', true);
+            showAux('Bảng tóm tắt các quy luật', buildEndTable());
+        }
+        function buildEndTable() {
+            return `<table class="summary"><thead><tr><th>Đối tượng</th><th>Quy luật</th></tr></thead><tbody>
+                <tr><td>Lớp thứ n</td><td>Có n phân lớp</td></tr>
+                <tr><td>Phân lớp s, p, d, f</td><td>Có 1, 3, 5, 7 AO</td></tr>
+                <tr><td>Lớp thứ n</td><td>Có n² AO</td></tr>
+                <tr><td>Phân lớp s, p, d, f</td><td>Chứa tối đa 2, 6, 10, 14 electron</td></tr>
+                <tr><td>Lớp thứ n</td><td>Chứa tối đa 2n² electron</td></tr>
+                </tbody></table>`;
+        }
+        const HIER = [
+            { t: 'Electron', c: '#3CA57A', ic: 'e⁻' },
+            { t: 'Orbital nguyên tử (AO)', c: '#2F7DE0', ic: 'AO' },
+            { t: 'Phân lớp', c: '#F0872E', ic: 's p d f' },
+            { t: 'Lớp electron', c: '#9B59D0', ic: 'K L M N' }
+        ];
+        function updateEnd() {
+            const s = state.s6;
+            s.timer += reduceMotion ? 8 : 1;
+            if (s.timer > 45 && s.level < 4) { s.level++; s.timer = 0; }
+        }
+        function drawStage7() {
+            drawGrid();
+            const s = state.s6;
+            const boxW = 300, boxH = 54, gap = 18;
+            const totalH = 4 * boxH + 3 * gap;
+            const startY = (H - totalH) / 2;
+            const cx = W / 2;
+            // draw from bottom (Electron) up to top (Lớp)
+            for (let i = 0; i < 4; i++) {
+                const levelFromBottom = i; // HIER[0]=electron bottom
+                if (s.level <= i) continue;
+                const y = startY + (3 - i) * (boxH + gap);
+                const appearT = clamp((s.timer + (s.level - i - 1) * 45) / 30, 0, 1);
+                ctx.save();
+                ctx.globalAlpha = s.level === i + 1 ? easeOut(appearT) : 1;
+                ctx.fillStyle = HIER[i].c;
+                roundRect(cx - boxW / 2, y, boxW, boxH, 12); ctx.fill();
+                label(HIER[i].t, cx, y + boxH / 2, '#fff', 18, true);
+                ctx.restore();
+                // arrow up to next
+                if (i < 3 && s.level > i + 1) {
+                    ctx.save();
+                    ctx.strokeStyle = '#514C44'; ctx.lineWidth = 2; ctx.fillStyle = '#514C44';
+                    const ay = y - gap, ax = cx;
+                    ctx.beginPath(); ctx.moveTo(ax, y); ctx.lineTo(ax, ay + 2); ctx.stroke();
+                    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax - 5, ay + 8); ctx.lineTo(ax + 5, ay + 8); ctx.closePath(); ctx.fill();
+                    ctx.restore();
+                }
+            }
+        }
+
+        /* ============ MAIN LOOP ============ */
+        function loop() {
+            time += 0.03;
+            ctx.clearRect(0, 0, W, H);
+            hideOrbGL(); // mặc định ẩn — chỉ Stage 2 (khi cần hiện AO "outer") mới tự bật lại trong frame này
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: updateStage2(); drawStage2(); break;
+                case 3: updateStage3(); drawStage3(); break;
+                case 4: updateStage4(); drawStage4(); break;
+                case 5: updateStage5a(); drawStage5a(); break;
+                case 6: updateStage5b(); drawStage5b(); break;
+                case 7: updateEnd(); drawStage7(); break;
+            }
+            // keep ALL buttons (including Quay lại / Làm lại) disabled while animating
+            if (state.anim) {
+                document.querySelectorAll('#controlsActionsRow button').forEach(b => { if (!b.dataset.keep) b.disabled = true; });
+            } else {
+                btnBack.disabled = state.stage <= 1;
+                btnRedo.disabled = false;
+            }
+            renderOrbGL();
+            requestAnimationFrame(loop);
+        }
+
+        gotoStage(1);
+        loop();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2400 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bài 13 — Module 2: Tương tác van der Waals</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <script type="application/json" id="athena-context">
+{
+  "title": "Tương tác van der Waals",
+  "subject": "Hóa học",
+  "grade": "10",
+  "objectives": [
+    "Giải thích được tương tác van der Waals hình thành do lực hút tĩnh điện yếu giữa các đầu mang điện trái dấu của lưỡng cực tạm thời và lưỡng cực cảm ứng ở hai phân tử không phân cực",
+    "Rút ra được rằng trong dãy F₂ → Cl₂ → Br₂ → I₂, đám mây electron càng lớn và càng dễ bị biến dạng thì tương tác van der Waals càng mạnh, làm nhiệt độ nóng chảy và nhiệt độ sôi tăng"
+  ],
+  "structure": [
+    { "id": "stage1", "title": "Tương tác van der Waals được hình thành như thế nào?" },
+    { "id": "stage2", "title": "Tương tác van der Waals ảnh hưởng đến nhiệt độ nóng chảy và nhiệt độ sôi như thế nào?" }
+  ]
+}
+    </script>
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --warning: #C58A2E;
+            --warning-bg: #F5E7CB;
+            --info: #4E7F92;
+            --info-bg: #DCE7EB;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 0;
+            font-family: inherit;
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 0;
+            max-width: 100%;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 2px solid var(--jade-deep);
+            outline-offset: 2px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        /* ============ BUTTONS ============ */
+        .btn-primary,
+        .btn-secondary,
+        .btn-reset {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 0 16px;
+            min-height: 44px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+            border: 1px solid var(--jade);
+            box-shadow: 0 2px 6px rgba(60, 165, 122, 0.25);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+            border-color: var(--jade-deep);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(45, 139, 111, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+            transform: translateY(-1px);
+        }
+
+        .btn-reset {
+            background-color: transparent;
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+            transform: translateY(-1px);
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* ============ INTRO & GOAL ============ */
+        .intro-text {
+            width: 100%;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 16px;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        /* ============ LAB WRAPPER ============ */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .ai-guide {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 18px;
+            transition: all 0.3s ease;
+            background-color: var(--sage-pale);
+            border-left: 5px solid var(--jade);
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 5px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 5px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            margin-top: 2px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1.02rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.55;
+        }
+
+        .ai-text p {
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .ai-text p + p {
+            margin-top: 6px;
+        }
+
+        /* ============ CONTROLS ============ */
+        .controls-card {
+            padding: 8px 14px;
+            display: flex;
+            align-items: center;
+        }
+
+        .ctrl-row {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scrollbar-width: thin;
+        }
+
+        .ctrl-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 6px 2px;
+            background-color: var(--paper-line);
+        }
+
+        .ctrl-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: var(--jade-text);
+            white-space: nowrap;
+        }
+
+        .ctrl-badge {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--jade-pale);
+            color: var(--jade-text);
+            border: 1px solid var(--sage);
+            border-radius: 20px;
+            padding: 6px 12px;
+            font-size: 13px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            white-space: nowrap;
+        }
+
+        .range-slider {
+            flex: 1 1 140px;
+            min-width: 110px;
+            height: 20px;
+            border-radius: 4px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            accent-color: var(--jade);
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-runnable-track {
+            height: 6px;
+            border-radius: 4px;
+            background: var(--paper-line);
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--jade);
+            border: 2px solid var(--cream);
+            margin-top: -7px;
+            box-shadow: 0 1px 4px rgba(26, 26, 26, 0.3);
+            cursor: pointer;
+        }
+
+        .stepper-dots {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .step-dot.active {
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px var(--jade-pale);
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        /* ============ CANVAS ============ */
+        .canvas-card {
+            width: 100%;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 760 / 350;
+            padding: 2px;
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 6s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 10px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        /* ============ BẢNG QUAN SÁT & KẾT LUẬN ============ */
+        .side-card {
+            padding: 16px 20px;
+        }
+
+        .side-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--ink);
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+            font-size: 1.15rem;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid var(--paper-line);
+        }
+
+        .side-card table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            background: var(--cream);
+        }
+
+        .side-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            padding: 9px 12px;
+            text-align: left;
+            border-bottom: 1.5px solid var(--sage);
+            box-sizing: border-box;
+        }
+
+        .side-card tbody td {
+            padding: 9px 12px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+            box-sizing: border-box;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .side-card tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .side-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .conclusion-block {
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 12px 16px;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .conclusion-block.is-done {
+            background-color: var(--correct-bg);
+            border-left-color: var(--correct);
+        }
+
+        .conclusion-block-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .conclusion-block-body {
+            font-size: 14.5px;
+            color: var(--ink-2);
+            line-height: 1.6;
+        }
+
+        .conclusion-block-body p {
+            margin: 0;
+            max-width: 100%;
+        }
+
+        .quiz-box {
+            margin-top: 8px;
+        }
+
+        .quiz-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin: 6px 0 10px;
+            line-height: 1.5;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-opt-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: inherit;
+            font-size: 14px;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            gap: 10px;
+        }
+
+        .quiz-opt-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+            transform: translateX(2px);
+        }
+
+        .quiz-opt-key {
+            flex: 0 0 24px;
+            font-weight: 700;
+            color: var(--ink-2);
+        }
+
+        .quiz-opt-text {
+            flex: 1;
+        }
+
+        .quiz-opt-btn.correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .quiz-opt-btn.wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-feedback {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            line-height: 1.55;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .quiz-feedback p {
+            margin: 4px 0 0 0;
+            max-width: 100%;
+            font-size: 14px;
+        }
+
+        .quiz-feedback.correct {
+            background: var(--correct-bg);
+            color: var(--jade-text);
+            border: 1px solid var(--sage);
+        }
+
+        .quiz-feedback.wrong {
+            background: var(--wrong-bg);
+            color: var(--wrong);
+            border: 1px solid #eec4b2;
+        }
+
+        .fb-heading {
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .modal-card {
+            background: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 14px;
+            padding: 28px;
+            max-width: 520px;
+            width: 100%;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-icon {
+            font-size: 40px;
+            color: var(--jade);
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .modal-results {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14.5px;
+            color: var(--ink);
+        }
+
+        .modal-results div {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-results i {
+            color: var(--correct);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* ============ RESPONSIVE LAYOUT ============ */
+        @media (max-width: 1100px) {
+            .canvas-glow-wrap {
+                min-height: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 12px 16px;
+                gap: 12px;
+            }
+
+            .goal-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                padding: 10px 12px;
+            }
+
+            .goal-divider {
+                display: none;
+            }
+
+            .side-card {
+                padding: 12px 14px;
+            }
+
+            .side-card h3 {
+                font-size: 0.95rem;
+                margin-bottom: 8px;
+            }
+        }
+
+        /* Ghim khối điều khiển xuống đáy màn hình khi ≤767px */
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                background-color: var(--cream-2);
+                border-top: 1px solid var(--paper-line);
+                border-radius: 0;
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.10);
+                padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+                margin: 0 !important;
+            }
+
+            body {
+                padding-bottom: 86px;
+            }
+
+            .ctrl-row {
+                justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .side-card thead th,
+            .side-card tbody td {
+                padding: 6px 6px;
+                font-size: 0.8rem;
+            }
+
+            .intro-text {
+                font-size: 13.5px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="intro-text">
+        <strong>Giới thiệu bài học:</strong> Bài học giúp em khám phá bản chất của tương tác van der Waals giữa các phân
+        tử không phân cực. Em sẽ quan sát cách chuyển động của electron tạo nên các lưỡng cực tức thời làm xuất hiện lực
+        hút, sau đó so sánh kích thước đám mây electron của F₂, Cl₂, Br₂, I₂ khi tăng nhiệt độ để khám phá tương tác đó
+        ảnh hưởng thế nào đến nhiệt độ nóng chảy và nhiệt độ sôi.
+    </div>
+
+    <div class="goal-bar" id="stageGoal">
+        <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Giải thích được sự hình thành tương tác van der Waals giữa hai phân tử không phân
+            cực.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <div class="ai-guide card state-idle" id="aiGuideBar" role="region" aria-label="Hướng dẫn từ AI trợ giảng">
+            <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp"
+                    alt="Athena AI"></div>
+            <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+        </div>
+
+        <div class="card controls-card" id="controlsCard">
+            <div class="ctrl-row" id="ctrlRow"></div>
+        </div>
+
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="350" role="img" tabindex="0"
+                    aria-label="Mô phỏng tương tác van der Waals giữa hai phân tử không phân cực và ảnh hưởng của tương tác này đến nhiệt độ nóng chảy, nhiệt độ sôi của F₂, Cl₂, Br₂, I₂."></canvas>
+            </div>
+        </div>
+
+        <div class="card side-card">
+            <h3><i class="ti ti-table"></i> Bảng quan sát</h3>
+            <div class="observe-wrap">
+                <table>
+                    <thead id="observeThead"></thead>
+                    <tbody id="observeTableBody">
+                        <tr>
+                            <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card side-card">
+            <h3><i class="ti ti-checklist"></i> Kết luận &amp; Câu hỏi</h3>
+            <div class="conclusion-body" id="conclusionBody"></div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành module <strong>Tương tác van der Waals</strong> — giải thích được
+                vì sao giữa các phân tử không phân cực vẫn xuất hiện lực hút thông qua lưỡng cực tạm thời và lưỡng cực
+                cảm ứng, đồng thời hiểu được vì sao nhiệt độ nóng chảy và nhiệt độ sôi tăng dần theo dãy F₂ → Cl₂ → Br₂
+                → I₂.</p>
+            <div class="modal-results" id="modalResultsList"></div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); goToStage(1);">
+                    <i class="ti ti-refresh"></i> Ôn lại từ đầu
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================================================
+        // LMS / ATHENA INSTRUMENTATION
+        // ======================================================
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+        const lmsAnswers = {};
+        let _lmsQCounter = 0;
+        let completed = false;
+        function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+            lmsAnswers[qid] = { stage: state.stage, prompt, options: options ? options.map(o => o.key + ') ' + o.text) : null, chosen, correct: !!correct };
+            LMS().event('answered', { id: qid, stage: state.stage, chosen, correct: !!correct });
+            LMS().progress({ done: Object.keys(lmsAnswers).length, total: 2 });
+        }
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStep: state.stage, totalSteps: 2, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+        }
+        function reportHeight() { LMS().resize({ height: document.documentElement.scrollHeight }); }
+        window.addEventListener('load', reportHeight);
+        const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+        _lmsRo.observe(document.body);
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (savedState) {
+                if (savedState && savedState.currentStep) goToStage(savedState.currentStep);
+            };
+        }
+
+        // ======================================================
+        // CANVAS & HIGH-DPI UTILITIES
+        // ======================================================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const BASE_W = 760, BASE_H = 350;
+        let dpr = window.devicePixelRatio || 1;
+        let time = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            dpr = window.devicePixelRatio || 1;
+            const targetW = Math.round(rect.width * dpr);
+            const targetH = Math.round(rect.height * dpr);
+            if (canvas.width !== targetW || canvas.height !== targetH) {
+                canvas.width = targetW;
+                canvas.height = targetH;
+            }
+        }
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function rgba(c, a) { return `rgba(${c.r},${c.g},${c.b},${a})`; }
+
+        function roundRect(x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const COLORS = {
+            jade: { r: 60, g: 165, b: 122 },
+            jadeDeep: { r: 45, g: 139, b: 111 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 },
+            ink: { r: 26, g: 26, b: 26 },
+            cream: { r: 250, g: 247, b: 240 }
+        };
+
+        function organicNoise(seed, t) {
+            return 0.5 * Math.sin(t * 1.1 + seed) + 0.3 * Math.sin(t * 2.2 + seed * 2.3) + 0.2 * Math.sin(t * 3.1 + seed * 0.7);
+        }
+
+        let particles = [], rings = [], flashTimer = 0;
+        function spawnParticles(x, y, count, rgb) {
+            if (reduceMotion) return;
+            const c = rgb || COLORS.jade;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2.5 + 1.2;
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    life: 1.0,
+                    decay: Math.random() * 0.03 + 0.02,
+                    size: Math.random() * 2.5 + 1.5,
+                    rgb: c
+                });
+            }
+        }
+        function spawnRing(x, y, rgb) { rings.push({ x, y, r: 4, alpha: 0.7, rgb: rgb || COLORS.jade }); }
+        function playSuccessFlash() { flashTimer = 16; }
+
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy;
+                p.vx *= 0.96; p.vy *= 0.96;
+                p.life -= p.decay;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+            for (let i = rings.length - 1; i >= 0; i--) {
+                const r = rings[i];
+                r.r += 1.8; r.alpha -= 0.035;
+                if (r.alpha <= 0) rings.splice(i, 1);
+            }
+            if (flashTimer > 0) flashTimer--;
+        }
+
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.save();
+                ctx.fillStyle = `rgba(${p.rgb.r},${p.rgb.g},${p.rgb.b},${p.life})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+            rings.forEach(r => {
+                ctx.save();
+                ctx.strokeStyle = `rgba(${r.rgb.r},${r.rgb.g},${r.rgb.b},${r.alpha})`;
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            });
+        }
+
+        function drawGrid(w, h) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= w; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+            for (let y = 0; y <= h; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function labelFont(size, weight = 'bold') {
+            return `${weight} ${size}px 'JetBrains Mono', 'Be Vietnam Pro', monospace`;
+        }
+
+        function loop() {
+            resizeCanvas();
+            time += 0.045;
+
+            const canvasW = canvas.width;
+            const canvasH = canvas.height;
+
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid(canvasW, canvasH);
+
+            if (flashTimer > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(60, 165, 122, ${(flashTimer / 16) * 0.15})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                ctx.restore();
+            }
+
+            const scaleX = canvasW / BASE_W;
+            const scaleY = canvasH / BASE_H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - BASE_W * fitScale) / 2;
+            const offsetY = (canvasH - BASE_H * fitScale) / 2;
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            if (state.stage === 1) {
+                drawStage1();
+            } else if (state.stage === 2) {
+                drawStage2();
+            }
+
+            updateParticles();
+            drawParticles();
+
+            ctx.restore();
+
+            requestAnimationFrame(loop);
+        }
+
+        // ======================================================
+        // STATE MANAGEMENT
+        // ======================================================
+        const state = {
+            stage: 1,
+            s1: {},
+            s2: {}
+        };
+
+        const STAGE_CONFIGS = [
+            {
+                id: 1,
+                title: 'Hình thành tương tác van der Waals',
+                goal: '<span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span><span class="goal-text">Khám phá cách hình thành <strong>lưỡng cực tạm thời</strong>, <strong>lưỡng cực cảm ứng</strong> và <strong>lực hút tĩnh điện</strong> giữa hai phân tử không phân cực.</span>'
+            },
+            {
+                id: 2,
+                title: 'Ảnh hưởng đến nhiệt độ nóng chảy và nhiệt độ sôi',
+                goal: '<span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span><span class="goal-text">Khám phá ảnh hưởng của <strong>số electron</strong> và <strong>kích thước đám mây electron</strong> đến độ mạnh tương tác van der Waals trong dãy <strong>F₂ → Cl₂ → Br₂ → I₂</strong>.</span>'
+            }
+        ];
+
+        function setRobotSpeech(html, mood = 'idle') {
+            const bar = document.getElementById('aiGuideBar');
+            if (bar) {
+                bar.className = 'ai-guide card state-' + (mood || 'idle');
+            }
+            const el = document.getElementById('aiText');
+            if (!el) return;
+            el.innerHTML = html;
+        }
+
+        function appendConclusionBlock(id, titleHtml, bodyHtml) {
+            const parent = document.getElementById('conclusionBody');
+            let b = document.getElementById(id);
+            if (!b) {
+                b = document.createElement('div');
+                b.id = id;
+                b.className = 'conclusion-block fade-in';
+                parent.appendChild(b);
+            }
+            b.innerHTML = `<h4 class="conclusion-block-title">${titleHtml}</h4><div class="conclusion-block-body">${bodyHtml}</div>`;
+            return b;
+        }
+
+        function appendAhaAndAdvance(id, ahaText, btnText, onNext) {
+            const parent = document.getElementById('conclusionBody');
+            let b = document.getElementById(id);
+            if (!b) {
+                b = document.createElement('div');
+                b.id = id;
+                b.className = 'conclusion-block fade-in';
+                parent.appendChild(b);
+            }
+            const label = (btnText && btnText.includes('Stage 2')) ? 'Tiếp tục' : (btnText || 'Tiếp tục');
+            b.innerHTML = `
+                <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">
+                    <h4 class="conclusion-block-title" style="margin-bottom:0;"><i class="ti ti-bulb"></i> Aha Moment!</h4>
+                    <button type="button" class="btn-primary" id="${id}_btn" style="min-height:30px; padding:0 12px; font-size:13px; font-weight:600; border-radius:6px; flex-shrink:0; box-shadow:none;">
+                        ${label} <i class="ti ti-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="conclusion-block-body">
+                    <p style="font-weight:600; color:var(--jade-deep); font-size:14.5px; line-height:1.55; margin:0;">${ahaText}</p>
+                </div>
+            `;
+            const btn = b.querySelector(`#${id}_btn`);
+            if (btn) btn.onclick = onNext;
+            return b;
+        }
+
+        function appendInfoBox(id, html) {
+            appendConclusionBlock(id, '<i class="ti ti-info-circle"></i> Mở rộng kiến thức',
+                `<div class="callout-content">${html}</div>`);
+        }
+
+        function appendDetailsBox(id, summaryText, bodyHtml) {
+            const parent = document.getElementById('conclusionBody');
+            let b = document.getElementById(id);
+            if (!b) {
+                b = document.createElement('div');
+                b.id = id;
+                b.className = 'conclusion-block fade-in';
+                parent.appendChild(b);
+            }
+            b.innerHTML = `<details style="cursor:pointer;"><summary style="font-weight:700; font-size:14.5px; color:var(--ink);">${summaryText}</summary><div style="margin-top:8px; line-height:1.6; font-size:14px; color:var(--ink-2);">${bodyHtml}</div></details>`;
+        }
+
+        function renderQuizInto(container, questionText, options, correctKey, explanationCorrect, explanationWrong, onCorrect, onReplay) {
+            const qid = 'quiz_' + (++_lmsQCounter);
+            const holder = document.createElement('div');
+            holder.className = 'quiz-box';
+            holder.innerHTML = `
+                <div class="quiz-question">${questionText}</div>
+                <ul class="quiz-options-list" role="radiogroup"></ul>
+                <div class="quiz-feedback" style="display:none;" aria-live="polite"></div>
+            `;
+            container.appendChild(holder);
+            const list = holder.querySelector('.quiz-options-list');
+            const feedback = holder.querySelector('.quiz-feedback');
+
+            options.forEach(opt => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'quiz-opt-btn';
+                btn.setAttribute('role', 'radio');
+                btn.setAttribute('aria-checked', 'false');
+                btn.innerHTML = `<span class="quiz-opt-key">${opt.key}</span><span class="quiz-opt-text">${opt.text}</span>`;
+                btn.onclick = () => {
+                    if (holder.classList.contains('is-answered-correct')) return;
+                    list.querySelectorAll('.quiz-opt-btn').forEach(b => b.classList.remove('selected'));
+                    btn.classList.add('selected');
+                    btn.setAttribute('aria-checked', 'true');
+
+                    const isCorrect = (opt.key === correctKey);
+                    lmsRecordAnswer(qid, questionText, options, opt.key, isCorrect);
+
+                    if (isCorrect) {
+                        holder.classList.add('is-answered-correct');
+                        btn.classList.add('correct');
+                        feedback.className = 'quiz-feedback show correct';
+                        feedback.style.display = 'block';
+                        feedback.innerHTML = `<div class="fb-heading"><i class="ti ti-circle-check-filled"></i> Chính xác!</div><p>${explanationCorrect}</p>`;
+                        playSuccessFlash();
+                        if (onCorrect) onCorrect();
+                    } else {
+                        btn.classList.add('wrong');
+                        feedback.className = 'quiz-feedback show wrong';
+                        feedback.style.display = 'block';
+                        let html = `<div class="fb-heading"><i class="ti ti-circle-x-filled"></i> Chưa chính xác</div><p>${explanationWrong}</p>`;
+                        if (onReplay) {
+                            html += `<button type="button" class="btn-secondary" style="margin-top:8px;" id="${qid}_replay"><i class="ti ti-rotate"></i> Xem lại hiệu ứng</button>`;
+                        }
+                        feedback.innerHTML = html;
+                        if (onReplay) {
+                            const rb = feedback.querySelector(`#${qid}_replay`);
+                            if (rb) rb.onclick = onReplay;
+                        }
+                    }
+                };
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+
+        function renderStepper() {
+            const wrap = document.getElementById('controlsCard');
+            if (!wrap) return;
+            // Tiến trình dot đã được render bên trong renderControls
+        }
+
+        function renderProgressDots() {
+            const wrap = document.createElement('div');
+            wrap.className = 'stepper-dots';
+            for (let i = 1; i <= 2; i++) {
+                const d = document.createElement('div');
+                d.className = 'step-dot' + (state.stage === i ? ' active' : (state.stage > i ? ' done' : ''));
+                d.setAttribute('role', 'tab');
+                d.setAttribute('aria-label', `Stage ${i}`);
+                d.innerHTML = state.stage > i ? '<i class="ti ti-check"></i>' : String(i);
+                d.onclick = () => goToStage(i);
+                wrap.appendChild(d);
+            }
+            return wrap;
+        }
+
+        function renderControls() {
+            const row = document.getElementById('ctrlRow');
+            if (!row) return;
+            row.innerHTML = '';
+            row.appendChild(renderProgressDots());
+            ctrlDivider(row);
+
+            if (state.stage === 1) {
+                renderControlsStage1(row);
+            } else if (state.stage === 2) {
+                renderControlsStage2(row);
+            }
+        }
+
+        function ctrlButton(row, cls, iconClass, label, onclick, disabled = false, loading = false) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = cls;
+            btn.innerHTML = `<i class="ti ${loading ? 'ti-loader spin' : iconClass}"></i> ${label}`;
+            btn.disabled = !!disabled;
+            btn.onclick = onclick;
+            row.appendChild(btn);
+            return btn;
+        }
+
+        function ctrlDivider(row) {
+            const d = document.createElement('div');
+            d.className = 'ctrl-divider';
+            row.appendChild(d);
+            return d;
+        }
+
+        function goToStage(stageNum) {
+            state.stage = stageNum;
+            const cfg = STAGE_CONFIGS[stageNum - 1];
+            if (cfg) {
+                document.getElementById('stageGoal').innerHTML = cfg.goal;
+            }
+            if (stageNum === 1) {
+                initStage1();
+            } else if (stageNum === 2) {
+                initStage2();
+            }
+            lmsReportState(`goToStage_${stageNum}`);
+        }
+
+        function completeModule() {
+            if (completed) return;
+            completed = true;
+            LMS().complete();
+            showCompletionModal();
+        }
+
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            const list = document.getElementById('modalResultsList');
+            if (!modal || !list) return;
+            list.innerHTML = `
+                <div><i class="ti ti-circle-check"></i> Giải thích được cơ chế hình thành lưỡng cực tạm thời &amp; cảm ứng.</div>
+                <div><i class="ti ti-circle-check"></i> Hiểu bản chất tương tác van der Waals là lực hút tĩnh điện yếu.</div>
+                <div><i class="ti ti-circle-check"></i> Rút ra được quy luật tăng nhiệt độ nóng chảy, nhiệt độ sôi từ F₂ đến I₂.</div>
+            `;
+            modal.style.display = 'flex';
+        }
+
+        function hideCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        // ======================================================
+        // STAGE 1 — TƯƠNG TÁC VAN DER WAALS ĐƯỢC HÌNH THÀNH NHƯ THẾ NÀO?
+        // ======================================================
+        const S1_LINES = {
+            opening: 'Hai phân tử dưới đây đều là các phân tử không phân cực và trung hòa về điện. Tuy nhiên, electron trong phân tử luôn chuyển động. Theo em, giữa hai phân tử có thể xuất hiện lực hút hay không?',
+            playStart: 'Hãy quan sát xem mật độ electron trong phân tử thứ nhất có luôn phân bố đều hay không.',
+            mol2Changing: 'Em nhận thấy đám mây electron của phân tử thứ hai thay đổi như thế nào sau khi phân tử thứ nhất xuất hiện hai đầu mang điện trái dấu?',
+            afterObsCorrect: 'Đúng vậy. Đám mây electron của phân tử thứ hai bị biến dạng, làm phân tử này cũng xuất hiện hai đầu mang điện trái dấu trong một khoảng thời gian rất ngắn.',
+            afterLineAppear: 'Hãy chú ý hai đầu đang hướng vào nhau. Chúng mang điện cùng dấu hay trái dấu?',
+            shortConclusion: 'Lực hút tĩnh điện yếu giữa các đầu mang điện trái dấu của những lưỡng cực tức thời tạo nên tương tác van der Waals.',
+            transitionQ: 'Nếu khả năng tạo lưỡng cực tạm thời ở các phân tử khác nhau thì độ mạnh của tương tác van der Waals có giống nhau không? Tương tác đó sẽ ảnh hưởng như thế nào đến tính chất vật lí của chất?'
+        };
+
+        const S1_MOL1_X = 210, S1_MOL2_X = 550, S1_MOL_Y = 168;
+        const S1_RX = 126, S1_RY = 80;
+        const S1_OSC_MS = 2400;
+        const S1_DIPOLE_RAMP_MS = 2500;
+        const S1_DIPOLE_HOLD_MS = 2200;
+        const S1_INDUCE_RAMP_MS = 2500;
+        const S1_INDUCE_HOLD_MS = 2200;
+        const S1_ATTRACT_FADE_MS = 1600;
+        const S1_HOLD_MS = 3400;
+        const S1_FADEOUT_MS = 2200;
+        const S1_REPLAY_MS = 3200;
+        const S1_SKEW1_MAX = 0.88;
+        const S1_SKEW2_MAX = 0.80;
+        const S1_DELTA_THRESHOLD = 0.45;
+        const S1_DRIFT_MAX = 20;
+
+        const S1_NUM_PARTICLES = 420;
+        function createS1ParticleList() {
+            const pts = [];
+            const colors = ['#60a5fa', '#3b82f6', '#2563eb', '#1d4ed8', '#93c5fd', '#38bdf8'];
+            for (let i = 0; i < S1_NUM_PARTICLES; i++) {
+                const r = Math.pow(Math.random(), 0.75) * 0.92;
+                const theta = Math.random() * Math.PI * 2;
+                const u = r * Math.cos(theta);
+                const v = r * Math.sin(theta);
+                const size = Math.random() * 1.6 + 1.2;
+                const baseAlpha = Math.random() * 0.45 + 0.45;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const speed = Math.random() * 1.0 + 0.5;
+                const phase = Math.random() * Math.PI * 2;
+                const wobbleSpeed = Math.random() * 1.5 + 0.8;
+                const isCoreWhite = Math.random() < 0.15;
+                pts.push({ u, v, size, baseAlpha, color, speed, phase, wobbleSpeed, isCoreWhite });
+            }
+            return pts;
+        }
+
+        const s1CloudParticles1 = createS1ParticleList();
+        const s1CloudParticles2 = createS1ParticleList();
+        let s1LastTableState = {};
+
+        function s1Dir() { return state.s1.cycleIndex % 2 === 0 ? 1 : -1; }
+
+        function initStage1() {
+            state.s1 = {
+                phase: 'idle', phaseElapsed: 0, cycleIndex: 0,
+                userPaused: false, locked: false,
+                replaying: false, replayElapsed: 0,
+                skew1: 0, skew2: 0,
+                noiseSeed1: Math.random() * 100, noiseSeed2: Math.random() * 100 + 42,
+                driftAmt: 0, lineAlpha: 0,
+                delta1Shown: false, delta2Shown: false, attractAnnounced: false,
+                quiz1Done: false, quiz2Done: false, quiz2Shown: false
+            };
+            s1LastTableState = {};
+            particles = []; rings = [];
+            renderControls();
+            refreshObserveTableStage1();
+            document.getElementById('conclusionBody').innerHTML = '';
+            setRobotSpeech(S1_LINES.opening, 'idle');
+        }
+
+        function startS1Play() {
+            const s1 = state.s1;
+            if (s1.locked) return;
+            if (s1.phase === 'idle') {
+                s1.phase = 'osc';
+                s1.phaseElapsed = 0;
+                setRobotSpeech(S1_LINES.playStart, 'idle');
+            } else if (s1.userPaused) {
+                s1.userPaused = false;
+            }
+            renderControls();
+        }
+
+        function pauseS1() {
+            const s1 = state.s1;
+            if (s1.phase !== 'idle' && !s1.locked) {
+                s1.userPaused = true;
+                renderControls();
+            }
+        }
+
+        function s1ReplayInduction() {
+            const s1 = state.s1;
+            if (s1.replaying) return;
+            s1.replaying = true;
+            s1.replayElapsed = 0;
+        }
+
+        function stage1Tick(dt) {
+            const s1 = state.s1;
+            if (s1.phase === 'idle') return;
+
+            // Chế độ xem lại riêng đoạn cảm ứng khi bấm xem lại
+            if (s1.replaying) {
+                s1.replayElapsed += dt;
+                const t = clamp(s1.replayElapsed / S1_REPLAY_MS, 0, 1);
+                const dir0 = s1Dir();
+                s1.skew1 = dir0 * S1_SKEW1_MAX;
+                s1.skew2 = dir0 * S1_SKEW2_MAX * easeInOut(t);
+                if (t >= 1) s1.replaying = false;
+                return;
+            }
+
+            const paused = s1.userPaused || s1.locked;
+            if (paused) return;
+            s1.phaseElapsed += dt;
+
+            const dir = s1Dir();
+            const n1 = organicNoise(s1.noiseSeed1, time);
+            const n2 = organicNoise(s1.noiseSeed2, time);
+
+            switch (s1.phase) {
+                case 'osc': {
+                    s1.skew1 = n1 * 0.12;
+                    s1.skew2 = n2 * 0.12;
+                    if (s1.phaseElapsed >= (s1.cycleIndex === 0 ? S1_OSC_MS : 2000)) {
+                        s1.phase = 'dipole1';
+                        s1.phaseElapsed = 0;
+                    }
+                    break;
+                }
+                case 'dipole1': {
+                    const t = clamp(s1.phaseElapsed / S1_DIPOLE_RAMP_MS, 0, 1);
+                    s1.skew1 = lerp(0, dir * S1_SKEW1_MAX, easeInOut(t)) + n1 * 0.04 * (1 - t);
+                    s1.skew2 = n2 * 0.1 * (1 - t);
+                    if (Math.abs(s1.skew1) >= S1_DELTA_THRESHOLD && !s1.delta1Shown) {
+                        s1.delta1Shown = true;
+                        refreshObserveTableStage1();
+                    }
+                    if (t >= 1) {
+                        s1.phase = 'dipoleHold';
+                        s1.phaseElapsed = 0;
+                    }
+                    break;
+                }
+                case 'dipoleHold': {
+                    s1.skew1 = dir * S1_SKEW1_MAX + n1 * 0.02;
+                    s1.skew2 = n2 * 0.08;
+                    if (s1.phaseElapsed >= (s1.cycleIndex === 0 ? S1_DIPOLE_HOLD_MS : 1800)) {
+                        s1.phase = 'induce2';
+                        s1.phaseElapsed = 0;
+                    }
+                    break;
+                }
+                case 'induce2': {
+                    const t = clamp(s1.phaseElapsed / S1_INDUCE_RAMP_MS, 0, 1);
+                    s1.skew1 = dir * S1_SKEW1_MAX + n1 * 0.02;
+                    s1.skew2 = lerp(0, dir * S1_SKEW2_MAX, easeInOut(t)) + n2 * 0.03 * (1 - t);
+                    if (Math.abs(s1.skew2) >= S1_DELTA_THRESHOLD && !s1.delta2Shown) {
+                        s1.delta2Shown = true;
+                        refreshObserveTableStage1();
+                    }
+                    if (t >= 1) {
+                        s1.phase = 'induceHold';
+                        s1.phaseElapsed = 0;
+                        s1.skew2 = dir * S1_SKEW2_MAX;
+                        if (!s1.quiz1Done) {
+                            setRobotSpeech(S1_LINES.mol2Changing, 'idle');
+                            showStage1ObservationQuiz();
+                        }
+                    }
+                    break;
+                }
+                case 'induceHold': {
+                    s1.skew1 = dir * S1_SKEW1_MAX + n1 * 0.02;
+                    s1.skew2 = dir * S1_SKEW2_MAX + n2 * 0.02;
+                    if (s1.phaseElapsed >= (s1.cycleIndex === 0 ? S1_INDUCE_HOLD_MS : 1800)) {
+                        s1.phase = 'attract';
+                        s1.phaseElapsed = 0;
+                        refreshObserveTableStage1();
+                    }
+                    break;
+                }
+                case 'attract': {
+                    const t = clamp(s1.phaseElapsed / S1_ATTRACT_FADE_MS, 0, 1);
+                    s1.skew1 = dir * S1_SKEW1_MAX;
+                    s1.skew2 = dir * S1_SKEW2_MAX;
+                    s1.lineAlpha = easeOut(t);
+                    s1.driftAmt = S1_DRIFT_MAX * easeOut(t);
+                    if (t >= 1) {
+                        if (!s1.attractAnnounced && s1.cycleIndex === 0) {
+                            s1.attractAnnounced = true;
+                            setRobotSpeech(S1_LINES.afterLineAppear, 'idle');
+                        }
+                        s1.phase = 'hold';
+                        s1.phaseElapsed = 0;
+                        refreshObserveTableStage1();
+                    }
+                    break;
+                }
+                case 'hold': {
+                    s1.skew1 = dir * S1_SKEW1_MAX;
+                    s1.skew2 = dir * S1_SKEW2_MAX;
+                    s1.lineAlpha = 1;
+                    s1.driftAmt = S1_DRIFT_MAX + Math.sin(time * 1.5) * 1.5;
+
+                    if (s1.phaseElapsed >= S1_HOLD_MS) {
+                        s1.phase = 'fadeout';
+                        s1.phaseElapsed = 0;
+                    }
+                    break;
+                }
+                case 'fadeout': {
+                    const t = clamp(s1.phaseElapsed / S1_FADEOUT_MS, 0, 1);
+                    s1.skew1 = dir * S1_SKEW1_MAX * (1 - t);
+                    s1.skew2 = dir * S1_SKEW2_MAX * (1 - t);
+                    s1.lineAlpha = 1 - t;
+                    s1.driftAmt = S1_DRIFT_MAX * (1 - t);
+                    if (t >= 1) {
+                        s1.delta1Shown = false;
+                        s1.delta2Shown = false;
+                        s1.cycleIndex++;
+                        refreshObserveTableStage1();
+
+                        s1.phase = 'osc';
+                        s1.phaseElapsed = 0;
+                    }
+                    break;
+                }
+            }
+        }
+
+        function drawForceArrow(x1, y1, x2, y2, c) {
+            ctx.save();
+            ctx.strokeStyle = rgba(c, 0.95);
+            ctx.fillStyle = rgba(c, 0.95);
+            ctx.lineWidth = 3.2;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            const ang = Math.atan2(y2 - y1, x2 - x1);
+            const ah = 9.5;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - ah * Math.cos(ang - 0.52), y2 - ah * Math.sin(ang - 0.52));
+            ctx.lineTo(x2 - ah * Math.cos(ang + 0.52), y2 - ah * Math.sin(ang + 0.52));
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawVdwMolecule(cx, cy, rx, ry, skew, showDelta, glow, particleList) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+            const baseGrad = ctx.createLinearGradient(cx, cy - ry, cx, cy + ry);
+            baseGrad.addColorStop(0, '#F5F2EB');
+            baseGrad.addColorStop(1, '#E2DCD0');
+            ctx.fillStyle = baseGrad;
+            ctx.fill();
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+            ctx.clip();
+
+            const offset = skew * rx * 0.72;
+            const grad = ctx.createRadialGradient(cx + offset, cy, rx * 0.1, cx + offset, cy, rx * 1.35);
+            const intensity = clamp(Math.abs(skew), 0, 1);
+            grad.addColorStop(0, `rgba(59, 130, 246, ${0.16 + intensity * 0.22})`);
+            grad.addColorStop(0.65, `rgba(59, 130, 246, ${0.04 + intensity * 0.08})`);
+            grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
+            ctx.fillStyle = grad;
+            ctx.fillRect(cx - rx - 14, cy - ry - 14, rx * 2 + 28, ry * 2 + 28);
+
+            if (particleList) {
+                particleList.forEach(p => {
+                    let uSkewed = p.u + skew * 0.52 * (1 - p.v * p.v * 0.28);
+                    uSkewed = clamp(uSkewed, -0.94, 0.94);
+                    let vSkewed = p.v * 0.92;
+
+                    const wobbleX = Math.sin(time * p.speed + p.phase) * 2.2;
+                    const wobbleY = Math.cos(time * p.wobbleSpeed + p.phase) * 1.8;
+
+                    const px = cx + uSkewed * rx + wobbleX;
+                    const py = cy + vSkewed * ry + wobbleY;
+
+                    let sizePulse = p.size + Math.sin(time * 3 + p.phase) * 0.25;
+                    sizePulse = Math.max(0.8, sizePulse);
+
+                    const skewFactor = (uSkewed * Math.sign(skew) > 0) ? (1 + intensity * 0.40) : (1 - intensity * 0.50);
+                    const alpha = clamp(p.baseAlpha * skewFactor, 0.15, 1.0);
+
+                    ctx.fillStyle = p.isCoreWhite ? `rgba(255, 255, 255, ${alpha})` : p.color;
+                    ctx.globalAlpha = alpha;
+                    ctx.fillRect(px - sizePulse / 2, py - sizePulse / 2, sizePulse, sizePulse);
+                });
+            }
+            ctx.restore();
+
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = glow ? 'rgba(232, 162, 74, 0.95)' : 'rgba(81, 76, 68, 0.45)';
+            ctx.lineWidth = glow ? 2.6 : 1.8;
+            ctx.stroke();
+
+            if (showDelta) {
+                const denseRight = skew >= 0;
+                const rightLabel = denseRight ? 'δ⁻' : 'δ⁺';
+                const leftLabel = denseRight ? 'δ⁺' : 'δ⁻';
+
+                const drawDeltaBadge = (label, bx, by) => {
+                    const isMinus = label === 'δ⁻';
+                    const col = isMinus ? '#1864AB' : '#D9480F';
+                    const bg = isMinus ? 'rgba(208, 235, 255, 0.92)' : 'rgba(255, 224, 204, 0.92)';
+                    const bdr = isMinus ? 'rgba(51, 154, 240, 0.75)' : 'rgba(255, 146, 43, 0.75)';
+
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(bx, by, 18, 0, Math.PI * 2);
+                    ctx.fillStyle = bg;
+                    ctx.fill();
+                    ctx.strokeStyle = bdr;
+                    ctx.lineWidth = 1.6;
+                    ctx.stroke();
+
+                    ctx.font = labelFont(18, 'bold');
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillStyle = col;
+                    ctx.fillText(label, bx, by + 1);
+                    ctx.restore();
+                };
+
+                drawDeltaBadge(rightLabel, cx + rx * 0.64, cy);
+                drawDeltaBadge(leftLabel, cx - rx * 0.64, cy);
+            }
+
+            ctx.restore();
+        }
+
+        function drawStage1() {
+            stage1Tick(16.7);
+            const s1 = state.s1;
+            const drift = s1.driftAmt || 0;
+            const mol1X = S1_MOL1_X + drift, mol2X = S1_MOL2_X - drift;
+
+            ctx.save();
+            ctx.font = labelFont(12.5, '600');
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'center';
+            ctx.fillText('Hai phân tử không phân cực, trung hòa về điện', BASE_W / 2, BASE_H - 14);
+            ctx.restore();
+
+            drawVdwMolecule(mol1X, S1_MOL_Y, S1_RX, S1_RY, s1.skew1, s1.delta1Shown, false, s1CloudParticles1);
+            drawVdwMolecule(mol2X, S1_MOL_Y, S1_RX, S1_RY, s1.skew2, s1.delta2Shown, s1.replaying, s1CloudParticles2);
+
+            const lineAlpha = s1.lineAlpha || 0;
+            if (lineAlpha > 0.02) {
+                const x1 = mol1X + S1_RX * 0.94, x2 = mol2X - S1_RX * 0.94;
+                ctx.save();
+                ctx.globalAlpha = lineAlpha;
+
+                // Đường nét đứt tương tác giữa hai đầu trái dấu
+                ctx.strokeStyle = '#2D8B6F';
+                ctx.lineWidth = 3.4;
+                ctx.setLineDash([9, 6]);
+                ctx.beginPath();
+                ctx.moveTo(x1, S1_MOL_Y);
+                ctx.lineTo(x2, S1_MOL_Y);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Tia sáng lấp lánh ở giữa
+                for (let k = 0; k < 4; k++) {
+                    const sparkX = lerp(x1 + 8, x2 - 8, (Math.sin(time * 3 + k * 1.8) + 1) / 2);
+                    ctx.fillStyle = 'rgba(60, 165, 122, 0.8)';
+                    ctx.beginPath();
+                    ctx.arc(sparkX, S1_MOL_Y + Math.sin(time * 4 + k) * 3.5, 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                // Hai mũi tên lực nhỏ hướng về phía nhau trên mỗi phân tử
+                drawForceArrow(x1 - 42, S1_MOL_Y - 46, x1 - 8, S1_MOL_Y - 46, COLORS.jadeDeep);
+                drawForceArrow(x2 + 42, S1_MOL_Y - 46, x2 + 8, S1_MOL_Y - 46, COLORS.jadeDeep);
+
+                ctx.restore();
+            }
+        }
+
+        function renderControlsStage1(row) {
+            const s1 = state.s1;
+            const isPlaying = s1.phase !== 'idle' && !s1.userPaused && !s1.locked;
+            ctrlButton(row, 'btn-primary', 'ti-player-play', 'Play', startS1Play, isPlaying || s1.locked);
+            ctrlButton(row, 'btn-secondary', 'ti-player-pause', 'Pause', pauseS1, !isPlaying || s1.locked);
+            ctrlButton(row, 'btn-reset', 'ti-refresh', 'Reset', initStage1, false);
+        }
+
+        function refreshObserveTableStage1() {
+            const thead = document.getElementById('observeThead');
+            if (thead) thead.innerHTML = '<tr><th style="width:28%;">Đối tượng quan sát</th><th style="width:38%;">Trạng thái phân bố electron</th><th style="width:34%;">Kí hiệu điện tích</th></tr>';
+            
+            const s1 = state.s1;
+            const dir = s1Dir();
+            let state1 = 'Phân bố đối xứng';
+            let delta1 = '—';
+            let state2 = 'Phân bố đối xứng';
+            let delta2 = '—';
+            let interactState = 'Chưa xuất hiện';
+            let interactDelta = '—';
+
+            if (s1.delta1Shown) {
+                state1 = 'Lệch mật độ';
+                delta1 = (dir === 1 ? 'δ⁺ (trái) / δ⁻ (phải)' : 'δ⁻ (trái) / δ⁺ (phải)');
+            }
+            if (s1.delta2Shown) {
+                state2 = 'Bị cảm ứng (biến dạng)';
+                delta2 = (dir === 1 ? 'δ⁺ (trái) / δ⁻ (phải)' : 'δ⁻ (trái) / δ⁺ (phải)');
+            }
+            if (s1.phase === 'attract' || s1.phase === 'hold' || s1.phase === 'fadeout') {
+                interactState = 'Xuất hiện lực hút (đường nét đứt)';
+                interactDelta = (dir === 1 ? 'δ⁻ ⋯ δ⁺ (trái dấu hút nhau)' : 'δ⁺ ⋯ δ⁻ (trái dấu hút nhau)');
+            }
+
+            const tbody = document.getElementById('observeTableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = `
+                <tr><td>Phân tử 1 (bên trái)</td><td>${state1}</td><td>${delta1}</td></tr>
+                <tr><td>Phân tử 2 (bên phải)</td><td>${state2}</td><td>${delta2}</td></tr>
+                <tr><td>Tương tác giữa 2 phân tử</td><td>${interactState}</td><td>${interactDelta}</td></tr>`;
+        }
+
+        function showStage1ObservationQuiz() {
+            const block = appendConclusionBlock('s1_quiz1', '<i class="ti ti-help-circle"></i> Câu hỏi quan sát',
+                'Khi đầu δ⁻ của phân tử thứ nhất hướng về phía phân tử thứ hai, đám mây electron của phân tử thứ hai thay đổi như thế nào?');
+            renderQuizInto(block,
+                'Khi đầu δ⁻ của phân tử thứ nhất hướng về phía phân tử thứ hai, đám mây electron của phân tử thứ hai thay đổi như thế nào?',
+                [
+                    { key: 'A', text: 'Dịch về phía đầu δ⁻ của phân tử thứ nhất.' },
+                    { key: 'B', text: 'Dịch về phía xa đầu δ⁻ của phân tử thứ nhất.' },
+                    { key: 'C', text: 'Không thay đổi vì phân tử thứ hai trung hòa về điện.' }
+                ],
+                'B',
+                'Chính xác! Đầu δ⁻ của phân tử thứ nhất đẩy đám mây electron của phân tử thứ hai lệch về phía xa, khiến đầu gần nó mang δ⁺.',
+                'Hãy quan sát lại hướng dịch chuyển của vùng màu đậm trong phân tử thứ hai khi đầu δ⁻ của phân tử thứ nhất tiến lại gần.',
+                () => {
+                    state.s1.quiz1Done = true;
+                    block.classList.add('is-done');
+                    setTimeout(() => {
+                        if (state.stage === 1) {
+                            setRobotSpeech(S1_LINES.afterObsCorrect, 'correct');
+                            if (!state.s1.quiz2Shown) {
+                                state.s1.quiz2Shown = true;
+                                showStage1ConclusionQuiz();
+                            }
+                        }
+                    }, 1200);
+                },
+                () => { s1ReplayInduction(); }
+            );
+        }
+
+        function showStage1ConclusionQuiz() {
+            const block = appendConclusionBlock('s1_quiz2', '<i class="ti ti-help-circle"></i> Câu hỏi kết luận',
+                'Điều gì tạo nên tương tác giữa hai phân tử trong simulation?');
+            renderQuizInto(block,
+                'Điều gì tạo nên tương tác giữa hai phân tử trong simulation?',
+                [
+                    { key: 'A', text: 'Hai phân tử tạo liên kết cộng hóa trị với nhau.' },
+                    { key: 'B', text: 'Lực hút tĩnh điện yếu giữa các đầu mang điện trái dấu của lưỡng cực tạm thời và lưỡng cực cảm ứng.' },
+                    { key: 'C', text: 'Electron chuyển hoàn toàn từ phân tử này sang phân tử kia.' }
+                ],
+                'B',
+                'Chính xác! Electron luôn chuyển động làm xuất hiện lưỡng cực tạm thời; lưỡng cực này cảm ứng lưỡng cực ở phân tử bên cạnh. Các đầu mang điện trái dấu hút nhau bằng một lực tĩnh điện yếu.',
+                'Hãy xem lại thời điểm các kí hiệu δ⁺, δ⁻ và đường nét đứt cùng xuất hiện. Electron chỉ bị phân bố lệch, không chuyển hoàn toàn sang phân tử khác.',
+                () => {
+                    state.s1.quiz2Done = true;
+                    block.classList.add('is-done');
+                    appendAhaAndAdvance('s1_aha',
+                        'Sự phân bố electron tức thời không đều tạo ra các lưỡng cực; lực hút tĩnh điện yếu giữa các đầu mang điện trái dấu của chúng tạo nên tương tác van der Waals.',
+                        'Tiếp tục',
+                        () => goToStage(2));
+                    setRobotSpeech(`<p>${S1_LINES.shortConclusion}</p><p style="font-weight:500; color:var(--ink-2);">${S1_LINES.transitionQ}</p>`, 'correct');
+                    appendInfoBox('s1_info',
+                        'Tương tác van der Waals tuy yếu nhưng khi có rất nhiều phân tử, tổng lực hút này có thể rất đáng kể — đó là lý do thạch sùng (gecko) có thể bám và leo trèo trên tường nhẵn nhờ hàng triệu sợi lông siêu nhỏ ở chân tạo ra vô số tương tác van der Waals tức thời với bề mặt.');
+                    appendDetailsBox('s1_detail', 'Vì sao gọi là lưỡng cực "tạm thời" và lưỡng cực "cảm ứng"?',
+                        `Lưỡng cực ở phân tử thứ nhất được gọi là <em>tạm thời</em> vì nó chỉ tồn tại trong khoảnh khắc
+                        electron ngẫu nhiên phân bố lệch, rồi lại tan biến khi electron tiếp tục chuyển động — không giống
+                        lưỡng cực bền của phân tử phân cực như HCl. Lưỡng cực ở phân tử thứ hai được gọi là <em>cảm ứng</em>
+                        vì nó không tự sinh ra mà chỉ xuất hiện do bị "cảm ứng" bởi điện trường của lưỡng cực tạm thời bên
+                        cạnh; khi lưỡng cực tạm thời ban đầu biến mất, lưỡng cực cảm ứng cũng biến mất theo.`);
+                }
+            );
+        }
+
+        // ======================================================
+        // STAGE 2 — ẢNH HƯỞNG ĐẾN NHIỆT ĐỘ NÓNG CHẢY VÀ NHIỆT ĐỘ SÔI
+        // ======================================================
+        const S2_LINES = {
+            opening: 'Ở Stage trước, em đã thấy lưỡng cực tạm thời có thể tạo ra lực hút giữa các phân tử. Bây giờ, hãy khám phá vì sao lực hút này không mạnh như nhau ở F₂, Cl₂, Br₂ và I₂.',
+            beforeElectron: 'Hãy quan sát kích thước phân tử và vùng đám mây electron từ F₂ đến I₂. Chúng thay đổi theo chiều nào?',
+            afterElectron: 'Khi số electron tăng, đám mây electron lớn hơn và dễ bị biến dạng hơn. Theo em, điều này có thể làm các lưỡng cực tạm thời hình thành mạnh hơn hay yếu hơn?',
+            beforeHeat: 'Hãy dự đoán chất nào sẽ nóng chảy và sôi trước; chất nào cần nhiệt độ cao nhất mới chuyển trạng thái.',
+            whileHeat: 'Hãy theo dõi thứ tự các mẫu chuyển từ rắn sang lỏng, rồi từ lỏng sang khí.',
+            afterFullRun: 'F₂ hay I₂ cần nhiệt độ cao hơn để các phân tử thoát khỏi trạng thái rắn và lỏng? Điều đó cho thấy tương tác giữa các phân tử của chất nào mạnh hơn?',
+            afterDataTable: 'Hãy đối chiếu hiện tượng với số liệu và rút ra mối quan hệ giữa kích thước đám mây electron, độ mạnh tương tác van der Waals và nhiệt độ nóng chảy, nhiệt độ sôi.',
+            shortConclusion: 'Trong dãy F₂ → Cl₂ → Br₂ → I₂, đám mây electron càng lớn và càng dễ bị biến dạng thì tương tác van der Waals càng mạnh; vì vậy nhiệt độ nóng chảy và nhiệt độ sôi tăng.'
+        };
+
+        const S2_SUBSTANCES = [
+            { id: 'F2', label: 'F₂', ascii: 'F₂', electrons: 18, melt: -219.6, boil: -188.1, meltLabel: '−219,6', boilLabel: '−188,1', atomR: 7.2, cloudPad: 10.0, color: { r: 185, g: 220, b: 120 } },
+            { id: 'Cl2', label: 'Cl₂', ascii: 'Cl₂', electrons: 34, melt: -101.0, boil: -34.1, meltLabel: '−101,0', boilLabel: '−34,1', atomR: 9.8, cloudPad: 13.5, color: { r: 165, g: 205, b: 90 } },
+            { id: 'Br2', label: 'Br₂', ascii: 'Br₂', electrons: 70, melt: -7.3, boil: 59.2, meltLabel: '−7,3', boilLabel: '59,2', atomR: 12.8, cloudPad: 18.0, color: { r: 195, g: 115, b: 80 } },
+            { id: 'I2', label: 'I₂', ascii: 'I₂', electrons: 106, melt: 113.6, boil: 185.5, meltLabel: '113,6', boilLabel: '185,5', atomR: 16.5, cloudPad: 23.5, color: { r: 145, g: 95, b: 175 } }
+        ];
+
+        function createHalogenElectronCloud(numElectrons, atomR, cloudPad) {
+            const pts = [];
+            const bondLen = atomR * 1.45;
+            const maxR = atomR + cloudPad;
+            for (let k = 0; k < numElectrons; k++) {
+                const center = (k % 2 === 0) ? -bondLen / 2 : bondLen / 2;
+                const r = Math.pow(Math.random(), 0.75) * maxR;
+                const theta = Math.random() * Math.PI * 2;
+                const lx = center + r * Math.cos(theta) * 0.92;
+                const ly = r * Math.sin(theta) * 0.88;
+                const size = Math.random() * 1.2 + 1.2;
+                const baseAlpha = Math.random() * 0.45 + 0.45;
+                const speed = Math.random() * 1.6 + 0.8;
+                const phase = Math.random() * Math.PI * 2;
+                const isWhite = Math.random() < 0.22;
+                pts.push({ lx, ly, size, baseAlpha, speed, phase, isWhite });
+            }
+            return pts;
+        }
+
+        const S2_FLICKER = {
+            F2: { onMin: 70, onMax: 160, offMin: 700, offMax: 1400, width: 1.2, alpha: 0.38 },
+            Cl2: { onMin: 200, onMax: 400, offMin: 400, offMax: 800, width: 1.8, alpha: 0.52 },
+            Br2: { onMin: 450, onMax: 750, offMin: 200, offMax: 450, width: 2.5, alpha: 0.68 },
+            I2: { onMin: 800, onMax: 1400, offMin: 80, offMax: 200, width: 3.4, alpha: 0.82 }
+        };
+
+        const S2_ZONE_GAP = 8;
+        const S2_ZONE_W = (BASE_W - S2_ZONE_GAP * 5) / 4; // 180px
+        const S2_ZONE_Y = 8;
+        const S2_ZONE_H = 334;
+        const S2_MILESTONES = [-219.6, -188.1, -101.0, -34.1, -7.3, 59.2, 113.6, 185.5];
+        const S2_HEAT_RATE = 5.2 / 1000;
+        const S2_SLOW_RATE = 0.8 / 1000;
+        const S2_SLOW_WINDOW = 4.5;
+
+        function s2ZoneRect(i) { return { x: S2_ZONE_GAP + i * (S2_ZONE_W + S2_ZONE_GAP), y: S2_ZONE_Y, w: S2_ZONE_W, h: S2_ZONE_H }; }
+        function s2PhaseOf(sub, temp) { if (temp < sub.melt) return 'solid'; if (temp < sub.boil) return 'liquid'; return 'gas'; }
+
+        function initStage2() {
+            state.s2 = {
+                temp: -230, autoHeating: false, heatingStarted: false, preHeatLineShown: false,
+                reachedMax: false, electronRevealed: false, dataPromptShown: false, dataTableRevealed: false, quizDone: false,
+                zones: []
+            };
+
+            S2_SUBSTANCES.forEach((sub, i) => {
+                const rect = s2ZoneRect(i);
+                const innerX0 = rect.x + 28, innerX1 = rect.x + rect.w - 28;
+                const innerY0 = rect.y + 48, innerY1 = rect.y + rect.h - 40;
+                const cols = 3, rows = 4;
+                const mols = [];
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const ax = lerp(innerX0, innerX1, cols === 1 ? 0.5 : c / (cols - 1));
+                        const ay = lerp(innerY0, innerY1, rows === 1 ? 0.5 : r / (rows - 1));
+                        mols.push({
+                            ax, ay, x: ax, y: ay,
+                            vx: (Math.random() - 0.5) * 0.4,
+                            vy: (Math.random() - 0.5) * 0.4,
+                            rotBase: (Math.random() - 0.5) * 0.8,
+                            seed: Math.random() * 100,
+                            electronCloud: createHalogenElectronCloud(sub.electrons, sub.atomR, sub.cloudPad)
+                        });
+                    }
+                }
+                const idx = (r, c) => r * cols + c;
+                const pairs = [];
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        if (c < cols - 1) {
+                            const a = mols[idx(r, c)], b = mols[idx(r, c + 1)];
+                            pairs.push({ i: idx(r, c), j: idx(r, c + 1), restDist: Math.hypot(a.ax - b.ax, a.ay - b.ay), on: false, timer: Math.random() * 300 });
+                        }
+                        if (r < rows - 1) {
+                            const a = mols[idx(r, c)], b = mols[idx(r + 1, c)];
+                            pairs.push({ i: idx(r, c), j: idx(r + 1, c), restDist: Math.hypot(a.ax - b.ax, a.ay - b.ay), on: false, timer: Math.random() * 300 });
+                        }
+                    }
+                }
+                state.s2.zones.push({ sub, rect, molecules: mols, pairs, phase: 'solid', flashTimer: 0, glowTimer: 0 });
+            });
+
+            renderControls();
+            refreshObserveTableStage2();
+            document.getElementById('conclusionBody').innerHTML = '';
+            setRobotSpeech(S2_LINES.opening, 'idle');
+            setTimeout(() => {
+                if (state.stage === 2 && !state.s2.heatingStarted && !state.s2.preHeatLineShown) {
+                    setRobotSpeech(S2_LINES.beforeElectron, 'idle');
+                }
+            }, 3000);
+        }
+
+        function updateS2TempBadge() {
+            const b = document.getElementById('s2TempBadge');
+            if (b) b.innerHTML = `<i class="ti ti-thermometer"></i> ${Math.round(state.s2.temp)}°C`;
+            const s = document.getElementById('s2Slider');
+            if (s && Number(s.value) !== Math.round(state.s2.temp)) s.value = String(Math.round(state.s2.temp));
+        }
+
+        function ensureS2HeatingStarted() {
+            const s2 = state.s2;
+            if (s2.heatingStarted) return;
+            s2.heatingStarted = true;
+            if (s2.preHeatLineShown) {
+                setRobotSpeech(S2_LINES.whileHeat, 'idle');
+            } else {
+                s2.preHeatLineShown = true;
+                setRobotSpeech(S2_LINES.beforeHeat + ' ' + S2_LINES.whileHeat, 'idle');
+            }
+        }
+
+        function startS2Heating() {
+            const s2 = state.s2;
+            if (s2.temp >= 200) return;
+            s2.autoHeating = true;
+            ensureS2HeatingStarted();
+            renderControls();
+        }
+
+        function pauseS2Heating() {
+            state.s2.autoHeating = false;
+            renderControls();
+        }
+
+        function showElectronCounts() {
+            const s2 = state.s2;
+            if (s2.electronRevealed) return;
+            s2.electronRevealed = true;
+            s2.zones.forEach(z => z.glowTimer = 65);
+            refreshObserveTableStage2();
+            setRobotSpeech(S2_LINES.afterElectron, 'idle');
+            renderControls();
+            setTimeout(() => {
+                if (state.stage === 2 && !state.s2.heatingStarted) {
+                    state.s2.preHeatLineShown = true;
+                    setRobotSpeech(S2_LINES.beforeHeat, 'idle');
+                }
+            }, 3200);
+            checkStage2DataUnlock();
+        }
+
+        function checkStage2DataUnlock() {
+            const s2 = state.s2;
+            if (!s2.reachedMax) return;
+            if (s2.electronRevealed) {
+                const hint = document.getElementById('s2_hint');
+                if (hint) hint.remove();
+                if (!s2.dataPromptShown) {
+                    s2.dataPromptShown = true;
+                    const block = appendConclusionBlock('s2_datablock', '<i class="ti ti-table"></i> Kiểm chứng số liệu',
+                        'Bạn đã quan sát xong quá trình chuyển trạng thái của cả bốn chất halogen. Nhấn nút bên dưới để đối chiếu với số liệu thực nghiệm.');
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-primary';
+                    btn.style.marginTop = '10px';
+                    btn.innerHTML = '<i class="ti ti-table"></i> Hiện bảng số liệu';
+                    btn.onclick = () => showS2MeltBoilTable(block, btn);
+                    block.appendChild(btn);
+                }
+            } else if (!document.getElementById('s2_hint') && !s2.dataPromptShown) {
+                appendConclusionBlock('s2_hint', '<i class="ti ti-bulb"></i> Gợi ý',
+                    'Hãy nhấn "Hiện số electron" ở thanh điều khiển phía dưới canvas để so sánh số electron trước khi mở bảng số liệu.');
+            }
+        }
+
+        function showS2MeltBoilTable(block, btn) {
+            state.s2.dataTableRevealed = true;
+            btn.remove();
+            const table = document.createElement('div');
+            table.className = 'observe-wrap';
+            table.style.marginTop = '10px';
+            table.innerHTML = `<table>
+                <thead>
+                    <tr><th>Phân tử</th><th>Tổng số electron</th><th>Nhiệt độ nóng chảy (°C)</th><th>Nhiệt độ sôi (°C)</th></tr>
+                </thead>
+                <tbody>
+                    ${S2_SUBSTANCES.map(s => `<tr><td><strong>${s.label}</strong></td><td>${s.electrons}</td><td>${s.meltLabel}</td><td>${s.boilLabel}</td></tr>`).join('')}
+                </tbody>
+            </table>`;
+            block.appendChild(table);
+            setRobotSpeech(S2_LINES.afterDataTable, 'idle');
+            showStage2FinalQuiz();
+        }
+
+        function showStage2FinalQuiz() {
+            const block = appendConclusionBlock('s2_quiz', '<i class="ti ti-help-circle"></i> Câu hỏi kết luận',
+                'Trong dãy F₂ → Cl₂ → Br₂ → I₂, kết luận nào dưới đây phù hợp nhất với simulation?');
+            renderQuizInto(block,
+                'Trong dãy F₂ → Cl₂ → Br₂ → I₂, kết luận nào dưới đây phù hợp nhất với simulation?',
+                [
+                    { key: 'A', text: 'Kích thước đám mây electron càng lớn thì tương tác van der Waals càng yếu, nên nhiệt độ nóng chảy và nhiệt độ sôi giảm.' },
+                    { key: 'B', text: 'Số electron và kích thước đám mây electron tăng làm đám mây electron dễ bị biến dạng hơn, tương tác van der Waals mạnh hơn, nên nhiệt độ nóng chảy và nhiệt độ sôi tăng.' },
+                    { key: 'C', text: 'Nhiệt độ nóng chảy và nhiệt độ sôi tăng chỉ vì khối lượng phân tử tăng, không liên quan đến lực hút giữa các phân tử.' }
+                ],
+                'B',
+                'Chính xác! Từ F₂ đến I₂, số electron và kích thước đám mây electron tăng. Đám mây electron lớn hơn dễ bị biến dạng hơn, làm các lưỡng cực tạm thời hình thành mạnh hơn. Vì tương tác van der Waals tăng nên cần nhiệt độ cao hơn để chất nóng chảy và sôi.',
+                'Hãy quan sát lại thứ tự chuyển trạng thái và so sánh kích thước đám mây electron. Chất nào giữ các phân tử gần nhau đến nhiệt độ cao nhất?',
+                () => {
+                    state.s2.quizDone = true;
+                    block.classList.add('is-done');
+                    appendAhaAndAdvance('s2_aha',
+                        'Trong dãy F₂ → Cl₂ → Br₂ → I₂, đám mây electron càng lớn và càng dễ bị biến dạng thì tương tác van der Waals càng mạnh, làm nhiệt độ nóng chảy và nhiệt độ sôi càng cao.',
+                        'Hoàn thành module',
+                        () => completeModule());
+                    setRobotSpeech(S2_LINES.shortConclusion, 'correct');
+                    appendInfoBox('s2_info',
+                        'Đây cũng chính là lý do các khí hiếm (helium, neon, argon...) chỉ hóa lỏng ở nhiệt độ cực thấp: nguyên tử của chúng nhỏ, đám mây electron khó bị biến dạng nên tương tác van der Waals giữa chúng rất yếu.');
+                    appendDetailsBox('s2_detail', 'Vì sao đám mây electron lớn lại dễ bị biến dạng hơn?',
+                        `Khi số electron tăng, electron ở lớp ngoài cùng ở xa hạt nhân hơn và chịu lực hút từ hạt nhân yếu
+                        hơn, nên đám mây electron "lỏng lẻo" và dễ bị lệch tạm thời khi có phân tử khác ở gần — gọi là đám
+                        mây electron dễ bị <em>phân cực hóa</em>. Đám mây càng dễ phân cực hóa thì lưỡng cực tạm thời và
+                        lưỡng cực cảm ứng càng dễ hình thành với biên độ lớn hơn, khiến tương tác van der Waals mạnh hơn.`);
+                }
+            );
+        }
+
+        function stage2Tick(dt) {
+            const s2 = state.s2;
+            if (s2.autoHeating && s2.temp < 200) {
+                let rate = S2_HEAT_RATE;
+                const upcoming = S2_MILESTONES.find(m => m > s2.temp + 0.05);
+                if (upcoming !== undefined && (upcoming - s2.temp) < S2_SLOW_WINDOW) rate = S2_SLOW_RATE;
+                s2.temp = clamp(s2.temp + rate * dt, -230, 200);
+                updateS2TempBadge();
+                if (s2.temp >= 200) {
+                    s2.temp = 200;
+                    s2.autoHeating = false;
+                    if (!s2.reachedMax) {
+                        s2.reachedMax = true;
+                        setRobotSpeech(S2_LINES.afterFullRun, 'idle');
+                        checkStage2DataUnlock();
+                    }
+                    renderControls();
+                }
+            } else if (!s2.reachedMax && s2.temp >= 200) {
+                s2.reachedMax = true;
+                setRobotSpeech(S2_LINES.afterFullRun, 'idle');
+                checkStage2DataUnlock();
+            }
+
+            s2.zones.forEach(zone => {
+                const newPhase = s2PhaseOf(zone.sub, s2.temp);
+                if (newPhase !== zone.phase) {
+                    zone.phase = newPhase;
+                    zone.flashTimer = 48;
+                    refreshObserveTableStage2(zone.sub.id);
+                }
+                if (zone.flashTimer > 0) zone.flashTimer--;
+                if (zone.glowTimer > 0) zone.glowTimer--;
+
+                zone.molecules.forEach(m => {
+                    if (newPhase === 'solid') {
+                        m.vx *= 0.82; m.vy *= 0.82;
+                        const tempFactor = (s2.temp + 230) / 430;
+                        const wob1 = Math.sin(time * 3.5 + m.seed) * (1.2 + tempFactor * 1.5);
+                        const wob2 = Math.cos(time * 3.1 + m.seed * 1.6) * (1.0 + tempFactor * 1.3);
+                        m.x = lerp(m.x, m.ax + wob1, 0.25);
+                        m.y = lerp(m.y, m.ay + wob2, 0.25);
+                    } else if (newPhase === 'liquid') {
+                        const pad = zone.sub.atomR + zone.sub.cloudPad + 4;
+                        const minX = zone.rect.x + pad, maxX = zone.rect.x + zone.rect.w - pad;
+                        const liquidTop = zone.rect.y + zone.rect.h * 0.40;
+                        const maxY = zone.rect.y + zone.rect.h - pad - 12;
+
+                        m.x += m.vx; m.y += m.vy;
+                        m.vy += 0.04;
+                        m.vx += (Math.random() - 0.5) * 0.08;
+                        m.vy += (Math.random() - 0.5) * 0.08;
+                        m.vx = clamp(m.vx, -0.9, 0.9);
+                        m.vy = clamp(m.vy, -0.9, 0.9);
+
+                        if (m.x < minX) { m.x = minX; m.vx *= -0.8; }
+                        if (m.x > maxX) { m.x = maxX; m.vx *= -0.8; }
+                        if (m.y < liquidTop) { m.y = liquidTop; m.vy *= -0.8; }
+                        if (m.y > maxY) { m.y = maxY; m.vy *= -0.8; }
+                    } else {
+                        const pad = zone.sub.atomR + zone.sub.cloudPad + 4;
+                        const minX = zone.rect.x + pad, maxX = zone.rect.x + zone.rect.w - pad;
+                        const minY = zone.rect.y + 36, maxY = zone.rect.y + zone.rect.h - pad - 12;
+
+                        m.x += m.vx; m.y += m.vy;
+                        m.vx += (Math.random() - 0.5) * 0.14;
+                        m.vy += (Math.random() - 0.5) * 0.14;
+                        m.vx = clamp(m.vx, -2.6, 2.6);
+                        m.vy = clamp(m.vy, -2.6, 2.6);
+
+                        if (m.x < minX) { m.x = minX; m.vx *= -1; }
+                        if (m.x > maxX) { m.x = maxX; m.vx *= -1; }
+                        if (m.y < minY) { m.y = minY; m.vy *= -1; }
+                        if (m.y > maxY) { m.y = maxY; m.vy *= -1; }
+                    }
+                });
+
+                const fp = S2_FLICKER[zone.sub.id];
+                zone.pairs.forEach(p => {
+                    p.timer -= dt;
+                    if (p.timer <= 0) {
+                        p.on = !p.on;
+                        const range = p.on ? [fp.onMin, fp.onMax] : [fp.offMin, fp.offMax];
+                        p.timer = lerp(range[0], range[1], Math.random());
+                    }
+                });
+            });
+        }
+
+        function drawSphereAtom3D(x, y, r, c, alpha = 1) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            const grad = ctx.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r * 1.05);
+            grad.addColorStop(0, `rgba(${Math.min(255, c.r + 75)}, ${Math.min(255, c.g + 75)}, ${Math.min(255, c.b + 75)}, 1)`);
+            grad.addColorStop(0.55, rgba(c, 1));
+            grad.addColorStop(1, `rgba(${Math.max(0, c.r - 50)}, ${Math.max(0, c.g - 50)}, ${Math.max(0, c.b - 50)}, 1)`);
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(26, 26, 26, 0.35)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawDiatomic(m, sub, glow, phase) {
+            ctx.save();
+            const bondLen = sub.atomR * 1.45;
+            const ang = m.rotBase + (phase === 'gas' ? time * 1.5 : Math.sin(time * 0.8 + m.seed) * 0.2);
+            const cosA = Math.cos(ang), sinA = Math.sin(ang);
+            const ax1 = m.x - cosA * bondLen / 2, ay1 = m.y - sinA * bondLen / 2;
+            const ax2 = m.x + cosA * bondLen / 2, ay2 = m.y + sinA * bondLen / 2;
+            const cloudR = sub.atomR + sub.cloudPad;
+
+            const grad = ctx.createRadialGradient(m.x, m.y, sub.atomR * 0.2, m.x, m.y, cloudR + bondLen / 2);
+            const baseAlpha = glow ? 0.35 : 0.12;
+            grad.addColorStop(0, rgba(sub.color, baseAlpha));
+            grad.addColorStop(0.7, rgba(sub.color, baseAlpha * 0.4));
+            grad.addColorStop(1, rgba(sub.color, 0));
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.ellipse(m.x, m.y, cloudR + bondLen / 2, cloudR, ang, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (m.electronCloud) {
+                m.electronCloud.forEach(p => {
+                    const wobbleX = Math.sin(time * p.speed + p.phase) * 1.4;
+                    const wobbleY = Math.cos(time * p.speed + p.phase) * 1.4;
+                    const curLx = p.lx + wobbleX;
+                    const curLy = p.ly + wobbleY;
+                    const px = m.x + curLx * cosA - curLy * sinA;
+                    const py = m.y + curLx * sinA + curLy * cosA;
+
+                    let sizePulse = p.size;
+                    if (glow) sizePulse *= 1.35;
+
+                    const alpha = glow ? 0.95 : p.baseAlpha;
+                    ctx.fillStyle = p.isWhite || glow ? `rgba(255, 255, 255, ${alpha})` : rgba(sub.color, alpha);
+                    ctx.globalAlpha = alpha;
+                    ctx.fillRect(px - sizePulse / 2, py - sizePulse / 2, sizePulse, sizePulse);
+                });
+            }
+
+            if (glow) {
+                ctx.strokeStyle = 'rgba(255, 235, 150, 0.8)';
+                ctx.lineWidth = 1.8;
+                ctx.stroke();
+            }
+
+            ctx.strokeStyle = 'rgba(26, 26, 26, 0.55)';
+            ctx.lineWidth = Math.max(1.4, sub.atomR * 0.22);
+            ctx.beginPath();
+            ctx.moveTo(ax1, ay1);
+            ctx.lineTo(ax2, ay2);
+            ctx.stroke();
+
+            drawSphereAtom3D(ax1, ay1, sub.atomR, sub.color);
+            drawSphereAtom3D(ax2, ay2, sub.atomR, sub.color);
+
+            ctx.restore();
+        }
+
+        function drawS2Zone(zone) {
+            const r = zone.rect;
+            ctx.save();
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.68)';
+            roundRect(r.x, r.y, r.w, r.h, 12);
+            ctx.fill();
+
+            const flashT = zone.flashTimer / 48;
+            ctx.strokeStyle = flashT > 0 ? `rgba(232, 162, 74, ${0.4 + 0.6 * flashT})` : 'rgba(168, 201, 184, 0.75)';
+            ctx.lineWidth = flashT > 0 ? 3.0 : 1.5;
+            roundRect(r.x, r.y, r.w, r.h, 12);
+            ctx.stroke();
+
+            if (state.s2.electronRevealed) {
+                const nameText = zone.sub.ascii;
+                const eText = ` (${zone.sub.electrons} e⁻)`;
+
+                ctx.font = labelFont(15, 'bold');
+                const nameWidth = ctx.measureText(nameText).width;
+                ctx.font = labelFont(12, '700');
+                const eWidth = ctx.measureText(eText).width;
+
+                const totalW = nameWidth + eWidth;
+                const startX = r.x + (r.w - totalW) / 2;
+
+                ctx.textAlign = 'left';
+                ctx.textBaseline = 'middle';
+
+                ctx.font = labelFont(15, 'bold');
+                ctx.fillStyle = '#1B5E48';
+                ctx.fillText(nameText, startX, r.y + 19);
+
+                ctx.font = labelFont(12, '700');
+                ctx.fillStyle = '#C28328';
+                ctx.fillText(eText, startX + nameWidth, r.y + 19);
+            } else {
+                ctx.font = labelFont(16, 'bold');
+                ctx.fillStyle = '#1B5E48';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(zone.sub.ascii, r.x + r.w / 2, r.y + 19);
+            }
+
+            ctx.save();
+            ctx.beginPath();
+            roundRect(r.x + 2, r.y + 2, r.w - 4, r.h - 4, 10);
+            ctx.clip();
+
+            if (zone.phase === 'liquid') {
+                const liquidGrad = ctx.createLinearGradient(r.x, r.y + r.h * 0.40, r.x, r.y + r.h);
+                liquidGrad.addColorStop(0, rgba(zone.sub.color, 0.05));
+                liquidGrad.addColorStop(1, rgba(zone.sub.color, 0.18));
+                ctx.fillStyle = liquidGrad;
+                ctx.fillRect(r.x, r.y + r.h * 0.40, r.w, r.h * 0.60);
+            }
+
+            ctx.setLineDash([4, 3]);
+            const fp = S2_FLICKER[zone.sub.id];
+            zone.pairs.forEach(p => {
+                if (!p.on) return;
+                const a = zone.molecules[p.i], b = zone.molecules[p.j];
+                const d = Math.hypot(a.x - b.x, a.y - b.y);
+                const maxDist = zone.phase === 'solid' ? p.restDist * 1.45 : (zone.phase === 'liquid' ? p.restDist * 1.7 : p.restDist * 1.1);
+                if (d > maxDist) return;
+
+                ctx.globalAlpha = fp.alpha * (zone.phase === 'gas' ? 0.4 : 1.0);
+                ctx.strokeStyle = '#3CA57A';
+                ctx.lineWidth = fp.width;
+                ctx.beginPath();
+                ctx.moveTo(a.x, a.y);
+                ctx.lineTo(b.x, b.y);
+                ctx.stroke();
+            });
+            ctx.setLineDash([]);
+            ctx.globalAlpha = 1;
+
+            zone.molecules.forEach(m => drawDiatomic(m, zone.sub, zone.glowTimer > 0, zone.phase));
+            ctx.restore();
+
+            const phaseLabel = zone.phase === 'solid' ? 'RẮN' : (zone.phase === 'liquid' ? 'LỎNG' : 'KHÍ');
+            const phaseBadgeBg = zone.phase === 'solid' ? '#E1ECE4' : (zone.phase === 'liquid' ? '#DCE7EB' : '#F5E7CB');
+            const phaseColor = zone.phase === 'solid' ? '#1B5E48' : (zone.phase === 'liquid' ? '#2B667D' : '#9E6A1B');
+
+            ctx.save();
+            const badgeW = 62, badgeH = 20;
+            const bx = r.x + r.w / 2 - badgeW / 2, by = r.y + r.h - 26;
+            ctx.fillStyle = phaseBadgeBg;
+            roundRect(bx, by, badgeW, badgeH, 6);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(0,0,0,0.08)';
+            ctx.lineWidth = 1;
+            roundRect(bx, by, badgeW, badgeH, 6);
+            ctx.stroke();
+
+            ctx.font = labelFont(11.5, 'bold');
+            ctx.fillStyle = phaseColor;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(phaseLabel, r.x + r.w / 2, by + badgeH / 2 + 1);
+            ctx.restore();
+
+            ctx.restore();
+        }
+
+        function drawStage2() {
+            stage2Tick(16.7);
+            const s2 = state.s2;
+            s2.zones.forEach(zone => drawS2Zone(zone));
+        }
+
+        function renderControlsStage2(row) {
+            const s2 = state.s2;
+            ctrlButton(row, 'btn-secondary', 'ti-atom', s2.electronRevealed ? 'Đã hiện số electron' : 'Hiện số electron', showElectronCounts, s2.electronRevealed);
+            ctrlDivider(row);
+
+            const lbl = document.createElement('span');
+            lbl.className = 'ctrl-label';
+            lbl.innerHTML = '<i class="ti ti-thermometer"></i> Nhiệt độ';
+            row.appendChild(lbl);
+
+            const slider = document.createElement('input');
+            slider.type = 'range';
+            slider.className = 'range-slider';
+            slider.min = '-230';
+            slider.max = '200';
+            slider.step = '1';
+            slider.value = String(Math.round(s2.temp));
+            slider.id = 's2Slider';
+            slider.setAttribute('aria-label', 'Nhiệt độ (°C)');
+            slider.addEventListener('input', () => {
+                state.s2.autoHeating = false;
+                state.s2.temp = Number(slider.value);
+                ensureS2HeatingStarted();
+                updateS2TempBadge();
+            });
+            slider.addEventListener('change', () => renderControls());
+            row.appendChild(slider);
+
+            const badge = document.createElement('span');
+            badge.className = 'ctrl-badge';
+            badge.id = 's2TempBadge';
+            badge.innerHTML = `<i class="ti ti-thermometer"></i> ${Math.round(s2.temp)}°C`;
+            row.appendChild(badge);
+
+            ctrlDivider(row);
+            ctrlButton(row, 'btn-primary', 'ti-flame', 'Tăng nhiệt', startS2Heating, s2.autoHeating || s2.temp >= 200);
+            ctrlButton(row, 'btn-secondary', 'ti-player-pause', 'Pause', pauseS2Heating, !s2.autoHeating);
+            ctrlButton(row, 'btn-reset', 'ti-refresh', 'Reset', initStage2, false);
+        }
+
+        function refreshObserveTableStage2() {
+            const s2 = state.s2;
+            const cols = s2.electronRevealed ? '<th style="width:34%;">Tổng số electron</th>' : '';
+            const w1 = s2.electronRevealed ? '30%' : '40%';
+            const wLast = s2.electronRevealed ? '36%' : '60%';
+            document.getElementById('observeThead').innerHTML = `<tr><th style="width:${w1};">Phân tử</th>${cols}<th style="width:${wLast};">Trạng thái hiện tại</th></tr>`;
+            const rows = s2.zones.map(z => {
+                const phaseLabel = z.phase === 'solid' ? 'Rắn' : (z.phase === 'liquid' ? 'Lỏng' : 'Khí');
+                const eCol = s2.electronRevealed ? `<td><strong>${z.sub.electrons}</strong></td>` : '';
+                return `<tr><td><strong>${z.sub.label}</strong></td>${eCol}<td>${phaseLabel}</td></tr>`;
+            }).join('');
+            document.getElementById('observeTableBody').innerHTML = rows;
+        }
+
+        // ======================================================
+        // KHỞI CHẠY LẦN ĐẦU
+        // ======================================================
+        goToStage(1);
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

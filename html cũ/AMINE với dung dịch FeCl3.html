@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Phản ứng Nhóm Amine với FeCl₃ – Thí nghiệm Hóa học</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f4c81;
+            --teal: #1a7a5e;
+            --teal-light: #0f6e56;
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --radius-card: 14px;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px 40px;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ── */
+        header {
+            width: 100%;
+            max-width: 760px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.15);
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -40px;
+        }
+
+        header::after {
+            width: 140px;
+            height: 140px;
+            bottom: -50px;
+            left: 20%;
+        }
+
+        header .badge {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header .desc {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            font-weight: 400;
+            max-width: 90%;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* ── INFO PANEL ── */
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            border-radius: var(--radius-card);
+            display: flex;
+            overflow: hidden;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 1.1rem 1.25rem;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+            border-radius: var(--radius-card) 0 0 var(--radius-card);
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+            border-radius: 0 var(--radius-card) var(--radius-card) 0;
+        }
+
+        .info-col-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .info-col-label i {
+            font-size: 13px;
+        }
+
+        .info-col p {
+            font-size: 0.83rem;
+            color: var(--text-sub);
+            line-height: 1.55;
+        }
+
+        .info-col ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-col ul li {
+            font-size: 0.83rem;
+            color: var(--text-sub);
+            line-height: 1.55;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+
+        .info-col ul li i {
+            color: var(--navy);
+            font-size: 13px;
+            line-height: 1.55;
+            flex-shrink: 0;
+        }
+
+        .info-col ul li span {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* ── STATUS BAR ── */
+        .status-bar {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 0.65rem 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: var(--text-sub);
+        }
+
+        .status-bar i {
+            color: var(--navy);
+            font-size: 15px;
+        }
+
+        #statusText {
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* ── CANVAS ── */
+        .canvas-wrap {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0 6px;
+        }
+
+        canvas {
+            display: block;
+        }
+
+        /* ── CONTROLS ── */
+        .controls {
+            width: 100%;
+            max-width: 760px;
+            border: 1px solid #c4b0f5;
+            border-radius: var(--radius-card);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ctrl-section-title {
+            padding: 0.6rem 1.2rem;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: #faf8ff;
+            border-bottom: 1px solid #c4b0f5;
+        }
+
+        .ctrl-row {
+            display: flex;
+            align-items: center;
+            padding: 0.7rem 1.2rem;
+            gap: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .ctrl-row:last-child {
+            border-bottom: none;
+        }
+
+        .ctrl-row:nth-child(2) {
+            background: #fff5f8;
+        }
+
+        .ctrl-row:nth-child(3) {
+            background: #eaf6fc;
+        }
+
+        .ctrl-row:nth-child(4) {
+            background: #f5f3ff;
+        }
+
+        .ctrl-label {
+            min-width: 160px;
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ctrl-label i {
+            color: var(--navy);
+            font-size: 14px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+            border: 1.5px solid var(--border);
+            background: #f8fafc;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:hover:not(:disabled):not(.btn-active) {
+            border-color: var(--navy);
+            color: var(--navy);
+        }
+
+        .btn.btn-active {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .btn-action {
+            padding: 8px 22px;
+            font-size: 0.85rem;
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--border);
+            background: #f8fafc;
+            color: var(--text-sub);
+        }
+
+        .btn-reset:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: #f0fdf8;
+        }
+
+        /* ── EXPLANATION BOX ── */
+        .explanation-box {
+            width: 100%;
+            max-width: 760px;
+            background: #f0fdf8;
+            border: 1px solid #6ee7b7;
+            border-left: 4px solid var(--teal);
+            border-radius: var(--radius-card);
+            padding: 1.1rem 1.3rem;
+            transition: border-color 0.4s, background 0.4s, opacity 0.2s, transform 0.2s;
+        }
+
+        .explanation-box.reacted {
+            border-left-color: var(--teal-light);
+            background: #e8fdf5;
+        }
+
+        .explanation-box.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .eb-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .eb-title i {
+            font-size: 16px;
+        }
+
+        .explanation-box.reacted .eb-title {
+            color: var(--teal-light);
+        }
+
+        .eb-body {
+            font-size: 0.83rem;
+            color: var(--text-sub);
+            line-height: 1.65;
+        }
+
+        .eb-body strong {
+            color: var(--text-main);
+        }
+
+        .eb-highlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #fff3cd;
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-weight: 600;
+            color: #7c5c00;
+            font-size: 0.78rem;
+            margin-top: 6px;
+        }
+
+        .eb-eq {
+            margin-top: 9px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 500;
+            border-left: 3px solid var(--navy);
+            font-family: 'Courier New', monospace;
+        }
+
+        .explanation-box.reacted .eb-eq {
+            border-left-color: var(--teal-light);
+            background: #e8f9f2;
+        }
+
+        /* ── FOOTER NOTE ── */
+        .footer-note {
+            width: 100%;
+            max-width: 760px;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            padding-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-badge label-small">
+            <i class="ti ti-flask"></i> Thí nghiệm hóa học
+        </div>
+        <h1>PHẢN ỨNG CỦA NHÓM AMINE VỚI DUNG DỊCH SẮT(III) CHLORIDE</h1>
+        <div class="desc">Mô phỏng trực quan tương tác hóa học giữa dung dịch chứa nhóm chức Amine/Ammonia và các loại
+            muối vô cơ. Bộ sách: Kết nối tri thức với cuộc sống.</div>
+    </header>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="info-col-label"><i class="ti ti-target"></i> Mục đích thí nghiệm</div>
+            <p>Khảo sát phản ứng hóa học giữa dung dịch <strong>methylamine (CH₃NH₂)</strong> và dung dịch <strong>FeCl₃
+                    0,1 M</strong>. Quan sát sự tạo kết tủa Fe(OH)₃ màu nâu đỏ và giải thích vai trò nhóm amine như một
+                base.</p>
+        </div>
+        <div class="info-col">
+            <div class="info-col-label"><i class="ti ti-hand-click"></i> Hướng dẫn thao tác</div>
+            <ul>
+                <li><i class="ti ti-circle-number-1"></i><span>Cho 2 ml dung dịch FeCl₃ 0,1 M vào ống nghiệm (thí nghiệm
+                        chính) hoặc H₂O (đối chứng)</span></li>
+                <li><i class="ti ti-circle-number-2"></i><span>Thêm tiếp 2 ml dung dịch CH₃NH₂ 0,1 M vào ống
+                        nghiệm</span>
+                </li>
+                <li><i class="ti ti-circle-number-3"></i><span>Nhấn <strong>Tiến hành</strong> để quan sát phản ứng và
+                        hiện tượng tạo kết tủa</span></li>
+                <li><i class="ti ti-circle-number-4"></i><span>Đọc giải thích hiện tượng và phương trình phản ứng bên
+                        dưới</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- STATUS BAR -->
+    <div class="status-bar">
+        <i class="ti ti-info-circle"></i>
+        <span id="statusText">Chọn hóa chất để bắt đầu thí nghiệm.</span>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas-wrap">
+        <canvas id="labCanvas" width="760" height="360"></canvas>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <div class="ctrl-section-title"><i class="ti ti-adjustments-horizontal"></i> Biến điều khiển</div>
+
+        <!-- Bước 1 -->
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-test-pipe"></i> Bước 1 — Ống nghiệm:</div>
+            <div class="btn-group" id="groupA">
+                <button class="btn" data-group="A" data-val="fecl3" onclick="selectA(this)">
+                    <i class="ti ti-droplet"></i> FeCl₃ 0,1M
+                </button>
+                <button class="btn" data-group="A" data-val="h2o" onclick="selectA(this)">
+                    <i class="ti ti-droplet"></i> H₂O (đối chứng)
+                </button>
+            </div>
+        </div>
+
+        <!-- Bước 2 -->
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-eyedropper"></i> Bước 2 — Nhỏ vào:</div>
+            <div class="btn-group" id="groupB">
+                <button class="btn" data-group="B" data-val="methyl" onclick="selectB(this)">
+                    <i class="ti ti-molecule"></i> CH₃NH₂ 0,1M
+                </button>
+            </div>
+        </div>
+
+        <!-- Hành động -->
+        <div class="ctrl-row">
+            <div class="ctrl-label"><i class="ti ti-player-play"></i> Hành động:</div>
+            <div class="btn-group">
+                <button class="btn btn-action btn-active" id="btnRun" onclick="runExperiment()" disabled>
+                    <i class="ti ti-flask"></i> Tiến hành
+                </button>
+                <button class="btn btn-action btn-reset" id="btnReset" onclick="resetExperiment()">
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPLANATION BOX -->
+    <div class="explanation-box" id="explanationBox">
+        <div class="eb-title" id="ebTitle">
+            <i class="ti ti-info-circle"></i> Chuẩn bị thí nghiệm
+        </div>
+        <div class="eb-body" id="ebBody">
+            Hãy chọn hóa chất cho ống nghiệm và dung dịch cần nhỏ vào, sau đó nhấn <strong>Tiến hành</strong> để quan
+            sát phản ứng và đọc giải thích chi tiết.
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+
+
+    <script>
+        // ── CANVAS SETUP ──
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        // ── FIXED COORDINATES ──
+        const TX = W / 2;
+        const TY = 150;
+
+        // ── STATE ──
+        let currentVarA = null;   // 'fecl3' | 'h2o'
+        let currentVarB = null;   // 'methyl' | 'amonia' | 'h2o'
+        let isDropping = false;
+        let hasReacted = false;
+        let dropY = TY - 80;
+        let reactProgress = 0;
+        let precipitateParticles = [];
+
+        // Dropper position
+        const DROPPER_X = TX;
+        const DROPPER_Y = 60;
+
+        // ── LERP COLOR ──
+        function lerpColor(c1, c2, t) {
+            const r = Math.round(c1.r + (c2.r - c1.r) * t);
+            const g = Math.round(c1.g + (c2.g - c1.g) * t);
+            const b = Math.round(c1.b + (c2.b - c1.b) * t);
+            return `rgb(${r},${g},${b})`;
+        }
+
+        // ── REACTION OUTCOME ──
+        function getReactionKey() {
+            return `${currentVarA}_${currentVarB}`;
+        }
+
+        const REACTIONS = {
+            fecl3_methyl: {
+                phenomen: 'kết tủa nâu đỏ',
+                liquidFrom: { r: 250, g: 200, b: 120 },
+                liquidTo: { r: 160, g: 82, b: 45 },
+                precipColor: '#8B4513',
+                hasPrecip: true,
+            },
+            fecl3_amonia: {
+                phenomen: 'kết tủa nâu đỏ',
+                liquidFrom: { r: 250, g: 200, b: 120 },
+                liquidTo: { r: 160, g: 82, b: 45 },
+                precipColor: '#8B4513',
+                hasPrecip: true,
+            },
+            fecl3_h2o: {
+                phenomen: 'không phản ứng',
+                liquidFrom: { r: 250, g: 200, b: 120 },
+                liquidTo: { r: 250, g: 200, b: 120 },
+                precipColor: null,
+                hasPrecip: false,
+            },
+            h2o_methyl: {
+                phenomen: 'tan hoàn toàn',
+                liquidFrom: { r: 180, g: 220, b: 255 },
+                liquidTo: { r: 210, g: 235, b: 255 },
+                precipColor: null,
+                hasPrecip: false,
+            },
+            h2o_amonia: {
+                phenomen: 'tan hoàn toàn',
+                liquidFrom: { r: 180, g: 220, b: 255 },
+                liquidTo: { r: 210, g: 235, b: 255 },
+                precipColor: null,
+                hasPrecip: false,
+            },
+            h2o_h2o: {
+                phenomen: 'không đổi',
+                liquidFrom: { r: 180, g: 220, b: 255 },
+                liquidTo: { r: 180, g: 220, b: 255 },
+                precipColor: null,
+                hasPrecip: false,
+            },
+        };
+
+        // ── INIT LIQUID COLOR ──
+        function getInitLiquidColor() {
+            if (!currentVarA) return 'rgba(220,235,255,0)';
+            if (currentVarA === 'fecl3') return 'rgba(250,200,120,0.75)';
+            return 'rgba(180,220,255,0.65)';
+        }
+
+        function getDropColor() {
+            if (!currentVarB) return '#ffffff';
+            if (currentVarB === 'methyl') return '#e8f4f8';
+            if (currentVarB === 'amonia') return '#93c5fd';
+            return '#bae6fd';
+        }
+
+        // ── DROPPER DRAW ──
+        function drawDropper() {
+            const dx = DROPPER_X, dy = DROPPER_Y;
+            ctx.save();
+
+            // Body of dropper (pipette)
+            ctx.beginPath();
+            ctx.moveTo(dx - 6, dy);
+            ctx.lineTo(dx - 6, dy + 40);
+            ctx.lineTo(dx - 2, dy + 60);
+            ctx.lineTo(dx, dy + 72);
+            ctx.lineTo(dx + 2, dy + 60);
+            ctx.lineTo(dx + 6, dy + 40);
+            ctx.lineTo(dx + 6, dy);
+            ctx.closePath();
+            const dropperColor = getDropColor();
+            ctx.fillStyle = dropperColor + 'cc';
+            ctx.fill();
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Bulb top — always red like a real rubber dropper bulb
+            ctx.beginPath();
+            ctx.ellipse(dx, dy, 11, 16, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+            ctx.strokeStyle = '#b91c1c';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Shine on bulb
+            ctx.beginPath();
+            ctx.ellipse(dx - 4, dy - 5, 3, 5, -0.4, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255,255,255,0.4)';
+            ctx.fill();
+
+            // Chemical label on dropper — shown to the right side
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '600 9px Plus Jakarta Sans, Arial';
+            ctx.textAlign = 'left';
+            const dropLabel = currentVarB === 'methyl' ? 'CH₃NH₂'
+                : currentVarB === 'amonia' ? 'NH₃'
+                    : currentVarB === 'h2o' ? 'H₂O'
+                        : '?';
+            ctx.fillText(dropLabel, dx + 14, dy + 40);
+
+            ctx.restore();
+        }
+
+        // ── DROP DRAW ──
+        function drawDrop() {
+            if (!isDropping) return;
+            const dropColor = getDropColor();
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(TX, dropY, 5, 0, Math.PI * 2);
+            ctx.fillStyle = dropColor;
+            ctx.shadowColor = dropColor;
+            ctx.shadowBlur = 8;
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // ── PRECIPITATE PARTICLES ──
+        function spawnPrecipitate() {
+            const key = getReactionKey();
+            const rxn = REACTIONS[key];
+            if (!rxn || !rxn.hasPrecip) return;
+            precipitateParticles = [];
+            for (let i = 0; i < 32; i++) {
+                precipitateParticles.push({
+                    x: TX + (Math.random() - 0.5) * 26,
+                    y: TY + 60 + Math.random() * 40,
+                    r: 2 + Math.random() * 3,
+                    vy: 0.2 + Math.random() * 0.5,
+                    alpha: 0.7 + Math.random() * 0.3,
+                    settled: false,
+                    targetY: TY + 100 + Math.random() * 22,
+                });
+            }
+        }
+
+        function drawPrecipitate() {
+            const key = getReactionKey();
+            const rxn = REACTIONS[key];
+            if (!rxn || !rxn.hasPrecip || precipitateParticles.length === 0) return;
+            precipitateParticles.forEach(p => {
+                if (!p.settled) {
+                    p.y += p.vy;
+                    if (p.y >= p.targetY) { p.y = p.targetY; p.settled = true; }
+                }
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                ctx.fillStyle = rxn.precipColor;
+                ctx.globalAlpha = p.alpha * Math.min(reactProgress * 2, 1);
+                ctx.shadowColor = rxn.precipColor;
+                ctx.shadowBlur = 3;
+                ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        // ── GRID BACKGROUND ──
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(148,163,184,0.15)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x < W; x += 30) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+            }
+            for (let y = 0; y < H; y += 30) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // ── TEST TUBE ──
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            // Body
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.45)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Liquid inside
+            let liquidColor;
+            if (hasReacted) {
+                const key = getReactionKey();
+                const rxn = REACTIONS[key];
+                if (rxn) {
+                    liquidColor = lerpColor(rxn.liquidFrom, rxn.liquidTo, reactProgress);
+                } else {
+                    liquidColor = 'rgba(220,235,255,0.6)';
+                }
+            } else {
+                liquidColor = getInitLiquidColor();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 15, ty + 60);
+            ctx.lineTo(tx - 15, ty + 110);
+            ctx.quadraticCurveTo(tx - 15, ty + 130, tx, ty + 130);
+            ctx.quadraticCurveTo(tx + 15, ty + 130, tx + 15, ty + 110);
+            ctx.lineTo(tx + 15, ty + 60);
+            ctx.fillStyle = liquidColor;
+            ctx.fill();
+
+            // Highlight streak
+            ctx.beginPath();
+            ctx.moveTo(tx - 12, ty + 10);
+            ctx.lineTo(tx - 12, ty + 115);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Mouth
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx + 18, ty);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Stand
+            ctx.beginPath();
+            ctx.moveTo(tx - 28, ty - 10);
+            ctx.lineTo(tx + 28, ty - 10);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Tube label
+            const tubeLabel = currentVarA === 'fecl3' ? 'FeCl₃ 0,1M'
+                : currentVarA === 'h2o' ? 'H₂O'
+                    : '—';
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 11px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(tubeLabel, tx, ty + 155);
+
+            ctx.restore();
+        }
+
+        // ── TABLE SURFACE ──
+        function drawTable() {
+            ctx.save();
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(0, H - 38, W, 38);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, H - 38);
+            ctx.lineTo(W, H - 38);
+            ctx.stroke();
+
+            // Wood grain
+            for (let i = 0; i < 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, H - 38 + i * 7 + 3);
+                ctx.lineTo(W, H - 38 + i * 7 + 3);
+                ctx.strokeStyle = 'rgba(148,163,184,0.2)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // ── REACTION LABEL OVERLAY ── (removed: shown in explanation-box instead)
+
+        // ── MAIN LOOP ──
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+
+            drawGrid();
+            drawTable();
+            drawTestTube();
+
+            // Drop animation
+            if (isDropping) {
+                dropY += 2.5;
+                if (dropY >= TY + 55) {
+                    isDropping = false;
+                    hasReacted = true;
+                    spawnPrecipitate();
+                    updateExplanation();
+                }
+            }
+
+            // Progress animation
+            if (hasReacted && reactProgress < 1) {
+                reactProgress = Math.min(reactProgress + 0.012, 1);
+            }
+
+            drawDropper();
+            drawDrop();
+            drawPrecipitate();
+
+            requestAnimationFrame(loop);
+        }
+
+        // ── SELECTION ──
+        function selectA(btn) {
+            if (isDropping || hasReacted) return;
+            document.querySelectorAll('#groupA .btn').forEach(b => b.classList.remove('btn-active'));
+            btn.classList.add('btn-active');
+            currentVarA = btn.dataset.val;
+            updateStatusBar();
+            checkEnableRun();
+        }
+
+        function selectB(btn) {
+            if (isDropping || hasReacted) return;
+            document.querySelectorAll('#groupB .btn').forEach(b => b.classList.remove('btn-active'));
+            btn.classList.add('btn-active');
+            currentVarB = btn.dataset.val;
+            updateStatusBar();
+            checkEnableRun();
+        }
+
+        function checkEnableRun() {
+            document.getElementById('btnRun').disabled = !(currentVarA && currentVarB);
+        }
+
+        // ── RUN ──
+        function runExperiment() {
+            if (!currentVarA || !currentVarB || isDropping || hasReacted) return;
+            isDropping = true;
+            dropY = TY - 80;
+            document.getElementById('btnRun').disabled = true;
+            document.querySelectorAll('#groupA .btn, #groupB .btn').forEach(b => b.disabled = true);
+        }
+
+        // ── RESET ──
+        function resetExperiment() {
+            currentVarA = null;
+            currentVarB = null;
+            isDropping = false;
+            hasReacted = false;
+            dropY = TY - 80;
+            reactProgress = 0;
+            precipitateParticles = [];
+
+            document.querySelectorAll('.btn[data-group]').forEach(b => {
+                b.classList.remove('btn-active');
+                b.disabled = false;
+            });
+            document.getElementById('btnRun').disabled = true;
+
+            const box = document.getElementById('explanationBox');
+            box.classList.remove('reacted');
+
+            setExplanationContent(
+                'ti-info-circle',
+                'Chuẩn bị thí nghiệm',
+                'Hãy chọn hóa chất cho ống nghiệm và dung dịch cần nhỏ vào, sau đó nhấn <strong>Tiến hành</strong> để quan sát phản ứng và đọc giải thích chi tiết.',
+                null
+            );
+
+            document.getElementById('statusText').textContent = 'Chọn hóa chất để bắt đầu thí nghiệm.';
+        }
+
+        // ── STATUS BAR ──
+        function updateStatusBar() {
+            const a = currentVarA === 'fecl3' ? 'FeCl₃ 0,1M'
+                : currentVarA === 'h2o' ? 'H₂O (đối chứng)'
+                    : '—';
+            const b = currentVarB === 'methyl' ? 'CH₃NH₂ 0,1M'
+                : currentVarB === 'amonia' ? 'NH₃ 0,1M'
+                    : currentVarB === 'h2o' ? 'H₂O'
+                        : '—';
+            const txt = (currentVarA && currentVarB)
+                ? `Ống nghiệm: ${a} → Nhỏ vào: ${b}. Nhấn Tiến hành để xem phản ứng.`
+                : currentVarA
+                    ? `Ống nghiệm: ${a}. Hãy chọn dung dịch nhỏ vào.`
+                    : 'Chọn hóa chất cho ống nghiệm ở bước 1.';
+            document.getElementById('statusText').textContent = txt;
+        }
+
+        // ── EXPLANATION ──
+        function setExplanationContent(icon, title, body, equation) {
+            const box = document.getElementById('explanationBox');
+            const titleEl = document.getElementById('ebTitle');
+            const bodyEl = document.getElementById('ebBody');
+
+            box.classList.add('fade');
+            setTimeout(() => {
+                titleEl.innerHTML = `<i class="ti ${icon}"></i> ${title}`;
+                bodyEl.innerHTML = body + (equation ? `<div class="eb-eq">${equation}</div>` : '');
+                box.classList.remove('fade');
+            }, 200);
+        }
+
+        function updateExplanation() {
+            const box = document.getElementById('explanationBox');
+            const key = getReactionKey();
+
+            const explanations = {
+                fecl3_methyl: {
+                    title: 'Xuất hiện kết tủa Fe(OH)₃ màu nâu đỏ!',
+                    body: `<strong>Hiện tượng:</strong> Khi nhỏ dung dịch methylamine (CH₃NH₂) vào FeCl₃, trong ống nghiệm <strong>xuất hiện ngay kết tủa dạng keo màu nâu đỏ đặc trưng</strong>, lơ lửng rồi lắng xuống đáy ống, tách biệt với lớp dung dịch lỏng phía trên.<br><br>
+             <strong>Giải thích:</strong> Methylamine là một amine bậc 1, mang tính base nhờ cặp electron tự do trên N. Khi phản ứng với FeCl₃, CH₃NH₂ nhận H⁺ từ nước hoặc cho electron, tạo môi trường base cục bộ, khiến ion Fe³⁺ bị kết tủa dưới dạng iron(III) hydroxide.<br><br>
+             <span class="eb-highlight"><i class="ti ti-flask"></i> Kết tủa nâu đỏ = Fe(OH)₃</span>`,
+                    equation: 'FeCl₃ + 3 CH₃NH₂ + 3 H₂O → Fe(OH)₃↓ + 3 CH₃NH₃⁺ + 3 Cl⁻',
+                },
+                fecl3_amonia: {
+                    title: 'Xuất hiện kết tủa Fe(OH)₃ màu nâu đỏ!',
+                    body: `<strong>Hiện tượng:</strong> Tương tự methylamine, dung dịch NH₃ khi nhỏ vào FeCl₃ cũng tạo ra <strong>kết tủa nâu đỏ Fe(OH)₃</strong> đặc trưng trong ống nghiệm.<br><br>
+             <strong>Giải thích:</strong> NH₃ là base vô cơ điển hình, cặp electron trên N phản ứng với ion Fe³⁺ trong nước, tạo kết tủa. Phản ứng này chứng minh tính base của cả amine hữu cơ lẫn amoniac đều đủ mạnh để kết tủa Fe³⁺.<br><br>
+             <span class="eb-highlight"><i class="ti ti-flask"></i> Kết tủa nâu đỏ = Fe(OH)₃</span>`,
+                    equation: 'FeCl₃ + 3 NH₃ + 3 H₂O → Fe(OH)₃↓ + 3 NH₄⁺ + 3 Cl⁻',
+                },
+                fecl3_h2o: {
+                    title: 'Không có phản ứng rõ ràng',
+                    body: `<strong>Hiện tượng:</strong> Khi nhỏ H₂O vào dung dịch FeCl₃, dung dịch vẫn giữ màu vàng nhạt đặc trưng, <strong>không có kết tủa</strong> hình thành (hoặc kết tủa rất ít do thủy phân nhẹ).<br><br>
+             <strong>Giải thích:</strong> Nước không có tính base đủ mạnh để kết tủa hoàn toàn Fe³⁺. FeCl₃ bị thủy phân nhẹ tạo môi trường acid yếu, ức chế việc tạo kết tủa. Đây là thí nghiệm <strong>đối chứng</strong> — xác nhận rằng chính nhóm amine mới là tác nhân gây kết tủa.`,
+                    equation: 'FeCl₃ + H₂O ⇌ Fe(OH)₂⁺ + HCl  (thủy phân nhẹ, không tạo kết tủa rõ)',
+                },
+                h2o_methyl: {
+                    title: 'Methylamine tan hoàn toàn trong H₂O',
+                    body: `<strong>Hiện tượng:</strong> Khi nhỏ CH₃NH₂ vào nước, dung dịch vẫn trong suốt, <strong>không xuất hiện kết tủa hay đổi màu</strong>.<br><br>
+             <strong>Giải thích:</strong> CH₃NH₂ tan tốt trong nước do tạo liên kết hydrogen. Dung dịch có tính base yếu. Đây là thí nghiệm đối chứng: xác nhận Fe³⁺ là tác nhân cần thiết để tạo kết tủa.`,
+                    equation: 'CH₃NH₂ + H₂O ⇌ CH₃NH₃⁺ + OH⁻  (cân bằng, dung dịch base yếu)',
+                },
+                h2o_amonia: {
+                    title: 'NH₃ tan hoàn toàn trong H₂O',
+                    body: `<strong>Hiện tượng:</strong> NH₃ tan hoàn toàn trong nước, tạo dung dịch trong suốt có mùi khai đặc trưng, <strong>không có kết tủa</strong>.<br><br>
+             <strong>Giải thích:</strong> NH₃ là base yếu, cân bằng thủy phân tạo NH₄⁺ và OH⁻. Không có cation kim loại, nên không có kết tủa.`,
+                    equation: 'NH₃ + H₂O ⇌ NH₄⁺ + OH⁻',
+                },
+                h2o_h2o: {
+                    title: 'Không có hiện tượng',
+                    body: `<strong>Hiện tượng:</strong> H₂O nhỏ vào H₂O, dung dịch trong suốt, <strong>không có bất kỳ thay đổi</strong> nào.<br><br>
+             <strong>Giải thích:</strong> Thí nghiệm đối chứng trắng — không có hóa chất phản ứng, xác nhận các quan sát ở thí nghiệm chính là do tác nhân hóa học chứ không phải do yếu tố vật lý.`,
+                    equation: 'H₂O + H₂O → H₂O (không đổi)',
+                },
+            };
+
+            const data = explanations[key];
+            if (data) {
+                box.classList.add('reacted');
+                setExplanationContent('ti-circle-check', data.title, data.body, data.equation);
+            }
+        }
+
+        // ── START ──
+        loop();
+    </script>
+</body>
+
+</html>

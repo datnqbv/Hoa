@@ -1,0 +1,2926 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Một Góc Khám Phá Về Pin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --font-main: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* ============ HEADER ============ */
+        .header {
+            width: 100%;
+            max-width: 1720px;
+            background-image: linear-gradient(rgba(20, 24, 20, 0.4), rgba(20, 24, 20, 0.4)), url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 180px;
+        }
+
+        .header::before,
+        .header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        .header::before {
+            width: 250px;
+            height: 250px;
+            top: -100px;
+            left: -50px;
+        }
+
+        .header::after {
+            width: 350px;
+            height: 350px;
+            bottom: -150px;
+            right: -80px;
+        }
+
+        .header-title {
+            color: #FFFFFF;
+            font-size: clamp(1.9rem, 4vw, 2.75rem);
+            font-weight: 800;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            z-index: 1;
+        }
+
+        .header-desc {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.05rem;
+            margin-top: 6px;
+            z-index: 1;
+            max-width: 64ch;
+        }
+
+        /* ============ GOAL BAR ============ */
+        .goal-bar {
+            width: 100%;
+            max-width: 1720px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* ============ LAB WRAPPER (3-column dashboard) ============ */
+        .lab-wrapper {
+            display: grid;
+            grid-template-columns: minmax(260px, 1fr) minmax(0, 2.2fr) minmax(310px, 1.2fr);
+            grid-template-areas: "sideLeft guide    sideRight"
+                "sideLeft controls sideRight"
+                "sideLeft canvas   sideRight";
+            grid-template-rows: auto auto 1fr;
+            gap: 16px;
+            width: 100%;
+            max-width: 1720px;
+            align-items: stretch;
+        }
+
+        .lab-side-left,
+        .lab-side-right {
+            align-self: stretch;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            min-height: 0;
+            max-height: 596px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--sage) transparent;
+            padding-right: 4px;
+        }
+
+        .lab-side-left::-webkit-scrollbar,
+        .lab-side-right::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lab-side-left::-webkit-scrollbar-thumb,
+        .lab-side-right::-webkit-scrollbar-thumb {
+            background-color: var(--sage);
+            border-radius: 3px;
+        }
+
+        .lab-side-left::-webkit-scrollbar-track,
+        .lab-side-right::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        .lab-side-left {
+            grid-area: sideLeft;
+        }
+
+        .lab-side-right {
+            grid-area: sideRight;
+        }
+
+        .lab-wrapper-mid {
+            grid-row: 1 / 4;
+            grid-column: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ai-guide {
+            grid-area: guide;
+        }
+
+        .controls-card {
+            grid-area: controls;
+        }
+
+        .canvas-card {
+            grid-area: canvas;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        .tool-chips {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tool-chip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--ink);
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .tool-chip.active {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.15);
+        }
+
+        .tool-chip.locked {
+            cursor: default;
+        }
+
+        .tool-chip-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tool-chip-label i {
+            color: var(--jade);
+            font-size: 1.1rem;
+        }
+
+        /* Way to do steps */
+        .steps-card {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 6px 8px;
+            border-radius: 8px;
+            transition: background 0.18s ease;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            font-weight: 700;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--ink-2);
+        }
+
+        .step-row.is-active {
+            background-color: var(--jade-pale);
+        }
+
+        .step-row.is-active .step-num {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .step-row.is-active .step-text {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .step-row.is-done .step-num {
+            background-color: transparent;
+        }
+
+        .step-row.is-done .step-num i {
+            color: var(--jade);
+            font-size: 14px;
+        }
+
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-guide.state-idle {
+            background-color: var(--sage-pale);
+            border-left: 4px solid var(--accent);
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: var(--ink);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .ai-guide.state-correct .ai-avatar {
+            background-color: var(--correct);
+        }
+
+        .ai-guide.state-wrong .ai-avatar {
+            background-color: var(--wrong);
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .controls-card {
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.active {
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .stepper-nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .stepper-nav-right {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .canvas-card {
+            padding: 4px;
+            width: 100%;
+            height: 440px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        .right-card {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-height: 100%;
+        }
+
+        .right-card-body {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 4px;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .right-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            table-layout: fixed;
+        }
+
+        .right-card table th:nth-child(1) { width: 10%; }
+        .right-card table th:nth-child(2) { width: 34%; }
+        .right-card table th:nth-child(3) { width: 22%; }
+        .right-card table th:nth-child(4) { width: 34%; }
+
+        .right-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 9.5px;
+            font-weight: 700;
+            letter-spacing: 0.2px;
+            padding: 6px 4px;
+            text-align: left;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+
+        .right-card tbody td {
+            padding: 7px 4px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+            word-wrap: break-word;
+        }
+
+        .right-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .right-card tbody td select {
+            width: 100%;
+            padding: 4px 12px 4px 4px;
+            border-radius: 4px;
+            border: 1px solid var(--paper-line);
+            background-color: var(--cream);
+            font-family: var(--font-main);
+            font-size: 11px;
+            box-sizing: border-box;
+        }
+
+        .right-card tbody td select:disabled {
+            background-color: var(--cream-2);
+            color: var(--ink-2);
+        }
+
+        .right-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .aha-box {
+            margin-top: 4px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: var(--font-main);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px dashed var(--paper-line);
+            padding-top: 16px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .quiz-container.fade-out {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .quiz-question {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 13px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 20px;
+            font-weight: 700;
+            color: var(--ink-2);
+            text-transform: uppercase;
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        /* ============ LINK SECTION ============ */
+        .link-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            width: 100%;
+            max-width: 1720px;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 18px 22px;
+            margin-top: 16px;
+        }
+
+        .link-fish {
+            flex-shrink: 0;
+        }
+
+        .link-fish img {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--sage);
+            display: block;
+        }
+
+        .link-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .link-info h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .link-info p {
+            font-size: 14px;
+            color: var(--ink-2);
+            line-height: 1.5;
+        }
+
+        .link-url {
+            color: var(--jade-text);
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+            width: fit-content;
+        }
+
+        .link-url:hover {
+            color: var(--jade-deep);
+            text-decoration: underline;
+        }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 16px;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+            transform: translateY(10px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-2);
+            max-width: 100%;
+            margin: 0 auto 22px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1100px) {
+            .lab-wrapper {
+                grid-template-columns: 1fr;
+                grid-template-areas: "guide"
+                    "controls"
+                    "canvas"
+                    "sideRight"
+                    "sideLeft";
+            }
+
+            .lab-side-left,
+            .lab-side-right {
+                height: auto;
+                max-height: none;
+                align-self: auto;
+                overflow-y: visible;
+            }
+
+            .lab-wrapper-mid {
+                grid-row: 1 / 4;
+                grid-column: 1;
+            }
+
+            .steps-card,
+            .right-card {
+                flex: none;
+                min-height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .link-section {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 12px;
+            }
+
+            .link-fish img {
+                width: 56px;
+                height: 56px;
+            }
+
+            body {
+                padding: 16px 12px;
+            }
+
+            .header {
+                padding: 1.5rem 1.5rem;
+            }
+
+            .modal-card {
+                padding: 26px 20px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .controls-card {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .stepper-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header">
+        <h1 class="header-title">Một góc khám phá về pin</h1>
+        <p class="header-desc">Hãy cùng tiến hành thiết lập các pin điện hóa đơn giản, thực hiện phép đo và phân tích số
+            liệu để kiểm chứng giả thuyết về sự ảnh hưởng của cặp điện cực kim loại.</p>
+    </header>
+
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text" id="goalText">Lắp ráp được pin đơn giản bằng hai thanh kim loại khác nhau cắm trong cùng
+            một dung dịch điện li và đo được sức điện động của pin.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <!-- SIDE LEFT: TOOLS AND STEPS -->
+        <div class="lab-side-left">
+            <div class="card side-card" id="toolsCard">
+                <h3><i class="ti ti-settings"></i> 1. Công cụ mô phỏng</h3>
+                <div class="tool-chips" id="toolsChipContainer">
+                    <span class="tool-chip locked" id="chip_metal">
+                        <span class="tool-chip-label"><i class="ti ti-square"></i> Cặp điện cực</span>
+                    </span>
+                    <span class="tool-chip locked" id="chip_solution">
+                        <span class="tool-chip-label"><i class="ti ti-flask"></i> Dung dịch điện li</span>
+                    </span>
+                    <span class="tool-chip locked" id="chip_voltmeter">
+                        <span class="tool-chip-label"><i class="ti ti-gauge"></i> Vôn kế &amp; Dây nối</span>
+                    </span>
+                    <span class="tool-chip locked" id="chip_cleaner">
+                        <span class="tool-chip-label"><i class="ti ti-brush"></i> Dụng cụ làm sạch</span>
+                    </span>
+                    <span class="tool-chip locked" id="chip_marker">
+                        <span class="tool-chip-label"><i class="ti ti-bookmarks"></i> Vùng cắm định vị</span>
+                    </span>
+                </div>
+            </div>
+
+            <div class="card side-card steps-card" id="stepsCard">
+                <h3><i class="ti ti-list-numbers"></i> 2. Các bước tiến hành</h3>
+                <ul class="step-list" id="stepList">
+                    <li class="step-row is-active" data-step="1"><span class="step-num">1</span><span
+                            class="step-text">Chọn phương án kiểm soát biến mở đầu.</span></li>
+                    <li class="step-row" data-step="2"><span class="step-num">2</span><span class="step-text">Đo lần 1:
+                            Làm sạch và cắm cặp điện cực Cu–Fe vào dung dịch NaCl 1 M.</span></li>
+                    <li class="step-row" data-step="3"><span class="step-num">3</span><span class="step-text">Nối dây
+                            vôn kế, chờ số chỉ ổn định và ghi kết quả lần 1.</span></li>
+                    <li class="step-row" data-step="4"><span class="step-num">4</span><span class="step-text">Đo lần 2
+                            &amp; 3: Thực hiện tương tự lần lượt với cặp Cu–Zn và Cu–Mg.</span></li>
+                    <li class="step-row" data-step="5"><span class="step-num">5</span><span class="step-text">Trả lời
+                            câu hỏi trắc nghiệm kiểm chứng để rút ra kết luận.</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- LAB MIDDLE: ROBOT, CONTROLS AND CANVAS -->
+        <div class="lab-wrapper-mid">
+            <div class="ai-guide card state-idle" id="aiGuideBar">
+                <div class="ai-avatar" id="aiAvatar"><i class="ti ti-robot"></i></div>
+                <div class="ai-text" id="aiText" aria-live="polite">Xin chào! Bạn hãy đọc Mục tiêu và bắt đầu lựa chọn
+                    phương án thí nghiệm ở bên phải nhé.</div>
+            </div>
+
+            <div class="card controls-card" id="controlsCard">
+                <div class="stepper-dots" id="stepperDots">
+                    <span class="step-dot active" id="dot_1" onclick="goToMeasureStep(1)">1</span>
+                    <span class="step-dot" id="dot_2" onclick="goToMeasureStep(2)">2</span>
+                    <span class="step-dot" id="dot_3" onclick="goToMeasureStep(3)">3</span>
+                </div>
+                <div class="stepper-nav">
+                    <div class="stepper-nav-left">
+                        <button class="btn-secondary" id="prevBtn" onclick="prevStep()" disabled><i
+                                class="ti ti-arrow-back-up"></i> Quay lại</button>
+                        <button class="btn-reset" id="resetBtn" onclick="resetExperiment()"><i
+                                class="ti ti-refresh"></i> Làm lại từ đầu</button>
+                    </div>
+                    <div class="stepper-nav-right" id="actionBtnContainer">
+                        <button class="btn-secondary" id="cleanActionBtn" onclick="triggerCleanAll()"
+                            style="display: none;"><i class="ti ti-brush"></i> Làm sạch nhanh</button>
+                        <button class="btn-primary" id="changeMetalBtn" onclick="nextMeasureSetup()"
+                            style="display: none;">Đo cặp tiếp theo <i class="ti ti-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card canvas-card">
+                <div class="canvas-glow-wrap">
+                    <canvas id="labCanvas" width="760" height="430" role="img"
+                        aria-label="Mô phỏng lắp ráp pin điện hóa đơn giản và đo sức điện động"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- SIDE RIGHT: OBSERVE AND CONCLUSION -->
+        <div class="lab-side-right">
+            <div class="card side-card right-card" id="rightCard">
+                <h3><i class="ti ti-table"></i> Bảng quan sát thực nghiệm</h3>
+                <div class="right-card-body">
+                    <div class="observe-wrap" style="margin-bottom: 12px;">
+                        <table id="observeTable">
+                            <thead>
+                                <tr>
+                                    <th>Lần đo</th>
+                                    <th>Cặp kim loại</th>
+                                    <th>Dung dịch điện li</th>
+                                    <th>Sức điện động (V)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="observeTableBody">
+                                <tr id="row_1" style="opacity: 0.5;">
+                                    <td>1</td>
+                                    <td>
+                                        <select id="sel_pair_1" disabled onchange="checkTableRowActive(1)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="Cu-Fe">Cu – Fe</option>
+                                            <option value="Cu-Zn">Cu – Zn</option>
+                                            <option value="Cu-Mg">Cu – Mg</option>
+                                        </select>
+                                    </td>
+                                    <td>NaCl 1 M</td>
+                                    <td>
+                                        <select id="sel_val_1" disabled onchange="checkTableRowActive(1)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="0.65">0,65 V</option>
+                                            <option value="0.78">0,78 V</option>
+                                            <option value="0.92">0,92 V</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="row_2" style="opacity: 0.5;">
+                                    <td>2</td>
+                                    <td>
+                                        <select id="sel_pair_2" disabled onchange="checkTableRowActive(2)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="Cu-Fe">Cu – Fe</option>
+                                            <option value="Cu-Zn">Cu – Zn</option>
+                                            <option value="Cu-Mg">Cu – Mg</option>
+                                        </select>
+                                    </td>
+                                    <td>NaCl 1 M</td>
+                                    <td>
+                                        <select id="sel_val_2" disabled onchange="checkTableRowActive(2)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="0.95">0,95 V</option>
+                                            <option value="1.10">1,10 V</option>
+                                            <option value="1.25">1,25 V</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="row_3" style="opacity: 0.5;">
+                                    <td>3</td>
+                                    <td>
+                                        <select id="sel_pair_3" disabled onchange="checkTableRowActive(3)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="Cu-Fe">Cu – Fe</option>
+                                            <option value="Cu-Zn">Cu – Zn</option>
+                                            <option value="Cu-Mg">Cu – Mg</option>
+                                        </select>
+                                    </td>
+                                    <td>NaCl 1 M</td>
+                                    <td>
+                                        <select id="sel_val_3" disabled onchange="checkTableRowActive(3)">
+                                            <option value="">-- Chọn --</option>
+                                            <option value="2.50">2,50 V</option>
+                                            <option value="2.71">2,71 V</option>
+                                            <option value="2.85">2,85 V</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <button class="btn-primary" id="confirmDataBtn" onclick="confirmRowData()"
+                        style="width: 100%; justify-content: center; margin-bottom: 12px;" disabled>
+                        <i class="ti ti-check"></i> Xác nhận kết quả
+                    </button>
+
+                    <div class="conclusion-body" id="conclusionBody">
+                        <!-- Chọn phương án mở đầu -->
+                        <div class="quiz-container" id="preQuizContainer" style="margin-top: 10px;">
+                            <div class="quiz-question">Chọn phương án thí nghiệm phù hợp để kiểm chứng giả thuyết: Sức
+                                điện động của pin phụ thuộc vào cặp kim loại làm điện cực.</div>
+                            <ul class="quiz-options-list">
+                                <li>
+                                    <button class="quiz-option-btn" id="btn_pre_opt_1" onclick="selectPreOption(1)">
+                                        <span class="quiz-option-key">A.</span>
+                                        <span class="quiz-option-text">Thay đổi cặp kim loại; giữ nguyên dung dịch điện
+                                            li, lượng dung dịch, khoảng cách điện cực và cách đo.</span>
+                                        <span class="quiz-option-feedback-icon" id="pre_q_icon_1"></span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="quiz-option-btn" id="btn_pre_opt_2" onclick="selectPreOption(2)">
+                                        <span class="quiz-option-key">B.</span>
+                                        <span class="quiz-option-text">Thay đổi cặp kim loại và đồng thời thay đổi dung
+                                            dịch điện li để xem cả hai yếu tố ảnh hưởng như thế nào.</span>
+                                        <span class="quiz-option-feedback-icon" id="pre_q_icon_2"></span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button class="quiz-option-btn" id="btn_pre_opt_3" onclick="selectPreOption(3)">
+                                        <span class="quiz-option-key">C.</span>
+                                        <span class="quiz-option-text">Giữ nguyên cặp kim loại; thay đổi dung dịch điện
+                                            li và khoảng cách điện cực.</span>
+                                        <span class="quiz-option-feedback-icon" id="pre_q_icon_3"></span>
+                                    </button>
+                                </li>
+                            </ul>
+                            <button class="btn-primary" id="startExpBtn" onclick="confirmPreOptionAndStart()"
+                                style="width: 100%; justify-content: center; margin-top: 10px; display: none;">
+                                <i class="ti ti-player-play"></i> Bắt đầu thí nghiệm
+                            </button>
+                        </div>
+
+                        <!-- Trắc nghiệm sau thí nghiệm -->
+                        <div class="quiz-container" id="quizContainer" style="display: none; margin-top: 10px;">
+                            <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+                            <ul class="quiz-options-list" id="quizOptionsList"></ul>
+                            <div id="quizExtra"></div>
+                        </div>
+
+                        <div class="aha-box" id="ahaBox" style="display: none; margin-top: 10px;">
+                            <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+                            <div class="aha-content" id="ahaContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="link-section">
+        <div class="link-fish">
+            <img src="https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png"
+                alt="Mascot Aiducation">
+        </div>
+        <div class="link-info">
+            <h3>Hóa Học Aiducation – Học liệu tương tác</h3>
+            <p>Khám phá bài thí nghiệm về Sức điện động của pin điện hóa đơn giản và dãy hoạt động hóa học kim loại.</p>
+            <a class="link-url" href="https://www.aiducation.edu.vn" target="_blank" rel="noopener">
+                <i class="ti ti-external-link"></i> Truy cập aiducation.edu.vn
+            </a>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành xuất sắc mô phỏng <strong>Một góc khám phá về pin</strong> — tự lắp
+                ráp pin và xác nhận ảnh hưởng của cặp điện cực đến sức điện động.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); resetExperiment();">
+                    <i class="ti ti-refresh"></i> Thực hiện lại
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AUDIO FOR INTERACTIONS (MOCK WITH JS SYNTHESIS SINE-WAVE) -->
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'success') {
+                    osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+                    osc.frequency.setValueAtTime(880.00, audioCtx.currentTime + 0.1); // A5
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.35);
+                } else if (type === 'clean') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(330, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(660, audioCtx.currentTime + 0.15);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.2);
+                } else if (type === 'fail') {
+                    osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+                    osc.frequency.setValueAtTime(147, audioCtx.currentTime + 0.12);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.4);
+                } else if (type === 'click') {
+                    osc.frequency.setValueAtTime(1000, audioCtx.currentTime);
+                    gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.05);
+                }
+            } catch (e) {
+                // AudioContext blocked
+            }
+        }
+    </script>
+
+    <!-- MAIN SIMULATION LOGIC -->
+    <script>
+        // DOM Elements
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Logic Constants
+        const W = 760;
+        const H = 430;
+
+        // Cặp điện cực & Số liệu đúng
+        const PAIR_INFO = {
+            1: { pairName: 'Cu-Fe', targetV: 0.78, leftMetal: 'Fe', wrongV: [0.65, 0.92] },
+            2: { pairName: 'Cu-Zn', targetV: 1.10, leftMetal: 'Zn', wrongV: [0.95, 1.25] },
+            3: { pairName: 'Cu-Mg', targetV: 2.71, leftMetal: 'Mg', wrongV: [2.50, 2.85] }
+        };
+
+        // State Machine
+        const state = {
+            // Chọn phương án kiểm soát biến ban đầu (Cột phải)
+            preQuizDone: false,
+            preSelectedOption: 0,
+
+            startedExperiment: false,
+
+            // Tiến trình thực nghiệm
+            measureStep: 1, // Lần đo (1: Cu-Fe, 2: Cu-Zn, 3: Cu-Mg)
+
+            // Trạng thái các thanh điện cực trên Canvas
+            metals: {
+                Cu: { label: 'Cu', color: '#D35400', isClean: false, isPlugged: false, cleanProgress: 0, x: 65, y: 370, startX: 65, startY: 370, rState: 'dirty', isDragging: false, hovered: false, isCleaning: false, cleanTimer: 0, isReturning: false },
+                Fe: { label: 'Fe', color: '#7F8C8D', isClean: false, isPlugged: false, cleanProgress: 0, x: 115, y: 370, startX: 115, startY: 370, rState: 'dirty', isDragging: false, hovered: false, isCleaning: false, cleanTimer: 0, isReturning: false },
+                Zn: { label: 'Zn', color: '#BDC3C7', isClean: false, isPlugged: false, cleanProgress: 0, x: 165, y: 370, startX: 165, startY: 370, rState: 'dirty', isDragging: false, hovered: false, isCleaning: false, cleanTimer: 0, isReturning: false },
+                Mg: { label: 'Mg', color: '#ECF0F1', isClean: false, isPlugged: false, cleanProgress: 0, x: 215, y: 370, startX: 215, startY: 370, rState: 'dirty', isDragging: false, hovered: false, isCleaning: false, cleanTimer: 0, isReturning: false }
+            },
+
+            // Trạng thái dây nối
+            wires: {
+                left: { connected: false, isDragging: false, endX: 350, endY: 125, targetX: 345, targetY: 180, hovered: false, isReturning: false },
+                right: { connected: false, isDragging: false, endX: 410, endY: 125, targetX: 415, targetY: 180, hovered: false, isReturning: false }
+            },
+
+            // Trạng thái Vôn kế
+            voltmeterValue: 0.00,
+            voltmeterStable: false,
+            voltmeterStabilityProgress: 0,
+            voltageOffset: 0,
+
+            // Bảng quan sát ở cột phải
+            observationTable: {
+                1: { pair: '', solution: 'NaCl 1 M', voltage: '', confirmed: false },
+                2: { pair: '', solution: 'NaCl 1 M', voltage: '', confirmed: false },
+                3: { pair: '', solution: 'NaCl 1 M', voltage: '', confirmed: false }
+            },
+
+            // Trắc nghiệm sau thí nghiệm
+            quizIndex: 0, // 0: chưa hiện, 1, 2, 3
+            quizAnswers: { 1: null, 2: null, 3: null },
+
+            // Animation variables
+            time: 0,
+            electronFlowT: 0,
+            particles: [],
+            ionParticles: [],
+            bubbles: [],
+            successFlash: 0,
+            idleTimer: 0,
+
+            // Drag target
+            draggingElement: null,
+            pointerOffsetX: 0,
+            pointerOffsetY: 0
+        };
+
+        // Initialize Ions in the Cup Solution with slow speed properties
+        function initIons() {
+            state.ionParticles = [];
+        }
+
+        // ======================================================
+        // STEPPER CONTROL & ROBOT FEEDBACK
+        // ======================================================
+        function setRobotSpeech(msg, stateClass = 'idle') {
+            const aiText = document.getElementById('aiText');
+            const aiGuideBar = document.getElementById('aiGuideBar');
+            aiText.innerHTML = msg;
+            aiGuideBar.className = `ai-guide card state-${stateClass}`;
+        }
+
+        function updateStepProgress() {
+            const stepRows = document.querySelectorAll('#stepList .step-row');
+            stepRows.forEach(row => {
+                row.classList.remove('is-active', 'is-done');
+                const s = parseInt(row.dataset.step);
+
+                if (state.quizIndex > 0) {
+                    if (s < 5) row.classList.add('is-done');
+                    else if (s === 5) row.classList.add('is-active');
+                } else if (state.startedExperiment) {
+                    if (s < 2) row.classList.add('is-done');
+                    else if (state.measureStep === 1 && s === 2) row.classList.add('is-active');
+                    else if (state.measureStep === 2 && s === 3) row.classList.add('is-active');
+                    else if (state.measureStep > 2 && s === 4) row.classList.add('is-active');
+                } else {
+                    if (s === 1) row.classList.add('is-active');
+                }
+
+                // Custom Check Icon for is-done
+                const numSpan = row.querySelector('.step-num');
+                if (row.classList.contains('is-done')) {
+                    numSpan.innerHTML = '<i class="ti ti-check"></i>';
+                } else {
+                    numSpan.innerHTML = s;
+                }
+            });
+
+            // Update controls dots
+            document.querySelectorAll('.step-dot').forEach((dot, idx) => {
+                dot.classList.remove('active', 'done');
+                const stepNum = idx + 1;
+                
+                if (!state.startedExperiment) {
+                    if (stepNum === 1) {
+                        dot.classList.add('active');
+                    }
+                    dot.innerHTML = stepNum;
+                } else if (state.quizIndex > 0) {
+                    dot.classList.add('done');
+                    dot.innerHTML = '<i class="ti ti-check"></i>';
+                } else {
+                    if (state.measureStep === stepNum) {
+                        dot.classList.add('active');
+                        dot.innerHTML = stepNum;
+                    } else if (state.measureStep > stepNum || state.observationTable[stepNum].confirmed) {
+                        dot.classList.add('done');
+                        dot.innerHTML = '<i class="ti ti-check"></i>';
+                    } else {
+                        dot.innerHTML = stepNum;
+                    }
+                }
+            });
+
+            document.getElementById('prevBtn').disabled = !state.startedExperiment || state.measureStep === 1;
+        }
+
+        // ======================================================
+        // 1. CHỌN PHƯƠNG ÁN MỞ ĐẦU (SIDE-RIGHT)
+        // ======================================================
+        function selectPreOption(opt) {
+            if (state.preQuizDone) return;
+            playSound('click');
+            state.preSelectedOption = opt;
+
+            document.querySelectorAll('#preQuizContainer .quiz-option-btn').forEach(btn => {
+                btn.className = 'quiz-option-btn';
+                btn.querySelector('.quiz-option-feedback-icon').innerHTML = '';
+            });
+
+            const activeBtn = document.getElementById(`btn_pre_opt_${opt}`);
+            const feedbackIcon = document.getElementById(`pre_q_icon_${opt}`);
+
+            if (opt === 1) {
+                playSound('success');
+                activeBtn.classList.add('opt-correct');
+                feedbackIcon.innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct);"></i>';
+                setRobotSpeech('Phương án chính xác! Phương án A cho phép bạn xác định riêng biệt ảnh hưởng của cặp kim loại. Nhấn nút "Bắt đầu thí nghiệm" để bắt đầu lắp ráp trên bàn thí nghiệm.', 'correct');
+                document.getElementById('startExpBtn').style.display = 'inline-flex';
+            } else {
+                playSound('fail');
+                activeBtn.classList.add('opt-wrong');
+                feedbackIcon.innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong);"></i>';
+                document.getElementById('startExpBtn').style.display = 'none';
+
+                if (opt === 2) {
+                    setRobotSpeech('Bạn đang thay đổi nhiều hơn một biến số. Khi đó, không thể xác định sự khác nhau của kết quả là do kim loại hay dung dịch gây ra.', 'wrong');
+                } else if (opt === 3) {
+                    setRobotSpeech('Nếu giữ nguyên cặp kim loại, bạn sẽ không thể kiểm chứng được ảnh hưởng của sự thay đổi loại kim loại đến sức điện động.', 'wrong');
+                }
+            }
+        }
+
+        function confirmPreOptionAndStart() {
+            if (state.preQuizDone) return;
+            playSound('success');
+            state.preQuizDone = true;
+            state.startedExperiment = true;
+
+            document.getElementById('preQuizContainer').style.display = 'none';
+
+            document.getElementById('row_1').style.opacity = '1';
+            document.getElementById('sel_pair_1').disabled = false;
+            document.getElementById('sel_val_1').disabled = false;
+
+            setRobotSpeech('Dụng cụ &amp; hóa chất đã được sắp xếp lên bàn thí nghiệm. Chọn cặp điện cực Cu–Fe cho lần đo thứ nhất. Bạn hãy kéo kim loại thả vào vùng làm sạch bên phải để bắt đầu.', 'idle');
+
+            document.getElementById('cleanActionBtn').style.display = 'inline-flex';
+
+            initIons();
+            updateStepProgress();
+        }
+
+        // Cập nhật hoạt động các chip bên trái (Công cụ mô phỏng)
+        function updateToolChipsActive() {
+            document.querySelectorAll('#toolsChipContainer .tool-chip').forEach(chip => chip.classList.remove('active'));
+
+            if (!state.startedExperiment) return;
+
+            const leftMetal = getPluggedLeftMetal();
+            const cuMetal = state.metals.Cu;
+
+            // 1. Cặp điện cực (sáng khi kéo/chùi hoặc đã cắm)
+            const anyMetalInteracting = activeDrag === 'Cu' || activeDrag === 'Fe' || activeDrag === 'Zn' || activeDrag === 'Mg'
+                || cuMetal.isPlugged || (leftMetal && leftMetal.isPlugged)
+                || cuMetal.isCleaning || (leftMetal && leftMetal.isCleaning)
+                || cuMetal.isReturning || (leftMetal && leftMetal.isReturning);
+            if (anyMetalInteracting) {
+                document.getElementById('chip_metal').classList.add('active');
+            }
+
+            // 2. Dung dịch điện li (sáng khi có kim loại cắm trong dung dịch NaCl)
+            if (cuMetal.isPlugged || leftMetal) {
+                document.getElementById('chip_solution').classList.add('active');
+            }
+
+            // 3. Vôn kế & Dây nối (sáng khi đang kéo dây nối hoặc dây đã kẹp thành công)
+            const anyWireInteracting = activeDrag === 'wireLeft' || activeDrag === 'wireRight'
+                || state.wires.left.connected || state.wires.right.connected
+                || state.wires.left.isReturning || state.wires.right.isReturning;
+            if (anyWireInteracting) {
+                document.getElementById('chip_voltmeter').classList.add('active');
+            }
+
+            // 4. Dụng cụ làm sạch (sáng khi có điện cực đang tự động chùi rửa)
+            let isCleaningActive = false;
+            for (const key in state.metals) {
+                if (state.metals[key].isCleaning) isCleaningActive = true;
+            }
+            if (isCleaningActive || (activeDrag && state.metals[activeDrag] && state.metals[activeDrag].rState === 'dirty')) {
+                document.getElementById('chip_cleaner').classList.add('active');
+            }
+
+            // 5. Vùng cắm định vị (sáng khi điện cực được đưa đến gần cốc hoặc đã cắm ngập)
+            if (cuMetal.isPlugged || leftMetal) {
+                document.getElementById('chip_marker').classList.add('active');
+            }
+        }
+
+        // ======================================================
+        // 2. LOGIC ĐO PIN & LẮP RÁP CANVAS
+        // ======================================================
+        let activeDrag = null;
+
+        canvas.addEventListener('pointerdown', (e) => {
+            if (!state.startedExperiment || state.quizIndex > 0) return;
+            const p = getCanvasPoint(e);
+            state.idleTimer = 0; // Reset nhàn rỗi
+
+            // 1. Kiểm tra bấm trúng các đầu nối dây của vôn kế (Khóa nếu dây đang tự động bay về)
+            // Dây Trái
+            const distLeft = Math.hypot(p.x - state.wires.left.endX, p.y - state.wires.left.endY);
+            if (distLeft < 25 && !state.wires.left.connected && !state.wires.left.isReturning) {
+                activeDrag = 'wireLeft';
+                state.wires.left.isDragging = true;
+                playSound('click');
+                return;
+            }
+
+            // Dây Phải
+            const distRight = Math.hypot(p.x - state.wires.right.endX, p.y - state.wires.right.endY);
+            if (distRight < 25 && !state.wires.right.connected && !state.wires.right.isReturning) {
+                activeDrag = 'wireRight';
+                state.wires.right.isDragging = true;
+                playSound('click');
+                return;
+            }
+
+            // 2. Kiểm tra bấm trúng các thanh kim loại
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                // Khóa tương tác nếu đang làm sạch hoặc đang tự động bay về khay
+                if (m.isCleaning || m.isReturning) continue;
+
+                if (key === 'Cu' || key === PAIR_INFO[state.measureStep].leftMetal) {
+                    if (p.x >= m.x - 20 && p.x <= m.x + 20 && p.y >= m.y - 50 && p.y <= m.y + 50) {
+                        activeDrag = key;
+                        m.isDragging = true;
+                        state.pointerOffsetX = p.x - m.x;
+                        state.pointerOffsetY = p.y - m.y;
+
+                        if (m.isPlugged) {
+                            m.isPlugged = false;
+                            resetCircuit();
+                        }
+                        playSound('click');
+                        break;
+                    }
+                }
+            }
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            const p = getCanvasPoint(e);
+
+            canvas.style.cursor = 'default';
+            if (state.startedExperiment && state.quizIndex === 0) {
+                for (const key in state.metals) {
+                    state.metals[key].hovered = false;
+                }
+                state.wires.left.hovered = false;
+                state.wires.right.hovered = false;
+
+                const dL = Math.hypot(p.x - state.wires.left.endX, p.y - state.wires.left.endY);
+                if (dL < 25 && !state.wires.left.connected && !state.wires.left.isReturning) {
+                    state.wires.left.hovered = true;
+                    canvas.style.cursor = 'pointer';
+                }
+                const dR = Math.hypot(p.x - state.wires.right.endX, p.y - state.wires.right.endY);
+                if (dR < 25 && !state.wires.right.connected && !state.wires.right.isReturning) {
+                    state.wires.right.hovered = true;
+                    canvas.style.cursor = 'pointer';
+                }
+
+                for (const key in state.metals) {
+                    const m = state.metals[key];
+                    if (m.isCleaning || m.isReturning) continue;
+                    if (key === 'Cu' || key === PAIR_INFO[state.measureStep].leftMetal) {
+                        if (p.x >= m.x - 20 && p.x <= m.x + 20 && p.y >= m.y - 50 && p.y <= m.y + 50) {
+                            m.hovered = true;
+                            canvas.style.cursor = 'pointer';
+                        }
+                    }
+                }
+            }
+
+            if (!activeDrag) return;
+            state.idleTimer = 0; // Reset nhàn rỗi
+
+            if (activeDrag === 'wireLeft') {
+                state.wires.left.endX = p.x;
+                state.wires.left.endY = p.y;
+            } else if (activeDrag === 'wireRight') {
+                state.wires.right.endX = p.x;
+                state.wires.right.endY = p.y;
+            } else {
+                const m = state.metals[activeDrag];
+                m.x = p.x - state.pointerOffsetX;
+                m.y = p.y - state.pointerOffsetY;
+            }
+        });
+
+        canvas.addEventListener('pointerup', (e) => {
+            if (!activeDrag) return;
+            const p = getCanvasPoint(e);
+            state.idleTimer = 0; // Reset nhàn rỗi
+
+            if (activeDrag === 'wireLeft') {
+                state.wires.left.isDragging = false;
+                const dist = Math.hypot(p.x - state.wires.left.targetX, p.y - state.wires.left.targetY);
+                const hasPluggedLeft = getPluggedLeftMetal();
+
+                if (dist < 55 && hasPluggedLeft) {
+                    state.wires.left.connected = true;
+                    state.wires.left.endX = state.wires.left.targetX;
+                    state.wires.left.endY = state.wires.left.targetY;
+                    playSound('success');
+                    checkCircuitStatus();
+                } else {
+                    // Tự động bay về chốt vôn kế (Lerp)
+                    state.wires.left.isReturning = true;
+                    if (dist < 55 && !hasPluggedLeft) {
+                        setRobotSpeech('Hãy cắm điện cực kim loại vào cốc trước khi nối dây mạch đo.', 'wrong');
+                    }
+                    playSound('fail');
+                }
+            } else if (activeDrag === 'wireRight') {
+                state.wires.right.isDragging = false;
+                const dist = Math.hypot(p.x - state.wires.right.targetX, p.y - state.wires.right.targetY);
+                const hasPluggedRight = state.metals.Cu.isPlugged;
+
+                if (dist < 55 && hasPluggedRight) {
+                    state.wires.right.connected = true;
+                    state.wires.right.endX = state.wires.right.targetX;
+                    state.wires.right.endY = state.wires.right.targetY;
+                    playSound('success');
+                    checkCircuitStatus();
+                } else {
+                    // Tự động bay về chốt vôn kế (Lerp)
+                    state.wires.right.isReturning = true;
+                    if (dist < 55 && !hasPluggedRight) {
+                        setRobotSpeech('Hãy cắm điện cực Cu vào cốc trước khi nối dây mạch đo.', 'wrong');
+                    }
+                    playSound('fail');
+                }
+            } else {
+                const m = state.metals[activeDrag];
+                m.isDragging = false;
+
+                // 1. Kiểm tra thả vào VÙNG LÀM SẠCH (Tọa độ mới: 490 -> 730, y: 325 -> 415)
+                if (m.x >= 490 && m.x <= 730 && m.y >= 325 && m.y <= 415 && m.rState === 'dirty') {
+                    m.isCleaning = true;
+                    m.cleanTimer = 72;
+                    m.x = 610; // Đưa vào giữa vùng làm sạch mới
+                    m.y = 370;
+                    playSound('click');
+                    setRobotSpeech(`Đang tiến hành làm sạch điện cực ${m.label} tự động...`, 'idle');
+                    activeDrag = null;
+                    return;
+                }
+
+                // 2. Xác định khe cắm mục tiêu (Snap 60px)
+                const distLeft = Math.hypot(m.x - 345, m.y - 195);
+                const distRight = Math.hypot(m.x - 415, m.y - 195);
+
+                if (distRight < 60) {
+                    if (activeDrag === 'Cu') {
+                        m.isPlugged = true;
+                        m.x = 415;
+                        m.y = 230; // Vị trí ngập cốc
+                        playSound('success');
+                        setRobotSpeech('Đã cắm thanh Cu ở cực dương bên phải.', 'idle');
+                        checkCircuitStatus();
+                    } else {
+                        m.isReturning = true;
+                        setRobotSpeech('Thanh Cu được giữ làm điện cực chung cố định ở vị trí bên phải.', 'wrong');
+                        playSound('fail');
+                    }
+                } else if (distLeft < 60) {
+                    const expectedLeft = PAIR_INFO[state.measureStep].leftMetal;
+                    if (activeDrag === expectedLeft) {
+                        m.isPlugged = true;
+                        m.x = 345;
+                        m.y = 230;
+                        playSound('success');
+                        setRobotSpeech(`Đã cắm thanh ${m.label} ở cực bên trái. Tiến hành nối dây vôn kế.`, 'idle');
+                        checkCircuitStatus();
+                    } else {
+                        m.isReturning = true;
+                        if (activeDrag === 'Cu') {
+                            setRobotSpeech('Thanh Cu được sử dụng làm điện cực bên phải.', 'wrong');
+                        } else {
+                            setRobotSpeech(`Hãy chọn đúng cặp điện cực kim loại ${expectedLeft} cho lần đo này.`, 'wrong');
+                        }
+                        playSound('fail');
+                    }
+                } else {
+                    // Tự động bay về vị trí ban đầu trong khay (Lerp)
+                    m.isReturning = true;
+                }
+            }
+
+            activeDrag = null;
+        });
+
+        function getCanvasPoint(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = W / rect.width;
+            const scaleY = H / rect.height;
+            return {
+                x: (e.clientX - rect.left) * scaleX,
+                y: (e.clientY - rect.top) * scaleY
+            };
+        }
+
+        function getPluggedLeftMetal() {
+            for (const key in state.metals) {
+                if (key !== 'Cu' && state.metals[key].isPlugged) {
+                    return state.metals[key];
+                }
+            }
+            return null;
+        }
+
+        function resetCircuit() {
+            state.wires.left.connected = false;
+            state.wires.left.isReturning = true;
+            state.wires.right.connected = false;
+            state.wires.right.isReturning = true;
+
+            state.voltmeterStable = false;
+            state.voltmeterStabilityProgress = 0;
+            state.voltmeterValue = 0.00;
+            checkCircuitStatus();
+        }
+
+        function checkCircuitStatus() {
+            const leftMetal = getPluggedLeftMetal();
+            const rightMetal = state.metals.Cu;
+            const wireL = state.wires.left.connected;
+            const wireR = state.wires.right.connected;
+
+            if (leftMetal && rightMetal.isPlugged && wireL && wireR) {
+                const cleanLeft = leftMetal.isClean;
+                const cleanRight = rightMetal.isClean;
+
+                if (!cleanLeft || !cleanRight) {
+                    state.voltmeterStable = false;
+                    setRobotSpeech('Số đo chưa ổn định. Bạn hãy kiểm tra lại tình trạng bề mặt các điện cực.', 'wrong');
+                    document.getElementById('confirmDataBtn').disabled = true;
+                } else {
+                    setRobotSpeech('Mạch điện khép kín hoàn hảo. Đang ổn định số chỉ vôn kế...', 'idle');
+                    state.voltmeterStabilityProgress = 0;
+                }
+            } else {
+                state.voltmeterStable = false;
+                state.voltmeterValue = 0.00;
+                document.getElementById('confirmDataBtn').disabled = true;
+
+                if (leftMetal && rightMetal.isPlugged && (!wireL || !wireR)) {
+                    setRobotSpeech('Mạch đo chưa hoàn chỉnh. Bạn hãy kiểm tra cả hai dây nối.', 'wrong');
+                }
+            }
+        }
+
+        function nextMeasureSetup() {
+            playSound('click');
+            document.getElementById('changeMetalBtn').style.display = 'none';
+
+            const leftMetal = getPluggedLeftMetal();
+            if (leftMetal) {
+                leftMetal.isPlugged = false;
+                leftMetal.isReturning = true;
+            }
+
+            resetCircuit();
+
+            state.measureStep++;
+            updateStepProgress();
+
+            const nextRow = document.getElementById(`row_${state.measureStep}`);
+            if (nextRow) {
+                nextRow.style.opacity = '1';
+                document.getElementById(`sel_pair_${state.measureStep}`).disabled = false;
+                document.getElementById(`sel_val_${state.measureStep}`).disabled = false;
+            }
+
+            const expected = PAIR_INFO[state.measureStep].leftMetal;
+            setRobotSpeech(`Đo lần ${state.measureStep}: Hãy chuẩn bị điện cực Cu và làm sạch điện cực ${expected} trước khi cắm vào cốc.`, 'idle');
+
+            document.getElementById('cleanActionBtn').style.display = 'inline-flex';
+        }
+
+        // ======================================================
+        // 3. ĐIỀN BẢNG KẾT QUẢ & XÁC NHẬN
+        // ======================================================
+        function checkTableRowActive(rowIdx) {
+            const pairSel = document.getElementById(`sel_pair_${rowIdx}`).value;
+            const valSel = document.getElementById(`sel_val_${rowIdx}`).value;
+            const btn = document.getElementById('confirmDataBtn');
+
+            if (state.measureStep === rowIdx && state.voltmeterStable) {
+                btn.disabled = !(pairSel !== '' && valSel !== '');
+            } else {
+                btn.disabled = true;
+            }
+        }
+
+        function confirmRowData() {
+            const step = state.measureStep;
+            const pairSel = document.getElementById(`sel_pair_${step}`).value;
+            const valSel = document.getElementById(`sel_val_${step}`).value;
+            const target = PAIR_INFO[step];
+
+            if (pairSel !== target.pairName) {
+                playSound('fail');
+                setRobotSpeech('Hãy đối chiếu với hai thanh kim loại đang được sử dụng trên bàn thí nghiệm.', 'wrong');
+                return;
+            }
+
+            if (parseFloat(valSel) !== target.targetV) {
+                playSound('fail');
+                setRobotSpeech('Hãy quan sát lại số chỉ ổn định trên vôn kế.', 'wrong');
+                return;
+            }
+
+            playSound('success');
+            state.observationTable[step].pair = pairSel;
+            state.observationTable[step].voltage = valSel;
+            state.observationTable[step].confirmed = true;
+
+            const row = document.getElementById(`row_${step}`);
+            row.querySelectorAll('td').forEach(td => td.classList.add('flash'));
+
+            document.getElementById(`sel_pair_${step}`).disabled = true;
+            document.getElementById(`sel_val_${step}`).disabled = true;
+            document.getElementById('confirmDataBtn').disabled = true;
+
+            document.getElementById('cleanActionBtn').style.display = 'none';
+
+            if (step < 3) {
+                setRobotSpeech(`Tuyệt vời! Đo thành công cặp ${pairSel}. Bấm nút "Đo cặp tiếp theo" để đo lần tiếp theo.`, 'correct');
+                document.getElementById('changeMetalBtn').style.display = 'inline-flex';
+            } else {
+                setRobotSpeech('Bạn đã thu thập đủ dữ liệu. Bây giờ, hãy tiến hành trả lời các câu hỏi kiểm chứng ở phía dưới.', 'correct');
+                const left = getPluggedLeftMetal();
+                if (left) { left.isPlugged = false; left.isReturning = true; }
+                state.metals.Cu.isPlugged = false; state.metals.Cu.isReturning = true;
+                resetCircuit();
+
+                setTimeout(() => {
+                    startQuiz();
+                }, 2000);
+            }
+            updateStepProgress();
+        }
+
+        // ======================================================
+        // 4. CÂU HỎI SAU THÍ NGHIỆM
+        // ======================================================
+        const QUIZ_DATA = {
+            1: {
+                question: 'Có bằng chứng thực nghiệm nào bác bỏ giả thuyết ban đầu không?',
+                options: [
+                    { key: 'A', text: 'Có.' },
+                    { key: 'B', text: 'Không.' }
+                ],
+                correct: 'B',
+                correctMsg: 'Đúng! Các cặp điện cực khác nhau cho các giá trị sức điện động khác nhau trong cùng điều kiện. Kết quả này không bác bỏ mà phù hợp với giả thuyết ban đầu.',
+                wrongMsg: 'Bạn hãy so sánh ba giá trị sức điện động trong bảng. Chúng giống nhau hay khác nhau khi cặp điện cực thay đổi?'
+            },
+            2: {
+                question: 'Bằng chứng nào đã ủng hộ giả thuyết?',
+                options: [
+                    { key: 'A', text: 'Sức điện động của pin thay đổi khi sử dụng các cặp điện cực không giống nhau.' },
+                    { key: 'B', text: 'Thí nghiệm đã đo được sức điện động của pin.' }
+                ],
+                correct: 'A',
+                correctMsg: 'Chính xác! Giả thuyết nói rằng sức điện động phụ thuộc vào cặp kim loại. Vì vậy, bằng chứng trực tiếp phải thể hiện giá trị sức điện động thay đổi khi cặp điện cực thay đổi.',
+                wrongMsg: 'Việc đo được một giá trị chưa cho biết yếu tố nào ảnh hưởng đến giá trị đó. Bạn hãy tìm bằng chứng thể hiện mối liên hệ giữa cặp điện cực và sức điện động.'
+            },
+            3: {
+                question: 'Chọn phát biểu đúng liên quan đến thí nghiệm trên.',
+                options: [
+                    { key: 'A', text: 'Sức điện động của pin không phụ thuộc vào cặp kim loại được sử dụng làm điện cực.' },
+                    { key: 'B', text: 'Khi giữ một điện cực là Cu, sức điện động của pin tỉ lệ thuận với tính hoạt động hóa học của kim loại còn lại.' },
+                    { key: 'C', text: 'Với một điện cực là Cu, sức điện động của pin có xu hướng tăng khi điện cực còn lại hoạt động hóa học mạnh hơn.' },
+                    { key: 'D', text: 'Khi giữ nguyên cặp điện cực, sức điện động của pin chỉ phụ thuộc vào dung dịch điện li được sử dụng.' }
+                ],
+                correct: 'C',
+                correctMsg: 'Xuất sắc! Trong các trường hợp đã khảo sát, khi giữ điện cực Cu và thay Fe, Zn, Mg, sức điện động có xu hướng tăng khi kim loại còn lại hoạt động hóa học mạnh hơn. Ba trường hợp chưa đủ để khẳng định một quan hệ tỉ lệ thuận tuyệt đối.',
+                wrongMsg: 'Hãy phân biệt giữa một xu hướng quan sát được trong ba trường hợp và một quy luật tuyệt đối đúng với mọi kim loại.'
+            }
+        };
+
+        function startQuiz() {
+            state.quizIndex = 1;
+            document.getElementById('quizContainer').style.display = 'flex';
+            renderQuiz();
+            updateStepProgress();
+        }
+
+        function renderQuiz() {
+            const data = QUIZ_DATA[state.quizIndex];
+            document.getElementById('quizQuestionText').innerText = `Câu hỏi ${state.quizIndex}: ${data.question}`;
+            const list = document.getElementById('quizOptionsList');
+            list.innerHTML = '';
+
+            data.options.forEach(opt => {
+                const li = document.createElement('li');
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option-btn';
+                btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="q_icon_${opt.key}"></span>`;
+
+                btn.onclick = () => {
+                    const buttons = list.querySelectorAll('.quiz-option-btn');
+                    if (opt.key === data.correct) {
+                        playSound('success');
+                        btn.classList.add('opt-correct');
+                        btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct);"></i>';
+                        buttons.forEach(b => b.disabled = true);
+
+                        setRobotSpeech(data.correctMsg, 'correct');
+
+                        setTimeout(() => {
+                            if (state.quizIndex < 3) {
+                                state.quizIndex++;
+                                renderQuiz();
+                                updateStepProgress();
+                            } else {
+                                showConclusion();
+                            }
+                        }, 3000);
+                    } else {
+                        playSound('fail');
+                        btn.classList.add('opt-wrong');
+                        btn.disabled = true;
+                        btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong);"></i>';
+                        setRobotSpeech(data.wrongMsg, 'wrong');
+                    }
+                };
+
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+
+        function showConclusion() {
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('ahaBox').style.display = 'block';
+
+            document.getElementById('ahaContent').innerHTML = `
+                <strong>KẾT LUẬN CHÍNH:</strong><br>
+                Trong cùng điều kiện thí nghiệm, sức điện động của pin phụ thuộc vào cặp kim loại được sử dụng làm điện cực.<br><br>
+                <strong>PHẠM VI KẾT LUẬN:</strong><br>
+                Kết luận được rút ra từ các cặp điện cực Cu–Fe, Cu–Zn và Cu–Mg trong điều kiện thí nghiệm đã thực hiện. Không nên mở rộng thành quy luật tuyệt đối cho mọi kim loại, mọi dung dịch và mọi điều kiện.
+            `;
+
+            setRobotSpeech('Thực nghiệm cho thấy sức điện động thay đổi khi cặp điện cực thay đổi trong cùng điều kiện. Vì vậy, bằng chứng thu được ủng hộ giả thuyết ban đầu. Chúc mừng bạn đã hoàn thành!', 'correct');
+            playSound('success');
+
+            setTimeout(() => {
+                document.getElementById('completionModal').style.display = 'flex';
+                document.getElementById('completionModal').classList.add('show');
+            }, 1500);
+        }
+
+        function hideCompletionModal() {
+            document.getElementById('completionModal').classList.remove('show');
+            setTimeout(() => {
+                document.getElementById('completionModal').style.display = 'none';
+            }, 250);
+        }
+
+        function goToMeasureStep(stepNum) {
+            if (!state.startedExperiment || state.quizIndex > 0) return;
+            if (state.measureStep === stepNum) return;
+
+            playSound('click');
+
+            // Rút điện cực cũ ra khỏi cốc nếu có
+            const left = getPluggedLeftMetal();
+            if (left) {
+                left.isPlugged = false;
+                left.isReturning = true;
+            }
+            resetCircuit();
+
+            // Cập nhật bước đo
+            state.measureStep = stepNum;
+            updateStepProgress();
+
+            // Cập nhật trạng thái hiển thị của các hàng trong bảng kết quả
+            for (let i = 1; i <= 3; i++) {
+                const row = document.getElementById(`row_${i}`);
+                const pairSel = document.getElementById(`sel_pair_${i}`);
+                const valSel = document.getElementById(`sel_val_${i}`);
+                
+                if (i === stepNum) {
+                    row.style.opacity = '1';
+                    if (state.observationTable[i].confirmed) {
+                        pairSel.disabled = true;
+                        valSel.disabled = true;
+                    } else {
+                        pairSel.disabled = false;
+                        valSel.disabled = false;
+                    }
+                } else {
+                    row.style.opacity = '0.5';
+                    pairSel.disabled = true;
+                    valSel.disabled = true;
+                }
+            }
+
+            // Ẩn nút "Đo cặp tiếp theo"
+            document.getElementById('changeMetalBtn').style.display = 'none';
+
+            // Cập nhật robot hướng dẫn
+            const expected = PAIR_INFO[state.measureStep].leftMetal;
+            setRobotSpeech(`Đo lần ${state.measureStep}: Hãy chuẩn bị điện cực Cu và làm sạch điện cực ${expected} trước khi cắm vào cốc.`, 'idle');
+            
+            document.getElementById('cleanActionBtn').style.display = 'inline-flex';
+        }
+
+        function prevStep() {
+            if (state.measureStep > 1 && state.startedExperiment && state.quizIndex === 0) {
+                playSound('click');
+                state.measureStep--;
+
+                const currRow = document.getElementById(`row_${state.measureStep + 1}`);
+                currRow.style.opacity = '0.5';
+                document.getElementById(`sel_pair_${state.measureStep + 1}`).disabled = true;
+                document.getElementById(`sel_val_${state.measureStep + 1}`).disabled = true;
+
+                const prevRow = document.getElementById(`row_${state.measureStep}`);
+                prevRow.style.opacity = '1';
+                document.getElementById(`sel_pair_${state.measureStep}`).disabled = false;
+                document.getElementById(`sel_val_${state.measureStep}`).disabled = false;
+                state.observationTable[state.measureStep].confirmed = false;
+
+                const left = getPluggedLeftMetal();
+                if (left) { left.isPlugged = false; left.isReturning = true; }
+                resetCircuit();
+
+                document.getElementById('changeMetalBtn').style.display = 'none';
+                setRobotSpeech(`Đo lần ${state.measureStep}: Hãy chuẩn bị điện cực Cu và làm sạch điện cực ${PAIR_INFO[state.measureStep].leftMetal} trước khi cắm vào cốc.`, 'idle');
+                updateStepProgress();
+            }
+        }
+
+        function resetExperiment() {
+            playSound('click');
+
+            state.preQuizDone = false;
+            state.preSelectedOption = 0;
+            state.startedExperiment = false;
+            state.measureStep = 1;
+            state.quizIndex = 0;
+            state.idleTimer = 0;
+
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                m.isClean = false;
+                m.isPlugged = false;
+                m.cleanProgress = 0;
+                m.x = m.startX;
+                m.y = m.startY;
+                m.rState = 'dirty';
+                m.isCleaning = false;
+                m.cleanTimer = 0;
+                m.isReturning = false;
+            }
+
+            resetCircuit();
+            state.wires.left.isReturning = false;
+            state.wires.right.isReturning = false;
+
+            for (let i = 1; i <= 3; i++) {
+                state.observationTable[i] = { pair: '', solution: 'NaCl 1 M', voltage: '', confirmed: false };
+                const pSel = document.getElementById(`sel_pair_${i}`);
+                const vSel = document.getElementById(`sel_val_${i}`);
+                pSel.value = '';
+                vSel.value = '';
+                pSel.disabled = true;
+                vSel.disabled = true;
+                document.getElementById(`row_${i}`).style.opacity = '0.5';
+                document.getElementById(`row_${i}`).querySelectorAll('td').forEach(td => td.classList.remove('flash'));
+            }
+
+            document.getElementById('preQuizContainer').style.display = 'flex';
+            document.getElementById('quizContainer').style.display = 'none';
+            document.getElementById('ahaBox').style.display = 'none';
+            document.getElementById('changeMetalBtn').style.display = 'none';
+            document.getElementById('cleanActionBtn').style.display = 'none';
+            document.getElementById('startExpBtn').style.display = 'none';
+
+            document.querySelectorAll('#preQuizContainer .quiz-option-btn').forEach(btn => {
+                btn.className = 'quiz-option-btn';
+                btn.querySelector('.quiz-option-feedback-icon').innerHTML = '';
+            });
+
+            setRobotSpeech('Xin chào! Bạn hãy đọc Mục tiêu và bắt đầu lựa chọn phương án thí nghiệm ở bên phải nhé.', 'idle');
+
+            updateStepProgress();
+        }
+
+        function triggerCleanAll() {
+            playSound('success');
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                m.rState = 'clean';
+                m.isClean = true;
+                m.cleanProgress = 100;
+                m.isCleaning = false;
+                m.cleanTimer = 0;
+                m.isReturning = true; // Bay về khay từ từ
+            }
+            setRobotSpeech('Đã làm sạch nhanh tất cả điện cực! Các thanh đang tự động bay về khay chứa.', 'correct');
+            document.getElementById('cleanActionBtn').style.display = 'none';
+        }
+
+        function spawnCelebrationRings(x, y) {
+            state.successFlash = 12;
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    for (let j = 0; j < 15; j++) {
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = Math.random() * 25 + 5;
+                        state.particles.push({
+                            x: x + Math.cos(angle) * dist,
+                            y: y + Math.sin(angle) * dist,
+                            vx: Math.cos(angle) * (Math.random() * 1.5 + 0.5),
+                            vy: Math.sin(angle) * (Math.random() * 1.5 + 0.5) - 0.5,
+                            alpha: 1,
+                            color: '#3CA57A',
+                            size: Math.random() * 3 + 1
+                        });
+                    }
+                }, i * 200);
+            }
+        }
+
+        // ======================================================
+        // 5. CANVAS RENDERER & ANIMATIONS
+        // ======================================================
+
+        function drawBezierWire(sx, sy, ex, ey, isLeft, isHovered) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = isLeft ? '#2980b9' : '#c0392b';
+            ctx.lineWidth = isHovered ? 5.5 : 3.5;
+            ctx.lineCap = 'round';
+            ctx.moveTo(sx, sy);
+
+            const cp1x = isLeft ? sx - 40 : sx + 40;
+            const cp1y = sy + 50;
+            const cp2x = isLeft ? ex - 20 : ex + 20;
+            const cp2y = ey - 40;
+
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, ex, ey);
+            ctx.stroke();
+
+            // Vẽ phát quang nếu hover (và ko kẹp dây/ko bay về)
+            const wireObj = isLeft ? state.wires.left : state.wires.right;
+            if (isHovered && !wireObj.connected && !wireObj.isReturning) {
+                ctx.beginPath();
+                ctx.arc(ex, ey, 9, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(232, 162, 74, 0.4)';
+                ctx.fill();
+            }
+
+            const leftMetal = getPluggedLeftMetal();
+            if (state.voltmeterStable && leftMetal && state.metals.Cu.isPlugged && state.wires.left.connected && state.wires.right.connected) {
+                const totalElectrons = 6;
+
+                for (let i = 0; i < totalElectrons; i++) {
+                    let tBase = (state.electronFlowT + (i / totalElectrons)) % 1;
+
+                    const trailLength = 4;
+                    for (let j = 0; j < trailLength; j++) {
+                        let t = tBase - (j * 0.018);
+                        if (t < 0) t += 1;
+
+                        let pX, pY;
+                        if (isLeft) {
+                            const tCur = 1 - t;
+                            const pos = getBezierPoint(ex, ey, cp2x, cp2y, cp1x, cp1y, sx, sy, tCur);
+                            pX = pos.x; pY = pos.y;
+                        } else {
+                            const pos = getBezierPoint(sx, sy, cp1x, cp1y, cp2x, cp2y, ex, ey, t);
+                            pX = pos.x; pY = pos.y;
+                        }
+
+                        ctx.beginPath();
+                        const radius = 3.8 - (j * 0.8);
+                        const opacity = 1.0 - (j * 0.28);
+                        ctx.arc(pX, pY, radius > 0.5 ? radius : 0.5, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(241, 196, 15, ${opacity})`;
+
+                        if (j === 0) {
+                            ctx.shadowColor = '#F39C12';
+                            ctx.shadowBlur = 8;
+                        } else {
+                            ctx.shadowBlur = 0;
+                        }
+                        ctx.fill();
+                    }
+                }
+            }
+            ctx.restore();
+        }
+
+        function getBezierPoint(x0, y0, x1, y1, x2, y2, x3, y3, t) {
+            const cx = 3 * (x1 - x0);
+            const bx = 3 * (x2 - x1) - cx;
+            const ax = x3 - x0 - cx - bx;
+
+            const cy = 3 * (y1 - y0);
+            const by = 3 * (y2 - y1) - cy;
+            const ay = y3 - y0 - cy - by;
+
+            const xt = ax * Math.pow(t, 3) + bx * Math.pow(t, 2) + cx * t + x0;
+            const yt = ay * Math.pow(t, 3) + by * Math.pow(t, 2) + cy * t + y0;
+
+            return { x: xt, y: yt };
+        }
+
+        function drawVoltmeter() {
+            ctx.save();
+            ctx.fillStyle = '#2C3E50';
+            ctx.strokeStyle = '#34495E';
+            ctx.lineWidth = 4;
+            roundRect(ctx, 310, 50, 140, 75, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#1A1A1A';
+            roundRect(ctx, 325, 60, 110, 35, 4);
+            ctx.fill();
+
+            ctx.font = '700 20px monospace';
+            if (state.wires.left.connected && state.wires.right.connected && getPluggedLeftMetal() && state.metals.Cu.isPlugged) {
+                if (state.voltmeterStable) {
+                    ctx.fillStyle = '#2ECC71';
+                    const val = state.voltmeterValue + state.voltageOffset;
+                    ctx.fillText(val.toFixed(2) + ' V', 342, 85);
+                } else {
+                    ctx.fillStyle = '#E74C3C';
+                    ctx.fillText(state.voltmeterValue.toFixed(2) + ' V', 342, 85);
+                }
+            } else {
+                ctx.fillStyle = '#7F8C8D';
+                ctx.fillText('0.00 V', 342, 85);
+            }
+
+            ctx.fillStyle = '#BDC3C7';
+            ctx.font = '700 10px var(--font-main)';
+            ctx.fillText('VÔN KẾ', 362, 115);
+
+            ctx.beginPath();
+            ctx.arc(350, 125, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#2980B9';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(410, 125, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#C0392B';
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawCup() {
+            ctx.save();
+
+            state.bubbles.forEach(b => {
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.42)';
+                ctx.fill();
+            });
+
+            // Tọa độ cốc mới (Cốc cao hơn, x: 300 -> 460, y: 190 -> 305)
+            const cupX = 300, cupY = 190, cupW = 160, cupH = 115;
+            const waterLevel = 210;
+
+            ctx.fillStyle = 'rgba(52, 152, 219, 0.14)';
+            ctx.beginPath();
+            ctx.moveTo(cupX + 5, waterLevel);
+            ctx.lineTo(cupX + cupW - 5, waterLevel);
+            ctx.lineTo(cupX + cupW - 5, cupY + cupH - 5);
+            ctx.quadraticCurveTo(cupX + cupW - 5, cupY + cupH, cupX + cupW - 10, cupY + cupH);
+            ctx.lineTo(cupX + 10, cupY + cupH);
+            ctx.quadraticCurveTo(cupX + 5, cupY + cupH, cupX + 5, cupY + cupH - 5);
+            ctx.closePath();
+            ctx.fill();
+
+            // Đã xóa phần vẽ hạt ion Na+ và Cl-
+
+            ctx.strokeStyle = '#BDC3C7';
+            ctx.lineWidth = 3.5;
+            ctx.beginPath();
+            ctx.moveTo(cupX, cupY);
+            ctx.lineTo(cupX, cupY + cupH - 5);
+            ctx.quadraticCurveTo(cupX, cupY + cupH, cupX + 5, cupY + cupH);
+            ctx.lineTo(cupX + cupW - 5, cupY + cupH);
+            ctx.quadraticCurveTo(cupX + cupW, cupY + cupH, cupX + cupW, cupY + cupH - 5);
+            ctx.lineTo(cupX + cupW, cupY);
+            ctx.stroke();
+
+            ctx.fillStyle = 'rgba(44, 62, 80, 0.6)';
+            ctx.font = '600 11px var(--font-main)';
+            ctx.textAlign = 'center';
+            ctx.fillText('Dung dịch NaCl 1 M', cupX + cupW / 2, cupY + cupH - 15);
+
+            // Khe cắm định vị điện cực vẽ nét đứt mờ ở miệng cốc
+            if (state.startedExperiment) {
+                ctx.strokeStyle = 'rgba(39, 174, 96, 0.5)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 3]);
+
+                ctx.beginPath();
+                ctx.arc(345, 195, 12, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(415, 195, 12, 0, Math.PI * 2);
+                ctx.stroke();
+
+                ctx.setLineDash([]);
+            }
+
+            ctx.restore();
+        }
+
+        // Tọa độ vùng làm sạch mới (Thẳng hàng Y với khay: 325 -> 415, bắt đầu từ 490)
+        function drawCleanZone() {
+            if (!state.startedExperiment) return;
+            ctx.save();
+            const zX = 490, zY = 325, zW = 240, zH = 90;
+
+            ctx.strokeStyle = 'rgba(60, 165, 122, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+            ctx.fillStyle = 'rgba(60, 165, 122, 0.04)';
+            roundRect(ctx, zX, zY, zW, zH, 10);
+            ctx.fill();
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            ctx.font = '28px Arial';
+            ctx.fillText('🧽', zX + 25, zY + zH / 2 + 8);
+            ctx.fillText('✨', zX + zW - 50, zY + zH / 2 + 8);
+
+            ctx.fillStyle = 'var(--jade-text)';
+            ctx.font = '700 12px var(--font-main)';
+            ctx.textAlign = 'center';
+            ctx.fillText('VÙNG LÀM SẠCH ĐIỆN CỰC', zX + zW / 2, zY + 28);
+            ctx.font = '600 10px var(--font-main)';
+            ctx.fillStyle = 'var(--ink-2)';
+            ctx.fillText('(Kéo thả điện cực vào đây)', zX + zW / 2, zY + 48);
+
+            ctx.restore();
+        }
+
+        // Tọa độ khay chứa điện cực mới (Thu gọn sang trái: 30 -> 270, y: 325 -> 415)
+        function drawMetalsKhay() {
+            if (!state.startedExperiment) return;
+            ctx.save();
+
+            ctx.fillStyle = '#E5DECF';
+            ctx.strokeStyle = '#D5CEBF';
+            ctx.lineWidth = 2;
+            roundRect(ctx, 30, 325, 240, 90, 12);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = 'var(--ink-2)';
+            ctx.font = '700 11px var(--font-main)';
+            ctx.textAlign = 'center';
+            ctx.fillText('KHAY CHỨA ĐIỆN CỰC KIM LOẠI', 150, 345);
+
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                if (m.isPlugged && !m.isDragging) continue;
+                drawMetalBar(m);
+            }
+
+            ctx.restore();
+        }
+
+        function drawMetalBar(m) {
+            ctx.save();
+
+            const isHover = m.hovered && !m.isDragging && !m.isPlugged && !m.isReturning;
+            const shiftY = isHover ? -6 : 0;
+            const x = m.x - 12;
+            const y = m.y - 45 + shiftY;
+            const w = 24;
+            const h = 90;
+
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+            ctx.shadowBlur = (isHover || m.isDragging || m.isReturning) ? 10 : 6;
+            ctx.shadowOffsetY = (isHover || m.isDragging || m.isReturning) ? 6 : 3;
+
+            ctx.fillStyle = m.color;
+            roundRect(ctx, x, y, w, h, 3);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            if (isHover) {
+                ctx.strokeStyle = 'rgba(232, 162, 74, 0.8)';
+                ctx.lineWidth = 2;
+                roundRect(ctx, x, y, w, h, 3);
+                ctx.stroke();
+            }
+
+            if (m.rState === 'dirty') {
+                ctx.fillStyle = 'rgba(90, 85, 75, 0.72)';
+                roundRect(ctx, x + 1, y + 1, w - 2, h - 2, 2);
+                ctx.fill();
+
+                ctx.strokeStyle = '#4A453A';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                for (let i = 0; i < 8; i++) {
+                    const px = x + 4 + (i * 7 + 13) % (w - 8);
+                    const py = y + 10 + (i * 12 + 25) % (h - 20);
+                    ctx.moveTo(px, py);
+                    ctx.lineTo(px + 2, py + 2);
+                }
+                ctx.stroke();
+            }
+
+            if (m.isCleaning) {
+                const spongeY = y + 15 + Math.sin(state.time * 3.2) * 30;
+                ctx.fillStyle = '#E8A24A';
+                ctx.fillRect(x - 6, spongeY, w + 12, 14);
+                ctx.strokeStyle = '#C28328';
+                ctx.lineWidth = 1.5;
+                ctx.strokeRect(x - 6, spongeY, w + 12, 14);
+
+                if (Math.random() < 0.3) {
+                    state.particles.push({
+                        x: m.x + (Math.random() - 0.5) * 20,
+                        y: spongeY + 7,
+                        vx: (Math.random() - 0.5) * 0.8,
+                        vy: -Math.random() * 1.2 - 0.3,
+                        alpha: 1,
+                        size: Math.random() * 2.2 + 1.2
+                    });
+                }
+            }
+
+            ctx.fillStyle = m.rState === 'dirty' ? '#7F8C8D' : '#2C3E50';
+            ctx.font = '700 13px var(--font-main)';
+            ctx.textAlign = 'center';
+            ctx.fillText(m.label, m.x, m.y - 20 + shiftY);
+
+            ctx.beginPath();
+            ctx.arc(m.x, y + 5, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#34495E';
+            ctx.fill();
+
+            if (m.rState === 'clean') {
+                ctx.strokeStyle = 'rgba(238, 238, 238, 0.8)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(m.x - 18, m.y + shiftY);
+                ctx.lineTo(m.x + 18, m.y + shiftY);
+                ctx.moveTo(m.x, m.y - 48 + shiftY);
+                ctx.lineTo(m.x, m.y + 48 + shiftY);
+                ctx.stroke();
+            }
+
+            ctx.restore();
+        }
+
+        // Vẽ đường cong gợi ý tránh đè lên cốc nước
+        function drawVisualGuides() {
+            if (!state.startedExperiment || state.quizIndex > 0) return;
+            if (state.idleTimer < 240) return;
+
+            ctx.save();
+            const opacity = 0.35 + 0.2 * Math.sin(state.time * 2.2);
+            ctx.globalAlpha = opacity;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+
+            const leftMetal = getPluggedLeftMetal();
+            const expectedLeftSym = PAIR_INFO[state.measureStep].leftMetal;
+            const leftMetalObj = state.metals[expectedLeftSym];
+            const cuObj = state.metals.Cu;
+
+            // 1. Chỉ dẫn LÀM SẠCH (Uốn cong tránh cốc)
+            if (!cuObj.isClean && !cuObj.isPlugged && !cuObj.isCleaning && !cuObj.isReturning) {
+                drawGuideArrowCurve(cuObj.x, cuObj.y - 30, 610, 370, '#3CA57A');
+            } else if (leftMetalObj && !leftMetalObj.isClean && !leftMetalObj.isPlugged && !leftMetalObj.isCleaning && !leftMetalObj.isReturning) {
+                drawGuideArrowCurve(leftMetalObj.x, leftMetalObj.y - 30, 610, 370, '#3CA57A');
+            }
+            // 2. Chỉ dẫn CẮM ĐIỆN CỰC (Vùng miệng cốc)
+            else if (cuObj.isClean && !cuObj.isPlugged && !cuObj.isReturning) {
+                drawGhostOutline(415, 195, cuObj.color, 'Cu');
+                drawGuideArrow(cuObj.x, cuObj.y - 30, 415, 195, '#3CA57A');
+            } else if (leftMetalObj && leftMetalObj.isClean && !leftMetalObj.isPlugged && !leftMetalObj.isReturning) {
+                drawGhostOutline(345, 195, leftMetalObj.color, leftMetalObj.label);
+                drawGuideArrow(leftMetalObj.x, leftMetalObj.y - 30, 345, 195, '#3CA57A');
+            }
+            // 3. Chỉ dẫn NỐI DÂY VÔN KẾ (Đầu đỉnh trên cùng)
+            else if (cuObj.isPlugged && leftMetalObj && leftMetalObj.isPlugged) {
+                if (!state.wires.right.connected && !state.wires.right.isReturning) {
+                    ctx.strokeStyle = '#c0392b';
+                    ctx.beginPath();
+                    ctx.moveTo(410, 125);
+                    ctx.bezierCurveTo(450, 140, 435, 160, 415, 180);
+                    ctx.stroke();
+                    ctx.fillStyle = '#c0392b';
+                    ctx.beginPath();
+                    ctx.arc(415, 180, 12, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                if (!state.wires.left.connected && !state.wires.left.isReturning) {
+                    ctx.strokeStyle = '#2980b9';
+                    ctx.beginPath();
+                    ctx.moveTo(350, 125);
+                    ctx.bezierCurveTo(310, 140, 325, 160, 345, 180);
+                    ctx.stroke();
+                    ctx.fillStyle = '#2980b9';
+                    ctx.beginPath();
+                    ctx.arc(345, 180, 12, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            ctx.restore();
+        }
+
+        // Vẽ đường nét đứt cong đi vòng dưới đáy cốc
+        function drawGuideArrowCurve(x1, y1, x2, y2, color) {
+            ctx.strokeStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+
+            // Vẽ đường cong đi võng xuống phía dưới (tránh đè lên cốc dung dịch)
+            const cp1x = x1 + (x2 - x1) * 0.25;
+            const cp1y = 425;
+            const cp2x = x1 + (x2 - x1) * 0.75;
+            const cp2y = 425;
+
+            ctx.bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x2, y2);
+            ctx.stroke();
+
+            const angle = Math.atan2(y2 - cp2y, x2 - cp2x);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - 10 * Math.cos(angle - Math.PI / 6), y2 - 10 * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - 10 * Math.cos(angle + Math.PI / 6), y2 - 10 * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawGuideArrow(x1, y1, x2, y2, color) {
+            ctx.strokeStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - 10 * Math.cos(angle - Math.PI / 6), y2 - 10 * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - 10 * Math.cos(angle + Math.PI / 6), y2 - 10 * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+        }
+
+        function drawGhostOutline(cx, cy, color, label) {
+            ctx.fillStyle = color;
+            ctx.save();
+            ctx.globalAlpha = 0.22;
+            roundRect(ctx, cx - 12, cy - 45, 24, 90, 3);
+            ctx.fill();
+
+            ctx.fillStyle = '#2C3E50';
+            ctx.font = '700 12px var(--font-main)';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, cx, cy - 20);
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            ctx.save();
+            for (let i = state.particles.length - 1; i >= 0; i--) {
+                const p = state.particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.02;
+                p.alpha -= 0.02;
+
+                if (p.alpha <= 0) {
+                    state.particles.splice(i, 1);
+                    continue;
+                }
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(46, 204, 113, ${p.alpha})`;
+                ctx.shadowColor = '#2ECC71';
+                ctx.shadowBlur = 6;
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        // ======================================================
+        // MAIN SIMULATION LOOP (RUN EVERY FRAME)
+        // ======================================================
+        function loop() {
+            state.time += 0.05;
+
+            const leftMetal = getPluggedLeftMetal();
+            const isCircuitRunning = state.voltmeterStable && leftMetal && state.metals.Cu.isPlugged && state.wires.left.connected && state.wires.right.connected;
+
+            if (isCircuitRunning) {
+                const flowSpeed = PAIR_INFO[state.measureStep].targetV * 0.0018;
+                state.electronFlowT += flowSpeed;
+            } else {
+                state.electronFlowT += 0.002;
+            }
+
+            if (state.startedExperiment && !activeDrag && state.quizIndex === 0) {
+                state.idleTimer++;
+            } else {
+                state.idleTimer = 0;
+            }
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Vẽ lưới nền mờ
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+
+            if (state.successFlash > 0) {
+                ctx.fillStyle = `rgba(46, 204, 113, ${state.successFlash / 40})`;
+                ctx.fillRect(0, 0, W, H);
+                state.successFlash--;
+            }
+
+            // Cập nhật bọt khí nổi lên chậm rãi và lắc lư ngang hình sin
+            if (state.startedExperiment && Math.random() < 0.08 && state.bubbles.length < 20) {
+                const bX = 315 + Math.random() * 130;
+                state.bubbles.push({
+                    x: bX,
+                    baseX: bX,
+                    y: 310,
+                    r: Math.random() * 2.2 + 1.2,
+                    vy: Math.random() * 0.12 + 0.18,
+                    wobbleOffset: Math.random() * Math.PI * 2
+                });
+            }
+            for (let i = state.bubbles.length - 1; i >= 0; i--) {
+                const b = state.bubbles[i];
+                b.y -= b.vy;
+                b.x = b.baseX + Math.sin(b.y * 0.05 + b.wobbleOffset) * 3.5;
+
+                if (b.y < 205) { // vỡ ở mặt nước
+                    state.bubbles.splice(i, 1);
+                }
+            }
+
+            // Cập nhật tự động làm sạch điện cực & kích hoạt Lerp bay về khi xong
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                if (m.isCleaning) {
+                    m.cleanTimer--;
+                    if (m.cleanTimer <= 0) {
+                        m.isCleaning = false;
+                        m.rState = 'clean';
+                        m.isClean = true;
+                        m.cleanProgress = 100;
+
+                        playSound('clean');
+                        playSound('success');
+                        spawnCelebrationRings(m.x, m.y);
+
+                        // Kích hoạt bay về khay chậm rãi (Lerp)
+                        m.isReturning = true;
+
+                        setRobotSpeech(`Đã làm sạch điện cực ${m.label} bóng loáng! Điện cực đang bay về khay chứa.`, 'correct');
+                    }
+                }
+
+                // Logic LERP bay về khay từ từ cho điện cực
+                if (m.isReturning) {
+                    m.x += (m.startX - m.x) * 0.09;
+                    m.y += (m.startY - m.y) * 0.09;
+                    if (Math.hypot(m.x - m.startX, m.y - m.startY) < 1.5) {
+                        m.x = m.startX;
+                        m.y = m.startY;
+                        m.isReturning = false;
+                    }
+                }
+            }
+
+            // Logic LERP bay về chốt vôn kế cho đầu dây nối khi bị thả sai vị trí
+            // Dây Trái (Vôn kế chốt âm (350, 125))
+            const wL = state.wires.left;
+            if (wL.isReturning) {
+                wL.endX += (350 - wL.endX) * 0.09;
+                wL.endY += (125 - wL.endY) * 0.09;
+                if (Math.hypot(wL.endX - 350, wL.endY - 125) < 1.5) {
+                    wL.endX = 350;
+                    wL.endY = 125;
+                    wL.isReturning = false;
+                }
+            }
+            // Dây Phải (Vôn kế chốt dương (410, 125))
+            const wR = state.wires.right;
+            if (wR.isReturning) {
+                wR.endX += (410 - wR.endX) * 0.09;
+                wR.endY += (125 - wR.endY) * 0.09;
+                if (Math.hypot(wR.endX - 410, wR.endY - 125) < 1.5) {
+                    wR.endX = 410;
+                    wR.endY = 125;
+                    wR.isReturning = false;
+                }
+            }
+
+            // Đã xóa phần cập nhật vị trí ion Na+ và Cl-
+
+            // Cập nhật số chỉ vôn kế
+            if (leftMetal && state.metals.Cu.isPlugged && state.wires.left.connected && state.wires.right.connected) {
+                const target = PAIR_INFO[state.measureStep];
+                const cleanLeft = leftMetal.isClean;
+                const cleanRight = state.metals.Cu.isClean;
+
+                if (!cleanLeft || !cleanRight) {
+                    state.voltmeterStable = false;
+                    state.voltmeterValue = 0.20 + Math.random() * 0.45;
+                } else {
+                    if (state.voltmeterStabilityProgress < 100) {
+                        state.voltmeterStabilityProgress += 1.5;
+                        state.voltmeterValue = (state.voltmeterStabilityProgress / 100) * target.targetV;
+                        if (state.voltmeterStabilityProgress >= 100) {
+                            state.voltmeterStable = true;
+                            setRobotSpeech('Số chỉ vôn kế đã ổn định. Hãy chọn cặp kim loại và sức điện động tương ứng trên bảng quan sát thực nghiệm.', 'idle');
+                        }
+                    } else {
+                        state.voltmeterStable = true;
+                        state.voltmeterValue = target.targetV;
+                        state.voltageOffset = 0.01 * Math.sin(state.time * 2);
+
+                        checkTableRowActive(state.measureStep);
+                    }
+                }
+            }
+
+            updateToolChipsActive();
+
+            // 1. Vẽ Vùng làm sạch
+            drawCleanZone();
+
+            // 2. Vẽ Cốc dung dịch
+            drawCup();
+
+            // 3. Vẽ các điện cực cắm trong cốc
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                if (m.isPlugged && !m.isDragging) {
+                    drawMetalBar(m);
+                }
+            }
+
+            // 4. Vẽ Vôn kế
+            drawVoltmeter();
+
+            // 5. Vẽ Dây nối (Dây xuất phát từ chốt vôn kế kẹp xuống đầu đỉnh điện cực)
+            if (state.startedExperiment) {
+                drawBezierWire(350, 125, state.wires.left.endX, state.wires.left.endY, true, state.wires.left.hovered);
+                drawBezierWire(410, 125, state.wires.right.endX, state.wires.right.endY, false, state.wires.right.hovered);
+            }
+
+            // 6. Vẽ khay chứa
+            drawMetalsKhay();
+
+            // 7. Vẽ điện cực đang kéo/chùi/bay về (vẽ trên cùng)
+            for (const key in state.metals) {
+                const m = state.metals[key];
+                if (m.isDragging || m.isCleaning || m.isReturning) {
+                    drawMetalBar(m);
+                }
+            }
+
+            // 8. Vẽ hạt lấp lánh
+            drawParticles();
+
+            // 9. Vẽ visual guides
+            drawVisualGuides();
+
+            requestAnimationFrame(loop);
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+            ctx.beginPath();
+            ctx.moveTo(x + r.tl, y);
+            ctx.lineTo(x + w - r.tr, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+            ctx.lineTo(x + w, y + h - r.br);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+            ctx.lineTo(x + r.bl, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+            ctx.lineTo(x, y + r.tl);
+            ctx.quadraticCurveTo(x, y, x + r.tl, y);
+            ctx.closePath();
+        }
+
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

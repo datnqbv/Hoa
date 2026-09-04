@@ -1,0 +1,3337 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinh Thể Ion</title>
+    <script type="application/json" id="athena-context">
+{
+  "title": "Tinh Thể Ion",
+  "subject": "Hóa học",
+  "grade": "10",
+  "objectives": [
+    "Mô tả cấu trúc mạng tinh thể ion NaCl trong không gian ba chiều",
+    "Giải thích vì sao hợp chất ion thường tồn tại ở trạng thái rắn",
+    "Giải thích vì sao hợp chất ion chỉ dẫn điện khi nóng chảy hoặc hoà tan",
+    "Giải thích vì sao tinh thể ion cứng nhưng giòn, dễ nứt vỡ"
+  ],
+  "structure": [
+    { "id": "s1", "title": "Bước 1 — Cấu trúc mạng tinh thể NaCl" },
+    { "id": "s2", "title": "Bước 2 — Lực hút tĩnh điện giữ ion cố định" },
+    { "id": "s3", "title": "Bước 3 — Điều kiện dẫn điện của hợp chất ion" },
+    { "id": "s4", "title": "Bước 4 — Vì sao tinh thể ion giòn, dễ nứt vỡ" }
+  ],
+  "athenaGuidance": "a) Học sinh tương tác với mô hình 3D mạng tinh thể NaCl qua 4 bước: (1) chọn ion và đếm số ion trái dấu gần nhất; (2) kéo thử một ion ra khỏi vị trí và quan sát lực hút tĩnh điện kéo nó về; (3) chọn nhánh rắn/gia nhiệt/thêm nước rồi đóng mạch điện để xem khi nào hợp chất ion dẫn điện; (4) quan sát các lớp ion trượt lên nhau và vỡ ra. b) Danh sách câu hỏi trắc nghiệm nguyên văn: [s1] 'Phát biểu nào đúng về tinh thể NaCl?' — A) Mỗi Na⁺ chỉ gắn với một Cl⁻. · B) Tinh thể NaCl gồm nhiều phân tử NaCl riêng biệt. · C) Các ion Na⁺ và Cl⁻ sắp xếp ngẫu nhiên. · D) Mỗi Na⁺ được bao quanh bởi 6 Cl⁻ gần nhất và mỗi Cl⁻ cũng được bao quanh bởi 6 Na⁺ gần nhất. [s2] 'Điều nào giải thích đúng vì sao hợp chất ion thường tồn tại ở trạng thái rắn?' — A) Các ion đứng yên vì có khối lượng lớn. · B) Các ion bị giữ chặt trong mạng tinh thể bởi lực hút tĩnh điện giữa các ion trái dấu theo nhiều hướng. · C) Các ion liên kết thành từng phân tử NaCl riêng lẻ. · D) Các ion bị giữ cố định vì lực hút của một ion trái dấu duy nhất. [s3] 'Điều kiện nào để hợp chất ion dẫn điện?' — A) Chỉ khi tan trong nước. · B) Chỉ khi ở trạng thái rắn. · C) Ở mọi trạng thái. · D) Khi nóng chảy hoặc khi hòa tan tạo dung dịch — vì khi đó các ion có thể định hướng về các điện cực. [s4] 'Vì sao tinh thể ion cứng nhưng giòn, dễ nứt vỡ?' — A) Vì lực hút giữa các ion yếu. · B) Vì tinh thể ion có nhiều khoảng trống. · C) Khi các lớp ion trượt qua nhau, các ion cùng dấu nằm đối diện nhau và đẩy nhau mạnh, làm tinh thể nứt vỡ. · D) Vì các ion tách khỏi mạng tinh thể khi chịu lực. c) Athena chỉ được gợi ý, nhắc học sinh quan sát lại hiện tượng/mô hình liên quan; TUYỆT ĐỐI không nói thẳng đáp án đúng của bất kỳ câu nào ở trên."
+}
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --font-main: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* ============ INTRO TEXT ============ */
+        .intro-text {
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .intro-text {
+                padding: 0.9rem 1.1rem;
+                font-size: 14px;
+            }
+        }
+
+        /* ============ GOAL BAR ============ */
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* ============ LAB WRAPPER (cột đơn) ============ */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-guide.state-idle {
+            background-color: var(--sage-pale);
+            border-left: 4px solid var(--jade);
+
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-guide.state-correct .ai-avatar {
+            border-color: var(--correct);
+        }
+
+        .ai-guide.state-wrong .ai-avatar {
+            border-color: var(--wrong);
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .controls-card {
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+            justify-content: center;
+        }
+
+        .step-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.active {
+            width: 20px;
+            height: 20px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+            font-size: 10px;
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+            font-size: 10px;
+        }
+
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .stepper-nav-left {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+            flex-wrap: nowrap;
+        }
+
+        .stepper-nav-right {
+            display: flex;
+            gap: 6px;
+            flex-wrap: nowrap;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .stepper-nav button {
+            font-size: 12px;
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        .s1-btn-done {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .stepper-status {
+            display: none;
+        }
+
+        .canvas-card {
+            padding: 4px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 760 / 400;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        .right-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .right-card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .right-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .right-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .right-card tbody td {
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+        }
+
+        .right-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .right-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .aha-box {
+            margin-top: 4px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: var(--font-main);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px dashed var(--paper-line);
+            padding-top: 16px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .quiz-container.fade-out {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .quiz-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .quiz-hint {
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--ink-2);
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 14px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 20px;
+            font-weight: 700;
+            color: var(--ink-2);
+            text-transform: uppercase;
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-selected {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-selected .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 16px;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+            transform: translateY(10px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-2);
+            max-width: 100%;
+            margin: 0 auto 22px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1100px) {
+            .canvas-card {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                border-radius: 0;
+                box-shadow: 0 -2px 10px rgba(26, 26, 26, 0.08);
+            }
+
+            body {
+                padding-bottom: 76px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px 150px;
+            }
+
+            .modal-card {
+                padding: 26px 20px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .controls-card {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .stepper-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-text">Bạn sẽ khám phá mô hình mạng tinh thể ion NaCl trong không gian ba chiều để hiểu vì sao
+        hợp chất ion thường tồn tại ở trạng thái rắn, chỉ dẫn điện khi nóng chảy hoặc hoà tan, và có tính cứng nhưng
+        giòn.</div>
+
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Giải thích cấu trúc mạng tinh thể ion NaCl và vận dụng để lí giải vì sao hợp chất ion
+            thường tồn tại ở trạng thái rắn, chỉ dẫn điện khi nóng chảy hoặc hoà tan, và có tính cứng nhưng
+            giòn.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <div class="ai-guide card state-idle" id="aiGuideBar">
+            <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp"
+                    alt="Athena AI"></div>
+            <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+        </div>
+
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="400" role="img"
+                    aria-label="Mô phỏng cấu trúc mạng tinh thể ion NaCl trong không gian ba chiều"></canvas>
+            </div>
+        </div>
+
+        <div class="card controls-card" id="controlsCard">
+            <div class="stepper-dots" id="stepperDots"></div>
+            <div class="stepper-nav">
+                <div class="stepper-nav-left">
+                    <button class="btn-secondary" id="prevBtn" onclick="goToPrevStage()"><i
+                            class="ti ti-arrow-back-up"></i> Quay lại</button>
+                    <button class="btn-reset" id="resetBtn" onclick="resetCurrentStage()"><i class="ti ti-refresh"></i>
+                        Làm lại</button>
+                </div>
+                <div class="stepper-nav-right" id="actionBtnContainer"></div>
+            </div>
+            <div class="stepper-status" id="interactionStatus" aria-live="polite">Chờ thao tác...</div>
+        </div>
+
+        <div class="card side-card right-card" id="rightCard">
+            <h3><i class="ti ti-table"></i> Bảng quan sát &amp; Kết luận</h3>
+            <div class="right-card-body">
+                <div class="observe-wrap" style="margin-bottom: 16px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th id="obsCol1">Ion</th>
+                                <th id="obsCol2">Số ion trái dấu gần nhất</th>
+                                <th id="obsCol3">Nhận xét</th>
+                            </tr>
+                        </thead>
+                        <tbody id="observeTableBody">
+                            <tr>
+                                <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conclusion-body" id="conclusionBody">
+                    <div class="quiz-container" id="quizContainer" style="display: none; margin-top: 10px;">
+                        <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+                        <ul class="quiz-options-list" id="quizOptionsList"></ul>
+                        <div id="quizExtra"></div>
+                    </div>
+
+                    <div class="aha-box" id="ahaBox" style="display: none; margin-top: 10px;">
+                        <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+                        <div class="aha-content" id="ahaContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành module <strong>Tinh Thể Ion</strong> — nắm vững cấu trúc mạng
+                tinh thể NaCl và lí do quyết định các tính chất đặc trưng của hợp chất ion.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); jumpToStage(1);">
+                    <i class="ti ti-refresh"></i> Ôn lại từ đầu
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+        const lmsAnswers = {};
+        function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+            lmsAnswers[qid] = { stage: state.stage, prompt, options: options ? options.map(o => o.key + ') ' + o.text) : null, chosen, correct: !!correct };
+            LMS().event('answered', { id: qid, stage: state.stage, chosen, correct: !!correct });
+            LMS().progress({ done: Object.keys(lmsAnswers).length, total: STAGE_COUNT });
+        }
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStep: state.stage, totalSteps: STAGE_COUNT, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+        }
+        function reportHeight() {
+            LMS().resize({ height: document.documentElement.scrollHeight });
+        }
+        window.addEventListener('load', reportHeight);
+        const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+        _lmsRo.observe(document.body);
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (savedState) {
+                if (savedState && savedState.currentStep) jumpToStage(savedState.currentStep);
+            };
+        }
+
+        // ======================================================
+        // UTILITIES
+        // ======================================================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 400;
+        let canvasW = 760, canvasH = 400;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        // ======================================================
+        // TƯƠNG TÁC TRÊN CANVAS — hợp nhất kéo-để-xoay (Stage 1) và
+        // chạm-để-chọn (mọi stage) trong cùng một bộ lắng nghe con trỏ.
+        // canvasClickTargets được reset mỗi frame trong loop(); mỗi drawStageX
+        // tự đăng ký vùng bấm bằng toạ độ LOGIC (W×H).
+        // ======================================================
+        let canvasClickTargets = [];
+        function canvasPointFromEvent(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvasW / rect.width, scaleY = canvasH / rect.height;
+            const px = (e.clientX - rect.left) * scaleX, py = (e.clientY - rect.top) * scaleY;
+            const fitScale = Math.min(canvasW / W, canvasH / H);
+            const offsetX = (canvasW - W * fitScale) / 2, offsetY = (canvasH - H * fitScale) / 2;
+            return { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+        }
+        function hitTarget(p) {
+            return canvasClickTargets.find(t => p.x >= t.x && p.x <= t.x + t.w && p.y >= t.y && p.y <= t.y + t.h);
+        }
+
+        let pointerStart = null;
+        canvas.addEventListener('pointerdown', (e) => {
+            const p0 = canvasPointFromEvent(e);
+            pointerStart = { clientX: e.clientX, clientY: e.clientY, moved: false, s2DragKey: null };
+            try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+            if (state.stage === 2) {
+                const key = tryStartStage2Drag(p0);
+                if (key) pointerStart.s2DragKey = key;
+            } else if (state.stage === 3) {
+                const s3 = state.s3;
+                if (s3.branch === 'heat' && s3.phase === 'branchExplore') {
+                    const tx = S3_LEFT.x + S3_LEFT.w - 26;
+                    const ty0 = S3_LEFT.y + 46;
+                    const tubeH = S3_LEFT.h - 84;
+                    if (Math.abs(p0.x - tx) < 20 && p0.y >= ty0 - 10 && p0.y <= ty0 + tubeH + 10) {
+                        s3.draggingSlider = true;
+                    }
+                }
+            } else if (state.stage === 4) {
+                tryStartStage4Drag(p0);
+            }
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            const p = canvasPointFromEvent(e);
+            if (state.stage === 3 && state.s3 && state.s3.draggingSlider) {
+                const s3 = state.s3;
+                const ty0 = S3_LEFT.y + 46;
+                const tubeH = S3_LEFT.h - 84;
+                const fillH = clamp(ty0 + tubeH - p.y, 0, tubeH);
+                s3.heatT = fillH / tubeH;
+                if (s3.heatT >= 0.95 && !s3.molten) triggerMelting();
+                return;
+            }
+
+            if (!pointerStart) {
+                let cursorStyle = 'default';
+                if (hitTarget(p)) {
+                    cursorStyle = 'pointer';
+                } else if (state.stage === 1 || state.stage === 2) {
+                    cursorStyle = 'grab';
+                } else if (state.stage === 3 && state.s3 && state.s3.branch === 'heat' && state.s3.phase === 'branchExplore') {
+                    const tx = S3_LEFT.x + S3_LEFT.w - 26;
+                    const ty0 = S3_LEFT.y + 46;
+                    const tubeH = S3_LEFT.h - 84;
+                    if (Math.abs(p.x - tx) < 20 && p.y >= ty0 - 10 && p.y <= ty0 + tubeH + 10) {
+                        cursorStyle = 'ns-resize';
+                    }
+                }
+                canvas.style.cursor = cursorStyle;
+                return;
+            }
+            const dx = e.clientX - pointerStart.clientX, dy = e.clientY - pointerStart.clientY;
+            if (Math.abs(dx) > 4 || Math.abs(dy) > 4) pointerStart.moved = true;
+            if (pointerStart.s2DragKey) {
+                updateStage2Drag(pointerStart.s2DragKey, canvasPointFromEvent(e));
+                return;
+            }
+            if (state.stage === 1 && pointerStart.moved) {
+                state.s1.cam.yaw += dx * 0.0065;
+                state.s1.cam.pitch = clamp(state.s1.cam.pitch + dy * 0.0065, -1.35, 1.35);
+                pointerStart.clientX = e.clientX; pointerStart.clientY = e.clientY;
+                canvas.style.cursor = 'grabbing';
+            } else if (state.stage === 2 && pointerStart.moved) {
+                state.s2.cam.yaw += dx * 0.0065;
+                state.s2.cam.pitch = clamp(state.s2.cam.pitch + dy * 0.0065, -1.35, 1.35);
+                pointerStart.clientX = e.clientX; pointerStart.clientY = e.clientY;
+                canvas.style.cursor = 'grabbing';
+            }
+        });
+        canvas.addEventListener('pointerup', (e) => {
+            if (state.stage === 3 && state.s3 && state.s3.draggingSlider) {
+                state.s3.draggingSlider = false;
+                pointerStart = null;
+                try { canvas.releasePointerCapture(e.pointerId); } catch (err) { }
+                return;
+            }
+            if (!pointerStart) return;
+            if (pointerStart.s2DragKey) {
+                endStage2Drag(pointerStart.s2DragKey);
+            } else if (!pointerStart.moved) {
+                const p = canvasPointFromEvent(e);
+                const hit = hitTarget(p);
+                if (hit) hit.onClick();
+            }
+            try { canvas.releasePointerCapture(e.pointerId); } catch (err) { }
+            pointerStart = null;
+        });
+        canvas.addEventListener('pointercancel', () => { pointerStart = null; });
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+        function roundRect(ctx, x, y, w, h, r) {
+            if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+            ctx.beginPath();
+            ctx.moveTo(x + r.tl, y);
+            ctx.lineTo(x + w - r.tr, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+            ctx.lineTo(x + w, y + h - r.br);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+            ctx.lineTo(x + r.bl, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+            ctx.lineTo(x, y + r.tl);
+            ctx.quadraticCurveTo(x, y, x + r.tl, y);
+            ctx.closePath();
+        }
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const COLORS_TEXT = { ink: '#1A1A1A', ink2: '#514C44', jadeText: '#1B5E48' };
+        const COLORS = {
+            jade: { r: 60, g: 165, b: 122 },
+            jadeDeep: { r: 45, g: 139, b: 111 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 },
+            paperLine: { r: 229, g: 222, b: 207 },
+            ink2: { r: 81, g: 76, b: 68 }
+        };
+
+        // ======================================================
+        // TWEEN ENGINE
+        // ======================================================
+        let tweens = [];
+        function tween(obj, prop, to, duration, ease, onComplete) {
+            ease = ease || easeOut;
+            tweens.push({ obj, prop, from: obj[prop], to, duration: reduceMotion ? Math.min(duration, 120) : duration, elapsed: 0, ease, onComplete, done: false });
+        }
+        function updateTweens(dt) {
+            for (const tw of tweens) {
+                if (tw.done) continue;
+                tw.elapsed += dt;
+                const t = clamp(tw.elapsed / tw.duration, 0, 1);
+                tw.obj[tw.prop] = lerp(tw.from, tw.to, tw.ease(t));
+                if (t >= 1) { tw.done = true; if (tw.onComplete) tw.onComplete(); }
+            }
+            tweens = tweens.filter(t => !t.done);
+        }
+
+        // ======================================================
+        // PARTICLES / RINGS / FLASH
+        // ======================================================
+        let particles = [];
+        let rings = [];
+        let flashTimer = 0;
+        let time = 0;
+
+        function spawnParticles(x, y, colorType, count = 10) {
+            const rgb = COLORS[colorType] || COLORS.jade;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2 + 0.4;
+                particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 0.4, life: 1.0, decay: Math.random() * 0.03 + 0.02, size: Math.random() * 2.5 + 1.5, color: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, opacity)` });
+            }
+        }
+        function spawnRing(x, y, colorType) {
+            const rgb = COLORS[colorType] || COLORS.accent;
+            rings.push({ x, y, r: 2, alpha: 0.65, rgb });
+        }
+        function playSuccessFlash() { flashTimer = 15; }
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy; p.vy += 0.03;
+                p.life -= p.decay;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+        function updateRings() {
+            for (let i = rings.length - 1; i >= 0; i--) {
+                const r = rings[i];
+                r.r += 1.6; r.alpha -= 0.028;
+                if (r.alpha <= 0) rings.splice(i, 1);
+            }
+        }
+
+        // ======================================================
+        // VẼ NỀN LƯỚI
+        // ======================================================
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+            for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawDetailCard(x, y, w, h, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha != null ? alpha : 1;
+            ctx.shadowColor = 'rgba(26,26,26,0.16)';
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = '#FFFFFF';
+            roundRect(ctx, x, y, w, h, 14);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = 'rgba(60,165,122,0.4)';
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, x, y, w, h, 14);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawPanelCaption(cx, y, text) {
+            if (!text) return;
+            ctx.save();
+            ctx.font = '700 14px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const w = ctx.measureText(text).width + 20;
+            ctx.fillStyle = 'rgba(220,235,225,0.94)';
+            roundRect(ctx, cx - w / 2, y, w, 18, 9);
+            ctx.fill();
+            ctx.fillStyle = '#1B5E48';
+            ctx.fillText(text, cx, y + 9.5);
+            ctx.restore();
+        }
+
+        // ======================================================
+        // MAIN LOOP
+        // ======================================================
+        function loop() {
+            resizeCanvas();
+            time += 0.045;
+            updateTweens(16.7);
+            canvasClickTargets = [];
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid();
+
+            const scaleX = canvasW / W;
+            const scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            if (flashTimer > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                ctx.restore();
+                flashTimer--;
+            }
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: drawStage2(); break;
+                case 3: drawStage3(); break;
+                case 4: drawStage4(); break;
+            }
+
+            updateRings();
+            rings.forEach(r => {
+                ctx.save();
+                ctx.globalAlpha = clamp(r.alpha, 0, 1);
+                ctx.strokeStyle = `rgb(${r.rgb.r},${r.rgb.g},${r.rgb.b})`;
+                ctx.lineWidth = clamp(3 - r.r / 14, 0.5, 3);
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+            });
+
+            updateParticles();
+            particles.forEach(p => {
+                ctx.save();
+                ctx.fillStyle = p.color.replace('opacity', p.life);
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+
+            ctx.restore();
+
+            requestAnimationFrame(loop);
+        }
+
+        // ======================================================
+        // STATE
+        // ======================================================
+        const state = {
+            stage: 1,
+            isAnimating: false,
+            s1: {}, s2: {}, s3: {}, s4: {}
+        };
+        const STAGE_COUNT = 4;
+
+        // ======================================================
+        // LƯỚI TINH THỂ NaCl — mô hình giả-3D (phối cảnh + xoay + z-sort)
+        // Ion tại toạ độ nguyên (i,j,k); tổng i+j+k chẵn → Na+, lẻ → Cl-.
+        // Mỗi ion có đúng 6 ion trái dấu liền kề theo 3 trục — đúng cấu trúc
+        // phối trí 6:6 của NaCl thật.
+        // ======================================================
+        const LATTICE_HALF = 2;
+        const LATTICE_SPACING = 34;
+        const NA_R = 6.2, CL_R = 9.6;
+
+        let latticeIons = [];
+        (function buildLattice() {
+            let id = 0;
+            for (let i = -LATTICE_HALF; i <= LATTICE_HALF; i++) {
+                for (let j = -LATTICE_HALF; j <= LATTICE_HALF; j++) {
+                    for (let k = -LATTICE_HALF; k <= LATTICE_HALF; k++) {
+                        const type = (((i + j + k) % 2) + 2) % 2 === 0 ? 'Na' : 'Cl';
+                        const isOuter = Math.max(Math.abs(i), Math.abs(j), Math.abs(k)) === LATTICE_HALF;
+                        const isCentral = Math.max(Math.abs(i), Math.abs(j), Math.abs(k)) <= 1;
+                        latticeIons.push({ id: id++, i, j, k, type, isOuter, isCentral });
+                    }
+                }
+            }
+        })();
+        function ionAt(i, j, k) { return latticeIons.find(o => o.i === i && o.j === j && o.k === k); }
+        function ionById(id) { return latticeIons.find(o => o.id === id); }
+        function ionNeighbors(ion) {
+            return [
+                ionAt(ion.i + 1, ion.j, ion.k), ionAt(ion.i - 1, ion.j, ion.k),
+                ionAt(ion.i, ion.j + 1, ion.k), ionAt(ion.i, ion.j - 1, ion.k),
+                ionAt(ion.i, ion.j, ion.k + 1), ionAt(ion.i, ion.j, ion.k - 1)
+            ].filter(Boolean);
+        }
+        function rotateProject(ion, cam) {
+            const x = ion.i * LATTICE_SPACING, y = ion.j * LATTICE_SPACING, z = ion.k * LATTICE_SPACING;
+            const cyw = Math.cos(cam.yaw), syw = Math.sin(cam.yaw);
+            const x1 = x * cyw + z * syw;
+            const z1 = -x * syw + z * cyw;
+            const cxp = Math.cos(cam.pitch), sxp = Math.sin(cam.pitch);
+            const y1 = y * cxp - z1 * sxp;
+            const z2 = y * sxp + z1 * cxp;
+            const focal = 320;
+            const persp = focal / (focal + z2);
+            return { sx: x1 * persp * cam.zoom, sy: y1 * persp * cam.zoom, depth: z2, persp };
+        }
+
+        // Nét đứt phát sáng từ ion tâm tới 6 ion trái dấu gần nhất.
+        // Cố ý KHÔNG dùng que liên kết đặc để tránh học sinh hiểu nhầm là liên kết cộng hoá trị.
+        function drawNeighborDashes(ox, oy, projected) {
+            const findProj = (id) => projected.find(p => p.ion.id === id);
+            const dashPhase = (time * 22) % 12;
+            function dashBetween(idA, idB) {
+                const a = findProj(idA), b = findProj(idB);
+                if (!a || !b) return;
+                const ax = ox + a.sx, ay = oy + a.sy, bx = ox + b.sx, by = oy + b.sy;
+                ctx.save();
+                ctx.setLineDash([5, 4]);
+                ctx.lineDashOffset = -dashPhase;
+                ctx.strokeStyle = 'rgba(232,162,74,0.95)';
+                ctx.shadowColor = 'rgba(232,162,74,0.8)';
+                ctx.shadowBlur = 6;
+                ctx.lineWidth = 2.2;
+                ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(bx, by); ctx.stroke();
+                ctx.restore();
+            }
+            const s1 = state.s1;
+            if (s1.phase !== 'wholeLattice' && s1.phase !== 'quiz' && s1.phase !== 'done') {
+                if (s1.selectedNa != null) s1.naLitIds.forEach(nid => dashBetween(s1.selectedNa, nid));
+                if (s1.selectedCl != null) s1.clLitIds.forEach(nid => dashBetween(s1.selectedCl, nid));
+                // Đếm số ion trái dấu đã sáng, hiển thị ngay cạnh ion tâm
+                [[s1.selectedNa, s1.naLitIds, 'Cl⁻'], [s1.selectedCl, s1.clLitIds, 'Na⁺']].forEach(([cid, lit, lbl]) => {
+                    if (cid == null || !lit.length) return;
+                    const c = findProj(cid);
+                    if (!c) return;
+                    ctx.save();
+                    ctx.font = '800 14px "Be Vietnam Pro", sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    const txt = lit.length + '/6 ' + lbl;
+                    const tw = ctx.measureText(txt).width + 14;
+                    ctx.fillStyle = 'rgba(255,255,255,0.94)';
+                    roundRect(ctx, ox + c.sx - tw / 2, oy + c.sy - 46, tw, 18, 9); ctx.fill();
+                    ctx.strokeStyle = 'rgba(232,162,74,0.9)'; ctx.lineWidth = 1.2;
+                    roundRect(ctx, ox + c.sx - tw / 2, oy + c.sy - 46, tw, 18, 9); ctx.stroke();
+                    ctx.fillStyle = '#B45A2B';
+                    ctx.fillText(txt, ox + c.sx, oy + c.sy - 36.5);
+                    ctx.restore();
+                });
+            }
+        }
+
+        // Que nối mảnh giữa các ion liền kề — chỉ dùng cho mô hình RỖNG (ball-and-stick)
+        function drawLatticeSticks(ox, oy, projected, alphaMul) {
+            const byId = {};
+            projected.forEach(p => { byId[p.ion.id] = p; });
+            ctx.save();
+            ctx.lineCap = 'round';
+            projected.forEach(p => {
+                const ion = p.ion;
+                [ionAt(ion.i + 1, ion.j, ion.k), ionAt(ion.i, ion.j + 1, ion.k), ionAt(ion.i, ion.j, ion.k + 1)].forEach(nb => {
+                    if (!nb) return;
+                    const q = byId[nb.id];
+                    if (!q) return;
+                    let a = 0.4 * alphaMul;
+                    if (state.s1.insideFrac > 0.01 && (ion.isOuter || nb.isOuter)) a *= lerp(1, 0.18, state.s1.insideFrac);
+                    ctx.globalAlpha = a;
+                    ctx.strokeStyle = 'rgba(140,150,145,1)';
+                    ctx.lineWidth = 1.5 * p.persp;
+                    ctx.beginPath(); ctx.moveTo(ox + p.sx, oy + p.sy); ctx.lineTo(ox + q.sx, oy + q.sy); ctx.stroke();
+                });
+            });
+            ctx.restore();
+        }
+
+        function isIonLit(ion) {
+            const s1 = state.s1;
+            if (s1.naLitIds && s1.naLitIds.includes(ion.id)) return true;
+            if (s1.clLitIds && s1.clLitIds.includes(ion.id)) return true;
+            return false;
+        }
+        // Khi đang khảo sát 1 ion, làm mờ mạnh các ion không liên quan để nổi bật motif 6 ion
+        function stage1FocusAlpha(ion) {
+            const s1 = state.s1;
+            const focusing = (s1.phase === 'insideRevealed' || s1.phase === 'pickedNa') && (s1.selectedNa != null || s1.selectedCl != null);
+            if (!focusing) return 1;
+            if (isIonLit(ion) || ion.id === s1.selectedNa || ion.id === s1.selectedCl) return 1;
+            return 0.16;
+        }
+
+        function projectLattice(cam, filter) {
+            const src = filter ? latticeIons.filter(filter) : latticeIons;
+            return src.map(ion => ({ ion, ...rotateProject(ion, cam) })).sort((a, b) => b.depth - a.depth);
+        }
+        // Vùng 3×3×3 quanh ion trung tâm — dùng cho Stage 2 theo đúng yêu cầu kịch bản
+        const IS_CORE_3 = (ion) => Math.max(Math.abs(ion.i), Math.abs(ion.j), Math.abs(ion.k)) <= 1;
+
+        // Vẽ các quả cầu ion đã chiếu (dùng chung cho Stage 1 và Stage 2).
+        // opts.getOffset(ion) cho phép dịch chuyển tạm thời 1 ion khỏi vị trí chiếu (vd khi đang bị kéo).
+        function drawIonSpheres(ox, oy, projected, opts) {
+            opts = opts || {};
+            const wholeGlow = opts.wholeGlow || 0;
+            const pickHits = [];
+            projected.forEach(p => {
+                const ion = p.ion;
+                let alpha = 1;
+                if (opts.insideFrac > 0.01 && ion.isOuter) alpha = lerp(1, 0.14, opts.insideFrac);
+                if (opts.focusAlpha) alpha *= opts.focusAlpha(ion);
+                const baseR = (ion.type === 'Na' ? NA_R : CL_R) * (opts.sparse ? 0.55 : 1) * (opts.zoom != null ? opts.zoom : 1) * p.persp * 0.9;
+                if (baseR < 0.5 || alpha < 0.02) return;
+                let sx = ox + p.sx, sy = oy + p.sy;
+                if (opts.getOffset) { const off = opts.getOffset(ion); sx += off.dx; sy += off.dy; }
+
+                const lit = opts.isLit ? opts.isLit(ion) : false;
+                const isSelected = opts.isSelected ? opts.isSelected(ion) : false;
+                const color = ion.type === 'Na' ? COLORS.accent : COLORS.jade;
+                const pulse = 0.5 + 0.5 * Math.sin(time * 5);
+                const drawR = baseR * (isSelected ? 1.22 : (lit ? 1.12 : 1));
+
+                ctx.save();
+                ctx.globalAlpha = alpha;
+                if (isSelected) {
+                    ctx.shadowColor = `rgba(${color.r},${color.g},${color.b},0.95)`;
+                    ctx.shadowBlur = 14 + 10 * pulse;
+                } else if (lit) {
+                    ctx.shadowColor = `rgba(${color.r},${color.g},${color.b},0.9)`;
+                    ctx.shadowBlur = 10 + 5 * pulse;
+                } else if (wholeGlow > 0.02) {
+                    ctx.shadowColor = `rgba(${color.r},${color.g},${color.b},${0.5 * wholeGlow})`;
+                    ctx.shadowBlur = 9 * wholeGlow;
+                }
+                const grad = ctx.createRadialGradient(sx - drawR * 0.35, sy - drawR * 0.35, 0.5, sx, sy, drawR);
+                grad.addColorStop(0, `rgb(${Math.min(255, color.r + 70)},${Math.min(255, color.g + 70)},${Math.min(255, color.b + 70)})`);
+                grad.addColorStop(1, `rgb(${color.r},${color.g},${color.b})`);
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(sx, sy, drawR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+                if (isSelected) {
+                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 2.2; ctx.stroke();
+                    ctx.strokeStyle = `rgba(255,255,255,${0.5 * pulse})`;
+                    ctx.lineWidth = 1.4;
+                    ctx.beginPath(); ctx.arc(sx, sy, drawR + 5 + 4 * pulse, 0, Math.PI * 2); ctx.stroke();
+                } else if (lit) {
+                    ctx.strokeStyle = 'rgba(255,255,255,0.85)'; ctx.lineWidth = 1.5; ctx.stroke();
+                }
+                if (drawR > 5.5) {
+                    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                    ctx.font = `700 ${Math.max(10, drawR * 1.15)}px "Be Vietnam Pro", sans-serif`;
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText(ion.type === 'Na' ? '+' : '–', sx, sy + 0.5);
+                }
+                ctx.restore();
+
+                p.screenX = sx; p.screenY = sy;
+                if (opts.registerHits && ion.isCentral) {
+                    const hitR = Math.max(baseR, 9);
+                    pickHits.push({ x: sx - hitR, y: sy - hitR, w: hitR * 2, h: hitR * 2, onClick: () => opts.onIonClick(ion) });
+                }
+            });
+            pickHits.slice().reverse().forEach(h => canvasClickTargets.push(h));
+        }
+
+        function drawLatticeView(ox, oy, opts) {
+            const cam = state.s1.cam;
+            const projected = projectLattice(cam);
+            if (opts.sparse) drawLatticeSticks(ox, oy, projected, 1);
+            drawIonSpheres(ox, oy, projected, {
+                sparse: opts.sparse, zoom: cam.zoom, insideFrac: state.s1.insideFrac, wholeGlow: state.s1.wholeGlowFrac,
+                isLit: isIonLit, focusAlpha: stage1FocusAlpha,
+                isSelected: (ion) => state.s1.selectedNa === ion.id || state.s1.selectedCl === ion.id,
+                registerHits: opts.registerHits, onIonClick: handleIonPick
+            });
+            drawNeighborDashes(ox, oy, projected);
+        }
+
+        // ======================================================
+        // NÚT ĐỘNG THEO STAGE — dùng chung cho mọi stage, tự dọn khi đổi stage/reset
+        // ======================================================
+        let dynamicControlIds = [];
+        function makeDynamicBtn(id, cls, html, onclick) {
+            const container = document.getElementById('actionBtnContainer');
+            const nextBtnEl = document.getElementById('nextBtn');
+            const b = document.createElement('button');
+            b.id = id; b.className = cls; b.innerHTML = html; b.onclick = onclick;
+            container.insertBefore(b, nextBtnEl || null);
+            dynamicControlIds.push(id);
+            return b;
+        }
+        function clearDynamicControls() {
+            dynamicControlIds.forEach(id => { const b = document.getElementById(id); if (b) b.remove(); });
+            dynamicControlIds = [];
+        }
+        function setObserveHeaders(a, b, c) {
+            document.getElementById('obsCol1').innerText = a;
+            document.getElementById('obsCol2').innerText = b;
+            document.getElementById('obsCol3').innerText = c;
+        }
+
+        // ======================================================
+        // STAGE 1 — KHÁM PHÁ CẤU TRÚC TINH THỂ NaCl
+        // ======================================================
+        function renderStage1Controls() {
+            makeDynamicBtn('zoomOutBtn', 'btn-secondary', '<i class="ti ti-zoom-out"></i>', () => { state.s1.cam.zoom = clamp(state.s1.cam.zoom / 1.18, 0.4, 2.4); });
+            makeDynamicBtn('zoomInBtn', 'btn-secondary', '<i class="ti ti-zoom-in"></i>', () => { state.s1.cam.zoom = clamp(state.s1.cam.zoom * 1.18, 0.4, 2.4); });
+            makeDynamicBtn('spinBtn', 'btn-secondary', '<i class="ti ti-rotate-3d"></i> Xoay mô hình', () => { tween(state.s1.cam, 'yaw', state.s1.cam.yaw + Math.PI / 4, 500, easeInOut); });
+            makeDynamicBtn('insideToggleBtn', 'btn-primary', '<i class="ti ti-eye"></i> Xem bên trong', toggleInside);
+        }
+
+        function toggleInside() {
+            const s1 = state.s1;
+            if (s1.phase !== 'intro' && s1.phase !== 'insideRevealed') return;
+            s1.insideOn = !s1.insideOn;
+            tween(s1, 'insideFrac', s1.insideOn ? 1 : 0, 600, easeInOut);
+            const btn = document.getElementById('insideToggleBtn');
+            if (btn) btn.innerHTML = s1.insideOn ? '<i class="ti ti-eye-off"></i> Ẩn lớp ngoài' : '<i class="ti ti-eye"></i> Xem bên trong';
+            if (s1.insideOn && s1.phase === 'intro') {
+                s1.phase = 'insideRevealed';
+                setRobotSpeech('Hãy chọn một ion Na⁺ bất kỳ ở vùng trung tâm mô hình.', 'idle');
+                document.getElementById('interactionStatus').innerText = 'Chạm vào một ion Na⁺ (màu cam, nhỏ hơn) ở vùng trung tâm.';
+            }
+        }
+
+        function handleIonPick(ion) {
+            const s1 = state.s1;
+            if (state.isAnimating) return;
+            if (s1.phase === 'insideRevealed' && ion.type === 'Na' && s1.selectedNa === null) {
+                s1.selectedNa = ion.id;
+                s1.naLitIds = [];
+                revealNeighborsSequential(ion, 'Na');
+            } else if (s1.phase === 'pickedNa' && ion.type === 'Cl' && s1.selectedCl === null) {
+                s1.selectedCl = ion.id;
+                s1.clLitIds = [];
+                revealNeighborsSequential(ion, 'Cl');
+            }
+        }
+
+        function revealNeighborsSequential(centerIon, kind) {
+            state.isAnimating = true;
+            const neighbors = ionNeighbors(centerIon);
+            const litArr = kind === 'Na' ? state.s1.naLitIds : state.s1.clLitIds;
+            neighbors.forEach((nb, idx) => {
+                setTimeout(() => { litArr.push(nb.id); }, (idx + 1) * 280);
+            });
+            setTimeout(() => {
+                state.isAnimating = false;
+                if (kind === 'Na') {
+                    state.s1.phase = 'pickedNa';
+                    setRobotSpeech('Tiếp tục chọn một ion Cl⁻ bất kỳ.', 'idle');
+                    document.getElementById('interactionStatus').innerText = 'Chạm vào một ion Cl⁻ (màu xanh lá, lớn hơn) ở vùng trung tâm.';
+                } else {
+                    finishBothSelections();
+                }
+            }, neighbors.length * 280 + 400);
+        }
+
+        function finishBothSelections() {
+            setRobotSpeech('Rất tốt! Cả hai kiểu ion đều được bao quanh bởi 6 ion trái dấu. Hãy quan sát toàn bộ mạng tinh thể.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Đang lùi camera để quan sát toàn mạng...';
+            setTimeout(() => {
+                state.s1.phase = 'wholeLattice';
+                tween(state.s1, 'wholeGlowFrac', 1, 900, easeInOut);
+                tween(state.s1.cam, 'zoom', 0.72, 1400, easeInOut, () => {
+                    setRobotSpeech('Bạn có tìm thấy điểm bắt đầu hay điểm kết thúc của mạng tinh thể này không?', 'idle');
+                    setTimeout(() => { showStage1Quiz(); }, 1800);
+                });
+            }, 900);
+        }
+
+        function showStage1Quiz() {
+            state.s1.phase = 'quiz';
+            showStageQuiz(
+                'Phát biểu nào đúng về tinh thể NaCl?',
+                [
+                    { key: 'A', text: 'Mỗi Na⁺ chỉ gắn với một Cl⁻.' },
+                    { key: 'B', text: 'Tinh thể NaCl gồm nhiều phân tử NaCl riêng biệt.' },
+                    { key: 'C', text: 'Các ion Na⁺ và Cl⁻ sắp xếp ngẫu nhiên.' },
+                    { key: 'D', text: 'Mỗi Na⁺ được bao quanh bởi 6 Cl⁻ gần nhất và mỗi Cl⁻ cũng được bao quanh bởi 6 Na⁺ gần nhất.' }
+                ],
+                'D',
+                'Chính xác! Các ion Na⁺ và Cl⁻ lặp lại theo một quy luật trong không gian, tạo thành mạng tinh thể liên tục — không tồn tại thành từng phân tử NaCl riêng lẻ.',
+                'Hãy quan sát lại mô hình. Bạn có thể chọn lại một ion và đếm số ion trái dấu gần nhất trước khi trả lời.',
+                'Trong tinh thể NaCl, mỗi Na⁺ được bao quanh bởi 6 Cl⁻ gần nhất và mỗi Cl⁻ cũng được bao quanh bởi 6 Na⁺ gần nhất. Các ion lặp lại theo quy luật tạo thành mạng tinh thể kéo dài theo mọi hướng.',
+                () => {
+                    state.s1.phase = 'done';
+                    showAhaMoment('NaCl ở trạng thái rắn không tồn tại dưới dạng các phân tử NaCl riêng lẻ mà tồn tại dưới dạng mạng tinh thể ion gồm các Na⁺ và Cl⁻ sắp xếp luân phiên. Mỗi Na⁺ được bao quanh bởi 6 Cl⁻ gần nhất và ngược lại. Công thức NaCl biểu thị tỉ lệ số ion Na⁺ : Cl⁻ bằng 1 : 1, không biểu thị một phân tử NaCl riêng lẻ.');
+                    updateNextButtonState();
+                }
+            );
+        }
+
+        function initStage1() {
+            state.s1 = {
+                cam: { yaw: 0.6, pitch: 0.32, zoom: 1.15 },
+                insideOn: false, insideFrac: 0,
+                phase: 'intro',
+                selectedNa: null, selectedCl: null,
+                naLitIds: [], clLitIds: [],
+                wholeGlowFrac: 0
+            };
+            hideAhaMoment(); hideQuiz();
+            setObserveHeaders('Ion', 'Số ion trái dấu gần nhất', 'Nhận xét');
+            setRobotSpeech('Theo bạn, NaCl rắn gồm những gì bên trong — các phân tử NaCl riêng lẻ, hay thứ gì khác? Hãy quan sát hai mô hình dưới đây và <strong>kéo để xoay thử</strong> để cảm nhận cấu trúc 3D.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Kéo trên canvas để xoay mô hình. Nhấn "Xem bên trong" để tiếp tục.';
+            initNextButton();
+            renderStage1Controls();
+            clearStageAction();
+            updateStepProgress();
+            tween(state.s1.cam, 'yaw', state.s1.cam.yaw + 0.26, 1400, easeInOut);
+        }
+
+        function drawStage1() {
+            ctx.save();
+            const panelW = W / 2 - 14, panelH = H - 34;
+            const leftX = 8, rightX = W / 2 + 6, topY = 6;
+            drawDetailCard(leftX, topY, panelW, panelH, 1);
+            drawDetailCard(rightX, topY, panelW, panelH, 1);
+
+            const leftCx = leftX + panelW / 2, leftCy = topY + panelH / 2 + 10;
+            const rightCx = rightX + panelW / 2, rightCy = topY + panelH / 2 + 10;
+
+            ctx.save();
+            ctx.beginPath();
+            roundRect(ctx, leftX, topY, panelW, panelH, 14);
+            ctx.clip();
+            drawLatticeView(leftCx, leftCy, { sparse: false, registerHits: state.s1.phase === 'insideRevealed' || state.s1.phase === 'pickedNa' });
+            ctx.restore();
+
+            ctx.save();
+            ctx.beginPath();
+            roundRect(ctx, rightX, topY, panelW, panelH, 14);
+            ctx.clip();
+            drawLatticeView(rightCx, rightCy, { sparse: true, registerHits: state.s1.phase === 'insideRevealed' || state.s1.phase === 'pickedNa' });
+            ctx.restore();
+
+            drawPanelCaption(leftCx, topY + 6, 'Mô hình đặc (Space-filling)');
+            drawPanelCaption(rightCx, topY + 6, 'Mô hình rỗng (Ball-and-stick)');
+
+            drawIonLegend(H - 14);
+            ctx.restore();
+        }
+
+        // Chú giải phân biệt ion bằng MÀU + KÍCH THƯỚC + KÝ HIỆU ĐIỆN TÍCH
+        function drawIonLegend(legendY) {
+            ctx.save();
+            ctx.font = '600 15px "Be Vietnam Pro", sans-serif';
+            ctx.textBaseline = 'middle';
+            const items = [
+                { c: COLORS.accent, r: 6, sign: '+', label: 'Na⁺ (nhỏ hơn)' },
+                { c: COLORS.jade, r: 9, sign: '–', label: 'Cl⁻ (lớn hơn)' }
+            ];
+            let totalW = 0;
+            items.forEach(it => { totalW += it.r * 2 + 8 + ctx.measureText(it.label).width + 22; });
+            let x = W / 2 - totalW / 2;
+            items.forEach(it => {
+                ctx.beginPath();
+                const g = ctx.createRadialGradient(x + it.r - 2, legendY - 2, 0.5, x + it.r, legendY, it.r);
+                g.addColorStop(0, `rgb(${Math.min(255, it.c.r + 70)},${Math.min(255, it.c.g + 70)},${Math.min(255, it.c.b + 70)})`);
+                g.addColorStop(1, `rgb(${it.c.r},${it.c.g},${it.c.b})`);
+                ctx.fillStyle = g;
+                ctx.arc(x + it.r, legendY, it.r, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                ctx.font = `700 ${Math.max(11, it.r * 1.45)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.fillText(it.sign, x + it.r, legendY + 0.5);
+                ctx.font = '600 15px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.textAlign = 'left';
+                ctx.fillText(it.label, x + it.r * 2 + 8, legendY);
+                x += it.r * 2 + 8 + ctx.measureText(it.label).width + 22;
+            });
+            ctx.restore();
+        }
+
+
+        // ======================================================
+        // MŨI TÊN DÙNG CHUNG (lực hút, hợp lực phục hồi, lực đẩy...)
+        // ======================================================
+        function drawArrow(x1, y1, x2, y2, color, width, headLen) {
+            width = width || 2; headLen = headLen || 8;
+            const ang = Math.atan2(y2 - y1, x2 - x1);
+            const dist = Math.hypot(x2 - x1, y2 - y1);
+            const bx = x2 - headLen * Math.cos(ang), by = y2 - headLen * Math.sin(ang);
+            ctx.save();
+            ctx.strokeStyle = color; ctx.lineWidth = width; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(dist > headLen ? bx : x1, dist > headLen ? by : y1); ctx.stroke();
+            const wingA = ang + Math.PI * 0.82, wingB = ang - Math.PI * 0.82;
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 + headLen * Math.cos(wingA), y2 + headLen * Math.sin(wingA));
+            ctx.lineTo(x2 + headLen * 0.5 * Math.cos(ang), y2 + headLen * 0.5 * Math.sin(ang));
+            ctx.lineTo(x2 + headLen * Math.cos(wingB), y2 + headLen * Math.sin(wingB));
+            ctx.closePath();
+            ctx.fillStyle = color; ctx.fill();
+            ctx.restore();
+        }
+
+        // ======================================================
+        // STAGE 2 — VÌ SAO HỢP CHẤT ION THƯỜNG TỒN TẠI Ở TRẠNG THÁI RẮN?
+        // Hợp lực tĩnh điện + hợp lực phục hồi khi kéo lệch ion khỏi vị trí cân bằng
+        // ======================================================
+        function updateSpringDrag(d) {
+            if (!d || d.dragging) return;
+            if (Math.abs(d.dispX) < 0.35 && Math.abs(d.dispY) < 0.35 && Math.abs(d.velX) < 0.35 && Math.abs(d.velY) < 0.35) {
+                if (d.dispX !== 0 || d.dispY !== 0) {
+                    d.dispX = 0; d.dispY = 0; d.velX = 0; d.velY = 0;
+                    if (d.onSettle) { const cb = d.onSettle; d.onSettle = null; cb(); }
+                }
+                return;
+            }
+            const k = 0.03, c = 0.34;
+            d.velX += -k * d.dispX - c * d.velX;
+            d.velY += -k * d.dispY - c * d.velY;
+            d.dispX += d.velX; d.dispY += d.velY;
+        }
+        function clampDisp(d, maxR) {
+            const dist = Math.hypot(d.dispX, d.dispY);
+            if (dist > maxR) { d.dispX = d.dispX / dist * maxR; d.dispY = d.dispY / dist * maxR; }
+        }
+
+        function tryStartStage2Drag(p) {
+            const s2 = state.s2;
+            if (state.isAnimating) return null;
+            if ((s2.phase === 'dragReady' || s2.phase === 'dragged') && Math.hypot(p.x - s2.drag.eqScreen.x, p.y - s2.drag.eqScreen.y) < 22) {
+                s2.drag.dragging = true;
+                return 'lattice';
+            }
+            if (s2.phase === 'comparing' && s2.compare.active) {
+                const f = s2.compare.free, l = s2.compare.lattice;
+                if (Math.hypot(p.x - (f.eqScreen.x + f.dispX), p.y - (f.eqScreen.y + f.dispY)) < 20) { f.dragging = true; return 'free'; }
+                if (Math.hypot(p.x - (l.eqScreen.x + l.dispX), p.y - (l.eqScreen.y + l.dispY)) < 20) { l.dragging = true; return 'latticeCompare'; }
+            }
+            return null;
+        }
+        function updateStage2Drag(key, p) {
+            const s2 = state.s2;
+            if (key === 'lattice') {
+                const d = s2.drag;
+                d.dispX = p.x - d.eqScreen.x; d.dispY = p.y - d.eqScreen.y;
+                clampDisp(d, 15);
+            } else if (key === 'free') {
+                const f = s2.compare.free;
+                f.dispX = p.x - f.eqScreen.x; f.dispY = p.y - f.eqScreen.y;
+                clampDisp(f, 60);
+            } else if (key === 'latticeCompare') {
+                const l = s2.compare.lattice;
+                l.dispX = p.x - l.eqScreen.x; l.dispY = p.y - l.eqScreen.y;
+                clampDisp(l, 15);
+            }
+        }
+        function endStage2Drag(key) {
+            const s2 = state.s2;
+            if (key === 'lattice') {
+                s2.drag.dragging = false;
+                if (!s2.drag.hasDraggedOnce) {
+                    s2.drag.hasDraggedOnce = true;
+                    s2.drag.onSettle = () => {
+                        state.s2.phase = 'dragged';
+                        setRobotSpeech('Nếu tiếp tục kéo, ion gần như không thể rời khỏi mạng. Hãy quan sát tiếp phần so sánh dưới đây.', 'idle');
+                        setTimeout(() => { startComparison(); }, 1200);
+                    };
+                }
+            } else if (key === 'free') {
+                s2.compare.free.dragging = false;
+                s2.compare.free.dragged = true;
+            } else if (key === 'latticeCompare') {
+                s2.compare.lattice.dragging = false;
+                s2.compare.lattice.dragged = true;
+            }
+        }
+
+        function revealForcesSequential() {
+            state.isAnimating = true;
+            const centerIon = ionAt(0, 0, 0);
+            const neighbors = ionNeighbors(centerIon);
+            neighbors.forEach((nb, idx) => { setTimeout(() => { state.s2.forceLitIds.push(nb.id); }, (idx + 1) * 280); });
+            setTimeout(() => {
+                setRobotSpeech('Quan sát lực hút theo cả ba chiều trong không gian...', 'idle');
+                tween(state.s2.cam, 'yaw', state.s2.cam.yaw + Math.PI / 6, 1500, easeInOut, () => {
+                    state.isAnimating = false;
+                    state.s2.phase = 'dragReady';
+                    setRobotSpeech('Hãy thử kéo ion Na⁺ ở giữa (màu cam) ra khỏi vị trí của nó.', 'idle');
+                    document.getElementById('interactionStatus').innerText = 'Kéo trực tiếp ion Na⁺ ở giữa canvas.';
+                });
+            }, neighbors.length * 280 + 400);
+        }
+        function showForces() {
+            if (state.s2.phase !== 'intro') return;
+            state.s2.phase = 'forces';
+            state.s2.forceLitIds = [];
+            const btn = document.getElementById('showForceBtn');
+            if (btn) btn.disabled = true;
+            setRobotSpeech('Quan sát lực hút tĩnh điện từ 6 ion Cl⁻ gần nhất tác dụng lên Na⁺ ở giữa.', 'idle');
+            revealForcesSequential();
+        }
+        function startComparison() {
+            state.s2.phase = 'comparing';
+            state.s2.compare = {
+                active: true,
+                free: { dispX: 0, dispY: 0, velX: 0, velY: 0, dragging: false, dragged: false, eqScreen: { x: 0, y: 0 } },
+                lattice: { dispX: 0, dispY: 0, velX: 0, velY: 0, dragging: false, dragged: false, eqScreen: { x: 0, y: 0 } }
+            };
+            setRobotSpeech('Bên trái: một ion Na⁺ đứng riêng lẻ. Bên phải: ion Na⁺ trong mạng tinh thể. Hãy thử kéo cả hai.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Kéo thử ion bên trái rồi đến ion bên phải để so sánh.';
+        }
+        function checkComparisonDone() {
+            const c = state.s2.compare;
+            if (state.s2.phase === 'comparing' && c.active && c.free.dragged && c.lattice.dragged) {
+                state.s2.phase = 'question';
+                setTimeout(() => {
+                    setRobotSpeech('Điều gì đã kéo ion trong mạng trở về vị trí cũ?', 'idle');
+                    setTimeout(() => { showStage2Quiz(); }, 2200);
+                }, 800);
+            }
+        }
+        function showStage2Quiz() {
+            state.s2.phase = 'quiz';
+            state.s2.compare.active = false;
+            showStageQuiz(
+                'Điều nào giải thích đúng vì sao hợp chất ion thường tồn tại ở trạng thái rắn?',
+                [
+                    { key: 'A', text: 'Các ion đứng yên vì có khối lượng lớn.' },
+                    { key: 'B', text: 'Các ion bị giữ chặt trong mạng tinh thể bởi lực hút tĩnh điện giữa các ion trái dấu theo nhiều hướng.' },
+                    { key: 'C', text: 'Các ion liên kết thành từng phân tử NaCl riêng lẻ.' },
+                    { key: 'D', text: 'Các ion bị giữ cố định vì lực hút của một ion trái dấu duy nhất.' }
+                ],
+                'B',
+                'Đúng! Trong mạng tinh thể, mỗi ion chịu lực hút từ nhiều ion trái dấu theo nhiều hướng. Hợp lực này giữ ion tại vị trí cân bằng xác định — đó là lý do hợp chất ion thường tồn tại ở trạng thái rắn.',
+                'Hãy quan sát lại khi bạn kéo ion trong mạng tinh thể. Điều gì đã làm ion quay trở về vị trí ban đầu?',
+                'Hãy quan sát lại khi bạn kéo ion trong mạng tinh thể. Điều gì đã làm ion quay trở về vị trí ban đầu?',
+                () => {
+                    state.s2.phase = 'done';
+                    showAhaMoment('Trong mạng tinh thể ion, mỗi ion chịu lực hút tĩnh điện từ nhiều ion trái dấu theo nhiều hướng. Hợp lực của toàn mạng giữ ion tại vị trí cân bằng xác định. Khi ion bị kéo lệch, hợp lực phục hồi kéo ion trở về. Vì vậy hợp chất ion thường tồn tại ở trạng thái rắn.');
+                    updateNextButtonState();
+                }
+            );
+        }
+        function renderStage2Controls() {
+            makeDynamicBtn('showForceBtn', 'btn-primary', '<i class="ti ti-magnet"></i> Hiển thị lực hút', showForces);
+        }
+        function initStage2() {
+            state.s2 = {
+                cam: { yaw: 0.5, pitch: 0.3, zoom: 2.1 },
+                phase: 'intro',
+                forceLitIds: [],
+                drag: { dragging: false, dispX: 0, dispY: 0, velX: 0, velY: 0, hasDraggedOnce: false, onSettle: null, eqScreen: { x: 0, y: 0 } },
+                compare: { active: false, free: null, lattice: null }
+            };
+            hideAhaMoment(); hideQuiz();
+            setObserveHeaders('Đối tượng', 'Khi bị kéo lệch', 'Nhận xét');
+            setRobotSpeech('Ở bước trước, bạn đã thấy các ion sắp xếp thành mạng tinh thể. Nếu bạn muốn kéo một ion ra khỏi mạng, bạn nghĩ có dễ không?', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Nhấn "Hiển thị lực hút" để bắt đầu.';
+            initNextButton();
+            renderStage2Controls();
+            clearStageAction();
+            updateStepProgress();
+        }
+        function drawStage2() {
+            ctx.save();
+            const panelX = 8, panelY = 6, panelW = W - 16, panelH = H - 14;
+            drawDetailCard(panelX, panelY, panelW, panelH, 1);
+            const ox = panelX + panelW / 2, oy = panelY + panelH / 2 + 8;
+            const s2 = state.s2;
+
+            updateSpringDrag(s2.drag);
+            if (s2.compare.active) updateSpringDrag(s2.compare.lattice);
+
+            ctx.save();
+            ctx.beginPath();
+            roundRect(ctx, panelX, panelY, panelW, panelH, 14);
+            ctx.clip();
+
+            if (!s2.compare.active) {
+                drawPanelCaption(ox, panelY + 6, 'Vùng lân cận 3×3×3 quanh ion trung tâm');
+                const projected = projectLattice(s2.cam, IS_CORE_3);
+                const centerIon = ionAt(0, 0, 0);
+                drawIonSpheres(ox, oy, projected, {
+                    zoom: s2.cam.zoom,
+                    isLit: (ion) => s2.forceLitIds.includes(ion.id),
+                    focusAlpha: (ion) => (s2.forceLitIds.length && !s2.forceLitIds.includes(ion.id) && ion.id !== centerIon.id) ? 0.3 : 1,
+                    getOffset: (ion) => ion.id === centerIon.id ? { dx: s2.drag.dispX, dy: s2.drag.dispY } : { dx: 0, dy: 0 }
+                });
+                const centerProj = projected.find(p => p.ion.id === centerIon.id);
+                if (centerProj) {
+                    s2.drag.eqScreen = { x: ox + centerProj.sx, y: oy + centerProj.sy };
+                    const eq = s2.drag.eqScreen;
+                    if (s2.forceLitIds.length) {
+                        s2.forceLitIds.forEach(nid => {
+                            const np = projected.find(p => p.ion.id === nid);
+                            if (!np) return;
+                            const ax = ox + np.sx, ay = oy + np.sy;
+                            const d = Math.hypot(eq.x - ax, eq.y - ay) || 1;
+                            const startT = 16 / d, endT = 1 - 20 / d;
+                            if (endT <= startT) return;
+                            drawArrow(lerp(ax, eq.x, startT), lerp(ay, eq.y, startT), lerp(ax, eq.x, endT), lerp(ay, eq.y, endT), 'rgba(59,110,168,0.95)', 2.4, 8);
+                        });
+                        // Dấu vị trí cân bằng: hợp lực hút + đẩy của TOÀN mạng triệt tiêu tại đây
+                        ctx.save();
+                        const pulse = 0.6 + 0.4 * Math.sin(time * 3);
+                        ctx.strokeStyle = `rgba(45,63,143,${0.5 + 0.4 * pulse})`;
+                        ctx.lineWidth = 1.4; ctx.setLineDash([3, 3]);
+                        ctx.beginPath(); ctx.arc(eq.x, eq.y, 17, 0, Math.PI * 2); ctx.stroke();
+                        ctx.restore();
+                        ctx.save();
+                        ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        const t = 'Vị trí cân bằng — hợp lực toàn mạng = 0';
+                        const tw = ctx.measureText(t).width + 18;
+                        ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                        roundRect(ctx, ox - tw / 2, panelY + panelH - 30, tw, 20, 10); ctx.fill();
+                        ctx.strokeStyle = 'rgba(45,63,143,0.55)'; ctx.lineWidth = 1.2;
+                        roundRect(ctx, ox - tw / 2, panelY + panelH - 30, tw, 20, 10); ctx.stroke();
+                        ctx.fillStyle = '#2A3F8F';
+                        ctx.fillText(t, ox, panelY + panelH - 19.5);
+                        ctx.restore();
+                    }
+                    const disp = Math.hypot(s2.drag.dispX, s2.drag.dispY);
+                    if (disp > 1.5) {
+                        drawArrow(eq.x + s2.drag.dispX, eq.y + s2.drag.dispY, eq.x, eq.y, '#2A3F8F', 2.6, 9);
+                        ctx.save();
+                        ctx.fillStyle = '#2A3F8F';
+                        ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
+                        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                        ctx.fillText('hợp lực phục hồi', eq.x + s2.drag.dispX + 12, eq.y + s2.drag.dispY - 10);
+                        ctx.restore();
+                    }
+                }
+            } else {
+                const leftCx = ox - panelW / 4, rightCx = ox + panelW / 4;
+                ctx.save();
+                ctx.strokeStyle = 'rgba(168,201,184,0.85)'; ctx.setLineDash([6, 5]); ctx.lineWidth = 1.4;
+                ctx.beginPath(); ctx.moveTo(ox, panelY + 16); ctx.lineTo(ox, panelY + panelH - 16); ctx.stroke();
+                ctx.restore();
+                drawPanelCaption(leftCx, panelY + 6, 'Ion Na⁺ đứng riêng lẻ (ngoài mạng)');
+                drawPanelCaption(rightCx, panelY + 6, 'Ion Na⁺ trong mạng tinh thể');
+
+                const f = s2.compare.free;
+                f.eqScreen = { x: leftCx, y: oy };
+                // Vị trí ban đầu (không phải vị trí cân bằng — ion tự do không bị kéo về)
+                ctx.save();
+                ctx.strokeStyle = 'rgba(168,201,184,0.9)'; ctx.setLineDash([3, 3]); ctx.lineWidth = 1.2;
+                ctx.beginPath(); ctx.arc(f.eqScreen.x, f.eqScreen.y, 15, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+                const fx = f.eqScreen.x + f.dispX, fy = f.eqScreen.y + f.dispY;
+                ctx.save();
+                ctx.shadowColor = 'rgba(232,162,74,0.8)'; ctx.shadowBlur = 12;
+                const gradF = ctx.createRadialGradient(fx - 5, fy - 5, 0.5, fx, fy, 14);
+                gradF.addColorStop(0, 'rgb(255,215,155)'); gradF.addColorStop(1, 'rgb(232,162,74)');
+                ctx.fillStyle = gradF; ctx.beginPath(); ctx.arc(fx, fy, 14, 0, Math.PI * 2); ctx.fill();
+                ctx.shadowBlur = 0;
+                ctx.fillStyle = '#fff'; ctx.font = '700 15px "Be Vietnam Pro", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('+', fx, fy);
+                ctx.restore();
+
+                const miniCam = { yaw: 0.5, pitch: 0.3, zoom: 1.5 };
+                const miniProjected = projectLattice(miniCam, IS_CORE_3);
+                const l = s2.compare.lattice;
+                const miniCenter = ionAt(0, 0, 0);
+                l.eqScreen = { x: rightCx, y: oy };
+                // Ion mục tiêu luôn vẽ SAU CÙNG để không bị các ion khác che mất
+                const ci = miniProjected.findIndex(p => p.ion.id === miniCenter.id);
+                if (ci >= 0) miniProjected.push(miniProjected.splice(ci, 1)[0]);
+                drawIonSpheres(rightCx, oy, miniProjected, {
+                    zoom: miniCam.zoom,
+                    isSelected: (ion) => ion.id === miniCenter.id,
+                    focusAlpha: (ion) => ion.id === miniCenter.id ? 1 : 0.5,
+                    getOffset: (ion) => ion.id === miniCenter.id ? { dx: l.dispX, dy: l.dispY } : { dx: 0, dy: 0 }
+                });
+                ctx.save();
+                ctx.strokeStyle = 'rgba(45,63,143,0.8)'; ctx.setLineDash([3, 3]); ctx.lineWidth = 1.3;
+                ctx.beginPath(); ctx.arc(l.eqScreen.x, l.eqScreen.y, 16, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+                if (Math.hypot(l.dispX, l.dispY) > 1.5) {
+                    drawArrow(l.eqScreen.x + l.dispX, l.eqScreen.y + l.dispY, l.eqScreen.x, l.eqScreen.y, '#2A3F8F', 2.4, 8);
+                }
+
+                // Nhắc thao tác + kết quả quan sát của từng bên
+                ctx.save();
+                ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                const yHint = panelY + panelH - 26;
+                ctx.fillStyle = f.dragged ? '#1B5E48' : '#B45A2B';
+                ctx.fillText(f.dragged ? '✓ Di chuyển tự do, không bị kéo về' : 'Kéo thử ion này →', leftCx, yHint);
+                ctx.fillStyle = l.dragged ? '#1B5E48' : '#B45A2B';
+                ctx.fillText(l.dragged ? '✓ Dịch chuyển rất ít rồi trở về chỗ cũ' : 'Kéo thử ion cam ở giữa →', rightCx, yHint);
+                ctx.restore();
+                checkComparisonDone();
+            }
+            ctx.restore();
+            ctx.restore();
+        }
+
+        // ======================================================
+        // STAGE 3 — KHI NÀO HỢP CHẤT ION DẪN ĐIỆN?
+        // Hai nhánh khảo sát độc lập: Gia nhiệt / Thêm nước
+        // ======================================================
+        const S3_LEFT = { x: 8, y: 6, w: W / 2 - 14, h: H - 14 };
+        const S3_COLS = 6, S3_ROWS = 4;
+        const S3_BOUNDS = { x0: S3_LEFT.x + 16, x1: S3_LEFT.x + S3_LEFT.w - 44, y0: S3_LEFT.y + 40, y1: S3_LEFT.y + S3_LEFT.h - 26 };
+
+        function buildStage3Ions() {
+            const ions = [];
+            let id = 0;
+            for (let row = 0; row < S3_ROWS; row++) {
+                for (let col = 0; col < S3_COLS; col++) {
+                    const type = (row + col) % 2 === 0 ? 'Na' : 'Cl';
+                    const homeX = S3_LEFT.x + 34 + col * ((S3_LEFT.w - 96) / (S3_COLS - 1));
+                    const homeY = S3_LEFT.y + 62 + row * ((S3_LEFT.h - 110) / (S3_ROWS - 1));
+                    ions.push({ id: id++, row, col, type, homeX, homeY, x: homeX, y: homeY, vx: 0, vy: 0, mode: 'lattice', seed: Math.random() * 10 });
+                }
+            }
+            return ions;
+        }
+        function resetIonsToLattice() {
+            state.s3.ions.forEach(ion => { ion.mode = 'lattice'; ion.x = ion.homeX; ion.y = ion.homeY; ion.vx = 0; ion.vy = 0; });
+        }
+        function updateStage3Ions() {
+            const s3 = state.s3;
+            s3.ions.forEach(ion => {
+                if (ion.mode === 'lattice') {
+                    const amp = 1 + (s3.branch === 'heat' ? s3.heatT * 5.5 : 0);
+                    ion.x = ion.homeX + Math.sin(time * 3 + ion.seed) * amp;
+                    ion.y = ion.homeY + Math.cos(time * 2.6 + ion.seed * 1.3) * amp * 0.7;
+                } else {
+                    if (s3.circuitClosed && s3.bulbOn) {
+                        const forceDirection = ion.type === 'Na' ? -0.16 : 0.16;
+                        ion.vx += forceDirection;
+                        ion.vx += (Math.random() - 0.5) * 0.15;
+                        ion.vy += (Math.random() - 0.5) * 0.15;
+                        ion.vx = clamp(ion.vx, -1.8, 1.8);
+                        ion.vy = clamp(ion.vy, -1.2, 1.2);
+                    } else {
+                        ion.vx += (Math.random() - 0.5) * 0.22;
+                        ion.vy += (Math.random() - 0.5) * 0.22;
+                        ion.vx = clamp(ion.vx, -0.9, 0.9);
+                        ion.vy = clamp(ion.vy, -0.9, 0.9);
+                    }
+                    ion.x += ion.vx; ion.y += ion.vy;
+                    ion.vx *= 0.98; ion.vy *= 0.98;
+                    if (ion.x < S3_BOUNDS.x0) { ion.x = S3_BOUNDS.x0; ion.vx *= -0.5; }
+                    if (ion.x > S3_BOUNDS.x1) { ion.x = S3_BOUNDS.x1; ion.vx *= -0.5; }
+                    if (ion.y < S3_BOUNDS.y0) { ion.y = S3_BOUNDS.y0; ion.vy *= -0.5; }
+                    if (ion.y > S3_BOUNDS.y1) { ion.y = S3_BOUNDS.y1; ion.vy *= -0.5; }
+                }
+            });
+        }
+        function updateStage3Water() {
+            const s3 = state.s3;
+            s3.waterMolecules.forEach(wm => {
+                if (wm.phase === 'approach') {
+                    wm.x += wm.vx; wm.y += wm.vy;
+                    if (wm.x < S3_BOUNDS.x0 || wm.x > S3_BOUNDS.x1) wm.vx *= -1;
+                    if (wm.y < S3_BOUNDS.y0 || wm.y > S3_BOUNDS.y1) wm.vy *= -1;
+                    wm.angle += 0.02;
+                } else if (wm.phase === 'orient') {
+                    const target = s3.ions.find(o => o.id === wm.targetId);
+                    if (target) {
+                        const outward = target.col === 0 || target.col === 1 || target.col === 2 ? -1 : 1;
+                        const tx = target.x + outward * 12, ty = target.y;
+                        wm.x = lerp(wm.x, tx, 0.06); wm.y = lerp(wm.y, ty, 0.06);
+                        const angleToTarget = Math.atan2(target.y - wm.y, target.x - wm.x);
+                        const desiredAngle = target.type === 'Na' ? angleToTarget + Math.PI : angleToTarget;
+                        wm.angle = lerp(wm.angle, desiredAngle, 0.08);
+                    }
+                } else if (wm.phase === 'follow') {
+                    const target = s3.ions.find(o => o.id === wm.targetId);
+                    if (target) {
+                        const angleToTarget = Math.atan2(target.y - wm.y, target.x - wm.x);
+                        const desiredAngle = target.type === 'Na' ? angleToTarget + Math.PI : angleToTarget;
+                        wm.angle = lerp(wm.angle, desiredAngle + Math.sin(time + wm.followOffX) * 0.15, 0.1);
+                        wm.x = lerp(wm.x, target.x + wm.followOffX, 0.1);
+                        wm.y = lerp(wm.y, target.y + wm.followOffY, 0.1);
+                    }
+                }
+            });
+        }
+        function drawWaterMolecule(wm, showLabels) {
+            ctx.save();
+            ctx.translate(wm.x, wm.y);
+            ctx.rotate(wm.angle);
+            ctx.strokeStyle = 'rgba(110,120,135,0.8)'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(-3.5, 0); ctx.lineTo(4.5, 6); ctx.moveTo(-3.5, 0); ctx.lineTo(4.5, -6); ctx.stroke();
+            ctx.fillStyle = '#AEBECE';
+            ctx.beginPath(); ctx.arc(4.5, 6, 3.8, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(4.5, -6, 3.8, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#D64545';
+            ctx.beginPath(); ctx.arc(-3.5, 0, 5.4, 0, Math.PI * 2); ctx.fill();
+            if (showLabels) {
+                ctx.rotate(-wm.angle);
+                ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillStyle = '#B03030';
+                ctx.fillText('δ−', -8, -7);
+                ctx.fillStyle = '#3B6EA8';
+                ctx.fillText('δ+', 10, 8);
+            }
+            ctx.restore();
+        }
+        function startWater() {
+            const s3 = state.s3;
+            if (s3.branch !== 'water' || s3.waterPhase !== 0) return;
+            s3.waterPhase = 1;
+            s3.waterMolecules = [];
+
+            const xs = s3.ions.map(o => o.homeX), ys = s3.ions.map(o => o.homeY);
+            const cxMin = Math.min(...xs) - 20, cxMax = Math.max(...xs) + 20;
+            for (let i = 0; i < 16; i++) {
+                const fromLeft = i % 2 === 0;
+                s3.waterMolecules.push({
+                    x: fromLeft ? lerp(S3_BOUNDS.x0, cxMin, Math.random()) : lerp(cxMax, S3_BOUNDS.x1, Math.random()),
+                    y: lerp(Math.min(...ys) - 16, Math.max(...ys) + 16, Math.random()),
+                    vx: (fromLeft ? 0.45 : -0.45) + (Math.random() - 0.5) * 0.3,
+                    vy: (Math.random() - 0.5) * 0.7,
+                    angle: Math.random() * Math.PI * 2, phase: 'approach', targetId: null
+                });
+            }
+            setRobotSpeech('Các phân tử nước đang tiếp cận bề mặt tinh thể...', 'idle');
+
+            setTimeout(() => {
+                s3.waterPhase = 2;
+                setRobotSpeech('Chú ý chiều phân tử nước quay về phía từng ion. Vì sao đầu O (δ−) lại hướng về Na⁺?', 'idle');
+
+                const targetIons = s3.ions.filter(o => o.col === 0 || o.col === 5);
+                s3.waterMolecules.forEach((wm, idx) => {
+                    const target = targetIons[idx % targetIons.length];
+                    wm.targetId = target.id;
+                    wm.phase = 'orient';
+                });
+
+                setTimeout(() => {
+                    s3.waterPhase = 3;
+                    setRobotSpeech('Các ion bề mặt ngoài cùng bắt đầu tách ra và được hydrat hóa...', 'idle');
+
+                    targetIons.forEach((ion, idx) => {
+                        setTimeout(() => {
+                            ion.mode = 'free';
+                            ion.vx = (ion.col === 0 ? -0.5 : 0.5) + (Math.random() - 0.5) * 0.3;
+                            ion.vy = (Math.random() - 0.5) * 0.4;
+                            s3.waterMolecules.filter(wm => wm.targetId === ion.id).forEach(wm => {
+                                wm.phase = 'follow';
+                                wm.followOffX = (Math.random() - 0.5) * 16;
+                                wm.followOffY = (Math.random() - 0.5) * 16;
+                            });
+                        }, idx * 100);
+                    });
+
+                    setTimeout(() => {
+                        const targetIons2 = s3.ions.filter(o => o.col === 1 || o.col === 4);
+                        for (let i = 0; i < 8; i++) {
+                            const fromLeft = i % 2 === 0;
+                            const newWm = {
+                                x: fromLeft ? S3_BOUNDS.x0 + 10 : S3_BOUNDS.x1 - 10,
+                                y: lerp(Math.min(...ys), Math.max(...ys), Math.random()),
+                                vx: (fromLeft ? 0.5 : -0.5),
+                                vy: (Math.random() - 0.5) * 0.4,
+                                angle: Math.random() * Math.PI * 2,
+                                phase: 'orient',
+                                targetId: targetIons2[i % targetIons2.length].id
+                            };
+                            s3.waterMolecules.push(newWm);
+                        }
+                        setRobotSpeech('Nước tiếp tục bao quanh và hydrat hóa lớp ion tiếp theo.', 'idle');
+
+                        setTimeout(() => {
+                            s3.waterPhase = 4;
+                            targetIons2.forEach((ion, idx) => {
+                                setTimeout(() => {
+                                    ion.mode = 'free';
+                                    ion.vx = (ion.col === 1 ? -0.4 : 0.4) + (Math.random() - 0.5) * 0.3;
+                                    ion.vy = (Math.random() - 0.5) * 0.4;
+                                    s3.waterMolecules.filter(wm => wm.targetId === ion.id).forEach(wm => {
+                                        wm.phase = 'follow';
+                                        wm.followOffX = (Math.random() - 0.5) * 16;
+                                        wm.followOffY = (Math.random() - 0.5) * 16;
+                                    });
+                                }, idx * 100);
+                            });
+
+                            setTimeout(() => {
+                                const targetIons3 = s3.ions.filter(o => o.col === 2 || o.col === 3);
+                                for (let i = 0; i < 8; i++) {
+                                    const fromLeft = i % 2 === 0;
+                                    const newWm = {
+                                        x: fromLeft ? S3_BOUNDS.x0 + 20 : S3_BOUNDS.x1 - 20,
+                                        y: lerp(Math.min(...ys), Math.max(...ys), Math.random()),
+                                        vx: (fromLeft ? 0.5 : -0.5),
+                                        vy: (Math.random() - 0.5) * 0.4,
+                                        angle: Math.random() * Math.PI * 2,
+                                        phase: 'orient',
+                                        targetId: targetIons3[i % targetIons3.length].id
+                                    };
+                                    s3.waterMolecules.push(newWm);
+                                }
+
+                                setTimeout(() => {
+                                    s3.waterPhase = 5;
+                                    setRobotSpeech('Toàn bộ tinh thể NaCl đã bị hòa tan hoàn toàn thành các ion tự do.', 'idle');
+                                    targetIons3.forEach((ion, idx) => {
+                                        setTimeout(() => {
+                                            ion.mode = 'free';
+                                            ion.vx = (ion.col === 2 ? -0.3 : 0.3) + (Math.random() - 0.5) * 0.3;
+                                            ion.vy = (Math.random() - 0.5) * 0.4;
+                                            s3.waterMolecules.filter(wm => wm.targetId === ion.id).forEach(wm => {
+                                                wm.phase = 'follow';
+                                                wm.followOffX = (Math.random() - 0.5) * 16;
+                                                wm.followOffY = (Math.random() - 0.5) * 16;
+                                            });
+                                        }, idx * 100);
+                                    });
+
+                                    setTimeout(() => {
+                                        s3.waterPhase = 6;
+                                        setRobotSpeech('Na⁺ và Cl⁻ đã hòa tan, chuyển động tự do trong dung dịch. Bây giờ hãy nhấn "Đóng mạch" và quan sát sự dịch chuyển.', 'idle');
+                                    }, targetIons3.length * 100 + 400);
+
+                                }, 1500);
+                            }, 800);
+                        }, 1500);
+                    }, 800);
+                }, 1500);
+            }, 1500);
+        }
+        function triggerMelting() {
+            const s3 = state.s3;
+            s3.molten = true;
+            s3.ions.forEach(ion => { ion.mode = 'free'; ion.vx = (Math.random() - 0.5) * 1.4; ion.vy = (Math.random() - 0.5) * 1.4; });
+            setRobotSpeech('Mạng tinh thể đã bị phá vỡ — các ion chuyển động hỗn loạn trong chất lỏng. Bây giờ hãy nhấn "Đóng mạch" và quan sát.', 'idle');
+        }
+        function updateCircuitBtnLabel() {
+            const btn = document.getElementById('circuitBtn');
+            if (btn) btn.innerHTML = state.s3.circuitClosed ? '<i class="ti ti-plug-connected"></i> Ngắt mạch' : '<i class="ti ti-plug-x"></i> Đóng mạch';
+        }
+        function maybeAdvanceStage3() {
+            const s3 = state.s3;
+            if (s3.phase === 'branchExplore' && s3.exploredHeatClosed && s3.exploredWaterClosed) {
+                s3.phase = 'question';
+                setTimeout(() => {
+                    setRobotSpeech('Bóng đèn vừa sáng. Điều gì đã thay đổi ở các ion để tạo ra dòng điện?', 'idle');
+                    setTimeout(() => { showStage3Quiz(); }, 2200);
+                }, 900);
+            }
+        }
+        function toggleCircuit() {
+            const s3 = state.s3;
+            s3.circuitClosed = !s3.circuitClosed;
+            const canConduct = (s3.branch === 'heat' && s3.molten) || (s3.branch === 'water' && s3.waterPhase >= 5);
+            s3.bulbOn = s3.circuitClosed && canConduct;
+            updateCircuitBtnLabel();
+            if (s3.circuitClosed) {
+                if (s3.branch === 'solid') { setRobotSpeech('Bóng đèn không sáng — ở trạng thái rắn, các ion không thể chuyển động tự do.', 'wrong'); s3.exploredSolidClosed = true; }
+                else if (s3.branch === 'heat') {
+                    if (s3.molten) { setRobotSpeech('Bóng đèn sáng! Na⁺ di chuyển về cực âm, Cl⁻ về cực dương.', 'correct'); s3.exploredHeatClosed = true; }
+                    else setRobotSpeech('Chưa đủ nóng để nóng chảy — hãy kéo núm trên cột nhiệt kế lên tối đa.', 'wrong');
+                } else if (s3.branch === 'water') {
+                    if (s3.waterPhase >= 5) { setRobotSpeech('Bóng đèn sáng! Các ion đã hoà tan chuyển động tự do và định hướng về điện cực.', 'correct'); s3.exploredWaterClosed = true; }
+                    else setRobotSpeech('Hãy chờ các ion hoà tan vào nước trước khi đóng mạch.', 'wrong');
+                }
+            }
+            maybeAdvanceStage3();
+        }
+        function clearBranchExtras() {
+            const b = document.getElementById('heatSliderWrap'); if (b) b.remove();
+            dynamicControlIds = dynamicControlIds.filter(id => id !== 'heatSliderWrap');
+        }
+        function selectBranchSolid() {
+            const s3 = state.s3;
+            s3.branch = 'solid'; s3.circuitClosed = false; s3.bulbOn = false;
+            resetIonsToLattice();
+            clearBranchExtras();
+            updateCircuitBtnLabel();
+            setRobotSpeech('Quan sát sự chuyển động của các ion trong tinh thể ở trạng thái rắn.', 'idle');
+        }
+        function selectBranchHeat() {
+            const s3 = state.s3;
+            s3.branch = 'heat'; s3.heatT = 0; s3.molten = false; s3.circuitClosed = false; s3.bulbOn = false;
+            resetIonsToLattice();
+            clearBranchExtras();
+            updateCircuitBtnLabel();
+            setRobotSpeech('Hãy thử nhánh Gia nhiệt. Kéo núm trên cột nhiệt kế lên và quan sát.', 'idle');
+        }
+        function selectBranchWater() {
+            const s3 = state.s3;
+            s3.branch = 'water'; s3.waterPhase = 0; s3.waterMolecules = []; s3.circuitClosed = false; s3.bulbOn = false;
+            resetIonsToLattice();
+            clearBranchExtras();
+            updateCircuitBtnLabel();
+            setRobotSpeech('Quay lại trạng thái rắn và thử nhánh Thêm nước. Quan sát các phân tử nước tương tác với các ion.', 'idle');
+            setTimeout(() => { startWater(); }, 700);
+        }
+        function showStage3Quiz() {
+            state.s3.phase = 'quiz';
+            showStageQuiz(
+                'Điều kiện nào để hợp chất ion dẫn điện?',
+                [
+                    { key: 'A', text: 'Chỉ khi tan trong nước.' },
+                    { key: 'B', text: 'Chỉ khi ở trạng thái rắn.' },
+                    { key: 'C', text: 'Ở mọi trạng thái.' },
+                    { key: 'D', text: 'Khi nóng chảy hoặc khi hòa tan tạo dung dịch — vì khi đó các ion có thể định hướng về các điện cực.' }
+                ],
+                'D',
+                'Đúng! Hợp chất ion chỉ dẫn điện khi các ion có thể chuyển động tự do và định hướng về các điện cực khi có dòng điện. Điều này xảy ra khi nóng chảy hoặc khi hòa tan tạo dung dịch. Ở trạng thái rắn, các ion bị giữ cố định nên không dẫn điện.',
+                'Hãy quan sát lại: ở trạng thái nào các ion có thể dịch chuyển định hướng về điện cực khi đóng mạch?',
+                'Hãy quan sát lại: ở trạng thái nào các ion có thể dịch chuyển định hướng về điện cực khi đóng mạch?',
+                () => {
+                    state.s3.phase = 'done';
+                    showAhaMoment('Khả năng dẫn điện của hợp chất ion phụ thuộc vào khả năng chuyển động định hướng của các ion. Ở trạng thái rắn: không dẫn điện. Khi nóng chảy hoặc hòa tan tạo dung dịch: dẫn điện vì ion chuyển động tự do và định hướng về điện cực. (Với NaCl, điều này xảy ra ở cả hai trạng thái.)');
+                    updateNextButtonState();
+                }
+            );
+        }
+        function renderStage3Controls() {
+            makeDynamicBtn('branchSolidBtn', 'btn-secondary', '<i class="ti ti-cube"></i> Rắn', selectBranchSolid);
+            makeDynamicBtn('branchHeatBtn', 'btn-secondary', '<i class="ti ti-flame"></i> Gia nhiệt', selectBranchHeat);
+            makeDynamicBtn('branchWaterBtn', 'btn-secondary', '<i class="ti ti-droplet"></i> Thêm nước', selectBranchWater);
+            makeDynamicBtn('circuitBtn', 'btn-primary', '<i class="ti ti-plug-x"></i> Đóng mạch', toggleCircuit);
+        }
+        function buildCompareIons(cx, cy, cw, ch, mode) {
+            const ions = [];
+            let id = 0;
+            if (mode === 'solid') {
+                const rows = 2, cols = 5;
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const type = (r + c) % 2 === 0 ? 'Na' : 'Cl';
+                        const x = cx - cw / 2 + 35 + c * ((cw - 70) / (cols - 1));
+                        const y = cy - ch / 2 + 30 + r * ((ch - 60) / (rows - 1));
+                        ions.push({ id: id++, type, x, y, homeX: x, homeY: y, seed: Math.random() * 10 });
+                    }
+                }
+            } else if (mode === 'heat') {
+                for (let i = 0; i < 10; i++) {
+                    const type = i % 2 === 0 ? 'Na' : 'Cl';
+                    ions.push({
+                        id: id++, type,
+                        x: cx + (Math.random() - 0.5) * (cw - 40),
+                        y: cy + (Math.random() - 0.5) * (ch - 40),
+                        vx: (Math.random() - 0.5) * 0.8,
+                        vy: (Math.random() - 0.5) * 0.8
+                    });
+                }
+            } else if (mode === 'water') {
+                for (let i = 0; i < 8; i++) {
+                    const type = i % 2 === 0 ? 'Na' : 'Cl';
+                    ions.push({
+                        id: id++, type,
+                        x: cx + (Math.random() - 0.5) * (cw - 40),
+                        y: cy + (Math.random() - 0.5) * (ch - 40),
+                        vx: (Math.random() - 0.5) * 0.6,
+                        vy: (Math.random() - 0.6) * 0.6
+                    });
+                }
+            }
+            return ions;
+        }
+
+        function drawSimpleIon(x, y, type, naR, clR) {
+            const color = type === 'Na' ? COLORS.accent : COLORS.jade;
+            const r = type === 'Na' ? naR : clR;
+            ctx.save();
+            const grad = ctx.createRadialGradient(x - r * 0.35, y - r * 0.35, 0.5, x, y, r);
+            grad.addColorStop(0, `rgb(${Math.min(255, color.r + 70)},${Math.min(255, color.g + 70)},${Math.min(255, color.b + 70)})`);
+            grad.addColorStop(1, `rgb(${color.r},${color.g},${color.b})`);
+            ctx.fillStyle = grad;
+            ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'rgba(255,255,255,0.95)';
+            ctx.font = `700 ${r * 1.2}px "Be Vietnam Pro", sans-serif`;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText(type === 'Na' ? '+' : '–', x, y + 0.5);
+            ctx.restore();
+        }
+
+        function drawCompareWater(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+            ctx.strokeStyle = 'rgba(110,120,135,0.6)'; ctx.lineWidth = 1.2;
+            ctx.beginPath(); ctx.moveTo(-2.5, 0); ctx.lineTo(3, 4); ctx.moveTo(-2.5, 0); ctx.lineTo(3, -4); ctx.stroke();
+            ctx.fillStyle = '#AEBECE';
+            ctx.beginPath(); ctx.arc(3, 4, 2.5, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.arc(3, -4, 2.5, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#D64545';
+            ctx.beginPath(); ctx.arc(-2.5, 0, 3.8, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+        }
+
+        function drawStage3Comparison() {
+            const s3 = state.s3;
+            const ph = (S3_LEFT.h - 20) / 3;
+            const labels = ['Trạng thái rắn (Ion cố định)', 'Trạng thái nóng chảy (Ion tự do)', 'Dung dịch NaCl (Ion tự do + nước)'];
+
+            for (let i = 0; i < 3; i++) {
+                const py = S3_LEFT.y + i * (ph + 10);
+                drawDetailCard(S3_LEFT.x, py, S3_LEFT.w, ph, 1);
+
+                ctx.save();
+                ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = '#1B5E48';
+                ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+                ctx.fillText(labels[i], S3_LEFT.x + 12, py + 8);
+                ctx.restore();
+            }
+
+            s3.compareSolidIons.forEach(ion => {
+                const amp = 0.8;
+                const x = ion.homeX + Math.sin(time * 3 + ion.seed) * amp;
+                const y = ion.homeY + Math.cos(time * 2.6 + ion.seed * 1.3) * amp * 0.7;
+                drawSimpleIon(x, y, ion.type, 5, 7.5);
+            });
+
+            ctx.save();
+            ctx.strokeStyle = 'rgba(81,76,68,0.14)'; ctx.lineWidth = 1;
+            const rows = 2, cols = 5;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const idx = r * cols + c;
+                    const o = s3.compareSolidIons[idx];
+                    const right = c < cols - 1 ? s3.compareSolidIons[idx + 1] : null;
+                    const down = r < rows - 1 ? s3.compareSolidIons[idx + cols] : null;
+                    if (right) { ctx.beginPath(); ctx.moveTo(o.homeX, o.homeY); ctx.lineTo(right.homeX, right.homeY); ctx.stroke(); }
+                    if (down) { ctx.beginPath(); ctx.moveTo(o.homeX, o.homeY); ctx.lineTo(down.homeX, down.homeY); ctx.stroke(); }
+                }
+            }
+            ctx.restore();
+
+            const py2 = S3_LEFT.y + ph + 10;
+            const bounds2 = { x0: S3_LEFT.x + 12, x1: S3_LEFT.x + S3_LEFT.w - 12, y0: py2 + 22, y1: py2 + ph - 10 };
+            s3.compareHeatIons.forEach(ion => {
+                ion.vx += (Math.random() - 0.5) * 0.15;
+                ion.vy += (Math.random() - 0.5) * 0.15;
+                ion.vx = clamp(ion.vx, -0.7, 0.7);
+                ion.vy = clamp(ion.vy, -0.7, 0.7);
+                ion.x += ion.vx; ion.y += ion.vy;
+                ion.vx *= 0.98; ion.vy *= 0.98;
+                if (ion.x < bounds2.x0) { ion.x = bounds2.x0; ion.vx *= -0.5; }
+                if (ion.x > bounds2.x1) { ion.x = bounds2.x1; ion.vx *= -0.5; }
+                if (ion.y < bounds2.y0) { ion.y = bounds2.y0; ion.vy *= -0.5; }
+                if (ion.y > bounds2.y1) { ion.y = bounds2.y1; ion.vy *= -0.5; }
+                drawSimpleIon(ion.x, ion.y, ion.type, 5, 7.5);
+            });
+
+            const py3 = S3_LEFT.y + 2 * ph + 20;
+            const bounds3 = { x0: S3_LEFT.x + 12, x1: S3_LEFT.x + S3_LEFT.w - 12, y0: py3 + 22, y1: py3 + ph - 10 };
+            s3.compareWaterIons.forEach(ion => {
+                ion.vx += (Math.random() - 0.5) * 0.12;
+                ion.vy += (Math.random() - 0.5) * 0.12;
+                ion.vx = clamp(ion.vx, -0.6, 0.6);
+                ion.vy = clamp(ion.vy, -0.6, 0.6);
+                ion.x += ion.vx; ion.y += ion.vy;
+                ion.vx *= 0.98; ion.vy *= 0.98;
+                if (ion.x < bounds3.x0) { ion.x = bounds3.x0; ion.vx *= -0.5; }
+                if (ion.x > bounds3.x1) { ion.x = bounds3.x1; ion.vx *= -0.5; }
+                if (ion.y < bounds3.y0) { ion.y = bounds3.y0; ion.vy *= -0.5; }
+                if (ion.y > bounds3.y1) { ion.y = bounds3.y1; ion.vy *= -0.5; }
+                ctx.save();
+                ctx.strokeStyle = 'rgba(120,180,230,0.45)';
+                ctx.setLineDash([2, 2]); ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.arc(ion.x, ion.y, (ion.type === 'Na' ? 5 : 7.5) + 6, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+                drawSimpleIon(ion.x, ion.y, ion.type, 5, 7.5);
+            });
+
+            s3.compareWaterMolecules.forEach(wm => {
+                const target = s3.compareWaterIons.find(o => o.id === wm.targetId);
+                if (target) {
+                    wm.x = lerp(wm.x, target.x + wm.followOffX, 0.1);
+                    wm.y = lerp(wm.y, target.y + wm.followOffY, 0.1);
+                    const desiredAngle = target.type === 'Na' ? Math.atan2(target.y - wm.y, target.x - wm.x) + Math.PI : Math.atan2(target.y - wm.y, target.x - wm.x);
+                    wm.angle = lerp(wm.angle, desiredAngle, 0.1);
+                    drawCompareWater(wm.x, wm.y, wm.angle);
+                }
+            });
+        }
+
+        function renderStage3Controls() {
+            makeDynamicBtn('branchSolidBtn', 'btn-secondary', '<i class="ti ti-cube"></i> Rắn', selectBranchSolid);
+            makeDynamicBtn('branchHeatBtn', 'btn-secondary', '<i class="ti ti-flame"></i> Gia nhiệt', selectBranchHeat);
+            makeDynamicBtn('branchWaterBtn', 'btn-secondary', '<i class="ti ti-droplet"></i> Thêm nước', selectBranchWater);
+            makeDynamicBtn('circuitBtn', 'btn-primary', '<i class="ti ti-plug-x"></i> Đóng mạch', toggleCircuit);
+        }
+
+        function initStage3() {
+            state.s3 = {
+                branch: 'solid', heatT: 0, molten: false, waterPhase: 0,
+                circuitClosed: false, bulbOn: false,
+                ions: buildStage3Ions(), waterMolecules: [],
+                exploredSolidClosed: false, exploredHeatClosed: false, exploredWaterClosed: false,
+                phase: 'branchExplore',
+                draggingSlider: false
+            };
+            const ph = (S3_LEFT.h - 20) / 3;
+            state.s3.compareSolidIons = buildCompareIons(S3_LEFT.x + S3_LEFT.w / 2, S3_LEFT.y + ph / 2, S3_LEFT.w - 20, ph - 20, 'solid');
+            state.s3.compareHeatIons = buildCompareIons(S3_LEFT.x + S3_LEFT.w / 2, S3_LEFT.y + ph + 10 + ph / 2, S3_LEFT.w - 20, ph - 20, 'heat');
+            state.s3.compareWaterIons = buildCompareIons(S3_LEFT.x + S3_LEFT.w / 2, S3_LEFT.y + 2 * ph + 20 + ph / 2, S3_LEFT.w - 20, ph - 20, 'water');
+
+            state.s3.compareWaterMolecules = [];
+            state.s3.compareWaterIons.forEach((ion, idx) => {
+                for (let w = 0; w < 2; w++) {
+                    state.s3.compareWaterMolecules.push({
+                        targetId: ion.id,
+                        x: ion.x + (Math.random() - 0.5) * 20,
+                        y: ion.y + (Math.random() - 0.5) * 20,
+                        angle: Math.random() * Math.PI * 2,
+                        followOffX: (w === 0 ? -11 : 11) * (ion.type === 'Na' ? 1 : -1),
+                        followOffY: (Math.random() - 0.5) * 8
+                    });
+                }
+            });
+
+            hideAhaMoment(); hideQuiz();
+            setObserveHeaders('Trạng thái', 'Chuyển động của ion', 'Khi đóng mạch');
+            setRobotSpeech('Ở trạng thái rắn, các ion có thể chuyển động từ vị trí này sang vị trí khác không? Điều gì sẽ xảy ra nếu ta thay đổi trạng thái của NaCl?', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Thử nhánh "Gia nhiệt" và nhánh "Thêm nước" (2 nhánh độc lập), rồi đóng mạch để quan sát.';
+            initNextButton();
+            renderStage3Controls();
+            clearStageAction();
+            updateStepProgress();
+        }
+
+        function drawCircuitDiagram(rx, ry, rw, rh) {
+            const s3 = state.s3;
+            const cx = rx + rw / 2;
+            const beakerW = rw * 0.62, beakerH = rh * 0.40;
+            const beakerX = cx - beakerW / 2, beakerY = ry + rh * 0.46;
+            const wireOn = s3.circuitClosed;
+            const wireColor = wireOn ? '#3CA57A' : '#B8AF9E';
+            ctx.save();
+
+            // ----- Cốc + chất trong cốc -----
+            ctx.strokeStyle = COLORS_TEXT.ink2; ctx.lineWidth = 2.2;
+            ctx.beginPath();
+            ctx.moveTo(beakerX, beakerY); ctx.lineTo(beakerX, beakerY + beakerH);
+            ctx.lineTo(beakerX + beakerW, beakerY + beakerH); ctx.lineTo(beakerX + beakerW, beakerY);
+            ctx.stroke();
+            const liqTop = beakerY + beakerH * 0.22;
+            let fillColor = 'rgba(186,180,164,0.45)', matLabel = 'NaCl rắn';
+            if (s3.branch === 'heat') {
+                if (s3.molten) { fillColor = 'rgba(232,162,74,0.5)'; matLabel = 'NaCl nóng chảy'; }
+                else { fillColor = lerpColor({ r: 186, g: 180, b: 164 }, { r: 232, g: 162, b: 74 }, s3.heatT).replace('rgb', 'rgba').replace(')', ',0.5)'); matLabel = 'NaCl rắn (đang nóng lên)'; }
+            } else if (s3.branch === 'water') {
+                fillColor = 'rgba(120,180,230,0.45)';
+                matLabel = s3.waterPhase >= 5 ? 'Dung dịch NaCl' : 'NaCl + nước';
+            }
+            ctx.fillStyle = fillColor;
+            ctx.fillRect(beakerX + 2, liqTop, beakerW - 4, beakerY + beakerH - liqTop - 2);
+            if (s3.branch === 'solid') {
+                ctx.fillStyle = 'rgba(150,145,132,0.55)';
+                for (let gx = 0; gx < 5; gx++) for (let gy = 0; gy < 3; gy++) {
+                    ctx.fillRect(beakerX + 14 + gx * 14, beakerY + beakerH - 30 + gy * 9, 9, 6);
+                }
+            }
+            ctx.fillStyle = COLORS_TEXT.ink2;
+            ctx.font = '600 12.5px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText(matLabel, cx, beakerY + beakerH + 6);
+
+            // ----- Điện cực -----
+            const elecY0 = beakerY - 30, elecY1 = beakerY + beakerH * 0.72;
+            const elecXL = beakerX + beakerW * 0.26, elecXR = beakerX + beakerW * 0.74;
+            [[elecXL, '#3B6EA8', '−'], [elecXR, '#C15F3C', '+']].forEach(([ex, col, sign]) => {
+                ctx.strokeStyle = '#5A5A5A'; ctx.lineWidth = 5; ctx.lineCap = 'round';
+                ctx.beginPath(); ctx.moveTo(ex, elecY0); ctx.lineTo(ex, elecY1); ctx.stroke();
+                ctx.fillStyle = col;
+                ctx.beginPath(); ctx.arc(ex, elecY0 - 8, 8, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = '#FFF';
+                ctx.font = '800 14px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(sign, ex, elecY0 - 7.5);
+            });
+
+            // ----- Dây dẫn + pin + bóng đèn -----
+            const topY = ry + 30;
+            ctx.strokeStyle = wireColor; ctx.lineWidth = 2.6; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(elecXL, elecY0 - 16); ctx.lineTo(elecXL, topY); ctx.lineTo(cx - 52, topY); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(elecXR, elecY0 - 16); ctx.lineTo(elecXR, topY); ctx.lineTo(cx + 16, topY); ctx.stroke();
+
+            // Pin (nguồn điện) — cặp vạch dài/ngắn
+            const batX = cx + 30;
+            ctx.strokeStyle = '#4A4A4A'; ctx.lineWidth = 2.4;
+            ctx.beginPath(); ctx.moveTo(batX - 6, topY - 11); ctx.lineTo(batX - 6, topY + 11); ctx.stroke();
+            ctx.lineWidth = 4.5;
+            ctx.beginPath(); ctx.moveTo(batX + 4, topY - 6); ctx.lineTo(batX + 4, topY + 6); ctx.stroke();
+            ctx.strokeStyle = wireColor; ctx.lineWidth = 2.6;
+            ctx.beginPath(); ctx.moveTo(cx + 16, topY); ctx.lineTo(batX - 6, topY); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(batX + 4, topY); ctx.lineTo(rx + rw - 18, topY); ctx.lineTo(rx + rw - 18, ry + 12); ctx.lineTo(cx - 52, ry + 12); ctx.stroke();
+            ctx.fillStyle = COLORS_TEXT.ink2;
+            ctx.font = '600 12.5px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText('Nguồn điện', batX, topY + 14);
+
+            // Bóng đèn
+            const bulbX = cx - 52;
+            ctx.beginPath(); ctx.moveTo(bulbX, ry + 12); ctx.lineTo(bulbX, topY);
+            ctx.strokeStyle = wireColor; ctx.lineWidth = 2.6; ctx.stroke();
+            if (s3.bulbOn) {
+                const glow = 0.75 + 0.25 * Math.sin(time * 7);
+                ctx.save();
+                const g = ctx.createRadialGradient(bulbX, topY, 2, bulbX, topY, 34);
+                g.addColorStop(0, `rgba(255,220,90,${0.55 * glow})`);
+                g.addColorStop(1, 'rgba(255,220,90,0)');
+                ctx.fillStyle = g;
+                ctx.beginPath(); ctx.arc(bulbX, topY, 34, 0, Math.PI * 2); ctx.fill();
+                ctx.strokeStyle = `rgba(255,205,70,${0.85 * glow})`; ctx.lineWidth = 2;
+                for (let a = 0; a < 8; a++) {
+                    const ang = (a / 8) * Math.PI * 2 + time * 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(bulbX + Math.cos(ang) * 18, topY + Math.sin(ang) * 18);
+                    ctx.lineTo(bulbX + Math.cos(ang) * 25, topY + Math.sin(ang) * 25);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+            ctx.beginPath(); ctx.arc(bulbX, topY, 14, 0, Math.PI * 2);
+            ctx.fillStyle = s3.bulbOn ? '#FFDE6A' : '#EFEAE0';
+            ctx.fill();
+            ctx.strokeStyle = '#8A7F68'; ctx.lineWidth = 1.6; ctx.stroke();
+            ctx.strokeStyle = s3.bulbOn ? '#C28328' : '#B8AF9E'; ctx.lineWidth = 1.4;
+            ctx.beginPath(); ctx.moveTo(bulbX - 5, topY + 3); ctx.lineTo(bulbX - 2, topY - 4); ctx.lineTo(bulbX + 2, topY + 3); ctx.lineTo(bulbX + 5, topY - 4); ctx.stroke();
+            ctx.fillStyle = s3.bulbOn ? '#C28328' : COLORS_TEXT.ink2;
+            ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+            ctx.fillText(s3.bulbOn ? 'Đèn SÁNG' : 'Đèn tắt', bulbX, topY + 18);
+
+            // ----- Ion chuyển động ĐỊNH HƯỚNG trong cốc (chỉ khi mạch đóng & dẫn được) -----
+            if (s3.bulbOn) {
+                const naY = liqTop + (beakerY + beakerH - liqTop) * 0.34;
+                const clY = liqTop + (beakerY + beakerH - liqTop) * 0.70;
+                for (let n = 0; n < 5; n++) {
+                    const t = ((time * 0.30 + n * 0.2) % 1);
+                    const fade = Math.sin(t * Math.PI);
+                    ctx.save();
+                    ctx.globalAlpha = fade;
+                    const naX = lerp(beakerX + beakerW * 0.72, elecXL + 9, t);
+                    ctx.fillStyle = `rgb(${COLORS.accent.r},${COLORS.accent.g},${COLORS.accent.b})`;
+                    ctx.beginPath(); ctx.arc(naX, naY, 4, 0, Math.PI * 2); ctx.fill();
+                    const clX = lerp(beakerX + beakerW * 0.28, elecXR - 9, t);
+                    ctx.fillStyle = `rgb(${COLORS.jade.r},${COLORS.jade.g},${COLORS.jade.b})`;
+                    ctx.beginPath(); ctx.arc(clX, clY, 5, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                }
+                drawArrow(beakerX + beakerW * 0.70, naY - 13, elecXL + 12, naY - 13, 'rgba(200,130,40,0.95)', 1.8, 6);
+                drawArrow(beakerX + beakerW * 0.30, clY + 14, elecXR - 12, clY + 14, 'rgba(45,139,111,0.95)', 1.8, 6);
+                ctx.font = '700 12px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillStyle = '#B45A2B';
+                ctx.fillText('Na⁺ → cực âm', (beakerX + beakerW * 0.70 + elecXL) / 2, naY - 16);
+                ctx.textBaseline = 'top';
+                ctx.fillStyle = '#1B5E48';
+                ctx.fillText('Cl⁻ → cực dương', (beakerX + beakerW * 0.30 + elecXR) / 2, clY + 18);
+            } else if (s3.circuitClosed) {
+                ctx.fillStyle = 'rgba(193,95,60,0.9)';
+                ctx.font = '600 12px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Mạch đã đóng nhưng ion không chuyển động tự do', cx, liqTop + 16);
+            }
+            ctx.restore();
+        }
+
+        function drawStage3() {
+            ctx.save();
+            const s3 = state.s3;
+
+            if (s3.phase === 'quiz' || s3.phase === 'done') {
+                drawStage3Comparison();
+            } else {
+                updateStage3Ions();
+                updateStage3Water();
+
+                drawDetailCard(S3_LEFT.x, S3_LEFT.y, S3_LEFT.w, S3_LEFT.h, 1);
+                const label = s3.branch === 'solid' ? 'Rắn' : (s3.branch === 'heat' ? (s3.molten ? 'Nóng chảy' : 'Đang gia nhiệt') : (s3.waterPhase >= 6 ? 'Dung dịch (đã tan)' : 'Đang hoà tan'));
+                drawPanelCaption(S3_LEFT.x + S3_LEFT.w / 2, S3_LEFT.y + 6, label);
+
+                ctx.save();
+                ctx.beginPath(); roundRect(ctx, S3_LEFT.x, S3_LEFT.y, S3_LEFT.w, S3_LEFT.h, 14); ctx.clip();
+
+                const stillLattice = s3.ions.filter(o => o.mode === 'lattice');
+                if (stillLattice.length > 2) {
+                    const xs = stillLattice.map(o => o.x), ys = stillLattice.map(o => o.y);
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(81,76,68,0.28)';
+                    ctx.setLineDash([5, 4]); ctx.lineWidth = 1.3;
+                    roundRect(ctx, Math.min(...xs) - 14, Math.min(...ys) - 14, Math.max(...xs) - Math.min(...xs) + 28, Math.max(...ys) - Math.min(...ys) + 28, 8);
+                    ctx.stroke();
+                    ctx.restore();
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(81,76,68,0.16)'; ctx.lineWidth = 1;
+                    stillLattice.forEach(o => {
+                        const right = stillLattice.find(q => q.row === o.row && q.col === o.col + 1);
+                        const down = stillLattice.find(q => q.col === o.col && q.row === o.row + 1);
+                        if (right) { ctx.beginPath(); ctx.moveTo(o.x, o.y); ctx.lineTo(right.x, right.y); ctx.stroke(); }
+                        if (down) { ctx.beginPath(); ctx.moveTo(o.x, o.y); ctx.lineTo(down.x, down.y); ctx.stroke(); }
+                    });
+                    ctx.restore();
+                }
+
+                s3.ions.forEach(ion => {
+                    const color = ion.type === 'Na' ? COLORS.accent : COLORS.jade;
+                    const r = ion.type === 'Na' ? 6.5 : 9;
+                    ctx.save();
+                    if (ion.mode === 'free' && s3.branch === 'water') {
+                        ctx.strokeStyle = 'rgba(120,180,230,0.55)';
+                        ctx.setLineDash([3, 3]); ctx.lineWidth = 1.2;
+                        ctx.beginPath(); ctx.arc(ion.x, ion.y, r + 9, 0, Math.PI * 2); ctx.stroke();
+                        ctx.setLineDash([]);
+                    }
+                    const grad = ctx.createRadialGradient(ion.x - r * 0.35, ion.y - r * 0.35, 0.5, ion.x, ion.y, r);
+                    grad.addColorStop(0, `rgb(${Math.min(255, color.r + 70)},${Math.min(255, color.g + 70)},${Math.min(255, color.b + 70)})`);
+                    grad.addColorStop(1, `rgb(${color.r},${color.g},${color.b})`);
+                    ctx.fillStyle = grad;
+                    ctx.beginPath(); ctx.arc(ion.x, ion.y, r, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                    ctx.font = `700 ${r * 1.2}px "Be Vietnam Pro", sans-serif`;
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText(ion.type === 'Na' ? '+' : '–', ion.x, ion.y + 0.5);
+                    ctx.restore();
+                });
+                s3.waterMolecules.forEach((wm, i) => drawWaterMolecule(wm, s3.waterPhase >= 2 && i < 3));
+                if (s3.branch === 'water' && s3.waterPhase >= 1) {
+                    ctx.save();
+                    ctx.font = '600 12px "Be Vietnam Pro", sans-serif';
+                    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+                    const ly = S3_LEFT.y + S3_LEFT.h - 14;
+                    ctx.fillStyle = '#D64545';
+                    ctx.beginPath(); ctx.arc(S3_LEFT.x + 16, ly, 4.4, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = COLORS_TEXT.ink2;
+                    ctx.fillText('O (δ−)', S3_LEFT.x + 24, ly);
+                    ctx.fillStyle = '#B9C7D6';
+                    ctx.beginPath(); ctx.arc(S3_LEFT.x + 78, ly, 3.4, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = COLORS_TEXT.ink2;
+                    ctx.fillText('H (δ+)', S3_LEFT.x + 86, ly);
+                    ctx.restore();
+                }
+
+                if (s3.branch === 'heat') {
+                    const tx = S3_LEFT.x + S3_LEFT.w - 26, ty0 = S3_LEFT.y + 46, tubeH = S3_LEFT.h - 84;
+                    ctx.save();
+                    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+                    roundRect(ctx, tx - 6, ty0, 12, tubeH, 6); ctx.fill();
+                    ctx.strokeStyle = 'rgba(81,76,68,0.5)'; ctx.lineWidth = 1.2;
+                    roundRect(ctx, tx - 6, ty0, 12, tubeH, 6); ctx.stroke();
+                    const fillH = tubeH * s3.heatT;
+                    ctx.fillStyle = s3.molten ? '#C13C3C' : '#E8A24A';
+                    roundRect(ctx, tx - 4, ty0 + tubeH - fillH, 8, fillH, 4); ctx.fill();
+                    ctx.beginPath(); ctx.arc(tx, ty0 + tubeH + 6, 7, 0, Math.PI * 2); ctx.fill();
+
+                    if (s3.phase === 'branchExplore' && !s3.molten) {
+                        const handleY = ty0 + tubeH - fillH;
+                        const pulse = 0.5 + 0.5 * Math.sin(time * 5);
+                        ctx.save();
+                        ctx.shadowColor = 'rgba(232,162,74,0.6)';
+                        ctx.shadowBlur = 6 + 4 * pulse;
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.strokeStyle = '#E8A24A';
+                        ctx.lineWidth = 2.5;
+                        ctx.beginPath(); ctx.arc(tx, handleY, 8, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                        ctx.fillStyle = '#E8A24A';
+                        ctx.beginPath(); ctx.moveTo(tx, handleY - 4); ctx.lineTo(tx - 3, handleY - 1); ctx.lineTo(tx + 3, handleY - 1); ctx.closePath(); ctx.fill();
+                        ctx.beginPath(); ctx.moveTo(tx, handleY + 4); ctx.lineTo(tx - 3, handleY + 1); ctx.lineTo(tx + 3, handleY + 1); ctx.closePath(); ctx.fill();
+                        ctx.restore();
+                    }
+
+                    ctx.fillStyle = COLORS_TEXT.ink2;
+                    ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                    ctx.fillText(s3.molten ? 'nóng chảy' : Math.round(s3.heatT * 100) + '%', tx, ty0 - 3);
+
+                    if (s3.phase === 'branchExplore' && !s3.molten && s3.heatT === 0) {
+                        ctx.fillStyle = '#C15F3C';
+                        ctx.font = '700 12px "Be Vietnam Pro", sans-serif';
+                        ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+                        ctx.fillText('Kéo lên ↑', tx - 14, ty0 + tubeH - 8);
+                    }
+                    ctx.restore();
+                }
+                ctx.restore();
+            }
+
+            const rx = W / 2 + 6, ry = 6, rw = W / 2 - 14, rh = H - 14;
+            drawDetailCard(rx, ry, rw, rh, 1);
+            drawCircuitDiagram(rx, ry, rw, rh);
+            ctx.restore();
+        }
+
+        // ======================================================
+        // STAGE 4 — VÌ SAO TINH THỂ ION CỨNG NHƯNG GIÒN?
+        // Trượt lớp ion → ion cùng dấu đối diện → lực đẩy → nứt vỡ
+        // ======================================================
+        const S4_AREA = { x: 60, y: 40, w: W - 120, h: H - 90 };
+        const S4_COLS = 7, S4_ROWS = 4;
+        const S4_SPACING_X = S4_AREA.w / (S4_COLS + 1);
+        const S4_SPACING_Y = S4_AREA.h / (S4_ROWS + 1);
+        function buildStage4Ions() {
+            const ions = [];
+            let id = 0;
+            for (let row = 0; row < S4_ROWS; row++) {
+                for (let col = 0; col < S4_COLS; col++) {
+                    const type = (row + col) % 2 === 0 ? 'Na' : 'Cl';
+                    const isUpper = row >= 2;
+                    const homeX = S4_AREA.x + S4_SPACING_X * (col + 1);
+                    const homeY = S4_AREA.y + S4_AREA.h - S4_SPACING_Y * (row + 1);
+                    ions.push({ id: id++, row, col, type, isUpper, homeX, homeY, _x: homeX, _y: homeY });
+                }
+            }
+            return ions;
+        }
+        function tryStartStage4Drag(p) {
+            // Stage 4 chỉ thao tác qua nút "Tác dụng lực" — không cần kéo trực tiếp trên canvas.
+        }
+        function applyForce() {
+            const s4 = state.s4;
+            if (s4.phase !== 'ready') return;
+            s4.phase = 'sliding';
+            state.isAnimating = true;
+            const btn = document.getElementById('applyForceBtn');
+            if (btn) btn.disabled = true;
+            setRobotSpeech('Lực đang làm một lớp ion trượt so với lớp bên dưới...', 'idle');
+            tween(s4, 'shiftFrac', 1, 1800, easeInOut, () => {
+                state.isAnimating = false;
+                s4.phase = 'paused';
+                setRobotSpeech('Quan sát các ion đang đối diện nhau sau khi lớp bị dịch chuyển. Bạn nhận ra điều gì?', 'idle');
+                setTimeout(() => {
+                    s4.phase = 'repulsion';
+                    tween(s4, 'repulsionFrac', 1, 1000, easeInOut, () => {
+                        setTimeout(() => {
+                            s4.phase = 'fractured';
+                            setRobotSpeech('Khi các lớp ion trượt, những ion cùng dấu đối diện nhau đẩy nhau mạnh — tinh thể nứt vỡ theo mặt trượt.', 'idle');
+                            tween(s4, 'crackGap', 24, 800, easeOut, () => {
+                                setTimeout(() => {
+                                    setRobotSpeech('Khi các lớp ion trượt, những ion nào đang đối diện nhau? Điều đó gây ra hậu quả gì?', 'idle');
+                                    setTimeout(() => { showStage4Quiz(); }, 2200);
+                                }, 800);
+                            });
+                        }, 1400);
+                    });
+                }, 1600);
+            });
+        }
+        function showStage4Quiz() {
+            state.s4.phase = 'quiz';
+            showStageQuiz(
+                'Vì sao tinh thể ion cứng nhưng giòn, dễ nứt vỡ?',
+                [
+                    { key: 'A', text: 'Vì lực hút giữa các ion yếu.' },
+                    { key: 'B', text: 'Vì tinh thể ion có nhiều khoảng trống.' },
+                    { key: 'C', text: 'Khi các lớp ion trượt qua nhau, các ion cùng dấu nằm đối diện nhau và đẩy nhau mạnh, làm tinh thể nứt vỡ.' },
+                    { key: 'D', text: 'Vì các ion tách khỏi mạng tinh thể khi chịu lực.' }
+                ],
+                'C',
+                'Chính xác! Khi các lớp ion trượt qua nhau, các ion cùng dấu nằm đối diện nhau và xuất hiện lực đẩy mạnh, làm tinh thể nứt vỡ. Đó là lý do tinh thể ion cứng nhưng giòn.',
+                'Hãy quan sát lại thời điểm các lớp ion bắt đầu trượt. Sau khi trượt, những ion nào đang đối diện nhau và điều gì xảy ra giữa chúng?',
+                'Hãy quan sát lại thời điểm các lớp ion bắt đầu trượt. Sau khi trượt, những ion nào đang đối diện nhau và điều gì xảy ra giữa chúng?',
+                () => {
+                    state.s4.phase = 'done';
+                    showAhaMoment('Tinh thể ion cứng nhưng giòn. Khi các lớp ion bị dịch chuyển, các ion cùng dấu nằm đối diện nhau và đẩy nhau mạnh — lực đẩy này vượt quá khả năng mạng tinh thể chịu đựng, khiến tinh thể nứt vỡ theo mặt trượt.');
+                    updateNextButtonState();
+                    spawnParticles(W / 2, H / 2, 'jade', 6);
+                }
+            );
+        }
+        function initStage4() {
+            state.s4 = { phase: 'ready', shiftFrac: 0, repulsionFrac: 0, crackGap: 0, ions: buildStage4Ions() };
+            hideAhaMoment(); hideQuiz();
+            setObserveHeaders('Giai đoạn', 'Ion đối diện tại mặt trượt', 'Hiện tượng');
+            setRobotSpeech('Nếu bạn tác dụng lực lên tinh thể NaCl, bạn nghĩ điều gì sẽ xảy ra?', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Nhấn "Tác dụng lực" để quan sát các lớp ion trượt.';
+            initNextButton();
+            makeDynamicBtn('applyForceBtn', 'btn-primary', '<i class="ti ti-arrow-down-right"></i> Tác dụng lực', applyForce);
+            clearStageAction();
+            updateStepProgress();
+        }
+        function drawStage4() {
+            ctx.save();
+            const s4 = state.s4;
+            ctx.fillStyle = 'rgba(81,76,68,0.12)';
+            ctx.fillRect(S4_AREA.x - 20, S4_AREA.y + S4_AREA.h + 4, S4_AREA.w + 40, 14);
+            ctx.save();
+            ctx.strokeStyle = COLORS_TEXT.ink2; ctx.lineWidth = 1;
+            for (let hx = S4_AREA.x - 16; hx < S4_AREA.x + S4_AREA.w + 16; hx += 10) {
+                ctx.beginPath(); ctx.moveTo(hx, S4_AREA.y + S4_AREA.h + 4); ctx.lineTo(hx - 6, S4_AREA.y + S4_AREA.h + 18); ctx.stroke();
+            }
+            ctx.restore();
+
+            // Mũi tên lực NGHIÊNG tác dụng lên phần trên (tạo trượt tương đối, không phải nén thẳng đứng)
+            if (s4.phase === 'ready' || s4.phase === 'sliding') {
+                const push = s4.phase === 'sliding' ? Math.sin(time * 6) * 3 : 0;
+                drawArrow(S4_AREA.x + S4_AREA.w * 0.16 + push, S4_AREA.y - 30, S4_AREA.x + S4_AREA.w * 0.34 + push, S4_AREA.y + 4, '#C15F3C', 3.2, 10);
+                ctx.save();
+                ctx.fillStyle = '#C15F3C';
+                ctx.font = '700 18px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+                ctx.fillText('Lực tác dụng (nghiêng)', S4_AREA.x + S4_AREA.w * 0.16, S4_AREA.y - 34);
+                ctx.restore();
+            }
+
+            const spacingX = S4_SPACING_X;
+            // Rung nhẹ khi lực đang tác dụng & khi lực đẩy dâng lên — tăng cảm giác ứng suất
+            const stress = (s4.phase === 'sliding' ? 1 : 0) * 0.9 + s4.repulsionFrac * 1.6;
+            s4.ions.forEach(ion => {
+                const shiftX = ion.isUpper ? s4.shiftFrac * spacingX : 0;
+                const gapY = ion.isUpper ? -s4.crackGap : 0;
+                const jx = stress > 0.05 ? Math.sin(time * 22 + ion.id * 1.7) * stress : 0;
+                const jy = stress > 0.05 ? Math.cos(time * 19 + ion.id * 2.3) * stress * 0.7 : 0;
+                ion._x = ion.homeX + shiftX + jx;
+                ion._y = ion.homeY + gapY + jy;
+            });
+
+            // Đường nối trong TỪNG khối (dưới / trên) — cho thấy rõ hai khối trượt tương đối
+            ctx.save();
+            ctx.strokeStyle = 'rgba(81,76,68,0.22)'; ctx.lineWidth = 1.2;
+            s4.ions.forEach(o => {
+                const right = s4.ions.find(q => q.row === o.row && q.col === o.col + 1);
+                const up = s4.ions.find(q => q.col === o.col && q.row === o.row + 1 && q.isUpper === o.isUpper);
+                if (right) { ctx.beginPath(); ctx.moveTo(o._x, o._y); ctx.lineTo(right._x, right._y); ctx.stroke(); }
+                if (up) { ctx.beginPath(); ctx.moveTo(o._x, o._y); ctx.lineTo(up._x, up._y); ctx.stroke(); }
+            });
+            ctx.restore();
+
+            // Mặt trượt
+            if (s4.shiftFrac > 0.02) {
+                const ySlip = S4_AREA.y + S4_AREA.h - S4_SPACING_Y * 2.5;
+                ctx.save();
+                ctx.strokeStyle = `rgba(193,95,60,${0.25 + 0.4 * s4.shiftFrac})`;
+                ctx.setLineDash([8, 5]); ctx.lineWidth = 1.6;
+                ctx.beginPath(); ctx.moveTo(S4_AREA.x - 24, ySlip); ctx.lineTo(S4_AREA.x + S4_AREA.w + 24, ySlip); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = `rgba(193,95,60,${0.5 + 0.4 * s4.shiftFrac})`;
+                ctx.font = '600 15px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'right'; ctx.textBaseline = 'bottom';
+                ctx.fillText('mặt trượt', S4_AREA.x + S4_AREA.w + 22, ySlip - 3);
+                ctx.restore();
+            }
+
+            s4.ions.forEach(ion => {
+                const color = ion.type === 'Na' ? COLORS.accent : COLORS.jade;
+                const r = ion.type === 'Na' ? 8 : 11;
+                ctx.save();
+                const grad = ctx.createRadialGradient(ion._x - r * 0.35, ion._y - r * 0.35, 0.5, ion._x, ion._y, r);
+                grad.addColorStop(0, `rgb(${Math.min(255, color.r + 70)},${Math.min(255, color.g + 70)},${Math.min(255, color.b + 70)})`);
+                grad.addColorStop(1, `rgb(${color.r},${color.g},${color.b})`);
+                ctx.fillStyle = grad;
+                ctx.beginPath(); ctx.arc(ion._x, ion._y, r, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                ctx.font = `700 ${r * 1.15}px "Be Vietnam Pro", sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(ion.type === 'Na' ? '+' : '–', ion._x, ion._y + 0.5);
+                ctx.restore();
+            });
+
+            const lowerTopRow = s4.ions.filter(o => o.row === 1);
+            const upperBottomRow = s4.ions.filter(o => o.row === 2);
+            const facingPairs = [];
+            upperBottomRow.forEach(u => {
+                const pair = lowerTopRow.find(l => Math.abs(l._x - u._x) < spacingX * 0.45 && l.type === u.type);
+                if (pair) facingPairs.push({ u, l: pair });
+            });
+
+            // DỪNG tại thời điểm ion cùng dấu đối diện nhau — làm nổi bật trước khi có lực đẩy
+            if (s4.shiftFrac > 0.75 && facingPairs.length) {
+                const pulse = 0.55 + 0.45 * Math.sin(time * 5);
+                facingPairs.forEach(({ u, l }) => {
+                    [u, l].forEach(o => {
+                        ctx.save();
+                        ctx.strokeStyle = `rgba(193,60,60,${0.45 + 0.45 * pulse})`;
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([3, 3]);
+                        ctx.beginPath(); ctx.arc(o._x, o._y, (o.type === 'Na' ? 8 : 11) + 5, 0, Math.PI * 2); ctx.stroke();
+                        ctx.restore();
+                    });
+                });
+                if (s4.phase === 'paused' || s4.phase === 'repulsion') {
+                    const sample = facingPairs[Math.floor(facingPairs.length / 2)];
+                    ctx.save();
+                    ctx.fillStyle = '#C13C3C';
+                    ctx.font = '700 17px "Be Vietnam Pro", sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    const lbl = sample.u.type === 'Na' ? 'Na⁺ đối diện Na⁺' : 'Cl⁻ đối diện Cl⁻';
+                    ctx.fillText(lbl + ' — cùng dấu!', W / 2, S4_AREA.y - 14);
+                    ctx.restore();
+                }
+            }
+
+            if (s4.repulsionFrac > 0.01) {
+                facingPairs.forEach(({ u, l: pair }) => {
+                    const midX = (pair._x + u._x) / 2, midY = (pair._y + u._y) / 2;
+                    const bend = 10 * s4.repulsionFrac;
+                    ctx.save();
+                    ctx.strokeStyle = `rgba(193,60,60,${0.85 * s4.repulsionFrac})`;
+                    ctx.lineWidth = 2.2;
+                    ctx.beginPath();
+                    ctx.moveTo(pair._x, pair._y);
+                    ctx.quadraticCurveTo(midX + bend, midY, u._x, u._y);
+                    ctx.stroke();
+                    ctx.restore();
+                    drawArrow(midX + bend * 0.6, midY, u._x, u._y, `rgba(193,60,60,${0.9 * s4.repulsionFrac})`, 2.2, 7);
+                    drawArrow(midX + bend * 0.6, midY, pair._x, pair._y, `rgba(193,60,60,${0.9 * s4.repulsionFrac})`, 2.2, 7);
+                });
+            }
+
+            if (s4.crackGap > 0.5) {
+                ctx.save();
+                ctx.strokeStyle = 'rgba(26,26,26,0.55)';
+                ctx.lineWidth = 1.6;
+                ctx.setLineDash([6, 3]);
+                const yCrack = (S4_AREA.y + S4_AREA.h - S4_SPACING_Y * 2.5) - s4.crackGap / 2;
+                ctx.beginPath();
+                ctx.moveTo(S4_AREA.x - 14, yCrack);
+                for (let cxi = S4_AREA.x - 14; cxi <= S4_AREA.x + S4_AREA.w + 14; cxi += 12) {
+                    ctx.lineTo(cxi, yCrack + Math.sin(cxi * 0.7) * 3);
+                }
+                ctx.stroke();
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+        function updateStage3Buttons() {
+            if (state.stage !== 3 || !state.s3) return;
+            const s3 = state.s3;
+
+            const btnSolid = document.getElementById('branchSolidBtn');
+            const btnHeat = document.getElementById('branchHeatBtn');
+            const btnWater = document.getElementById('branchWaterBtn');
+            const btnCircuit = document.getElementById('circuitBtn');
+
+            if (!btnSolid || !btnHeat || !btnWater || !btnCircuit) return;
+
+            if (s3.phase === 'quiz' || s3.phase === 'done') {
+                btnSolid.disabled = true;
+                btnHeat.disabled = true;
+                btnWater.disabled = true;
+                btnCircuit.disabled = true;
+                return;
+            }
+
+            if (s3.branch === 'solid') {
+                btnSolid.disabled = true;
+                btnHeat.disabled = false;
+                btnWater.disabled = false;
+                btnCircuit.disabled = false;
+            } else if (s3.branch === 'heat') {
+                btnSolid.disabled = !s3.exploredHeatClosed;
+                btnWater.disabled = !s3.exploredHeatClosed;
+                btnHeat.disabled = true;
+                btnCircuit.disabled = false;
+            } else if (s3.branch === 'water') {
+                btnWater.disabled = true;
+                if (s3.waterPhase < 6) {
+                    btnSolid.disabled = true;
+                    btnHeat.disabled = true;
+                    btnCircuit.disabled = true;
+                } else {
+                    btnCircuit.disabled = false;
+                    btnSolid.disabled = !s3.exploredWaterClosed;
+                    btnHeat.disabled = !s3.exploredWaterClosed;
+                }
+            }
+        }
+
+        // ======================================================
+        // QUIZ ENGINE (trắc nghiệm 1 đáp án, gợi ý leo thang khi sai lần 2)
+        // ======================================================
+        let hideQuizTimeoutId = null;
+        function showStageQuiz(question, options, correctKey, correctMsg, wrongMsg1, wrongMsg2, onCorrect) {
+            const _qid = 's' + state.stage;
+            if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+            const container = document.getElementById('quizContainer');
+            if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+            const qText = document.getElementById('quizQuestionText');
+            if (qText) qText.innerHTML = question;
+            const extra = document.getElementById('quizExtra');
+            if (extra) extra.innerHTML = '';
+            let wrongAttempts = 0;
+            const list = document.getElementById('quizOptionsList');
+            if (list) {
+                list.innerHTML = '';
+                options.forEach(opt => {
+                    const li = document.createElement('li');
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option-btn';
+                    btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="icon_${opt.key}"></span>`;
+                    btn.onclick = () => {
+                        const btns = document.querySelectorAll('#quizOptionsList .quiz-option-btn');
+                        if (opt.key === correctKey) {
+                            btns.forEach(b => b.disabled = true);
+                            btn.classList.add('opt-correct');
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                            playSuccessFlash();
+                            setRobotSpeech(correctMsg, 'correct');
+                            lmsRecordAnswer(_qid, question, options, opt.key, true);
+                            onCorrect();
+                        } else {
+                            wrongAttempts++;
+                            btn.classList.add('opt-wrong');
+                            btn.disabled = true;
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+                            btns.forEach(b => { if (!b.classList.contains('opt-wrong')) b.disabled = false; });
+                            setRobotSpeech(wrongAttempts >= 2 ? wrongMsg2 : wrongMsg1, 'wrong');
+                            lmsRecordAnswer(_qid, question, options, opt.key, false);
+                        }
+                    };
+                    li.appendChild(btn);
+                    list.appendChild(li);
+                });
+            }
+            setTimeout(() => {
+                const sideRight = document.querySelector('.lab-side-right');
+                if (sideRight) {
+                    sideRight.scrollTo({
+                        top: sideRight.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+        function hideQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (container) {
+                container.classList.add('fade-out');
+                if (hideQuizTimeoutId) clearTimeout(hideQuizTimeoutId);
+                hideQuizTimeoutId = setTimeout(() => { container.style.display = 'none'; hideQuizTimeoutId = null; }, 200);
+            }
+        }
+
+        // ======================================================
+        // ROBOT / AHA HELPERS
+        // ======================================================
+        let ahaVisible = false;
+        function setRobotSpeech(text, type) {
+            type = type || 'idle';
+            const guideBar = document.getElementById('aiGuideBar');
+            if (guideBar) guideBar.className = `ai-guide card state-${type}`;
+            const el = document.getElementById('aiText');
+            if (el) { el.classList.remove('fade-in'); void el.offsetWidth; el.innerHTML = text; el.classList.add('fade-in'); }
+        }
+        function showAhaMoment(text) {
+            const content = document.getElementById('ahaContent');
+            if (content) content.innerHTML = text;
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'block';
+            ahaVisible = true;
+            setTimeout(() => {
+                const sideRight = document.querySelector('.lab-side-right');
+                if (sideRight) {
+                    sideRight.scrollTo({
+                        top: sideRight.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 100);
+        }
+        function hideAhaMoment() {
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'none';
+            ahaVisible = false;
+        }
+
+        // ======================================================
+        // STEPPER / NAVIGATION
+        // ======================================================
+        function setStageAction(label, iconClass, onclick, disabled) {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('stageActionBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'stageActionBtn';
+                container.insertBefore(btn, container.firstChild);
+            }
+            btn.innerHTML = `<i class="ti ${iconClass}"></i> ${label}`;
+            btn.disabled = !!disabled;
+            btn.onclick = onclick || null;
+            btn.style.display = 'inline-flex';
+        }
+        function clearStageAction() {
+            const btn = document.getElementById('stageActionBtn');
+            if (btn) btn.style.display = 'none';
+        }
+
+        function initNextButton() {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('nextBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'nextBtn';
+                btn.onclick = handleNextAction;
+                container.appendChild(btn);
+            }
+            btn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            btn.disabled = true;
+        }
+
+        function updateNextButtonState() {
+            const nextBtn = document.getElementById('nextBtn');
+            if (!nextBtn) return;
+            const done = ahaVisible;
+            nextBtn.disabled = !done;
+            if (state.stage === STAGE_COUNT) {
+                nextBtn.innerHTML = done ? 'Hoàn tất <i class="ti ti-confetti"></i>' : 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            }
+        }
+
+        function handleNextAction() {
+            if (state.stage === STAGE_COUNT) { showCompletionModal(); return; }
+            if (state.stage < STAGE_COUNT) jumpToStage(state.stage + 1);
+        }
+
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.style.display = 'flex';
+            spawnParticles(W / 2, H / 2, 'jade', 20);
+            requestAnimationFrame(() => modal.classList.add('show'));
+            if (!window._lmsCompletedOnce) {
+                window._lmsCompletedOnce = true;
+                const items = Object.keys(lmsAnswers).map(qid => Object.assign({ id: qid }, lmsAnswers[qid]));
+                const score = items.filter(it => it.correct).length;
+                LMS().complete({ summary: 'Hoàn thành module Tinh Thể Ion.', score, max: STAGE_COUNT, items });
+            }
+        }
+        function hideCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 250);
+        }
+        document.getElementById('completionModal').addEventListener('click', (e) => { if (e.target.id === 'completionModal') hideCompletionModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('completionModal').classList.contains('show')) hideCompletionModal(); });
+
+        function resetCurrentStage() { state.isAnimating = false; initStageByIndex(state.stage); }
+        function initStageByIndex(s) {
+            clearDynamicControls();
+            clearStageAction();
+            if (s === 1) initStage1();
+            else if (s === 2) initStage2();
+            else if (s === 3) initStage3();
+            else if (s === 4) initStage4();
+        }
+        function updateStepProgress() {
+            const dots = document.getElementById('stepperDots');
+            dots.innerHTML = '';
+            for (let i = 1; i <= STAGE_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'step-dot';
+                if (i === state.stage) dot.classList.add('active');
+                else if (i < state.stage) dot.classList.add('done');
+                dot.innerHTML = i < state.stage ? '<i class="ti ti-check"></i>' : String(i);
+                dot.onclick = () => jumpToStage(i);
+                dots.appendChild(dot);
+            }
+            document.getElementById('prevBtn').disabled = (state.stage === 1 || state.isAnimating);
+            document.getElementById('resetBtn').disabled = state.isAnimating;
+            updateNextButtonState();
+        }
+        function goToPrevStage() { if (state.isAnimating) return; if (state.stage > 1) jumpToStage(state.stage - 1); }
+        function jumpToStage(s) { if (state.isAnimating) return; state.stage = s; initStageByIndex(s); lmsReportState('jumpToStage=' + s); }
+
+        // ======================================================
+        // SIDEBAR TRÁI — đồng bộ "Công cụ mô phỏng" + "Cách làm"
+        // ======================================================
+        function computeMicroPhase() {
+            if (ahaVisible) return 4;
+            if (state.isAnimating) return 2;
+            if (state.stage === 1) {
+                const p = state.s1.phase;
+                if (p === 'intro') return 0;
+                if (p === 'insideRevealed' || p === 'pickedNa') return 1;
+                if (p === 'wholeLattice') return 2;
+                if (p === 'quiz') return 3;
+            } else if (state.stage === 2) {
+                const p = state.s2.phase;
+                if (p === 'intro') return 0;
+                if (p === 'forces' || p === 'dragReady') return 1;
+                if (p === 'dragged' || p === 'comparing' || p === 'question') return 2;
+                if (p === 'quiz') return 3;
+            } else if (state.stage === 3) {
+                const s3 = state.s3;
+                if (s3.phase === 'quiz') return 3;
+                if (s3.phase === 'question') return 2;
+                if (s3.branch === 'solid' && !s3.exploredHeatClosed && !s3.exploredWaterClosed) return 0;
+                if (s3.exploredHeatClosed || s3.exploredWaterClosed) return 2;
+                return 1;
+            } else if (state.stage === 4) {
+                const p = state.s4.phase;
+                if (p === 'ready') return 0;
+                if (p === 'sliding' || p === 'paused') return 1;
+                if (p === 'repulsion' || p === 'fractured') return 2;
+                if (p === 'quiz') return 3;
+            }
+            return 0;
+        }
+        function syncToolsAndSteps() {
+            const phase = computeMicroPhase();
+            document.querySelectorAll('#stepList .step-row').forEach(row => {
+                const idx = Number(row.dataset.step);
+                row.classList.toggle('is-active', idx === phase);
+                row.classList.toggle('is-done', idx < phase);
+                const numEl = row.querySelector('.step-num');
+                numEl.innerHTML = idx < phase ? '<i class="ti ti-check"></i>' : String(idx + 1);
+            });
+            document.querySelectorAll('.tool-chip').forEach(chip => {
+                const t = chip.dataset.tool;
+                let active = false;
+                if (state.stage === 1) active = (t === 'lattice') || (t === 'ion' && state.s1.phase !== 'intro');
+                else if (state.stage === 2) active = (t === 'lattice') || (t === 'force' && state.s2.phase !== 'intro');
+                else if (state.stage === 3) active = (t === 'lattice') || (t === 'circuit');
+                else if (state.stage === 4) active = (t === 'lattice') || (t === 'slip');
+                chip.classList.toggle('active', active);
+            });
+        }
+
+        // ======================================================
+        // BẢNG QUAN SÁT
+        // ======================================================
+        function refreshObserveTable() {
+            const tbody = document.getElementById('observeTableBody');
+            const rows = [];
+            if (state.stage === 1) {
+                const s1 = state.s1;
+                if (s1.selectedNa != null) rows.push({ a: 'Na⁺ (đã chọn)', b: s1.naLitIds.length + '/6', c: s1.naLitIds.length === 6 ? 'Bao quanh bởi 6 Cl⁻' : 'Đang xác định…' });
+                if (s1.selectedCl != null) rows.push({ a: 'Cl⁻ (đã chọn)', b: s1.clLitIds.length + '/6', c: s1.clLitIds.length === 6 ? 'Bao quanh bởi 6 Na⁺' : 'Đang xác định…' });
+            } else if (state.stage === 2) {
+                const s2 = state.s2;
+                if (s2.forceLitIds && s2.forceLitIds.length) rows.push({ a: 'Na⁺ trong mạng', b: 'Chịu lực hút từ ' + s2.forceLitIds.length + ' Cl⁻', c: 'Hợp lực tại vị trí cân bằng = 0' });
+                if (s2.drag && s2.drag.hasDraggedOnce) rows.push({ a: 'Ion trong mạng', b: 'Dịch chuyển rất ít', c: 'Hợp lực phục hồi kéo về vị trí cũ' });
+                if (s2.compare && s2.compare.free && s2.compare.free.dragged) rows.push({ a: 'Ion đứng riêng lẻ', b: 'Di chuyển tự do', c: 'Không có hợp lực phục hồi' });
+            } else if (state.stage === 3) {
+                const s3 = state.s3;
+                rows.push({ a: 'Rắn', b: 'Dao động tại chỗ', c: 'Bóng đèn tắt' });
+                if (s3.exploredHeatClosed || s3.molten) rows.push({ a: 'Nóng chảy', b: 'Tự do + định hướng về điện cực', c: s3.exploredHeatClosed ? 'Bóng đèn sáng' : 'Chưa đóng mạch' });
+                if (s3.exploredWaterClosed || s3.waterPhase >= 3) rows.push({ a: 'Tan trong nước', b: 'Tự do + định hướng về điện cực', c: s3.exploredWaterClosed ? 'Bóng đèn sáng' : 'Chưa đóng mạch' });
+            } else if (state.stage === 4) {
+                const p = state.s4.phase;
+                const order = ['ready', 'sliding', 'paused', 'repulsion', 'fractured', 'quiz', 'done'];
+                const at = order.indexOf(p);
+                rows.push({ a: 'Trước khi tác dụng lực', b: 'Na⁺ ↔ Cl⁻ (trái dấu)', c: 'Mạng bền, hút nhau' });
+                if (at >= 2) rows.push({ a: 'Sau khi lớp trượt', b: 'Na⁺ ↔ Na⁺ và Cl⁻ ↔ Cl⁻', c: 'Cùng dấu đối diện nhau' });
+                if (at >= 3) rows.push({ a: 'Lực đẩy xuất hiện', b: 'Đẩy nhau mạnh', c: 'Vượt sức chịu của mạng' });
+                if (at >= 4) rows.push({ a: 'Kết quả', b: '—', c: 'Tinh thể nứt theo mặt trượt' });
+            }
+            if (!rows.length) { tbody.innerHTML = '<tr><td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td></tr>'; return; }
+            tbody.innerHTML = '';
+            rows.forEach(r => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${r.a}</td><td>${r.b}</td><td>${r.c}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        setInterval(() => {
+            updateNextButtonState();
+            refreshObserveTable();
+            syncToolsAndSteps();
+            if (state.stage === 3) {
+                updateStage3Buttons();
+            }
+        }, 300);
+
+        // ======================================================
+        // KHỞI CHẠY
+        // ======================================================
+        initStage1();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

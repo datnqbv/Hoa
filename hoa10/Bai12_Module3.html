@@ -1,0 +1,3015 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự Xen Phủ Orbital Và Liên Kết Cộng Hóa Trị</title>
+    <script type="application/json" id="athena-context">
+{
+  "title": "Sự Xen Phủ Orbital Và Liên Kết Cộng Hóa Trị",
+  "subject": "Hóa học",
+  "grade": "10",
+  "objectives": [
+    "Giải thích sự hình thành cặp electron liên kết từ sự xen phủ AO",
+    "Phân biệt xen phủ trục (liên kết σ) và xen phủ bên (liên kết π)",
+    "Xác định thành phần σ, π trong liên kết đơn, liên kết đôi, liên kết ba"
+  ],
+  "structure": [
+    { "id": "s1", "title": "Bước 1 — Xen phủ hai AO 1s tạo liên kết H2" },
+    { "id": "s2", "title": "Bước 2 — Xen phủ trục (σ) trong H2, HF, Cl2" },
+    { "id": "s3", "title": "Bước 3 — Xen phủ bên (π) của hai AO p" },
+    { "id": "s4", "title": "Bước 4 — Thành phần σ, π trong liên kết đơn/đôi/ba" }
+  ],
+  "athenaGuidance": "a) Học sinh tương tác với mô hình 3D orbital nguyên tử qua 4 bước: (1) đưa hai nguyên tử H lại gần nhau để quan sát vùng mật độ electron tăng khi hai AO 1s xen phủ; (2) so sánh xen phủ trục trong phân tử H2, HF, Cl2; (3) xoay mô hình quan sát xen phủ bên của hai AO p song song tạo liên kết π; (4) ghép mỗi loại liên kết (đơn/đôi/ba của H2/O2/N2) với đúng thành phần σ, π. b) Danh sách câu hỏi trắc nghiệm nguyên văn: [s1] 'Khi hai nguyên tử H ở khoảng cách phù hợp, mật độ electron của cặp electron liên kết tập trung lớn nhất ở đâu?' — A) Chỉ quanh hạt nhân H thứ nhất. · B) Chỉ quanh hạt nhân H thứ hai. · C) Ở vùng xen phủ giữa hai AO, đặc biệt trong khoảng giữa hai hạt nhân. · D) Hoàn toàn ở ngoài hai AO. [s2] 'Điểm giống nhau quyết định kiểu liên kết trong H2, HF và Cl2 là gì?' — A) Hai AO tham gia luôn cùng loại. · B) Cả ba trường hợp đều chỉ có AO s tham gia. · C) Các AO đều xen phủ trực diện theo trục nối hai hạt nhân. · D) Các AO đều xen phủ ở hai phía của trục nối hai hạt nhân. [s3] 'Kiểu xen phủ của cặp AO p màu cam khác xen phủ trục ở điểm nào?' — A) Mật độ electron chỉ tập trung dọc theo trục nối hai hạt nhân. · B) Mật độ electron tăng ở hai phía của trục nối hai hạt nhân. · C) Chỉ có một AO p tham gia. · D) Hai AO p tham gia phải vuông góc với nhau. [s4] Bài ghép cặp: nối '1σ', '1σ + 1π', '1σ + 2π' với 'Liên kết đơn (H2)', 'Liên kết đôi (O2)', 'Liên kết ba (N2)'. c) Athena chỉ được gợi ý, nhắc học sinh quan sát lại mô hình/animation liên quan; TUYỆT ĐỐI không nói thẳng đáp án đúng của bất kỳ câu nào ở trên."
+}
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --font-main: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* ============ INTRO TEXT ============ */
+        .intro-text {
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .intro-text {
+                padding: 0.9rem 1.1rem;
+                font-size: 14px;
+            }
+        }
+
+        /* ============ GOAL BAR ============ */
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* ============ LAB WRAPPER (cột đơn) ============ */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        /* AI guide bar */
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-guide.state-idle {
+            background-color: var(--sage-pale);
+            border-left: 4px solid var(--accent);
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-guide.state-correct .ai-avatar {
+            border-color: var(--correct);
+        }
+
+        .ai-guide.state-wrong .ai-avatar {
+            border-color: var(--wrong);
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        /* Controls (kiểu B — stepper + hàng điều khiển phụ theo từng stage) */
+        .controls-card {
+            padding: 10px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 10px;
+        }
+
+        .controls-main-row {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.active {
+            width: 24px;
+            height: 24px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+            font-size: 11px;
+        }
+
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .stepper-nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .stepper-nav-right {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .stepper-status {
+            display: none;
+        }
+
+        .stage-extra-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 10px;
+            border-top: 1px dashed var(--paper-line);
+        }
+
+        .extra-label {
+            flex-shrink: 0;
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .jade-slider {
+            flex: 1 1 160px;
+            min-width: 140px;
+            accent-color: var(--jade);
+            cursor: pointer;
+        }
+
+        .mol-tab-group {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .mol-tab {
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink-2);
+            font-size: 13px;
+        }
+
+        .mol-tab.active {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        .zone-tag-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .zone-tag {
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 3px 9px;
+            border-radius: 20px;
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink-2);
+            background: var(--cream);
+            transition: all 0.2s ease;
+        }
+
+        .zone-tag.reached {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        /* Canvas */
+        .canvas-card {
+            padding: 4px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 760 / 400;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+            min-width: 0;
+            min-height: 0;
+            cursor: grab;
+        }
+
+        .drag-hint-badge {
+            position: absolute;
+            z-index: 2;
+            top: 10px;
+            left: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(250, 247, 240, 0.94);
+            border: 1.5px solid var(--sage);
+            color: var(--ink-2);
+            font-size: 11.5px;
+            font-weight: 600;
+            padding: 5px 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(26, 26, 26, 0.1);
+            pointer-events: none;
+        }
+
+        .drag-hint-badge i {
+            font-size: 13px;
+            color: var(--jade);
+        }
+
+        .spin-pair-badge {
+            position: absolute;
+            z-index: 2;
+            top: 10px;
+            right: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background-color: rgba(250, 247, 240, 0.94);
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 6px 10px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(26, 26, 26, 0.1);
+            pointer-events: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .spin-pair-badge i {
+            font-size: 14px;
+        }
+
+        .spin-pair-badge .spin-up {
+            color: var(--jade-text);
+        }
+
+        .spin-pair-badge .spin-down {
+            color: var(--wrong);
+            transform: scaleY(-1);
+        }
+
+        /* Bảng quan sát & Kết luận gộp */
+        .right-card {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .right-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .right-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .right-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .right-card tbody td {
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+        }
+
+        .right-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .right-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .conclusion-body:empty::before {
+            content: 'Các kết luận và câu hỏi sẽ xuất hiện ở đây theo tiến trình.';
+            color: var(--ink-2);
+            font-size: 0.85rem;
+        }
+
+        .aha-box {
+            margin-top: 4px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: var(--font-main);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px dashed var(--paper-line);
+            padding-top: 16px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .quiz-container.fade-out {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .quiz-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 14px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 20px;
+            font-weight: 700;
+            color: var(--ink-2);
+            text-transform: uppercase;
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-selected {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-selected .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        /* Ghép loại liên kết (dùng lại pattern Order DnD) */
+        .dnd-match-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--ink-2);
+            margin-bottom: 6px;
+        }
+
+        .dnd-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .dnd-chip {
+            padding: 6px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink);
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: grab;
+            transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            touch-action: none;
+            user-select: none;
+        }
+
+        .dnd-chip:hover {
+            border-color: var(--sage);
+            background-color: var(--cream-2);
+        }
+
+        .dnd-chip.selected {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        .dnd-chip.dragging {
+            cursor: grabbing;
+            box-shadow: 0 8px 20px rgba(26, 26, 26, 0.2);
+            border-color: var(--jade);
+            background-color: var(--cream);
+            transform: scale(1.06);
+            transition: none;
+        }
+
+        .dnd-chip.placed {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dnd-zones {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dnd-zone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1.5px dashed var(--paper-line);
+            background-color: var(--cream);
+            font-size: 13.5px;
+            min-height: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dnd-zone:hover {
+            border-color: var(--sage);
+        }
+
+        .dnd-zone.drag-over {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            transform: scale(1.02);
+        }
+
+        .dnd-zone .zone-label {
+            font-weight: 700;
+            color: var(--jade-text);
+            flex: 0 0 110px;
+        }
+
+        .dnd-zone .zone-value {
+            color: var(--ink-2);
+        }
+
+        .dnd-zone.filled {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+        }
+
+        .dnd-zone.filled .zone-value {
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .dnd-zone.wrong-flash {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+        }
+
+        .dnd-check-btn {
+            margin-top: 8px;
+        }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 16px;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+            transform: translateY(10px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-2);
+            max-width: 100%;
+            margin: 0 auto 22px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1100px) {
+            .canvas-card {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                border-radius: 0;
+                box-shadow: 0 -2px 10px rgba(26, 26, 26, 0.08);
+            }
+
+            body {
+                padding-bottom: 76px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px 150px;
+            }
+
+            .modal-card {
+                padding: 26px 20px;
+            }
+
+            .dnd-zone .zone-label {
+                flex: 0 0 70px;
+                font-size: 12.5px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .controls-main-row {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .stepper-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-text">Bạn sẽ tương tác với mô hình 3D orbital nguyên tử để hiểu sự xen phủ AO hình thành liên
+        kết σ, liên kết π, và xác định thành phần σ, π trong liên kết đơn, liên kết đôi, liên kết ba.</div>
+
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Giải thích sự hình thành cặp electron liên kết từ sự xen phủ AO; phân biệt xen phủ
+            trục (liên kết σ) và xen phủ bên (liên kết π); xác định thành phần σ, π trong liên kết đơn, liên kết đôi,
+            liên kết ba.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <div class="ai-guide card state-idle" id="aiGuideBar">
+            <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena AI"></div>
+            <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+        </div>
+
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="400" role="img"
+                    aria-label="Mô phỏng sự xen phủ orbital và sự hình thành liên kết cộng hóa trị"></canvas>
+                <div class="drag-hint-badge" id="dragHintBadge">
+                    <i class="ti ti-rotate-3d"></i>
+                    <span>Kéo chuột để quay quanh mô hình 3D</span>
+                </div>
+                <div class="spin-pair-badge" id="spinPairBadge" style="display:none;">
+                    <i class="ti ti-arrow-narrow-up spin-up"></i><i class="ti ti-arrow-narrow-up spin-down"></i>
+                    <span>Electron đã ghép đôi</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card controls-card" id="controlsCard">
+            <div class="controls-main-row">
+                <div class="stepper-dots" id="stepperDots"></div>
+                <div class="stepper-nav">
+                    <div class="stepper-nav-left">
+                        <button class="btn-secondary" id="prevBtn" onclick="goToPrevStage()"><i
+                                class="ti ti-arrow-back-up"></i> Quay lại</button>
+                        <button class="btn-reset" id="resetBtn" onclick="resetCurrentStage()"><i
+                                class="ti ti-refresh"></i> Làm lại</button>
+                    </div>
+                    <div class="stepper-nav-right" id="actionBtnContainer"></div>
+                </div>
+            </div>
+            <div class="stage-extra-row" id="stageExtraRow" style="display:none;"></div>
+            <div class="stepper-status" id="interactionStatus" aria-live="polite">Chờ thao tác...</div>
+        </div>
+
+        <div class="card side-card right-card" id="rightCard">
+            <h3><i class="ti ti-table"></i> Bảng quan sát &amp; Kết luận</h3>
+            <div class="right-card-body">
+                <div class="observe-wrap" style="margin-bottom: 16px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Phân tử</th>
+                                <th>Kiểu xen phủ / σ · π</th>
+                                <th>Nhận xét</th>
+                            </tr>
+                        </thead>
+                        <tbody id="observeTableBody">
+                            <tr>
+                                <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conclusion-body" id="conclusionBody">
+                    <div id="dndContainer" style="display:none; margin-top: 10px;"></div>
+
+                    <div class="quiz-container" id="quizContainer" style="display: none; margin-top: 10px;">
+                        <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+                        <ul class="quiz-options-list" id="quizOptionsList"></ul>
+                        <div id="quizExtra"></div>
+                    </div>
+
+                    <div class="aha-box" id="ahaBox" style="display: none; margin-top: 10px;">
+                        <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+                        <div class="aha-content" id="ahaContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành module <strong>Sự Xen Phủ Orbital Và Liên Kết Cộng Hóa Trị</strong>
+                — hiểu được sự xen phủ trục tạo liên kết σ, xen phủ bên tạo liên kết π, và thành phần σ, π trong liên
+                kết đơn, đôi, ba.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); jumpToStage(1);">
+                    <i class="ti ti-refresh"></i> Ôn lại từ đầu
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+        const lmsAnswers = {};
+        let _lmsQCounter = 0;
+        function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+            lmsAnswers[qid] = { stage: state.stage, prompt, options: options ? options.map(o => o.key + ') ' + o.text) : null, chosen, correct: !!correct };
+            LMS().event('answered', { id: qid, stage: state.stage, chosen, correct: !!correct });
+            LMS().progress({ done: Object.keys(lmsAnswers).length, total: STAGE_COUNT });
+        }
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStep: state.stage, totalSteps: STAGE_COUNT, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+        }
+        function reportHeight() {
+            LMS().resize({ height: document.documentElement.scrollHeight });
+        }
+        window.addEventListener('load', reportHeight);
+        const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+        _lmsRo.observe(document.body);
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (savedState) {
+                if (savedState && savedState.currentStep) jumpToStage(savedState.currentStep);
+            };
+        }
+
+        // ======================================================
+        // UTILITIES
+        // ======================================================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 400;
+        let canvasW = 760, canvasH = 400;
+        let time = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        let canvasClickTargets = [];
+        function canvasPointFromEvent(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvasW / rect.width, scaleY = canvasH / rect.height;
+            const px = (e.clientX - rect.left) * scaleX, py = (e.clientY - rect.top) * scaleY;
+            const fitScale = Math.min(canvasW / W, canvasH / H);
+            const offsetX = (canvasW - W * fitScale) / 2, offsetY = (canvasH - H * fitScale) / 2;
+            return { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+        }
+        function hitTarget(p) {
+            return canvasClickTargets.find(t => p.x >= t.x && p.x <= t.x + t.w && p.y >= t.y && p.y <= t.y + t.h);
+        }
+        canvas.addEventListener('click', (e) => {
+            const hit = hitTarget(canvasPointFromEvent(e));
+            if (hit) hit.onClick();
+        });
+
+        // ======================================================
+        // KÉO CHUỘT ĐỂ QUAY CAMERA QUANH PHÂN TỬ (orbit) — kéo ngang đổi yaw, kéo dọc đổi pitch.
+        // Tâm phân tử luôn ở tâm khung vẽ nên mô hình quay tại chỗ. Đây là camera, KHÔNG phải phép quay
+        // mô hình quanh trục liên kết (việc đó do nút "Xoay mô hình 90°" đảm nhiệm).
+        // ======================================================
+        const PITCH_LIMIT = 1.35; // ~77° — chặn không cho lật qua đỉnh khiến mất phương hướng
+        let canvasDrag = null;
+        canvas.addEventListener('pointerdown', (e) => {
+            if (hitTarget(canvasPointFromEvent(e))) return; // bấm đúng vùng nút trên canvas — để 'click' xử lý, không xoay camera
+            canvasDrag = { lastX: e.clientX, lastY: e.clientY };
+            canvas.setPointerCapture(e.pointerId);
+            canvas.style.cursor = 'grabbing';
+        });
+        canvas.addEventListener('pointermove', (e) => {
+            if (canvasDrag) {
+                const dx = e.clientX - canvasDrag.lastX;
+                const dy = e.clientY - canvasDrag.lastY;
+                canvasDrag.lastX = e.clientX;
+                canvasDrag.lastY = e.clientY;
+                camera.yaw += dx * 0.010;
+                camera.pitch = clamp(camera.pitch + dy * 0.008, -PITCH_LIMIT, PITCH_LIMIT);
+                return;
+            }
+            const p = canvasPointFromEvent(e);
+            canvas.style.cursor = hitTarget(p) ? 'pointer' : 'grab';
+        });
+        canvas.addEventListener('pointerup', (e) => {
+            if (canvasDrag) { canvas.releasePointerCapture(e.pointerId); canvasDrag = null; }
+            canvas.style.cursor = 'grab';
+        });
+        canvas.addEventListener('pointercancel', () => { canvasDrag = null; canvas.style.cursor = 'grab'; });
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function easeInBack(t) { const c1 = 1.70158, c3 = c1 + 1; return c3 * t * t * t - c1 * t * t; }
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+        function rgba(c, a) { return `rgba(${c.r},${c.g},${c.b},${a})`; }
+        function roundRect(ctx, x, y, w, h, r) {
+            if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+            ctx.beginPath();
+            ctx.moveTo(x + r.tl, y);
+            ctx.lineTo(x + w - r.tr, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+            ctx.lineTo(x + w, y + h - r.br);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+            ctx.lineTo(x + r.bl, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+            ctx.lineTo(x, y + r.tl);
+            ctx.quadraticCurveTo(x, y, x + r.tl, y);
+            ctx.closePath();
+        }
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const COLORS_TEXT = { ink: '#1A1A1A', ink2: '#514C44', jadeText: '#1B5E48' };
+        const COLORS = {
+            jade: { r: 60, g: 165, b: 122 },
+            jadeDeep: { r: 45, g: 139, b: 111 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 },
+            paperLine: { r: 229, g: 222, b: 207 },
+            ink2: { r: 81, g: 76, b: 68 },
+            ink: { r: 26, g: 26, b: 26 }
+        };
+        // Màu riêng cho từng nguyên tử (để phân biệt các AO tham gia mô hình)
+        const ATOM_COLORS = {
+            H: { r: 60, g: 165, b: 122 },   // jade
+            F: { r: 232, g: 162, b: 74 },   // accent cam
+            Cl: { r: 122, g: 178, b: 140 }, // xanh lá nhạt
+            O: { r: 209, g: 96, b: 74 },    // đỏ cam nhạt
+            N: { r: 76, g: 126, b: 191 }    // xanh dương nhạt
+        };
+        const SIGMA_COLOR = COLORS.jade;
+        const PI_COLOR_1 = COLORS.accent;
+        const PI_COLOR_2 = ATOM_COLORS.N;
+
+        // ======================================================
+        // TWEEN ENGINE
+        // ======================================================
+        let tweens = [];
+        function tween(obj, prop, to, duration, ease, onComplete) {
+            ease = ease || easeOut;
+            tweens.push({ obj, prop, from: obj[prop], to, duration: reduceMotion ? Math.min(duration, 120) : duration, elapsed: 0, ease, onComplete, done: false });
+        }
+        function killTweensOf(obj, prop) {
+            tweens = tweens.filter(t => !(t.obj === obj && (!prop || t.prop === prop)));
+        }
+        function updateTweens(dt) {
+            for (const tw of tweens) {
+                if (tw.done) continue;
+                tw.elapsed += dt;
+                const t = clamp(tw.elapsed / tw.duration, 0, 1);
+                tw.obj[tw.prop] = lerp(tw.from, tw.to, tw.ease(t));
+                if (t >= 1) { tw.done = true; if (tw.onComplete) tw.onComplete(); }
+            }
+            tweens = tweens.filter(t => !t.done);
+        }
+        function runSequence(steps) {
+            let idx = -1;
+            function next() { idx++; if (idx >= steps.length) return; steps[idx](next); }
+            next();
+        }
+
+        // ======================================================
+        // PARTICLES / RINGS / FLASH
+        // ======================================================
+        let particles = [], rings = [], flashTimer = 0;
+        function spawnParticles(x, y, colorType, count = 10) {
+            const rgb = COLORS[colorType] || ATOM_COLORS[colorType] || COLORS.jade;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2 + 0.4;
+                particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 0.4, life: 1.0, decay: Math.random() * 0.03 + 0.02, size: Math.random() * 2.5 + 1.5, color: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, opacity)` });
+            }
+        }
+        function spawnRing(x, y, colorType) {
+            const rgb = COLORS[colorType] || ATOM_COLORS[colorType] || COLORS.accent;
+            rings.push({ x, y, r: 2, alpha: 0.65, rgb });
+        }
+        function playSuccessFlash() { flashTimer = 15; }
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy; p.vy += 0.03;
+                p.life -= p.decay;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+        function updateRings() {
+            for (let i = rings.length - 1; i >= 0; i--) {
+                const r = rings[i];
+                r.r += 1.6; r.alpha -= 0.028;
+                if (r.alpha <= 0) rings.splice(i, 1);
+            }
+        }
+
+        // ======================================================
+        // VẼ NỀN LƯỚI + NHÃN
+        // ======================================================
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+            for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawTopLabel(text, x, y, colorRgb, alpha) {
+            if (alpha == null) alpha = 1;
+            if (alpha <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.font = '700 12px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillStyle = `rgb(${colorRgb.r},${colorRgb.g},${colorRgb.b})`;
+            ctx.fillText(text, x, y);
+            ctx.restore();
+        }
+
+        // ======================================================
+        // NGUYÊN THUỶ VẼ ORBITAL — dùng chung cho cả 4 stage
+        // ======================================================
+        // Hạt nhân: chấm tròn đặc, có điểm sáng nhỏ mô phỏng ánh sáng
+        function drawNucleus(cx, cy, r, colorRgb, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha == null ? 1 : alpha;
+            const g = ctx.createRadialGradient(cx - r * 0.3, cy - r * 0.3, r * 0.1, cx, cy, r);
+            g.addColorStop(0, `rgba(${Math.min(255, colorRgb.r + 60)},${Math.min(255, colorRgb.g + 60)},${Math.min(255, colorRgb.b + 60)},1)`);
+            g.addColorStop(0.6, `rgb(${colorRgb.r},${colorRgb.g},${colorRgb.b})`);
+            g.addColorStop(1, `rgb(${Math.max(0, colorRgb.r - 40)},${Math.max(0, colorRgb.g - 40)},${Math.max(0, colorRgb.b - 40)})`);
+            ctx.fillStyle = g;
+            ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+        }
+
+        // ======================================================
+        // AO DẠNG "ĐÁM MÂY ĐIỂM" 3D — kỹ thuật lấy từ "Bai3_Module 2 .html" (Stage 5: point-cloud
+        // orbital s/p/d). Mỗi AO là một tập điểm 3D chiếu lên mặt phẳng 2D, sắp theo độ sâu (z) để
+        // vẽ đúng thứ tự trước/sau, kích thước & độ mờ giảm dần theo độ sâu — cho cảm giác khối cầu/
+        // thùy thật thay vì một hình elip/gradient phẳng.
+        // ======================================================
+        function rotateToAxis(p, axis) {
+            let ax = -axis.y, ay = axis.x;
+            const alen = Math.sqrt(ax * ax + ay * ay);
+            const dot = clamp(axis.z, -1, 1);
+            if (alen < 1e-6) {
+                return dot > 0 ? { x: p.x, y: p.y, z: p.z } : { x: -p.x, y: -p.y, z: -p.z };
+            }
+            ax /= alen; ay /= alen;
+            const theta = Math.acos(dot);
+            const c = Math.cos(theta), s = Math.sin(theta), t = 1 - c;
+            const nx = p.x * (c + ax * ax * t) + p.y * (ax * ay * t) + p.z * (ay * s);
+            const ny = p.x * (ay * ax * t) + p.y * (c + ay * ay * t) + p.z * (-ax * s);
+            const nz = p.x * (-ay * s) + p.y * (ax * s) + p.z * c;
+            return { x: nx, y: ny, z: nz };
+        }
+        // Đám mây điểm hình cầu đơn vị — dùng cho AO s (Fibonacci sphere, phân bố đều trên mặt cầu)
+        function buildSCloudPoints(n) {
+            const pts = [];
+            for (let i = 0; i < n; i++) {
+                const y = 1 - (i / (n - 1)) * 2;
+                const r = Math.sqrt(1 - y * y);
+                const theta = 2.399963 * i;
+                pts.push({ x: Math.cos(theta) * r, y: y, z: Math.sin(theta) * r, size: Math.random() * 1.3 + 0.5, baseAlpha: Math.random() * 0.5 + 0.35 });
+            }
+            return pts;
+        }
+        // Đám mây điểm 2 thùy đơn vị dọc trục z chuẩn (r = cos²θ) — dùng cho AO p, sau đó xoay tới trục bất kỳ bằng rotateToAxis
+        function buildPLobePoints(n) {
+            const pts = [];
+            for (let i = 0; i < n; i++) {
+                const theta = Math.acos(1 - 2 * (i / (n - 1)));
+                const phi = 2.399963 * i;
+                const cosT = Math.cos(theta);
+                const r = cosT * cosT;
+                pts.push({
+                    x: r * Math.sin(theta) * Math.cos(phi), y: r * Math.sin(theta) * Math.sin(phi), z: r * cosT,
+                    lobeSign: cosT >= 0 ? 1 : -1, size: Math.random() * 1.2 + 0.5, baseAlpha: Math.random() * 0.45 + 0.3
+                });
+            }
+            return pts;
+        }
+        const CLOUD_S_FULL = buildSCloudPoints(620);
+        const CLOUD_P_FULL = buildPLobePoints(860);
+        const CLOUD_S_MINI = buildSCloudPoints(210);
+        const CLOUD_P_MINI = buildPLobePoints(300);
+        // Bộ điểm DÀY GẤP 3 — dùng cho AO p của F và Cl (các AO này là trọng tâm quan sát ở Stage 2,
+        // cần đám mây mật độ electron mịn và đặc hơn để thấy rõ vùng xen phủ trên trục).
+        const CLOUD_P_FULL_DENSE = buildPLobePoints(860 * 3);
+        const CLOUD_P_MINI_DENSE = buildPLobePoints(300 * 3);
+        const AXIS_X = { x: 1, y: 0, z: 0 }, AXIS_Y = { x: 0, y: 1, z: 0 }, AXIS_Z = { x: 0, y: 0, z: 1 };
+        function axisInPlane(angleDeg) { const r = angleDeg * Math.PI / 180; return { x: Math.cos(r), y: Math.sin(r), z: 0 }; }
+
+        // ==================================================================
+        // CAMERA 3D (orbit) — giống cách điều khiển của một trình xem orbital 3D thật.
+        //   • camera.yaw   ← kéo chuột NGANG : quay quanh trục thẳng đứng của phân tử
+        //   • camera.pitch ← kéo chuột DỌC   : nâng/hạ điểm nhìn
+        // Tâm phân tử luôn nằm đúng tâm khung vẽ nên mô hình quay TẠI CHỖ, không trôi đi đâu.
+        //
+        // Tách biệt hoàn toàn với "modelSpin" — góc quay của BẢN THÂN mô hình quanh trục liên kết,
+        // do nút "Xoay mô hình 90°" điều khiển, dùng để lộ ra mặt phẳng của các liên kết π.
+        // ==================================================================
+        const camera = { yaw: 0.55, pitch: -0.20 };
+        const CAM_F = 1050; // tiêu cự phối cảnh: càng nhỏ thì hiệu ứng gần-to/xa-nhỏ càng mạnh
+
+        // Góc quay của mô hình quanh trục liên kết ở stage đang hiển thị
+        function modelSpinRad() {
+            if (state.stage === 3) return (state.s3.rotateDeg || 0) * Math.PI / 180;
+            if (state.stage === 4 && state.s4.molecule === 'N2' && state.s4.n2.pi1) return (state.s4.n2.spinDeg || 0) * Math.PI / 180;
+            return 0;
+        }
+
+        // Quay quanh trục X (trục liên kết) — dùng cho modelSpin
+        function rotAboutBond(p, a) {
+            if (!a) return p;
+            const c = Math.cos(a), s = Math.sin(a);
+            return { x: p.x, y: p.y * c - p.z * s, z: p.y * s + p.z * c, lobeSign: p.lobeSign };
+        }
+
+        // Phép biến đổi camera: yaw quanh trục Y, rồi pitch quanh trục X, rồi chiếu phối cảnh
+        function project3(p, ox, oy) {
+            const cy = Math.cos(camera.yaw), sy = Math.sin(camera.yaw);
+            const x1 = p.x * cy + p.z * sy;
+            const z1 = -p.x * sy + p.z * cy;
+            const cp = Math.cos(camera.pitch), sp = Math.sin(camera.pitch);
+            const y2 = p.y * cp - z1 * sp;
+            const z2 = p.y * sp + z1 * cp;
+            const s = CAM_F / (CAM_F + z2);
+            return { x: ox + x1 * s, y: oy + y2 * s, s: s, z: z2 };
+        }
+
+        // Toạ độ 3D của hai hạt nhân trong không gian phân tử (trục liên kết = trục X)
+        function bondEnds3(sep) {
+            return [{ x: -sep / 2, y: 0, z: 0 }, { x: sep / 2, y: 0, z: 0 }];
+        }
+
+        // ------------------------------------------------------------------
+        // HÀNG ĐỢI VẼ THEO ĐỘ SÂU — mọi thành phần (đám mây AO, hạt nhân, vùng mật độ) đăng ký vào đây
+        // kèm độ sâu z, sau đó flushPaint() vẽ từ xa đến gần để chồng lấp trước/sau đúng như thật.
+        // ------------------------------------------------------------------
+        let paintQueue = [];
+        function paintAt(depth, fn) { paintQueue.push({ depth, fn }); }
+        function flushPaint() {
+            paintQueue.sort((a, b) => b.depth - a.depth);
+            for (const item of paintQueue) item.fn();
+            paintQueue = [];
+        }
+
+        // Vẽ một AO dạng đám mây điểm, tâm đặt tại center3 trong không gian phân tử.
+        // kind: 's' (hình cầu) | 'p' (2 thùy dọc theo axis3). mini: bộ điểm thưa hơn cho khung so sánh nhỏ.
+        // dense: dùng bộ điểm dày gấp 3 (áp dụng cho AO p của F và Cl).
+        function drawOrbitalCloud3(kind, center3, radius, axis3, alpha, colorRgb, phaseTint, mini, ox, oy, dense) {
+            if (alpha <= 0.01 || radius <= 0.5) return;
+            const unit = kind === 's'
+                ? (mini ? CLOUD_S_MINI : CLOUD_S_FULL)
+                : (mini ? (dense ? CLOUD_P_MINI_DENSE : CLOUD_P_MINI) : (dense ? CLOUD_P_FULL_DENSE : CLOUD_P_FULL));
+            const spin = modelSpinRad();
+            const pts = [];
+            for (let i = 0; i < unit.length; i++) {
+                const u = unit[i];
+                const oriented = kind === 'p' && axis3 ? rotateToAxis(u, axis3) : u;
+                const spun = rotAboutBond(oriented, spin);
+                const world = { x: center3.x + spun.x * radius, y: center3.y + spun.y * radius, z: center3.z + spun.z * radius };
+                const pr = project3(world, ox, oy);
+                pts.push({ sx: pr.x, sy: pr.y, s: pr.s, depth: pr.z, size: u.size, baseAlpha: u.baseAlpha, lobeSign: (oriented.lobeSign != null ? oriented.lobeSign : u.lobeSign) || 1 });
+            }
+            const centerDepth = project3(center3, ox, oy).z;
+            paintAt(centerDepth, () => {
+                pts.sort((a, b) => b.depth - a.depth);
+                ctx.save();
+                for (const p of pts) {
+                    const drawSize = Math.max(0.35, (p.size || 1) * p.s * 1.15);
+                    const depthAlpha = clamp((radius * 1.1 - (p.depth - centerDepth)) / (radius * 2.2), 0.22, 1);
+                    const col = (phaseTint && p.lobeSign < 0) ? { r: Math.round(colorRgb.r * 0.55), g: Math.round(colorRgb.g * 0.55), b: Math.round(colorRgb.b * 0.55) } : colorRgb;
+                    ctx.globalAlpha = (p.baseAlpha || 0.6) * depthAlpha * alpha;
+                    ctx.fillStyle = `rgb(${col.r},${col.g},${col.b})`;
+                    ctx.fillRect(p.sx - drawSize / 2, p.sy - drawSize / 2, drawSize, drawSize);
+                }
+                ctx.restore();
+            });
+        }
+
+        // Hạt nhân trong không gian 3D — bán kính co giãn theo phối cảnh (gần to, xa nhỏ) làm tín hiệu độ sâu
+        function drawNucleus3(p3, r, colorRgb, alpha, ox, oy) {
+            const pr = project3(p3, ox, oy);
+            paintAt(pr.z - 0.001, () => drawNucleus(pr.x, pr.y, r * pr.s, colorRgb, alpha));
+            return pr;
+        }
+
+        // Trục nối hai hạt nhân, vẽ trong không gian 3D
+        function drawAxis3(a3, b3, visible, solidAlpha, ox, oy) {
+            if (!visible) return;
+            const pa = project3(a3, ox, oy), pb = project3(b3, ox, oy);
+            paintAt(Math.max(pa.z, pb.z) + 0.5, () => {
+                ctx.save();
+                ctx.strokeStyle = `rgba(81,76,68,${solidAlpha == null ? 0.35 : solidAlpha})`;
+                ctx.lineWidth = 1.3;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.restore();
+            });
+        }
+
+        // Vùng mật độ electron liên kết trong không gian 3D.
+        //   mode 'axial'   → σ: một khối nằm trên trục, giữa hai hạt nhân
+        //   mode 'lateral' → π: hai khối đối xứng hai phía của trục, lệch theo latAxis3 (phương của cặp AO p)
+        function drawBondDensity3(a3, b3, strength, mode, colorRgb, spread, latAxis3, ox, oy) {
+            strength = clamp(strength, 0, 1);
+            if (strength <= 0.01) return;
+            const spin = modelSpinRad();
+            const mid = { x: (a3.x + b3.x) / 2, y: (a3.y + b3.y) / 2, z: (a3.z + b3.z) / 2 };
+            const pa = project3(a3, ox, oy), pb = project3(b3, ox, oy);
+            const dist2d = Math.hypot(pb.x - pa.x, pb.y - pa.y);
+            const ang2d = Math.atan2(pb.y - pa.y, pb.x - pa.x);
+
+            if (mode === 'axial') {
+                const pm = project3(mid, ox, oy);
+                paintAt(pm.z, () => {
+                    const rx = Math.max(6, dist2d * 0.42);
+                    const ry = (spread || 26) * (0.5 + strength * 0.6) * pm.s;
+                    ctx.save();
+                    ctx.translate(pm.x, pm.y);
+                    ctx.rotate(ang2d);
+                    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, rx);
+                    g.addColorStop(0, rgba(colorRgb, 0.55 * strength));
+                    g.addColorStop(0.5, rgba(colorRgb, 0.28 * strength));
+                    g.addColorStop(1, rgba(colorRgb, 0));
+                    ctx.fillStyle = g;
+                    ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                });
+                return;
+            }
+
+            // π — tâm hai khối mật độ nằm lệch khỏi trục theo latAxis3 (đã áp modelSpin), nên khi xoay
+            // mô hình hai khối này quay quanh trục liên kết như một hệ thống thống nhất.
+            const lat = rotAboutBond(latAxis3 || AXIS_Y, spin);
+            const off = spread || 30;
+            const lobeCenters = [1, -1].map(sign => ({
+                x: mid.x + lat.x * off * sign, y: mid.y + lat.y * off * sign, z: mid.z + lat.z * off * sign, sign
+            }));
+            const projected = lobeCenters.map(c => ({ pr: project3(c, ox, oy), sign: c.sign }));
+            projected.forEach(({ pr }) => {
+                paintAt(pr.z, () => {
+                    const rx = Math.max(5, dist2d * 0.4);
+                    const ry = off * 0.9 * pr.s;
+                    ctx.save();
+                    ctx.translate(pr.x, pr.y);
+                    ctx.rotate(ang2d);
+                    const g = ctx.createRadialGradient(0, 0, 0, 0, 0, Math.max(rx * 0.8, ry));
+                    g.addColorStop(0, rgba(colorRgb, 0.5 * strength));
+                    g.addColorStop(0.55, rgba(colorRgb, 0.24 * strength));
+                    g.addColorStop(1, rgba(colorRgb, 0));
+                    ctx.fillStyle = g;
+                    ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                });
+            });
+            // Dấu ngoặc mảnh nối hai khối — thể hiện đây là MỘT lần xen phủ (một liên kết π), không phải hai liên kết riêng
+            const p1 = projected[0].pr, p2 = projected[1].pr;
+            paintAt(Math.min(p1.z, p2.z) - 1, () => {
+                ctx.save();
+                ctx.strokeStyle = rgba(colorRgb, 0.5 * strength);
+                ctx.lineWidth = 1.6;
+                const nx = -(pb.y - pa.y) / (dist2d || 1), ny = (pb.x - pa.x) / (dist2d || 1);
+                [-1, 1].forEach(end => {
+                    const ex = (pa.x + pb.x) / 2 + (pb.x - pa.x) * 0.46 * end;
+                    const ey = (pa.y + pb.y) / 2 + (pb.y - pa.y) * 0.46 * end;
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x + (ex - (p1.x + p2.x) / 2) * 0.9, p1.y + (ey - (p1.y + p2.y) / 2) * 0.9);
+                    ctx.quadraticCurveTo(ex + nx * 0, ey + ny * 0, p2.x + (ex - (p1.x + p2.x) / 2) * 0.9, p2.y + (ey - (p1.y + p2.y) / 2) * 0.9);
+                    ctx.stroke();
+                });
+                ctx.restore();
+            });
+        }
+
+        // Hai mũi tên đẩy ngược chiều khi hai hạt nhân bị kéo quá gần
+        function drawPushArrows(cx, cy, ang, jitter) {
+            ctx.save();
+            ctx.translate(cx, cy);
+            ctx.rotate(ang);
+            ctx.translate(jitter || 0, 0);
+            ctx.strokeStyle = COLORS_TEXT.jadeText;
+            ctx.fillStyle = `rgb(${COLORS.wrong.r},${COLORS.wrong.g},${COLORS.wrong.b})`;
+            ctx.lineWidth = 2.4;
+            [1, -1].forEach(sign => {
+                const x0 = sign * 14, x1 = sign * 34;
+                ctx.beginPath(); ctx.moveTo(x0, 0); ctx.lineTo(x1, 0); ctx.stroke();
+                ctx.save();
+                ctx.translate(x1, 0);
+                ctx.rotate(sign > 0 ? 0 : Math.PI);
+                ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(-8, -5); ctx.lineTo(-8, 5); ctx.closePath(); ctx.fill();
+                ctx.restore();
+            });
+            ctx.restore();
+        }
+
+        // Hàng thẻ chọn phân tử vẽ ngay trong canvas (VD: H2 / HF / Cl2) — canh giữa theo cx, đăng ký
+        // vùng bấm vào canvasClickTargets để click/tap trên canvas chọn được thẻ tương ứng.
+        function drawCanvasTabs(cx, y, tabs, activeKey, onSelect) {
+            const gap = 10, padX = 16, h = 28;
+            ctx.save();
+            ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+            const widths = tabs.map(t => ctx.measureText(t.label).width + padX * 2);
+            const totalW = widths.reduce((a, b) => a + b, 0) + gap * (tabs.length - 1);
+            let x = cx - totalW / 2;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            tabs.forEach((t, i) => {
+                const w = widths[i];
+                const active = t.key === activeKey;
+                ctx.fillStyle = active ? rgba(COLORS.jade, 1) : 'rgba(255,255,255,0.75)';
+                roundRect(ctx, x, y, w, h, 8); ctx.fill();
+                if (!active) { ctx.strokeStyle = 'rgba(26,26,26,0.15)'; ctx.lineWidth = 1; roundRect(ctx, x, y, w, h, 8); ctx.stroke(); }
+                ctx.fillStyle = active ? '#FAF7F0' : COLORS_TEXT.ink2;
+                ctx.fillText(t.label, x + w / 2, y + h / 2 + 1);
+                canvasClickTargets.push({ x, y, w, h, onClick: () => onSelect(t.key) });
+                x += w + gap;
+            });
+            ctx.restore();
+        }
+
+        // Nhãn σ / π nhỏ, xuất hiện dần (fade-in theo alpha)
+        function drawBondTag(x, y, text, colorRgb, alpha) {
+            if (alpha <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.font = '800 15px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const w = ctx.measureText(text).width + 16;
+            ctx.fillStyle = rgba(colorRgb, 0.16);
+            roundRect(ctx, x - w / 2, y - 13, w, 26, 8); ctx.fill();
+            ctx.fillStyle = `rgb(${colorRgb.r},${colorRgb.g},${colorRgb.b})`;
+            ctx.fillText(text, x, y + 1);
+            ctx.restore();
+        }
+
+        function drawElectronDots(cx, cy, r) {
+            ctx.save();
+            ctx.fillStyle = COLORS_TEXT.ink;
+            [-1, 1].forEach(s => {
+                ctx.beginPath(); ctx.arc(cx + s * r * 0.32, cy, 2.2, 0, Math.PI * 2); ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        // ======================================================
+        // VÒNG LẶP CHÍNH
+        // ======================================================
+        function loop() {
+            resizeCanvas();
+            time += 0.045;
+            updateTweens(16.7);
+            canvasClickTargets = [];
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid();
+
+            const scaleX = canvasW / W;
+            const scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            if (flashTimer > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                ctx.restore();
+                flashTimer--;
+            }
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            paintQueue = [];
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: drawStage2(); break;
+                case 3: drawStage3(); break;
+                case 4: drawStage4(); break;
+            }
+            flushPaint(); // vẽ mọi thành phần 3D đã đăng ký, từ xa đến gần
+
+            updateRings();
+            rings.forEach(r => {
+                ctx.save();
+                ctx.globalAlpha = clamp(r.alpha, 0, 1);
+                ctx.strokeStyle = `rgb(${r.rgb.r},${r.rgb.g},${r.rgb.b})`;
+                ctx.lineWidth = clamp(3 - r.r / 14, 0.5, 3);
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+            });
+
+            updateParticles();
+            particles.forEach(p => {
+                ctx.save();
+                ctx.fillStyle = p.color.replace('opacity', p.life);
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+
+            ctx.restore();
+            requestAnimationFrame(loop);
+        }
+
+        // ======================================================
+        // STATE
+        // ======================================================
+        const STAGE_COUNT = 4;
+        const state = {
+            stage: 1,
+            isAnimating: false,
+
+
+            // ---- Stage 1: H2 — hình thành cặp electron liên kết ----
+            s1: {
+                val: 100,          // 0 (rất gần) .. 100 (rất xa) — điều khiển bởi thanh trượt
+                started: false,
+                sliderEnabled: false,
+                pushing: false,
+                pushJitter: 0,
+                triedFar: false, triedBonded: false, triedClose: false,
+                spinShown: false,
+                ahaShown: false,
+                quizDone: false,
+                done: false
+            },
+
+            // ---- Stage 2: liên kết σ — H2 (s-s), HF (s-p), Cl2 (p-p) ----
+            s2: {
+                molecule: 'H2',   // 'H2' | 'HF' | 'Cl2'
+                h2Frac: 0, h2Done: false,
+                hfOrientation: null, // 'aligned' | 'perp' | 'skew'
+                hfTried: { aligned: false, perp: false, skew: false },
+                hfFrac: 0, hfDone: false,
+                cl2Angle: 90, cl2Frac: 0, cl2Done: false, cl2Fail: 0,
+                compareFrac: 0, compareShown: false,
+                quizDone: false,
+                done: false
+            },
+
+            // ---- Stage 3: liên kết π — O2 xen phủ bên ----
+            s3: {
+                sigmaFrac: 0, sigmaCreated: false,
+                piFrac: 0, piCreated: false,
+                rotateDeg: 0, rotated: false,
+                axisVisible: true, axisToggled: false,
+                quizDone: false,
+                done: false
+            },
+
+            // ---- Stage 4: liên kết đơn / đôi / ba ----
+            s4: {
+                molecule: 'H2', // 'H2' | 'O2' | 'N2'
+                h2: { sigmaFrac: 0, sigma: false, done: false },
+                o2: { sigmaFrac: 0, sigma: false, piFrac: 0, pi: false, done: false },
+                n2: { sigmaFrac: 0, sigma: false, pi1Frac: 0, pi1: false, rotated: false, spinDeg: 0, pi2Frac: 0, pi2: false, done: false },
+                compareFrac: 0, compareShown: false,
+                matchDone: false,
+                done: false
+            }
+        };
+
+        function switchStageExtra(html) {
+            const row = document.getElementById('stageExtraRow');
+            if (!html) { row.style.display = 'none'; row.innerHTML = ''; return; }
+            row.style.display = 'flex';
+            row.innerHTML = html;
+        }
+
+        // Đưa camera về góc nhìn mặc định mỗi khi vào/làm lại một stage
+        function resetView() { camera.yaw = 0.55; camera.pitch = -0.20; }
+
+        // ======================================================
+        // STAGE 1 — CẶP ELECTRON LIÊN KẾT ĐƯỢC HÌNH THÀNH NHƯ THẾ NÀO?
+        // ======================================================
+        const S1_R = 78;          // bán kính AO 1s
+        const S1_SEP_MIN = 60, S1_SEP_MAX = 320;
+        const S1_TOO_CLOSE = 15, S1_BOND_CENTER = 42, S1_BOND_SIGMA = 15, S1_FAR = 72;
+
+        function s1Sep() { return lerp(S1_SEP_MIN, S1_SEP_MAX, state.s1.val / 100); }
+        function s1Density() {
+            const d = state.s1.val - S1_BOND_CENTER;
+            return Math.exp(-(d * d) / (2 * S1_BOND_SIGMA * S1_BOND_SIGMA));
+        }
+        function s1Zone() {
+            if (state.s1.val < S1_TOO_CLOSE) return 'close';
+            if (state.s1.val > S1_FAR) return 'far';
+            return 'bonded';
+        }
+
+        function initStage1() {
+            state.s1 = { val: 100, started: false, sliderEnabled: false, pushing: false, pushJitter: 0, triedFar: true, triedBonded: false, triedClose: false, spinShown: false, ahaShown: false, quizDone: false, done: false };
+            hideAhaMoment(); hideDnd(); hideQuiz(); resetView();
+            document.getElementById('spinPairBadge').style.display = 'none';
+            setRobotSpeech('Mỗi nguyên tử H có một electron độc thân trong AO 1s. Hãy nhấn "Cho hai nguyên tử tiến lại gần" và quan sát vùng giữa hai hạt nhân.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Nhấn nút hành động để bắt đầu.';
+            setStageAction('Cho hai nguyên tử tiến lại gần', 'ti-arrow-bar-to-right', startStage1Approach, false);
+            switchStageExtra('');
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function startStage1Approach() {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            document.getElementById('interactionStatus').innerText = 'Đang cho hai nguyên tử tiến lại gần...';
+            setRobotSpeech('Hai hạt nhân đang tiến lại gần nhau. Hãy chú ý vùng không gian giữa chúng.', 'idle');
+            killTweensOf(state.s1, 'val');
+            tween(state.s1, 'val', S1_BOND_CENTER, reduceMotion ? 200 : 1900, easeInOut, () => {
+                state.isAnimating = false;
+                state.s1.started = true;
+                state.s1.triedBonded = true;
+                onStage1ReachedBonded();
+            });
+        }
+
+        function onStage1ReachedBonded() {
+            playSuccessFlash();
+            spawnParticles(W / 2, H / 2, 'H', 12);
+            document.getElementById('spinPairBadge').style.display = 'flex';
+            state.s1.spinShown = true;
+            setRobotSpeech('Vùng giữa hai hạt nhân vừa đậm hẳn lên! Sau khi animation kết thúc: Vùng nào của mô hình trở nên đậm hơn khi hai nguyên tử ở khoảng cách phù hợp?', 'correct');
+            document.getElementById('interactionStatus').innerText = 'Kéo thanh "Khoảng cách" để thử ba trạng thái: quá xa, phù hợp, quá gần.';
+            state.s1.sliderEnabled = true;
+            switchStageExtra(`
+                <span class="extra-label"><i class="ti ti-arrows-horizontal"></i> Khoảng cách</span>
+                <input type="range" class="jade-slider" id="s1Slider" min="0" max="100" value="${state.s1.val}">
+                <div class="zone-tag-group">
+                    <span class="zone-tag" id="s1TagFar">Quá xa</span>
+                    <span class="zone-tag reached" id="s1TagBonded">Phù hợp</span>
+                    <span class="zone-tag" id="s1TagClose">Quá gần</span>
+                </div>
+            `);
+            const slider = document.getElementById('s1Slider');
+            slider.addEventListener('input', () => {
+                if (state.isAnimating) { slider.value = state.s1.val; return; }
+                state.s1.val = Number(slider.value);
+                handleStage1SliderChange();
+            });
+            setStageAction('Xem lại', 'ti-player-play', replayStage1, false);
+            showStage1Quiz();
+        }
+
+        function handleStage1SliderChange() {
+            const zone = s1Zone();
+            if (zone === 'far') state.s1.triedFar = true;
+            if (zone === 'bonded') state.s1.triedBonded = true;
+            document.getElementById('s1TagFar').classList.toggle('reached', state.s1.triedFar);
+            document.getElementById('s1TagBonded').classList.toggle('reached', state.s1.triedBonded);
+            document.getElementById('s1TagClose').classList.toggle('reached', state.s1.triedClose);
+            if (zone === 'close' && !state.s1.pushing) {
+                state.s1.triedClose = true;
+                document.getElementById('s1TagClose').classList.add('reached');
+                state.s1.pushing = true;
+                setRobotSpeech('Khi kéo hai hạt nhân quá gần, xuất hiện lực đẩy — mô hình sẽ tự trở lại khoảng cách phù hợp. Không phải "càng gần thì liên kết càng bền".', 'wrong');
+                document.getElementById('interactionStatus').innerText = 'Quá gần! Đang đẩy về khoảng cách phù hợp...';
+                let shakeT = 0;
+                const shakeTimer = setInterval(() => { shakeT += 1; state.s1.pushJitter = Math.sin(shakeT * 1.6) * 4; if (shakeT > 14) clearInterval(shakeTimer); }, 16);
+                setTimeout(() => {
+                    killTweensOf(state.s1, 'val');
+                    tween(state.s1, 'val', S1_BOND_CENTER, 650, easeOut, () => {
+                        state.s1.pushing = false; state.s1.pushJitter = 0;
+                        slider().value = state.s1.val;
+                        document.getElementById('interactionStatus').innerText = 'Đã trở lại khoảng cách phù hợp.';
+                    });
+                }, 260);
+            }
+            function slider() { return document.getElementById('s1Slider'); }
+        }
+
+        function replayStage1() {
+            if (state.isAnimating) return;
+            hideAhaMoment();
+            state.isAnimating = true;
+            killTweensOf(state.s1, 'val');
+            state.s1.val = 100;
+            const slider = document.getElementById('s1Slider');
+            if (slider) slider.value = 100;
+            setRobotSpeech('Xem lại từ đầu: hai nguyên tử H ở xa nhau...', 'idle');
+            tween(state.s1, 'val', S1_BOND_CENTER, reduceMotion ? 200 : 1600, easeInOut, () => {
+                state.isAnimating = false;
+                setRobotSpeech('Vùng giữa hai hạt nhân lại đậm lên rõ rệt khi đạt khoảng cách phù hợp.', 'correct');
+            });
+        }
+
+        function showStage1Quiz() {
+            setRobotSpeech('Sau khi animation kết thúc: Vùng nào của mô hình trở nên đậm hơn khi hai nguyên tử ở khoảng cách phù hợp?', 'idle');
+            showGatedQuiz(
+                'Khi hai nguyên tử H ở khoảng cách phù hợp, mật độ electron của cặp electron liên kết tập trung lớn nhất ở đâu?',
+                [
+                    { key: 'A', text: 'Chỉ quanh hạt nhân H thứ nhất.' },
+                    { key: 'B', text: 'Chỉ quanh hạt nhân H thứ hai.' },
+                    { key: 'C', text: 'Ở vùng xen phủ giữa hai AO, đặc biệt trong khoảng giữa hai hạt nhân.' },
+                    { key: 'D', text: 'Hoàn toàn ở ngoài hai AO.' }
+                ],
+                'C',
+                'Chính xác! Khi hai AO 1s xen phủ, mật độ electron liên kết tăng rõ rệt trong vùng giữa hai hạt nhân.',
+                'Hãy phát lại animation và quan sát vùng thay đổi độ đậm khi hai nguyên tử đi từ trạng thái ở xa đến khoảng cách phù hợp.',
+                () => {
+                    state.s1.quizDone = true;
+                    showAhaMoment('Cặp electron liên kết được hình thành khi hai AO xen phủ, làm tăng mật độ electron ở vùng giữa hai hạt nhân.');
+                    state.s1.ahaShown = true;
+                    const missingZone = !state.s1.triedClose ? 'quá gần' : (!state.s1.triedFar ? 'quá xa' : (!state.s1.triedBonded ? 'phù hợp' : null));
+                    setTimeout(() => setRobotSpeech(missingZone
+                        ? `Trước khi qua bước tiếp theo, hãy kéo thanh "Khoảng cách" thử cả vùng "${missingZone}" nhé.`
+                        : 'Hai AO 1s có thể xen phủ. Vậy các AO khác loại hoặc hai AO p có tạo liên kết theo cách tương tự không?', 'correct'), 600);
+                    updateNextButtonState();
+                }
+            );
+        }
+
+        function drawStage1() {
+            const cy = 190;
+            const sep = s1Sep();
+            const cx = W / 2;
+            const jitter = state.s1.pushJitter || 0;
+            const [a3, b3] = bondEnds3(sep + jitter * 2);
+            const density = s1Density();
+
+            drawAxis3(a3, b3, true, 0.22, cx, cy);
+            if (density > 0.03) drawBondDensity3(a3, b3, density, 'axial', ATOM_COLORS.H, 30, null, cx, cy);
+
+            drawOrbitalCloud3('s', a3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+            drawOrbitalCloud3('s', b3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+            const pa = drawNucleus3(a3, 11, ATOM_COLORS.H, 1, cx, cy);
+            const pb = drawNucleus3(b3, 11, ATOM_COLORS.H, 1, cx, cy);
+            drawTopLabel('H', pa.x, pa.y - S1_R * pa.s - 14, ATOM_COLORS.H, 1);
+            drawTopLabel('H', pb.x, pb.y - S1_R * pb.s - 14, ATOM_COLORS.H, 1);
+
+            if (state.s1.pushing) drawPushArrows(cx, cy - S1_R - 34, 0, 0);
+
+            if (density > 0.85 && state.s1.started) {
+                const glow = (Math.sin(time * 3) * 0.15 + 0.85);
+                ctx.save();
+                ctx.globalAlpha = 0.18 * glow;
+                ctx.fillStyle = rgba(ATOM_COLORS.H, 1);
+                ctx.beginPath(); ctx.arc(cx, cy, 20, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            }
+
+        }
+
+        // ======================================================
+        // STAGE 2 — LIÊN KẾT σ: XEN PHỦ TRỤC (H2 s–s, HF s–p, Cl2 p–p)
+        // ======================================================
+        function initStage2() {
+            state.s2 = { molecule: 'H2', h2Frac: 0, h2Done: false, hfOrientation: null, hfTried: { aligned: false, perp: false, skew: false }, hfFrac: 0, hfDone: false, cl2Angle: 90, cl2Frac: 0, cl2Done: false, cl2Fail: 0, compareFrac: 0, compareShown: false, quizDone: false, done: false };
+            hideAhaMoment(); hideDnd(); hideQuiz(); resetView();
+            document.getElementById('spinPairBadge').style.display = 'none';
+            initNextButton();
+            updateStepProgress();
+            selectStage2Molecule('H2');
+        }
+
+        function switchStage2ExtraTabsAndControls() {
+            const m = state.s2.molecule;
+            let inner = '';
+            if (m === 'HF') {
+                inner += `<span class="extra-label"><i class="ti ti-axis-x"></i> Định hướng AO 2p</span>
+                    <div class="mol-tab-group">
+                        <button class="mol-tab ${state.s2.hfOrientation === 'aligned' ? 'active' : ''}" onclick="setHfOrientation('aligned')">Hướng vào trục</button>
+                        <button class="mol-tab ${state.s2.hfOrientation === 'perp' ? 'active' : ''}" onclick="setHfOrientation('perp')">Vuông góc trục</button>
+                        <button class="mol-tab ${state.s2.hfOrientation === 'skew' ? 'active' : ''}" onclick="setHfOrientation('skew')">Lệch trục</button>
+                    </div>`;
+            } else if (m === 'Cl2') {
+                inner += `<span class="extra-label"><i class="ti ti-rotate"></i> AO p bên phải</span>
+                    <button class="btn-secondary" onclick="rotateCl2(-15)"><i class="ti ti-rotate-2"></i> Xoay trái</button>
+                    <button class="btn-secondary" onclick="rotateCl2(15)"><i class="ti ti-rotate-clockwise-2"></i> Xoay phải</button>`;
+            }
+            switchStageExtra(inner);
+        }
+
+        function selectStage2Molecule(m) {
+            if (state.isAnimating || state.s2.compareShown) return;
+            state.s2.molecule = m;
+            hideQuiz();
+            clearStageAction();
+            switchStage2ExtraTabsAndControls();
+            if (m === 'H2') {
+                setRobotSpeech('Ở H2, vùng mật độ electron tăng nằm dọc theo trục nối hai hạt nhân. Hãy kiểm tra xem điều này có lặp lại ở HF và Cl2 hay không.', 'idle');
+                setStageAction(state.s2.h2Done ? 'Tạo lại xen phủ' : 'Tiến lại gần', 'ti-arrow-bar-to-right', runStage2H2, false);
+            } else if (m === 'HF') {
+                setRobotSpeech('Với HF: Hãy chọn cách định hướng AO 2p rồi nhấn "Tiến lại gần".', 'idle');
+                setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2HF, !state.s2.hfOrientation);
+            } else {
+                setRobotSpeech('Với Cl2: AO p bên trái đã nằm dọc theo trục. Hãy xoay AO p bên phải để tạo sự xen phủ hiệu quả.', 'idle');
+                setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2Cl2, false);
+            }
+            checkStage2AllDone();
+        }
+
+        function setHfOrientation(o) {
+            if (state.isAnimating) return;
+            state.s2.hfOrientation = o;
+            state.s2.hfTried[o] = true;
+            switchStage2ExtraTabsAndControls();
+            setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2HF, false);
+        }
+
+        function runStage2H2() {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            tween(state.s2, 'h2Frac', 1, reduceMotion ? 200 : 1300, easeInOut, () => {
+                state.isAnimating = false;
+                state.s2.h2Done = true;
+                playSuccessFlash();
+                setRobotSpeech('Mật độ electron của H2 tăng dọc theo trục nối hai hạt nhân, phân bố đối xứng quanh trục.', 'correct');
+                setStageAction('Tạo lại xen phủ', 'ti-refresh', runStage2H2Reset, false);
+                checkStage2AllDone();
+            });
+        }
+        function runStage2H2Reset() { state.s2.h2Frac = 0; runStage2H2(); }
+
+        function runStage2HF() {
+            if (state.isAnimating || !state.s2.hfOrientation) return;
+            state.isAnimating = true;
+            clearStageAction();
+            const willSucceed = state.s2.hfOrientation === 'aligned';
+            tween(state.s2, 'hfFrac', 1, reduceMotion ? 200 : 1100, easeInOut, () => {
+                if (willSucceed) {
+                    state.isAnimating = false;
+                    state.s2.hfDone = true;
+                    playSuccessFlash();
+                    const hfExplored = state.s2.hfTried.perp && state.s2.hfTried.skew;
+                    setRobotSpeech('Đúng! Một thùy AO p hướng trực diện vào AO s tạo vùng xen phủ rõ trên trục.' + (hfExplored ? '' : ' Nếu muốn, bạn có thể thử thêm các định hướng "Vuông góc trục" và "Lệch trục" để xem vì sao chúng không tạo được liên kết.'), 'correct');
+                    setStageAction('Thử định hướng khác', 'ti-refresh', () => { state.s2.hfFrac = 0; state.s2.hfOrientation = null; switchStage2ExtraTabsAndControls(); clearStageAction(); }, false);
+                    checkStage2AllDone();
+                } else {
+                    setRobotSpeech('Vùng chồng lấp rất nhỏ — mô hình không khớp vào khoảng cách liên kết và tự trở về vị trí ban đầu. Hãy thử định hướng khác.', 'wrong');
+                    tween(state.s2, 'hfFrac', 0, 500, easeOut, () => {
+                        state.isAnimating = false;
+                        setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2HF, false);
+                        checkStage2AllDone();
+                    });
+                }
+            });
+        }
+
+        function rotateCl2(delta) {
+            if (state.isAnimating) return;
+            state.s2.cl2Angle = clamp(state.s2.cl2Angle + delta, 0, 90);
+        }
+
+        function runStage2Cl2() {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            const aligned = state.s2.cl2Angle <= 10;
+            tween(state.s2, 'cl2Frac', 1, reduceMotion ? 200 : 1100, easeInOut, () => {
+                if (aligned) {
+                    state.isAnimating = false;
+                    state.s2.cl2Done = true;
+                    playSuccessFlash();
+                    const cl2Explored = state.s2.cl2Fail >= 1;
+                    setRobotSpeech('Hai thùy cùng pha hướng trực diện vào nhau — mật độ electron tăng mạnh giữa hai hạt nhân, đối xứng quanh trục.' + (cl2Explored ? '' : ' Nếu muốn, bạn có thể xoay AO p bên phải ra khỏi trục rồi nhấn "Tiến lại gần" để xem điều gì xảy ra khi hai AO p còn vuông góc.'), 'correct');
+                    setStageAction('Thử lại', 'ti-refresh', () => { state.s2.cl2Frac = 0; setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2Cl2, false); }, false);
+                    checkStage2AllDone();
+                } else {
+                    state.s2.cl2Fail++;
+                    setRobotSpeech('Khi hai AO p còn vuông góc (hoặc lệch nhiều), vùng xen phủ hiệu dụng gần như không xuất hiện — hai nguyên tử tự tách ra.', 'wrong');
+                    tween(state.s2, 'cl2Frac', 0, 500, easeOut, () => {
+                        state.isAnimating = false;
+                        setStageAction('Tiến lại gần', 'ti-arrow-bar-to-right', runStage2Cl2, false);
+                        checkStage2AllDone();
+                    });
+                }
+            });
+        }
+
+        function checkStage2AllDone() {
+            if (state.s2.h2Done && state.s2.hfDone && state.s2.cl2Done && !state.s2.compareShown) {
+                setStageAction('So sánh ba mô hình', 'ti-columns-3', runStage2Compare, false);
+            }
+        }
+
+        function runStage2Compare() {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            state.s2.compareShown = true;
+            setRobotSpeech('Ba đường trục liên hạt nhân lần lượt sáng lên, sau đó ba vùng mật độ electron trên trục cùng phát sáng.', 'idle');
+            tween(state.s2, 'compareFrac', 1, reduceMotion ? 200 : 1500, easeInOut, () => {
+                state.isAnimating = false;
+                showStage2Quiz();
+            });
+        }
+
+        function showStage2Quiz() {
+            setRobotSpeech('Điểm chung trực quan: các AO đều hướng trực diện vào nhau theo trục nối hai hạt nhân. Em hãy trả lời câu hỏi bên phải.', 'idle');
+            showGatedQuiz(
+                'Điểm giống nhau quyết định kiểu liên kết trong H2, HF và Cl2 là gì?',
+                [
+                    { key: 'A', text: 'Hai AO tham gia luôn cùng loại.' },
+                    { key: 'B', text: 'Cả ba trường hợp đều chỉ có AO s tham gia.' },
+                    { key: 'C', text: 'Các AO đều xen phủ trực diện theo trục nối hai hạt nhân.' },
+                    { key: 'D', text: 'Các AO đều xen phủ ở hai phía của trục nối hai hạt nhân.' }
+                ],
+                'C',
+                'Chính xác! Dù AO tham gia là s–s, s–p hay p–p, chúng đều hướng trực diện vào nhau theo trục nối hai hạt nhân.',
+                'Hãy nhìn lại ba đường trục và vị trí vùng mật độ electron tăng, thay vì chỉ so sánh hình dạng của AO.',
+                () => {
+                    state.s2.quizDone = true;
+                    showAhaMoment('Liên kết σ được hình thành do sự xen phủ trục của các AO.');
+                    setTimeout(() => setRobotSpeech('Ngoài cách các AO hướng trực diện vào nhau, hai AO p còn có thể xen phủ theo cách nào khác?', 'correct'), 600);
+                    updateNextButtonState();
+                }
+            );
+        }
+
+        function drawStage2() {
+            if (state.s2.compareFrac > 0.001) { drawStage2Compare(); return; }
+            const cy = 190, cx = W / 2;
+            const m = state.s2.molecule;
+            drawCanvasTabs(cx, 14, [{ key: 'H2', label: 'H2' }, { key: 'HF', label: 'HF' }, { key: 'Cl2', label: 'Cl2' }], m, selectStage2Molecule);
+            if (m === 'H2') {
+                const sep = lerp(280, 156, state.s2.h2Frac);
+                const [a3, b3] = bondEnds3(sep);
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                drawBondDensity3(a3, b3, state.s2.h2Frac, 'axial', ATOM_COLORS.H, 28, null, cx, cy);
+                drawOrbitalCloud3('s', a3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+                drawOrbitalCloud3('s', b3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+                const pa = drawNucleus3(a3, 11, ATOM_COLORS.H, 1, cx, cy), pb = drawNucleus3(b3, 11, ATOM_COLORS.H, 1, cx, cy);
+                drawTopLabel('H', pa.x, pa.y - S1_R * pa.s - 14, ATOM_COLORS.H, 1); drawTopLabel('H', pb.x, pb.y - S1_R * pb.s - 14, ATOM_COLORS.H, 1);
+            } else if (m === 'HF') {
+                const sep = lerp(260, 150, state.s2.hfFrac);
+                const [a3, b3] = bondEnds3(sep);
+                let orientAngle = 0;
+                if (state.s2.hfOrientation === 'perp') orientAngle = 90;
+                else if (state.s2.hfOrientation === 'skew') orientAngle = 50;
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                if (state.s2.hfOrientation === 'aligned') drawBondDensity3(a3, b3, state.s2.hfFrac, 'axial', ATOM_COLORS.F, 26, null, cx, cy);
+                drawOrbitalCloud3('s', a3, 62, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+                const pa = drawNucleus3(a3, 10, ATOM_COLORS.H, 1, cx, cy);
+                drawTopLabel('H', pa.x, pa.y - 78 * pa.s, ATOM_COLORS.H, 1);
+                drawOrbitalCloud3('p', b3, 130, axisInPlane(180 - orientAngle), 0.95, ATOM_COLORS.F, true, false, cx, cy, true);
+                const pb = drawNucleus3(b3, 11, ATOM_COLORS.F, 1, cx, cy);
+                drawTopLabel('F', pb.x, pb.y - 90 * pb.s, ATOM_COLORS.F, 1);
+            } else {
+                const sep = lerp(260, 150, state.s2.cl2Frac);
+                const [a3, b3] = bondEnds3(sep);
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                if (state.s2.cl2Angle <= 10) drawBondDensity3(a3, b3, state.s2.cl2Frac, 'axial', ATOM_COLORS.Cl, 30, null, cx, cy);
+                drawOrbitalCloud3('p', a3, 130, AXIS_X, 0.95, ATOM_COLORS.Cl, true, false, cx, cy, true);
+                drawOrbitalCloud3('p', b3, 130, axisInPlane(180 - state.s2.cl2Angle), 0.95, ATOM_COLORS.Cl, true, false, cx, cy, true);
+                const pa = drawNucleus3(a3, 12, ATOM_COLORS.Cl, 1, cx, cy), pb = drawNucleus3(b3, 12, ATOM_COLORS.Cl, 1, cx, cy);
+                drawTopLabel('Cl', pa.x, pa.y - 90 * pa.s, ATOM_COLORS.Cl, 1); drawTopLabel('Cl', pb.x, pb.y - 90 * pb.s, ATOM_COLORS.Cl, 1);
+            }
+        }
+
+        function drawStage2Compare() {
+            const f = state.s2.compareFrac;
+            const cols = [
+                { x: 140, label: 'H2', sub: 's – s' },
+                { x: 380, label: 'HF', sub: 's – p' },
+                { x: 620, label: 'Cl2', sub: 'p – p' }
+            ];
+            const cy = 210, scale = 0.5;
+            cols.forEach((c, i) => {
+                const axisAlpha = clamp(f * 3 - i, 0, 1);
+                const densityAlpha = clamp(f * 3 - i - 0.4, 0, 1);
+                const [a3, b3] = bondEnds3(70 * scale * 4);
+                drawAxis3(a3, b3, axisAlpha > 0.05, 0.3 * axisAlpha, c.x, cy);
+                if (c.label === 'H2') {
+                    drawBondDensity3(a3, b3, densityAlpha, 'axial', ATOM_COLORS.H, 22, null, c.x, cy);
+                    drawOrbitalCloud3('s', a3, S1_R * scale, null, 0.95, ATOM_COLORS.H, false, true, c.x, cy);
+                    drawOrbitalCloud3('s', b3, S1_R * scale, null, 0.95, ATOM_COLORS.H, false, true, c.x, cy);
+                    drawNucleus3(a3, 8, ATOM_COLORS.H, 1, c.x, cy); drawNucleus3(b3, 8, ATOM_COLORS.H, 1, c.x, cy);
+                } else if (c.label === 'HF') {
+                    drawBondDensity3(a3, b3, densityAlpha, 'axial', ATOM_COLORS.F, 20, null, c.x, cy);
+                    drawOrbitalCloud3('s', a3, 62 * scale, null, 0.95, ATOM_COLORS.H, false, true, c.x, cy);
+                    drawOrbitalCloud3('p', b3, 130 * scale, AXIS_X, 0.95, ATOM_COLORS.F, true, true, c.x, cy, true);
+                    drawNucleus3(a3, 7, ATOM_COLORS.H, 1, c.x, cy); drawNucleus3(b3, 8, ATOM_COLORS.F, 1, c.x, cy);
+                } else {
+                    drawBondDensity3(a3, b3, densityAlpha, 'axial', ATOM_COLORS.Cl, 22, null, c.x, cy);
+                    drawOrbitalCloud3('p', a3, 130 * scale, AXIS_X, 0.95, ATOM_COLORS.Cl, true, true, c.x, cy, true);
+                    drawOrbitalCloud3('p', b3, 130 * scale, AXIS_X, 0.95, ATOM_COLORS.Cl, true, true, c.x, cy, true);
+                    drawNucleus3(a3, 8, ATOM_COLORS.Cl, 1, c.x, cy); drawNucleus3(b3, 8, ATOM_COLORS.Cl, 1, c.x, cy);
+                }
+                drawTopLabel(c.sub, c.x, cy + 70, COLORS_TEXT.ink2, axisAlpha);
+                drawBondTag(c.x, cy - 78, 'σ', SIGMA_COLOR, state.s2.quizDone ? 1 : 0);
+            });
+            if (state.s2.quizDone) drawTopLabel('Xen phủ trục', W / 2, cy - 118, SIGMA_COLOR, 1);
+        }
+
+        // ======================================================
+        // STAGE 3 — LIÊN KẾT π: XEN PHỦ BÊN (O2)
+        // ======================================================
+        function initStage3() {
+            state.s3 = { sigmaFrac: 0, sigmaCreated: false, piFrac: 0, piCreated: false, rotateDeg: 0, rotated: false, axisVisible: true, axisToggled: false, quizDone: false, done: false };
+            hideAhaMoment(); hideDnd(); hideQuiz(); resetView();
+            document.getElementById('spinPairBadge').style.display = 'none';
+            setRobotSpeech('Đây là hai nguyên tử O, mỗi nguyên tử có hai AO p còn electron độc thân. Hãy nhấn "Tạo xen phủ thứ nhất" để ôn lại kiểu xen phủ trục đã biết.', 'idle');
+            switchStageExtra(`
+                <button class="btn-secondary" id="s3RotateBtn" onclick="rotateStage3()"><i class="ti ti-rotate-3d"></i> Xoay mô hình 90°</button>
+                <button class="btn-secondary" id="s3AxisBtn" onclick="toggleStage3Axis()"><i class="ti ti-line-dashed"></i> Hiện/ẩn trục</button>
+            `);
+            setStageAction('Tạo xen phủ thứ nhất', 'ti-arrow-bar-to-right', createStage3Sigma, false);
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function createStage3Sigma() {
+            if (state.isAnimating || state.s3.sigmaCreated) return;
+            state.isAnimating = true;
+            clearStageAction();
+            tween(state.s3, 'sigmaFrac', 1, reduceMotion ? 200 : 1200, easeInOut, () => {
+                state.isAnimating = false;
+                state.s3.sigmaCreated = true;
+                playSuccessFlash();
+                setRobotSpeech('Bạn đã biết cặp AO màu xanh tạo xen phủ trục. Hãy quan sát cặp AO màu cam: chúng có vị trí như thế nào so với trục nối hai hạt nhân? Nhấn "Tạo xen phủ thứ hai", sau đó xoay mô hình để quan sát toàn bộ vùng mật độ electron.', 'correct');
+                setStageAction('Tạo xen phủ thứ hai', 'ti-arrow-bar-to-right', createStage3Pi, false);
+            });
+        }
+
+        function createStage3Pi() {
+            if (state.isAnimating || state.s3.piCreated) return;
+            state.isAnimating = true;
+            clearStageAction();
+            tween(state.s3, 'piFrac', 1, reduceMotion ? 200 : 1300, easeInOut, () => {
+                state.isAnimating = false;
+                state.s3.piCreated = true;
+                playSuccessFlash();
+                setRobotSpeech('Hai AO p màu cam song song đã xen phủ ở hai phía của trục — đây là kiểu xen phủ bên.', 'correct');
+                clearStageAction();
+                maybeShowStage3Quiz();
+            });
+        }
+
+        function rotateStage3() {
+            if (state.isAnimating) return;
+            state.s3.rotated = true;
+            const target = state.s3.rotateDeg === 0 ? 90 : 0;
+            tween(state.s3, 'rotateDeg', target, 700, easeInOut, null);
+            maybeShowStage3Quiz();
+        }
+        function toggleStage3Axis() {
+            state.s3.axisVisible = !state.s3.axisVisible;
+            state.s3.axisToggled = true;
+            maybeShowStage3Quiz();
+        }
+
+        function maybeShowStage3Quiz() {
+            if (state.s3.sigmaCreated && state.s3.piCreated && state.s3.rotated && !state.s3.quizDone) {
+                showStage3Quiz();
+            }
+        }
+
+        function showStage3Quiz() {
+            setRobotSpeech('Nếu một cặp AO p xen phủ bên tạo một liên kết π, hãy trả lời câu hỏi sau.', 'idle');
+            showGatedQuiz(
+                'Kiểu xen phủ của cặp AO p màu cam khác xen phủ trục ở điểm nào?',
+                [
+                    { key: 'A', text: 'Mật độ electron chỉ tập trung dọc theo trục nối hai hạt nhân.' },
+                    { key: 'B', text: 'Mật độ electron tăng ở hai phía của trục nối hai hạt nhân.' },
+                    { key: 'C', text: 'Chỉ có một AO p tham gia.' },
+                    { key: 'D', text: 'Hai AO p tham gia phải vuông góc với nhau.' }
+                ],
+                'B',
+                'Chính xác! Hai AO p song song xen phủ ở hai phía của trục nối hai hạt nhân.',
+                'Hãy bật đường trục và xoay mô hình để xác định hai phần mật độ electron nằm ở đâu so với trục.',
+                () => {
+                    state.s3.quizDone = true;
+                    showAhaMoment('Liên kết π được hình thành do sự xen phủ bên của hai AO p song song.');
+                    setTimeout(() => setRobotSpeech('Nếu một cặp AO p xen phủ bên tạo một liên kết π, phân tử có hai cặp AO p xen phủ bên sẽ có thành phần liên kết như thế nào?', 'correct'), 600);
+                    updateNextButtonState();
+                }
+            );
+        }
+
+        function drawStage3() {
+            const cy = 200, cx = W / 2;
+            const sep = lerp(320, 190, state.s3.sigmaFrac);
+            const [a3, b3] = bondEnds3(sep);
+
+            drawAxis3(a3, b3, state.s3.axisVisible, 0.28, cx, cy);
+
+            // cặp AO xanh — nằm dọc trục liên kết (tạo σ). Dùng bộ điểm dày gấp 3: Stage 3 là bước trọng tâm
+            // so sánh xen phủ trục với xen phủ bên, cần đám mây mật độ electron đủ mịn để đọc rõ hai vùng.
+            const sigmaAlpha = 1 - state.s3.piFrac * 0.25;
+            drawOrbitalCloud3('p', a3, 118, AXIS_X, 0.85 * sigmaAlpha, SIGMA_COLOR, true, false, cx, cy, true);
+            drawOrbitalCloud3('p', b3, 118, AXIS_X, 0.85 * sigmaAlpha, SIGMA_COLOR, true, false, cx, cy, true);
+            drawBondDensity3(a3, b3, state.s3.sigmaFrac, 'axial', SIGMA_COLOR, 24, null, cx, cy);
+
+            // cặp AO cam — song song, vuông góc trục (tạo π); quay theo modelSpin như một hệ thống thống nhất.
+            // Bán kính lớn dần theo piFrac: hai thùy cùng pha "tiến lại gần" và chồng lấp vào nhau ở giữa trục
+            // (hạt nhân không dịch chuyển thêm — đây là cách thể hiện hai AO p mở rộng vùng xen phủ bên).
+            const piReach = lerp(66, 112, state.s3.piFrac);
+            drawOrbitalCloud3('p', a3, piReach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+            drawOrbitalCloud3('p', b3, piReach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+            drawBondDensity3(a3, b3, state.s3.piFrac, 'lateral', PI_COLOR_1, 34, AXIS_Y, cx, cy);
+
+            const pa = drawNucleus3(a3, 12, ATOM_COLORS.O, 1, cx, cy), pb = drawNucleus3(b3, 12, ATOM_COLORS.O, 1, cx, cy);
+            drawTopLabel('O', pa.x, pa.y - 90 * pa.s, ATOM_COLORS.O, 1); drawTopLabel('O', pb.x, pb.y - 90 * pb.s, ATOM_COLORS.O, 1);
+            if (state.s3.sigmaCreated) drawBondTag(cx, cy - 62, 'σ', SIGMA_COLOR, 0.85);
+            if (state.s3.piCreated && state.s3.quizDone) {
+                drawBondTag(cx, cy - 108, 'π', PI_COLOR_1, 0.9);
+                drawBondTag(cx, cy + 108, 'π', PI_COLOR_1, 0.9);
+                drawTopLabel('Xen phủ bên', cx, cy + 132, PI_COLOR_1, 0.9);
+            }
+        }
+
+        // ======================================================
+        // STAGE 4 — LIÊN KẾT ĐƠN, ĐÔI, BA (H2 = 1σ · O2 = 1σ+1π · N2 = 1σ+2π)
+        // ======================================================
+        function initStage4() {
+            state.s4 = {
+                molecule: 'H2',
+                h2: { sigmaFrac: 0, sigma: false, done: false },
+                o2: { sigmaFrac: 0, sigma: false, piFrac: 0, pi: false, done: false },
+                n2: { sigmaFrac: 0, sigma: false, pi1Frac: 0, pi1: false, rotated: false, spinDeg: 0, pi2Frac: 0, pi2: false, done: false },
+                compareFrac: 0, compareShown: false, matchDone: false, done: false,
+                compareReplay: { H2: 1, O2: 1, N2: 1 }
+            };
+            hideAhaMoment(); hideDnd(); hideQuiz(); resetView();
+            document.getElementById('spinPairBadge').style.display = 'none';
+            setRobotSpeech('Hãy tạo lần lượt các liên kết trong H2, O2 và N2 rồi đếm số liên kết σ, π của mỗi phân tử.', 'idle');
+            renderStage4Controls();
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function renderStage4Controls() {
+            switchStageExtra('');
+            updateStage4ActionButtons();
+        }
+
+        function selectStage4Molecule(m) {
+            if (state.isAnimating || state.s4.compareShown) return;
+            state.s4.molecule = m;
+            hideQuiz();
+            renderStage4Controls();
+            const speeches = {
+                H2: 'H2: hai AO 1s xuất hiện tách rời. Nhấn "Tạo σ" để tạo xen phủ trục.',
+                O2: 'O2: nhấn "Tạo σ" rồi "Tạo π thứ nhất" để tạo cả hệ σ và π.',
+                N2: 'Với N2, xoay mô hình trước khi tạo π thứ hai. Sau đó ghép mỗi loại liên kết với thành phần phù hợp.'
+            };
+            setRobotSpeech(speeches[m], 'idle');
+        }
+
+        function updateStage4ActionButtons() {
+            const m = state.s4.molecule;
+            if (m === 'H2') {
+                const d = state.s4.h2;
+                if (!d.sigma) setStageAction('Tạo σ', 'ti-arrow-bar-to-right', () => createStage4Bond('h2', 'sigmaFrac', 'sigma', afterH2), false);
+                else setStageAction('Phát lại', 'ti-refresh', () => resetStage4Bond('h2'), false);
+            } else if (m === 'O2') {
+                const d = state.s4.o2;
+                if (!d.sigma) setStageAction('Tạo σ', 'ti-arrow-bar-to-right', () => createStage4Bond('o2', 'sigmaFrac', 'sigma', afterO2Sigma), false);
+                else if (!d.pi) setStageAction('Tạo π thứ nhất', 'ti-arrow-bar-to-right', () => createStage4Bond('o2', 'piFrac', 'pi', afterO2Pi), false);
+                else setStageAction('Phát lại', 'ti-refresh', () => resetStage4Bond('o2'), false);
+            } else {
+                const d = state.s4.n2;
+                if (!d.sigma) setStageAction('Tạo σ', 'ti-arrow-bar-to-right', () => createStage4Bond('n2', 'sigmaFrac', 'sigma', afterN2Sigma), false);
+                else if (!d.pi1) setStageAction('Tạo π thứ nhất', 'ti-arrow-bar-to-right', () => createStage4Bond('n2', 'pi1Frac', 'pi1', afterN2Pi1), false);
+                else if (!d.rotated) setStageAction('Xoay mô hình 90°', 'ti-rotate-3d', rotateStage4N2, false);
+                else if (!d.pi2) setStageAction('Tạo π thứ hai', 'ti-arrow-bar-to-right', () => createStage4Bond('n2', 'pi2Frac', 'pi2', afterN2Pi2), false);
+                else setStageAction('Phát lại', 'ti-refresh', () => resetStage4Bond('n2'), false);
+            }
+        }
+        function resetStage4Bond(molKey) {
+            if (state.isAnimating) return;
+            const d = state.s4[molKey];
+            if (molKey === 'h2') { d.sigma = false; d.sigmaFrac = 0; }
+            else if (molKey === 'o2') { d.sigma = false; d.sigmaFrac = 0; d.pi = false; d.piFrac = 0; }
+            else { d.sigma = false; d.sigmaFrac = 0; d.pi1 = false; d.pi1Frac = 0; d.rotated = false; d.spinDeg = 0; d.pi2 = false; d.pi2Frac = 0; resetView(); }
+            updateStage4ActionButtons();
+        }
+
+        function createStage4Bond(molKey, fracProp, flagProp, after) {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            const d = state.s4[molKey];
+            tween(d, fracProp, 1, reduceMotion ? 200 : 1100, easeInOut, () => {
+                state.isAnimating = false;
+                d[flagProp] = true;
+                playSuccessFlash();
+                updateStage4ActionButtons();
+                after();
+            });
+        }
+        function afterH2() {
+            state.s4.h2.done = true;
+            setRobotSpeech('H2 chỉ có 1 liên kết σ — không có cặp AO p song song để xen phủ bên.', 'correct');
+            checkStage4AllDone();
+        }
+        function afterO2Sigma() { setRobotSpeech('Đã tạo σ cho O2. Bây giờ nhấn "Tạo π thứ nhất" để tạo thêm xen phủ bên.', 'correct'); }
+        function afterO2Pi() {
+            state.s4.o2.done = true;
+            setRobotSpeech('O2 có 1σ + 1π — một hệ σ và một hệ π cùng tồn tại.', 'correct');
+            checkStage4AllDone();
+        }
+        function afterN2Sigma() { setRobotSpeech('Đã tạo σ cho N2 (cặp AO thứ nhất dọc trục). Nhấn "Tạo π thứ nhất".', 'correct'); }
+        function afterN2Pi1() { setRobotSpeech('Đã tạo π thứ nhất. Hãy nhấn "Xoay mô hình 90°" để lộ cặp AO thứ ba.', 'correct'); }
+        function afterN2Pi2() {
+            state.s4.n2.done = true;
+            setRobotSpeech('N2 có 1σ + 2π — hai hệ π nằm trong hai mặt phẳng vuông góc với nhau.', 'correct');
+            tween(camera, 'yaw', 1.05, 900, easeInOut, null);
+            tween(camera, 'pitch', -0.34, 900, easeInOut, null);
+            checkStage4AllDone();
+        }
+        function rotateStage4N2() {
+            if (state.isAnimating) return;
+            state.s4.n2.rotated = true;
+            state.isAnimating = true;
+            tween(state.s4.n2, 'spinDeg', 90, 700, easeInOut, () => { state.isAnimating = false; updateStage4ActionButtons(); });
+        }
+
+        function checkStage4AllDone() {
+            if (state.s4.h2.done && state.s4.o2.done && state.s4.n2.done && !state.s4.compareShown) {
+                setStageAction('So sánh', 'ti-columns-3', runStage4Compare, false);
+            }
+        }
+
+        function runStage4Compare() {
+            if (state.isAnimating) return;
+            state.isAnimating = true;
+            clearStageAction();
+            state.s4.compareShown = true;
+            setRobotSpeech('Ba mô hình H2, O2, N2 hiển thị cạnh nhau. Hãy ghép mỗi loại liên kết với thành phần phù hợp.', 'idle');
+            tween(state.s4, 'compareFrac', 1, reduceMotion ? 200 : 1300, easeInOut, () => {
+                state.isAnimating = false;
+                showStage4Match();
+            });
+        }
+
+        function showStage4Match() {
+            setRobotSpeech('Hãy chạm chọn để ghép mỗi loại liên kết với thành phần σ, π phù hợp.', 'idle');
+            showOrderDnd(
+                [
+                    { key: 's1', label: '1σ' },
+                    { key: 's1p1', label: '1σ + 1π' },
+                    { key: 's1p2', label: '1σ + 2π' }
+                ],
+                ['Liên kết đơn (H2)', 'Liên kết đôi (O2)', 'Liên kết ba (N2)'],
+                ['s1', 's1p1', 's1p2'],
+                (isCorrect) => {
+                    if (isCorrect) {
+                        state.s4.matchDone = true;
+                        showAhaMoment('Liên kết đơn gồm 1σ; liên kết đôi gồm 1σ + 1π; liên kết ba gồm 1σ + 2π.');
+                        setRobotSpeech('Chính xác! H2 có 1σ; O2 có 1σ + 1π; N2 có 1σ + 2π.', 'correct');
+                        state.s4.done = true;
+                        updateNextButtonState();
+                    } else {
+                        setRobotSpeech('Hãy chạm vào từng phân tử để phát lại, sau đó đếm số lần xen phủ trục và số cặp AO p xen phủ bên.', 'wrong');
+                    }
+                }
+            );
+        }
+
+        function drawStage4() {
+            if (state.s4.compareFrac > 0.001) { drawStage4Compare(); return; }
+            const m = state.s4.molecule;
+            const cy = 200, cx = W / 2;
+            drawCanvasTabs(cx, 14, [{ key: 'H2', label: 'H2' }, { key: 'O2', label: 'O2' }, { key: 'N2', label: 'N2' }], m, selectStage4Molecule);
+            const sep = lerp(300, 190, state.s4[m.toLowerCase()].sigmaFrac);
+            const [a3, b3] = bondEnds3(sep);
+            if (m === 'H2') {
+                const d = state.s4.h2;
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                drawBondDensity3(a3, b3, d.sigmaFrac, 'axial', ATOM_COLORS.H, 26, null, cx, cy);
+                drawOrbitalCloud3('s', a3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+                drawOrbitalCloud3('s', b3, S1_R, null, 0.95, ATOM_COLORS.H, false, false, cx, cy);
+                const pa = drawNucleus3(a3, 11, ATOM_COLORS.H, 1, cx, cy), pb = drawNucleus3(b3, 11, ATOM_COLORS.H, 1, cx, cy);
+                drawTopLabel('H', pa.x, pa.y - S1_R * pa.s - 14, ATOM_COLORS.H, 1); drawTopLabel('H', pb.x, pb.y - S1_R * pb.s - 14, ATOM_COLORS.H, 1);
+                if (d.sigma) drawBondTag(cx, cy - 100, 'σ', SIGMA_COLOR, 1);
+            } else if (m === 'O2') {
+                const d = state.s4.o2;
+                const piReach = lerp(66, 112, d.piFrac);
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                drawOrbitalCloud3('p', a3, 122, AXIS_X, 0.85, SIGMA_COLOR, true, false, cx, cy, true);
+                drawOrbitalCloud3('p', b3, 122, AXIS_X, 0.85, SIGMA_COLOR, true, false, cx, cy, true);
+                drawBondDensity3(a3, b3, d.sigmaFrac, 'axial', SIGMA_COLOR, 24, null, cx, cy);
+                drawOrbitalCloud3('p', a3, piReach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+                drawOrbitalCloud3('p', b3, piReach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+                if (d.pi || d.piFrac > 0) drawBondDensity3(a3, b3, d.piFrac, 'lateral', PI_COLOR_1, 32, AXIS_Y, cx, cy);
+                const pa = drawNucleus3(a3, 12, ATOM_COLORS.O, 1, cx, cy), pb = drawNucleus3(b3, 12, ATOM_COLORS.O, 1, cx, cy);
+                drawTopLabel('O', pa.x, pa.y - 90 * pa.s, ATOM_COLORS.O, 1); drawTopLabel('O', pb.x, pb.y - 90 * pb.s, ATOM_COLORS.O, 1);
+                if (d.sigma) drawBondTag(cx, cy - 96, 'σ', SIGMA_COLOR, 1);
+                if (d.pi) drawBondTag(cx, cy + 96, 'π', PI_COLOR_1, 1);
+            } else {
+                const d = state.s4.n2;
+                const pi1Reach = lerp(64, 108, d.pi1Frac);
+                drawAxis3(a3, b3, true, 0.25, cx, cy);
+                drawOrbitalCloud3('p', a3, 120, AXIS_X, 0.85, SIGMA_COLOR, true, false, cx, cy, true);
+                drawOrbitalCloud3('p', b3, 120, AXIS_X, 0.85, SIGMA_COLOR, true, false, cx, cy, true);
+                drawBondDensity3(a3, b3, d.sigmaFrac, 'axial', SIGMA_COLOR, 22, null, cx, cy);
+                drawOrbitalCloud3('p', a3, pi1Reach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+                drawOrbitalCloud3('p', b3, pi1Reach, AXIS_Y, 0.85, PI_COLOR_1, true, false, cx, cy, true);
+                if (d.pi1 || d.pi1Frac > 0) drawBondDensity3(a3, b3, d.pi1Frac, 'lateral', PI_COLOR_1, 30, AXIS_Y, cx, cy);
+                if (d.rotated) {
+                    const pi2Reach = lerp(62, 108, d.pi2Frac);
+                    // cặp AO p thứ ba — nằm trong mặt phẳng VUÔNG GÓC với cặp π thứ nhất (trục Z)
+                    drawOrbitalCloud3('p', a3, pi2Reach, AXIS_Z, 0.85, PI_COLOR_2, true, false, cx, cy, true);
+                    drawOrbitalCloud3('p', b3, pi2Reach, AXIS_Z, 0.85, PI_COLOR_2, true, false, cx, cy, true);
+                    if (d.pi2 || d.pi2Frac > 0) drawBondDensity3(a3, b3, d.pi2Frac, 'lateral', PI_COLOR_2, 26, AXIS_Z, cx, cy);
+                }
+                const pa = drawNucleus3(a3, 12, ATOM_COLORS.N, 1, cx, cy), pb = drawNucleus3(b3, 12, ATOM_COLORS.N, 1, cx, cy);
+                drawTopLabel('N', pa.x, pa.y - 88 * pa.s, ATOM_COLORS.N, 1); drawTopLabel('N', pb.x, pb.y - 88 * pb.s, ATOM_COLORS.N, 1);
+                if (d.sigma) drawBondTag(cx, cy - 94, 'σ', SIGMA_COLOR, 1);
+                if (d.pi1) drawBondTag(cx - 60, cy + 100, 'π', PI_COLOR_1, 1);
+                if (d.pi2) drawBondTag(cx + 60, cy + 100, 'π', PI_COLOR_2, 1);
+            }
+        }
+
+        function drawStage4Compare() {
+            const f = state.s4.compareFrac;
+            const cols = [
+                { key: 'H2', label: 'H2', labelDone: 'H2 — đơn', comp: '1σ', sym: 'H' },
+                { key: 'O2', label: 'O2', labelDone: 'O2 — đôi', comp: '1σ + 1π', sym: 'O' },
+                { key: 'N2', label: 'N2', labelDone: 'N2 — ba', comp: '1σ + 2π', sym: 'N' }
+            ];
+            const cy = 210, scale = 0.46;
+            if (!state.s4.compareReplay) state.s4.compareReplay = { H2: 1, O2: 1, N2: 1 };
+            cols.forEach((c, i) => {
+                const alpha = clamp(f * 3 - i, 0, 1);
+                if (alpha <= 0) return;
+                const rep = clamp(state.s4.compareReplay[c.key], 0, 1);
+                const born = alpha * rep;
+                const x = 140 + i * 240;
+                const closeSep = 90 * scale * 4;
+                const [a3, b3] = bondEnds3(lerp(closeSep * 1.35, closeSep, rep));
+                drawAxis3(a3, b3, true, 0.28 * alpha, x, cy);
+                const color = c.key === 'H2' ? ATOM_COLORS.H : (c.key === 'O2' ? ATOM_COLORS.O : ATOM_COLORS.N);
+                if (c.key === 'H2') {
+                    drawBondDensity3(a3, b3, born, 'axial', SIGMA_COLOR, 20, null, x, cy);
+                    drawOrbitalCloud3('s', a3, S1_R * scale, null, 0.9 * alpha, color, false, true, x, cy);
+                    drawOrbitalCloud3('s', b3, S1_R * scale, null, 0.9 * alpha, color, false, true, x, cy);
+                } else {
+                    const piScale = lerp(0.55, 1, rep);
+                    drawOrbitalCloud3('p', a3, 122 * scale, AXIS_X, 0.85 * alpha, SIGMA_COLOR, true, true, x, cy, true);
+                    drawOrbitalCloud3('p', b3, 122 * scale, AXIS_X, 0.85 * alpha, SIGMA_COLOR, true, true, x, cy, true);
+                    drawBondDensity3(a3, b3, born, 'axial', SIGMA_COLOR, 16, null, x, cy);
+                    drawBondDensity3(a3, b3, born, 'lateral', PI_COLOR_1, 20 * piScale, AXIS_Y, x, cy);
+                    if (c.key === 'N2') drawBondDensity3(a3, b3, born * 0.9, 'lateral', PI_COLOR_2, 14 * piScale, AXIS_Z, x, cy);
+                }
+                drawNucleus3(a3, 7, color, alpha, x, cy); drawNucleus3(b3, 7, color, alpha, x, cy);
+                drawTopLabel(state.s4.matchDone ? c.labelDone : c.label, x, cy + 78, COLORS_TEXT.ink2, alpha);
+                if (state.s4.matchDone) drawTopLabel(c.comp, x, cy + 96, COLORS_TEXT.ink2, alpha);
+                if (alpha > 0.6) canvasClickTargets.push({
+                    x: x - 70, y: cy - 100, w: 140, h: 190, onClick: () => {
+                        killTweensOf(state.s4.compareReplay, c.key);
+                        state.s4.compareReplay[c.key] = 0;
+                        tween(state.s4.compareReplay, c.key, 1, 1100, easeInOut, null);
+                    }
+                });
+            });
+        }
+
+        // ======================================================
+        // QUIZ (một lựa chọn — dùng cho Stage 1, 2, 3)
+        // ======================================================
+        let hideQuizTimeoutId = null;
+        function showGatedQuiz(question, options, correctKey, correctMsg, wrongMsg, onCorrect) {
+            const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+            const container = document.getElementById('quizContainer');
+            if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+            const qText = document.getElementById('quizQuestionText');
+            if (qText) qText.innerHTML = question;
+            const extra = document.getElementById('quizExtra');
+            if (extra) extra.innerHTML = '';
+
+            const list = document.getElementById('quizOptionsList');
+            if (list) {
+                list.innerHTML = '';
+                options.forEach(opt => {
+                    const li = document.createElement('li');
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option-btn';
+                    btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="icon_${opt.key}"></span>`;
+                    btn.onclick = () => {
+                        const btns = document.querySelectorAll('#quizOptionsList .quiz-option-btn');
+                        if (opt.key === correctKey) {
+                            btns.forEach(b => b.disabled = true);
+                            btn.classList.add('opt-correct');
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                            playSuccessFlash();
+                            setRobotSpeech(correctMsg, 'correct');
+                            lmsRecordAnswer(_qid, question, options, opt.key, true);
+                            onCorrect();
+                        } else {
+                            btn.classList.add('opt-wrong');
+                            btn.disabled = true;
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+                            btns.forEach(b => { if (!b.classList.contains('opt-wrong')) b.disabled = false; });
+                            setRobotSpeech(wrongMsg, 'wrong');
+                            lmsRecordAnswer(_qid, question, options, opt.key, false);
+                        }
+                    };
+                    li.appendChild(btn);
+                    list.appendChild(li);
+                });
+            }
+        }
+        function hideQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (container) {
+                container.classList.add('fade-out');
+                if (hideQuizTimeoutId) clearTimeout(hideQuizTimeoutId);
+                hideQuizTimeoutId = setTimeout(() => { container.style.display = 'none'; hideQuizTimeoutId = null; }, 200);
+            }
+        }
+
+        // ======================================================
+        // GHÉP THÀNH PHẦN LIÊN KẾT (drag & drop matching — Stage 4)
+        // ======================================================
+        let orderState = null;
+        function showOrderDnd(poolItems, slotLabels, correctOrder, onDone) {
+            const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            orderState = { slots: new Array(slotLabels.length).fill(null), correctOrder, onDone, locked: false, selected: null, _qid, poolItems, slotLabels };
+            const box = document.getElementById('dndContainer');
+            if (box) {
+                box.style.display = 'block';
+                box.innerHTML = `
+                    <div class="dnd-match-row">Bấm chọn một thẻ rồi bấm vào ô muốn ghép, hoặc kéo thẻ thả trực tiếp vào ô:</div>
+                    <div class="dnd-pool" id="dndPool"></div>
+                    <div class="dnd-zones" id="dndZones" style="margin-top:10px;"></div>
+                    <div id="dndCheckWrap"></div>
+                `;
+            }
+            const pool = document.getElementById('dndPool');
+            if (pool) {
+                const shuffled = poolItems.slice().sort(() => Math.random() - 0.5);
+                shuffled.forEach(item => {
+                    const chip = document.createElement('div');
+                    chip.className = 'dnd-chip';
+                    chip.innerText = item.label;
+                    chip.dataset.key = item.key;
+                    chip.onclick = () => { if (!chip._didDrag) selectOrderChip(chip, item.key); };
+                    bindChipDrag(chip, item.key);
+                    pool.appendChild(chip);
+                });
+            }
+            const zones = document.getElementById('dndZones');
+            if (zones) {
+                slotLabels.forEach((lbl, idx) => {
+                    const zone = document.createElement('div');
+                    zone.className = 'dnd-zone';
+                    zone.dataset.slot = idx;
+                    zone.innerHTML = `<span class="zone-label">${lbl}</span><span class="zone-value">— thả vào đây —</span>`;
+                    zone.onclick = () => handleZoneClick(zone, idx);
+                    zones.appendChild(zone);
+                });
+            }
+        }
+        function selectOrderChip(chipEl, key) {
+            if (chipEl.classList.contains('placed')) return;
+            document.querySelectorAll('.dnd-chip').forEach(c => c.classList.remove('selected'));
+            chipEl.classList.add('selected');
+            orderState.selected = { el: chipEl, key };
+        }
+        function bindChipDrag(chip, key) {
+            chip.addEventListener('pointerdown', (e) => {
+                if (chip.classList.contains('placed') || orderState.locked) return;
+                const startX = e.clientX, startY = e.clientY;
+                const rect = chip.getBoundingClientRect();
+                const offX = startX - rect.left, offY = startY - rect.top;
+                let dragging = false, hoverZone = null;
+                const onMove = (ev) => {
+                    const dx = ev.clientX - startX, dy = ev.clientY - startY;
+                    if (!dragging && Math.hypot(dx, dy) > 6) {
+                        dragging = true;
+                        chip._didDrag = true;
+                        chip.classList.add('dragging', 'selected');
+                        chip.style.position = 'fixed';
+                        chip.style.width = rect.width + 'px';
+                        chip.style.zIndex = 1000;
+                        chip.style.pointerEvents = 'none';
+                    }
+                    if (dragging) {
+                        chip.style.left = (ev.clientX - offX) + 'px';
+                        chip.style.top = (ev.clientY - offY) + 'px';
+                        const el = document.elementFromPoint(ev.clientX, ev.clientY);
+                        const zoneEl = el ? el.closest('.dnd-zone') : null;
+                        if (zoneEl !== hoverZone) {
+                            if (hoverZone) hoverZone.classList.remove('drag-over');
+                            hoverZone = zoneEl;
+                            if (hoverZone) hoverZone.classList.add('drag-over');
+                        }
+                    }
+                };
+                const onUp = () => {
+                    document.removeEventListener('pointermove', onMove);
+                    document.removeEventListener('pointerup', onUp);
+                    if (hoverZone) hoverZone.classList.remove('drag-over');
+                    if (dragging) {
+                        chip.classList.remove('dragging', 'selected');
+                        chip.style.position = ''; chip.style.left = ''; chip.style.top = ''; chip.style.width = ''; chip.style.zIndex = ''; chip.style.pointerEvents = '';
+                        if (hoverZone && !orderState.locked) {
+                            const idx = Number(hoverZone.dataset.slot);
+                            if (orderState.slots[idx] !== null) removeFromSlot(idx);
+                            placeIntoSlot(hoverZone, idx, { el: chip, key });
+                        }
+                        setTimeout(() => { chip._didDrag = false; }, 0);
+                    }
+                };
+                document.addEventListener('pointermove', onMove);
+                document.addEventListener('pointerup', onUp);
+            });
+        }
+        function handleZoneClick(zoneEl, idx) {
+            if (orderState.locked) return;
+            if (orderState.slots[idx]) { removeFromSlot(idx); return; }
+            if (orderState.selected) placeIntoSlot(zoneEl, idx, orderState.selected);
+        }
+        function placeIntoSlot(zoneEl, idx, chipInfo) {
+            zoneEl.classList.add('filled');
+            zoneEl.classList.remove('wrong-flash');
+            zoneEl.querySelector('.zone-value').innerText = chipInfo.el.innerText;
+            chipInfo.el.classList.add('placed');
+            chipInfo.el.classList.remove('selected');
+            orderState.slots[idx] = chipInfo.key;
+            orderState.selected = null;
+            spawnParticles(W / 2, 60, 'jade', 4);
+            renderDndCheckButton();
+        }
+        function removeFromSlot(idx) {
+            const key = orderState.slots[idx];
+            const zone = document.querySelector(`.dnd-zone[data-slot="${idx}"]`);
+            if (zone) { zone.classList.remove('filled'); zone.querySelector('.zone-value').innerText = '— thả vào đây —'; }
+            orderState.slots[idx] = null;
+            const chip = Array.from(document.querySelectorAll('.dnd-chip')).find(c => c.dataset.key === key);
+            if (chip) chip.classList.remove('placed');
+            renderDndCheckButton();
+        }
+        function renderDndCheckButton() {
+            const wrap = document.getElementById('dndCheckWrap');
+            if (wrap) {
+                const allFilled = orderState.slots.every(s => s !== null);
+                if (allFilled && !orderState.locked) {
+                    wrap.innerHTML = `<button class="btn-primary dnd-check-btn" id="dndCheckBtn">Kiểm tra <i class="ti ti-check"></i></button>`;
+                    const checkBtn = document.getElementById('dndCheckBtn');
+                    if (checkBtn) checkBtn.onclick = checkOrderDnd;
+                } else {
+                    wrap.innerHTML = '';
+                }
+            }
+        }
+        function checkOrderDnd() {
+            const isCorrect = orderState.slots.every((k, i) => k === orderState.correctOrder[i]);
+            const _dndOptions = orderState.slotLabels.map((lbl, i) => ({ key: String(i), text: lbl }));
+            const _dndChosen = orderState.slots.map((k, i) => orderState.slotLabels[i] + ' = ' + k).join('; ');
+            if (isCorrect) {
+                orderState.locked = true;
+                document.querySelectorAll('.dnd-zone').forEach(z => z.onclick = null);
+                playSuccessFlash();
+                spawnParticles(W / 2, H / 2, 'jade', 14);
+                const wrap = document.getElementById('dndCheckWrap');
+                if (wrap) wrap.innerHTML = '';
+                lmsRecordAnswer(orderState._qid, 'Ghép mỗi loại liên kết với đúng thành phần σ, π', _dndOptions, _dndChosen, true);
+                orderState.onDone(true);
+                updateNextButtonState();
+            } else {
+                document.querySelectorAll('.dnd-zone').forEach(z => { z.classList.add('wrong-flash'); setTimeout(() => z.classList.remove('wrong-flash'), 400); });
+                lmsRecordAnswer(orderState._qid, 'Ghép mỗi loại liên kết với đúng thành phần σ, π', _dndOptions, _dndChosen, false);
+                orderState.onDone(false);
+            }
+        }
+        function hideDnd() {
+            const box = document.getElementById('dndContainer');
+            if (box) { box.style.display = 'none'; box.innerHTML = ''; }
+            orderState = null;
+        }
+
+        // ======================================================
+        // ROBOT / AHA HELPERS
+        // ======================================================
+        let ahaVisible = false;
+        function setRobotSpeech(text, type) {
+            type = type || 'idle';
+            const guideBar = document.getElementById('aiGuideBar');
+            if (guideBar) guideBar.className = `ai-guide card state-${type}`;
+            const el = document.getElementById('aiText');
+            if (el) { el.classList.remove('fade-in'); void el.offsetWidth; el.innerHTML = text; el.classList.add('fade-in'); }
+        }
+        function showAhaMoment(text) {
+            const content = document.getElementById('ahaContent');
+            if (content) content.innerHTML = text;
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'block';
+            ahaVisible = true;
+        }
+        function hideAhaMoment() {
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'none';
+            ahaVisible = false;
+        }
+
+        // ======================================================
+        // STEPPER / NAVIGATION
+        // ======================================================
+        function setStageAction(label, iconClass, onclick, disabled) {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('stageActionBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'stageActionBtn';
+                container.insertBefore(btn, container.firstChild);
+            }
+            btn.innerHTML = `<i class="ti ${iconClass}"></i> ${label}`;
+            btn.disabled = !!disabled;
+            btn.onclick = onclick || null;
+            btn.style.display = 'inline-flex';
+        }
+        function clearStageAction() {
+            const btn = document.getElementById('stageActionBtn');
+            if (btn) btn.style.display = 'none';
+        }
+
+        function initNextButton() {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('nextBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'nextBtn';
+                btn.onclick = handleNextAction;
+                container.appendChild(btn);
+            }
+            btn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            btn.disabled = true;
+        }
+
+        function updateNextButtonState() {
+            const nextBtn = document.getElementById('nextBtn');
+            if (!nextBtn) return;
+            if (state.stage === 1) nextBtn.disabled = !(state.s1.quizDone && state.s1.triedFar && state.s1.triedBonded && state.s1.triedClose);
+            else if (state.stage === 2) nextBtn.disabled = !state.s2.quizDone;
+            else if (state.stage === 3) nextBtn.disabled = !state.s3.quizDone;
+            else if (state.stage === 4) {
+                nextBtn.disabled = !state.s4.matchDone;
+                nextBtn.innerHTML = state.s4.matchDone ? 'Hoàn tất <i class="ti ti-confetti"></i>' : 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            }
+        }
+
+        function handleNextAction() {
+            if (state.stage === STAGE_COUNT) { if (state.s4.matchDone) { showCompletionModal(); return; } }
+            if (state.stage < STAGE_COUNT) jumpToStage(state.stage + 1);
+        }
+
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.style.display = 'flex';
+            spawnParticles(W / 2, H / 2, 'jade', 20);
+            requestAnimationFrame(() => modal.classList.add('show'));
+            if (!window._lmsCompletedOnce) {
+                window._lmsCompletedOnce = true;
+                const items = Object.keys(lmsAnswers).map(qid => Object.assign({ id: qid }, lmsAnswers[qid]));
+                const score = items.filter(it => it.correct).length;
+                LMS().complete({ summary: 'Hoàn thành module Sự Xen Phủ Orbital Và Liên Kết Cộng Hóa Trị.', score, max: items.length, items });
+            }
+        }
+        function hideCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 250);
+        }
+        document.getElementById('completionModal').addEventListener('click', (e) => { if (e.target.id === 'completionModal') hideCompletionModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('completionModal').classList.contains('show')) hideCompletionModal(); });
+
+        function resetCurrentStage() { initStageByIndex(state.stage); }
+        function initStageByIndex(s) {
+            clearStageAction();
+            switchStageExtra('');
+            if (s === 1) initStage1();
+            else if (s === 2) initStage2();
+            else if (s === 3) initStage3();
+            else if (s === 4) initStage4();
+        }
+        function updateStepProgress() {
+            const dots = document.getElementById('stepperDots');
+            dots.innerHTML = '';
+            for (let i = 1; i <= STAGE_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'step-dot';
+                if (i === state.stage) dot.classList.add('active');
+                else if (i < state.stage) dot.classList.add('done');
+                dot.innerHTML = i < state.stage ? '<i class="ti ti-check"></i>' : String(i);
+                dot.onclick = () => jumpToStage(i);
+                dots.appendChild(dot);
+            }
+            document.getElementById('prevBtn').disabled = (state.stage === 1 || state.isAnimating);
+            document.getElementById('resetBtn').disabled = state.isAnimating;
+            updateNextButtonState();
+        }
+        function goToPrevStage() { if (state.isAnimating) return; if (state.stage > 1) jumpToStage(state.stage - 1); }
+        function jumpToStage(s) { if (state.isAnimating) return; state.stage = s; initStageByIndex(s); lmsReportState('jumpToStage=' + s); }
+
+        // ======================================================
+        // SIDEBAR TRÁI — đồng bộ "Công cụ mô phỏng" + "Cách làm"
+        // ======================================================
+        function computeMicroPhase() {
+            if (state.isAnimating) return 2;
+            if (ahaVisible) return 4;
+            if (state.stage === 1) return state.s1.quizDone ? 3 : (state.s1.started ? 1 : 0);
+            if (state.stage === 2) return state.s2.quizDone ? 3 : (state.s2.compareShown ? 3 : (state.s2.h2Done || state.s2.hfDone || state.s2.cl2Done ? 1 : 0));
+            if (state.stage === 3) return state.s3.quizDone ? 3 : (state.s3.piCreated ? 1 : 0);
+            if (state.stage === 4) return state.s4.matchDone ? 4 : (state.s4.compareShown ? 3 : (state.s4.h2.done || state.s4.o2.done || state.s4.n2.done ? 1 : 0));
+            return 0;
+        }
+        function syncToolsAndSteps() {
+            const phase = computeMicroPhase();
+            document.querySelectorAll('#stepList .step-row').forEach(row => {
+                const idx = Number(row.dataset.step);
+                row.classList.toggle('is-active', idx === phase);
+                row.classList.toggle('is-done', idx < phase);
+                const numEl = row.querySelector('.step-num');
+                numEl.innerHTML = idx < phase ? '<i class="ti ti-check"></i>' : String(idx + 1);
+            });
+            document.querySelectorAll('.tool-chip').forEach(chip => {
+                const t = chip.dataset.tool;
+                let active = t === 'ao';
+                if (state.stage === 2 && t === 'sigma') active = true;
+                if (state.stage === 3 && (t === 'sigma' || t === 'pi')) active = true;
+                if (state.stage === 4 && (t === 'sigma' || t === 'pi' || t === 'bond')) active = true;
+                if ((state.stage === 3 || (state.stage === 4 && state.s4.molecule === 'N2')) && t === 'rotate') active = true;
+                chip.classList.toggle('active', active);
+            });
+        }
+
+        // ======================================================
+        // BẢNG QUAN SÁT — điền dần khi từng phần được khám phá
+        // ======================================================
+        const OBSERVE_ROWS = [
+            { key: 'h2s1', mol: 'H2', info: '—', visible: () => state.s1.started, note: () => state.s1.quizDone ? 'Cặp electron liên kết đã hình thành' : (state.s1.pushing ? 'Quá gần: xuất hiện lực đẩy' : 'Đang tiến lại gần') },
+            { key: 'h2sigma', mol: 'H2', info: 's – s', visible: () => state.s2.h2Done, note: () => state.s2.quizDone ? 'Xen phủ trục → liên kết σ' : 'Mật độ electron tăng dọc trục' },
+            { key: 'hfsigma', mol: 'HF', info: 's – p', visible: () => state.s2.hfDone, note: () => state.s2.quizDone ? 'Xen phủ trục → liên kết σ' : 'Mật độ electron tăng dọc trục' },
+            { key: 'cl2sigma', mol: 'Cl2', info: 'p – p', visible: () => state.s2.cl2Done, note: () => state.s2.quizDone ? 'Xen phủ trục → liên kết σ' : 'Mật độ electron tăng dọc trục' },
+            { key: 'o2pi', mol: 'O2', info: 'p – p song song', visible: () => state.s3.piCreated, note: () => state.s3.quizDone ? 'Xen phủ bên → liên kết π' : 'Mật độ electron tăng hai phía trục' },
+            { key: 'h2final', mol: 'H2', info: () => state.s4.matchDone ? '1σ' : '?', visible: () => state.s4.h2.done, note: () => state.s4.matchDone ? 'Liên kết đơn' : 'Đang quan sát' },
+            { key: 'o2final', mol: 'O2', info: () => state.s4.matchDone ? '1σ + 1π' : '?', visible: () => state.s4.o2.done, note: () => state.s4.matchDone ? 'Liên kết đôi' : 'Đang quan sát' },
+            { key: 'n2final', mol: 'N2', info: () => state.s4.matchDone ? '1σ + 2π' : '?', visible: () => state.s4.n2.done, note: () => state.s4.matchDone ? 'Liên kết ba' : 'Đang quan sát' }
+        ];
+        const observePrevTrend = {};
+        function refreshObserveTable() {
+            const tbody = document.getElementById('observeTableBody');
+            const rows = OBSERVE_ROWS.filter(r => r.visible());
+            if (!rows.length) { tbody.innerHTML = '<tr><td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td></tr>'; return; }
+            tbody.innerHTML = '';
+            rows.forEach(r => {
+                const info = typeof r.info === 'function' ? r.info() : r.info;
+                const trend = r.note() || '?';
+                const flash = observePrevTrend[r.key] !== trend && trend !== '?';
+                observePrevTrend[r.key] = trend;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${r.mol} <span class="muted" style="font-size:11px;">(${info})</span></td><td>${info}</td><td class="${trend === '?' ? 'muted' : ''}${flash ? ' flash' : ''}">${trend}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        setInterval(() => {
+            updateNextButtonState();
+            refreshObserveTable();
+            syncToolsAndSteps();
+        }, 300);
+
+        // ======================================================
+        // KHỞI CHẠY
+        // ======================================================
+        initStage1();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

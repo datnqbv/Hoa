@@ -1,0 +1,1588 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm: Sự đông tụ Protein khi đun nóng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --primary: #0f4c81;
+            --primary-rgb: 15, 76, 129;
+            --secondary: #1a7a5e;
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --btn-bg: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+        }
+
+        /* Elements Width Constraint */
+        .lab-block {
+            width: 100%;
+            max-width: 760px;
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+        }
+
+        /* HEADER */
+        header.lab-block {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            border: none;
+        }
+
+        header.lab-block::before,
+        header.lab-block::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        header.lab-block::before {
+            width: 150px;
+            height: 150px;
+            top: -50px;
+            right: -30px;
+        }
+
+        header.lab-block::after {
+            width: 100px;
+            height: 100px;
+            bottom: -30px;
+            left: 20%;
+        }
+
+        .header-badge {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .header-title {
+            color: #ffffff;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 4px;
+        }
+
+        .header-desc {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 0.95rem;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            display: flex;
+            background: transparent;
+            border: none;
+            gap: 12px;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: 12px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .info-text {
+            font-size: 13.5px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        /* CANVAS CONTAINER */
+        .canvas-container {
+            position: relative;
+            background: #e2e8f0;
+            overflow: hidden;
+            display: block;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background-color: #e2e8f0;
+        }
+
+        /* CONTROLS (Kiểu B - Stepper tuần tự) */
+        .controls-panel {
+            padding: 18px 22px;
+            background: #faf5ff;
+            border: 1px solid #e9d5ff;
+        }
+
+        .controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .controls-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .step-counter {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            background: rgba(15, 76, 129, 0.1);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 10px;
+        }
+
+        /* Progress Dots */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin: 16px 0;
+            position: relative;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: calc(50% - 40px);
+            width: 80px;
+            height: 2px;
+            background: var(--border);
+            z-index: 1;
+        }
+
+        .progress-line.passed {
+            background: var(--secondary);
+        }
+
+        .dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-sub);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            transform: scale(1.2);
+            border-color: var(--primary);
+            color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.15);
+        }
+
+        .dot.passed {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: #ffffff;
+        }
+
+        /* Step card */
+        .step-card {
+            border-left: 3px solid var(--primary);
+            background: var(--btn-bg);
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 16px;
+        }
+
+        .step-name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        /* Buttons & Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        button {
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            font-family: inherit;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            background-color: var(--btn-bg);
+            color: var(--text-main);
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: #ffffff;
+        }
+
+        button.btn-active {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.btn-active:hover:not(:disabled) {
+            background-color: #0c3d68;
+            color: #ffffff;
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--border);
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed !important;
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: var(--text-sub);
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinning {
+            display: inline-block;
+            animation: spin 0.9s linear infinite;
+        }
+
+        /* EXPLANATION BOX */
+        .explanation-box {
+            padding: 16px;
+            border: 1px solid #fde68a;
+            border-left: 4px solid #d97706;
+            background: #fffbeb;
+            transition: all 0.3s ease;
+        }
+
+        .explanation-box.success-state {
+            border: 1px solid #bbf7d0;
+            border-left: 4px solid #16a34a;
+            background: #f0fdf4;
+        }
+
+        .explanation-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #d97706;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .explanation-box.success-state .explanation-title {
+            color: #16a34a;
+        }
+
+        .explanation-content {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="lab-block">
+
+        <h1 class="header-title">Sự đông tụ Protein khi đun nóng</h1>
+        <div class="header-desc">Quan sát hiện tượng biến tính cấu trúc và đông tụ của lòng trắng trứng dưới tác dụng
+            của nhiệt độ.</div>
+    </header>
+
+    <div class="lab-block info-panel">
+        <div class="info-col">
+            <div class="info-label">
+                <i class="ti ti-target-arrow"></i> Mục đích thí nghiệm
+            </div>
+            <div class="info-text">
+                Chứng minh sự biến tính vật lý của protein (albumin trong lòng trắng trứng) dưới tác động của nhiệt độ
+                cao, tạo ra các mảng kết tủa rắn.
+            </div>
+        </div>
+        <div class="info-col">
+            <div class="info-label">
+                <i class="ti ti-list-numbers"></i> Hướng dẫn thao tác
+            </div>
+            <div class="info-text">
+                <ol style="padding-left: 16px; display: flex; flex-direction: column; gap: 6px; margin: 0;">
+                    <li>Dùng ống hút nhỏ giọt hút chất lỏng từ cốc thủy tinh và cho vào ống nghiệm khoảng 2 - 3 ml dung dịch protein 10% (được pha từ lòng trắng trứng 10%).</li>
+                    <li>Dùng kẹp gỗ kẹp ống nghiệm và đun nóng trực tiếp trên ngọn lửa đèn cồn. Vừa đun vừa hơ đều ống nghiệm cho đến khi dung dịch bên trong sôi (kéo dài trong khoảng 1 phút).</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="lab-block canvas-container">
+        <canvas id="labCanvas"></canvas>
+    </div>
+
+    <div class="lab-block controls-panel">
+        <div class="controls-header">
+            <div class="controls-title">
+                <i class="ti ti-layers-intersect"></i> Quy Trình Thí Nghiệm
+            </div>
+            <div id="stepCounter" class="step-counter">Bước 1 / 2</div>
+        </div>
+
+        <div class="progress-container">
+            <div id="pLine" class="progress-line"></div>
+            <div id="dot1" class="dot active">1</div>
+            <div id="dot2" class="dot">2</div>
+        </div>
+
+        <div class="step-card">
+            <div id="stepName" class="step-name">Bước 1: Lấy dung dịch Protein vào ống nghiệm</div>
+            <div id="stepDesc" class="step-desc">Sử dụng pipette lấy dung dịch lòng trắng trứng 10% từ cốc thủy tinh và
+                nhỏ khoảng 2 - 3 ml vào ống nghiệm.</div>
+        </div>
+
+        <div class="nav-container">
+            <div class="nav-left">
+                <button id="btnReset" class="btn-reset" title="Làm lại thí nghiệm từ đầu">
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            </div>
+            <div id="statusText" class="status-text">
+                <i class="ti ti-hand-click"></i> Chờ thao tác...
+            </div>
+            <button id="btnNext" class="btn-active">
+                <span>Tiếp theo</span> <i id="nextIcon" class="ti ti-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="explanationBox" class="lab-block explanation-box">
+        <div id="explanationTitle" class="explanation-title">
+            <i class="ti ti-info-circle"></i> Trạng thái chuẩn bị
+        </div>
+        <div id="explanationContent" class="explanation-content">
+            Hệ thống đã sẵn sàng. Hãy bấm nút "Tiếp theo" để bắt đầu nạp dung dịch albumin lòng trắng trứng vào ống
+            nghiệm sạch.
+        </div>
+    </div>
+
+    <script>
+        // --- CANVAS CONFIGURATION & UTILITIES ---
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760;
+        const H = 440;
+        canvas.width = W;
+        canvas.height = H;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            let r = Math.round(c1.r + (c2.r - c1.r) * t);
+            let g = Math.round(c1.g + (c2.g - c1.g) * t);
+            let b = Math.round(c1.b + (c2.b - c1.b) * t);
+            let a = (c1.a !== undefined && c2.a !== undefined) ? c1.a + (c2.a - c1.a) * t : 1.0;
+            return `rgba(${r},${g},${b},${a})`;
+        }
+
+        // --- EXPERIMENT STATES ---
+        let currentStep = 1;      // 1 or 2
+        let subStep = 0;          // 0: Idle, 1: Animating, 4: Done
+        let animTimer = 0;
+        let isAnimating = false;
+        let globalTime = 0;
+
+        // Chemicals/Liquid configuration
+        const initialLiquidColor = { r: 240, g: 240, b: 245, a: 0.35 }; // Trắng xám mờ trong suốt (albumin ban đầu)
+        const targetLiquidColor = { r: 250, g: 250, b: 250, a: 0.95 };  // Trắng đục hoàn toàn (đông tụ chín)
+        let currentChemLabel = "Ống nghiệm trống";
+        let hasLiquid = false;
+        let liquidLevel = 0;       // 0 to 1
+        let reactProgress = 0;     // 0 to 1 (khi đun nóng)
+        let hasReacted = false;
+
+        // Trạng thái mới của pipette và cốc chứa lòng trắng trứng
+        let pipetteSqueeze = 0;       // 0 đến 1 (bóp bóng cao su)
+        let pipetteFilledLevel = 0;   // 0 đến 1 (mức chất lỏng trong pipette)
+        let beakerLiquidLevel = 1.0;  // 1.0 đến 0.7 (mức chất lỏng trong cốc)
+
+        // Drop & Stream variables
+        let isDropping = false;
+        let dropY = 0;
+        let isPouringStream = false;
+        let streamProgress = 0;
+
+        // Equipment placement positions
+        const TX = W / 2 + 60;      // Ống nghiệm nằm lệch phải chút để nhường chỗ cho đèn cồn/cốc
+        const TY = 140;            // Miệng ống nghiệm
+        const cốcX = W / 2 - 180;  // Vị trí cốc thủy tinh đựng trứng
+        const cốcY = 250;
+
+        let pipetteX = cốcX;
+        let pipetteY = cốcY - 60;
+        let pipetteAngle = 0;
+
+        let burnerLit = false;
+        let burnerX = TX;
+        let burnerY = TY + 195;
+
+        // Particle System
+        let particles = [];
+        let flashProgress = 0;
+        let flashActive = false;
+        let ripples = [];
+
+        // --- STEP CONTENT MATRIX ---
+        const stepData = {
+            1: {
+                title: "Bước 1 / 2",
+                name: "Bước 1: Lấy dung dịch Protein vào ống nghiệm",
+                desc: "Sử dụng pipette lấy dung dịch lòng trắng trứng 10% từ cốc thủy tinh và nhỏ khoảng 2 - 3 ml vào ống nghiệm.",
+                expTitle: "<i class='ti ti-info-circle'></i> Tiến trình phản ứng",
+                expContent: "D dung dịch lòng trắng trứng chứ Albumin - một protein hình cầu tan trong nước tạo thành dung dịch keo khá trong suốt.",
+                stateClass: ""
+            },
+            2: {
+                title: "Bước 2 / 2",
+                name: "Bước 2: Đun nóng trên ngọn lửa đèn cồn",
+                desc: "Kẹp gỗ giữ ống nghiệm và hơ đều, đun nóng trực tiếp trên ngọn lửa đèn cồn cho tới khi dung dịch sôi.",
+                expTitle: "<i class='ti ti-circle-check'></i> Kết quả hiện tượng",
+                expContent: "Dưới tác dụng của nhiệt độ cao, các liên kết yếu giữ cấu trúc không gian của protein bị đứt gãy làm chuỗi polipeptit duỗi thẳng, các nhóm kỵ nước quay ra ngoài, tương tác liên kết lại với nhau tạo hiện tượng vón cục, kết tủa trắng (sự đông tụ).",
+                stateClass: "success-state"
+            }
+        };
+
+        // --- GRAPHICS DRAWING FUNCTIONS ---
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15,76,129,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+            }
+            for (let y = 0; y <= H; y += 30) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Vẽ giá đỡ ống nghiệm kim loại ổn định cố định
+        function drawStaticEquipment() {
+            // Chân đế giá đỡ đáy
+            ctx.save();
+            let baseGrad = ctx.createLinearGradient(TX - 120, H - 30, TX + 120, H - 30);
+            baseGrad.addColorStop(0, '#2d3748');
+            baseGrad.addColorStop(0.5, '#4a5568');
+            baseGrad.addColorStop(1, '#1a202c');
+            ctx.fillStyle = baseGrad;
+            ctx.beginPath();
+            ctx.roundRect(TX - 100, H - 35, 200, 15, 4);
+            ctx.fill();
+
+            // Thanh sắt đứng dọc
+            let rodGrad = ctx.createLinearGradient(TX + 75, 80, TX + 83, 80);
+            rodGrad.addColorStop(0, '#718096');
+            rodGrad.addColorStop(0.5, '#e2e8f0');
+            rodGrad.addColorStop(1, '#4a5568');
+            ctx.fillStyle = rodGrad;
+            ctx.fillRect(TX + 75, 80, 8, H - 110);
+
+            // Khớp nối kẹp giữ thanh ngang
+            ctx.fillStyle = '#4a5568';
+            ctx.beginPath();
+            ctx.roundRect(TX + 70, TY + 20, 18, 20, 2);
+            ctx.fill();
+
+            // Vòng kẹp ngang giữ ống nghiệm
+            ctx.strokeStyle = '#4a5568';
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(TX + 70, TY + 30);
+            ctx.lineTo(TX + 18, TY + 30);
+            ctx.stroke();
+
+            // Kẹp gỗ bọc cách nhiệt bao quanh ống
+            ctx.fillStyle = '#b45309'; // Màu gỗ mờ nâu đậm
+            ctx.beginPath();
+            ctx.roundRect(TX - 24, TY + 18, 42, 22, 3);
+            ctx.fill();
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // Vẽ cốc thủy tinh cố định đựng mẫu lòng trắng trứng ban đầu
+        function drawBeaker() {
+            ctx.save();
+            // Thân cốc trong suốt nhẹ
+            ctx.fillStyle = 'rgba(230, 242, 255, 0.3)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            ctx.moveTo(cốcX - 45, cốcY - 40);
+            ctx.lineTo(cốcX - 45, cốcY + 50);
+            ctx.quadraticCurveTo(cốcX - 45, cốcY + 60, cốcX - 35, cốcY + 60);
+            ctx.lineTo(cốcX + 35, cốcY + 60);
+            ctx.quadraticCurveTo(cốcX + 45, cốcY + 60, cốcX + 45, cốcY + 50);
+            ctx.lineTo(cốcX + 45, cốcY - 40);
+            ctx.stroke();
+            ctx.fill();
+
+            // Vành cốc lip mỏng phía trên cùng
+            ctx.beginPath();
+            ctx.ellipse(cốcX, cốcY - 40, 45, 5, 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Dung dịch lòng trắng trứng 10% trong cốc (dùng beakerLiquidLevel để vẽ mức nước giảm dần)
+            if (beakerLiquidLevel > 0) {
+                ctx.fillStyle = 'rgba(240, 240, 245, 0.4)';
+                ctx.beginPath();
+                // Chiều cao đầy ban đầu là 30px (từ cốcY + 50 lên cốcY + 20)
+                let waterHeight = 30 * beakerLiquidLevel;
+                let waterTopY = cốcY + 50 - waterHeight;
+                ctx.moveTo(cốcX - 43, waterTopY);
+                // Vẽ mặt khum lõm sóng nhẹ meniscus
+                ctx.quadraticCurveTo(cốcX, waterTopY - 4, cốcX + 43, waterTopY);
+                ctx.lineTo(cốcX + 43, cốcY + 50);
+                ctx.quadraticCurveTo(cốcX + 41, cốcY + 58, cốcX, cốcY + 58);
+                ctx.quadraticCurveTo(cốcX - 41, cốcY + 58, cốcX - 43, cốcY + 50);
+                ctx.closePath();
+                ctx.fill();
+
+                // Meniscus highlight line
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(cốcX - 43, waterTopY);
+                ctx.quadraticCurveTo(cốcX, waterTopY - 3, cốcX + 43, waterTopY);
+                ctx.stroke();
+            }
+
+            // Vệt sáng thủy tinh lung linh dọc thành cốc
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(cốcX - 38, cốcY - 30);
+            ctx.lineTo(cốcX - 38, cốcY + 45);
+            ctx.stroke();
+
+            // Nhãn tên hóa chất dán ngoài thành cốc
+            ctx.fillStyle = '#475569';
+            ctx.font = 'bold 10px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText("Lòng trắng trứng 10%", cốcX, cốcY + 75);
+            ctx.restore();
+        }
+
+        // Thiết kế chi tiết ống nghiệm tương tác chính
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            // Thân ống nghiệm tròn đáy thuôn dài
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.35)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Chất lỏng dâng lên bên trong ống nghiệm theo tiến trình hoạt họa
+            if (hasLiquid && liquidLevel > 0) {
+                // Xác định chiều cao dâng tối đa mức chất lỏng
+                let liquidHeight = lerp(0, 65, liquidLevel); // max dâng 65px
+                let currentYTop = ty + 125 - liquidHeight;
+
+                // Chọn màu tương ứng tiến độ phản ứng đông tụ
+                const liquidColor = hasReacted
+                    ? lerpColor(initialLiquidColor, targetLiquidColor, reactProgress)
+                    : 'rgba(240, 240, 245, 0.4)';
+
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(tx - 16, currentYTop);
+                // Vẽ mặt khum khía lõm tự nhiên meniscus của chất lỏng ống nghiệm
+                ctx.quadraticCurveTo(tx, currentYTop + 3, tx + 16, currentYTop);
+                ctx.lineTo(tx + 16, ty + 110);
+                ctx.quadraticCurveTo(tx + 16, ty + 133, tx, ty + 133);
+                ctx.quadraticCurveTo(tx - 16, ty + 133, tx - 16, ty + 110);
+                ctx.closePath();
+                ctx.fillStyle = liquidColor;
+                ctx.fill();
+
+                // Vẽ đường cong sáng bề mặt dung dịch
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(tx - 16, currentYTop);
+                ctx.quadraticCurveTo(tx, currentYTop + 4 + Math.sin(globalTime * 0.05) * 0.5, tx + 16, currentYTop);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // Vệt sáng dọc lung linh phản xạ kính thủy tinh trái
+            ctx.beginPath();
+            ctx.moveTo(tx - 13, ty + 8);
+            ctx.lineTo(tx - 13, ty + 115);
+            ctx.quadraticCurveTo(tx - 13, ty + 128, tx, ty + 129);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Miệng ống gờ loe dày
+            ctx.beginPath();
+            ctx.moveTo(tx - 21, ty);
+            ctx.lineTo(tx + 21, ty);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Nhãn tên chất lỏng hiển thị dưới đáy
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 11px "Plus Jakarta Sans", Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(currentChemLabel, tx, ty + 155);
+            ctx.restore();
+        }
+
+        // Vẽ dụng cụ bóp nhỏ giọt Pipette linh hoạt
+        function drawDropper(x, y, angle, colorFill, label, bulbSqueeze = 0, filledLevel = 0) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Bóng cao su bóp đẩy màu đỏ cam đậm mượt
+            let sqX = bulbSqueeze * 3.5; // bóp xẹp chiều ngang
+            let sqY = bulbSqueeze * 2.0; // hơi lún xuống chiều dọc một chút
+            ctx.fillStyle = '#dc2626';
+            ctx.beginPath();
+            ctx.moveTo(-8 + sqX, -15);
+            ctx.quadraticCurveTo(-14, -40 + sqY, 0, -45 + sqY);
+            ctx.quadraticCurveTo(14, -40 + sqY, 8 - sqX, -15);
+            ctx.closePath();
+            ctx.fill();
+
+            // Vệt highlight trên bóng cao su hình elip trắng mờ
+            ctx.fillStyle = 'rgba(255,255,255,0.3)';
+            ctx.beginPath();
+            ctx.ellipse(-3 + sqX * 0.3, -30 + sqY, 2.5 * (1 - bulbSqueeze * 0.4), 7 * (1 - bulbSqueeze * 0.2), -0.2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Thân thủy tinh dài thon mảnh thu dần về đầu kim nhỏ
+            ctx.fillStyle = 'rgba(240, 248, 255, 0.4)';
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.8)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-6, -15);
+            ctx.lineTo(-6, 25);
+            ctx.lineTo(-2, 55);
+            ctx.lineTo(2, 55);
+            ctx.lineTo(6, 25);
+            ctx.lineTo(6, -15);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Dung dịch nạp hút chứa bên trong ống nhỏ giọt (dùng filledLevel để vẽ chiều cao)
+            if (colorFill && filledLevel > 0) {
+                ctx.fillStyle = colorFill;
+                ctx.beginPath();
+                // Chiều cao đầy tối đa từ y=50 lên y=-5 (khoảng cách 55px)
+                let topLiquidY = 50 - 55 * filledLevel;
+                let w = lerp(1.5, 4.5, filledLevel);
+                ctx.moveTo(-w, topLiquidY);
+                ctx.lineTo(-1.5, 50);
+                ctx.lineTo(1.5, 50);
+                ctx.lineTo(w, topLiquidY);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            // Vệt sáng trắng phản chiếu kính thủy tinh dọc thân máy
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillRect(-5, -10, 2.5, 55);
+
+            // Hiển thị nhãn tên hóa chất nạp trên đỉnh đầu
+            if (label) {
+                ctx.fillStyle = '#475569';
+                ctx.font = 'bold 10px "Plus Jakarta Sans", Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, 0, -55);
+            }
+
+            ctx.restore();
+        }
+
+        // Thiết kế cấu trúc hình giọt chất lỏng đang rơi tinh tế rơi rớt tự nhiên
+        function drawDrop(x, y, color) {
+            ctx.save();
+            ctx.fillStyle = color || 'rgba(195, 225, 255, 0.85)';
+            ctx.beginPath();
+            ctx.moveTo(x, y - 9);
+            // Tạo hình giọt thon gọn đầu nhọn đuôi tròn đầy bằng quadratic bezier
+            ctx.quadraticCurveTo(x - 5, y - 2, x - 4, y + 1);
+            ctx.quadraticCurveTo(x, y + 5, x + 4, y + 1);
+            ctx.quadraticCurveTo(x + 5, y - 2, x, y - 9);
+            ctx.fill();
+
+            // Điểm sáng lung linh nhỏ góc trên trái giọt nước
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
+            ctx.beginPath();
+            ctx.arc(x - 1, y - 3, 1.2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        // Vẽ đèn cồn và cấu trúc ngọn lửa chuyển động flickering chân thực
+        function drawAlcoholBurner() {
+            ctx.save();
+            let bx = burnerX, by = burnerY;
+
+            // 1. Thân bình chứa thủy tinh dạng bình bầu cổ hẹp rất giống ảnh thực tế
+            ctx.fillStyle = 'rgba(240, 245, 250, 0.2)'; // Thủy tinh trong suốt
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            // Cổ bình bên trái
+            ctx.moveTo(bx - 12, by - 8);
+            ctx.lineTo(bx - 12, by + 10);
+            // Vai bình và bầu phình ra
+            ctx.quadraticCurveTo(bx - 38, by + 12, bx - 38, by + 35);
+            ctx.quadraticCurveTo(bx - 38, by + 55, bx - 22, by + 55);
+            // Đáy phẳng của bình
+            ctx.lineTo(bx + 22, by + 55);
+            // Bầu phình bên phải
+            ctx.quadraticCurveTo(bx + 38, by + 55, bx + 38, by + 35);
+            ctx.quadraticCurveTo(bx + 38, by + 12, bx + 12, by + 10);
+            // Cổ bình bên phải
+            ctx.lineTo(bx + 12, by - 8);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Nhiên liệu cồn trong suốt giống hệt ảnh thực tế (đầy khoảng 50% bình)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.18)'; // Trong suốt không màu như nước cồn
+            ctx.beginPath();
+            let cồnY = by + 28; // Mực nước cồn
+            ctx.moveTo(bx - 36, cồnY);
+            ctx.quadraticCurveTo(bx, cồnY - 2, bx + 36, cồnY);
+            ctx.lineTo(bx + 37, by + 35);
+            ctx.quadraticCurveTo(bx + 37, by + 53, bx + 21, by + 53);
+            ctx.lineTo(bx - 21, by + 53);
+            ctx.quadraticCurveTo(bx - 37, by + 53, bx - 37, by + 35);
+            ctx.closePath();
+            ctx.fill();
+
+            // Vẽ viền mặt cồn lỏng nhẹ nhàng
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(bx - 36, cồnY);
+            ctx.quadraticCurveTo(bx, cồnY - 2, bx + 36, cồnY);
+            ctx.stroke();
+
+            // 3. Sợi bấc chìm ngập xù xì dưới bình cồn (chùm sợi vải bông trắng ngà xòe rộng ra đáy)
+            ctx.fillStyle = 'rgba(222, 216, 200, 0.65)';
+            ctx.beginPath();
+            ctx.moveTo(bx - 4, by + 15);
+            ctx.quadraticCurveTo(bx - 24, by + 35, bx - 16, by + 52);
+            ctx.lineTo(bx + 16, by + 52);
+            ctx.quadraticCurveTo(bx + 24, by + 35, bx + 4, by + 15);
+            ctx.closePath();
+            ctx.fill();
+
+            // Thêm các nét sọc xơ bấc tự nhiên
+            ctx.strokeStyle = 'rgba(240, 235, 220, 0.45)';
+            ctx.lineWidth = 1.8;
+            for (let i = -12; i <= 12; i += 6) {
+                ctx.beginPath();
+                ctx.moveTo(bx + i * 0.25, by + 15);
+                ctx.lineTo(bx + i, by + 51);
+                ctx.stroke();
+            }
+
+            // 4. Ống bấc sứ màu trắng (ceramic holder) ở cổ bình
+            ctx.fillStyle = '#f8fafc';
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            // Vẽ ống bọc sứ hình trụ chạy từ miệng bình xuống dưới cổ
+            ctx.roundRect(bx - 5.5, by - 8, 11, 24, 1);
+            ctx.fill();
+            ctx.stroke();
+
+            // Đầu bấc sứ loe to trên đỉnh cổ bình
+            ctx.fillStyle = '#f1f5f9';
+            ctx.beginPath();
+            ctx.ellipse(bx, by - 8, 7, 2, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // 5. Sợi bấc nhô lên trên (cháy đen nhẹ)
+            ctx.fillStyle = '#4b5563';
+            ctx.beginPath();
+            ctx.ellipse(bx, by - 10, 3.5, 1.5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 6. Hoạt họa ngọn lửa đèn cồn sống động nếu được thắp sáng
+            if (burnerLit) {
+                ctx.save();
+                // Hiệu ứng ánh sáng tỏa nhạt xung quanh đèn
+                let glowGrad = ctx.createRadialGradient(bx, by - 25, 2, bx, by - 25, 40);
+                glowGrad.addColorStop(0, 'rgba(253, 186, 116, 0.3)');
+                glowGrad.addColorStop(1, 'rgba(253, 186, 116, 0)');
+                ctx.fillStyle = glowGrad;
+                ctx.beginPath();
+                ctx.arc(bx, by - 25, 40, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tạo độ rung lắc ngọn lửa theo thời gian thực flickering biến động
+                let flicker = Math.sin(globalTime * 0.3) * 2;
+                let flameH = 32 + Math.cos(globalTime * 0.4) * 3;
+
+                // Lớp lửa ngoài cùng màu cam rực rỡ
+                ctx.fillStyle = '#f97316';
+                ctx.beginPath();
+                ctx.moveTo(bx - 10, by - 14);
+                ctx.quadraticCurveTo(bx - 14, by - 30, bx + flicker, by - 14 - flameH);
+                ctx.quadraticCurveTo(bx + 14, by - 30, bx + 10, by - 14);
+                ctx.closePath();
+                ctx.fill();
+
+                // Lớp lõi lửa trong cùng màu vàng ấm rực sáng khí thế
+                ctx.fillStyle = '#fde047';
+                ctx.beginPath();
+                ctx.moveTo(bx - 6, by - 14);
+                ctx.quadraticCurveTo(bx - 8, by - 26, bx + flicker * 0.6, by - 14 - flameH * 0.75);
+                ctx.quadraticCurveTo(bx + 8, by - 26, bx + 6, by - 14);
+                ctx.closePath();
+                ctx.fill();
+
+                // Tâm ngọn lửa xanh lam nhạt vùng dưới đáy
+                ctx.fillStyle = '#2563eb';
+                ctx.beginPath();
+                ctx.moveTo(bx - 4, by - 14);
+                ctx.quadraticCurveTo(bx, by - 22, bx, by - 22);
+                ctx.quadraticCurveTo(bx + 4, by - 14, bx + 4, by - 14);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            ctx.restore();
+        }
+
+        // --- SPECIAL GRAPHICAL EFFECTS (VISUAL POLISH) ---
+
+        // Khởi tạo vụ nổ chớp sáng Reaction Flash khi dung dịch bắt đầu chuyển đổi đông tụ sinh động
+        function triggerFlash() {
+            flashActive = true;
+            flashProgress = 0;
+        }
+
+        function drawReactionFlash() {
+            if (!flashActive) return;
+            ctx.save();
+            let radius = lerp(0, 45, flashProgress);
+            let opacity = lerp(0.6, 0, flashProgress);
+
+            let grad = ctx.createRadialGradient(TX, TY + 100, 2, TX, TY + 100, radius);
+            grad.addColorStop(0, `rgba(255, 255, 255, ${opacity})`);
+            grad.addColorStop(0.5, `rgba(254, 240, 138, ${opacity * 0.7})`);
+            grad.addColorStop(1, 'rgba(254, 240, 138, 0)');
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.arc(TX, TY + 100, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            flashProgress += 0.05;
+            if (flashProgress >= 1) flashActive = false;
+        }
+
+        // Tạo vòng sóng lan tỏa Ripple Ring khi va chạm giọt nước bề mặt
+        function createRipple(x, y) {
+            ripples.push({ x, y, r: 2, alpha: 0.7, lw: 2 });
+        }
+
+        function updateAndDrawRipples() {
+            ctx.save();
+            for (let i = ripples.length - 1; i >= 0; i--) {
+                let rp = ripples[i];
+                rp.r += 0.4;
+                rp.alpha -= 0.03;
+                rp.lw -= 0.04;
+
+                if (rp.alpha <= 0 || rp.lw <= 0) {
+                    ripples.splice(i, 1);
+                    continue;
+                }
+
+                ctx.strokeStyle = `rgba(255, 255, 255, ${rp.alpha})`;
+                ctx.lineWidth = Math.max(0.2, rp.lw);
+                ctx.beginPath();
+                ctx.ellipse(rp.x, rp.y, rp.r, rp.r * 0.25, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Sinh sản bắn hạt vi thể khi giọt nạp bắn tung tóe Impact Splash
+        function createSplashParticles(x, y) {
+            for (let i = 0; i < 5; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 2.5,
+                    vy: -(Math.random() * 2 + 1.2),
+                    life: 1,
+                    size: Math.random() * 1.5 + 1,
+                    color: 'rgba(240, 240, 245, 0.6)',
+                    type: 'splash'
+                });
+            }
+        }
+
+        // Tạo bọt khí sủi tăm tăm sôi nhẹ nhàng khi đun sôi dung dịch protein
+        function spawnBubbles() {
+            if (Math.random() > 0.94) { // Chỉ 6% cơ hội tạo bọt mỗi frame để sôi cực kỳ nhẹ nhàng
+                // Sinh ở vùng đáy ống nghiệm chứa chất lỏng
+                let startX = TX + (Math.random() - 0.5) * 16; // Hẹp hơn ở lòng ống
+                particles.push({
+                    x: startX,
+                    y: TY + 125,
+                    vx: (Math.random() - 0.5) * 0.1, // vận tốc ngang rất nhỏ
+                    vy: -(Math.random() * 0.25 + 0.35), // vận tốc dọc chậm rãi
+                    life: 1,
+                    size: 0.6,
+                    color: 'rgba(255, 255, 255, 0.85)',
+                    type: 'bubble',
+                    wobbleSpeed: Math.random() * 4 + 2,
+                    wobbleAmp: Math.random() * 0.1 + 0.05 // dao động cực nhỏ, êm dịu
+                });
+            }
+        }
+
+        // Tạo các khối mảng kết tủa vón cục đục màu trắng lắng đọng đặc thù protein đông tụ
+        function spawnCoagulationParticles() {
+            if (Math.random() > 0.4) {
+                let startX = TX + (Math.random() - 0.5) * 26;
+                let startY = TY + 65 + Math.random() * 40; // Rải đều vùng trong lòng chất lỏng
+                let targetY = TY + 105 + Math.random() * 20 - (startX - TX) * (startX - TX) * 0.02; // Lắng kết chùm mảng tự nhiên hơi võng cung đáy
+
+                particles.push({
+                    x: startX,
+                    y: startY,
+                    vx: (Math.random() - 0.5) * 0.2,
+                    vy: Math.random() * 0.3 + 0.2, // Rơi lắng nhẹ nhàng từ tốn
+                    targetY: targetY,
+                    life: 1,
+                    size: Math.random() * 2.5 + 1.5,
+                    color: `rgba(240, 240, 245, ${Math.random() * 0.3 + 0.6})`,
+                    type: 'floc', // Hạt kết tủa bông vón mảng
+                    wobbleAmp: Math.random() * 0.5 + 0.2,
+                    settled: false
+                });
+            }
+        }
+
+        function clampInsideTube(p) {
+            // Giới hạn x trong thân thẳng của ống nghiệm (bán kính trong 15.5px)
+            p.x = clamp(p.x, TX - 15.5, TX + 15.5);
+
+            // Giới hạn trong phần đáy chữ U bo tròn (từ TY + 110 trở xuống)
+            if (p.y > TY + 110) {
+                let dx = p.x - TX;
+                let dy = p.y - (TY + 110);
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                let maxDist = 15.5 - (p.size || 1);
+                if (dist > maxDist) {
+                    p.x = TX + (dx / dist) * maxDist;
+                    p.y = (TY + 110) + (dy / dist) * maxDist;
+                }
+            }
+        }
+
+        // Quản lý cập nhật vận động hệ thống toàn bộ Particles
+        function updateParticles() {
+            let waterSurfaceY = TY + 125 - liquidLevel * 65; // Tính mặt nước thực tế
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+
+                if (p.type === 'splash') {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.1; // Chịu tác dụng trọng lực rơi xuống
+                    p.life -= 0.04;
+                    if (p.life <= 0) particles.splice(i, 1);
+                }
+                else if (p.type === 'bubble') {
+                    p.y += p.vy;
+                    // Dao động lắc ngang hình sin mượt
+                    p.x += Math.sin(globalTime * 0.1 + p.wobbleSpeed) * p.wobbleAmp;
+
+                    // Giới hạn bọt khí nằm hoàn hảo trong ống nghiệm
+                    clampInsideTube(p);
+
+                    // Kích thước nở lớn dần nhẹ nhàng khi dâng lên sát mặt nước
+                    let distBase = (TY + 122) - p.y;
+                    p.size = 0.6 + (distBase * 0.012);
+
+                    // Chạm mặt nước dâng thực tế thì biến mất nổ pop
+                    if (p.y <= waterSurfaceY + 2) {
+                        createRipple(p.x, waterSurfaceY);
+                        particles.splice(i, 1);
+                    }
+                }
+                else if (p.type === 'floc') {
+                    if (!p.settled) {
+                        p.y += p.vy;
+                        p.x += Math.sin(p.y * 0.15 + globalTime * 0.02) * p.wobbleAmp;
+
+                        if (p.y >= p.targetY) {
+                            p.y = p.targetY;
+                            p.settled = true;
+                        }
+                    } else {
+                        // Khi đã lắng cố định đáy, dao động lắc lư cực nhẹ nhàng theo luồng nước sôi dạt dào
+                        if (burnerLit) {
+                            p.x += Math.sin(globalTime * 0.05 + p.y) * 0.15;
+                        }
+                    }
+
+                    // Giới hạn hạt kết tủa nằm hoàn hảo trong ống nghiệm (bao gồm cả đáy chữ U)
+                    clampInsideTube(p);
+                }
+            }
+        }
+
+        function drawParticles() {
+            ctx.save();
+            particles.forEach(p => {
+                ctx.fillStyle = p.color;
+                ctx.globalAlpha = p.life;
+                ctx.beginPath();
+                if (p.type === 'floc') {
+                    // Vẽ các đám mây bông kết tủa không tròn đều tự nhiên bằng cách vẽ cung méo
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                } else {
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                }
+                ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        // --- EXPLANATION PANEL CONTROLLER & FADE ANIMATION ---
+        function changeExplanation(titleHtml, contentHtml, isSuccess) {
+            const expBox = document.getElementById('explanationBox');
+            const expTitle = document.getElementById('explanationTitle');
+            const expContent = document.getElementById('explanationContent');
+
+            expContent.classList.add('fade');
+            expTitle.classList.add('fade');
+
+            setTimeout(() => {
+                expTitle.innerHTML = titleHtml;
+                expContent.innerHTML = contentHtml;
+
+                if (isSuccess) {
+                    expBox.classList.add('success-state');
+                } else {
+                    expBox.classList.remove('success-state');
+                }
+
+                expContent.classList.remove('fade');
+                expTitle.classList.remove('fade');
+            }, 200);
+        }
+
+        // --- CORE ANIMATION LOGIC ENGINE (STATE MACHINE) ---
+
+        function runStep1Animation(dt) {
+            animTimer += dt;
+            let t = animTimer;
+
+            if (t <= 1.0) {
+                // Pha A: Hạ pipette từ miệng cốc xuống nhúng vào lòng trắng trứng (1.0s)
+                let progress = t / 1.0;
+                let easeP = easeInOut(progress);
+                pipetteX = cốcX;
+                pipetteY = lerp(cốcY - 60, cốcY - 15, easeP);
+                pipetteAngle = 0;
+                pipetteSqueeze = 0;
+                pipetteFilledLevel = 0;
+            }
+            else if (t <= 2.2) {
+                // Pha B: Bóp và nhả cao su để hút protein (1.2s)
+                pipetteX = cốcX;
+                pipetteY = cốcY - 15;
+                pipetteAngle = 0;
+
+                if (t <= 1.4) {
+                    // Bóp cao su (1.0s -> 1.4s, 0.4s)
+                    let progress = (t - 1.0) / 0.4;
+                    pipetteSqueeze = easeInOut(progress);
+                    pipetteFilledLevel = 0;
+                    beakerLiquidLevel = 1.0;
+                } else {
+                    // Nhả cao su và hút dịch lên (1.4s -> 2.2s, 0.8s)
+                    let progress = (t - 1.4) / 0.8;
+                    pipetteSqueeze = 1.0 - easeInOut(progress);
+                    pipetteFilledLevel = easeInOut(progress);
+                    beakerLiquidLevel = lerp(1.0, 0.7, easeInOut(progress)); // nước trong cốc giảm xuống còn 70%
+                }
+            }
+            else if (t <= 3.7) {
+                // Pha C: Nhấc pipette lên và bay sang miệng ống nghiệm (1.5s)
+                let progress = (t - 2.2) / 1.5;
+                let easeP = easeInOut(progress);
+                pipetteX = lerp(cốcX, TX, easeP);
+                pipetteY = lerp(cốcY - 15, TY - 65, easeP);
+                // Tạo hiệu ứng nghiêng nhẹ khi bay
+                pipetteAngle = Math.sin(progress * Math.PI) * -0.12;
+                pipetteSqueeze = 0;
+                pipetteFilledLevel = 1.0;
+            }
+            else if (t <= 5.2) {
+                // Pha D: Nhỏ giọt dung dịch protein vào ống nghiệm (1.5s)
+                pipetteX = TX;
+                pipetteY = TY - 65;
+                pipetteAngle = 0;
+
+                let progress = (t - 3.7) / 1.5;
+                pipetteSqueeze = progress * 0.8; // bóp dần cao su lên 0.8
+                pipetteFilledLevel = 1.0 - progress; // dịch vơi dần trong pipette
+
+                // Nhỏ 3 giọt tuần tự tại t = 3.9, 4.3, 4.7
+                let dropTimes = [3.9, 4.3, 4.7];
+                dropTimes.forEach((dTime) => {
+                    if (t >= dTime && t < dTime + 0.3) {
+                        isDropping = true;
+                        let dropProgress = (t - dTime) / 0.3;
+                        let startY = TY - 10;
+                        let endY = TY + 62;
+                        dropY = lerp(startY, endY, dropProgress * dropProgress); // rơi nhanh dần
+
+                        // Khi giọt vừa chạm mặt dung dịch
+                        if (t - dTime >= 0.28 && isDropping) {
+                            isDropping = false;
+                            hasLiquid = true;
+                            createRipple(TX, TY + 62);
+                            createSplashParticles(TX, TY + 62);
+                        }
+                    }
+                });
+
+                // Dung dịch trong ống nghiệm dâng lên từ từ trong pha này
+                if (t >= 3.9) {
+                    let fillProgress = clamp((t - 3.9) / 1.1, 0, 1);
+                    liquidLevel = fillProgress;
+                    currentChemLabel = "2ml Dung dịch Protein 10%";
+                }
+            }
+            else if (t <= 6.2) {
+                // Pha E: Nhấc lên và bay trở lại cốc thủy tinh (1.0s)
+                let progress = (t - 5.2) / 1.0;
+                let easeP = easeInOut(progress);
+                pipetteX = lerp(TX, cốcX, easeP);
+                pipetteY = lerp(TY - 65, cốcY - 60, easeP);
+                pipetteAngle = Math.sin(progress * Math.PI) * 0.08;
+                pipetteSqueeze = lerp(0.8, 0, progress); // nhả bóp cao su hoàn toàn
+                pipetteFilledLevel = 0;
+            }
+            else if (t <= 6.5) {
+                // Pha F: Đặt xuống vị trí nghỉ ổn định (0.3s)
+                let progress = (t - 6.2) / 0.3;
+                let easeP = easeInOut(progress);
+                pipetteX = cốcX;
+                pipetteY = cốcY - 60;
+                pipetteAngle = 0;
+                pipetteSqueeze = 0;
+                pipetteFilledLevel = 0;
+            }
+            else {
+                // Thao tác hoàn thành kết thúc chuỗi
+                subStep = 4;
+                isAnimating = false;
+                animTimer = 0;
+                updateControlsUI();
+                changeExplanation(
+                    stepData[1].expTitle,
+                    stepData[1].expContent,
+                    false
+                );
+            }
+        }
+
+        function runStep2Animation(dt) {
+            animTimer += dt * 0.28; // Tương đương chạy hết 1.0 trong khoảng 3.5 giây
+            let t = animTimer;
+
+            if (t <= 0.15) {
+                // Pha 1: Đèn cồn được bật lửa thắp sáng rực
+                burnerLit = true;
+            }
+            else if (t <= 0.85) {
+                // Pha 2: Đun sôi, xuất hiện bọt khí sủi tăm mạnh dâng trào và chuyển đổi màu dần cấu trúc vón mảng
+                let reactT = (t - 0.15) / 0.70;
+                reactProgress = reactT;
+                hasReacted = true;
+
+                if (!flashActive && reactT > 0.05 && reactT < 0.1) {
+                    triggerFlash(); // Kích hoạt chớp nháy phản ứng đầu tiên đột phá liên kết sinh động
+                }
+
+                // Sủi tăm bong bóng khí sục sôi dày đặc dần lên
+                spawnBubbles();
+                // Đồng thời hình thành lắng đọng các bông hạt đông tụ protein vón cục trắng đục
+                if (Math.random() > 0.5) {
+                    spawnCoagulationParticles();
+                }
+
+                currentChemLabel = "Protein bị đông tụ vón cục";
+            }
+            else if (t <= 1.0) {
+                // Pha 3: Tắt lửa ngọn đèn cồn, hệ thống ổn định trạng thái kết tủa lắng đọng phân tách rõ ràng
+                burnerLit = false;
+            }
+            else {
+                // Thao tác hoàn tất xuất sắc toàn bộ thí nghiệm
+                subStep = 4;
+                isAnimating = false;
+                animTimer = 0;
+                updateControlsUI();
+                changeExplanation(
+                    stepData[2].expTitle,
+                    stepData[2].expContent,
+                    true
+                );
+            }
+        }
+
+        let lastTime = performance.now();
+        // Vòng lặp Core Loop render vẽ đồ họa liên tục nhịp nhàng chuẩn 60fps
+        function loop(timestamp) {
+            if (!timestamp) timestamp = performance.now();
+            let dt = (timestamp - lastTime) / 1000;
+            if (dt > 0.1) dt = 0.016; // Giới hạn nếu tab bị background
+            lastTime = timestamp;
+
+            globalTime++;
+            ctx.fillStyle = '#e2e8f0';
+            ctx.fillRect(0, 0, W, H);
+
+            // 1. Lưới nền kỹ thuật mờ tinh tế
+            drawGrid();
+
+            // 2. Dụng cụ giá đỡ thiết bị cố định
+            drawStaticEquipment();
+            drawBeaker();
+
+            // 3. Đèn cồn gia nhiệt
+            drawAlcoholBurner();
+
+            // 4. Chất lỏng phản ứng bên trong ống nghiệm cốt lõi
+            drawTestTube();
+
+            // 5. Quản lý cập nhật hiển thị hiệu ứng Particles nâng cao nội bộ bình ống nghiệm
+            updateParticles();
+            drawParticles();
+
+            // Cập nhật và vẽ gợn sóng mặt nước va chạm
+            updateAndDrawRipples();
+
+            // Vẽ chớp sáng phản ứng Flash nổ hạt
+            drawReactionFlash();
+
+            // 6. Vật thể chuyển động linh hoạt hoạt họa cấp cao vẽ trên cùng
+            if (currentStep === 1 && subStep === 1) {
+                // Đang nạp rót nhỏ giọt trứng bằng Pipette
+                let pipetteColor = 'rgba(240, 240, 245, 0.4)';
+                drawDropper(pipetteX, pipetteY, pipetteAngle, pipetteColor, "Pipette mẫu", pipetteSqueeze, pipetteFilledLevel);
+
+                if (isDropping) {
+                    drawDrop(TX, dropY, 'rgba(240, 240, 245, 0.5)');
+                }
+            } else {
+                // Pipette nằm yên ở vị trí nghỉ trên miệng cốc
+                // Ban đầu ở bước 1 subStep 0 nó trống rỗng (filledLevel = 0)
+                // Sau khi thực hiện xong hoặc chuyển sang bước 2, nó cũng trống rỗng
+                drawDropper(cốcX, cốcY - 60, 0, 'rgba(240, 240, 245, 0.4)', "Pipette mẫu", 0, 0);
+            }
+
+            // Quản lý trạng thái cốt lõi điều phối hoạt họa liên tục máy bộ dịch chuyển
+            if (isAnimating) {
+                if (currentStep === 1) runStep1Animation(dt);
+                else if (currentStep === 2) runStep2Animation(dt);
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        // --- INTERACTIVE CONTROLS & INTERFACE MANAGER ---
+
+        const btnNext = document.getElementById('btnNext');
+        const btnReset = document.getElementById('btnReset');
+        const statusText = document.getElementById('statusText');
+        const stepCounter = document.getElementById('stepCounter');
+        const stepName = document.getElementById('stepName');
+        const stepDesc = document.getElementById('stepDesc');
+
+        const dot1 = document.getElementById('dot1');
+        const dot2 = document.getElementById('dot2');
+        const pLine = document.getElementById('pLine');
+
+        function updateControlsUI() {
+            // Cập nhật nội dung mô tả cấu trúc của bước hiện thời
+            const data = stepData[currentStep];
+            stepCounter.textContent = data.title;
+            stepName.textContent = data.name;
+            stepDesc.textContent = data.desc;
+
+            // Đồng bộ trạng thái dãy chấm tiến độ Progress Dots sinh động
+            if (currentStep === 1) {
+                dot1.className = "dot active";
+                dot2.className = "dot";
+                pLine.className = "progress-line";
+            } else {
+                dot1.className = "dot passed";
+                dot2.className = "dot active";
+                pLine.className = "progress-line passed";
+                dot1.innerHTML = "<i class='ti ti-check'></i>";
+            }
+
+            // Đồng bộ khóa/mở các nút thao tác trong khi chạy hoạt họa ngăn chặn phá vỡ logic
+            if (isAnimating) {
+                btnNext.disabled = true;
+                btnReset.disabled = true;
+                statusText.innerHTML = "<i class='ti ti-loader spinning'></i> Đang thực hiện...";
+                btnNext.innerHTML = `<span>Đang chạy</span> <i class="ti ti-loader spinning"></i>`;
+            } else {
+                btnReset.disabled = false;
+                if (subStep === 4 && currentStep === 2) {
+                    // Đã hoàn thành bước cuối cùng của thí nghiệm
+                    btnNext.disabled = true;
+                    statusText.innerHTML = "<i class='ti ti-circle-check-filled' style='color:var(--secondary)'></i> Thí nghiệm hoàn tất";
+                    btnNext.innerHTML = `<span>Hoàn tất</span>`;
+                } else if (subStep === 4 && currentStep === 1) {
+                    // Đã chạy xong bước 1, chuẩn bị chuyển sang bước 2
+                    btnNext.disabled = false;
+                    statusText.innerHTML = "<i class='ti ti-hand-click'></i> Chờ chuyển bước...";
+                    btnNext.innerHTML = `<span>Tiếp theo</span>`;
+                } else {
+                    // Đang ở subStep === 0, sẵn sàng thực hiện hoạt họa của bước hiện tại
+                    btnNext.disabled = false;
+                    statusText.innerHTML = "<i class='ti ti-hand-click'></i> Chờ thao tác...";
+                    btnNext.innerHTML = `<span>Thực hiện</span>`;
+                }
+            }
+        }
+
+        // Hành động kích hoạt khi người dùng nhấn nút "Tiếp theo" quy trình
+        btnNext.addEventListener('click', () => {
+            if (isAnimating) return;
+
+            if (subStep === 4 && currentStep === 1) {
+                // Đã chạy xong bước 1, nhấn để chuyển sang bước chuẩn bị 2
+                currentStep = 2;
+                subStep = 0;
+                updateControlsUI();
+            } else {
+                // Bắt đầu kích hoạt chuỗi tiến trình pha hoạt họa chuyển động
+                isAnimating = true;
+                subStep = 1;
+                animTimer = 0;
+                updateControlsUI();
+            }
+        });
+
+        // Thiết lập tái tạo đưa toàn bộ môi trường về điểm xuất phát ban đầu Reset
+        function resetExperiment() {
+            currentStep = 1;
+            subStep = 0;
+            animTimer = 0;
+            isAnimating = false;
+
+            hasLiquid = false;
+            liquidLevel = 0;
+            reactProgress = 0;
+            hasReacted = false;
+            currentChemLabel = "Ống nghiệm trống";
+
+            isDropping = false;
+            isPouringStream = false;
+            burnerLit = false;
+
+            pipetteX = cốcX;
+            pipetteY = cốcY - 60;
+            pipetteAngle = 0;
+
+            pipetteSqueeze = 0;
+            pipetteFilledLevel = 0;
+            beakerLiquidLevel = 1.0;
+
+            particles = [];
+            ripples = [];
+            flashActive = false;
+
+            dot1.innerHTML = "1";
+
+            updateControlsUI();
+            changeExplanation(
+                "<i class='ti ti-info-circle'></i> Trạng thái chuẩn bị",
+                "Hệ thống đã sẵn sàng. Hãy bấm nút \"Tiếp theo\" để bắt đầu nạp dung dịch albumin lòng trắng trứng vào ống nghiệm sạch.",
+                false
+            );
+        }
+
+        btnReset.addEventListener('click', resetExperiment);
+
+        // Khởi động vòng chạy ứng dụng ngay khi load trang hoàn tất
+        resetExperiment();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,3385 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dự đoán tính chất hóa học cơ bản của nguyên tố từ cấu hình electron</title>
+    <script type="application/json" id="athena-context">
+    {
+      "title": "Dự Đoán Tính Chất Hóa Học Cơ Bản Của Nguyên Tố Từ Cấu Hình Electron",
+      "subject": "Hóa học",
+      "grade": "10",
+      "objectives": [
+        "Xác định chính xác số electron lớp ngoài cùng từ cấu hình electron của nguyên tử.",
+        "Dự đoán nhanh tính chất hóa học cơ bản (kim loại, phi kim, khí hiếm) của nguyên tố dựa vào số electron lớp ngoài cùng và nhận biết các trường hợp ngoại lệ."
+      ],
+      "structure": [
+        { "id": "s1" }, { "id": "s2" }, { "id": "s3" }, { "id": "s4" }, { "id": "s5" }, { "id": "s6" }
+      ],
+      "athenaGuidance": "Mô phỏng 6 giai đoạn dạy quy luật electron lớp ngoài cùng — tính chất hóa học. Có nhiều câu hỏi trắc nghiệm rải trong từng giai đoạn (không tiết lộ đáp án đúng trước, chỉ gợi ý quan sát lại mô phỏng): Giai đoạn 1 hỏi số electron lớp ngoài cùng của Al từ cấu hình 3s²3p¹. Giai đoạn 2 cho kéo thả 6 nguyên tố (Na, Mg, Al, O, F, Cl) vào cột Kim loại/Phi kim rồi hỏi quy luật 1–3 và 5–7 electron ngoài cùng. Giai đoạn 3 so sánh He với Ne, Ar để phát hiện He là ngoại lệ (khí hiếm nhưng chỉ có 2 electron ngoài cùng). Giai đoạn 4 kéo Carbon và Thiếc để thấy 4 electron ngoài cùng không đủ để kết luận chắc chắn kim loại hay phi kim. Giai đoạn 5 hỏi quy luật tổng hợp cuối cùng. Giai đoạn 6 là thử thách 10 câu hỏi ngẫu nhiên dự đoán tính chất từ cấu hình, có tính điểm và thời gian. Nếu học sinh hỏi Athena, chỉ gợi ý hướng quan sát lại mô phỏng, không nói trực tiếp đáp án đúng."
+    }
+    </script>
+    <!-- Tabler Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <!-- Google Fonts: Playfair Display & Be Vietnam Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ---------------------------------------------------- */
+        /* DESIGN SYSTEM - HAUGOMAT EDITORIAL FLAT */
+        /* ---------------------------------------------------- */
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+
+            --font-main: 'Be Vietnam Pro';
+            --font-sans: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: var(--font-sans);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* ---------------------------------------------------- */
+        /* INTRO TEXT */
+        /* ---------------------------------------------------- */
+        .intro-text {
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .intro-text {
+                padding: 0.9rem 1.1rem;
+                font-size: 14px;
+            }
+        }
+
+        /* ---------------------------------------------------- */
+        /* GOAL BAR */
+        /* ---------------------------------------------------- */
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* ---------------------------------------------------- */
+        /* LAB WRAPPER (single column) */
+        /* ---------------------------------------------------- */
+        .interactive-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-shrink: 0;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        /* ---------------------------------------------------- */
+        /* AI GUIDE BAR — bound to #explanationBox */
+        /* ---------------------------------------------------- */
+        .explanationBox {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-radius: 12px;
+            padding: 12px 16px;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+        }
+
+        .robot-avatar {
+            width: 42px;
+            height: 42px;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .robot-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .robot-bubble {
+            font-family: var(--font-main);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--ink);
+            flex: 1;
+        }
+
+        /* Nội dung setRobotSpeech() hay dùng <br><br> để ngăn ý — gộp lại thành 1 dòng xuống,
+           tránh để hở khoảng trắng to như 1 đoạn văn trống ở giữa. */
+        .robot-bubble br+br {
+            display: none;
+        }
+
+        .robot-bubble strong {
+            font-weight: 700;
+        }
+
+        /* ---------------------------------------------------- */
+        /* CONTROLS CARD — stepper (kiểu B), 1 hàng duy nhất */
+        /* ---------------------------------------------------- */
+        .controls-card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: nowrap;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .progress-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .progress-dot.active {
+            width: 24px;
+            height: 24px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            font-size: 11px;
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+        }
+
+        .progress-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .stepper-nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .stepper-nav-right {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .stepper-status {
+            display: none;
+        }
+
+        /* ---------------------------------------------------- */
+        /* CANVAS */
+        /* ---------------------------------------------------- */
+        .canvas-card {
+            padding: 4px;
+            width: 100%;
+            /* Tỉ lệ khung CỐ Ý khớp đúng tỉ lệ canvas của Bai6_Module3.html (760:400) để chiều cao
+               hiển thị bằng đúng canvas tham chiếu — nội dung vẽ vẫn theo hệ tọa độ logic W×H=760×460
+               riêng của bài này, được fitScale/translate trong loop() tự canh giữa vừa khít, không méo. */
+            aspect-ratio: 760 / 400;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        /* ---------------------------------------------------- */
+        /* SIDEBAR PHẢI — "Kết luận & Trắc nghiệm" */
+        /* ---------------------------------------------------- */
+        .right-card {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .right-card-body {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .right-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .right-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .right-card tbody td {
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+        }
+
+        .right-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .right-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Nút chung */
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        /* Animation Loader */
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Aha Moment Box */
+        .aha-box {
+            margin-top: 16px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 14px 18px;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 2px 8px rgba(232, 162, 74, 0.08);
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13.5px;
+            line-height: 1.6;
+            font-family: var(--font-main);
+        }
+
+        /* Quiz Container */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px dashed var(--paper-line);
+            padding-top: 16px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .quiz-container.fade-out {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .quiz-question {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* Căn hàng Quiz Option thẳng tuyệt đối */
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            font-size: 14.5px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 24px;
+            font-weight: 700;
+            color: var(--ink-2);
+            text-transform: uppercase;
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* Trạng thái trả lời quiz */
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ---------------------------------------------------- */
+        /* RESPONSIVE DESIGN */
+        /* ---------------------------------------------------- */
+        @media (max-width: 1100px) {
+            .canvas-card {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                border-radius: 0;
+                box-shadow: 0 -2px 10px rgba(26, 26, 26, 0.08);
+            }
+
+            body {
+                padding-bottom: 76px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .controls-card {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .stepper-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="intro-text">Em sẽ cùng Athena khám phá mối liên hệ giữa số electron lớp ngoài cùng và tính chất hóa
+        học cơ bản của nguyên tố — kim loại, phi kim hay khí hiếm.</div>
+
+    <!-- Thanh mục tiêu học tập -->
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Xác định chính xác số electron lớp ngoài cùng từ cấu hình electron của nguyên tử. Dự
+            đoán nhanh tính chất hóa học cơ bản (kim loại, phi kim, khí hiếm) của nguyên tố và hiểu rõ các trường hợp
+            ngoại lệ.</span>
+    </div>
+
+    <!-- Interactive Workspace -->
+    <main class="interactive-wrapper">
+
+        <!-- Thanh hướng dẫn AI -->
+        <div class="explanationBox state-idle" id="explanationBox">
+            <div class="robot-avatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena AI">
+            </div>
+            <div class="robot-bubble" id="robotSpeech" aria-live="polite">Đang tải bài học...</div>
+            <span id="stepInfoText" style="display:none;"></span>
+        </div>
+
+        <!-- Canvas -->
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="460" role="img"
+                    aria-label="Mô phỏng cấu hình electron và dự đoán tính chất nguyên tố"></canvas>
+            </div>
+        </div>
+
+        <!-- Hàng nút tương tác (kiểu B - stepper) -->
+        <div class="card controls-card" id="controlsCard">
+            <div id="progressLineFill" style="display:none;"></div>
+            <div class="stepper-dots" id="stepperDots">
+                <div class="progress-dot active" onclick="jumpToStage(1)">1</div>
+                <div class="progress-dot" onclick="jumpToStage(2)">2</div>
+                <div class="progress-dot" onclick="jumpToStage(3)">3</div>
+                <div class="progress-dot" onclick="jumpToStage(4)">4</div>
+                <div class="progress-dot" onclick="jumpToStage(5)">5</div>
+                <div class="progress-dot" onclick="jumpToStage(6)">6</div>
+            </div>
+            <div class="stepper-nav">
+                <div class="stepper-nav-left">
+                    <button class="btn-secondary" id="prevBtn" onclick="goToPrevStage()"><i
+                            class="ti ti-arrow-back-up"></i> Quay lại</button>
+                    <button class="btn-reset" id="resetBtn" onclick="resetCurrentStage()"><i class="ti ti-refresh"></i>
+                        Làm lại</button>
+                </div>
+                <div class="stepper-nav-right" id="actionBtnContainer"></div>
+            </div>
+            <span class="stepper-status" id="interactionStatus" aria-live="polite">Chờ thao tác...</span>
+        </div>
+
+        <div class="card side-card right-card" id="rightCard">
+            <h3><i class="ti ti-table"></i> Bảng quan sát &amp; Kết luận</h3>
+            <div class="right-card-body">
+                <div class="observe-wrap" style="margin-bottom: 16px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Giai đoạn</th>
+                                <th>e ngoài cùng</th>
+                                <th>Kết luận</th>
+                            </tr>
+                        </thead>
+                        <tbody id="observeTableBody">
+                            <tr>
+                                <td>1. Al</td>
+                                <td>3 (3s²3p¹)</td>
+                                <td class="muted" id="obsStage1">?</td>
+                            </tr>
+                            <tr>
+                                <td>2. Na, Mg, Al · O, F, Cl</td>
+                                <td>1–3 · 5–7</td>
+                                <td class="muted" id="obsStage2">?</td>
+                            </tr>
+                            <tr>
+                                <td>3. He</td>
+                                <td>2 (lớp đầy)</td>
+                                <td class="muted" id="obsStage3">?</td>
+                            </tr>
+                            <tr>
+                                <td>4. C, Sn</td>
+                                <td>4</td>
+                                <td class="muted" id="obsStage4">?</td>
+                            </tr>
+                            <tr>
+                                <td>5. Tổng hợp quy luật</td>
+                                <td>1–8</td>
+                                <td class="muted" id="obsStage5">?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conclusion-body" id="conclusionBody">
+                    <!-- Quiz / Interactive questions -->
+                    <div class="quiz-container" id="quizContainer" style="display: none;">
+                        <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+                        <ul class="quiz-options-list" id="quizOptionsList">
+                            <!-- Nạp qua JS -->
+                        </ul>
+                    </div>
+
+                    <!-- Aha Moment Box -->
+                    <div class="aha-box" id="ahaBox" style="display: none;">
+                        <div class="aha-title">
+                            <i class="ti ti-bulb"></i> Aha moment!
+                        </div>
+                        <div class="aha-content" id="ahaContent">
+                            <!-- Nạp qua JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Script điều khiển Canvas và Logic Game -->
+    <script>
+        // ----------------------------------------------------
+        // UTILITIES & STATE SETUP
+        // ----------------------------------------------------
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760;
+        const H = 460;
+        let canvasW = W, canvasH = H;
+
+        // Đồng bộ kích thước PIXEL thật của canvas theo khung hiển thị (canvas-glow-wrap giãn hết chiều cao hàng grid)
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+
+        // Bẻ dòng chữ trong canvas theo chiều rộng tối đa (dùng ctx.font hiện tại)
+        // để chữ không bao giờ tràn ra ngoài thẻ / bảng.
+        function wrapText(ctx, text, maxWidth) {
+            const words = String(text).split(' ');
+            const lines = [];
+            let line = '';
+            words.forEach(word => {
+                const test = line ? line + ' ' + word : word;
+                if (line && ctx.measureText(test).width > maxWidth) {
+                    lines.push(line);
+                    line = word;
+                } else {
+                    line = test;
+                }
+            });
+            if (line) lines.push(line);
+            return lines;
+        }
+
+        // ----------------------------------------------------
+        // LMS / ATHENA INTEGRATION
+        // ----------------------------------------------------
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+
+        const QUIZ_META = {
+            q1: { prompt: 'Nguyên tử Al có bao nhiêu electron lớp ngoài cùng?', options: ['A) 1 electron (chỉ phân lớp 3p¹)', 'B) 2 electron (chỉ phân lớp 3s²)', 'C) 3 electron (gồm cả 3s² và 3p¹)', 'D) 11 electron (tất cả electron của Al)'], correctKey: 'C' },
+            q2: { prompt: 'Sau khi quan sát 6 nguyên tố trên, nhận xét nào sau đây phù hợp nhất?', options: ['A) Nguyên tử có 1–3 electron lớp ngoài cùng thường là kim loại.', 'B) Nguyên tử có 1–3 electron lớp ngoài cùng luôn là kim loại.', 'C) Nguyên tử có 5–7 electron lớp ngoài cùng đều là phi kim tuyệt đối.', 'D) Chưa thể rút ra quy luật nào rõ rệt.'], correctKey: 'A' },
+            q3: { prompt: 'Nhận xét nào đúng sau khi quan sát He, Ne và Ar?', options: ['A) He là kim loại vì có 2 electron lớp ngoài cùng.', 'B) He là ngoại lệ của quy luật 1–3 electron lớp ngoài cùng.', 'C) He là phi kim vì chỉ có một lớp electron.', 'D) He không có electron lớp ngoài cùng.'], correctKey: 'B' },
+            q4: { prompt: 'Sau khi quan sát Carbon (C) và Thiếc (Sn), chúng ta rút ra kết luận gì cho các nguyên tố có 4 electron ngoài cùng?', options: ['A) Tất cả các nguyên tố có 4e ngoài cùng đều là kim loại.', 'B) Tất cả các nguyên tố có 4e ngoài cùng đều là phi kim.', 'C) Số electron ngoài cùng bằng 4 không đủ để tự dự đoán chắc chắn tính chất của nguyên tố.', 'D) Cả C và Sn đều là khí hiếm.'], correctKey: 'C' },
+            q5: { prompt: 'Quy luật nào dưới đây phù hợp nhất?', options: ['A) 1–3 electron lớp ngoài cùng luôn là kim loại.', 'B) 4 electron lớp ngoài cùng luôn là phi kim.', 'C) Số electron lớp ngoài cùng giúp dự đoán tính chất hóa học của nhiều nguyên tố, nhưng vẫn có ngoại lệ và trường hợp không thể kết luận.', 'D) Khí hiếm hoàn toàn không tham gia phản ứng hóa học.'], correctKey: 'C' }
+        };
+
+        const lmsAnswers = {};
+
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStage: state.stage, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+            LMS().progress({ done: Math.max(0, state.stage - 1), total: 6 });
+        }
+
+        function reportHeight() {
+            const h = document.documentElement.scrollHeight;
+            LMS().resize({ height: h });
+        }
+        window.addEventListener('load', reportHeight);
+        if (typeof ResizeObserver !== 'undefined') {
+            const _ro = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+            _ro.observe(document.body);
+        } else {
+            setInterval(reportHeight, 800);
+        }
+
+        // Palette RGB objects
+        const COLORS = {
+            cream: { r: 250, g: 247, b: 240 },
+            cream2: { r: 240, g: 234, b: 221 },
+            paperLine: { r: 229, g: 222, b: 207 },
+            ink: { r: 26, g: 26, b: 26 },
+            ink2: { r: 81, g: 76, b: 68 },
+            jade: { r: 60, g: 165, b: 122 },
+            jadeDeep: { r: 45, g: 139, b: 111 },
+            jadePale: { r: 220, g: 235, b: 225 },
+            sage: { r: 168, g: 201, b: 184 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 }
+        };
+
+        // Trạng thái bài học
+        const state = {
+            stage: 1,
+            subStep: 0, // 0: Idle, 1: Animating, 4: Done
+            isAnimating: false,
+            animTimer: 0,
+            animDuration: 60,
+
+            // Drag and Drop active status
+            draggedItem: null,
+            dragOffsetX: 0,
+            dragOffsetY: 0,
+
+            // Score and challenges
+            stage6Score: 0,
+            stage6CurrentIndex: 0,
+            stage6Max: 10,
+            stage6List: [],
+            stage6StartTime: 0,
+            stage6ElapsedTime: 0,
+            stage6Active: false,
+            stage6Intro: false,
+            stage6ShowAnswer: false,
+            stage6Answered: false,
+            stage6IncorrectAttempts: 0,
+            stage6Buttons: [],
+            stage6WrongKeys: [],
+            stage6SelectedKey: null,
+
+            // Stage variables
+            stage1AnswerSelected: null,
+            stage1ShakeTimer: 0,
+            stage1Correct: false,
+
+            stage2Cards: [],
+            stage2Cols: [],
+            stage2ActiveQuestion: false,
+            stage2Answers: null,
+            stage2CorrectAnswered: false,
+            stage2TransitionTimer: 0,
+
+            stage3State: 0, // 0: He single card, 1: Selected, 2: Showing He, Ne, Ar
+            stage3Selection: null,
+            stage3QuestionActive: false,
+            stage3CorrectAnswered: false,
+            stage3Buttons: [],
+
+            stage4Cards: [],
+            stage4Cols: [],
+            stage4CorrectAnswered: false,
+            stage4QuestionActive: false,
+            stage4UnlockTimer: 0, // đếm ngược hiệu ứng mở khóa hàng "4": dấu ? tan dần + chữ hiện từng chữ
+
+            stage5Slots: [],
+            stage5Answers: [],
+            stage5Elements: [],
+            stage5CorrectAnswered: false,
+            stage5QuestionActive: false
+        };
+
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (saved) {
+                if (!saved) return;
+                jumpToStage(saved.currentStage || 1);
+            };
+        }
+
+        let particles = [];
+        let time = 0;
+
+        // ----------------------------------------------------
+        // MẢNG DỮ LIỆU ĐỀ XUẤT CHO GAME
+        // ----------------------------------------------------
+        const STAGE6_POOL = [
+            { symbol: 'Li', name: 'Lithium', config: '1s² 2s¹', outer: '2s¹', count: 1, type: 'metal', desc: 'Có 1 electron lớp ngoài cùng, là kim loại.' },
+            { symbol: 'Ca', name: 'Calcium', config: '...3s² 3p⁶ 4s²', outer: '4s²', count: 2, type: 'metal', desc: 'Có 2 electron lớp ngoài cùng, là kim loại.' },
+            { symbol: 'Na', name: 'Sodium', config: '1s² 2s² 2p⁶ 3s¹', outer: '3s¹', count: 1, type: 'metal', desc: 'Có 1 electron lớp ngoài cùng, là kim loại.' },
+            { symbol: 'Al', name: 'Aluminium', config: '1s² 2s² 2p⁶ 3s² 3p¹', outer: '3s² 3p¹', count: 3, type: 'metal', desc: 'Có 3 electron lớp ngoài cùng, là kim loại.' },
+            { symbol: 'P', name: 'Phosphorus', config: '1s² 2s² 2p⁶ 3s² 3p³', outer: '3s² 3p³', count: 5, type: 'nonmetal', desc: 'Có 5 electron lớp ngoài cùng, là phi kim.' },
+            { symbol: 'Br', name: 'Bromine', config: '...3d¹⁰ 4s² 4p⁵', outer: '4s² 4p⁵', count: 7, type: 'nonmetal', desc: 'Có 7 electron lớp ngoài cùng, là phi kim.' },
+            { symbol: 'N', name: 'Nitrogen', config: '1s² 2s² 2p³', outer: '2s² 2p³', count: 5, type: 'nonmetal', desc: 'Có 5 electron lớp ngoài cùng, là phi kim.' },
+            { symbol: 'Ar', name: 'Argon', config: '1s² 2s² 2p⁶ 3s² 3p⁶', outer: '3s² 3p⁶', count: 8, type: 'noble', desc: 'Có 8 electron lớp ngoài cùng, là khí hiếm.' },
+            { symbol: 'He', name: 'Helium', config: '1s²', outer: '1s²', count: 2, type: 'noble', desc: 'Helium có 2 electron ngoài cùng ở lớp duy nhất (vỏ đầy), là khí hiếm đặc biệt.' },
+            { symbol: 'Ne', name: 'Neon', config: '1s² 2s² 2p⁶', outer: '2s² 2p⁶', count: 8, type: 'noble', desc: 'Có 8 electron lớp ngoài cùng, là khí hiếm.' }
+        ];
+
+        // ----------------------------------------------------
+        // EVENT LISTENERS FOR DRAG & DROP
+        // ----------------------------------------------------
+        function getCanvasMousePos(e) {
+            const rect = canvas.getBoundingClientRect();
+            let clientX = e.clientX;
+            let clientY = e.clientY;
+
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else if (e.changedTouches && e.changedTouches.length > 0) {
+                clientX = e.changedTouches[0].clientX;
+                clientY = e.changedTouches[0].clientY;
+            }
+
+            // canvas.width/height (buffer pixel thật) có thể có tỉ lệ khác W:H do canvas giãn hết khung —
+            // quy đổi về hệ tọa độ LOGIC W×H giống hệt cách nội dung được translate/scale khi vẽ trong loop().
+            const scaleX = canvasW / rect.width, scaleY = canvasH / rect.height;
+            const px = (clientX - rect.left) * scaleX;
+            const py = (clientY - rect.top) * scaleY;
+            const fitScale = Math.min(canvasW / W, canvasH / H);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            return {
+                x: (px - offsetX) / fitScale,
+                y: (py - offsetY) / fitScale
+            };
+        }
+
+        function handleStart(e) {
+            if (state.isAnimating) return;
+            const pos = getCanvasMousePos(e);
+            let itemClicked = false;
+
+            if (state.stage === 6 && state.stage6Active && !state.stage6Intro && !state.stage6ShowAnswer) {
+                for (let btn of state.stage6Buttons) {
+                    if (pos.x >= btn.x && pos.x <= btn.x + btn.w && pos.y >= btn.y && pos.y <= btn.y + btn.h) {
+                        handleStage6Choice(btn.key);
+                        itemClicked = true;
+                        break;
+                    }
+                }
+            } else if (state.stage === 3 && state.stage3State === 0) {
+                for (let btn of state.stage3Buttons) {
+                    if (pos.x >= btn.x && pos.x <= btn.x + btn.w && pos.y >= btn.y && pos.y <= btn.y + btn.h) {
+                        handleStage3Choice(btn.key);
+                        itemClicked = true;
+                        break;
+                    }
+                }
+            } else if (state.stage === 2 && !state.stage2ActiveQuestion) {
+                // Kiểm tra xem có click vào thẻ nào không
+                for (let card of state.stage2Cards) {
+                    if (card.isPlaced) continue;
+                    if (pos.x >= card.x && pos.x <= card.x + card.w && pos.y >= card.y && pos.y <= card.y + card.h) {
+                        state.draggedItem = card;
+                        card.isDragging = true;
+                        state.dragOffsetX = pos.x - card.x;
+                        state.dragOffsetY = pos.y - card.y;
+
+                        // Đưa thẻ lên đầu mảng để vẽ trên cùng
+                        state.stage2Cards.splice(state.stage2Cards.indexOf(card), 1);
+                        state.stage2Cards.push(card);
+                        itemClicked = true;
+                        break;
+                    }
+                }
+            } else if (state.stage === 4 && !state.stage4QuestionActive) {
+                for (let card of state.stage4Cards) {
+                    if (pos.x >= card.x && pos.x <= card.x + card.w && pos.y >= card.y && pos.y <= card.y + card.h) {
+                        state.draggedItem = card;
+                        card.isDragging = true;
+                        state.dragOffsetX = pos.x - card.x;
+                        state.dragOffsetY = pos.y - card.y;
+                        state.stage4Cards.splice(state.stage4Cards.indexOf(card), 1);
+                        state.stage4Cards.push(card);
+                        itemClicked = true;
+                        break;
+                    }
+                }
+            } else if (state.stage === 5 && !state.stage5QuestionActive) {
+                // Kéo thẻ đáp án của Stage 5
+                for (let card of state.stage5Answers) {
+                    if (card.isPlaced) continue;
+                    if (pos.x >= card.x && pos.x <= card.x + card.w && pos.y >= card.y && pos.y <= card.y + card.h) {
+                        state.draggedItem = card;
+                        card.isDragging = true;
+                        state.dragOffsetX = pos.x - card.x;
+                        state.dragOffsetY = pos.y - card.y;
+                        itemClicked = true;
+                        break;
+                    }
+                }
+            }
+
+            if (itemClicked && e.cancelable) {
+                e.preventDefault();
+            }
+        }
+
+        function handleMove(e) {
+            if (!state.draggedItem) return;
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+            const pos = getCanvasMousePos(e);
+            state.draggedItem.x = pos.x - state.dragOffsetX;
+            state.draggedItem.y = pos.y - state.dragOffsetY;
+        }
+
+        function handleEnd(e) {
+            if (!state.draggedItem) return;
+            if (e.cancelable) {
+                e.preventDefault();
+            }
+
+            const card = state.draggedItem;
+            card.isDragging = false;
+            state.draggedItem = null;
+
+            if (state.stage === 2) {
+                // Tìm va chạm cột
+                let targetCol = null;
+                for (let col of state.stage2Cols) {
+                    const cardCenterX = card.x + card.w / 2;
+                    const cardCenterY = card.y + card.h / 2;
+                    if (cardCenterX >= col.x && cardCenterX <= col.x + col.w && cardCenterY >= col.y && cardCenterY <= col.y + col.h) {
+                        targetCol = col;
+                        break;
+                    }
+                }
+
+                if (targetCol) {
+                    // Check đúng cột
+                    if (card.correctCol === targetCol.id) {
+                        card.isPlaced = true;
+                        card.column = targetCol.id;
+
+                        // Đếm số thẻ trong cột này để xếp lớp
+                        const countInCol = state.stage2Cards.filter(c => c.column === targetCol.id).length;
+                        card.targetX = targetCol.x + (targetCol.w - card.w) / 2;
+                        card.targetY = targetCol.y + 38 + (countInCol - 1) * (card.h + 12); // Tự động co giãn đều đặn với gap 12px
+
+                        // Trigger hiệu ứng bụi sáng thành công
+                        spawnParticles(card.targetX + card.w / 2, card.targetY + card.h / 2, 'jade', 15);
+                        playSuccessFlash();
+
+                        // Check hoàn thành
+                        checkStage2Completion();
+                    } else {
+                        // Sai cột
+                        card.incorrectCount++;
+
+                        if (card.incorrectCount === 1) {
+                            card.shakeTimer = 30; // rung nhẹ tại chỗ trong 0.5 giây
+                            card.needsReturn = true;
+                            // Giữ nguyên vị trí thả chuột hiện tại để rung lắc rõ rệt
+                            card.targetX = card.x;
+                            card.targetY = card.y;
+
+                            let textSpeech = ` ${card.symbol} có ${card.outerCount} electron lớp ngoài cùng. Bạn hãy xem lại nhóm nguyên tử có ít/nhiều electron lớp ngoài cùng.`;
+                            setRobotSpeech(textSpeech, 'wrong');
+                        } else {
+                            card.shakeTimer = 50; // rung lắc mạnh tại chỗ trong 0.8 giây
+                            card.needsReturn = true;
+                            // Giữ nguyên vị trí thả chuột để rung lắc bần bật báo hiệu sai lần 2
+                            card.targetX = card.x;
+                            card.targetY = card.y;
+
+                            let textSpeech = ` Nguyên tố ${card.symbol} có ${card.outerCount} electron lớp ngoài cùng. Nhóm có ${card.correctCol === 'metal' ? '1–3' : '5–7'} electron thường là ${card.correctCol === 'metal' ? 'Kim loại' : 'Phi kim'}.`;
+                            setRobotSpeech(textSpeech, 'wrong');
+
+                            // Đưa thẳng về cột đúng sau lần 2 sai (chạy sau khi rung xong)
+                            state.isAnimating = true;
+                            setTimeout(() => {
+                                card.isPlaced = true;
+                                card.column = card.correctCol;
+                                card.showDesc = true;
+                                card.needsReturn = false; // Không bay về home nữa vì đã tự động xếp
+                                const col = state.stage2Cols.find(c => c.id === card.correctCol);
+                                const countInCol = state.stage2Cards.filter(c => c.column === col.id).length;
+                                card.targetX = col.x + (col.w - card.w) / 2;
+                                card.targetY = col.y + 38 + (countInCol - 1) * (card.h + 12);
+                                spawnParticles(card.targetX + card.w / 2, card.targetY + card.h / 2, 'jade', 10);
+                                state.isAnimating = false;
+                                checkStage2Completion();
+                            }, 1000);
+                        }
+                    }
+                } else {
+                    // Không chạm cột nào, quay về
+                    card.targetX = card.homeX;
+                    card.targetY = card.homeY;
+                }
+            } else if (state.stage === 4) {
+                // Stage 4: Kéo C và Sn vào 3 vùng
+                let targetCol = null;
+                for (let col of state.stage4Cols) {
+                    const cardCenterX = card.x + card.w / 2;
+                    const cardCenterY = card.y + card.h / 2;
+                    if (cardCenterX >= col.x && cardCenterX <= col.x + col.w && cardCenterY >= col.y && cardCenterY <= col.y + col.h) {
+                        targetCol = col;
+                        break;
+                    }
+                }
+
+                if (targetCol) {
+                    const correctColId = card.symbol === 'C' ? 'nonmetal' : 'metal';
+                    if (targetCol.id === correctColId) {
+                        // Kéo đúng cột
+                        card.isPlaced = true;
+                        card.column = correctColId;
+                        card.targetX = targetCol.x + (targetCol.w - card.w) / 2;
+                        card.targetY = targetCol.y + (targetCol.h - card.h) / 2;
+
+                        spawnParticles(card.targetX + card.w / 2, card.targetY + card.h / 2, 'jade', 15);
+                        playSuccessFlash();
+
+                        // Check hoàn thành cả 2 thẻ
+                        if (state.stage4Cards.every(c => c.isPlaced)) {
+                            triggerStage4Question();
+                        }
+                    } else {
+                        // Kéo sai cột: rung cảnh báo tại chỗ thả, sau đó tự bay về cột đúng
+                        card.incorrectCount++;
+                        card.shakeTimer = 45; // rung cảnh báo rõ rệt
+                        card.needsReturn = false; // không tự bay về home nữa
+                        // Giữ nguyên vị trí thả chuột hiện tại để rung lắc rõ rệt
+                        card.targetX = card.x;
+                        card.targetY = card.y;
+
+                        let textSpeech = '';
+                        if (card.symbol === 'C') {
+                            textSpeech = "Carbon (C) có 4 electron lớp ngoài cùng nhưng thực tế nó là một phi kim điển hình. Hệ thống tự động di chuyển Carbon về cột Phi kim.";
+                        } else {
+                            textSpeech = "Thiếc (Sn) có 4 electron lớp ngoài cùng nhưng nó lại là một kim loại mạnh. Hệ thống tự động di chuyển Thiếc về cột Kim loại.";
+                        }
+                        setRobotSpeech(textSpeech, 'wrong');
+
+                        // Đưa thẳng về cột đúng (chạy sau khi rung xong 1 giây)
+                        state.isAnimating = true;
+                        setTimeout(() => {
+                            card.isPlaced = true;
+                            card.column = correctColId;
+                            const col = state.stage4Cols.find(c => c.id === correctColId);
+                            card.targetX = col.x + (col.w - card.w) / 2;
+                            card.targetY = col.y + (col.h - card.h) / 2;
+                            spawnParticles(card.targetX + card.w / 2, card.targetY + card.h / 2, 'jade', 10);
+                            state.isAnimating = false;
+
+                            if (state.stage4Cards.every(c => c.isPlaced)) {
+                                triggerStage4Question();
+                            }
+                        }, 1000);
+                    }
+                } else {
+                    // Không chạm cột nào, quay về
+                    card.targetX = card.homeX;
+                    card.targetY = card.homeY;
+                    card.column = null;
+                }
+            } else if (state.stage === 5) {
+                // Stage 5: Kéo thẻ đáp án vào 4 slots của bảng
+                let targetSlot = null;
+                for (let slot of state.stage5Slots) {
+                    const cx = card.x + card.w / 2;
+                    const cy = card.y + card.h / 2;
+                    if (cx >= slot.x && cx <= slot.x + slot.w && cy >= slot.y && cy <= slot.y + slot.h) {
+                        targetSlot = slot;
+                        break;
+                    }
+                }
+
+                if (targetSlot) {
+                    // Check đúng ô
+                    if (card.correctSlotId === targetSlot.id) {
+                        card.isPlaced = true;
+                        card.targetX = targetSlot.x;
+                        card.targetY = targetSlot.y;
+                        card.w = targetSlot.w; // Cập nhật chiều rộng trùng khít slot
+                        card.h = targetSlot.h; // Cập nhật chiều cao trùng khít slot
+                        targetSlot.filled = true;
+
+                        // Hiệu ứng hạt liên kết phát sáng từ chip bên trái bay qua
+                        spawnConnectionRays(card.correctSlotId, targetSlot.y + targetSlot.h / 2);
+                        playSuccessFlash();
+
+                        checkStage5Completion();
+                    } else {
+                        // Thả sai: rung lắc tại chỗ trước khi tự động bay về
+                        card.shakeTimer = 35;
+                        card.needsReturn = true;
+                        card.targetX = card.x;
+                        card.targetY = card.y;
+
+                        // Kích hoạt báo sai để đổi viền đỏ các chip nguyên tố bên trái
+                        state.stage5WrongSlotId = targetSlot.id;
+                        state.stage5WrongTimer = 60; // Báo đỏ các nguyên tố trong 1 giây
+
+                        setRobotSpeech(" Đặt chưa đúng hàng rồi, hãy áp dụng quy luật số electron lớp ngoài cùng.", "wrong");
+                    }
+                } else {
+                    card.targetX = card.homeX;
+                    card.targetY = card.homeY;
+                }
+            }
+        }
+
+        canvas.addEventListener('mousedown', handleStart);
+        canvas.addEventListener('mousemove', handleMove);
+        canvas.addEventListener('mouseup', handleEnd);
+        canvas.addEventListener('mouseout', handleEnd);
+
+        canvas.addEventListener('touchstart', handleStart, { passive: false });
+        canvas.addEventListener('touchmove', handleMove, { passive: false });
+        canvas.addEventListener('touchend', handleEnd, { passive: false });
+
+        // ----------------------------------------------------
+        // MAIN GAME ENGINE & RENDER LOOP
+        // ----------------------------------------------------
+        function spawnParticles(x, y, colorType, count = 10) {
+            const rgb = COLORS[colorType] || COLORS.jade;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2.5 + 0.5;
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed - 0.5,
+                    life: 1.0,
+                    decay: Math.random() * 0.03 + 0.02,
+                    size: Math.random() * 3 + 2,
+                    color: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, opacity)`
+                });
+            }
+        }
+
+        function spawnConnectionRays(ruleId, targetY) {
+            // Lọc các chip nguyên tố thuộc nhóm này
+            const elements = state.stage5Elements.filter(el => {
+                if (ruleId === '1-3' && ['Na', 'Mg', 'Al'].includes(el.symbol)) return true;
+                if (ruleId === '4' && ['C', 'Sn'].includes(el.symbol)) return true;
+                if (ruleId === '5-7' && ['O', 'Cl'].includes(el.symbol)) return true;
+                if (ruleId === '8' && ['He', 'Ne'].includes(el.symbol)) return true;
+                return false;
+            });
+
+            elements.forEach(el => {
+                el.glowTimer = 35; // Làm phát sáng chip
+                // Bắn các hạt dọc theo đường nối từ chip sang bảng
+                const startX = el.x + el.w;
+                const startY = el.y + el.h / 2;
+                const endX = 380;
+
+                for (let i = 0; i < 8; i++) {
+                    setTimeout(() => {
+                        particles.push({
+                            x: startX,
+                            y: startY,
+                            vx: 3.5,
+                            vy: (targetY - startY) / 60,
+                            life: 1.0,
+                            decay: 0.017,
+                            size: 3.5,
+                            isRay: true,
+                            targetY: targetY,
+                            color: ruleId === '1-3' ? 'rgba(60, 165, 122, opacity)' : 'rgba(232, 162, 74, opacity)'
+                        });
+                    }, i * 80);
+                }
+            });
+        }
+
+        let flashTimer = 0;
+        function playSuccessFlash() {
+            flashTimer = 15;
+        }
+
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                if (p.isRay) {
+                    p.x += p.vx;
+                    // Nắn chỉnh vy mượt mà
+                    const remainingDistance = 380 - p.x;
+                    if (remainingDistance > 0) {
+                        p.y += p.vy;
+                    } else {
+                        p.y = p.targetY;
+                    }
+                } else {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.02; // trọng lực nhẹ
+                }
+
+                p.life -= p.decay;
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        }
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) {
+                ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke();
+            }
+            for (let y = 0; y <= canvasH; y += 30) {
+                ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // Vẽ thẻ cấu hình nguyên tố
+        function drawElementCard(ctx, card) {
+            ctx.save();
+
+            // Xử lý rung lắc (Biên độ rung thay đổi động dựa trên số lần kéo sai: lần 1 rung 3.5px, lần 2 rung 7px bần bật)
+            let offsetX = 0;
+            if (card.shakeTimer > 0) {
+                const amplitude = card.incorrectCount <= 1 ? 3.5 : 7;
+                offsetX = Math.sin(card.shakeTimer * 1.8) * amplitude;
+            }
+
+            const cx = card.x + offsetX;
+            const cy = card.y;
+
+            // Nền thẻ
+            ctx.shadowColor = 'rgba(26, 26, 26, 0.04)';
+            ctx.shadowBlur = 6;
+            ctx.shadowOffsetY = 2;
+
+            if (card.isDragging) {
+                ctx.shadowBlur = 12;
+                ctx.shadowOffsetY = 6;
+            }
+
+            // Chọn màu nền thẻ tùy theo trạng thái
+            let fillBg = '#FBF9F4';
+            let strokeColor = '#E5DECF';
+
+            if (card.column === 'metal') {
+                fillBg = '#E6F0FA'; // Xanh dương kim loại nhẹ
+                strokeColor = '#A3C2E0';
+            } else if (card.column === 'nonmetal') {
+                fillBg = '#EAF5EC'; // Xanh lá phi kim nhẹ
+                strokeColor = '#A3D2A9';
+            } else if (card.column === 'uncertain') {
+                fillBg = '#F7ECE0'; // Vàng cam ấm
+                strokeColor = '#E5C09B';
+            } else if (card.column === 'noble') {
+                fillBg = '#F3EAF8'; // Tím khí hiếm
+                strokeColor = '#D2B9E5';
+            }
+
+            if (card.shakeTimer > 0) {
+                strokeColor = '#C15F3C'; // Viền đỏ khi sai
+                fillBg = '#F3E2D6';
+            }
+
+            ctx.fillStyle = fillBg;
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = card.isDragging ? 2 : 1.5;
+
+            // Vẽ bo góc
+            ctx.beginPath();
+            ctx.roundRect(cx, cy, card.w, card.h, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Tắt bóng
+            ctx.shadowColor = 'transparent';
+
+            // Ký hiệu nguyên tố
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 22px "Playfair Display", serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(card.symbol, cx + card.w / 2, cy + 28);
+
+            // Cấu hình electron chính trên MỘT DÒNG duy nhất (Tối ưu font và spacing để không tràn thẻ)
+            const parts = card.config.split(' ');
+
+            // Tính tổng chiều rộng dòng cấu hình e
+            let totalW = 0;
+            parts.forEach(part => {
+                const isHighlight = card.highlightParts && card.highlightParts.some(hp => part.includes(hp));
+                if (isHighlight) {
+                    ctx.font = 'bold 10px "Be Vietnam Pro", sans-serif';
+                } else {
+                    ctx.font = '9px "Be Vietnam Pro", sans-serif';
+                }
+                totalW += ctx.measureText(part).width + 2;
+            });
+            totalW -= 2; // Bỏ khoảng cách cuối
+
+            // Vẽ tuần tự từ trái qua phải, căn giữa thẻ
+            let startX = cx + (card.w - totalW) / 2;
+            parts.forEach(part => {
+                const isHighlight = card.highlightParts && card.highlightParts.some(hp => part.includes(hp));
+                if (isHighlight) {
+                    ctx.fillStyle = '#C28328'; // Highlight vàng sậm
+                    ctx.font = 'bold 10px "Be Vietnam Pro", sans-serif';
+                } else {
+                    ctx.fillStyle = '#7A7368'; // Lớp trong màu xám thường
+                    ctx.font = '9px "Be Vietnam Pro", sans-serif';
+                }
+                ctx.textAlign = 'left';
+                ctx.fillText(part, startX, cy + 48);
+                startX += ctx.measureText(part).width + 2;
+            });
+
+            // Trả lại căn giữa để vẽ nhãn
+            ctx.textAlign = 'center';
+
+            // Nhãn số electron lớp ngoài cùng (Tối ưu font 8px để không tràn thẻ)
+            if (card.label) {
+                ctx.fillStyle = '#1B5E48';
+                ctx.font = 'bold 8px "Be Vietnam Pro", sans-serif';
+                ctx.fillText(card.label.toUpperCase(), cx + card.w / 2, cy + 68);
+            }
+
+            // Đã xóa phần chú thích giải thích ngắn màu đỏ dưới chân thẻ theo yêu cầu của học sinh
+
+            // Dấu ✓ hoặc ? phản hồi
+            if (card.isPlaced) {
+                ctx.fillStyle = '#2D8B6F';
+                ctx.beginPath();
+                ctx.arc(cx + card.w - 12, cy + 12, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 9px "Be Vietnam Pro"';
+                ctx.fillText('✓', cx + card.w - 12, cy + 15);
+            }
+
+            ctx.restore();
+        }
+
+        // Vẽ cột thu nhận kéo thả
+        function drawDropColumn(ctx, col) {
+            ctx.save();
+            ctx.strokeStyle = col.borderColor;
+            ctx.fillStyle = col.bgColor;
+            ctx.lineWidth = 2;
+            ctx.setLineDash([4, 4]);
+
+            ctx.beginPath();
+            ctx.roundRect(col.x, col.y, col.w, col.h, 12);
+            ctx.fill();
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Chữ tiêu đề: tự động xuống dòng để không tràn ra ngoài cột và căn giữa theo hàng
+            ctx.fillStyle = col.textColor;
+            ctx.font = 'bold 11px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center';
+            const maxTitleW = col.w - 16;
+            const titleLines = wrapText(ctx, col.title.toUpperCase(), maxTitleW);
+            titleLines.forEach((line, i) => {
+                ctx.fillText(line, col.x + col.w / 2, col.y + 19 + i * 13);
+            });
+            ctx.restore();
+        }
+
+        // ----------------------------------------------------
+        // LOGIC TỪNG STAGE & ANIMATION DRAWING
+        // ----------------------------------------------------
+        function loop() {
+            resizeCanvas();
+            time += 0.05;
+
+            // Xóa Canvas (theo kích thước PIXEL thật)
+            ctx.clearRect(0, 0, canvasW, canvasH);
+
+            // 1. Lưới nền mờ — vẽ NGOÀI khối scale, luôn phủ kín canvas thật
+            drawGrid();
+
+            // Tỉ lệ + độ lệch để nội dung W×H (logic) nằm vừa khít, canh giữa, giữ nguyên tỉ lệ
+            const fitScale = Math.min(canvasW / W, canvasH / H);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            // 2. Flash trắng khi làm đúng — cũng phủ toàn canvas thật, vẽ ngoài khối scale
+            if (flashTimer > 0) {
+                ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                flashTimer--;
+            }
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            // 3. Logic vẽ theo từng Stage
+            switch (state.stage) {
+                case 1:
+                    drawStage1();
+                    break;
+                case 2:
+                    drawStage2();
+                    break;
+                case 3:
+                    drawStage3();
+                    break;
+                case 4:
+                    drawStage4();
+                    break;
+                case 5:
+                    drawStage5();
+                    break;
+                case 6:
+                    drawStage6();
+                    break;
+            }
+
+            // 4. Vẽ hạt (Particles) — dùng chung tọa độ logic với nội dung thí nghiệm
+            updateParticles();
+            particles.forEach(p => {
+                if (!p || !p.color || typeof p.color !== 'string') return;
+                ctx.save();
+                ctx.fillStyle = p.color.replace('opacity', p.life);
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            ctx.restore();
+
+            requestAnimationFrame(loop);
+        }
+
+        // --- STAGE 1 ---
+        function initStage1() {
+            state.subStep = 0;
+            state.stage1Correct = false;
+            state.stage1AnswerSelected = null;
+            state.stage1ShakeTimer = 0;
+
+            hideAhaMoment();
+            setRobotSpeech("Chào bạn! Hãy cùng khám phá mối liên hệ thú vị giữa <strong>cấu hình electron</strong> và <strong>tính chất của nguyên tố</strong>.<br><br>Nhìn vào cấu hình electron của nhôm (Al) ở giữa màn hình, bạn cho biết nguyên tử này có bao nhiêu electron lớp ngoài cùng?", "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = 'Chọn đáp án ở cột bên phải.';
+
+            updateStepProgress();
+
+            // Hiển thị quiz ở cột phải
+            showQuiz(
+                "Nguyên tử Al có bao nhiêu electron lớp ngoài cùng?",
+                [
+                    { key: 'A', text: "1 electron (chỉ phân lớp 3p¹)" },
+                    { key: 'B', text: "2 electron (chỉ phân lớp 3s²)" },
+                    { key: 'C', text: "3 electron (gồm cả 3s² và 3p¹)" },
+                    { key: 'D', text: "11 electron (tất cả electron của Al)" }
+                ],
+                'C'
+            );
+        }
+
+        function drawStage1() {
+            // Vẽ thẻ Aluminium lớn ở trung tâm
+            let shakeX = 0;
+            if (state.stage1ShakeTimer > 0) {
+                shakeX = Math.sin(state.stage1ShakeTimer * 1.5) * 6;
+                state.stage1ShakeTimer--;
+            }
+
+            const cx = W / 2 - 130 + shakeX;
+            const cy = H / 2 - 100;
+            const w = 260;
+            const h = 200;
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(26,26,26,0.06)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetY = 4;
+
+            // Nền thẻ
+            ctx.fillStyle = state.stage1Correct ? 'rgba(220, 235, 225, 0.9)' : '#FBF9F4';
+            ctx.strokeStyle = state.stage1Correct ? 'var(--jade)' : 'var(--paper-line)';
+            if (state.stage1ShakeTimer > 0) {
+                ctx.fillStyle = 'var(--wrong-bg)';
+                ctx.strokeStyle = 'var(--wrong)';
+            }
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(cx, cy, w, h, 14);
+            ctx.fill();
+            ctx.stroke();
+            ctx.shadowColor = 'transparent';
+
+            // Ký hiệu Al
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 82px "Playfair Display", serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('Al', cx + w / 2, cy + 75);
+            ctx.font = 'bold 17px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = 'var(--ink-2)';
+            ctx.fillText('Z = 13 (Nhôm)', cx + w / 2, cy + 105);
+
+            // Cấu hình electron
+            // 1s² 2s² 2p⁶ 3s² 3p¹
+            const textBase = "1s² 2s² 2p⁶";
+            const textOuter = "3s² 3p¹";
+
+            ctx.font = 'bold 22px "Be Vietnam Pro", sans-serif';
+            const wBase = ctx.measureText(textBase + " ").width;
+            const wOuter = ctx.measureText(textOuter).width;
+            const startX = cx + (w - (wBase + wOuter)) / 2;
+
+            // Vẽ phần trong (mờ đi nếu trả lời đúng)
+            ctx.fillStyle = state.stage1Correct ? 'rgba(26,26,26,0.25)' : 'var(--ink)';
+            ctx.fillText(textBase, startX + wBase / 2, cy + 175);
+
+            // Vẽ phần lớp ngoài cùng
+            if (state.stage1Correct) {
+                ctx.fillStyle = '#C28328'; // Highlight vàng sậm
+                ctx.font = 'bold 24px "Be Vietnam Pro", sans-serif';
+            } else {
+                ctx.fillStyle = 'var(--ink)';
+            }
+            ctx.fillText(textOuter, startX + wBase + wOuter / 2, cy + 175);
+
+            // Vẽ nhãn phụ lớp ngoài cùng
+            if (state.stage1Correct) {
+                ctx.fillStyle = 'var(--jade-text)';
+                ctx.font = 'bold 12px "Be Vietnam Pro", sans-serif';
+                ctx.fillText('LỚP NGOÀI CÙNG (n = 3) ➔ CÓ 3e', cx + w / 2, cy + 192);
+
+                // Vẽ dấu tích xanh lá
+                ctx.fillStyle = 'var(--correct)';
+                ctx.beginPath();
+                ctx.arc(cx + w - 24, cy + 24, 12, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = 'bold 12px "Be Vietnam Pro"';
+                ctx.fillText('✓', cx + w - 24, cy + 28);
+            }
+
+            ctx.restore();
+        }
+
+        // --- STAGE 2 ---
+        function initStage2() {
+            state.stage2ActiveQuestion = false;
+            state.stage2CorrectAnswered = false;
+            state.stage2Cards = [];
+            hideAhaMoment();
+
+            state.stage2Cols = [
+                { id: 'metal', title: 'Kim loại', x: 25, y: 70, w: 145, h: 330, bgColor: 'rgba(230, 240, 250, 0.45)', borderColor: '#A3C2E0', textColor: '#2A5D88', iconColor: '#2A5D88' },
+                { id: 'nonmetal', title: 'Phi kim', x: 590, y: 70, w: 145, h: 330, bgColor: 'rgba(234, 245, 202, 0.3)', borderColor: '#A3D2A9', textColor: '#1B5E48', iconColor: '#1B5E48' }
+            ];
+
+            // Thứ tự cố định: Na -> Mg -> Al -> O -> F -> Cl
+            const symbols = [
+                { sym: 'Na', config: '1s² 2s² 2p⁶ 3s¹', outer: ['3s¹'], count: 1, type: 'metal', desc: 'Na có 1e lớp ngoài cùng' },
+                { sym: 'Mg', config: '1s² 2s² 2p⁶ 3s²', outer: ['3s²'], count: 2, type: 'metal', desc: 'Mg có 2e lớp ngoài cùng' },
+                { sym: 'Al', config: '1s² 2s² 2p⁶ 3s² 3p¹', outer: ['3s²', '3p¹'], count: 3, type: 'metal', desc: 'Al có 3e lớp ngoài cùng' },
+                { sym: 'O', config: '1s² 2s² 2p⁴', outer: ['2s²', '2p⁴'], count: 6, type: 'nonmetal', desc: 'O có 6e lớp ngoài cùng' },
+                { sym: 'F', config: '1s² 2s² 2p⁵', outer: ['2s²', '2p⁵'], count: 7, type: 'nonmetal', desc: 'F có 7e lớp ngoài cùng' },
+                { sym: 'Cl', config: '1s² 2s² 2p⁶ 3s² 3p⁵', outer: ['3s²', '3p⁵'], count: 7, type: 'nonmetal', desc: 'Cl có 7e lớp ngoài cùng' }
+            ];
+
+            const w = 92; // Rộng 92px tránh tràn chữ
+            const h = 82; // Cao 82px thông thoáng
+
+            for (let i = 0; i < symbols.length; i++) {
+                // Chia thành 2 hàng, mỗi hàng 3 thẻ
+                const rowIdx = Math.floor(i / 3); // 0 cho hàng 1, 1 cho hàng 2
+                const colIdx = i % 3;             // 0, 1, 2 cho mỗi cột trong hàng
+
+                const cardX = 220 + colIdx * 114;  // gap = 22px (92 + 22 = 114)
+                const cardY = 115 + rowIdx * 110;  // gap Y = 28px (82 + 28 = 110)
+
+                state.stage2Cards.push({
+                    symbol: symbols[i].sym,
+                    config: symbols[i].config,
+                    highlightParts: symbols[i].outer,
+                    outerCount: symbols[i].count,
+                    correctCol: symbols[i].type,
+                    x: cardX,
+                    y: -150, // Trượt từ trên xuống
+                    targetX: cardX,
+                    targetY: cardY,
+                    homeX: cardX,
+                    homeY: cardY,
+                    w: w,
+                    h: h,
+                    isDragging: false,
+                    isPlaced: false,
+                    column: null,
+                    shakeTimer: 0,
+                    shakeDir: 1,
+                    label: `${symbols[i].count}e lớp ngoài cùng`,
+                    incorrectCount: 0,
+                    slideDelay: i * 30, // 0.5s delay giữa các thẻ (30 frames)
+                    desc: symbols[i].desc,
+                    showDesc: false
+                });
+            }
+
+            setRobotSpeech(" 6 thẻ nguyên tố đang trượt vào. Bạn hãy dùng chuột hoặc ngón tay kéo thả từng thẻ vào đúng cột <strong>Kim loại</strong> (bên trái) hoặc <strong>Phi kim</strong> (bên phải) dựa trên số electron lớp ngoài cùng nhé!", "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerHTML = `Xếp thẻ: <strong id="stage2PlacedCount">0 / 6</strong>`;
+
+            updateStepProgress();
+            hideQuiz();
+        }
+
+        function checkStage2Completion() {
+            const placedCount = state.stage2Cards.filter(c => c.isPlaced).length;
+            const placedCountEl = document.getElementById('stage2PlacedCount');
+            if (placedCountEl) {
+                placedCountEl.innerText = `${placedCount} / 6`;
+            }
+
+            if (placedCount === 6 && !state.stage2ActiveQuestion) {
+                state.stage2ActiveQuestion = true;
+
+                setRobotSpeech("Tuyệt vời! Bạn đã sắp xếp thành công cả 6 nguyên tố. Hãy trả lời câu hỏi trắc nghiệm ở cột bên phải để đúc kết quy luật.", "correct");
+
+                setTimeout(() => {
+                    // Kích hoạt Quiz ở cột phải
+                    showQuiz(
+                        "Sau khi quan sát 6 nguyên tố trên, nhận xét nào sau đây phù hợp nhất?",
+                        [
+                            { key: 'A', text: "Nguyên tử có 1–3 electron lớp ngoài cùng thường là kim loại." },
+                            { key: 'B', text: "Nguyên tử có 1–3 electron lớp ngoài cùng luôn là kim loại." },
+                            { key: 'C', text: "Nguyên tử có 5–7 electron lớp ngoài cùng đều là phi kim tuyệt đối." },
+                            { key: 'D', text: "Chưa thể rút ra quy luật nào rõ rệt." }
+                        ],
+                        'A'
+                    );
+                }, 500);
+            }
+        }
+
+        // Điền giá trị thật vào "Bảng quan sát" bên phải khi bước tương ứng được xác nhận đúng
+        function updateObserveTable(stageId, text) {
+            const cell = document.getElementById('obsStage' + stageId);
+            if (!cell) return;
+            cell.textContent = text;
+            cell.classList.remove('muted');
+            cell.classList.add('flash');
+            setTimeout(() => cell.classList.remove('flash'), 1000);
+        }
+
+        function onQuizAnswer(isCorrect, selectedKey) {
+            const _qid = 'q' + state.stage;
+            lmsAnswers[_qid] = { chosen: selectedKey, correct: isCorrect };
+            LMS().event('answered', { id: _qid, chosen: selectedKey, correct: isCorrect });
+
+            if (state.stage === 1) {
+                if (isCorrect) {
+                    state.stage1Correct = true;
+                    playSuccessFlash();
+                    spawnParticles(W / 2, H / 2 - 20, 'jade', 20);
+                    setRobotSpeech("Chính xác. 3s² và 3p¹ đều thuộc lớp thứ 3 (n = 3) — đó là lớp ngoài cùng của Al.", "correct");
+                    showAhaMoment("Electron lớp ngoài cùng là toàn bộ electron thuộc lớp có số lượng tử chính n lớn nhất — không phải chỉ nhìn phân lớp cuối cùng trong cấu hình.");
+                    updateObserveTable(1, "Kim loại");
+                    updateNextButtonState();
+                } else {
+                    state.stage1Correct = false;
+                    state.stage1ShakeTimer = 20; // Rung thẻ
+                    setRobotSpeech("Hãy xem lại — lớp ngoài cùng gồm tất cả các phân lớp trong cùng 1 lớp", "wrong");
+                }
+            } else if (state.stage === 2) {
+                if (isCorrect) {
+                    state.stage2CorrectAnswered = true;
+                    state.stage2TransitionTimer = 120; // Chạy transition 2 giây (120 frames) để bảng hiện dần
+
+                    // Hiệu ứng vỡ dấu "?" bay ra hạt
+                    spawnParticles(380, 156, 'accent', 25);
+                    spawnParticles(380, 248, 'accent', 25);
+
+                    setRobotSpeech("Chính xác! Chúng ta dùng từ 'thường' vì sẽ có một số ngoại lệ đặc biệt. Bạn vừa tự tay khám phá ra quy luật quan trọng đầu tiên!", "correct");
+                    showAhaMoment("Nguyên tử có 1–3 electron lớp ngoài cùng thường là kim loại; nguyên tử có 5–7 electron lớp ngoài cùng thường là phi kim.");
+                    updateObserveTable(2, "KL thường (1–3e) · PK thường (5–7e)");
+                    updateNextButtonState();
+                } else {
+                    setRobotSpeech("Hãy quan sát lại các nguyên tố bạn vừa kéo thả. Tại sao không dùng từ 'luôn là' hay 'tuyệt đối'?", "wrong");
+                }
+            } else if (state.stage === 3) {
+                // Bước dự đoán đầu (nút trong canvas) đã được xử lý riêng ở handleStage3Choice().
+                // Đây chỉ còn là câu hỏi so sánh He/Ne/Ar.
+                if (isCorrect) {
+                    state.stage3CorrectAnswered = true;
+                    setRobotSpeech("Chính xác! Lớp ngoài cùng (lớp thứ 1) của He đã đầy tối đa 2 electron nên nó vô cùng bền vững và mang đầy đủ tính chất của khí hiếm.", "correct");
+                    showAhaMoment("Helium có 2 electron ngoài cùng nhưng không phải là kim loại vì lớp vỏ duy nhất của nó đã chứa tối đa electron (1s²) ➔ Trạng thái vô cùng bền vững của khí hiếm!");
+                    updateObserveTable(3, "Khí hiếm (ngoại lệ)");
+                    updateNextButtonState();
+                } else {
+                    setRobotSpeech("He, Ne, Ar đều có lớp electron ngoài cùng đã được điền đầy. Hãy xem lại điểm tương đồng này.", "wrong");
+                }
+            } else if (state.stage === 4) {
+                if (isCorrect) {
+                    state.stage4CorrectAnswered = true;
+                    state.stage4UnlockTimer = 90; // Dấu ? tan dần rồi chữ hiện từng chữ trong ~1.5s
+                    setRobotSpeech("Hoàn toàn chính xác! Cùng có 4 electron lớp ngoài cùng nhưng Carbon là phi kim điển hình còn Thiếc (Sn) lại là kim loại mạnh.", "correct");
+                    showAhaMoment("Cùng sở hữu 4 electron ngoài cùng nhưng Carbon (ở chu kì 2) có bán kính nguyên tử nhỏ, lực giữ electron của hạt nhân mạnh nên là phi kim. Trong khi đó, Thiếc (Sn, chu kì 5) có bán kính lớn, lực hút yếu nên dễ nhường electron và mang tính kim loại mạnh!");
+                    updateObserveTable(4, "Không kết luận được (KL hoặc PK)");
+                    updateNextButtonState();
+                } else {
+                    setRobotSpeech("Quan sát lại bảng và 2 thẻ nguyên tố C và Sn. Liệu 4 electron có đủ để kết luận chắc chắn?", "wrong");
+                }
+            } else if (state.stage === 5) {
+                if (isCorrect) {
+                    state.stage5CorrectAnswered = true;
+                    setRobotSpeech("Chính xác. Đây là quy luật dự đoán, không phải quy luật tuyệt đối.", "correct");
+                    showAhaMoment("Số electron lớp ngoài cùng giúp dự đoán tính chất hóa học của nhiều nguyên tố, nhưng không phải quy luật tuyệt đối — vẫn có ngoại lệ (He) và trường hợp không thể kết luận (4 electron).");
+                    updateObserveTable(5, "Hoàn thành bảng quy luật");
+                    updateNextButtonState();
+                } else {
+                    setRobotSpeech("Hãy quan sát lại bảng quy luật vừa hoàn thành.", "wrong");
+                }
+            }
+        }
+
+        function drawStage2() {
+            // Vẽ 2 cột thu nhận
+            state.stage2Cols.forEach(col => drawDropColumn(ctx, col));
+
+            // Vẽ các thẻ nguyên tử
+            state.stage2Cards.forEach(card => {
+                // Hiệu ứng trượt lướt mượt mà ban đầu
+                if (card.slideDelay > 0) {
+                    card.slideDelay--;
+                } else {
+                    // Cập nhật shakeTimer và kích hoạt lướt bay về sau khi rung xong
+                    if (card.shakeTimer > 0) {
+                        card.shakeTimer--;
+                        if (card.shakeTimer === 0 && card.needsReturn) {
+                            card.targetX = card.homeX;
+                            card.targetY = card.homeY;
+                            card.needsReturn = false;
+                        }
+                    }
+
+                    if (!card.isDragging) {
+                        // Tốc độ rơi: lerp chậm lại (0.05) để rơi từ từ mượt mà hơn
+                        card.x = lerp(card.x, card.targetX, 0.05);
+                        card.y = lerp(card.y, card.targetY, 0.05);
+                    }
+                }
+                // Chỉ vẽ thẻ khi đã bắt đầu trượt vào màn hình
+                if (card.y > -140) {
+                    drawElementCard(ctx, card);
+                }
+            });
+
+            // Chỉ hiển thị bảng quy luật sau khi trả lời đúng câu hỏi trắc nghiệm
+            if (state.stage2CorrectAnswered) {
+                if (state.stage2TransitionTimer > 0) state.stage2TransitionTimer--;
+                const opacity = state.stage2TransitionTimer > 0 ? (120 - state.stage2TransitionTimer) / 120 : 1;
+                drawRuleTable(200, 70, 360, 320, [
+                    { range: '1–3', desc: 'Thường là kim loại', color: '#2A5D88', checkmark: true, fadeOpacity: opacity },
+                    { range: '4', locked: true },
+                    { range: '5–7', desc: 'Thường là phi kim', color: '#1B5E48', checkmark: true, fadeOpacity: opacity },
+                    { range: '8 (He là 2)', locked: true }
+                ]);
+            }
+        }
+
+        // Vẽ bảng quy luật tổng hợp (dùng chung cho Stage 2, 3, 4)
+        // rows: [{ range, desc, color, locked, note, checkmark, fadeOpacity }]
+        // Chữ mô tả luôn tự động xuống dòng theo bề rộng cột để không bao giờ tràn ra ngoài bảng.
+        function drawRuleTable(x, y, w, h, rows) {
+            ctx.save();
+
+            // Vẽ nền bảng bo tròn màu nhạt
+            ctx.fillStyle = '#FBF9F4';
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            // Vẽ nền Header màu xanh xám sẫm sang trọng bo góc trên
+            const headerH = 38;
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(x, y, w, h, 10);
+            ctx.clip();
+            ctx.fillStyle = '#2E3D49';
+            ctx.fillRect(x, y, w, headerH);
+            ctx.restore();
+
+            const colDivider = x + 82;
+            const col2X = colDivider + 14;
+            const col2W = (x + w) - col2X - 12;
+
+            // Kẻ các đường phân cách cột và header
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x, y + headerH); ctx.lineTo(x + w, y + headerH);
+            ctx.moveTo(colDivider, y + headerH); ctx.lineTo(colDivider, y + h);
+            ctx.stroke();
+
+            // Header chữ trắng nổi bật — tự xuống dòng theo bề rộng cột để không tràn khỏi header
+            ctx.fillStyle = '#FFFFFF';
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 10.5px "Be Vietnam Pro", sans-serif';
+            const col1HeaderLines = wrapText(ctx, 'Electron ngoài cùng', colDivider - x - 10);
+            let col1HeaderY = y + headerH / 2 - ((col1HeaderLines.length - 1) * 11) / 2 + 4;
+            col1HeaderLines.forEach(line => { ctx.fillText(line, x + (colDivider - x) / 2, col1HeaderY); col1HeaderY += 11; });
+
+            ctx.font = 'bold 11.5px "Be Vietnam Pro", sans-serif';
+            const col2HeaderLines = wrapText(ctx, 'Dự đoán tính chất', col2W);
+            let col2HeaderY = y + headerH / 2 - ((col2HeaderLines.length - 1) * 12) / 2 + 4;
+            col2HeaderLines.forEach(line => { ctx.fillText(line, col2X + col2W / 2, col2HeaderY); col2HeaderY += 12; });
+
+            const rowH = (h - headerH) / rows.length;
+
+            rows.forEach((r, idx) => {
+                const rowY = y + headerH + rowH * idx;
+                const rowMidY = rowY + rowH / 2;
+
+                // Cột trái: khoảng electron ngoài cùng (tự xuống dòng nếu dài, ví dụ "8 (He là 2)")
+                ctx.textAlign = 'center';
+                ctx.fillStyle = '#1A1A1A';
+                ctx.font = 'bold 12px "Be Vietnam Pro", sans-serif';
+                const rangeLines = wrapText(ctx, r.range, colDivider - x - 14);
+                let rangeY = rowMidY - ((rangeLines.length - 1) * 13) / 2 + 4;
+                rangeLines.forEach(line => { ctx.fillText(line, x + (colDivider - x) / 2, rangeY); rangeY += 13; });
+
+                // Cột phải: mô tả tính chất hoặc dấu "?" nếu còn khóa
+                if (r.locked) {
+                    ctx.fillStyle = '#E8A24A';
+                    ctx.font = 'bold 15px "Be Vietnam Pro", sans-serif';
+                    ctx.fillText('?', col2X + col2W / 2, rowMidY + 5);
+                } else if (r.desc && r.revealProgress !== undefined && r.revealProgress < 1) {
+                    // Hiệu ứng mở khóa: dấu "?" tan dần rồi chữ hiện ra dần từng chữ
+                    const qOpacity = 1 - clamp(r.revealProgress / 0.3, 0, 1);
+                    const textProgress = clamp((r.revealProgress - 0.25) / 0.75, 0, 1);
+
+                    if (qOpacity > 0.01) {
+                        ctx.save();
+                        ctx.globalAlpha = qOpacity;
+                        ctx.fillStyle = '#E8A24A';
+                        ctx.font = 'bold 15px "Be Vietnam Pro", sans-serif';
+                        ctx.fillText('?', col2X + col2W / 2, rowMidY + 5);
+                        ctx.restore();
+                    }
+
+                    if (textProgress > 0) {
+                        const numChars = Math.round(r.desc.length * textProgress);
+                        ctx.save();
+                        ctx.fillStyle = r.color || '#1A1A1A';
+                        ctx.font = 'bold 11.5px "Be Vietnam Pro", sans-serif';
+                        ctx.textAlign = 'left';
+                        const descLines = wrapText(ctx, r.desc.slice(0, numChars), col2W);
+                        let descY = rowMidY - ((descLines.length - 1) * 14) / 2 + 4;
+                        descLines.forEach(line => { ctx.fillText(line, col2X, descY); descY += 14; });
+                        ctx.restore();
+                    }
+                } else if (r.desc) {
+                    ctx.save();
+                    ctx.globalAlpha = r.fadeOpacity !== undefined ? r.fadeOpacity : 1;
+                    ctx.fillStyle = r.color || '#1A1A1A';
+                    ctx.font = 'bold 11.5px "Be Vietnam Pro", sans-serif';
+                    ctx.textAlign = 'left';
+                    const descLines = wrapText(ctx, r.desc, col2W);
+                    const lastLineWidth = ctx.measureText(descLines[descLines.length - 1]).width;
+                    let descY = rowMidY - ((descLines.length - 1) * 14) / 2 + 4 - (r.note ? 6 : 0);
+                    descLines.forEach(line => { ctx.fillText(line, col2X, descY); descY += 14; });
+
+                    if (r.checkmark && (r.fadeOpacity === undefined || r.fadeOpacity >= 0.999)) {
+                        ctx.fillStyle = '#2D8B6F';
+                        ctx.font = 'bold 12px "Be Vietnam Pro"';
+                        ctx.textAlign = 'left';
+                        ctx.fillText('✓', col2X + Math.min(lastLineWidth + 6, col2W - 8), descY - 14);
+                    }
+
+                    if (r.note) {
+                        ctx.font = 'italic 9.5px "Be Vietnam Pro", sans-serif';
+                        ctx.fillStyle = '#8A8374';
+                        ctx.fillText(r.note, col2X, descY + 2);
+                    }
+                    ctx.restore();
+                }
+
+                // Đường viền ngang mỏng giữa các dòng (trừ dòng cuối)
+                if (idx < rows.length - 1) {
+                    ctx.strokeStyle = 'rgba(26,26,26,0.04)';
+                    ctx.beginPath();
+                    ctx.moveTo(x + 8, rowY + rowH); ctx.lineTo(x + w - 8, rowY + rowH);
+                    ctx.stroke();
+                }
+            });
+
+            ctx.restore();
+        }
+
+        // --- STAGE 3 ---
+        function initStage3() {
+            state.stage3State = 0;
+            state.stage3Selection = null;
+            state.stage3QuestionActive = false;
+            state.stage3CorrectAnswered = false;
+
+            hideAhaMoment();
+            setRobotSpeech("Bây giờ, chúng ta gặp <strong>Helium (He)</strong> — một nguyên tố rất quen thuộc trong đời sống. Cấu hình e của He là 1s².<br><br>He có 2 electron lớp ngoài cùng. Bạn dự đoán He có tính chất gì?", "idle");
+
+            // Khởi tạo thẻ He lớn ở giữa màn hình (giống cỡ thẻ Al ở Stage 1) để quản lý shakeTimer mượt mà
+            state.stage3Card = {
+                x: 105, y: 130, w: 260, h: 180,
+                shakeTimer: 0,
+                incorrectCount: 0
+            };
+
+            // 3 nút lựa chọn vẽ ngay trong canvas (không dùng quiz cột phải cho bước dự đoán này)
+            const btnW = 110, btnH = 42, gap = 15;
+            const startX = 20 + (430 - (btnW * 3 + gap * 2)) / 2;
+            state.stage3Buttons = [
+                { key: 'metal', label: 'Kim loại', x: startX, y: 330, w: btnW, h: btnH, color: '#2A5D88', bg: 'rgba(230,240,250,0.6)', border: '#A3C2E0' },
+                { key: 'nonmetal', label: 'Phi kim', x: startX + btnW + gap, y: 330, w: btnW, h: btnH, color: '#1B5E48', bg: 'rgba(234,245,202,0.5)', border: '#A3D2A9' },
+                { key: 'noble', label: 'Khí hiếm', x: startX + (btnW + gap) * 2, y: 330, w: btnW, h: btnH, color: '#7A3BA5', bg: 'rgba(243,234,248,0.6)', border: '#D2B9E5' }
+            ];
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = 'Chọn một đáp án ngay trong canvas.';
+            updateStepProgress();
+            hideQuiz();
+        }
+
+        // Học sinh bấm 1 trong 3 nút dự đoán tính chất của He, vẽ trực tiếp trong canvas
+        function handleStage3Choice(key) {
+            if (state.stage !== 3 || state.stage3State !== 0) return;
+
+            state.stage3Selection = key;
+            state.stage3State = 1;
+            state.stage3Card.shakeTimer = 35;
+            document.getElementById('interactionStatus').innerText = 'Đang so sánh He với Ne, Ar...';
+
+            setRobotSpeech("Ủa? Có thực sự là như vậy không? Ta hãy cùng đặt thẻ He bên cạnh hai nguyên tử cùng nhóm với nó để quan sát kĩ hơn nhé.", "wrong");
+
+            setTimeout(() => {
+                state.stage3State = 2;
+                state.stage3QuestionActive = true;
+
+                setRobotSpeech("Hãy quan sát cấu hình và nhãn của He, Ne, Ar rồi trả lời câu hỏi dưới đây.", "idle");
+
+                showQuiz(
+                    "Nhận xét nào đúng sau khi quan sát He, Ne và Ar?",
+                    [
+                        { key: 'A', text: "He là kim loại vì có 2 electron lớp ngoài cùng." },
+                        { key: 'B', text: "He là ngoại lệ của quy luật 1–3 electron lớp ngoài cùng." },
+                        { key: 'C', text: "He là phi kim vì chỉ có một lớp electron." },
+                        { key: 'D', text: "He không có electron lớp ngoài cùng." }
+                    ],
+                    'B'
+                );
+            }, 2000);
+        }
+
+        function drawStage3() {
+            // Vẽ bảng quy luật bên phải
+            // Stage 3: Hàng "1-3" có chú thích (trừ He) và hàng "8 (He là 2)" mở khóa -> Khí hiếm
+            drawRuleTable(465, 68, 275, 324, [
+                { range: '1–3', desc: 'Thường là kim loại', color: '#2A5D88', note: state.stage3CorrectAnswered ? '(trừ He)' : null },
+                { range: '4', locked: true },
+                { range: '5–7', desc: 'Thường là phi kim', color: '#1B5E48' },
+                { range: '8 (He là 2)', desc: state.stage3CorrectAnswered ? 'Khí hiếm' : '', locked: !state.stage3CorrectAnswered, color: '#7A3BA5' }
+            ]);
+
+            if (state.stage3State === 0 || state.stage3State === 1) {
+                const card = state.stage3Card;
+
+                // Cập nhật shake timer vật lý cho thẻ He
+                if (card.shakeTimer > 0) card.shakeTimer--;
+                let shakeX = 0;
+                if (card.shakeTimer > 0) {
+                    shakeX = Math.sin(card.shakeTimer * 1.8) * 4;
+                }
+
+                const cx = card.x + shakeX, cy = card.y, w = card.w, h = card.h;
+
+                // Vẽ 1 thẻ He lớn, nổi bật ở giữa màn hình (giống cỡ thẻ Al ở Stage 1)
+                ctx.save();
+                ctx.shadowColor = 'rgba(26,26,26,0.06)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetY = 4;
+                ctx.fillStyle = card.shakeTimer > 0 ? '#F3E2D6' : '#FBF9F4';
+                ctx.strokeStyle = card.shakeTimer > 0 ? '#C15F3C' : '#E5DECF';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.roundRect(cx, cy, w, h, 14);
+                ctx.fill();
+                ctx.stroke();
+                ctx.shadowColor = 'transparent';
+
+                // Ký hiệu He
+                ctx.fillStyle = '#1A1A1A';
+                ctx.font = 'bold 42px "Playfair Display", serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('He', cx + w / 2, cy + 55);
+                ctx.font = '13px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = '#514C44';
+                ctx.fillText('Z = 2 (Helium)', cx + w / 2, cy + 78);
+
+                // Cấu hình 1s² — sáng đậm, cỡ chữ lớn ngay từ đầu (đúng kịch bản)
+                ctx.font = 'bold 28px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = '#C28328';
+                ctx.fillText('1s²', cx + w / 2, cy + 124);
+
+                // Nhãn nhỏ bên dưới — luôn nhỏ hơn nhiều so với cấu hình
+                ctx.font = 'bold 12px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = '#1B5E48';
+                ctx.fillText('2E LỚP NGOÀI CÙNG', cx + w / 2, cy + 152);
+                ctx.restore();
+
+                // Dấu "?" rung nhẹ trên thẻ, xuất hiện sau khi học sinh chọn
+                if (state.stage3State === 1) {
+                    ctx.save();
+                    ctx.fillStyle = '#E8A24A';
+                    ctx.font = 'bold 36px "Playfair Display"';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('?', cx + w / 2 + shakeX, cy - 14);
+                    ctx.restore();
+                }
+
+                // 3 nút lựa chọn ngay trong canvas — chỉ hiện khi chưa chọn (stage3State === 0)
+                if (state.stage3State === 0) {
+                    state.stage3Buttons.forEach(btn => {
+                        ctx.save();
+                        ctx.fillStyle = btn.bg;
+                        ctx.strokeStyle = btn.border;
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.roundRect(btn.x, btn.y, btn.w, btn.h, 8);
+                        ctx.fill();
+                        ctx.stroke();
+
+                        ctx.fillStyle = btn.color;
+                        ctx.font = 'bold 13px "Be Vietnam Pro", sans-serif';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(btn.label, btn.x + btn.w / 2, btn.y + btn.h / 2 + 5);
+                        ctx.restore();
+                    });
+                }
+            } else if (state.stage3State === 2) {
+                // Vẽ so sánh 3 thẻ xếp ngang — tái dùng drawElementCard() để chữ cấu hình
+                // luôn tự canh giữa và không tràn ra ngoài thẻ (giống các thẻ khác trong bài).
+                const compCards = [
+                    { symbol: 'He', config: '1s²', highlightParts: ['1s²'], label: '2e ngoài cùng — LỚP ĐẦY', x: 33, y: 150, w: 125, h: 92 },
+                    { symbol: 'Ne', config: '1s² 2s² 2p⁶', highlightParts: ['2s²', '2p⁶'], label: '8e ngoài cùng — LỚP ĐẦY', x: 173, y: 150, w: 125, h: 92 },
+                    { symbol: 'Ar', config: '1s² 2s² 2p⁶ 3s² 3p⁶', highlightParts: ['3s²', '3p⁶'], label: '8e ngoài cùng — LỚP ĐẦY', x: 313, y: 150, w: 125, h: 92 }
+                ];
+
+                compCards.forEach(c => {
+                    drawElementCard(ctx, {
+                        ...c,
+                        column: state.stage3CorrectAnswered ? 'noble' : null,
+                        shakeTimer: 0,
+                        incorrectCount: 0
+                    });
+
+                    // Nếu học sinh trả lời đúng quiz so sánh -> vẽ badge KHÍ HIẾM tím nhạt trên đầu thẻ
+                    if (state.stage3CorrectAnswered) {
+                        ctx.save();
+                        ctx.fillStyle = '#E8DAF5';
+                        ctx.strokeStyle = '#D2B9E5';
+                        ctx.lineWidth = 1.5;
+                        ctx.beginPath();
+                        ctx.roundRect(c.x + (c.w - 74) / 2, c.y - 12, 74, 18, 5);
+                        ctx.fill(); ctx.stroke();
+
+                        ctx.fillStyle = '#7A3BA5';
+                        ctx.font = 'bold 9px "Be Vietnam Pro"';
+                        ctx.textAlign = 'center';
+                        ctx.fillText("KHÍ HIẾM", c.x + c.w / 2, c.y);
+                        ctx.restore();
+                    }
+                });
+            }
+        }
+
+        // --- STAGE 4 ---
+        function initStage4() {
+            state.stage4CorrectAnswered = false;
+            state.stage4QuestionActive = false;
+            state.stage4UnlockTimer = 0;
+            hideAhaMoment();
+
+            // 2 thẻ C và Sn xếp cạnh nhau phía trên, cùng vùng trái với các ô thả bên dưới
+            const cardW = 115, cardH = 92;
+            state.stage4Cards = [
+                {
+                    symbol: 'C', config: '1s² 2s² 2p²', highlightParts: ['2s²', '2p²'],
+                    label: '4e ngoài cùng (n = 2)',
+                    x: 100, y: 95, w: cardW, h: cardH,
+                    homeX: 100, homeY: 95, targetX: 100, targetY: 95,
+                    isDragging: false, isPlaced: false, needsReturn: false,
+                    column: null, shakeTimer: 0, incorrectCount: 0
+                },
+                {
+                    symbol: 'Sn', config: '...4d¹⁰ 5s² 5p²', highlightParts: ['5s²', '5p²'],
+                    label: '4e ngoài cùng (n = 5)',
+                    x: 255, y: 95, w: cardW, h: cardH,
+                    homeX: 255, homeY: 95, targetX: 255, targetY: 95,
+                    isDragging: false, isPlaced: false, needsReturn: false,
+                    column: null, shakeTimer: 0, incorrectCount: 0
+                }
+            ];
+
+            // 3 vùng thả cùng kích thước với thẻ để khi thả đúng, thẻ vừa khít vào ô — không bị đè/tràn ra ngoài ô
+            state.stage4Cols = [
+                { id: 'metal', title: 'Kim loại', x: 23, y: 250, w: cardW, h: cardH, bgColor: 'rgba(230,240,250,0.5)', borderColor: '#A3C2E0', textColor: '#2A5D88', iconColor: '#2A5D88' },
+                { id: 'nonmetal', title: 'Phi kim', x: 158, y: 250, w: cardW, h: cardH, bgColor: 'rgba(234,245,202,0.4)', borderColor: '#A3D2A9', textColor: '#1B5E48', iconColor: '#1B5E48' },
+                { id: 'uncertain', title: 'Không kết luận được', x: 293, y: 250, w: cardW, h: cardH, bgColor: 'rgba(247,236,224,0.5)', borderColor: '#E5C09B', textColor: '#C2853A', iconColor: '#C2853A' }
+            ];
+
+            setRobotSpeech("Tiếp theo, hãy cùng quan sát hai nguyên tố cùng sở hữu <strong>4 electron lớp ngoài cùng</strong>: Carbon (C) và Thiếc (Sn).<br><br>Hãy kéo hai thẻ này vào các ô tương ứng bên dưới. Thao tác này sẽ giúp bạn hiểu điều thú vị về nguyên tử có 4e ngoài cùng.", "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = 'Kéo C và Sn vào các ô phù hợp.';
+            updateStepProgress();
+            hideQuiz();
+        }
+
+        function triggerStage4Question() {
+            state.stage4QuestionActive = true;
+
+            // Gợi ý robot
+            setRobotSpeech("Aha! Carbon thực chất là một phi kim cực kỳ quan trọng, còn Thiếc (Sn) lại là kim loại lâu đời. Cả hai đều có 4e lớp ngoài cùng nhưng tính chất lại trái ngược!", "correct");
+
+            // Kích hoạt câu hỏi trắc nghiệm
+            showQuiz(
+                "Sau khi quan sát Carbon (C) và Thiếc (Sn), chúng ta rút ra kết luận gì cho các nguyên tố có 4 electron ngoài cùng?",
+                [
+                    { key: 'A', text: "Tất cả các nguyên tố có 4e ngoài cùng đều là kim loại." },
+                    { key: 'B', text: "Tất cả các nguyên tố có 4e ngoài cùng đều là phi kim." },
+                    { key: 'C', text: "Số electron ngoài cùng bằng 4 không đủ để tự dự đoán chắc chắn tính chất của nguyên tố." },
+                    { key: 'D', text: "Cả C và Sn đều là khí hiếm." }
+                ],
+                'C'
+            );
+        }
+
+        function drawStage4() {
+            // Vẽ bảng quy luật ở bên phải — hàng "4" mở khóa dần: dấu ? tan dần rồi chữ hiện từng chữ
+            let unlockProgress = 1;
+            if (state.stage4CorrectAnswered && state.stage4UnlockTimer > 0) {
+                state.stage4UnlockTimer--;
+                unlockProgress = 1 - state.stage4UnlockTimer / 90;
+            }
+
+            drawRuleTable(465, 68, 275, 324, [
+                { range: '1–3', desc: 'Thường là kim loại', color: '#2A5D88', note: '(trừ He)' },
+                { range: '4', desc: state.stage4CorrectAnswered ? 'Có thể là kim loại hoặc phi kim' : '', locked: !state.stage4CorrectAnswered, color: '#C2853A', revealProgress: state.stage4CorrectAnswered ? unlockProgress : undefined },
+                { range: '5–7', desc: 'Thường là phi kim', color: '#1B5E48' },
+                { range: '8 (He là 2)', desc: 'Khí hiếm', color: '#7A3BA5' }
+            ]);
+
+            // Vẽ 3 vùng thả
+            state.stage4Cols.forEach(col => drawDropColumn(ctx, col));
+
+            // Vẽ 2 thẻ C và Sn
+            state.stage4Cards.forEach(card => {
+                if (card.shakeTimer > 0) {
+                    card.shakeTimer--;
+                }
+                if (!card.isDragging) {
+                    card.x = lerp(card.x, card.targetX || card.homeX, 0.15);
+                    card.y = lerp(card.y, card.targetY || card.homeY, 0.15);
+                }
+                drawElementCard(ctx, card);
+            });
+
+            // Chú thích nhỏ dưới thẻ Sn: lớp ngoài cùng của Sn là lớp thứ 5, không phải lớp thứ 2 như C
+            const snCard = state.stage4Cards.find(c => c.symbol === 'Sn');
+            if (snCard) {
+                ctx.save();
+                ctx.font = 'italic 9.5px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = '#8A8374';
+                ctx.textAlign = 'center';
+                const capLines = wrapText(ctx, 'Lớp ngoài cùng của Sn là lớp thứ 5 (5s² và 5p²).', 175);
+                let capY = snCard.y + snCard.h + 16;
+                capLines.forEach(line => { ctx.fillText(line, snCard.x + snCard.w / 2, capY); capY += 12; });
+                ctx.restore();
+            }
+        }
+
+        // --- STAGE 5 ---
+        function initStage5() {
+            state.stage5CorrectAnswered = false;
+            state.stage5QuestionActive = false;
+
+            // Định nghĩa các vùng thả trong bảng quy luật
+            state.stage5Slots = [
+                { id: '1-3', label: '1 - 3 e ngoài', x: 510, y: 122, w: 240, h: 40, filled: false },
+                { id: '4', label: '4 e ngoài', x: 510, y: 174, w: 240, h: 40, filled: false },
+                { id: '5-7', label: '5 - 7 e ngoài', x: 510, y: 226, w: 240, h: 40, filled: false },
+                { id: '8', label: '8 e ngoài', x: 510, y: 278, w: 240, h: 40, filled: false }
+            ];
+
+            // 4 thẻ đáp án nằm ngang ở dưới để kéo thả
+            const ansLabels = [
+                { correctSlotId: '1-3', text: 'Thường là kim loại (trừ He)' },
+                { correctSlotId: '4', text: 'Có thể là KL hoặc PK' },
+                { correctSlotId: '5-7', text: 'Thường là phi kim' },
+                { correctSlotId: '8', text: 'Khí hiếm' }
+            ];
+
+            // Xáo trộn vị trí thẻ đáp án ban đầu
+            ansLabels.sort(() => Math.random() - 0.5);
+
+            state.stage5Answers = [];
+            const startX = 330;
+            const w = 210;
+            const h = 40;
+            const gapX = 220;
+
+            for (let i = 0; i < ansLabels.length; i++) {
+                const colIdx = i % 2;
+                const rowIdx = Math.floor(i / 2);
+
+                const cardX = startX + colIdx * gapX;
+                const cardY = 350 + rowIdx * 46;
+
+                state.stage5Answers.push({
+                    text: ansLabels[i].text,
+                    correctSlotId: ansLabels[i].correctSlotId,
+                    x: cardX,
+                    y: cardY,
+                    homeX: cardX,
+                    homeY: cardY,
+                    w: w,
+                    h: h,
+                    isDragging: false,
+                    isPlaced: false,
+                    shakeTimer: 0
+                });
+            }
+
+            // Khởi tạo các chip nguyên tố đã học xếp 3x3 bên trái
+            const elementsData = [
+                { symbol: 'Na', count: 1, type: 'metal' },
+                { symbol: 'Mg', count: 2, type: 'metal' },
+                { symbol: 'Al', count: 3, type: 'metal' },
+                { symbol: 'O', count: 6, type: 'nonmetal' },
+                { symbol: 'Cl', count: 7, type: 'nonmetal' },
+                { symbol: 'He', count: 2, type: 'noble' },
+                { symbol: 'Ne', count: 8, type: 'noble' },
+                { symbol: 'C', count: 4, type: 'nonmetal' },
+                { symbol: 'Sn', count: 4, type: 'metal' }
+            ];
+
+            state.stage5Elements = [];
+            const elW = 85;
+            const elH = 45;
+            const elStartX = 40;
+            const elStartY = 110;
+
+            for (let i = 0; i < elementsData.length; i++) {
+                const colIdx = i % 3;
+                const rowIdx = Math.floor(i / 3);
+
+                state.stage5Elements.push({
+                    symbol: elementsData[i].symbol,
+                    count: elementsData[i].count,
+                    type: elementsData[i].type,
+                    x: elStartX + colIdx * 95,
+                    y: elStartY + rowIdx * 55,
+                    targetX: elStartX + colIdx * 95,
+                    targetY: elStartY + rowIdx * 55,
+                    w: elW,
+                    h: elH,
+                    glowTimer: 0
+                });
+            }
+
+            setRobotSpeech("Bạn vừa khám phá xong toàn bộ quy luật. Hãy tự hoàn thiện bảng mà không cần xem lại.", "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = 'Hoàn thành bảng quy luật.';
+            hideAhaMoment();
+            updateStepProgress();
+            hideQuiz();
+        }
+
+        function checkStage5Completion() {
+            const completed = state.stage5Answers.every(ans => ans.isPlaced);
+            if (completed && !state.stage5QuestionActive) {
+                state.stage5QuestionActive = true;
+
+                // Kích hoạt hiệu ứng các chip bay tụ vào các hàng của bảng
+                state.stage5Elements.forEach(el => {
+                    let targetRowY = 150;
+                    if ([1, 2, 3].includes(el.count) && el.symbol !== 'He') targetRowY = 156;
+                    else if (el.count === 4) targetRowY = 202;
+                    else if ([5, 6, 7].includes(el.count)) targetRowY = 248;
+                    else if (el.count === 8 || el.symbol === 'He') targetRowY = 294;
+
+                    el.targetX = 400; // Bay tụ về cột kết quả
+                    el.targetY = targetRowY - el.h / 2;
+                });
+
+                setTimeout(() => {
+                    setRobotSpeech("Rất tốt. Bây giờ chúng ta thử xem bạn có thể áp dụng quy luật này nhanh đến đâu.", "correct");
+
+                    showQuiz(
+                        "Quy luật nào dưới đây phù hợp nhất?",
+                        [
+                            { key: 'A', text: "1–3 electron lớp ngoài cùng luôn là kim loại." },
+                            { key: 'B', text: "4 electron lớp ngoài cùng luôn là phi kim." },
+                            { key: 'C', text: "Số electron lớp ngoài cùng giúp dự đoán tính chất hóa học của nhiều nguyên tố, nhưng vẫn có ngoại lệ và trường hợp không thể kết luận." },
+                            { key: 'D', text: "Khí hiếm hoàn toàn không tham gia phản ứng hóa học." }
+                        ],
+                        'C'
+                    );
+                }, 1500);
+            }
+        }
+
+        function drawStage5() {
+            // Cập nhật wrong timer
+            if (state.stage5WrongTimer > 0) {
+                state.stage5WrongTimer--;
+                if (state.stage5WrongTimer === 0) {
+                    state.stage5WrongSlotId = null;
+                }
+            }
+
+            // Vẽ danh sách chip nguyên tử bên trái
+            ctx.save();
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 13px "Be Vietnam Pro"';
+            ctx.fillText("NGUYÊN TỐ ĐÃ QUAN SÁT", 40, 95);
+            ctx.restore();
+
+            state.stage5Elements.forEach(el => {
+                // Di chuyển theo lerp
+                el.x = lerp(el.x, el.targetX, 0.1);
+                el.y = lerp(el.y, el.targetY, 0.1);
+
+                ctx.save();
+
+                // Hiệu ứng phát sáng khi kéo đúng
+                if (el.glowTimer > 0) {
+                    ctx.shadowColor = '#2D8B6F';
+                    ctx.shadowBlur = el.glowTimer / 2;
+                    el.glowTimer--;
+                } else {
+                    ctx.shadowColor = 'rgba(26,26,26,0.03)';
+                    ctx.shadowBlur = 4;
+                }
+
+                // Check xem nguyên tố có thuộc nhóm bị báo sai đỏ lòe hay không
+                let isWrongGroup = false;
+                if (state.stage5WrongTimer > 0 && state.stage5WrongSlotId) {
+                    if (state.stage5WrongSlotId === '1-3' && [1, 2, 3].includes(el.count) && el.symbol !== 'He') isWrongGroup = true;
+                    else if (state.stage5WrongSlotId === '4' && el.count === 4) isWrongGroup = true;
+                    else if (state.stage5WrongSlotId === '5-7' && [5, 6, 7].includes(el.count)) isWrongGroup = true;
+                    else if (state.stage5WrongSlotId === '8' && (el.count === 8 || el.symbol === 'He')) isWrongGroup = true;
+                }
+
+                // Chọn màu chip
+                let chipBg = '#FFFFFF';
+                let chipBorder = '#E5DECF';
+                if (isWrongGroup) {
+                    chipBg = '#FCECE6'; // nền đỏ nhạt
+                    chipBorder = '#C15F3C'; // viền đỏ đậm
+                } else if (el.type === 'metal') {
+                    chipBg = 'rgba(230,240,250,0.8)';
+                    chipBorder = '#A3C2E0';
+                } else if (el.type === 'nonmetal') {
+                    chipBg = 'rgba(234,245,202,0.6)';
+                    chipBorder = '#A3D2A9';
+                } else if (el.type === 'noble') {
+                    chipBg = 'rgba(243,234,248,0.8)';
+                    chipBorder = '#D2B9E5';
+                }
+
+                ctx.fillStyle = chipBg;
+                ctx.strokeStyle = chipBorder;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.roundRect(el.x, el.y, el.w, el.h, 6);
+                ctx.fill();
+                ctx.stroke();
+
+                // Text trong chip
+                ctx.fillStyle = '#1A1A1A';
+                ctx.font = 'bold 15px "Playfair Display"';
+                ctx.fillText(el.symbol, el.x + 14, el.y + 26);
+                ctx.font = '10px "Be Vietnam Pro"';
+                ctx.fillStyle = '#514C44';
+                ctx.fillText(`${el.count}e`, el.x + 56, el.y + 26);
+
+                // Vẽ icon × nhỏ báo sai đè góc phải trên
+                if (isWrongGroup) {
+                    ctx.fillStyle = '#C15F3C';
+                    ctx.beginPath();
+                    ctx.arc(el.x + el.w - 8, el.y + 8, 7, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = 'bold 9px "Be Vietnam Pro"';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('×', el.x + el.w - 8, el.y + 11);
+                }
+
+                ctx.restore();
+            });
+
+            // Vẽ bảng quy luật trống bên phải
+            drawStage5Table();
+
+            // Vẽ các nhãn đáp án
+            state.stage5Answers.forEach(ans => {
+                // Cập nhật shake physics cho thẻ kéo sai Stage 5
+                if (ans.shakeTimer > 0) {
+                    ans.shakeTimer--;
+                    if (ans.shakeTimer === 0 && ans.needsReturn) {
+                        ans.targetX = ans.homeX;
+                        ans.targetY = ans.homeY;
+                        ans.needsReturn = false;
+                    }
+                }
+
+                // Vẫn tiếp tục lerp cả khi đã đặt đúng (isPlaced) để thẻ trượt khít vào đúng vị trí ô,
+                // thay vì đứng yên tại chỗ vừa thả chuột (gây lệch hàng giữa các thẻ).
+                if (!ans.isDragging) {
+                    ans.x = lerp(ans.x, ans.targetX || ans.homeX, 0.15);
+                    ans.y = lerp(ans.y, ans.targetY || ans.homeY, 0.15);
+                }
+
+                ctx.save();
+                let shakeOffset = 0;
+                if (ans.shakeTimer > 0) {
+                    shakeOffset = Math.sin(ans.shakeTimer * 1.5) * 4.5;
+                }
+
+                ctx.fillStyle = ans.isPlaced ? '#DCEDE1' : '#FBF9F4';
+                ctx.strokeStyle = ans.isPlaced ? '#2D8B6F' : '#E5DECF';
+                if (ans.shakeTimer > 0) {
+                    ctx.fillStyle = '#FCECE6';
+                    ctx.strokeStyle = '#C15F3C';
+                }
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.roundRect(ans.x + shakeOffset, ans.y, ans.w, ans.h, 6);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = ans.isPlaced ? '#1B5E48' : '#1A1A1A';
+                ctx.font = 'bold 10.5px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center';
+                // Tự động xuống dòng để nhãn dài (vd. "Có thể là kim loại hoặc phi kim") không tràn ra ngoài thẻ
+                const ansLines = wrapText(ctx, ans.text, ans.w - 16);
+                const ansLineH = 12;
+                let ansTextY = ans.y + ans.h / 2 - ((ansLines.length - 1) * ansLineH) / 2 + 4;
+                ansLines.forEach(line => {
+                    ctx.fillText(line, ans.x + ans.w / 2 + shakeOffset, ansTextY);
+                    ansTextY += ansLineH;
+                });
+                ctx.restore();
+            });
+        }
+
+        function drawStage5Table() {
+            const tx = 330;
+            const ty = 50;
+            const tw = 440;
+            const th = 285;
+
+            ctx.save();
+            ctx.fillStyle = '#FBF9F4';
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(tx, ty, tw, th, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 13px "Be Vietnam Pro"';
+            ctx.textAlign = 'center';
+            ctx.fillText('BẢNG QUY LUẬT TỔNG HỢP', tx + tw / 2, ty + 25);
+
+            ctx.strokeStyle = '#E5DECF';
+            ctx.beginPath(); ctx.moveTo(tx + 10, ty + 40); ctx.lineTo(tx + tw - 10, ty + 40); ctx.stroke();
+
+            // Header
+            ctx.font = 'bold 11px "Be Vietnam Pro"';
+            ctx.fillStyle = '#514C44';
+            ctx.textAlign = 'left';
+            ctx.fillText('Electron lớp ngoài cùng', tx + 24, ty + 56);
+            ctx.fillText('Dự đoán tính chất', tx + 180, ty + 56);
+
+            // Vẽ các slots
+            state.stage5Slots.forEach(slot => {
+                ctx.save();
+                ctx.fillStyle = '#1A1A1A';
+                ctx.font = 'bold 12.5px "Be Vietnam Pro"';
+                ctx.fillText(slot.label, tx + 24, slot.y + slot.h / 2 + 4);
+
+                // Vẽ khung slot trống
+                if (!slot.filled) {
+                    ctx.strokeStyle = 'rgba(26,26,26,0.12)';
+                    ctx.fillStyle = 'rgba(26,26,26,0.02)';
+                    ctx.setLineDash([2, 2]);
+                    ctx.beginPath();
+                    ctx.roundRect(slot.x, slot.y, slot.w, slot.h, 6);
+                    ctx.fill();
+                    ctx.stroke();
+                }
+                ctx.restore();
+            });
+            ctx.restore();
+        }
+
+        // --- STAGE 6 - THỬ THÁCH DỰ ĐOÁN NHANH ---
+        function startStage6Challenge() {
+            state.stage = 6;
+            state.stage6Score = 0;
+            state.stage6CurrentIndex = 0;
+            state.stage6Active = true;
+            state.stage6Intro = true; // Màn hình sẵn sàng riêng của Stage 6, tách bạch khỏi Stage 5
+            state.stage6StartTime = Date.now();
+            state.stage6ShowAnswer = false;
+            state.stage6IncorrectAttempts = 0;
+
+            // Chọn ngẫu nhiên 10 thẻ từ pool để chơi
+            state.stage6List = [...STAGE6_POOL].sort(() => Math.random() - 0.5).slice(0, 10);
+
+            hideAhaMoment();
+            hideQuiz();
+            setRobotSpeech("Đây là thử thách cuối. Mỗi nguyên tố chỉ cần ba bước: xác định electron lớp ngoài cùng → dự đoán → kiểm tra lại. Khi sẵn sàng, hãy bắt đầu.", "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = 'Sẵn sàng bắt đầu thử thách.';
+            updateStepProgress();
+            updateNextButtonState();
+            lmsReportState('startStage6Challenge');
+        }
+
+        function initStage6Question() {
+            state.stage6ShowAnswer = false;
+            state.stage6Answered = false;
+            state.stage6IncorrectAttempts = 0;
+            state.stage6WrongKeys = [];
+            state.stage6SelectedKey = null;
+
+            hideAhaMoment();
+            hideQuiz();
+            const currentItem = state.stage6List[state.stage6CurrentIndex];
+
+            setRobotSpeech(`Thử thách thứ <strong>${state.stage6CurrentIndex + 1} / 10</strong>: Hãy dự đoán tính chất hóa học của nguyên tố này.`, "idle");
+
+            initNextButton();
+            document.getElementById('interactionStatus').innerText = `Thử thách: ${state.stage6CurrentIndex + 1}/10`;
+            document.getElementById('stepInfoText').innerText = `Thử thách: ${state.stage6CurrentIndex + 1}/10`;
+
+            // 3 nút lựa chọn ngay trong canvas — không dùng bảng trắc nghiệm cột phải
+            const btnW = 160, btnH = 40, gap = 20;
+            const totalW = btnW * 3 + gap * 2;
+            const startX = W / 2 - totalW / 2;
+            const btnY = 250;
+            state.stage6Buttons = [
+                { key: 'A', label: 'Kim loại', x: startX, y: btnY, w: btnW, h: btnH, color: '#2A5D88', bg: 'rgba(230,240,250,0.6)', border: '#A3C2E0' },
+                { key: 'B', label: 'Phi kim', x: startX + (btnW + gap), y: btnY, w: btnW, h: btnH, color: '#1B5E48', bg: 'rgba(234,245,202,0.5)', border: '#A3D2A9' },
+                { key: 'C', label: 'Khí hiếm', x: startX + (btnW + gap) * 2, y: btnY, w: btnW, h: btnH, color: '#7A3BA5', bg: 'rgba(243,234,248,0.6)', border: '#D2B9E5' }
+            ];
+        }
+
+        function getVietnameseType(type) {
+            if (type === 'metal') return 'Kim loại';
+            if (type === 'nonmetal') return 'Phi kim';
+            if (type === 'noble') return 'Khí hiếm';
+            return 'Không kết luận được (hoặc Có thể là KL / PK)';
+        }
+
+        // Học sinh bấm 1 trong 4 nút dự đoán ngay trong canvas ở Stage 6
+        function handleStage6Choice(key) {
+            if (!state.stage6Active || state.stage6Intro || state.stage6ShowAnswer) return;
+            if (state.stage6WrongKeys.includes(key)) return;
+
+            const currentItem = state.stage6List[state.stage6CurrentIndex];
+            const keyMap = { metal: 'A', nonmetal: 'B', noble: 'C' };
+            const correctKey = keyMap[currentItem.type];
+
+            // Ngay sau khi chọn (dù đúng hay sai), phần lớp ngoài cùng phát sáng và số electron hiện ra
+            state.stage6Answered = true;
+
+            if (key === correctKey) {
+                state.stage6Score++;
+                state.stage6ShowAnswer = true;
+                state.stage6SelectedKey = key;
+                const _qid = 'stage6_q' + (state.stage6CurrentIndex + 1);
+                lmsAnswers[_qid] = { chosen: key, correct: true, element: currentItem.symbol };
+                LMS().event('answered', { id: _qid, chosen: key, correct: true, element: currentItem.symbol });
+                playSuccessFlash();
+                spawnParticles(W / 2, H / 2 - 10, 'jade', 15);
+                setRobotSpeech(`Đúng. ${currentItem.desc}`, "correct");
+                updateNextButtonState();
+            } else {
+                state.stage6WrongKeys.push(key);
+                state.stage6IncorrectAttempts++;
+                currentItem.shakeTimer = 18;
+
+                if (state.stage6IncorrectAttempts === 1) {
+                    setRobotSpeech("Hãy xác định lại số electron lớp ngoài cùng.", "wrong");
+                } else {
+                    state.stage6ShowAnswer = true;
+                    state.stage6SelectedKey = correctKey;
+                    const _qid = 'stage6_q' + (state.stage6CurrentIndex + 1);
+                    lmsAnswers[_qid] = { chosen: key, correct: false, element: currentItem.symbol };
+                    LMS().event('answered', { id: _qid, chosen: key, correct: false, element: currentItem.symbol });
+                    setRobotSpeech(`Cấu hình này có <strong>${currentItem.count}</strong> electron lớp ngoài cùng — ${currentItem.desc}`, "wrong");
+                    updateNextButtonState();
+                }
+            }
+        }
+
+        function nextChallengeQuestion() {
+            if (state.stage6CurrentIndex < state.stage6Max - 1) {
+                state.stage6CurrentIndex++;
+                initStage6Question();
+            } else {
+                // Kết thúc game
+                state.stage6Active = false;
+                state.stage6ElapsedTime = Math.round((Date.now() - state.stage6StartTime) / 1000);
+
+                setRobotSpeech(`Bạn đã có thể dự đoán tính chất hóa học cơ bản của nhiều nguyên tố chỉ từ cấu hình electron.<br><br>Đạt điểm: <strong>${state.stage6Score} / 10</strong><br>Thời gian: <strong>${state.stage6ElapsedTime} giây</strong>.`, "correct");
+                showAhaMoment("Chỉ cần xác định đúng electron lớp ngoài cùng, bạn đã có thể dự đoán tính chất hóa học cơ bản của rất nhiều nguyên tố — nhanh và không cần tra bảng tuần hoàn.");
+
+                const content = document.getElementById('actionBtnContainer');
+                content.innerHTML = `
+                    <button class="btn-secondary" onclick="startStage6Challenge()">
+                        <i class="ti ti-refresh"></i> Thử thách lại
+                    </button>
+                    <button class="btn-primary" onclick="jumpToStage(1)">
+                        <i class="ti ti-home"></i> Quay về trang đầu
+                    </button>
+                `;
+                document.getElementById('resetBtn').disabled = true;
+
+                if (!window._lmsCompletedOnce) {
+                    window._lmsCompletedOnce = true;
+                    const _quizItems = Object.keys(QUIZ_META).map(qid => {
+                        const meta = QUIZ_META[qid];
+                        const a = lmsAnswers[qid] || {};
+                        return { id: qid, prompt: meta.prompt, options: meta.options, chosen: a.chosen != null ? a.chosen : null, correct: meta.correctKey, isCorrect: a.correct === true };
+                    });
+                    const _challengeItems = Object.keys(lmsAnswers).filter(k => k.startsWith('stage6_')).map(k => ({
+                        id: k,
+                        prompt: 'Thử thách dự đoán nhanh tính chất của nguyên tố ' + (lmsAnswers[k].element || ''),
+                        chosen: lmsAnswers[k].chosen,
+                        correct: null,
+                        isCorrect: lmsAnswers[k].correct === true
+                    }));
+                    const _allItems = _quizItems.concat(_challengeItems);
+                    LMS().complete({
+                        summary: 'Hoàn thành Module: Dự đoán tính chất hóa học cơ bản của nguyên tố từ cấu hình electron. Điểm thử thách: ' + state.stage6Score + ' / ' + state.stage6Max + '.',
+                        score: _allItems.filter(i => i.isCorrect).length,
+                        max: _allItems.length,
+                        items: _allItems
+                    });
+                }
+            }
+        }
+
+        // Màn hình chờ riêng của Stage 6 — tách bạch rõ ràng với Stage 5, chỉ hiện câu hỏi đầu tiên sau khi bấm "Bắt đầu"
+        function drawStage6Intro() {
+            const w = 400, h = 220;
+            const cx = W / 2 - w / 2, cy = H / 2 - h / 2;
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(26,26,26,0.06)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetY = 4;
+            ctx.fillStyle = '#FBF9F4';
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(cx, cy, w, h, 16);
+            ctx.fill();
+            ctx.stroke();
+            ctx.shadowColor = 'transparent';
+
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 22px "Playfair Display", serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('THỬ THÁCH DỰ ĐOÁN NHANH', cx + w / 2, cy + 55);
+
+            ctx.font = '13.5px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#514C44';
+            const lines = wrapText(ctx, '10 nguyên tố ngẫu nhiên. Xác định electron lớp ngoài cùng rồi dự đoán tính chất thật nhanh.', w - 80);
+            let ly = cy + 95;
+            lines.forEach(line => { ctx.fillText(line, cx + w / 2, ly); ly += 20; });
+
+            ctx.font = 'bold 13px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#3CA57A';
+            ctx.fillText('Nhấn "Bắt đầu" bên dưới khi bạn đã sẵn sàng', cx + w / 2, cy + h - 30);
+            ctx.restore();
+        }
+
+        function drawStage6() {
+            if (state.stage6Intro) {
+                drawStage6Intro();
+                return;
+            }
+            if (!state.stage6Active) {
+                // Vẽ màn hình tổng kết
+                drawChallengeResults();
+                return;
+            }
+
+            const currentItem = state.stage6List[state.stage6CurrentIndex];
+
+            // Cập nhật shake timer của item hiện tại
+            let shakeX = 0;
+            if (currentItem.shakeTimer > 0) {
+                shakeX = Math.sin(currentItem.shakeTimer * 1.5) * 6;
+                currentItem.shakeTimer--;
+            }
+
+            // Vẽ thẻ câu hỏi ở giữa Canvas
+            const cx = W / 2 - 120 + shakeX;
+            const cy = 60;
+            const w = 240;
+            const h = 150;
+
+            ctx.save();
+            ctx.shadowColor = 'rgba(26,26,26,0.05)';
+            ctx.shadowBlur = 8;
+            ctx.shadowOffsetY = 3;
+
+            // Đổi màu nền nếu đã show đáp án
+            let bgCard = '#FBF9F4';
+            let borderCard = '#E5DECF';
+
+            if (state.stage6ShowAnswer) {
+                bgCard = currentItem.type === 'metal' ? 'rgba(230, 240, 250, 0.9)' :
+                    currentItem.type === 'nonmetal' ? 'rgba(234, 245, 202, 0.8)' :
+                        currentItem.type === 'noble' ? 'rgba(243, 234, 248, 0.9)' : 'rgba(247, 236, 224, 0.9)';
+                borderCard = currentItem.type === 'metal' ? '#A3C2E0' :
+                    currentItem.type === 'nonmetal' ? '#A3D2A9' :
+                        currentItem.type === 'noble' ? '#D2B9E5' : '#E5C09B';
+            }
+
+            if (currentItem.shakeTimer > 0) {
+                bgCard = '#FCECE6';
+                borderCard = '#C15F3C';
+            }
+
+            ctx.fillStyle = bgCard;
+            ctx.strokeStyle = borderCard;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(cx, cy, w, h, 12);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.shadowColor = 'transparent';
+
+            // Vẽ Ký hiệu lớn — theo kịch bản, thẻ chỉ hiển thị ký hiệu nguyên tố và cấu hình electron
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 40px "Playfair Display", serif';
+            ctx.textAlign = 'center';
+            ctx.fillText(currentItem.symbol, cx + w / 2, cy + 55);
+
+            // Vẽ cấu hình electron
+            const parts = currentItem.config.split(' ');
+            let totalW = 0;
+            ctx.font = 'bold 15px "Be Vietnam Pro"';
+            parts.forEach(p => totalW += ctx.measureText(p + ' ').width);
+
+            let startX = cx + (w - totalW) / 2;
+            parts.forEach(part => {
+                // Ngay sau khi học sinh chọn (đúng hay sai), phần lớp ngoài cùng đã phát sáng
+                const isHighlight = state.stage6Answered && currentItem.outer.includes(part);
+                if (isHighlight) {
+                    ctx.fillStyle = '#C28328';
+                    ctx.font = 'bold 16px "Be Vietnam Pro"';
+                } else {
+                    ctx.fillStyle = '#1A1A1A';
+                    ctx.font = '14px "Be Vietnam Pro"';
+                }
+                ctx.fillText(part, startX + ctx.measureText(part).width / 2, cy + 100);
+                startX += ctx.measureText(part + ' ').width;
+            });
+
+            // Vẽ số e ngoài cùng — hiện ngay sau khi chọn, không cần chờ công bố đáp án
+            if (state.stage6Answered) {
+                ctx.fillStyle = '#1B5E48';
+                ctx.font = 'bold 11px "Be Vietnam Pro"';
+                ctx.fillText(`CÓ ${currentItem.count}e LỚP NGOÀI CÙNG`, cx + w / 2, cy + 130);
+            }
+
+            // Vẽ tiến trình điểm số nhỏ góc trên bên phải
+            ctx.fillStyle = '#514C44';
+            ctx.font = 'bold 13px "Be Vietnam Pro"';
+            ctx.textAlign = 'right';
+            ctx.fillText(`Điểm: ${state.stage6Score} / 10`, W - 30, 30);
+
+            ctx.restore();
+
+            // 4 nút lựa chọn ngay trong canvas: Kim loại / Phi kim / Khí hiếm / Không kết luận được
+            const currentCorrectKey = { metal: 'A', nonmetal: 'B', noble: 'C', uncertain: 'D' }[currentItem.type];
+            state.stage6Buttons.forEach(btn => {
+                const isWrong = state.stage6WrongKeys.includes(btn.key);
+                const isRevealedCorrect = state.stage6ShowAnswer && btn.key === currentCorrectKey;
+
+                ctx.save();
+                if (isWrong) {
+                    ctx.fillStyle = '#F3E2D6';
+                    ctx.strokeStyle = '#C15F3C';
+                } else if (isRevealedCorrect) {
+                    ctx.fillStyle = '#DCEAE1';
+                    ctx.strokeStyle = '#2D8B6F';
+                } else {
+                    ctx.fillStyle = btn.bg;
+                    ctx.strokeStyle = btn.border;
+                }
+                ctx.globalAlpha = (state.stage6ShowAnswer && !isRevealedCorrect) ? 0.45 : 1;
+                ctx.lineWidth = isRevealedCorrect ? 2.5 : 1.5;
+                ctx.beginPath();
+                ctx.roundRect(btn.x, btn.y, btn.w, btn.h, 8);
+                ctx.fill();
+                ctx.stroke();
+
+                ctx.fillStyle = isWrong ? '#C15F3C' : (isRevealedCorrect ? '#1B5E48' : btn.color);
+                ctx.font = 'bold 12.5px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center';
+                const btnLines = wrapText(ctx, btn.label, btn.w - 14);
+                let btnTextY = btn.y + btn.h / 2 - ((btnLines.length - 1) * 13) / 2 + 4;
+                btnLines.forEach(line => { ctx.fillText(line, btn.x + btn.w / 2, btnTextY); btnTextY += 13; });
+
+                if (isRevealedCorrect) {
+                    ctx.fillStyle = '#2D8B6F';
+                    ctx.font = 'bold 13px "Be Vietnam Pro"';
+                    ctx.fillText('✓', btn.x + btn.w - 14, btn.y + 16);
+                } else if (isWrong) {
+                    ctx.fillStyle = '#C15F3C';
+                    ctx.font = 'bold 13px "Be Vietnam Pro"';
+                    ctx.fillText('✕', btn.x + btn.w - 14, btn.y + 16);
+                }
+                ctx.restore();
+            });
+        }
+
+        function drawChallengeResults() {
+            let rateText = "Cố gắng luyện tập thêm bạn nhé!";
+            if (state.stage6Score >= 9) rateText = "Xuất sắc! Bạn nắm bài rất chắc chắn.";
+            else if (state.stage6Score >= 7) rateText = "Rất tốt! Bạn làm chủ được quy luật.";
+
+            // Bảng tóm tắt kết quả gọn ở trên: số câu đúng / tổng số câu, thời gian hoàn thành
+            ctx.save();
+            ctx.fillStyle = '#FBF9F4';
+            ctx.strokeStyle = '#E5DECF';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(W / 2 - 190, 14, 380, 100, 14);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#1A1A1A';
+            ctx.font = 'bold 18px "Playfair Display"';
+            ctx.textAlign = 'center';
+            ctx.fillText('KẾT QUẢ THỬ THÁCH', W / 2, 38);
+
+            ctx.font = 'bold 24px "Be Vietnam Pro"';
+            ctx.fillStyle = '#2D8B6F';
+            ctx.fillText(`${state.stage6Score} / 10  ·  ${state.stage6ElapsedTime} giây`, W / 2, 68);
+
+            ctx.font = 'bold 12.5px "Be Vietnam Pro"';
+            ctx.fillStyle = '#514C44';
+            ctx.fillText(rateText, W / 2, 96);
+            ctx.restore();
+
+            // Bên dưới hiển thị bảng quy luật hoàn chỉnh lần cuối
+            drawRuleTable(W / 2 - 210, 128, 420, 300, [
+                { range: '1–3', desc: 'Thường là kim loại', color: '#2A5D88', note: '(trừ He)' },
+                { range: '4', desc: 'Có thể là kim loại hoặc phi kim', color: '#C2853A' },
+                { range: '5–7', desc: 'Thường là phi kim', color: '#1B5E48' },
+                { range: '8 (He là 2)', desc: 'Khí hiếm', color: '#7A3BA5' }
+            ]);
+        }
+
+        // --- QUẢN LÝ NÚT TIẾP TỤC / HÀNH ĐỘNG DƯỚI GÓC PHẢI ---
+        function initNextButton() {
+            const container = document.getElementById('actionBtnContainer');
+            if (container) {
+                container.innerHTML = `
+                    <button class="btn-primary" id="nextBtn" onclick="handleNextAction()" disabled>
+                        Tiếp tục <i class="ti ti-arrow-right"></i>
+                    </button>
+                `;
+            }
+        }
+
+        function updateNextButtonState() {
+            const nextBtn = document.getElementById('nextBtn');
+            if (!nextBtn) return;
+
+            nextBtn.disabled = true; // Mặc định là bị khóa
+
+            if (state.stage === 1) {
+                nextBtn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+                nextBtn.disabled = !state.stage1Correct;
+            } else if (state.stage === 2) {
+                nextBtn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+                nextBtn.disabled = !state.stage2CorrectAnswered;
+            } else if (state.stage === 3) {
+                nextBtn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+                nextBtn.disabled = !state.stage3CorrectAnswered;
+            } else if (state.stage === 4) {
+                nextBtn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+                nextBtn.disabled = !state.stage4CorrectAnswered;
+            } else if (state.stage === 5) {
+                nextBtn.innerHTML = 'Thử thách <i class="ti ti-trophy"></i>';
+                nextBtn.disabled = !state.stage5CorrectAnswered;
+            } else if (state.stage === 6) {
+                if (state.stage6Intro) {
+                    nextBtn.innerHTML = 'Bắt đầu <i class="ti ti-player-play"></i>';
+                    nextBtn.disabled = false;
+                } else if (state.stage6Active) {
+                    const isEnd = state.stage6CurrentIndex === state.stage6Max - 1;
+                    nextBtn.innerHTML = isEnd ? 'Xem kết quả <i class="ti ti-trophy"></i>' : 'Câu tiếp theo <i class="ti ti-arrow-right"></i>';
+                    nextBtn.disabled = !state.stage6ShowAnswer;
+                }
+            }
+        }
+
+        function handleNextAction() {
+            if (state.stage === 1) {
+                jumpToStage(2);
+            } else if (state.stage === 2) {
+                jumpToStage(3);
+            } else if (state.stage === 3) {
+                jumpToStage(4);
+            } else if (state.stage === 4) {
+                jumpToStage(5);
+            } else if (state.stage === 5) {
+                startStage6Challenge();
+            } else if (state.stage === 6) {
+                if (state.stage6Intro) {
+                    state.stage6Intro = false;
+                    initStage6Question();
+                } else if (state.stage6Active) {
+                    nextChallengeQuestion();
+                }
+            }
+        }
+
+        // --- HỖ TRỢ ĐIỀU KHIỂN CHUNG ---
+        function resetCurrentStage() {
+            if (state.stage === 1) initStage1();
+            else if (state.stage === 2) initStage2();
+            else if (state.stage === 3) initStage3();
+            else if (state.stage === 4) initStage4();
+            else if (state.stage === 5) initStage5();
+            else if (state.stage === 6) startStage6Challenge();
+        }
+
+        function updateStepProgress() {
+            document.getElementById('stepInfoText').innerText = `Bước ${state.stage} / 6`;
+
+            // Di chuyển dòng tiến độ
+            const percent = ((state.stage - 1) / 5) * 100;
+            document.getElementById('progressLineFill').style.width = `${percent}%`;
+
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, idx) => {
+                dot.classList.remove('active', 'done');
+                if (idx + 1 === state.stage) {
+                    dot.classList.add('active');
+                } else if (idx + 1 < state.stage) {
+                    dot.classList.add('done');
+                }
+            });
+
+            const stepRows = document.querySelectorAll('.step-row');
+            stepRows.forEach((row, idx) => {
+                row.classList.remove('is-active', 'is-done');
+                if (idx + 1 === state.stage) {
+                    row.classList.add('is-active');
+                } else if (idx + 1 < state.stage) {
+                    row.classList.add('is-done');
+                }
+            });
+
+            // Cập nhật trạng thái nút Quay lại và Làm lại
+            const prevBtn = document.getElementById('prevBtn');
+            if (prevBtn) {
+                prevBtn.disabled = (state.stage === 1 || state.isAnimating);
+            }
+            const resetBtn = document.getElementById('resetBtn');
+            if (resetBtn) {
+                resetBtn.disabled = state.isAnimating;
+            }
+        }
+
+        function goToPrevStage() {
+            if (state.isAnimating) return;
+            if (state.stage > 1) {
+                jumpToStage(state.stage - 1);
+            }
+        }
+
+        function jumpToStage(s) {
+            if (state.isAnimating) return;
+            state.stage = s;
+
+            if (s === 1) initStage1();
+            else if (s === 2) initStage2();
+            else if (s === 3) initStage3();
+            else if (s === 4) initStage4();
+            else if (s === 5) initStage5();
+            else if (s === 6) startStage6Challenge();
+
+            lmsReportState('jumpToStage=' + s);
+        }
+
+        // --- ROBOT & QUIZ CONTROLLER (RIGHT COLUMN) ---
+        function setRobotSpeech(text, type = 'idle') {
+            const box = document.getElementById('explanationBox');
+            box.className = `explanationBox state-${type}`;
+
+            const speech = document.getElementById('robotSpeech');
+            speech.innerHTML = text;
+        }
+
+        function showAhaMoment(text) {
+            const box = document.getElementById('ahaBox');
+            if (box) {
+                document.getElementById('ahaContent').innerHTML = text;
+                box.style.display = 'block';
+            }
+        }
+
+        function hideAhaMoment() {
+            const box = document.getElementById('ahaBox');
+            if (box) {
+                box.style.display = 'none';
+            }
+        }
+
+        function showQuiz(question, options, correctKey) {
+            const container = document.getElementById('quizContainer');
+            container.style.display = 'block';
+            container.classList.remove('fade-out');
+
+            document.getElementById('quizQuestionText').innerHTML = question;
+
+            const list = document.getElementById('quizOptionsList');
+            list.innerHTML = '';
+
+            options.forEach(opt => {
+                const li = document.createElement('li');
+
+                const btn = document.createElement('button');
+                btn.className = 'quiz-option-btn';
+                btn.innerHTML = `
+                    <span class="quiz-option-key">${opt.key}.</span>
+                    <span class="quiz-option-text">${opt.text}</span>
+                    <span class="quiz-option-feedback-icon" id="icon_${opt.key}"></span>
+                `;
+
+                btn.onclick = () => selectQuizOption(opt.key, correctKey);
+                li.appendChild(btn);
+                list.appendChild(li);
+            });
+        }
+
+        function selectQuizOption(selectedKey, correctKey) {
+            const btns = document.querySelectorAll('.quiz-option-btn');
+            const selectedBtn = Array.from(btns).find(btn => btn.querySelector('.quiz-option-key').innerText.startsWith(selectedKey));
+
+            if (selectedKey === correctKey) {
+                // ĐÚNG: Khóa tất cả các nút
+                btns.forEach(btn => btn.disabled = true);
+                selectedBtn.classList.add('opt-correct');
+                selectedBtn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+
+                // Xử lý điểm số đặc biệt nếu ở Stage 6
+                if (state.stage === 6) {
+                    state.stage6Score++;
+                    state.stage6ShowAnswer = true;
+                    playSuccessFlash();
+                    spawnParticles(W / 2, H / 2 - 10, 'jade', 15);
+                    const currentItem = state.stage6List[state.stage6CurrentIndex];
+                    setRobotSpeech(`Chính xác! ${currentItem.desc}`, "correct");
+                    updateNextButtonState();
+                } else {
+                    onQuizAnswer(true, selectedKey);
+                }
+            } else {
+                // SAI: Chỉ đánh dấu đỏ và khóa riêng nút sai, các nút khác tiếp tục cho phép chọn lại
+                selectedBtn.classList.add('opt-wrong');
+                selectedBtn.disabled = true;
+                selectedBtn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+
+                // Bật lại các nút khác (ngoại trừ những nút đã bị tô sai)
+                btns.forEach(btn => {
+                    if (!btn.classList.contains('opt-wrong')) {
+                        btn.disabled = false;
+                    }
+                });
+
+                if (state.stage === 6) {
+                    state.stage6IncorrectAttempts++;
+                    const currentItem = state.stage6List[state.stage6CurrentIndex];
+                    currentItem.shakeTimer = 18; // Rung thẻ trên canvas
+
+                    if (state.stage6IncorrectAttempts === 1) {
+                        setRobotSpeech("Chưa chính xác. Hãy đếm kĩ số electron ở lớp ngoài cùng của cấu hình này và chọn lại.", "wrong");
+                    } else {
+                        // Sai quá 2 lần: Khóa toàn bộ
+                        btns.forEach(btn => btn.disabled = true);
+                        state.stage6ShowAnswer = true;
+
+                        const correctBtn = Array.from(btns).find(btn => btn.querySelector('.quiz-option-key').innerText.startsWith(correctKey));
+                        if (correctBtn) {
+                            correctBtn.classList.add('opt-correct');
+                            correctBtn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                        }
+
+                        setRobotSpeech(`Hết lượt thử! Đáp án đúng là: <strong>${getVietnameseType(currentItem.type)}</strong>.<br>${currentItem.desc}`, "wrong");
+                        updateNextButtonState();
+                    }
+                } else {
+                    onQuizAnswer(false, selectedKey);
+                }
+            }
+        }
+
+        function hideQuiz() {
+            const container = document.getElementById('quizContainer');
+            container.classList.add('fade-out');
+            setTimeout(() => {
+                container.style.display = 'none';
+            }, 200);
+        }
+
+        // --- ĐỒNG BỘ "CÔNG CỤ MÔ PHỎNG" — chip của công cụ đang dùng ở bước hiện tại sáng lên ---
+        // Chỉ ĐỌC state hiện có để phản chiếu lên UI, không thay đổi bất kỳ logic/state nào.
+        function syncToolChips() {
+            const stage = state.stage;
+            document.querySelectorAll('.tool-chip').forEach(chip => {
+                const t = chip.dataset.tool;
+                let active = false;
+                if (t === 'config') active = (stage === 1 || stage === 3 || stage === 6);
+                else if (t === 'dragdrop') active = (stage === 2 || stage === 4 || stage === 5);
+                else if (t === 'cards') active = (stage >= 2 && stage <= 5);
+                else if (t === 'ruletable') active = (stage >= 2 && stage <= 6);
+                else if (t === 'challenge') active = (stage === 6);
+                chip.classList.toggle('active', active);
+            });
+        }
+        setInterval(syncToolChips, 300);
+
+        // --- KHỞI CHẠY ---
+        initStage1();
+        requestAnimationFrame(loop);
+        syncToolChips();
+    </script>
+</body>
+
+</html>

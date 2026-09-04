@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mô Phỏng Tương Tác: Tính Bazơ Của Amine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #f0f4f8;
+            --surf: #ffffff;
+            --border: #cbd5e1;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --primary: #0f4c81;
+            --primary-light: #e6f1fb;
+            --teal: #1a7a5e;
+            --success: #0f6e56;
+            --success-light: #e1f5ee;
+            --orange: #ea580c;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            min-height: 100vh;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* ── HEADER ── */
+        .lab-header {
+            width: 100%;
+            max-width: 760px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lab-header::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .lab-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 60px;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .lab-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            border-radius: 100px;
+            color: rgba(255, 255, 255, 0.9);
+            padding: 6px 14px;
+            margin-bottom: 1rem;
+            backdrop-filter: none;
+            font-size: 1.25rem;
+        }
+
+
+
+        .lab-header h1 {
+            font-size: 1.55rem;
+            font-weight: 700;
+            color: #fff;
+            margin: 0 0 7px;
+            letter-spacing: -0.3px;
+            position: relative;
+        }
+
+        .lab-header p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.70);
+            margin: 0;
+            position: relative;
+        }
+
+        /* ── INFO PANEL ── */
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-panel-row {
+            display: flex;
+            gap: 0;
+        }
+
+        .info-block {
+            flex: 1;
+            padding: 16px 20px;
+        }
+
+        .info-block:first-child {
+            border-right: 1px solid var(--border);
+        }
+
+        .info-block-title {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            margin-bottom: 7px;
+        }
+
+        .info-block-title i {
+            font-size: 15px;
+        }
+
+        .info-block-text {
+            font-size: 0.875rem;
+            line-height: 1.65;
+            color: #475569;
+        }
+
+        .info-block-text strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        /* ── CANVAS WRAP ── */
+        .cw {
+            width: 100%;
+            max-width: 760px;
+            background: #ffffff;
+            padding: 10px 10px 8px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        canvas {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: #ffffff;
+        }
+
+        /* ── CONTROLS ── */
+        .controls {
+            width: 100%;
+            max-width: 760px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .control-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .control-row:last-child {
+            border-bottom: none;
+        }
+
+        .control-row:nth-child(1) {
+            background: rgba(15, 76, 129, 0.05);
+        }
+
+        .control-row:nth-child(2) {
+            background: rgba(251, 191, 36, 0.07);
+        }
+
+        .control-row:nth-child(3) {
+            background: rgba(26, 122, 94, 0.07);
+        }
+
+        .control-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            min-width: 130px;
+            color: #0f172a;
+        }
+
+        .control-label i {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--border);
+            color: #475569;
+            background: #f8fafc;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: var(--primary-light);
+            transform: translateY(-1px);
+        }
+
+        .btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        .btn.action-btn {
+            background: var(--success);
+            color: #ffffff;
+            border-color: var(--success);
+            box-shadow: 0 4px 12px rgba(15, 110, 86, 0.25);
+        }
+
+        .btn.action-btn:hover:not(:disabled) {
+            background: #0a5843;
+            box-shadow: 0 6px 16px rgba(15, 110, 86, 0.35);
+        }
+
+        .btn.reset-btn {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn.reset-btn:hover:not(:disabled) {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ── EXPLANATION BOX ── */
+        .exp {
+            width: 100%;
+            max-width: 760px;
+            border-radius: 14px;
+            padding: 18px 22px;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+            background: #fff;
+            transition: all 0.35s ease;
+        }
+
+        .exp.reacted-active {
+            border-left-color: var(--success);
+            background: #f8fffc;
+        }
+
+        .et {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .et i {
+            font-size: 14px;
+        }
+
+        .exp.reacted-active .et {
+            color: var(--success);
+        }
+
+        .eb {
+            font-size: 0.9rem;
+            line-height: 1.7;
+            color: #334155;
+        }
+
+        .eb b {
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .eb .formula {
+            font-family: "Times New Roman", Times, serif;
+            font-weight: bold;
+            font-style: italic;
+            color: var(--primary);
+            font-size: 1.05em;
+        }
+
+        .eb .highlight {
+            color: var(--orange);
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="lab-header">
+        <div class="lab-header-badge">
+            <i class="ti ti-flask" aria-hidden="true"></i> Thí nghiệm hóa học
+        </div>
+        <h1>Tính Base Của Dung Dịch Amine</h1>
+        <p>Kiểm tra tính base của amine bằng các chất chỉ thị màu và điện cực pH</p>
+    </div>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel">
+        <div class="info-panel-row">
+            <div class="info-block">
+                <div class="info-block-title">
+                    <i class="ti ti-target" aria-hidden="true"></i> Mục đích thí nghiệm
+                </div>
+                <div class="info-block-text">
+                    Kiểm tra tính <strong>base</strong> của <strong>amine</strong> bằng các chất chỉ thị màu và điện cực
+                    pH thời gian thực.
+                </div>
+            </div>
+            <div class="info-block">
+                <div class="info-block-title">
+                    <i class="ti ti-list-check" aria-hidden="true"></i> Hướng dẫn thao tác
+                </div>
+                <div class="info-block-text">
+                    Chọn hóa chất, chọn chất chỉ thị, sau đó nhấn <strong>Nhỏ 1 giọt dung dịch</strong>. Quan sát màu
+                    sắc và độ pH để xác nhận kết quả.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="cw">
+        <canvas id="cv" width="760" height="380"></canvas>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+        <div class="control-row">
+            <div class="control-label">
+                <i class="ti ti-flask-2" aria-hidden="true"></i> 1. Chọn hóa chất:
+            </div>
+            <div class="btn-group">
+                <button id="optMethyl" class="btn active">Methylamine (CH₃NH₂)</button>
+                <button id="optAmonia" class="btn">Ammonia (NH₃)</button>
+                <button id="optWater" class="btn">Aniline (C₆H₅NH₂)</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <div class="control-label">
+                <i class="ti ti-droplet" aria-hidden="true"></i> 2. Chất chỉ thị:
+            </div>
+            <div class="btn-group">
+                <button id="optIndPH" class="btn active">Giấy chỉ thị pH</button>
+                <button id="optIndPP" class="btn">Phenolphthalein</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <div class="control-label">
+                <i class="ti ti-activity" aria-hidden="true"></i> 3. Thao tác:
+            </div>
+            <div class="btn-group">
+                <button id="bDrop" class="btn action-btn">
+                    <i class="ti ti-droplet-half-filled" aria-hidden="true"></i> Nhỏ 1 giọt dung dịch
+                </button>
+                <button id="bReset" class="btn reset-btn">
+                    <i class="ti ti-refresh" aria-hidden="true"></i> Làm lại thí nghiệm
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EXPLANATION -->
+    <div id="expBox" class="exp">
+        <div id="expT" class="et">
+            <i class="ti ti-info-circle" aria-hidden="true"></i> Trạng thái chuẩn bị
+        </div>
+        <div id="expB" class="eb">
+            Thiết bị đã sẵn sàng. Hãy bấm chọn <b>Hóa chất</b> và <b>Chất chỉ thị</b> ở bảng điều khiển, sau đó nhấp
+            chọn nút <span class="highlight">Nhỏ 1 giọt dung dịch</span> để quan sát hiện tượng biến đổi hóa học thực
+            tế và nhận giải thích chuyên sâu.
+        </div>
+    </div>
+
+    <script>
+        const cv = document.getElementById('cv');
+        const ctx = cv.getContext('2d');
+        const W = 760, H = 430, CY = 300;
+
+        let currentChem = 'methyl';
+        let currentInd = 'pH';
+        let isDropping = false;
+        let hasReacted = false;
+        let reactProgress = 0;
+        let dropY = CY - 130;
+        let bubbles = [];
+        let tick = 0;
+        let animatedPH = 7.0;
+
+        const phColors = ['#ef4444', '#f97316', '#f59e0b', '#facc15', '#bef264', '#84cc16', '#22c55e', '#10b981', '#06b6d4', '#3b82f6', '#4f46e5', '#4338ca', '#7e22ce', '#a21caf'];
+
+        const colYellow = { r: 253, g: 224, b: 71 };
+        const colPurple = { r: 67, g: 56, b: 202 };
+        const colBlueGreen = { r: 16, g: 185, b: 129 };
+        const colWhite = { r: 255, g: 255, b: 255 };
+
+        function lerpColor(c1, c2, t) {
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)}, ${Math.round(c1.g + (c2.g - c1.g) * t)}, ${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+
+        function updateExplanation() {
+            const box = document.getElementById('expBox');
+            const et = document.getElementById('expT');
+            const eb = document.getElementById('expB');
+
+            if (!hasReacted) {
+                box.className = 'exp';
+                et.innerHTML = '<i class="ti ti-info-circle" aria-hidden="true"></i> Trạng thái chuẩn bị';
+                let chemName = currentChem === 'methyl' ? 'Methylamine (CH₃NH₂)' : currentChem === 'amonia' ? 'Ammonia (NH₃)' : 'Aniline (C₆H₅NH₂)';
+                let indName = currentInd === 'pH' ? 'mẩu giấy chỉ thị pH khô (màu vàng)' : 'dung dịch chỉ thị Phenolphthalein không màu';
+                eb.innerHTML = `Bạn đang chuẩn bị nhỏ dung dịch <b>${chemName}</b> lên bề mặt cấu trúc của <b>${indName}</b>. Hãy nhấn Nhỏ giọt để kích hoạt phản ứng sinh học/hóa học ảo.`;
+                return;
+            }
+
+            box.className = 'exp reacted-active';
+
+            if (currentChem === 'methyl' && currentInd === 'pH') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng & giải thích: Methylamine + Giấy pH';
+                eb.innerHTML = `<b>Hiện tượng:</b> Giấy chỉ thị pH khô lập tức chuyển sang <span class="highlight" style="color:#4338ca;">màu xanh thẫm ngả tím</span>. Đối chiếu thang chuẩn tương ứng với dải <b>pH 11.5 - 12</b>.<br><br>
+    <b>Giải thích:</b> Methylamine (<span class="formula">CH₃NH₂</span>) là amine béo bậc 1. Gốc alkyl (<span class="formula">CH₃-</span>) có <b>hiệu ứng đẩy electron</b>, làm tăng mật độ electron trên nguyên tử Nitrogen, giúp khả năng nhận proton (<span class="formula">H⁺</span>) mạnh hơn amonia, tạo môi trường kiềm cực kỳ rõ rệt.`;
+            }
+            else if (currentChem === 'amonia' && currentInd === 'pH') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng đối chiếu: Ammonia + Giấy pH';
+                eb.innerHTML = `<b>Hiện tượng:</b> Giấy chỉ thị pH chuyển sang <span class="highlight" style="color:#10b981;">màu xanh lục đậm</span>, đạt mức xấp xỉ <b>pH 10.8</b>.<br><br>
+    <b>Bản chất so sánh:</b> Phân tử ammonia (<span class="formula">NH₃</span>) <b>không có gốc alkyl đẩy electron</b>, vì vậy mật độ electron trên nguyên tử N thấp hơn, dẫn đến <span class="highlight">tính bazơ yếu hơn dung dịch amine béo</span>.`;
+            }
+            else if (currentChem === 'water' && currentInd === 'pH') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng quan sát: Aniline + Giấy pH';
+                eb.innerHTML = `<b>Hiện tượng:</b> Giấy chỉ thị pH chỉ bị ướt và giữ nguyên <span class="highlight" style="color:#ca8a04;">màu vàng nguyên bản</span> (<b>pH = 7.8</b>).<br><br>
+    <b>Giải thích:</b> Aniline (C₆H₅NH₂) có tính bazơ yếu và nằm gần trung tính, nên không đủ mạnh để làm đổi màu giấy chỉ thị pH.`;
+            }
+            else if (currentChem === 'methyl' && currentInd === 'pp') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng & giải thích: Methylamine + Phenolphthalein';
+                eb.innerHTML = `<b>Hiện tượng:</b> Dung dịch chuyển sang <span class="highlight" style="color:#db2777;">màu hồng thẫm (magenta)</span> rất đậm.<br><br>
+    <b>Bản chất:</b> Nồng độ kiềm cao (pH > 11) do amine béo sinh ra đã cấu trúc lại phân tử Phenolphthalein thành dạng ion mang màu hồng.`;
+            }
+            else if (currentChem === 'amonia' && currentInd === 'pp') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng & giải thích: Ammonia + Phenolphthalein';
+                eb.innerHTML = `<b>Hiện tượng:</b> Dung dịch chuyển sang <span class="highlight" style="color:#f472b6;">màu hồng nhạt</span>.<br><br>
+    <b>Giải thích:</b> Do tính chất kiềm yếu hơn, nồng độ <span class="formula">OH⁻</span> sinh ra thấp hơn, phản ánh độ nhạt của màu hồng so với khi thử bằng Methylamine.`;
+            }
+            else if (currentChem === 'water' && currentInd === 'pp') {
+                et.innerHTML = '<i class="ti ti-circle-check" aria-hidden="true"></i> Hiện tượng quan sát: Anilin + Phenolphthalein';
+                eb.innerHTML = `<b>Hiện tượng:</b> Dung dịch vẫn <span class="highlight" style="color:#64748b;">trong suốt, không đổi màu</span>.<br><br>
+    <b>Giải thích:</b> Aniline có pH khoảng 7.8, vẫn nằm dưới ngưỡng đổi màu của Phenolphthalein (pH 8.2 - 10), do đó không tạo màu.`;
+            }
+        }
+
+        function clearActive(selectors) {
+            selectors.forEach(id => document.getElementById(id).classList.remove('active'));
+        }
+
+        document.getElementById('optMethyl').onclick = () => { if (!isDropping) { currentChem = 'methyl'; clearActive(['optMethyl', 'optAmonia', 'optWater']); document.getElementById('optMethyl').classList.add('active'); if (!hasReacted) resetStateOnly(); else updateExplanation(); } };
+        document.getElementById('optAmonia').onclick = () => { if (!isDropping) { currentChem = 'amonia'; clearActive(['optMethyl', 'optAmonia', 'optWater']); document.getElementById('optAmonia').classList.add('active'); if (!hasReacted) resetStateOnly(); else updateExplanation(); } };
+        document.getElementById('optWater').onclick = () => { if (!isDropping) { currentChem = 'water'; clearActive(['optMethyl', 'optAmonia', 'optWater']); document.getElementById('optWater').classList.add('active'); if (!hasReacted) resetStateOnly(); else updateExplanation(); } };
+
+        document.getElementById('optIndPH').onclick = () => { if (!isDropping) { currentInd = 'pH'; clearActive(['optIndPH', 'optIndPP']); document.getElementById('optIndPH').classList.add('active'); if (!hasReacted) resetStateOnly(); else updateExplanation(); } };
+        document.getElementById('optIndPP').onclick = () => { if (!isDropping) { currentInd = 'pp'; clearActive(['optIndPH', 'optIndPP']); document.getElementById('optIndPP').classList.add('active'); if (!hasReacted) resetStateOnly(); else updateExplanation(); } };
+
+        document.getElementById('bDrop').onclick = () => {
+            if (!isDropping && !hasReacted) { isDropping = true; dropY = CY - 130; }
+        };
+
+        function resetStateOnly() {
+            isDropping = false; hasReacted = false; reactProgress = 0; dropY = CY - 130; bubbles = [];
+            animatedPH = 7.0;
+            updateExplanation();
+        }
+        document.getElementById('bReset').onclick = () => { resetStateOnly(); };
+
+        function drawRoundRect(ctx, x, y, width, height, radius) {
+            ctx.beginPath();
+            ctx.moveTo(x + radius, y);
+            ctx.lineTo(x + width - radius, y);
+            ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+            ctx.lineTo(x + width, y + height - radius);
+            ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+            ctx.lineTo(x + radius, y + height);
+            ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+            ctx.lineTo(x, y + radius);
+            ctx.quadraticCurveTo(x, y, x + radius, y);
+            ctx.closePath();
+        }
+
+        function drawGrid() {
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.03)'; ctx.lineWidth = 1;
+            ctx.beginPath();
+            for (let x = 0; x < W; x += 20) { ctx.moveTo(x, 0); ctx.lineTo(x, H); }
+            for (let y = 0; y < H; y += 20) { ctx.moveTo(0, y); ctx.lineTo(W, y); }
+            ctx.stroke();
+        }
+
+        function drawPHBar() {
+            const barX = W / 2 - 270, barY = 40, barW = 540, barH = 16;
+
+            ctx.fillStyle = '#f8fafc';
+            drawRoundRect(ctx, barX - 15, barY - 30, barW + 30, barH + 55, 10);
+            ctx.fill();
+            ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1; ctx.stroke();
+
+            ctx.fillStyle = '#1f2937'; ctx.font = 'bold 12px -apple-system, sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('ĐIỆN CỰC ĐO pH THỜI GIAN THỰC', W / 2, barY - 12);
+
+            const step = barW / 14;
+            for (let i = 0; i < 14; i++) {
+                ctx.fillStyle = phColors[i];
+                ctx.fillRect(barX + i * step, barY, step, barH);
+                ctx.fillStyle = '#ffffff'; ctx.font = 'bold 10px Arial';
+                ctx.fillText(i + 1, barX + i * step + step / 2, barY + 12);
+            }
+
+            ctx.strokeStyle = 'rgba(0,0,0,0.1)'; ctx.lineWidth = 2;
+            ctx.strokeRect(barX, barY, barW, barH);
+
+            let targetPH = 7.0;
+            if (hasReacted) {
+                if (currentChem === 'methyl') targetPH = 11.5;
+                else if (currentChem === 'amonia') targetPH = 10.8;
+                else targetPH = 7.8;
+            }
+
+            animatedPH += (targetPH - animatedPH) * 0.1;
+
+            const markerX = barX + (animatedPH - 1) * step;
+
+            ctx.save();
+            ctx.translate(markerX, barY - 4);
+            ctx.beginPath();
+            ctx.moveTo(-6, -6); ctx.lineTo(6, -6); ctx.lineTo(0, 4);
+            ctx.closePath();
+            ctx.fillStyle = '#1e293b'; ctx.fill();
+            ctx.restore();
+
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px -apple-system, sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText(`pH: ${animatedPH.toFixed(1)}`, markerX, barY + 32);
+        }
+
+        function drawPetriDish() {
+            const cx = W / 2, cy = CY;
+            ctx.beginPath(); ctx.ellipse(cx, cy + 12, 125, 45, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)'; ctx.fill();
+
+            ctx.beginPath(); ctx.ellipse(cx, cy, 125, 45, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(241, 248, 255, 0.7)'; ctx.fill();
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.stroke();
+
+            ctx.beginPath(); ctx.ellipse(cx, cy - 2, 118, 41, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)'; ctx.lineWidth = 2; ctx.stroke();
+        }
+
+        function drawIndicators() {
+            const cx = W / 2, cy = CY;
+
+            if (currentInd === 'pH') {
+                let targetColor = colYellow;
+                if (hasReacted) {
+                    if (currentChem === 'methyl') targetColor = colPurple;
+                    else if (currentChem === 'amonia') targetColor = colBlueGreen;
+                    else targetColor = colYellow;
+                }
+                let currentColor = lerpColor(colYellow, targetColor, reactProgress);
+
+                ctx.save();
+                ctx.translate(cx, cy);
+                ctx.transform(1, 0, -0.4, 0.35, 0, 0);
+
+                ctx.fillStyle = 'rgba(0,0,0,0.1)'; ctx.fillRect(-14, -44, 36, 96);
+                ctx.fillStyle = currentColor; ctx.fillRect(-18, -48, 36, 96);
+                ctx.strokeStyle = 'rgba(0,0,0,0.05)'; ctx.lineWidth = 1; ctx.strokeRect(-18, -48, 36, 96);
+
+                if (hasReacted && reactProgress > 0.1) {
+                    ctx.beginPath(); ctx.ellipse(0, 0, 16 * reactProgress, 22 * reactProgress, 0, 0, Math.PI * 2);
+                    ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fill();
+                }
+
+                ctx.restore();
+            }
+            else if (currentInd === 'pp') {
+                let targetColor = 'rgba(255, 255, 255, 0.1)';
+                if (hasReacted) {
+                    if (currentChem === 'methyl') targetColor = `rgba(219, 39, 119, ${0.45 * reactProgress})`;
+                    else if (currentChem === 'amonia') targetColor = `rgba(244, 114, 182, ${0.3 * reactProgress})`;
+                }
+
+                ctx.beginPath();
+                ctx.ellipse(cx, cy, 115, 41, 0, 0, Math.PI * 2);
+                ctx.fillStyle = targetColor;
+                ctx.fill();
+            }
+        }
+
+        function drawPipette() {
+            const px = W / 2, py = CY - 160;
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.moveTo(px - 5, py); ctx.lineTo(px - 5, py + 80);
+            ctx.lineTo(px - 1.5, py + 95); ctx.lineTo(px + 1.5, py + 95);
+            ctx.lineTo(px + 5, py + 80); ctx.lineTo(px + 5, py);
+            ctx.fillStyle = 'rgba(226, 232, 240, 0.6)'; ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.2; ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(px - 2, py + 5); ctx.lineTo(px - 2, py + 75);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(px - 4, py + 35); ctx.lineTo(px - 4, py + 79);
+            ctx.lineTo(px, py + 93); ctx.lineTo(px + 4, py + 79);
+            ctx.lineTo(px + 4, py + 35);
+            ctx.fillStyle = 'rgba(56, 189, 248, 0.5)'; ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(px - 6, py);
+            ctx.quadraticCurveTo(px - 16, py - 15, px - 11, py - 35);
+            ctx.quadraticCurveTo(px, py - 45, px + 11, py - 35);
+            ctx.quadraticCurveTo(px + 16, py - 15, px + 6, py);
+            ctx.fillStyle = '#ef4444'; ctx.fill();
+            ctx.strokeStyle = '#b91c1c'; ctx.lineWidth = 1; ctx.stroke();
+
+            ctx.fillStyle = '#1e293b'; ctx.font = 'bold 11px Arial'; ctx.textAlign = 'center';
+            let label = currentChem === 'methyl' ? 'CH₃NH₂' : currentChem === 'amonia' ? 'NH₃' : 'C₆H₅NH₂';
+            ctx.fillText(label, px + 38, py + 48);
+
+            ctx.restore();
+        }
+
+        function spawnBubbles() {
+            for (let i = 0; i < 2; i++) {
+                bubbles.push({
+                    x: W / 2 - 25 + Math.random() * 50,
+                    y: CY + 5 - Math.random() * 15,
+                    r: 1.5 + Math.random() * 2.5,
+                    life: 1.0,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: -0.5 - Math.random() * 0.8
+                });
+            }
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            drawGrid();
+            drawPHBar();
+            drawPetriDish();
+            drawIndicators();
+
+            if (isDropping) {
+                dropY += 6;
+                ctx.beginPath();
+                ctx.ellipse(W / 2, dropY, 3.5, 5.5, 0, 0, Math.PI * 2);
+                ctx.fillStyle = '#38bdf8'; ctx.fill();
+
+                if (dropY >= CY - 5) {
+                    isDropping = false;
+                    hasReacted = true;
+                    updateExplanation();
+                }
+            }
+
+            if (hasReacted) {
+                if (reactProgress < 1) reactProgress += 0.025;
+            }
+
+            drawPipette();
+            tick += 1;
+            requestAnimationFrame(loop);
+        }
+
+        updateExplanation();
+        loop();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2186 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mô phỏng Chuyển động Electron & Orbital Nguyên tử</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        /* ==========================================
+           DESIGN SYSTEM & CONFIGURATIONS
+           ========================================== */
+        :root {
+            --body-bg: #f0f4f8;
+            --surface-bg: #ffffff;
+            --border-color: #cbd5e1;
+
+            /* Brand Colors */
+            --primary: #0f4c81;
+            /* Navy */
+            --primary-rgb: 15, 76, 129;
+            --secondary: #1a7a5e;
+            /* Teal */
+            --secondary-rgb: 26, 122, 94;
+
+            /* Neutral Colors */
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+
+            /* Specialty Colors */
+            --pink-bg: #fcf9fb;
+            --pink-border: #ffabc7;
+            --blue-bg: #eaf6fc;
+            --blue-border: #7bb9e5;
+
+            /* Controls Card Special */
+            --controls-bg: #f5f0ff;
+            --controls-border: #c4b5fd;
+
+            /* Status Colors */
+            --warning-bg: #fef9ee;
+            --warning-border: #f0c674;
+            --warning-accent: #d4930a;
+
+            --success-bg: #eefbf4;
+            --success-border: #6bc9a0;
+            --success-accent: #0f6e56;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--body-bg);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Common Container Width - Đã mở rộng để chứa 2 cột */
+        .block-item {
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        /* ==========================================
+           BỐ CỤC 2 CỘT (GRID LAYOUT)
+           ========================================== */
+        .interactive-wrapper {
+            display: grid;
+            grid-template-columns: 1.7fr 1fr;
+            gap: 16px;
+            align-items: start;
+            width: 100%;
+            max-width: 1100px;
+        }
+
+        .interactive-left {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .interactive-right {
+            position: sticky;
+            top: 24px;
+            width: 100%;
+        }
+
+        @media (max-width: 992px) {
+            .interactive-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .interactive-right {
+                position: relative;
+                top: 0;
+            }
+        }
+
+        /* ==========================================
+           1. HEADER
+           ========================================== */
+        header.header-card {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.75rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(15, 76, 129, 0.15);
+        }
+
+        header.header-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.45);
+            z-index: 1;
+        }
+
+        header.header-card::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.06);
+            top: -100px;
+            right: -50px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        header.header-card .decor-circle-2 {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+            bottom: -50px;
+            left: -30px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        header.header-card .header-content {
+            position: relative;
+            z-index: 3;
+            color: #ffffff;
+        }
+
+        header.header-card h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        header.header-card p.description {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.9rem;
+            max-width: 620px;
+        }
+
+        /* ==========================================
+           2. INFO PANEL
+           ========================================== */
+        .info-panel {
+            display: flex;
+            gap: 14px;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .info-col.col-left {
+            background: var(--pink-bg);
+            border: 1px solid var(--pink-border);
+        }
+
+        .info-col.col-right {
+            background: var(--blue-bg);
+            border: 1px solid var(--blue-border);
+        }
+
+        .info-col .col-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .info-col .col-label i {
+            font-size: 14px;
+        }
+
+        .info-col p {
+            font-size: 0.875rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .info-col ol {
+            padding-left: 18px;
+            font-size: 0.875rem;
+            color: var(--text-main);
+        }
+
+        .info-col ol li {
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .info-col ol li::marker {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        @media (max-width: 600px) {
+            .info-panel {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+
+        /* ==========================================
+           3. CANVAS
+           ========================================== */
+        .canvas-card {
+            background: #0d1117;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #labCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            aspect-ratio: 760 / 450;
+            background: transparent;
+            cursor: default;
+        }
+
+        .canvas-overlay-tip {
+            position: absolute;
+            bottom: 12px;
+            right: 16px;
+            background: rgba(13, 17, 23, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: #fff;
+            font-size: 11px;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .canvas-overlay-tip.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==========================================
+           4. CONTROLS
+           ========================================== */
+        .controls-card {
+            background: var(--controls-bg);
+            border: 1px solid var(--controls-border);
+            border-radius: 12px;
+            padding: 10px 14px;
+            box-shadow: 0 4px 12px rgba(196, 181, 253, 0.12);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .stepper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stepper-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .stepper-title i {
+            font-size: 18px;
+        }
+
+        .stepper-indicator {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-muted);
+            background: rgba(15, 76, 129, 0.08);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .progress-dots-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            padding: 0 10px;
+            margin: 2px 0;
+        }
+
+        .progress-line-bg {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background: #e2d9f3;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background: var(--secondary);
+            width: 0%;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dot-wrapper {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .progress-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-muted);
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .progress-dot.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: scale(1.25);
+            box-shadow: 0 0 12px rgba(15, 76, 129, 0.3);
+            font-size: 11px;
+        }
+
+        .progress-dot.completed {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: #ffffff;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border-left: 3px solid var(--primary);
+            border-radius: 5px;
+            padding: 6px 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .step-card h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 4px;
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .sub-controls-area {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1.5px dashed var(--controls-border);
+            border-radius: 8px;
+            padding: 6px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .control-row label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            min-width: 130px;
+        }
+
+        .slider-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .slider-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary);
+            min-width: 45px;
+            text-align: right;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #cbd5e1;
+            outline: none;
+            transition: background 0.3s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: 2px solid #ffffff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+            transition: transform 0.1s;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.15);
+        }
+
+        .navigation-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .nav-left-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        button.btn {
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            background: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        button.btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(15, 76, 129, 0.04);
+        }
+
+        button.btn-primary {
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.2);
+        }
+
+        button.btn-primary:hover:not(:disabled) {
+            background: #0b3860;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(15, 76, 129, 0.3);
+        }
+
+        button.btn-secondary {
+            background: var(--secondary);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 12px rgba(26, 122, 94, 0.2);
+        }
+
+        button.btn-secondary:hover:not(:disabled) {
+            background: #145e48;
+            color: #ffffff;
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--border-color);
+            background: transparent;
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: rgba(26, 122, 94, 0.04);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ti-loader {
+            animation: spin 0.9s linear infinite;
+            display: inline-block;
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #94a3b8;
+            display: inline-block;
+        }
+
+        .status-dot.animating {
+            background: #f59e0b;
+            animation: pulse 1.2s infinite alternate;
+        }
+
+        .status-dot.waiting {
+            background: var(--primary);
+        }
+
+        .status-dot.done {
+            background: var(--secondary);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+
+            100% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* ==========================================
+           5. EXPLANATION BOX & QUIZ
+           ========================================== */
+        .explanation-card {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-left: 4px solid var(--warning-accent);
+            border-radius: 14px;
+            padding: 18px 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .explanation-card.success-state {
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
+            border-left: 4px solid var(--success-accent);
+        }
+
+        .explanation-card.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .explanation-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+            color: var(--warning-accent);
+        }
+
+        .explanation-card.success-state .explanation-title {
+            color: var(--success-accent);
+        }
+
+        .explanation-title i {
+            font-size: 20px;
+        }
+
+        .explanation-content {
+            font-size: 0.875rem;
+            color: var(--text-main);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quiz-option {
+            background: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s ease;
+        }
+
+        .quiz-option:hover:not(.disabled) {
+            border-color: var(--primary);
+            background: rgba(15, 76, 129, 0.02);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: rgba(15, 76, 129, 0.06);
+            font-weight: 600;
+        }
+
+        .quiz-option.correct {
+            border-color: var(--secondary);
+            background: rgba(26, 122, 94, 0.08);
+            font-weight: 600;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, 0.06);
+        }
+
+        .quiz-option.disabled {
+            cursor: not-allowed;
+        }
+
+        .quiz-option-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .quiz-option.multi .quiz-option-indicator {
+            border-radius: 4px;
+        }
+
+        .quiz-option.selected .quiz-option-indicator {
+            border-color: var(--primary);
+            background: var(--primary);
+        }
+
+        .quiz-option.selected .quiz-option-indicator::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .quiz-option.multi.selected .quiz-option-indicator::after {
+            border-radius: 0px;
+            width: 5px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translate(-1px, -1px);
+            background: transparent;
+        }
+
+        .quiz-option.correct .quiz-option-indicator {
+            border-color: var(--secondary);
+            background: var(--secondary);
+            color: #fff;
+        }
+
+        .quiz-option.incorrect .quiz-option-indicator {
+            border-color: #ef4444;
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .summary-card {
+            background: #ffffff;
+            border: 1px solid rgba(26, 122, 94, 0.2);
+            border-top: 3px solid var(--secondary);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            transition: transform 0.2s;
+        }
+
+        .summary-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .summary-card-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .summary-card-body {
+            font-size: 0.8rem;
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .flowchart-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        .flowchart-node {
+            background: #ffffff;
+            border: 1.5px solid var(--primary);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .flowchart-node.highlight {
+            background: var(--primary);
+            color: #ffffff;
+        }
+
+        .flowchart-arrow {
+            color: var(--text-muted);
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="header-card block-item">
+        <div class="decor-circle-2"></div>
+        <div class="header-content">
+            <h1>Bản chất Chuyển động của Electron</h1>
+            <p class="description">Tìm hiểu cách mô tả chuyển động của electron tiến hóa từ mô hình quỹ đạo cổ điển
+                (Rutherford – Bohr) sang mô hình đám mây xác suất hiện đại và khái niệm Orbital nguyên tử (AO).</p>
+        </div>
+    </header>
+
+    <div class="info-panel block-item">
+        <div class="info-col col-left" id="panelMụcĐích">
+            <div class="col-label">
+                <i class="ti ti-target"></i> Mục đích tìm hiểu
+            </div>
+            <p id="mucDichText">Nhận biết mô hình Rutherford – Bohr mô tả electron chuyển động trên quỹ đạo xác định
+                quanh hạt nhân.</p>
+        </div>
+        <div class="info-col col-right" id="panelHướngDẫn">
+            <div class="col-label">
+                <i class="ti ti-device-gamepad-2"></i> Hướng dẫn thao tác
+            </div>
+            <ol id="huongDanList">
+            </ol>
+        </div>
+    </div>
+
+    <div class="interactive-wrapper block-item">
+
+        <div class="interactive-left">
+            <div class="canvas-card">
+                <canvas id="labCanvas" width="760" height="450"></canvas>
+                <div id="canvasTip" class="canvas-overlay-tip">
+                    <i class="ti ti-scan"></i> Rê chuột để quét mật độ đám mây
+                </div>
+            </div>
+
+            <div class="controls-card">
+                <div class="stepper-header">
+                    <div class="stepper-title">
+                        <i class="ti ti-route"></i>
+                        <span>Quy Trình Khám Phá</span>
+                    </div>
+                    <div class="stepper-indicator" id="stepCounter">Bước 1 / 6</div>
+                </div>
+
+                <div class="progress-dots-container">
+                    <div class="progress-line-bg">
+                        <div class="progress-line-fill" id="progressLine"></div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot active" data-step="0">1</div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot" data-step="1">2</div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot" data-step="2">3</div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot" data-step="3">4</div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot" data-step="4">5</div>
+                    </div>
+                    <div class="dot-wrapper">
+                        <div class="progress-dot" data-step="5">6</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <h3 id="stepTitle">Quan sát mô hình Rutherford – Bohr</h3>
+                    <p id="stepDesc">Quan sát mô hình cổ điển về sự phân bố chuyển động của electron.</p>
+                </div>
+
+                <div class="sub-controls-area" id="subControlsArea">
+                </div>
+
+                <div class="navigation-row">
+                    <div class="nav-left-group">
+                        <button class="btn" id="btnPrev" disabled>
+                            <i class="ti ti-chevron-left"></i> Quay lại
+                        </button>
+                        <button class="btn btn-reset" id="btnResetAll">
+                            <i class="ti ti-rotate-clockwise-2"></i> Làm lại từ đầu
+                        </button>
+                    </div>
+
+                    <div class="status-bar">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="statusText">Chờ thao tác</span>
+                    </div>
+
+                    <button class="btn btn-primary" id="btnNext" disabled>
+                        Tiếp theo <i class="ti ti-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="interactive-right">
+            <div id="explanationBox" class="explanation-card">
+                <div class="explanation-title" id="explTitle">
+                    <i class="ti ti-help-circle"></i>
+                    <span>Câu hỏi tương tác</span>
+                </div>
+                <div class="explanation-content" id="explContent">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760;
+        const H = 450;
+        const CX = W / 2;
+        const CY = H / 2;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+        let currentStage = 0;
+        let isAnimating = false;
+        let globalTime = 0;
+
+        let isPlaying = true;
+        let orbitSpeed = 1;
+        let electronAngle = 0;
+        let electronHistory = [];
+        let orbitRadius = 130;
+        let showOrbitLine = 1.0;
+
+        let cloudOpacity = 0.0;
+        let orbitFading = false;
+        let showModernModel = false;
+
+        let mouseX = -1000;
+        let mouseY = -1000;
+        let isMouseOverCanvas = false;
+        let hoverProbeRadius = 0;
+        let isDragging = false;
+        let lastMouseX = 0;
+        let lastMouseY = 0;
+
+        let targetProbability = 30;
+        let currentProbability = 30;
+        let aoOpacity = 0;
+
+        const stagesData = [
+            {
+                stepTitle: "Mô hình Rutherford – Bohr",
+                stepDesc: "Electron chuyển động theo các quỹ đạo tròn xác định quanh hạt nhân giống như các hành tinh quay quanh Mặt Trời.",
+                mucDich: "Học sinh nhận biết mô hình Rutherford – Bohr mô tả electron chuyển động trên quỹ đạo xác định quanh hạt nhân.",
+                huongDan: [
+                    "Nhấn nút <b>Play/Pause</b> để dừng hoặc chạy chuyển động.",
+                    "Quan sát cách thức chuyển động của hạt electron xung quanh hạt nhân.",
+                    "Trả lời câu hỏi trắc nghiệm bên dưới để tiến hành bước tiếp theo."
+                ]
+            },
+            {
+                stepTitle: "Electron chuyển động cực nhanh",
+                stepDesc: "Khi tăng tốc độ của electron, chuyển động của nó diễn ra cực nhanh và bắt đầu luân phiên thay đổi quỹ đạo liên tục.",
+                mucDich: "Học sinh nhận thấy việc xác định vị trí electron không còn trực quan khi electron chuyển động rất nhanh.",
+                huongDan: [
+                    "Kéo thanh trượt <b>Tốc độ (Speed)</b> từ x1 lên tối đa x8.",
+                    "Quan sát hạt electron luân phiên di chuyển giữa quỹ đạo tròn và elip không cố định (không còn đường viền quỹ đạo).",
+                    "Trả lời câu hỏi: Có dễ xác định vị trí electron tại mỗi thời điểm khi tốc độ cực nhanh?"
+                ]
+            },
+            {
+                stepTitle: "Chuyển sang mô hình hiện đại",
+                stepDesc: "Theo quan điểm cơ học lượng tử hiện đại, electron chuyển động không theo những quỹ đạo xác định.",
+                mucDich: "Học sinh nhận ra mô hình hiện đại không còn sử dụng quỹ đạo xác định.",
+                huongDan: [
+                    "Nhấp vào nút <b>Kích hoạt mô hình hiện đại</b>.",
+                    "Đợi 3 giây để quan sát quá trình chuyển đổi sang Đám mây electron.",
+                    "Thử <b>nhấn giữ và kéo chuột (hoặc vuốt)</b> trên Canvas để xoay đám mây dưới các góc nhìn 3D khác nhau!"
+                ]
+            },
+            {
+                stepTitle: "Quan sát Đám mây electron",
+                stepDesc: "Đám mây electron là tập hợp các điểm biểu thị xác suất tìm thấy electron. Mật độ các chấm sáng thể hiện xác suất cao hay thấp.",
+                mucDich: "Học sinh nhận ra mật độ đám mây không giống nhau ở mọi vị trí (cao ở gần hạt nhân, thấp ở xa).",
+                huongDan: [
+                    "Rê chuột di chuyển lên trên vùng <b>Đám mây electron</b> trên Canvas để quét mật độ hạt tại vùng quét.",
+                    "Bạn có thể <b>nhấn giữ và kéo chuột</b> để xoay góc nhìn 3D của đám mây trong lúc quan sát.",
+                    "Trả lời câu hỏi trắc nghiệm về vùng có mật độ electron lớn nhất."
+                ]
+            },
+            {
+                stepTitle: "Khái niệm Orbital nguyên tử (AO)",
+                stepDesc: "Vùng không gian bao quanh hạt nhân nguyên tử mà tại đó xác suất tìm thấy electron khoảng 90% được gọi là orbital nguyên tử.",
+                mucDich: "Giới thiệu khái niệm orbital nguyên tử (AO) thông qua việc khoanh vùng xác suất.",
+                huongDan: [
+                    "Kéo thanh trượt <b>Xác suất</b> từ 30% lên mức 90%.",
+                    "Quan sát ranh giới màu xanh ngọc (AO) dần dần bao bọc lấy đám mây electron. Có thể kéo chuột để xoay 3D.",
+                    "Trả lời câu hỏi trắc nghiệm để định nghĩa Orbital nguyên tử."
+                ]
+            },
+            {
+                stepTitle: "Tổng kết bài học",
+                stepDesc: "Hệ thống hóa kiến thức về sự khác biệt giữa quỹ đạo xác định và orbital nguyên tử.",
+                mucDich: "Hệ thống hóa kiến thức khám phá: electron không có quỹ đạo xác định, mô hình đám mây xác suất, và AO là vùng không gian xác suất ~90%.",
+                huongDan: [
+                    "Đọc kỹ sơ đồ chuyển đổi khái niệm từ cổ điển sang hiện đại.",
+                    "Ghi nhớ 3 thẻ kiến thức cốt lõi.",
+                    "Nhấn nút <b>Làm lại từ đầu</b> nếu muốn thực hiện lại cuộc hành trình."
+                ]
+            }
+        ];
+
+        const quizData = [
+            {
+                type: "single",
+                question: "Electron trong mô hình Rutherford – Bohr chuyển động như thế nào?",
+                options: [
+                    { text: "Theo một quỹ đạo xác định quanh hạt nhân.", isCorrect: true },
+                    { text: "Chuyển động hoàn toàn ngẫu nhiên không có quy luật.", isCorrect: false },
+                    { text: "Đứng yên tại các vị trí cố định quanh hạt nhân.", isCorrect: false }
+                ],
+                answered: false,
+                selectedOption: null,
+                feedbackSuccess: "Tuyệt vời! Theo mô hình Rutherford – Bohr, electron chuyển động trên các quỹ đạo tròn hoặc elip xác định giống các hành tinh.",
+                aha: "Mô hình Rutherford – Bohr xem electron chuyển động trên quỹ đạo xác định."
+            },
+            {
+                type: "single",
+                question: "Khi electron chuyển động cực nhanh (tốc độ x8), em có còn dễ dàng xác định vị trí chính xác của nó tại từng thời điểm không?",
+                options: [
+                    { text: "Có, vẫn nhìn thấy rõ vị trí cụ thể của hạt electron.", isCorrect: false },
+                    { text: "Không, chỉ nhìn thấy một vệt sáng mờ bao quanh hạt nhân.", isCorrect: true }
+                ],
+                answered: false,
+                selectedOption: null,
+                feedbackSuccess: "Chính xác! Khi electron chuyển động rất nhanh, việc mô tả vị trí của nó bằng một quỹ đạo hình học cố định không còn thực tế nữa.",
+                aha: "Quỹ đạo xác định không còn mô tả tốt chuyển động của electron khi tốc độ quá lớn."
+            },
+            {
+                type: "multi",
+                question: "Sau khi chuyển đổi sang mô hình hiện đại, em nhận thấy điều gì thay đổi? (Chọn các ý đúng)",
+                options: [
+                    { text: "Quỹ đạo tròn xác định biến mất.", isCorrect: true },
+                    { text: "Electron được biểu diễn bằng đám mây gồm hàng nghìn chấm sáng.", isCorrect: true },
+                    { text: "Hạt electron dừng lại và đứng yên hoàn toàn.", isCorrect: false }
+                ],
+                answered: false,
+                selectedOptions: [],
+                feedbackSuccess: "Đúng rồi! Mô hình hiện đại loại bỏ khái niệm quỹ đạo cố định và thay bằng đám mây xác suất của electron.",
+                aha: "Mô hình hiện đại thay quỹ đạo xác định bằng đám mây electron."
+            },
+            {
+                type: "single",
+                question: "Thông qua việc quét đầu dò trên đám mây electron, vùng nào có mật độ chấm sáng dày đặc nhất?",
+                options: [
+                    { text: "Vùng ở rất xa hạt nhân.", isCorrect: false },
+                    { text: "Vùng nằm sát và xung quanh hạt nhân.", isCorrect: true },
+                    { text: "Mật độ chấm phân bố đều ở mọi vị trí.", isCorrect: false }
+                ],
+                answered: false,
+                selectedOption: null,
+                feedbackSuccess: "Rất chuẩn! Mật độ chấm sáng lớn nhất ở gần hạt nhân, nghĩa là xác suất tìm thấy electron tại đó là cao nhất.",
+                aha: "Xác suất xuất hiện electron không giống nhau ở mọi vị trí: cao ở gần hạt nhân và giảm dần ra xa."
+            },
+            {
+                type: "single",
+                question: "Định nghĩa chính xác về Orbital nguyên tử (AO) là:",
+                options: [
+                    { text: "Quỹ đạo chuyển động tròn của electron xung quanh hạt nhân.", isCorrect: false },
+                    { text: "Vùng không gian quanh hạt nhân có xác suất xuất hiện electron lớn (khoảng 90%).", isCorrect: true },
+                    { text: "Đường biên giới hạn electron không được phép vượt qua.", isCorrect: false }
+                ],
+                answered: false,
+                selectedOption: null,
+                feedbackSuccess: "Hoàn toàn chính xác! Orbital nguyên tử không phải quỹ đạo đường đi, mà là vùng không gian có xác suất gặp electron cao (~90%).",
+                aha: "Orbital là vùng không gian xác suất, không phải quỹ đạo chuyển động cơ học."
+            }
+        ];
+
+        let particles = [];
+        let cloudPoints = [];
+        const MAX_CLOUD_POINTS = 55000;
+
+        function initCloudPoints() {
+            cloudPoints = [];
+            for (let i = 0; i < MAX_CLOUD_POINTS; i++) {
+                let r;
+                let rand = Math.random();
+
+                if (rand < 0.72) r = Math.pow(Math.random(), 1.5) * 105 + 5;
+                else if (rand < 0.93) r = Math.random() * 70 + 110;
+                else r = Math.random() * 70 + 180;
+
+                let theta = Math.random() * Math.PI * 2;
+                let phi = Math.acos(2 * Math.random() - 1);
+
+                let x = r * Math.sin(phi) * Math.cos(theta);
+                let y = r * Math.sin(phi) * Math.sin(theta);
+                let z = r * Math.cos(phi);
+
+                let baseSize = r < 110 ? (Math.random() * 1.6 + 0.6) : (Math.random() * 1.1 + 0.3);
+
+                let tiltAngle = Math.random() * Math.PI * 2;
+                let tiltFactor = Math.random() * 0.35;
+                let ux = Math.sin(tiltFactor) * Math.cos(tiltAngle);
+                let uy = Math.cos(tiltFactor);
+                let uz = Math.sin(tiltFactor) * Math.sin(tiltAngle);
+
+                let direction = Math.random() < 0.5 ? 1 : -1;
+                let omega = direction * (Math.random() * 0.008 + 0.004);
+
+                cloudPoints.push({
+                    x: x, y: y, z: z, r: r, size: baseSize,
+                    baseAlpha: r < 110 ? (Math.random() * 0.6 + 0.4) : (Math.random() * 0.45 + 0.2),
+                    color: Math.random() > 0.4 ? '#3b82f6' : '#1d4ed8',
+                    ux: ux, uy: uy, uz: uz, omega: omega
+                });
+            }
+        }
+
+        function updateCloud3D() {
+            if (currentStage >= 2 && cloudOpacity > 0.05) {
+                cloudPoints.forEach(p => {
+                    let theta = p.omega;
+                    let c = Math.cos(theta);
+                    let s = Math.sin(theta);
+                    let t = 1 - c;
+
+                    let xNew = p.x * (c + p.ux * p.ux * t) + p.y * (p.ux * p.uy * t - p.uz * s) + p.z * (p.ux * p.uz * t + p.uy * s);
+                    let yNew = p.x * (p.uy * p.ux * t + p.uz * s) + p.y * (c + p.uy * p.uy * t) + p.z * (p.uy * p.uz * t - p.ux * s);
+                    let zNew = p.x * (p.uz * p.ux * t - p.uy * s) + p.y * (p.uz * p.uy * t + p.ux * s) + p.z * (c + p.uz * p.uz * t);
+
+                    p.x = xNew;
+                    p.y = yNew;
+                    p.z = zNew;
+                });
+            }
+        }
+
+        function rotateCloud3D(angleX, angleY) {
+            let cosY = Math.cos(angleY);
+            let sinY = Math.sin(angleY);
+            let cosX = Math.cos(angleX);
+            let sinX = Math.sin(angleX);
+
+            cloudPoints.forEach(p => {
+                let x1 = p.x * cosY - p.z * sinY;
+                let z1 = p.x * sinY + p.z * cosY;
+                let y2 = p.y * cosX - z1 * sinX;
+                let z2 = p.y * sinX + z1 * cosX;
+                p.x = x1;
+                p.y = y2;
+                p.z = z2;
+
+                let ux1 = p.ux * cosY - p.uz * sinY;
+                let uz1 = p.ux * sinY + p.uz * cosY;
+                let uy2 = p.uy * cosX - uz1 * sinX;
+                let uz2 = p.uy * sinX + uz1 * cosX;
+                p.ux = ux1;
+                p.uy = uy2;
+                p.uz = uz2;
+            });
+        }
+
+        function spawnEnergyParticle() {
+            if (particles.length > 80) return;
+            let angle = Math.random() * Math.PI * 2;
+            let r = Math.random() * 200 + 10;
+            particles.push({
+                x: CX + Math.cos(angle) * r,
+                y: CY + Math.sin(angle) * r,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4,
+                life: Math.random() * 120 + 60,
+                maxLife: 180,
+                size: Math.random() * 2 + 1,
+                color: 'rgba(56, 189, 248, 0.4)'
+            });
+        }
+
+        function updateParticles() {
+            if (showModernModel && cloudOpacity > 0.1) {
+                if (Math.random() < 0.3) spawnEnergyParticle();
+            }
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.life--;
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        }
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15, 76, 129, 0.06)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, H);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= H; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(W, y);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawNucleus() {
+            ctx.save();
+            const spheres = [
+                { dx: -6, dy: -6, color: '#ef4444', r: 7 },
+                { dx: 6, dy: -4, color: '#94a3b8', r: 8 },
+                { dx: -2, dy: 6, color: '#ef4444', r: 8 },
+                { dx: 5, dy: 6, color: '#475569', r: 7 },
+                { dx: -8, dy: 4, color: '#cbd5e1', r: 7 },
+                { dx: 0, dy: -2, color: '#ef4444', r: 8.5 },
+            ];
+
+            ctx.beginPath();
+            ctx.ellipse(CX, CY + 14, 18, 6, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+            ctx.fill();
+
+            spheres.forEach(s => {
+                let x = CX + s.dx;
+                let y = CY + s.dy;
+
+                let grad = ctx.createRadialGradient(x - s.r * 0.3, y - s.r * 0.3, s.r * 0.1, x, y, s.r);
+                if (s.color === '#ef4444') {
+                    grad.addColorStop(0, '#ff8787');
+                    grad.addColorStop(0.4, '#ef4444');
+                    grad.addColorStop(1, '#9b1c1c');
+                } else {
+                    grad.addColorStop(0, '#f1f5f9');
+                    grad.addColorStop(0.4, '#94a3b8');
+                    grad.addColorStop(1, '#334155');
+                }
+
+                ctx.beginPath();
+                ctx.arc(x, y, s.r, 0, Math.PI * 2);
+                ctx.fillStyle = grad;
+                ctx.fill();
+
+                ctx.strokeStyle = 'rgba(15, 23, 42, 0.4)';
+                ctx.lineWidth = 0.8;
+                ctx.stroke();
+            });
+
+            let glowGrad = ctx.createRadialGradient(CX, CY, 5, CX, CY, 35);
+            glowGrad.addColorStop(0, 'rgba(239, 68, 68, 0.15)');
+            glowGrad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+            ctx.beginPath();
+            ctx.arc(CX, CY, 35, 0, Math.PI * 2);
+            ctx.fillStyle = glowGrad;
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawRutherfordModel() {
+            if (showOrbitLine <= 0) return;
+
+            ctx.save();
+            ctx.globalAlpha = showOrbitLine;
+
+            if (currentStage === 0) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([6, 6]);
+                ctx.beginPath();
+                ctx.arc(CX, CY, orbitRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                if (orbitSpeed > 3) {
+                    let tailOpacity = (orbitSpeed - 3) / 5 * 0.3 * showOrbitLine;
+                    ctx.strokeStyle = `rgba(56, 189, 248, ${tailOpacity})`;
+                    ctx.lineWidth = 4 + (orbitSpeed - 3);
+                    ctx.beginPath();
+                    ctx.arc(CX, CY, orbitRadius, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+            }
+
+            let ex = CX + Math.cos(electronAngle) * orbitRadius;
+            let ey = CY + Math.sin(electronAngle) * orbitRadius;
+
+            if (currentStage === 1) {
+                let timeScale = globalTime * 0.012;
+                let rx = orbitRadius + 45 * Math.sin(timeScale);
+                let ry = orbitRadius + 45 * Math.cos(timeScale + 0.5);
+
+                let tiltAngle = globalTime * 0.006;
+
+                let xTemp = rx * Math.cos(electronAngle);
+                let yTemp = ry * Math.sin(electronAngle);
+
+                ex = CX + xTemp * Math.cos(tiltAngle) - yTemp * Math.sin(tiltAngle);
+                ey = CY + xTemp * Math.sin(tiltAngle) + yTemp * Math.cos(tiltAngle);
+            }
+
+            if (isPlaying) {
+                electronHistory.unshift({ x: ex, y: ey });
+                let maxTailLength = currentStage === 1 ? Math.min(45, 15 + orbitSpeed * 4) : Math.min(25, orbitSpeed * 3);
+                if (electronHistory.length > maxTailLength) {
+                    electronHistory.pop();
+                }
+            }
+
+            if (electronHistory.length > 1) {
+                for (let i = 1; i < electronHistory.length; i++) {
+                    let pt = electronHistory[i];
+                    let alpha = (1 - i / electronHistory.length) * 0.45 * showOrbitLine;
+                    let size = 5.5 * (1 - i / electronHistory.length);
+                    ctx.beginPath();
+                    ctx.arc(pt.x, pt.y, Math.max(0.5, size), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(56, 189, 248, ${alpha})`;
+                    ctx.fill();
+                }
+            }
+
+            ctx.shadowBlur = 12;
+            ctx.shadowColor = '#38bdf8';
+            ctx.fillStyle = '#60a5fa';
+            ctx.beginPath();
+            ctx.arc(ex, ey, 6.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.shadowBlur = 0;
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(ex, ey, 2.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+        }
+
+        function drawElectronCloud(drawBehindOnly = null) {
+            if (cloudOpacity <= 0) return;
+
+            ctx.save();
+
+            cloudPoints.forEach(p => {
+                if (drawBehindOnly === true && p.z >= 0) return;
+                if (drawBehindOnly === false && p.z < 0) return;
+
+                let drawX = CX + p.x;
+                let drawY = CY + p.y;
+
+                let scale = 1 + p.z / 350;
+                let drawSize = p.size * clamp(scale, 0.4, 1.6);
+
+                let depthAlpha = clamp((p.z + 260) / 520, 0.2, 1.0);
+
+                ctx.globalAlpha = p.baseAlpha * cloudOpacity * depthAlpha;
+                ctx.fillStyle = p.color;
+
+                let sizePulse = drawSize;
+                if (p.r % 9 === 0) {
+                    sizePulse += Math.sin(globalTime * 0.15 + p.x) * 0.15;
+                }
+                sizePulse = Math.max(0.2, sizePulse);
+
+                ctx.fillRect(drawX - sizePulse / 2, drawY - sizePulse / 2, sizePulse, sizePulse);
+            });
+
+            ctx.restore();
+        }
+
+        function drawParticles() {
+            ctx.save();
+            particles.forEach(p => {
+                let alpha = (p.life / p.maxLife) * 0.4 * cloudOpacity;
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        function drawDensityProbe() {
+            if (currentStage !== 3 || !isMouseOverCanvas || mouseX < 0) return;
+
+            ctx.save();
+
+            let dx = mouseX - CX;
+            let dy = mouseY - CY;
+
+            hoverProbeRadius = lerp(hoverProbeRadius, 45, 0.1);
+
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.4)';
+            ctx.lineWidth = 1.5;
+            ctx.setLineDash([4, 2]);
+            ctx.beginPath();
+            ctx.arc(mouseX, mouseY, hoverProbeRadius, 0, Math.PI * 2);
+            ctx.stroke();
+
+            ctx.setLineDash([]);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.8)';
+            ctx.beginPath();
+            ctx.moveTo(mouseX - 6, mouseY); ctx.lineTo(mouseX + 6, mouseY);
+            ctx.moveTo(mouseX, mouseY - 6); ctx.lineTo(mouseX, mouseY + 6);
+            ctx.stroke();
+
+            let pointsInRing = 0;
+            cloudPoints.forEach(p => {
+                let pdx = (CX + p.x) - mouseX;
+                let pdy = (CY + p.y) - mouseY;
+                if (pdx * pdx + pdy * pdy < hoverProbeRadius * hoverProbeRadius) {
+                    pointsInRing++;
+                }
+            });
+
+            let densityPercent = Math.min(100, Math.round((pointsInRing / 12000) * 100));
+
+            let densityText = "Thấp (Loãng)";
+            let densityColor = "#64748b";
+            if (densityPercent > 60) {
+                densityText = "Cực cao (Dày đặc)";
+                densityColor = "#ef4444";
+            } else if (densityPercent > 30) {
+                densityText = "Trung bình";
+                densityColor = "#3b82f6";
+            } else if (densityPercent > 8) {
+                densityText = "Thấp";
+                densityColor = "#10b981";
+            } else {
+                densityText = "Rất loãng (Gần như bằng 0)";
+                densityColor = "#64748b";
+            }
+
+            let tooltipX = mouseX + 15;
+            let tooltipY = mouseY - 15;
+            if (tooltipX + 180 > W) tooltipX = mouseX - 195;
+            if (tooltipY - 50 < 0) tooltipY = mouseY + 15;
+
+            ctx.fillStyle = 'rgba(13, 17, 23, 0.9)';
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.5)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.roundRect(tooltipX, tooltipY, 180, 65, 8);
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = 'bold 9px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText("ĐẦU DÒ MẬT ĐỘ ELECTRON", tooltipX + 12, tooltipY + 18);
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText(`Mật độ: `, tooltipX + 12, tooltipY + 36);
+
+            ctx.fillStyle = densityColor;
+            ctx.fillText(densityText, tooltipX + 60, tooltipY + 36);
+
+            ctx.fillStyle = '#38bdf8';
+            ctx.font = '500 11px "Plus Jakarta Sans", sans-serif';
+            ctx.fillText(`Xác suất gặp e: ~${densityPercent}%`, tooltipX + 12, tooltipY + 52);
+
+            ctx.restore();
+        }
+
+        function drawOrbitalBoundary() {
+            if (currentStage < 4 || aoOpacity <= 0) return;
+
+            ctx.save();
+            ctx.globalAlpha = aoOpacity;
+
+            let probabilityRatio = (currentProbability - 30) / (90 - 30);
+            let aoRadius = lerp(45, 165, probabilityRatio);
+
+            let radGrad = ctx.createRadialGradient(CX, CY, 10, CX, CY, aoRadius);
+            radGrad.addColorStop(0, 'rgba(26, 122, 94, 0.15)');
+            radGrad.addColorStop(0.8, 'rgba(26, 122, 94, 0.08)');
+            radGrad.addColorStop(1, 'rgba(26, 122, 94, 0)');
+
+            ctx.fillStyle = radGrad;
+            ctx.beginPath();
+            ctx.arc(CX, CY, aoRadius, 0, Math.PI * 2);
+            ctx.fill();
+
+            if (currentProbability === 90) {
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = '#1a7a5e';
+                ctx.strokeStyle = 'rgba(45, 212, 191, 0.8)';
+                ctx.lineWidth = 2.5;
+
+                ctx.beginPath();
+                ctx.arc(CX, CY, aoRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.shadowBlur = 0;
+            }
+
+            if (currentProbability === 90) {
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                let angle = -Math.PI / 4;
+                let startX = CX + Math.cos(angle) * aoRadius;
+                let startY = CY + Math.sin(angle) * aoRadius;
+                let endX = startX + 40;
+                let endY = startY - 30;
+
+                ctx.moveTo(startX, startY);
+                ctx.lineTo(endX, endY);
+                ctx.lineTo(endX + 60, endY);
+                ctx.stroke();
+
+                ctx.fillStyle = '#2dd4bf';
+                ctx.beginPath();
+                ctx.arc(startX, startY, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#ffffff';
+                ctx.font = 'bold 12px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'left';
+                ctx.fillText("AO (Atomic Orbital)", endX, endY - 8);
+
+                ctx.fillStyle = '#2dd4bf';
+                ctx.font = '600 10px "Plus Jakarta Sans", sans-serif';
+                ctx.fillText("Xác suất xuất hiện ~90%", endX, endY + 14);
+            }
+
+            ctx.restore();
+        }
+
+        function drawStaticLabels() {
+            ctx.save();
+
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.font = '600 11px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText("HẠT NHÂN (NUCLEUS)", CX, CY - 20);
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.font = '700 14px "Plus Jakarta Sans", sans-serif';
+            if (currentStage <= 1) {
+                ctx.fillText("MÔ HÌNH RUTHERFORD - BOHR", 20, 35);
+            } else {
+                ctx.fillText("MÔ HÌNH HIỆN ĐẠI (CƠ HỌC LƯỢNG TỬ)", 20, 35);
+            }
+
+            ctx.restore();
+        }
+
+        function loop() {
+            globalTime++;
+            ctx.clearRect(0, 0, W, H);
+
+            updateCloud3D();
+            drawGrid();
+
+            if (currentStage <= 1) {
+                showOrbitLine = 1.0;
+                cloudOpacity = 0.0;
+
+                if (isPlaying) {
+                    let deltaAngle = 0.03 * orbitSpeed;
+                    electronAngle += deltaAngle;
+                }
+
+                drawRutherfordModel();
+                drawNucleus();
+            } else if (currentStage === 2) {
+                if (orbitFading) {
+                    showOrbitLine = lerp(showOrbitLine, 0, 0.03);
+                    cloudOpacity = lerp(cloudOpacity, 1.0, 0.02);
+                    electronAngle += 0.03 * showOrbitLine;
+
+                    if (showOrbitLine < 0.01) {
+                        showOrbitLine = 0;
+                        orbitFading = false;
+                    }
+                }
+
+                drawElectronCloud(true);
+                drawRutherfordModel();
+                drawNucleus();
+                drawElectronCloud(false);
+            } else {
+                showOrbitLine = 0;
+                cloudOpacity = 1.0;
+
+                drawElectronCloud(true);
+                updateParticles();
+                drawParticles();
+                drawNucleus();
+                drawElectronCloud(false);
+
+                if (currentStage >= 4) {
+                    aoOpacity = lerp(aoOpacity, 1.0, 0.05);
+                    currentProbability = lerp(currentProbability, targetProbability, 0.1);
+                    drawOrbitalBoundary();
+                } else {
+                    aoOpacity = lerp(aoOpacity, 0.0, 0.1);
+                }
+
+                if (currentStage === 3) {
+                    drawDensityProbe();
+                }
+            }
+
+            drawNucleus();
+            drawStaticLabels();
+
+            requestAnimationFrame(loop);
+        }
+
+        const stepCounter = document.getElementById('stepCounter');
+        const progressLine = document.getElementById('progressLine');
+        const stepTitle = document.getElementById('stepTitle');
+        const stepDesc = document.getElementById('stepDesc');
+        const mucDichText = document.getElementById('mucDichText');
+        const huongDanList = document.getElementById('huongDanList');
+        const subControlsArea = document.getElementById('subControlsArea');
+        const btnPrev = document.getElementById('btnPrev');
+        const btnNext = document.getElementById('btnNext');
+        const statusText = document.getElementById('statusText');
+        const statusDot = document.getElementById('statusDot');
+        const explanationBox = document.getElementById('explanationBox');
+        const explTitle = document.getElementById('explTitle');
+        const explContent = document.getElementById('explContent');
+
+        function updateUI() {
+            const data = stagesData[currentStage];
+
+            stepCounter.innerText = `Bước ${currentStage + 1} / 6`;
+            stepTitle.innerText = data.stepTitle;
+            stepDesc.innerText = data.stepDesc;
+            mucDichText.innerText = data.mucDich;
+
+            huongDanList.innerHTML = data.huongDan.map(step => `<li>${step}</li>`).join('');
+
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active', 'completed');
+                if (index === currentStage) {
+                    dot.classList.add('active');
+                } else if (index < currentStage) {
+                    dot.classList.add('completed');
+                }
+            });
+            const percent = (currentStage / (dots.length - 1)) * 100;
+            progressLine.style.width = `${percent}%`;
+
+            btnPrev.disabled = (currentStage === 0 || isAnimating);
+
+            if (currentStage < 5) {
+                const quiz = quizData[currentStage];
+                btnNext.disabled = (!quiz.answered || isAnimating);
+            } else {
+                btnNext.disabled = true;
+            }
+
+            if (isAnimating) {
+                statusText.innerText = "Đang thực hiện...";
+                statusDot.className = "status-dot animating";
+            } else {
+                if (currentStage < 5 && !quizData[currentStage].answered) {
+                    statusText.innerText = "Chờ trả lời câu hỏi";
+                    statusDot.className = "status-dot waiting";
+                } else {
+                    statusText.innerText = "Hoàn tất bước";
+                    statusDot.className = "status-dot done";
+                }
+            }
+
+            renderSubControls();
+            triggerExplanationFade();
+        }
+
+        function renderSubControls() {
+            subControlsArea.innerHTML = '';
+
+            if (currentStage === 0) {
+                subControlsArea.innerHTML = `
+                    <div class="control-row">
+                        <label><i class="ti ti-adjustments-horizontal"></i> Điều khiển:</label>
+                        <button class="btn btn-secondary" id="btnPlayPause" ${isAnimating ? 'disabled' : ''}>
+                            <i class="ti ${isPlaying ? 'ti-pause' : 'ti-play'}"></i> ${isPlaying ? 'Tạm dừng' : 'Tiếp tục'}
+                        </button>
+                        <span style="font-size: 13px; font-weight: 500; color: var(--text-muted);">
+                            Tốc độ hiện tại: <b>x${orbitSpeed}</b>
+                        </span>
+                    </div>
+                `;
+
+                document.getElementById('btnPlayPause').addEventListener('click', function () {
+                    isPlaying = !isPlaying;
+                    renderSubControls();
+                });
+
+            } else if (currentStage === 1) {
+                subControlsArea.innerHTML = `
+                    <div class="control-row">
+                        <label><i class="ti ti-gauge"></i> Tốc độ chuyển động:</label>
+                        <div class="slider-wrapper" style="flex: 1;">
+                            <input type="range" id="speedSlider" min="1" max="8" step="1" value="${orbitSpeed}" ${isAnimating ? 'disabled' : ''}>
+                            <span class="slider-value" id="speedVal">x${orbitSpeed}</span>
+                        </div>
+                    </div>
+                `;
+
+                const speedSlider = document.getElementById('speedSlider');
+                const speedVal = document.getElementById('speedVal');
+
+                speedSlider.addEventListener('input', function () {
+                    orbitSpeed = parseInt(this.value);
+                    speedVal.innerText = `x${orbitSpeed}`;
+                });
+
+            } else if (currentStage === 2) {
+                let btnLabel = "Kích hoạt mô hình hiện đại";
+                let btnIcon = "ti-atom";
+                if (showModernModel) {
+                    btnLabel = "Mô hình hiện đại hoạt động";
+                    btnIcon = "ti-circle-check";
+                }
+
+                subControlsArea.innerHTML = `
+                    <div class="control-row">
+                        <label><i class="ti ti-replace"></i> Chuyển đổi mô hình:</label>
+                        <button class="btn ${showModernModel ? 'btn-secondary' : 'btn-primary'}" id="btnTriggerModern" ${showModernModel || isAnimating ? 'disabled' : ''}>
+                            <i class="ti ${isAnimating ? 'ti-loader' : btnIcon}"></i> ${btnLabel}
+                        </button>
+                    </div>
+                `;
+
+                const btnTrigger = document.getElementById('btnTriggerModern');
+                if (btnTrigger) {
+                    btnTrigger.addEventListener('click', startModernTransition);
+                }
+
+            } else if (currentStage === 3) {
+                subControlsArea.innerHTML = `
+                    <div class="control-row" style="justify-content: center;">
+                        <span style="font-size: 13px; font-weight: 600; color: var(--primary); display: flex; align-items: center; gap: 6px;">
+                            <i class="ti ti-hand-finger"></i> Hãy di chuyển chuột tự do trên màn hình Canvas để đo mật độ đám mây
+                        </span>
+                    </div>
+                `;
+
+            } else if (currentStage === 4) {
+                subControlsArea.innerHTML = `
+                    <div class="control-row">
+                        <label><i class="ti ti-percentage"></i> Khoanh vùng xác suất:</label>
+                        <div class="slider-wrapper" style="flex: 1;">
+                            <input type="range" id="probSlider" min="30" max="90" step="5" value="${targetProbability}" ${isAnimating ? 'disabled' : ''}>
+                            <span class="slider-value" id="probVal">${targetProbability}%</span>
+                        </div>
+                    </div>
+                `;
+
+                const probSlider = document.getElementById('probSlider');
+                const probVal = document.getElementById('probVal');
+
+                probSlider.addEventListener('input', function () {
+                    targetProbability = parseInt(this.value);
+                    probVal.innerText = `${targetProbability}%`;
+                });
+
+            } else if (currentStage === 5) {
+                subControlsArea.innerHTML = `
+                    <div class="control-row" style="justify-content: center;">
+                        <span style="font-size: 13px; font-weight: 600; color: var(--secondary); display: flex; align-items: center; gap: 6px;">
+                            <i class="ti ti-confetti"></i> Chúc mừng em đã hoàn thành bài học xuất sắc!
+                        </span>
+                    </div>
+                `;
+            }
+        }
+
+        function startModernTransition() {
+            isAnimating = true;
+            showModernModel = true;
+            orbitFading = true;
+
+            updateUI();
+
+            let duration = 3000;
+            let startTime = performance.now();
+
+            function anim(now) {
+                let elapsed = now - startTime;
+                let progress = Math.min(1.0, elapsed / duration);
+
+                if (progress < 1.0) {
+                    requestAnimationFrame(anim);
+                } else {
+                    isAnimating = false;
+                    updateUI();
+                }
+            }
+            requestAnimationFrame(anim);
+        }
+
+        function triggerExplanationFade() {
+            explanationBox.classList.add('fade');
+            setTimeout(() => {
+                renderExplanationContent();
+                explanationBox.classList.remove('fade');
+            }, 200);
+        }
+
+        function renderExplanationContent() {
+            if (currentStage === 5) {
+                explanationBox.className = "explanation-card success-state";
+                explTitle.innerHTML = `<i class="ti ti-circle-check"></i> <span>Tóm tắt kiến thức cốt lõi</span>`;
+
+                explContent.innerHTML = `
+                    <div class="flowchart-container">
+                        <div class="flowchart-node">Mô hình Rutherford – Bohr</div>
+                        <div class="flowchart-arrow"><i class="ti ti-arrow-down"></i> Electron chuyển động trên quỹ đạo tròn xác định</div>
+                        <div class="flowchart-node">Thực tế chuyển động cực nhanh</div>
+                        <div class="flowchart-arrow"><i class="ti ti-arrow-down"></i> Không thể xác định vị trí chính xác tại từng thời điểm</div>
+                        <div class="flowchart-node">Mô hình Hiện đại (Cơ học lượng tử)</div>
+                        <div class="flowchart-arrow"><i class="ti ti-arrow-down"></i> Đám mây electron biểu thị mật độ xác suất xuất hiện</div>
+                        <div class="flowchart-node">Orbital nguyên tử (AO)</div>
+                        <div class="flowchart-arrow"><i class="ti ti-square-check"></i> Vùng không gian có xác suất tìm thấy electron khoảng 90%</div>
+                    </div>
+                    
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <div class="summary-card-title"><i class="ti ti-info-circle"></i> Không có quỹ đạo</div>
+                            <div class="summary-card-body">Electron chuyển động rất nhanh trong vùng không gian quanh hạt nhân, không theo quỹ đạo xác định nào.</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-card-title"><i class="ti ti-cloud"></i> Đám mây electron</div>
+                            <div class="summary-card-body">Mật độ các chấm sáng thể hiện xác suất tìm thấy electron ở đó lớn hay nhỏ (gần tâm dày đặc hơn).</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-card-title"><i class="ti ti-square-check"></i> Orbital nguyên tử</div>
+                            <div class="summary-card-body">AO là vùng không gian được khoanh vùng sao cho xác suất tìm thấy electron đạt mức 90%.</div>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            const quiz = quizData[currentStage];
+
+            if (quiz.answered) {
+                explanationBox.className = "explanation-card success-state";
+                explTitle.innerHTML = `<i class="ti ti-circle-check"></i> <span>Khám phá quan trọng (Aha Moment #${currentStage + 1})</span>`;
+
+                explContent.innerHTML = `
+                    <p style="font-size: 15px; font-weight: 600; color: var(--success-accent); margin-bottom: 8px;">
+                        ${quiz.feedbackSuccess}
+                    </p>
+                    <div style="background: rgba(255,255,255,0.7); border-radius: 6px; padding: 10px 12px; border-left: 3.5px solid var(--secondary); font-style: italic; font-weight: 500;">
+                        💡 <b>Điểm cốt lõi:</b> ${quiz.aha}
+                    </div>
+                `;
+            } else {
+                explanationBox.className = "explanation-card";
+                explTitle.innerHTML = `<i class="ti ti-help-circle"></i> <span>Câu hỏi tư duy & tương tác</span>`;
+
+                let quizHTML = `
+                    <p style="font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; color: var(--text-main);">
+                        ${quiz.question}
+                    </p>
+                    <div class="quiz-container">
+                `;
+
+                quiz.options.forEach((opt, index) => {
+                    let optClass = "quiz-option";
+                    if (quiz.type === 'multi') optClass += " multi";
+
+                    let isSelected = false;
+                    if (quiz.type === 'single') {
+                        isSelected = (quiz.selectedOption === index);
+                    } else {
+                        isSelected = quiz.selectedOptions.includes(index);
+                    }
+
+                    if (isSelected) optClass += " selected";
+
+                    quizHTML += `
+                        <div class="${optClass}" onclick="selectQuizOption(${index})">
+                            <span class="quiz-option-indicator"></span>
+                            <span>${opt.text}</span>
+                        </div>
+                    `;
+                });
+
+                quizHTML += `</div>`;
+
+                if (quiz.type === 'multi') {
+                    const hasSelection = quiz.selectedOptions.length > 0;
+                    quizHTML += `
+                        <button class="btn btn-primary" style="margin-top: 12px;" onclick="checkMultiSelectAnswer()" ${!hasSelection ? 'disabled' : ''}>
+                            <i class="ti ti-shield-check"></i> Xác nhận lựa chọn
+                        </button>
+                    `;
+                }
+
+                explContent.innerHTML = quizHTML;
+            }
+        }
+
+        window.selectQuizOption = function (index) {
+            const quiz = quizData[currentStage];
+            if (quiz.answered) return;
+
+            if (quiz.type === 'single') {
+                quiz.selectedOption = index;
+
+                const selectedOpt = quiz.options[index];
+                if (selectedOpt.isCorrect) {
+                    quiz.answered = true;
+                    updateUI();
+                } else {
+                    const optionsElements = document.querySelectorAll('.quiz-option');
+                    optionsElements.forEach((el, idx) => {
+                        if (idx === index) {
+                            el.classList.add('incorrect');
+                            let feedback = el.querySelector('.feedback-msg-error');
+                            if (!feedback) {
+                                let errorSpan = document.createElement('span');
+                                errorSpan.className = "feedback-msg-error";
+                                errorSpan.style.color = "#ef4444";
+                                errorSpan.style.fontSize = "11px";
+                                errorSpan.style.fontWeight = "600";
+                                errorSpan.style.marginLeft = "auto";
+                                errorSpan.innerHTML = `<i class="ti ti-circle-x"></i> Sai rồi, thử lại nhé!`;
+                                el.appendChild(errorSpan);
+                            }
+                        }
+                    });
+                }
+            } else {
+                const pos = quiz.selectedOptions.indexOf(index);
+                if (pos === -1) {
+                    quiz.selectedOptions.push(index);
+                } else {
+                    quiz.selectedOptions.splice(pos, 1);
+                }
+                renderExplanationContent();
+            }
+        };
+
+        window.checkMultiSelectAnswer = function () {
+            const quiz = quizData[currentStage];
+            if (quiz.answered) return;
+
+            const correctIndices = quiz.options
+                .map((opt, idx) => opt.isCorrect ? idx : -1)
+                .filter(idx => idx !== -1);
+
+            const isAllCorrect = quiz.selectedOptions.length === correctIndices.length &&
+                quiz.selectedOptions.every(val => correctIndices.includes(val));
+
+            if (isAllCorrect) {
+                quiz.answered = true;
+                updateUI();
+            } else {
+                alert("Lựa chọn chưa chính xác! Hãy quan sát kỹ lại sự thay đổi trên màn hình Canvas khi chuyển sang mô hình hiện đại.");
+                quiz.selectedOptions = [];
+                renderExplanationContent();
+            }
+        };
+
+        function getMousePos(canvas, evt) {
+            let rect = canvas.getBoundingClientRect();
+            let clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+            let clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+            return {
+                x: (clientX - rect.left) * (W / rect.width),
+                y: (clientY - rect.top) * (H / rect.height)
+            };
+        }
+
+        function handleStart(evt) {
+            if (currentStage >= 2) {
+                isDragging = true;
+                let clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+                let clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+                lastMouseX = clientX;
+                lastMouseY = clientY;
+                canvas.style.cursor = 'grabbing';
+            }
+        }
+
+        function handleMove(evt) {
+            if (currentStage === 3) {
+                let pos = getMousePos(canvas, evt);
+                mouseX = pos.x;
+                mouseY = pos.y;
+                isMouseOverCanvas = true;
+            }
+
+            if (isDragging && currentStage >= 2) {
+                let clientX = evt.touches ? evt.touches[0].clientX : evt.clientX;
+                let clientY = evt.touches ? evt.touches[0].clientY : evt.clientY;
+
+                let dx = clientX - lastMouseX;
+                let dy = clientY - lastMouseY;
+
+                let rotateAngleY = dx * 0.008;
+                let rotateAngleX = dy * 0.008;
+
+                rotateCloud3D(rotateAngleX, rotateAngleY);
+
+                lastMouseX = clientX;
+                lastMouseY = clientY;
+
+                if (evt.touches) evt.preventDefault();
+            }
+        }
+
+        function handleEnd() {
+            isDragging = false;
+            canvas.style.cursor = (currentStage === 3) ? 'default' : (currentStage >= 2 ? 'grab' : 'default');
+        }
+
+        canvas.addEventListener('mousedown', handleStart);
+        canvas.addEventListener('mousemove', handleMove);
+        canvas.addEventListener('mouseup', handleEnd);
+        canvas.addEventListener('mouseleave', function () {
+            handleEnd();
+            isMouseOverCanvas = false;
+            mouseX = -1000;
+            mouseY = -1000;
+            hoverProbeRadius = 0;
+        });
+
+        canvas.addEventListener('mouseenter', function () {
+            if (currentStage === 3) {
+                document.getElementById('canvasTip').classList.add('visible');
+            }
+            if (currentStage >= 2 && currentStage !== 3) {
+                canvas.style.cursor = 'grab';
+            }
+        });
+
+        canvas.addEventListener('touchstart', handleStart, { passive: false });
+        canvas.addEventListener('touchmove', handleMove, { passive: false });
+        canvas.addEventListener('touchend', handleEnd);
+
+        btnNext.addEventListener('click', function () {
+            if (currentStage < 5 && quizData[currentStage].answered && !isAnimating) {
+                currentStage++;
+
+                if (currentStage === 3) {
+                    document.getElementById('canvasTip').classList.add('visible');
+                } else {
+                    document.getElementById('canvasTip').classList.remove('visible');
+                }
+
+                updateUI();
+            }
+        });
+
+        btnPrev.addEventListener('click', function () {
+            if (currentStage > 0 && !isAnimating) {
+                currentStage--;
+                document.getElementById('canvasTip').classList.remove('visible');
+                updateUI();
+            }
+        });
+
+        document.getElementById('btnResetAll').addEventListener('click', function () {
+            if (confirm("Bạn có chắc chắn muốn làm lại bài học từ đầu không?")) {
+                currentStage = 0;
+                isAnimating = false;
+                isPlaying = true;
+                orbitSpeed = 1;
+                electronAngle = 0;
+                showOrbitLine = 1.0;
+                cloudOpacity = 0.0;
+                showModernModel = false;
+                targetProbability = 30;
+                currentProbability = 30;
+                aoOpacity = 0;
+
+                quizData.forEach(q => {
+                    q.answered = false;
+                    q.selectedOption = null;
+                    if (q.selectedOptions) q.selectedOptions = [];
+                });
+
+                updateUI();
+            }
+        });
+
+        document.querySelectorAll('.progress-dot').forEach(dot => {
+            dot.addEventListener('click', function () {
+                let targetStep = parseInt(this.getAttribute('data-step'));
+
+                let canNavigate = true;
+                for (let i = 0; i < targetStep; i++) {
+                    if (!quizData[i].answered) {
+                        canNavigate = false;
+                        break;
+                    }
+                }
+
+                if (canNavigate && !isAnimating) {
+                    currentStage = targetStep;
+                    if (currentStage === 3) {
+                        document.getElementById('canvasTip').classList.add('visible');
+                    } else {
+                        document.getElementById('canvasTip').classList.remove('visible');
+                    }
+                    updateUI();
+                }
+            });
+        });
+
+        initCloudPoints();
+        updateUI();
+        loop();
+    </script>
+</body>
+
+</html>

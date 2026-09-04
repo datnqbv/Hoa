@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Orbital Nguyên Tử 3D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<style>
+:root {
+  --bg:        #080b12;
+  --panel:     #0e1220;
+  --panel2:    #131829;
+  --border:    rgba(255,255,255,0.07);
+  --border2:   rgba(255,255,255,0.13);
+
+  /* Pastel academic */
+  --lav:  #c4b5fd; /* lobe+ / s */
+  --rose: #fda4af; /* lobe-   */
+  --sky:  #93c5fd; /* d lobe  */
+  --sage: #6ee7b7; /* d torus */
+  --gold: #fcd34d; /* nucleus */
+  --mist: #cbd5e1; /* text    */
+  --dim:  #475569; /* subtext */
+  --faint:#1e2535; /* hover   */
+
+  --r: 10px;
+  --font: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+  height:100%;
+  background:var(--bg);
+  color:var(--mist);
+  font-family:var(--font);
+  overflow:hidden;
+}
+
+/* ── LAYOUT ── */
+.shell{
+  display:grid;
+  grid-template-columns:270px 1fr;
+  height:100vh;
+  overflow:hidden;
+}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+.brand{
+  padding:1rem 1.1rem 0.85rem;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  gap:0.65rem;
+  flex-shrink:0;
+}
+
+.brand-orb{
+  width:28px;height:28px;
+  border-radius:50%;
+  background:conic-gradient(from 200deg,var(--lav),var(--rose),var(--sky),var(--sage),var(--lav));
+  animation:spin 10s linear infinite;
+  flex-shrink:0;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.brand-text{display:flex;flex-direction:column;gap:1px}
+.brand-name{font-size:.78rem;font-weight:700;color:var(--mist);letter-spacing:.04em}
+.brand-sub{font-size:.62rem;color:var(--dim);font-family:var(--mono)}
+
+.scroll{
+  flex:1;
+  overflow-y:auto;
+  padding:.9rem .85rem;
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+  scrollbar-width:thin;
+  scrollbar-color:var(--border) transparent;
+}
+
+.sec-label{
+  font-size:.6rem;
+  font-weight:700;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--dim);
+  margin-bottom:.5rem;
+}
+
+/* ── ATOM GRID ── */
+.atom-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:5px;
+}
+
+.atom-btn{
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:.55rem .3rem .45rem;
+  cursor:pointer;
+  font-family:var(--font);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1px;
+  transition:all .15s;
+  position:relative;
+}
+.atom-btn:hover{border-color:var(--border2);background:var(--faint)}
+.atom-btn.active{border-color:var(--lav);background:rgba(196,181,253,.08)}
+.atom-z{position:absolute;top:4px;left:5px;font-family:var(--mono);font-size:.52rem;color:var(--dim)}
+.atom-sym{font-size:1.35rem;font-weight:700;color:var(--mist);line-height:1;margin-top:7px}
+.atom-btn.active .atom-sym{color:var(--lav)}
+.atom-nm{font-size:.55rem;color:var(--dim)}
+
+/* ── ORBITAL LIST ── */
+.orb-list{display:flex;flex-direction:column;gap:3px}
+
+.orb-row{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.42rem .6rem;
+  border-radius:7px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:all .13s;
+  font-size:.82rem;
+  font-weight:500;
+  font-family:var(--mono);
+  color:var(--dim);
+}
+.orb-row:hover{background:var(--faint);color:var(--mist)}
+.orb-row.active{background:var(--panel2);border-color:var(--border2);color:var(--mist)}
+.orb-pip{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.orb-shape{font-size:.6rem;color:var(--dim);margin-left:auto;font-family:var(--font);font-weight:400}
+
+/* ── P DIR ── */
+.pdir-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.pdir-btn{
+  padding:.38rem;
+  border-radius:7px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.78rem;
+  font-weight:500;
+  color:var(--dim);
+  text-align:center;
+  transition:all .13s;
+}
+.pdir-btn:hover{border-color:var(--border2);color:var(--mist)}
+.pdir-btn.active{border-color:var(--lav);color:var(--lav);background:rgba(196,181,253,.1)}
+
+/* ── CONTROLS ── */
+.ctrl-col{display:flex;flex-direction:column;gap:4px}
+
+.ctrl{
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.4rem .65rem;
+  border-radius:7px;
+  border:1px solid var(--border);
+  background:var(--panel2);
+  cursor:pointer;
+  font-family:var(--font);
+  font-size:.76rem;
+  font-weight:500;
+  color:var(--dim);
+  transition:all .13s;
+  user-select:none;
+}
+.ctrl:hover{border-color:var(--border2);color:var(--mist)}
+.ctrl.on{border-color:var(--lav);color:var(--lav);background:rgba(196,181,253,.08)}
+.ctrl svg{width:13px;height:13px;flex-shrink:0;opacity:.7}
+.ctrl.on svg{opacity:1}
+
+/* ── QUALITY SLIDER ── */
+.slider-wrap{display:flex;flex-direction:column;gap:5px}
+.slider-wrap label{
+  display:flex;justify-content:space-between;
+  font-size:.7rem;color:var(--dim)
+}
+.slider-wrap label span{font-family:var(--mono);color:var(--lav)}
+input[type=range]{
+  width:100%;
+  -webkit-appearance:none;
+  height:3px;
+  background:var(--panel2);
+  border-radius:2px;
+  outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:12px;height:12px;
+  border-radius:50%;
+  background:var(--lav);
+  cursor:pointer;
+}
+
+.divider{height:1px;background:var(--border)}
+
+/* ── CANVAS AREA ── */
+.stage{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  background:var(--bg);
+  overflow:hidden;
+}
+
+#c{width:100%!important;height:100%!important;display:block;flex:1}
+
+/* Glow overlay */
+#glow{
+  position:absolute;inset:0;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  opacity:.4;
+  transition:opacity .4s;
+}
+
+/* Top HUD */
+.hud-top{
+  position:absolute;
+  top:.75rem;left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  pointer-events:none;
+}
+
+.orb-badge{
+  font-family:var(--mono);
+  font-size:.9rem;
+  font-weight:500;
+  color:var(--lav);
+  background:rgba(196,181,253,.1);
+  border:1px solid rgba(196,181,253,.25);
+  padding:3px 14px;
+  border-radius:20px;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+
+.cross-badge{
+  font-size:.62rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--rose);
+  background:rgba(253,164,175,.1);
+  border:1px solid rgba(253,164,175,.25);
+  padding:3px 10px;
+  border-radius:20px;
+  display:none;
+}
+.cross-badge.show{display:block}
+
+/* Bottom gradient + caption */
+.hud-bot{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  padding:1.8rem 1.3rem .85rem;
+  background:linear-gradient(to top,rgba(8,11,18,.97) 55%,transparent);
+  display:flex;
+  flex-direction:column;
+  gap:.7rem;
+  pointer-events:none;
+}
+
+.caption{
+  font-size:.82rem;
+  line-height:1.7;
+  color:rgba(203,213,225,.78);
+  max-width:640px;
+}
+.caption em{color:var(--lav);font-style:normal;font-weight:600}
+
+.legend{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+}
+.leg{display:flex;align-items:center;gap:5px;font-size:.67rem;color:var(--dim)}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.leg-line{width:20px;height:2px;border-radius:1px;flex-shrink:0}
+
+/* Drag hint */
+.hint{
+  position:absolute;
+  top:.75rem;right:.9rem;
+  font-size:.65rem;color:rgba(255,255,255,.22);
+  pointer-events:none;
+  transition:opacity 1s;
+}
+
+/* Loading */
+.loading{
+  position:absolute;inset:0;
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:1rem;
+  z-index:99;
+  transition:opacity .5s;
+}
+.loading.gone{opacity:0;pointer-events:none}
+.spin-ring{
+  width:36px;height:36px;
+  border:2px solid var(--border);
+  border-top-color:var(--lav);
+  border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+.loading p{font-size:.73rem;color:var(--dim)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:650px){
+  .shell{grid-template-columns:1fr;grid-template-rows:auto 1fr}
+  .sidebar{flex-direction:row;overflow-x:auto;overflow-y:hidden;border-right:none;border-bottom:1px solid var(--border)}
+  .scroll{flex-direction:row;padding:.5rem;gap:.75rem;overflow-y:hidden;overflow-x:auto}
+  .sec{min-width:180px;flex-shrink:0}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ───────── SIDEBAR ───────── -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-orb"></div>
+    <div class="brand-text">
+      <div class="brand-name">Orbital Nguyên Tử 3D</div>
+      <div class="brand-sub">Hóa 10 · Bài 3</div>
+    </div>
+  </div>
+
+  <div class="scroll">
+
+    <div class="sec">
+      <div class="sec-label">Nguyên tử</div>
+      <div class="atom-grid" id="atomGrid"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec">
+      <div class="sec-label">Orbital (AO)</div>
+      <div class="orb-list" id="orbList"></div>
+    </div>
+
+    <div class="sec" id="pdirSec" style="display:none">
+      <div class="sec-label">Hướng p</div>
+      <div class="pdir-grid">
+        <button class="pdir-btn" id="pd_px" onclick="setP('px')">pₓ</button>
+        <button class="pdir-btn" id="pd_py" onclick="setP('py')">p_y</button>
+        <button class="pdir-btn" id="pd_pz" onclick="setP('pz')">p_z</button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec">
+      <div class="sec-label">Hiển thị</div>
+      <div class="ctrl-col">
+        <button class="ctrl on" id="ctrlSolid" onclick="setMode('solid')">
+          <svg viewBox="0 0 14 14" fill="currentColor"><circle cx="7" cy="7" r="5.5"/></svg>Solid
+        </button>
+        <button class="ctrl" id="ctrlWire" onclick="setMode('wire')">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="5.5"/></svg>Wireframe
+        </button>
+        <button class="ctrl" id="ctrlBoth" onclick="setMode('both')">
+          <svg viewBox="0 0 14 14" fill="currentColor" opacity=".5"><circle cx="7" cy="7" r="5.5"/></svg>Solid + Wire
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec">
+      <div class="sec-label">Tuỳ chọn</div>
+      <div class="ctrl-col">
+        <button class="ctrl on" id="ctrlAxes" onclick="toggleAxes()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="7" y1="12" x2="7" y2="2"/><line x1="2" y1="7" x2="12" y2="7"/></svg>Trục xyz
+        </button>
+        <button class="ctrl on" id="ctrlNuc" onclick="toggleNuc()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="3"/></svg>Hạt nhân
+        </button>
+        <button class="ctrl" id="ctrlCross" onclick="toggleCross()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><line x1="2" y1="7" x2="12" y2="7"/><rect x="2" y="7" width="10" height="5" rx="1" opacity=".5"/></svg>Cross Section
+        </button>
+        <button class="ctrl on" id="ctrlGlow" onclick="toggleGlow()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="7" cy="7" r="2.5"/><circle cx="7" cy="7" r="4.5" opacity=".35"/><circle cx="7" cy="7" r="6.5" opacity=".12"/></svg>Glow
+        </button>
+        <button class="ctrl" id="ctrlSpin" onclick="toggleSpin()">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M11 7A4 4 0 1 1 7 3"/><polyline points="9 1 11 3 9 5"/></svg>Tự xoay
+        </button>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sec">
+      <div class="sec-label">Chất lượng mesh</div>
+      <div class="slider-wrap">
+        <label>Độ phân giải <span id="qualLabel">60</span></label>
+        <input type="range" id="qualSlider" min="24" max="96" step="8" value="60"
+          oninput="setQuality(+this.value)">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <button class="ctrl" onclick="resetCam()" style="justify-content:center">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 3v4h4"/><path d="M13 11V7H9"/><path d="M2 7A5 5 0 0 1 11.9 5.5"/><path d="M12 7A5 5 0 0 1 2.1 8.5"/></svg>Reset góc nhìn
+    </button>
+
+  </div><!-- /scroll -->
+</aside>
+
+<!-- ───────── STAGE ───────── -->
+<div class="stage">
+  <canvas id="c"></canvas>
+  <canvas id="glow"></canvas>
+
+  <div class="hud-top">
+    <div class="orb-badge" id="orbBadge">—</div>
+    <div class="cross-badge" id="crossBadge">✂ Cross</div>
+  </div>
+
+  <div class="hint" id="hint">Kéo · Cuộn để zoom</div>
+
+  <div class="hud-bot">
+    <div class="caption" id="cap">Chọn <em>nguyên tử</em> và <em>orbital</em> để khám phá hình dạng 3D.</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--lav)"></div>Lobe (+) pha dương</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--rose)"></div>Lobe (−) pha âm</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div>Hạt nhân</div>
+      <div class="leg"><div class="leg-line" style="background:#f87171"></div>Trục x</div>
+      <div class="leg"><div class="leg-line" style="background:#4ade80"></div>Trục y</div>
+      <div class="leg"><div class="leg-line" style="background:#60a5fa"></div>Trục z</div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="spin-ring"></div>
+    <p>Đang khởi tạo...</p>
+  </div>
+</div>
+
+</div><!-- /shell -->
+
+<script>
+/* ════════════════════════════════════════════════
+   DATA
+════════════════════════════════════════════════ */
+const ATOMS = {
+  H:  { Z:1,  name:'Hydrogen',  color:'#c4b5fd',
+        orbs:['1s'] },
+  He: { Z:2,  name:'Helium',    color:'#6ee7b7',
+        orbs:['1s'] },
+  Li: { Z:3,  name:'Lithium',   color:'#93c5fd',
+        orbs:['1s','2s'] },
+  B:  { Z:5,  name:'Boron',     color:'#fda4af',
+        orbs:['1s','2s','2p'] },
+  C:  { Z:6,  name:'Carbon',    color:'#fcd34d',
+        orbs:['1s','2s','2p','3d'] },
+  N:  { Z:7,  name:'Nitrogen',  color:'#a5f3fc',
+        orbs:['1s','2s','2p'] },
+  O:  { Z:8,  name:'Oxygen',    color:'#fda4af',
+        orbs:['1s','2s','2p'] },
+  Fe: { Z:26, name:'Iron',      color:'#fb923c',
+        orbs:['1s','2s','2p','3d','4s'] },
+  Cu: { Z:29, name:'Copper',    color:'#a78bfa',
+        orbs:['1s','2s','2p','3d','4s'] },
+};
+
+const ORB_DEF = {
+  '1s': { type:'s', n:1, color:'#c4b5fd', size:.85,
+    cap:'Orbital <em>1s</em> — hình <em>cầu</em> đối xứng hoàn toàn. Xoay 360°, nhìn từ bất kỳ hướng nào cũng như nhau. Electron có xác suất cao nhất gần hạt nhân.' },
+  '2s': { type:'s', n:2, color:'#93c5fd', size:1.4,
+    cap:'Orbital <em>2s</em> — hình cầu lớn hơn 1s, có <em>mặt cầu nút</em> bên trong (xác suất = 0). Bật <em>Cross Section</em> để thấy cấu trúc này.' },
+  '3s': { type:'s', n:3, color:'#6ee7b7', size:2.0,
+    cap:'Orbital <em>3s</em> — hình cầu lớn hơn 2s, có hai <em>mặt cầu nút</em> đồng tâm bên trong. Electron ở xa hạt nhân hơn, năng lượng cao hơn.' },
+  '4s': { type:'s', n:4, color:'#86efac', size:2.5,
+    cap:'Orbital <em>4s</em> — hình cầu rất lớn. Trong các nguyên tử chuyển tiếp (Fe, Cu), 4s thường bị lấp đầy trước 3d.' },
+  '2p': { type:'p', color:'#fda4af',
+    cap:'Orbital <em>2p</em> — hai lobe đối xứng tại hạt nhân. Tại hạt nhân, mật độ xác suất = 0 (mặt phẳng nút). Nhấn <em>pₓ / p_y / p_z</em> để thấy ba hướng vuông góc.' },
+  '3d': { type:'d', color:'#93c5fd',
+    cap:'Orbital <em>3d<sub>z²</sub></em> — hai lobe chính dọc trục z và một <em>vòng đai torus</em> quanh xích đạo. Vùng đai màu nhạt hơn là xác suất thấp hơn.' },
+};
+
+const P_CAPS = {
+  px:'Orbital <em>2p<sub>x</sub></em> — hai lobe dọc <em>trục x</em> (đỏ). Xoay nhìn từ dọc trục x: thấy hai lobe tròn đối xứng.',
+  py:'Orbital <em>2p<sub>y</sub></em> — cùng hình dạng, xoay 90° sang <em>trục y</em> (xanh). Ba orbital 2p có năng lượng bằng nhau.',
+  pz:'Orbital <em>2p<sub>z</sub></em> — hai lobe dọc <em>trục z</em> (lam). p<sub>x</sub>, p<sub>y</sub>, p<sub>z</sub> — một hình, ba hướng.',
+};
+
+const ORB_COLORS = { s:'#c4b5fd', p:'#fda4af', d:'#93c5fd' };
+const ORB_SHAPES = { s:'hình cầu', p:'hình số 8', d:'lobe + vành' };
+
+/* ════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════ */
+let atom = null, orbId = null, pdir = 'px';
+let viewMode = 'solid';
+let axesOn = true, nucOn = true, crossOn = false, glowOn = true, spinOn = false;
+let quality = 60;
+let isAnimating = false;
+
+/* ════════════════════════════════════════════════
+   THREE SETUP
+════════════════════════════════════════════════ */
+const cvs     = document.getElementById('c');
+const glowCvs = document.getElementById('glow');
+const glowCtx = glowCvs.getContext('2d');
+const stage   = cvs.parentElement;
+
+const renderer = new THREE.WebGLRenderer({ canvas:cvs, antialias:true, alpha:false });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+renderer.setClearColor(0x080b12, 1);
+
+const scene  = new THREE.Scene();
+scene.fog    = new THREE.FogExp2(0x080b12, 0.032);
+
+const camera = new THREE.PerspectiveCamera(42, 1, .01, 100);
+camera.position.set(4.2, 3, 4.2);
+
+const ctrl = new THREE.OrbitControls(camera, renderer.domElement);
+ctrl.enableDamping  = true;
+ctrl.dampingFactor  = 0.07;
+ctrl.minDistance    = 1.2;
+ctrl.maxDistance    = 14;
+
+/* Lighting — 4-light setup for depth */
+scene.add(new THREE.AmbientLight(0x192035, 2));
+const kl = new THREE.DirectionalLight(0xffffff, .9); kl.position.set(6,10,6); scene.add(kl);
+const fl = new THREE.DirectionalLight(0x93c5fd, .5); fl.position.set(-5,2,-4); scene.add(fl);
+const rl = new THREE.DirectionalLight(0xfda4af, .4); rl.position.set(0,-6,6); scene.add(rl);
+const bl = new THREE.PointLight(0xc4b5fd, .6, 8);   bl.position.set(0,4,0); scene.add(bl);
+
+/* Clip plane for cross-section */
+const clip = new THREE.Plane(new THREE.Vector3(0,-1,0), .01);
+
+/* Groups */
+const grpOrb  = new THREE.Group();
+const grpAxes = new THREE.Group();
+const grpNuc  = new THREE.Group();
+scene.add(grpOrb, grpAxes, grpNuc);
+
+/* ════════════════════════════════════════════════
+   AXES
+════════════════════════════════════════════════ */
+function buildAxes(){
+  while(grpAxes.children.length) grpAxes.remove(grpAxes.children[0]);
+  const defs=[{d:new THREE.Vector3(1,0,0),c:0xf87171},{d:new THREE.Vector3(0,1,0),c:0x4ade80},{d:new THREE.Vector3(0,0,1),c:0x60a5fa}];
+  const L=3;
+  defs.forEach(({d,c})=>{
+    const mat=new THREE.LineBasicMaterial({color:c,transparent:true,opacity:.55});
+    const g=new THREE.BufferGeometry().setFromPoints([d.clone().multiplyScalar(-L),d.clone().multiplyScalar(L)]);
+    grpAxes.add(new THREE.Line(g,mat));
+    const cm=new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:.7});
+    const cone=new THREE.Mesh(new THREE.ConeGeometry(.065,.22,12),cm);
+    cone.position.copy(d.clone().multiplyScalar(L+.1));
+    cone.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d);
+    grpAxes.add(cone);
+  });
+}
+
+/* ════════════════════════════════════════════════
+   NUCLEUS
+════════════════════════════════════════════════ */
+function buildNuc(){
+  while(grpNuc.children.length) grpNuc.remove(grpNuc.children[0]);
+  const geo=new THREE.SphereGeometry(.125,28,20);
+  const mat=new THREE.MeshPhongMaterial({color:0xfcd34d,emissive:0xf59e0b,emissiveIntensity:.7,shininess:100});
+  grpNuc.add(new THREE.Mesh(geo,mat));
+  /* warm glow halo */
+  const sm=new THREE.SpriteMaterial({color:0xfde68a,transparent:true,opacity:.28,blending:THREE.AdditiveBlending});
+  const sp=new THREE.Sprite(sm);sp.scale.set(.8,.8,1);
+  grpNuc.add(sp);
+}
+
+/* ════════════════════════════════════════════════
+   GEOMETRY HELPERS
+════════════════════════════════════════════════ */
+const SH={
+  s: ()=>1,
+  px:(t,p)=>Math.pow(Math.abs(Math.sin(t)*Math.cos(p)),.5),
+  py:(t,p)=>Math.pow(Math.abs(Math.sin(t)*Math.sin(p)),.5),
+  pz:(t,p)=>Math.pow(Math.abs(Math.cos(t)),.5),
+  dz2:(t,p)=>{ const v=Math.abs(3*Math.cos(t)**2-1); return Math.pow(v/2,.42); },
+};
+
+function buildMeshGeo(Yfn, NT, NP, scale){
+  const pos=[],nrm=[],idx=[];
+  const verts=[];
+  for(let i=0;i<=NT;i++){
+    verts.push([]);
+    const t=(i/NT)*Math.PI;
+    for(let j=0;j<=NP;j++){
+      const p=(j/NP)*2*Math.PI;
+      const r=Yfn(t,p)*scale;
+      verts[i].push(new THREE.Vector3(r*Math.sin(t)*Math.cos(p),r*Math.cos(t),r*Math.sin(t)*Math.sin(p)));
+    }
+  }
+  const id=(i,j)=>i*(NP+1)+j;
+  for(let i=0;i<=NT;i++) for(let j=0;j<=NP;j++){
+    const v=verts[i][j]; pos.push(v.x,v.y,v.z);
+    const n=v.clone().normalize(); if(!n.length())n.set(0,1,0);
+    nrm.push(n.x,n.y,n.z);
+  }
+  for(let i=0;i<NT;i++) for(let j=0;j<NP;j++){
+    const a=id(i,j),b=id(i+1,j),c=id(i+1,j+1),d=id(i,j+1);
+    idx.push(a,b,c,a,c,d);
+  }
+  const geo=new THREE.BufferGeometry();
+  geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+  geo.setAttribute('normal',  new THREE.Float32BufferAttribute(nrm,3));
+  geo.setIndex(idx);
+  return geo;
+}
+
+/* per-material clip list */
+const cp=()=>crossOn?[clip]:[];
+
+function matSolid(col, opacity){
+  return new THREE.MeshPhongMaterial({
+    color:col, transparent:true, opacity,
+    shininess:70,
+    specular:new THREE.Color(0x334466),
+    side:THREE.DoubleSide,
+    clippingPlanes:cp(),
+    depthWrite:false,
+  });
+}
+function matWire(col, opacity){
+  return new THREE.MeshBasicMaterial({
+    color:col, wireframe:true, transparent:true, opacity,
+    side:THREE.DoubleSide, clippingPlanes:cp(),
+  });
+}
+
+function addMesh(geo, col, solidOp, wireOp){
+  if(viewMode==='solid'||viewMode==='both')
+    grpOrb.add(new THREE.Mesh(geo, matSolid(col, solidOp)));
+  if(viewMode==='wire'||viewMode==='both')
+    grpOrb.add(new THREE.Mesh(geo, matWire(col, wireOp)));
+}
+
+/* ════════════════════════════════════════════════
+   S ORBITAL — sphere + inner node ring for 2s/3s
+════════════════════════════════════════════════ */
+function buildS(def){
+  const geo=new THREE.SphereGeometry(def.size, quality+8, Math.round(quality*.75));
+  addMesh(geo, new THREE.Color(def.color), .22, .12);
+
+  /* Inner nodal surface for 2s (1 node) */
+  if(def.n===2){
+    const gi=new THREE.SphereGeometry(def.size*.48, quality, Math.round(quality*.75));
+    addMesh(gi, new THREE.Color(def.color), .12, .08);
+  }
+  /* 3s: two nodes */
+  if(def.n===3){
+    [.35,.62].forEach(f=>{
+      const gi=new THREE.SphereGeometry(def.size*f, quality, Math.round(quality*.75));
+      addMesh(gi, new THREE.Color(def.color), .1, .07);
+    });
+  }
+}
+
+/* ════════════════════════════════════════════════
+   P ORBITAL — two high-quality lobe halves
+════════════════════════════════════════════════ */
+function buildP(dir){
+  const NT=quality, NP=Math.round(quality*1.3);
+  const Yfn={px:SH.px,py:SH.py,pz:SH.pz}[dir];
+  const SCALE=1.65;
+
+  function halfGeo(sign){
+    const pos=[],nrm=[],idx=[];
+    const verts=[];
+    for(let i=0;i<=NT;i++){
+      verts.push([]);
+      const t=(i/NT)*Math.PI;
+      for(let j=0;j<=NP;j++){
+        const p=(j/NP)*2*Math.PI;
+        let sv;
+        if(dir==='pz') sv=Math.cos(t);
+        else if(dir==='px') sv=Math.sin(t)*Math.cos(p);
+        else sv=Math.sin(t)*Math.sin(p);
+
+        const match=(Math.sign(sv)===sign||sv===0);
+        const r=match?Yfn(t,p)*SCALE:0;
+        verts[i].push(new THREE.Vector3(r*Math.sin(t)*Math.cos(p),r*Math.cos(t),r*Math.sin(t)*Math.sin(p)));
+      }
+    }
+    const id=(i,j)=>i*(NP+1)+j;
+    for(let i=0;i<=NT;i++) for(let j=0;j<=NP;j++){
+      const v=verts[i][j]; pos.push(v.x,v.y,v.z);
+      const n=v.clone().normalize(); if(!n.length())n.set(0,1,0);
+      nrm.push(n.x,n.y,n.z);
+    }
+    for(let i=0;i<NT;i++) for(let j=0;j<NP;j++){
+      const a=id(i,j),b=id(i+1,j),c=id(i+1,j+1),d=id(i,j+1);
+      idx.push(a,b,c,a,c,d);
+    }
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('normal',  new THREE.Float32BufferAttribute(nrm,3));
+    geo.setIndex(idx);
+    return geo;
+  }
+
+  const gPos=halfGeo(+1), gNeg=halfGeo(-1);
+  addMesh(gPos, new THREE.Color('#c4b5fd'), .75, .25);
+  addMesh(gNeg, new THREE.Color('#fda4af'), .75, .25);
+}
+
+/* ════════════════════════════════════════════════
+   D ORBITAL — two lobes + torus ring
+════════════════════════════════════════════════ */
+function buildD(){
+  const NT=quality, NP=Math.round(quality*1.3);
+  const SCALE=1.7;
+  const THRESH=1/Math.sqrt(3);
+
+  function dPart(wantLobe){
+    const pos=[],nrm=[],idx=[];
+    const verts=[];
+    for(let i=0;i<=NT;i++){
+      verts.push([]);
+      const t=(i/NT)*Math.PI;
+      for(let j=0;j<=NP;j++){
+        const p=(j/NP)*2*Math.PI;
+        const isLobe=Math.abs(Math.cos(t))>THRESH;
+        const r=(isLobe===wantLobe)?SH.dz2(t,p)*SCALE:0;
+        verts[i].push(new THREE.Vector3(r*Math.sin(t)*Math.cos(p),r*Math.cos(t),r*Math.sin(t)*Math.sin(p)));
+      }
+    }
+    const id=(i,j)=>i*(NP+1)+j;
+    for(let i=0;i<=NT;i++) for(let j=0;j<=NP;j++){
+      const v=verts[i][j]; pos.push(v.x,v.y,v.z);
+      const n=v.clone().normalize(); if(!n.length())n.set(0,1,0);
+      nrm.push(n.x,n.y,n.z);
+    }
+    for(let i=0;i<NT;i++) for(let j=0;j<NP;j++){
+      const a=id(i,j),b=id(i+1,j),c=id(i+1,j+1),d=id(i,j+1);
+      idx.push(a,b,c,a,c,d);
+    }
+    const geo=new THREE.BufferGeometry();
+    geo.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));
+    geo.setAttribute('normal',  new THREE.Float32BufferAttribute(nrm,3));
+    geo.setIndex(idx);
+    return geo;
+  }
+
+  addMesh(dPart(true),  new THREE.Color('#93c5fd'), .72, .22);
+  addMesh(dPart(false), new THREE.Color('#6ee7b7'), .55, .18);
+}
+
+/* ════════════════════════════════════════════════
+   BUILD ORBITAL (dispatch)
+════════════════════════════════════════════════ */
+function buildOrbital(){
+  while(grpOrb.children.length) grpOrb.remove(grpOrb.children[0]);
+  if(!orbId) return;
+  const def=ORB_DEF[orbId];
+  if(!def) return;
+  if(def.type==='s') buildS(def);
+  else if(def.type==='p') buildP(pdir);
+  else if(def.type==='d') buildD();
+}
+
+/* ════════════════════════════════════════════════
+   GLOW OVERLAY (canvas2d blur)
+════════════════════════════════════════════════ */
+let glowFrame=0;
+function drawGlow(){
+  if(!glowOn){glowCtx.clearRect(0,0,glowCvs.width,glowCvs.height);return}
+  glowCtx.clearRect(0,0,glowCvs.width,glowCvs.height);
+  glowCtx.filter='blur(20px) brightness(2)';
+  glowCtx.drawImage(cvs,0,0,glowCvs.width,glowCvs.height);
+  glowCtx.filter='none';
+}
+
+/* ════════════════════════════════════════════════
+   P ROTATION ANIMATION
+════════════════════════════════════════════════ */
+function animateP(from, to, cb){
+  if(isAnimating) return;
+  isAnimating=true;
+  const vmap={px:new THREE.Vector3(1,0,0),py:new THREE.Vector3(0,1,0),pz:new THREE.Vector3(0,0,1)};
+  const vf=vmap[from], vt=vmap[to];
+  const axis=new THREE.Vector3().crossVectors(vf,vt).normalize();
+  const angle=Math.acos(Math.max(-1,Math.min(1,vf.dot(vt))));
+  const FRAMES=38; let f=0;
+  (function step(){
+    f++;
+    const t=f/FRAMES, e=t<.5?2*t*t:-1+(4-2*t)*t;
+    grpOrb.setRotationFromAxisAngle(axis,angle*e);
+    if(f<FRAMES) requestAnimationFrame(step);
+    else{
+      grpOrb.rotation.set(0,0,0);
+      isAnimating=false;
+      buildOrbital();
+      if(cb)cb();
+    }
+  })();
+}
+
+/* ════════════════════════════════════════════════
+   UI
+════════════════════════════════════════════════ */
+function cap(html){ document.getElementById('cap').innerHTML=html }
+function badge(txt){ document.getElementById('orbBadge').textContent=txt }
+
+function buildAtomGrid(){
+  const g=document.getElementById('atomGrid');g.innerHTML='';
+  Object.entries(ATOMS).forEach(([k,a])=>{
+    const b=document.createElement('button');
+    b.className='atom-btn';b.id='a_'+k;
+    b.innerHTML=`<span class="atom-z">${a.Z}</span><span class="atom-sym">${k}</span><span class="atom-nm">${a.name}</span>`;
+    b.onclick=()=>selectAtom(k);
+    g.appendChild(b);
+  });
+}
+
+function buildOrbList(){
+  if(!atom) return;
+  const l=document.getElementById('orbList');l.innerHTML='';
+  ATOMS[atom].orbs.forEach(id=>{
+    const def=ORB_DEF[id];if(!def)return;
+    const el=document.createElement('div');
+    el.className='orb-row';el.id='o_'+id;
+    el.innerHTML=`<div class="orb-pip" style="background:${ORB_COLORS[def.type]}"></div><span>${id}</span><span class="orb-shape">${ORB_SHAPES[def.type]}</span>`;
+    el.onclick=()=>selectOrb(id);
+    l.appendChild(el);
+  });
+}
+
+function selectAtom(k){
+  atom=k;orbId=null;pdir='px';
+  document.querySelectorAll('.atom-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('a_'+k).classList.add('active');
+  buildOrbList();
+  document.getElementById('pdirSec').style.display='none';
+  while(grpOrb.children.length) grpOrb.remove(grpOrb.children[0]);
+  cap(`Nguyên tử <em>${ATOMS[k].name}</em> (Z=${ATOMS[k].Z}). Chọn orbital để khám phá hình dạng 3D.`);
+  badge('—');
+}
+
+function selectOrb(id){
+  orbId=id;
+  document.querySelectorAll('.orb-row').forEach(e=>e.classList.remove('active'));
+  const el=document.getElementById('o_'+id);if(el)el.classList.add('active');
+  const def=ORB_DEF[id];
+  badge(id);
+  if(def.type==='p'){
+    pdir='px';
+    document.getElementById('pdirSec').style.display='';
+    document.querySelectorAll('.pdir-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('pd_px').classList.add('active');
+    cap(def.cap);
+    buildOrbital();
+  } else {
+    document.getElementById('pdirSec').style.display='none';
+    cap(def.cap);
+    buildOrbital();
+  }
+}
+
+function setP(dir){
+  if(isAnimating) return;
+  const prev=pdir; pdir=dir;
+  document.querySelectorAll('.pdir-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pd_'+dir).classList.add('active');
+  cap(P_CAPS[dir]);
+  if(prev!==dir) animateP(prev,dir,null);
+  else buildOrbital();
+}
+
+function setMode(m){
+  viewMode=m;
+  ['Solid','Wire','Both'].forEach(n=>document.getElementById('ctrl'+n).classList.remove('on'));
+  document.getElementById('ctrl'+m[0].toUpperCase()+m.slice(1)).classList.add('on');
+  buildOrbital();
+}
+
+function toggleAxes(){
+  axesOn=!axesOn;grpAxes.visible=axesOn;
+  document.getElementById('ctrlAxes').classList.toggle('on',axesOn);
+}
+function toggleNuc(){
+  nucOn=!nucOn;grpNuc.visible=nucOn;
+  document.getElementById('ctrlNuc').classList.toggle('on',nucOn);
+}
+function toggleCross(){
+  crossOn=!crossOn;
+  document.getElementById('ctrlCross').classList.toggle('on',crossOn);
+  document.getElementById('crossBadge').classList.toggle('show',crossOn);
+  buildOrbital();
+  if(crossOn && orbId) cap('Cắt đôi orbital — nhìn bên trong. Tại <em>mặt phẳng nút</em>, xác suất tìm thấy electron = 0. Electron không bao giờ đi qua điểm này.');
+}
+function toggleGlow(){
+  glowOn=!glowOn;
+  glowCvs.style.opacity=glowOn?'.4':'0';
+  document.getElementById('ctrlGlow').classList.toggle('on',glowOn);
+}
+function toggleSpin(){
+  spinOn=!spinOn;ctrl.autoRotate=spinOn;ctrl.autoRotateSpeed=.7;
+  document.getElementById('ctrlSpin').classList.toggle('on',spinOn);
+}
+function setQuality(v){
+  quality=v;document.getElementById('qualLabel').textContent=v;
+  buildOrbital();
+}
+function resetCam(){
+  camera.position.set(4.2,3,4.2);ctrl.target.set(0,0,0);ctrl.update();
+}
+
+/* ════════════════════════════════════════════════
+   RESIZE
+════════════════════════════════════════════════ */
+function resize(){
+  const w=stage.clientWidth,h=stage.clientHeight;
+  renderer.setSize(w,h,false);
+  camera.aspect=w/h;camera.updateProjectionMatrix();
+  glowCvs.width=w;glowCvs.height=h;
+}
+new ResizeObserver(resize).observe(stage);
+resize();
+
+/* ════════════════════════════════════════════════
+   RENDER LOOP
+════════════════════════════════════════════════ */
+function animate(){
+  requestAnimationFrame(animate);
+  ctrl.update();
+  renderer.render(scene,camera);
+  if(glowOn && ++glowFrame%3===0) drawGlow();
+}
+
+/* ════════════════════════════════════════════════
+   HINT FADE
+════════════════════════════════════════════════ */
+stage.addEventListener('pointerdown',()=>{
+  setTimeout(()=>document.getElementById('hint').style.opacity='0',2500);
+},{once:true});
+
+/* ════════════════════════════════════════════════
+   INIT
+════════════════════════════════════════════════ */
+buildAtomGrid();
+buildAxes();
+buildNuc();
+selectAtom('H');
+setTimeout(()=>{
+  selectOrb('1s');
+  document.getElementById('loading').classList.add('gone');
+},280);
+animate();
+</script>
+</body>
+</html>

@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tính Chất Hóa Học Của Amine</title>
+  <script type="application/json" id="athena-context">
+{
+  "title": "Tính Chất Hóa Học Của Amine",
+  "subject": "Hóa học",
+  "grade": "12",
+  "objectives": [
+    "Xác định tính base của methylamine và aniline qua giấy pH",
+    "So sánh tính base của methylamine và aniline qua phản ứng với HCl",
+    "Nhận biết sản phẩm tạo thành khi amine phản ứng với FeCl₃ và CuSO₄",
+    "Giải thích vì sao nhóm –NH₂ quyết định tính chất hóa học đặc trưng của amine"
+  ],
+  "structure": [
+    { "id": "s1", "title": "Bước 1 — Methylamine + giấy pH" },
+    { "id": "s2", "title": "Bước 2 — Aniline + giấy pH" },
+    { "id": "s3", "title": "Bước 3 — Methylamine/Aniline + HCl" },
+    { "id": "s4", "title": "Bước 4 — Methylamine + FeCl₃" },
+    { "id": "s5", "title": "Bước 5 — Methylamine + CuSO₄" }
+  ],
+  "athenaGuidance": "a) Học sinh làm 5 thí nghiệm mô phỏng lần lượt: (1) nhỏ methylamine lên giấy pH; (2) nhỏ aniline lên giấy pH; (3) cho methylamine và aniline phản ứng với HCl; (4) nhỏ methylamine vào dung dịch FeCl₃; (5) nhỏ dần methylamine vào dung dịch CuSO₄ để quan sát 2 giai đoạn kết tủa rồi tạo phức. b) Danh sách câu hỏi trắc nghiệm nguyên văn: [s1_q1] 'Giấy pH đổi màu xanh cho thấy dung dịch methylamine có tính chất gì?' — A) Có tính acid · B) Có tính base · C) Trung tính. [s1_q2] 'Dựa vào công thức CH₃–NH₂, bộ phận nào trong phân tử quyết định tính base này?' — A) Nhóm CH₃– · B) Nhóm –NH₂. [s2_q1] 'Hiện tượng nào đúng khi nhỏ aniline lên giấy pH?' — A) Giấy pH chuyển sang màu xanh lam. · B) Giấy pH không đổi màu. [s3_q1] 'CH₃NH₂ + HCl tạo ra chất nào?' — A) CH₃NH₂Cl · B) CH₃NH₃Cl · C) CH₃Cl + NH₃. [s3_q2] 'C₆H₅NH₂ + HCl tạo ra chất nào?' — A) C₆H₅NH₂Cl · B) C₆H₅NH₃Cl · C) C₆H₆ + NH₄Cl. [s3_q3] 'Qua hai thí nghiệm trên, em rút ra kết luận gì về tính base của aniline?' — A) Chỉ methylamine có tính base. · B) Aniline không có tính base. · C) Aniline vẫn có tính base nhưng yếu hơn methylamine. [s4_q1] 'Kết tủa nâu đỏ xuất hiện trong ống nghiệm là chất nào?' — A) Fe (sắt nguyên chất) · B) FeCl₃ (không tan) · C) Fe(OH)₃. [s5_q1] 'Hiện tượng nào chứng tỏ đã xuất hiện phản ứng mới (khác với phản ứng tạo kết tủa ban đầu)?' — A) Xuất hiện kết tủa xanh nhạt. · B) Kết tủa tan tạo dung dịch xanh lam đậm trong suốt. · C) Dung dịch sôi lên. [s5_q2] 'Ethylamine (CH₃CH₂NH₂) cũng là alkylamine, có nhóm –NH₂ và gốc alkyl. Ethylamine có tạo được dung dịch phức màu xanh lam với Cu(OH)₂ không?' — A) Có. · B) Không. c) Athena chỉ được gợi ý, nhắc học sinh quan sát lại hiện tượng thí nghiệm liên quan; TUYỆT ĐỐI không nói thẳng đáp án đúng của bất kỳ câu nào ở trên."
+}
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --cream: #FAF7F0;
+      --cream-2: #F0EADD;
+      --paper-line: #E5DECF;
+      --ink: #1A1A1A;
+      --ink-2: #514C44;
+      --jade: #3CA57A;
+      --jade-deep: #2D8B6F;
+      --jade-text: #1B5E48;
+      --jade-pale: #DCEAE1;
+      --sage: #A8C9B8;
+      --sage-pale: #E1ECE4;
+      --accent: #E8A24A;
+      --correct: #2D8B6F;
+      --correct-bg: #DCEAE1;
+      --wrong: #C15F3C;
+      --wrong-bg: #F3E2D6;
+      --font-main: 'Be Vietnam Pro';
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: var(--font-main);
+      font-size: 18px;
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px clamp(20px, 2.5vw, 48px);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-main);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    p {
+      max-width: 64ch;
+    }
+
+    button {
+      font-family: var(--font-main);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 9px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+    }
+
+    button:focus-visible {
+      outline: 2px solid var(--jade);
+      outline-offset: 2px;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed !important;
+    }
+
+    .btn-primary {
+      background-color: var(--jade);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background-color: var(--jade-deep);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      border: 1.5px solid var(--jade);
+      color: var(--jade-text);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background-color: var(--jade-pale);
+    }
+
+    .btn-reset {
+      border: 1.5px dashed var(--jade);
+      color: var(--jade-text);
+      background-color: transparent;
+    }
+
+    .btn-reset:hover:not(:disabled) {
+      background-color: var(--jade-pale);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .card {
+      background-color: var(--cream-2);
+      border: 1px solid var(--paper-line);
+      border-radius: 12px;
+    }
+
+    /* ============ INTRO TEXT ============ */
+    .intro-text {
+      width: 100%;
+      margin: 0 auto;
+      padding: 1rem 1.3rem;
+      background-color: var(--jade-pale);
+      border: 1px solid var(--sage);
+      border-left: 4px solid var(--jade);
+      border-radius: 12px;
+      font-size: 15px;
+      color: var(--ink-2);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 640px) {
+      .intro-text {
+        padding: 0.9rem 1.1rem;
+        font-size: 14px;
+      }
+    }
+
+    /* ============ GOAL BAR ============ */
+    .goal-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: var(--jade-pale);
+      border-left: 4px solid var(--jade);
+      border-radius: 10px;
+      padding: 10px 16px;
+    }
+
+    .goal-label {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--jade-text);
+    }
+
+    .goal-divider {
+      flex-shrink: 0;
+      align-self: stretch;
+      width: 1px;
+      margin: 3px 0;
+      background-color: var(--sage);
+    }
+
+    .goal-text {
+      font-size: 17px;
+      color: var(--ink);
+    }
+
+    /* ============ LAB WRAPPER (cột đơn) ============ */
+    .lab-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .side-card {
+      padding: 16px 18px;
+    }
+
+    .side-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .side-card h3 i {
+      color: var(--jade);
+    }
+
+    .ai-guide {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--sage);
+      border-radius: 12px;
+      padding: 12px 16px;
+      transition: all 0.3s ease;
+    }
+
+    .ai-guide.state-idle {
+      background-color: var(--sage-pale);
+      border-left: 4px solid var(--accent);
+    }
+
+    .ai-guide.state-correct {
+      background-color: var(--correct-bg);
+      border-left: 4px solid var(--correct);
+      border-color: var(--sage);
+    }
+
+    .ai-guide.state-wrong {
+      background-color: var(--wrong-bg);
+      border-left: 4px solid var(--wrong);
+      border-color: var(--wrong);
+    }
+
+    .ai-avatar {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: transparent;
+      border: 2px solid var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .ai-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ai-guide.state-correct .ai-avatar {
+      border-color: var(--correct);
+    }
+
+    .ai-guide.state-wrong .ai-avatar {
+      border-color: var(--wrong);
+    }
+
+    .ai-text {
+      flex: 1;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    .controls-card {
+      padding: 8px 16px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .stepper-dots {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .step-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: var(--paper-line);
+      border: 2px solid var(--paper-line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--ink-2);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .step-dot.active {
+      width: 24px;
+      height: 24px;
+      background-color: var(--cream);
+      border-color: var(--jade);
+      color: var(--jade-text);
+      box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+    }
+
+    .step-dot.done {
+      background-color: var(--jade);
+      border-color: var(--jade);
+      color: var(--cream);
+      font-size: 11px;
+    }
+
+    .stepper-nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .stepper-nav-left {
+      display: flex;
+      gap: 8px;
+    }
+
+    .stepper-nav-right {
+      display: flex;
+      gap: 8px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      max-width: 100%;
+    }
+
+    .stepper-status {
+      display: none;
+    }
+
+    .canvas-card {
+      padding: 4px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .canvas-glow-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 760 / 440;
+      padding: 2px;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .canvas-glow-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -80%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+      animation: canvasBorderSpin 4.5s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes canvasBorderSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #labCanvas {
+      position: relative;
+      z-index: 1;
+      background-color: var(--cream);
+      border-radius: 8px;
+      width: 100%;
+      height: 100%;
+      display: block;
+      touch-action: none;
+      flex: 1;
+    }
+
+    .slider-row {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      background-color: var(--cream-2);
+      border: 1px solid var(--paper-line);
+      border-radius: 10px;
+      z-index: 1;
+    }
+
+    .slider-row label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--jade-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .slider-row label i {
+      color: var(--jade);
+    }
+
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--jade);
+    }
+
+    .slider-row .slider-count {
+      font-weight: 800;
+      color: var(--ink);
+      min-width: 46px;
+      text-align: right;
+    }
+
+    .right-card {
+      flex: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .right-card-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding-right: 4px;
+    }
+
+    .observe-wrap {
+      overflow-x: auto;
+    }
+
+    .right-card table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .right-card thead th {
+      background-color: var(--jade-pale);
+      color: var(--jade-text);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .right-card tbody td {
+      padding: 7px 8px;
+      border-bottom: 1px solid var(--paper-line);
+      color: var(--ink);
+    }
+
+    .right-card tbody td.muted {
+      color: var(--ink-2);
+    }
+
+    .right-card td.flash {
+      animation: cellFlash 1s ease;
+    }
+
+    @keyframes cellFlash {
+      0% {
+        background-color: var(--jade-pale);
+      }
+
+      100% {
+        background-color: transparent;
+      }
+    }
+
+    .conclusion-body {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .aha-box {
+      margin-top: 4px;
+      background-color: #FFF9E6;
+      border-left: 4px solid var(--accent);
+      border-radius: 8px;
+      padding: 12px 16px;
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    .aha-title {
+      color: #C28328;
+      font-weight: 700;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .aha-content {
+      color: #5C4308;
+      font-size: 13px;
+      line-height: 1.6;
+      font-family: var(--font-main);
+    }
+
+    .aha-next {
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px dashed rgba(194, 131, 40, 0.35);
+      font-style: italic;
+      color: #7a5c14;
+    }
+
+    .eq-card {
+      margin-top: 8px;
+      background-color: var(--cream);
+      border-left: 3px solid var(--jade);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .eq-line {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--jade-text);
+      line-height: 1.7;
+    }
+
+    .eq-caption {
+      font-size: 11px;
+      color: var(--ink-2);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .quiz-container {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px dashed var(--paper-line);
+      padding-top: 16px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .quiz-container.fade-out {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+
+    .quiz-question {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 4px;
+    }
+
+    .quiz-options-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .quiz-option-btn {
+      display: flex;
+      align-items: flex-start;
+      text-align: left;
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background-color: var(--cream);
+      border: 1px solid var(--paper-line);
+      color: var(--ink);
+      font-family: var(--font-main);
+      font-size: 14px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      gap: 10px;
+    }
+
+    .quiz-option-btn:hover:not(:disabled) {
+      background-color: var(--cream-2);
+      border-color: var(--sage);
+    }
+
+    .quiz-option-key {
+      flex: 0 0 20px;
+      font-weight: 700;
+      color: var(--ink-2);
+      text-transform: uppercase;
+    }
+
+    .quiz-option-text {
+      flex: 1;
+    }
+
+    .quiz-option-feedback-icon {
+      flex: 0 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .quiz-option-btn.opt-correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct);
+      color: var(--jade-text);
+    }
+
+    .quiz-option-btn.opt-correct .quiz-option-key {
+      color: var(--jade-text);
+    }
+
+    .quiz-option-btn.opt-wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong);
+      color: var(--wrong);
+    }
+
+    .quiz-option-btn.opt-wrong .quiz-option-key {
+      color: var(--wrong);
+    }
+
+    /* ============ MODAL ============ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(26, 26, 26, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+    }
+
+    .modal-card {
+      background-color: var(--cream);
+      border: 1px solid var(--paper-line);
+      border-radius: 16px;
+      padding: 32px 28px;
+      width: 100%;
+      max-width: 460px;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+      transform: translateY(10px) scale(0.97);
+      transition: transform 0.25s ease;
+    }
+
+    .modal-overlay.show .modal-card {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      background-color: var(--jade-pale);
+      color: var(--jade-text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .modal-text {
+      font-size: 14.5px;
+      line-height: 1.7;
+      color: var(--ink-2);
+      max-width: 100%;
+      margin: 0 auto 22px;
+      text-align: left;
+    }
+
+    .modal-text ul {
+      padding-left: 20px;
+      margin-top: 6px;
+    }
+
+    .modal-text li {
+      margin-bottom: 6px;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1100px) {
+      .canvas-card {
+        min-height: 250px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .controls-card {
+        position: fixed !important;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        border-radius: 0;
+        box-shadow: 0 -2px 10px rgba(26, 26, 26, 0.08);
+      }
+
+      body {
+        padding-bottom: 76px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px 150px;
+      }
+
+      .modal-card {
+        padding: 26px 20px;
+      }
+
+      .goal-text {
+        font-size: 15px;
+      }
+
+      .controls-card {
+        flex-direction: column;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+
+      .stepper-nav {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      .slider-row {
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-delay: 0s !important;
+        animation-duration: 0.01s !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01s !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="intro-text">Bạn sẽ thực hiện 5 thí nghiệm mô phỏng để tìm ra nhóm –NH₂ quyết định những tính chất hóa
+    học đặc trưng nào của amine — từ tính base đến phản ứng với FeCl₃ và CuSO₄.</div>
+
+  <div class="goal-bar">
+    <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+    <span class="goal-divider"></span>
+    <span class="goal-text">Qua các thí nghiệm với giấy pH, giấy quỳ tím, HCl, FeCl₃ và CuSO₄, xác định tính base
+      của amine và các phản ứng hóa học đặc trưng do nhóm –NH₂ quyết định.</span>
+  </div>
+
+  <main class="lab-wrapper">
+    <div class="ai-guide card state-idle" id="aiGuideBar">
+      <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena AI"></div>
+      <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+    </div>
+
+    <div class="card canvas-card">
+      <div class="canvas-glow-wrap">
+        <canvas id="labCanvas" width="760" height="440" role="img"
+          aria-label="Mô phỏng thí nghiệm tính chất hóa học của amine: giấy pH, giấy quỳ tím, phản ứng với HCl, FeCl3 và CuSO4"></canvas>
+      </div>
+      <div class="slider-row" id="s5SliderRow">
+        <label for="s5Slider"><i class="ti ti-adjustments-horizontal"></i> Số giọt methylamine:</label>
+        <input type="range" id="s5Slider" min="0" max="20" step="1" value="0">
+        <span class="slider-count"><span id="s5Count">0</span>/20 giọt</span>
+      </div>
+    </div>
+
+    <div class="card controls-card" id="controlsCard">
+      <div class="stepper-dots" id="stepperDots"></div>
+      <div class="stepper-nav">
+        <div class="stepper-nav-left">
+          <button class="btn-secondary" id="prevBtn" onclick="goToPrevStage()"><i class="ti ti-arrow-back-up"></i> Quay
+            lại</button>
+          <button class="btn-reset" id="resetBtn" onclick="resetCurrentStage()"><i class="ti ti-refresh"></i>
+            Làm lại</button>
+        </div>
+        <div class="stepper-nav-right" id="actionBtnContainer"></div>
+      </div>
+      <div class="stepper-status" id="interactionStatus" aria-live="polite">Chờ thao tác...</div>
+    </div>
+
+    <div class="card side-card right-card" id="rightCard">
+      <h3><i class="ti ti-table"></i> Bảng quan sát &amp; Kết luận</h3>
+      <div class="right-card-body">
+        <div class="observe-wrap" style="margin-bottom: 16px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Chất</th>
+                <th>Hiện tượng</th>
+                <th>Kết luận</th>
+              </tr>
+            </thead>
+            <tbody id="observeTableBody">
+              <tr>
+                <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="conclusion-body" id="conclusionBody">
+          <div class="quiz-container" id="quizContainer" style="display: none; margin-top: 10px;">
+            <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+            <ul class="quiz-options-list" id="quizOptionsList"></ul>
+            <div id="quizExtra"></div>
+          </div>
+
+          <div class="aha-box" id="ahaBox" style="display: none; margin-top: 10px;">
+            <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+            <div class="aha-content" id="ahaContent"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div class="modal-overlay" id="completionModal" style="display:none;">
+    <div class="modal-card">
+      <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+      <h2 class="modal-title">Chúc mừng bạn!</h2>
+      <div class="modal-text">
+        Bạn đã hoàn thành module <strong>Tính Chất Hóa Học Của Amine</strong>. Nhóm –NH₂ quyết định những tính
+        chất hóa học đặc trưng nào của amine?
+        <ul>
+          <li>Nhóm –NH₂ quyết định tính base của amine.</li>
+          <li>Alkylamine (methylamine, ethylamine…) có tính base mạnh hơn aniline — làm đổi màu giấy pH;
+            aniline thì không.</li>
+          <li>Amine phản ứng với acid (HCl) tạo muối amoni — cả methylamine lẫn aniline.</li>
+          <li>Alkylamine tạo môi trường base đủ mạnh để kết tủa Fe³⁺ thành Fe(OH)₃.</li>
+          <li>Alkylamine còn có phản ứng tạo phức với Cu(OH)₂ tạo dung dịch màu xanh lam đậm — đây là tính
+            chất đặc trưng của alkylamine, không phải của mọi amine.</li>
+        </ul>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="hideCompletionModal(); jumpToStage(1);">
+          <i class="ti ti-refresh"></i> Ôn lại từ đầu
+        </button>
+        <button class="btn-primary" onclick="hideCompletionModal();">
+          <i class="ti ti-check"></i> Đóng
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+    const lmsAnswers = {};
+    let _lmsQCounter = 0;
+    function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+      lmsAnswers[qid] = { stage: state.stage, prompt, options: options ? options.map(o => o.key + ') ' + o.text) : null, chosen, correct: !!correct };
+      LMS().event('answered', { id: qid, stage: state.stage, chosen, correct: !!correct });
+      LMS().progress({ done: Object.keys(lmsAnswers).length, total: STAGE_COUNT });
+    }
+    function lmsReportState(lastAction) {
+      LMS().state({ currentStep: state.stage, totalSteps: STAGE_COUNT, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+    }
+    function reportHeight() {
+      LMS().resize({ height: document.documentElement.scrollHeight });
+    }
+    window.addEventListener('load', reportHeight);
+    const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+    _lmsRo.observe(document.body);
+    if (window.AiducationLMS) {
+      window.AiducationLMS.onResume = function (savedState) {
+        if (savedState && savedState.currentStep) jumpToStage(savedState.currentStep);
+      };
+    }
+
+    // ======================================================
+    // UTILITIES
+    // ======================================================
+    const canvas = document.getElementById('labCanvas');
+    const ctx = canvas.getContext('2d');
+    const W = 760, H = 440;
+    let canvasW = 760, canvasH = 440;
+
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+        canvas.width = Math.round(rect.width);
+        canvas.height = Math.round(rect.height);
+        canvasW = canvas.width;
+        canvasH = canvas.height;
+      }
+    }
+
+    function canvasPointFromEvent(e) {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvasW / rect.width, scaleY = canvasH / rect.height;
+      const px = (e.clientX - rect.left) * scaleX, py = (e.clientY - rect.top) * scaleY;
+      const fitScale = Math.min(canvasW / W, canvasH / H);
+      const offsetX = (canvasW - W * fitScale) / 2, offsetY = (canvasH - H * fitScale) / 2;
+      return { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+    }
+
+    // canvasClickTargets: vùng bấm đơn giản (ví dụ đũa thủy tinh, lọ HCl ở Stage 3 khu vực trái)
+    // dragSources / dropZones: cơ chế kéo-thả lọ hóa chất vào mục tiêu (giấy pH, ống nghiệm, cốc...)
+    // Cả ba mảng được reset mỗi frame trong loop(), mỗi drawStageX tự đăng ký vùng của mình bằng toạ độ LOGIC (W×H)
+    let canvasClickTargets = [];
+    let dragSources = [];
+    let dropZones = [];
+
+    function hitTarget(p) {
+      return canvasClickTargets.find(t => p.x >= t.x && p.x <= t.x + t.w && p.y >= t.y && p.y <= t.y + t.h);
+    }
+    function hitDragSource(p) {
+      return dragSources.find(s => s.enabled && p.x >= s.x && p.x <= s.x + s.w && p.y >= s.y && p.y <= s.y + s.h);
+    }
+    function hitDropZone(p, dragId) {
+      return dropZones.find(z => p.x >= z.x && p.x <= z.x + z.w && p.y >= z.y && p.y <= z.y + z.h && (!z.accepts || z.accepts.includes(dragId)));
+    }
+
+    canvas.addEventListener('click', (e) => {
+      if (state.activeDrag) return;
+      const hit = hitTarget(canvasPointFromEvent(e));
+      if (hit) hit.onClick();
+    });
+
+    canvas.addEventListener('pointerdown', (e) => {
+      if (state.isAnimating) return;
+      const p = canvasPointFromEvent(e);
+      const src = hitDragSource(p);
+      if (src) {
+        state.activeDrag = { id: src.id, x: p.x, y: p.y };
+        try { canvas.setPointerCapture(e.pointerId); } catch (err) { }
+      }
+    });
+
+    canvas.addEventListener('pointermove', (e) => {
+      const p = canvasPointFromEvent(e);
+      if (state.activeDrag) {
+        state.activeDrag.x = p.x;
+        state.activeDrag.y = p.y;
+        canvas.style.cursor = 'grabbing';
+      } else {
+        canvas.style.cursor = (hitTarget(p) || hitDragSource(p)) ? 'pointer' : 'default';
+      }
+    });
+
+    canvas.addEventListener('pointerup', (e) => {
+      if (!state.activeDrag) return;
+      const p = canvasPointFromEvent(e);
+      const dragId = state.activeDrag.id;
+      const zone = hitDropZone(p, dragId);
+      state.activeDrag = null;
+      try { canvas.releasePointerCapture(e.pointerId); } catch (err) { }
+      if (zone) zone.onDrop(dragId, p); // p = vị trí thả tay ra, để nơi nhận biết bắt đầu animate TỪ ĐÂY thay vì snap về vị trí nghỉ ban đầu rồi mới bay
+      else if (dragId === 'rod') flyRodHomeSafe(280); // thả hụt mục tiêu -> đũa tự bay an toàn (né lên trước) về chỗ cũ
+    });
+    canvas.addEventListener('pointercancel', () => { state.activeDrag = null; });
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+    function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function lerpColor(c1, c2, t) {
+      t = clamp(t, 0, 1);
+      return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+    }
+    function lerpColorAlpha(c1, c2, t) {
+      t = clamp(t, 0, 1);
+      const a = lerp(c1.a, c2.a, t);
+      return `rgba(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)},${a.toFixed(2)})`;
+    }
+    function roundRect(ctx, x, y, w, h, r) {
+      if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+      ctx.beginPath();
+      ctx.moveTo(x + r.tl, y);
+      ctx.lineTo(x + w - r.tr, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+      ctx.lineTo(x + w, y + h - r.br);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+      ctx.lineTo(x + r.bl, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+      ctx.lineTo(x, y + r.tl);
+      ctx.quadraticCurveTo(x, y, x + r.tl, y);
+      ctx.closePath();
+    }
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const COLORS_TEXT = { ink: '#1A1A1A', ink2: '#514C44', jadeText: '#1B5E48' };
+    const COLORS = {
+      jade: { r: 60, g: 165, b: 122 },
+      jadeDeep: { r: 45, g: 139, b: 111 },
+      accent: { r: 232, g: 162, b: 74 },
+      correct: { r: 45, g: 139, b: 111 },
+      wrong: { r: 193, g: 95, b: 60 },
+      paperLine: { r: 229, g: 222, b: 207 },
+      ink2: { r: 81, g: 76, b: 68 },
+      white: { r: 255, g: 255, b: 255 },
+      brown: { r: 139, g: 69, b: 19 },
+      blue: { r: 30, g: 64, b: 175 }
+    };
+
+    // Màu chất lỏng dùng trong mô phỏng
+    const CHEM_COLORS = {
+      paperYellow: { r: 253, g: 240, b: 179 },
+      paperBlue: { r: 37, g: 99, b: 235 },
+      litmusNeutral: { r: 149, g: 128, b: 200 },
+      litmusBlue: { r: 37, g: 99, b: 235 },
+      fecl3Pale: { r: 235, g: 200, b: 130 },
+      fecl3Cloudy: { r: 150, g: 75, b: 45 },
+      fecl3Clear: { r: 232, g: 226, b: 214, a: 0.3 },
+      precipRed: { r: 139, g: 69, b: 19 },
+      cuPale: { r: 175, g: 213, b: 235 },
+      cuDeep: { r: 21, g: 78, b: 190 },
+      cuPrecip: { r: 195, g: 225, b: 240 },
+      anilineLiquid: { r: 230, g: 224, b: 205 },
+      anilineDissolved: { r: 230, g: 240, b: 250, a: 0.35 }
+    };
+
+    // ======================================================
+    // TWEEN ENGINE
+    // ======================================================
+    let tweens = [];
+    function tween(obj, prop, to, duration, ease, onComplete) {
+      ease = ease || easeOut;
+      tweens.push({ obj, prop, from: obj[prop], to, duration: reduceMotion ? Math.min(duration, 120) : duration, elapsed: 0, ease, onComplete, done: false });
+    }
+    function updateTweens(dt) {
+      for (const tw of tweens) {
+        if (tw.done) continue;
+        tw.elapsed += dt;
+        const t = clamp(tw.elapsed / tw.duration, 0, 1);
+        tw.obj[tw.prop] = lerp(tw.from, tw.to, tw.ease(t));
+        if (t >= 1) { tw.done = true; if (tw.onComplete) tw.onComplete(); }
+      }
+      tweens = tweens.filter(t => !t.done);
+    }
+
+    // ======================================================
+    // PARTICLES / RINGS / FLASH
+    // ======================================================
+    let particles = [];
+    let rings = [];
+    let flashTimer = 0;
+    let time = 0;
+
+    function spawnParticles(x, y, colorType, count = 10, opts = {}) {
+      const rgb = COLORS[colorType] || COLORS.jade;
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 2 + 0.4;
+        const p = {
+          x, y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.4,
+          life: 1.0,
+          decay: Math.random() * 0.03 + 0.02,
+          size: Math.random() * 2.5 + 1.5,
+          color: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, opacity)`
+        };
+        if (opts.limitXMin != null) p.limitXMin = opts.limitXMin;
+        if (opts.limitXMax != null) p.limitXMax = opts.limitXMax;
+        if (opts.liquidTopY != null) p.liquidTopY = opts.liquidTopY;
+        particles.push(p);
+      }
+    }
+    function spawnRing(x, y, colorType) {
+      const rgb = COLORS[colorType] || COLORS.accent;
+      rings.push({ x, y, r: 2, alpha: 0.65, rgb });
+    }
+    function playSuccessFlash() { flashTimer = 15; }
+    function updateParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx; p.y += p.vy; p.vy += 0.03;
+
+        // Giới hạn và nảy hạt lại khi chạm thành ống
+        if (p.limitXMin != null && p.x < p.limitXMin) {
+          p.x = p.limitXMin;
+          p.vx = -p.vx * 0.4;
+        }
+        if (p.limitXMax != null && p.x > p.limitXMax) {
+          p.x = p.limitXMax;
+          p.vx = -p.vx * 0.4;
+        }
+
+        // Nếu hạt rơi ngược lại chạm mặt chất lỏng thì cho tan biến ngay lập tức
+        if (p.liquidTopY != null && p.y > p.liquidTopY) {
+          p.life = 0;
+        }
+
+        p.life -= p.decay;
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+    }
+    function updateRings() {
+      for (let i = rings.length - 1; i >= 0; i--) {
+        const r = rings[i];
+        r.r += 1.6; r.alpha -= 0.028;
+        if (r.alpha <= 0) rings.splice(i, 1);
+      }
+    }
+
+    function drawGrid() {
+      ctx.save();
+      ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+      for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+      ctx.restore();
+    }
+
+    // ======================================================
+    // HELPER: PHƯƠNG TRÌNH HÓA HỌC (cho aha-box)
+    // ======================================================
+    function eqBlock(lines, caption) {
+      let html = '<div class="eq-card">';
+      lines.forEach(l => html += `<div class="eq-line">${l}</div>`);
+      if (caption) html += `<div class="eq-caption">${caption}</div>`;
+      html += '</div>';
+      return html;
+    }
+    function nextHint(text) {
+      return `<div class="aha-next"><i class="ti ti-arrow-big-right-lines"></i> ${text}</div>`;
+    }
+
+    // ======================================================
+    // DRAWING HELPERS DÙNG CHUNG (lọ hóa chất, mặt kính đồng hồ,
+    // giấy pH, thang màu pH, ống nghiệm, đũa thủy tinh, cốc thủy tinh)
+    // ======================================================
+    function bottleRect(cx, topY) { return { x: cx - 28, y: topY - 18, w: 56, h: 92 }; }
+
+    // drawCapShape: vẽ nắp lọ dạng HÌNH TRỤ thật sự (mặt trên hình ellipse sáng + thân trụ + gờ ren gần đáy)
+    // để luôn nhận ra rõ đây là cái nắp, dù đang đóng trên cổ lọ hay đã đặt xuống bàn.
+    function drawCapShape(cx, cy, w, h, tiltRad) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(tiltRad || 0);
+      const rx = w / 2, ry = h * 0.32;
+      // thân nắp
+      ctx.fillStyle = '#6b7280';
+      roundRect(ctx, -rx, -h / 2 + ry * 0.6, w, h - ry * 0.6, 3);
+      ctx.fill();
+      ctx.strokeStyle = '#4b5563'; ctx.lineWidth = 1; ctx.stroke();
+      // gờ ren gần đáy nắp
+      ctx.beginPath(); ctx.moveTo(-rx + 2, h * 0.22); ctx.lineTo(rx - 2, h * 0.22);
+      ctx.strokeStyle = 'rgba(75,85,99,0.7)'; ctx.lineWidth = 1; ctx.stroke();
+      // mặt trên nắp (ellipse sáng hơn — cho thấy rõ đây là vật hình trụ, không phải khối vuông)
+      ctx.beginPath(); ctx.ellipse(0, -h / 2 + ry * 0.6, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = '#9ca3af'; ctx.fill();
+      ctx.strokeStyle = '#4b5563'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawBottle(cx, topY, liquidColorCss, asciiLabel, opts = {}) {
+      const w = 46, h = 66;
+      const x = cx - w / 2, y = topY;
+      const capOpenT = clamp(opts.capOpenT || 0, 0, 1); // 0 = nắp đóng (mặc định), 1 = nắp đã tháo ra đặt cạnh lọ
+      ctx.save();
+      if (opts.rotate) {
+        ctx.translate(cx, y + h * 0.15);
+        ctx.rotate(opts.rotate);
+        ctx.translate(-cx, -(y + h * 0.15));
+      }
+      ctx.globalAlpha = opts.disabled ? 0.32 : 1;
+      // Vị trí nắp: khi đóng thì nằm ngay trên cổ lọ; khi capOpenT tăng dần, nắp được NHẤC LÊN theo
+      // một vòng cung nhỏ (như tay vừa tháo ra) rồi ĐẶT XUỐNG BÀN ngay cạnh chân lọ — không bay lên trời,
+      // không lật úp thành hình vuông vô nghĩa: vẫn luôn là hình trụ đứng, chỉ nghiêng nhẹ cho tự nhiên.
+      const capClosed = { x: cx, y: y - 7 };
+      const capRest = { x: cx + w / 2 + 13, y: y + h - 7 };
+      const hopArc = Math.sin(Math.PI * capOpenT) * 16;
+      const capX = lerp(capClosed.x, capRest.x, capOpenT);
+      const capY = lerp(capClosed.y, capRest.y, capOpenT) - hopArc;
+      if (capOpenT > 0.04) {
+        // bóng đổ nhẹ dưới nắp khi đã rời khỏi miệng lọ
+        ctx.save(); ctx.globalAlpha *= 0.22 * capOpenT;
+        ctx.fillStyle = '#000';
+        ctx.beginPath(); ctx.ellipse(capX, y + h - 3, 9, 3, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      }
+      drawCapShape(capX, capY, 17, 15, capOpenT * 0.22);
+      // thân lọ
+      roundRect(ctx, x, y, w, h, 8);
+      ctx.fillStyle = 'rgba(238,242,247,0.9)'; ctx.fill();
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.4; ctx.stroke();
+      // chất lỏng bên trong
+      ctx.save();
+      roundRect(ctx, x, y, w, h, 8); ctx.clip();
+      ctx.fillStyle = liquidColorCss;
+      const lvl = opts.fillLevel != null ? clamp(opts.fillLevel, 0, 1) : 1; // dùng khi đang rót: mực trong lọ vơi dần
+      const liquidTopY = y + h * 0.22 + (1 - lvl) * (h * 0.5);
+      ctx.fillRect(x, liquidTopY, w, (y + h) - liquidTopY);
+      ctx.restore();
+      // Cổ lọ: khi ĐÓNG là một khối đặc bịt kín miệng lọ; khi capOpenT tăng dần, khối này MỜ DẦN ĐI
+      // (không phải thu nhỏ/biến hình) và một LỖ HỞ TỐI hiện dần ra ngay tại miệng lọ để không thể
+      // nhầm là "vẫn còn bịt kín" — đây chính là phần trước đây còn thiếu.
+      if (capOpenT < 0.98) {
+        ctx.save(); ctx.globalAlpha *= (1 - capOpenT);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.fillRect(cx - 6, y - 9, 12, 10);
+        ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1; ctx.strokeRect(cx - 6, y - 9, 12, 10);
+        ctx.restore();
+      }
+      if (capOpenT > 0.02) {
+        // MIỆNG LỌ MỞ THẬT SỰ: chỉ vẽ 2 THÀNH ống (rỗng ở giữa, KHÔNG tô đặc gì cả) + viền miệng
+        // hình ellipse RỖNG — giống hệt cách vẽ miệng ống nghiệm (drawTestTube) trong file này.
+        // Tuyệt đối không tô kín bất kỳ hình gì ở đây, vì bất kỳ khối tô đặc nào (kể cả màu tối)
+        // đều bị hiểu lầm là "vẫn còn nắp/nút đậy" — chỉ có NÉT VIỀN mới đọc đúng là "rỗng, đã mở".
+        ctx.save(); ctx.globalAlpha *= capOpenT;
+        ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(cx - 6, y + 1); ctx.lineTo(cx - 6, y - 9); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(cx + 6, y + 1); ctx.lineTo(cx + 6, y - 9); ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(cx, y - 9, 6, 2.2, 0, 0, Math.PI * 2); ctx.stroke();
+        ctx.restore();
+      }
+      // ánh sáng phản chiếu
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(x + 6, y + 8); ctx.lineTo(x + 6, y + h - 8); ctx.stroke();
+      // nhãn
+      ctx.fillStyle = '#1e293b';
+      ctx.font = '700 9.5px "Be Vietnam Pro", Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(asciiLabel, cx, y + h + 14);
+      if (opts.subLabel) {
+        ctx.font = '600 8px "Be Vietnam Pro", Arial, sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.fillText(opts.subLabel, cx, y + h + 25);
+      }
+      ctx.restore();
+    }
+
+    function drawWatchGlass(cx, cy, rx = 118, ry = 40) {
+      ctx.save();
+      ctx.beginPath(); ctx.ellipse(cx, cy + 10, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(26,26,26,0.06)'; ctx.fill();
+      ctx.beginPath(); ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(241, 248, 255, 0.55)'; ctx.fill();
+      ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx, cy - 2, rx * 0.92, ry * 0.9, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawPaperOnGlass(cx, cy, colorCss, opts = {}) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.transform(1, 0, -0.35, 0.32, 0, 0);
+      if (opts.wetOverlayT) {
+        ctx.fillStyle = 'rgba(0,0,0,0.12)';
+        ctx.fillRect(-15, -42, 34, 90);
+      }
+      ctx.fillStyle = colorCss;
+      ctx.fillRect(-17, -46, 34, 90);
+      ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = 1;
+      ctx.strokeRect(-17, -46, 34, 90);
+      if (opts.wetOverlayT) {
+        ctx.fillStyle = `rgba(0,0,0,${0.1 * opts.wetOverlayT})`;
+        ctx.beginPath(); ctx.ellipse(0, 0, 14 * opts.wetOverlayT, 20 * opts.wetOverlayT, 0, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawPHScaleBar(x, y, w, h) {
+      const stops = ['#ef4444', '#f97316', '#facc15', '#84cc16', '#22c55e', '#0ea5e9', '#4338ca', '#7e22ce'];
+      ctx.save();
+      const grad = ctx.createLinearGradient(x, 0, x + w, 0);
+      stops.forEach((c, i) => grad.addColorStop(i / (stops.length - 1), c));
+      roundRect(ctx, x, y, w, h, 6);
+      ctx.fillStyle = grad; ctx.fill();
+      ctx.strokeStyle = 'rgba(0,0,0,0.12)'; ctx.lineWidth = 1.5; ctx.stroke();
+      ctx.fillStyle = COLORS_TEXT.ink2;
+      ctx.font = '600 10px "Be Vietnam Pro", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText('Acid', x, y - 6);
+      ctx.textAlign = 'right';
+      ctx.fillText('Base', x + w, y - 6);
+      ctx.restore();
+    }
+
+    // Ống nghiệm dùng chung cho khu trái Stage 3, Stage 4, Stage 5
+    // cx,cy = tâm ống; tubeW,tubeH = kích thước; fillFrac = tỉ lệ chiều cao chứa dịch (0..1)
+    // opts.fillColor = màu nền dịch; opts.cloud = mảng hạt vẩn đục cục bộ {dx,dy,r,alpha,color}
+    // opts.precipFrac = tỉ lệ (0..1) của phần đáy là lớp kết tủa đặc; opts.precipColor
+    // opts.shakeAngle = góc lắc nhẹ
+    function drawTestTube(cx, cy, tubeW, tubeH, fillFrac, opts = {}) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      if (opts.shakeAngle) ctx.rotate(opts.shakeAngle);
+      const topY = -tubeH / 2, bottomY = tubeH / 2, leftX = -tubeW / 2, rightX = tubeW / 2, r = tubeW / 2;
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(leftX + 3, topY); ctx.lineTo(leftX + 3, bottomY - r);
+      ctx.arc(0, bottomY - r, r - 3, Math.PI, 0, true);
+      ctx.lineTo(rightX - 3, topY); ctx.closePath(); ctx.clip();
+
+      if (fillFrac > 0.005 && opts.fillColor) {
+        const liquidTop = bottomY - tubeH * fillFrac;
+        ctx.fillStyle = opts.fillColor;
+        ctx.fillRect(leftX, liquidTop, tubeW, bottomY - liquidTop);
+
+        // contactBlob: vẩn đục LAN RA từ đúng điểm tiếp xúc (không phải đổi màu đều cả ống cùng lúc) —
+        // vẽ một quầng gradient tròn tâm tại điểm giọt chạm mặt thoáng, bán kính lớn dần theo opts.contactBlob.t
+        if (opts.contactBlob && opts.contactBlob.t > 0.005) {
+          const b = opts.contactBlob;
+          const r2 = lerp(6, Math.max(tubeW, tubeH) * 0.9, b.t);
+          const a = Math.min(1, b.t * 3.2) * (b.alpha != null ? b.alpha : 1);
+          const grad = ctx.createRadialGradient(0, b.dy, 0, 0, b.dy, r2);
+          grad.addColorStop(0, `rgba(${b.color.r},${b.color.g},${b.color.b},${a})`);
+          grad.addColorStop(1, `rgba(${b.color.r},${b.color.g},${b.color.b},0)`);
+          ctx.fillStyle = grad;
+          ctx.fillRect(leftX, liquidTop, tubeW, bottomY - liquidTop);
+        }
+
+        if (opts.precipFrac > 0.005 && opts.precipColor) {
+          const precipTop = bottomY - tubeH * fillFrac * opts.precipFrac;
+          ctx.fillStyle = opts.precipColor;
+          ctx.fillRect(leftX, precipTop, tubeW, bottomY - precipTop);
+        }
+
+        if (opts.cloud) {
+          opts.cloud.forEach(p => {
+            ctx.beginPath(); ctx.arc(p.dx, p.dy, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = p.color; ctx.globalAlpha = p.alpha; ctx.fill(); ctx.globalAlpha = 1;
+          });
+        }
+      }
+      ctx.restore();
+
+      // thành ống
+      ctx.beginPath();
+      ctx.moveTo(leftX, topY); ctx.lineTo(leftX, bottomY - r);
+      ctx.arc(0, bottomY - r, r, Math.PI, 0, true); ctx.lineTo(rightX, topY);
+      ctx.lineWidth = 3.5; ctx.strokeStyle = 'rgba(255,255,255,.85)'; ctx.stroke();
+      ctx.lineWidth = 1.5; ctx.strokeStyle = '#94a3b8'; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(0, topY, r + 3, 5, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+      // ánh sáng phản chiếu
+      ctx.beginPath(); ctx.moveTo(leftX + 6, topY + 15); ctx.lineTo(leftX + 6, bottomY - r - 5);
+      ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,.4)'; ctx.lineCap = 'round'; ctx.stroke();
+
+      if (opts.label) {
+        ctx.fillStyle = '#1e293b'; ctx.font = '700 11px "Be Vietnam Pro", Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(opts.label, 0, bottomY + 26);
+      }
+      ctx.restore();
+    }
+
+    function drawGlassRod(cx, cy, angle, wetColor) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(angle || 0);
+      ctx.strokeStyle = wetColor ? wetColor : 'rgba(180,195,210,0.9)';
+      ctx.lineWidth = 5;
+      ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(-38, 0); ctx.lineTo(38, 0); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(-36, -1.4); ctx.lineTo(36, -1.4); ctx.stroke();
+      ctx.restore();
+    }
+
+    function drawBeaker(cx, cy, w, h, fillFrac, fillColor, opts = {}) {
+      ctx.save();
+      ctx.translate(cx, cy);
+      const topY = -h / 2, bottomY = h / 2, leftX = -w / 2, rightX = w / 2;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(leftX, topY); ctx.lineTo(leftX + 4, bottomY); ctx.lineTo(rightX - 4, bottomY); ctx.lineTo(rightX, topY);
+      ctx.closePath(); ctx.clip();
+      if (fillFrac > 0.005) {
+        const liquidTop = bottomY - h * fillFrac;
+        ctx.fillStyle = fillColor;
+        ctx.fillRect(leftX, liquidTop, w, bottomY - liquidTop);
+        if (opts.layerSplit && opts.layerSplit > 0 && opts.layerSplit < 1) {
+          const splitY = liquidTop + (bottomY - liquidTop) * opts.layerSplit;
+          ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 1;
+          ctx.beginPath(); ctx.moveTo(leftX, splitY); ctx.lineTo(rightX, splitY); ctx.stroke();
+        }
+      }
+      ctx.restore();
+      ctx.beginPath();
+      ctx.moveTo(leftX, topY); ctx.lineTo(leftX + 4, bottomY); ctx.lineTo(rightX - 4, bottomY); ctx.lineTo(rightX, topY);
+      ctx.lineWidth = 2.5; ctx.strokeStyle = '#94a3b8'; ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(0, topY, w / 2, 5, 0, 0, Math.PI * 2);
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+      if (opts.label) {
+        ctx.fillStyle = '#1e293b'; ctx.font = '700 11px "Be Vietnam Pro", Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(opts.label, 0, bottomY + 26);
+      }
+      ctx.restore();
+    }
+
+    function drawDropperTool(cx, topY, liquidColorCss, asciiLabel, opts = {}) {
+      ctx.save();
+      ctx.globalAlpha = opts.disabled ? 0.32 : 1;
+      const dx = cx, dy = topY;
+      ctx.beginPath();
+      ctx.moveTo(dx - 5, dy); ctx.lineTo(dx - 5, dy + 42);
+      ctx.lineTo(dx - 1.5, dy + 50); ctx.lineTo(dx + 1.5, dy + 50);
+      ctx.lineTo(dx + 5, dy + 42); ctx.lineTo(dx + 5, dy);
+      ctx.fillStyle = 'rgba(226,232,240,0.75)'; ctx.fill();
+      ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(dx - 4, dy + 18); ctx.lineTo(dx - 4, dy + 40);
+      ctx.lineTo(dx, dy + 48); ctx.lineTo(dx + 4, dy + 40); ctx.lineTo(dx + 4, dy + 18);
+      ctx.fillStyle = liquidColorCss; ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(dx - 6, dy);
+      ctx.quadraticCurveTo(dx - 15, dy - 13, dx - 10, dy - 30);
+      ctx.quadraticCurveTo(dx, dy - 38, dx + 10, dy - 30);
+      ctx.quadraticCurveTo(dx + 15, dy - 13, dx + 6, dy);
+      ctx.fillStyle = '#ef4444'; ctx.fill();
+      ctx.strokeStyle = '#b91c1c'; ctx.lineWidth = 1; ctx.stroke();
+      ctx.fillStyle = '#1e293b'; ctx.font = '700 9.5px "Be Vietnam Pro", Arial, sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(asciiLabel, dx, dy + 62);
+      ctx.restore();
+    }
+
+    // ======================================================
+    // STATE
+    // ======================================================
+    const state = {
+      stage: 1,
+      isAnimating: false,
+      activeDrag: null,
+
+      s1: { dropped: false, dropFalling: false, dropX: 0, dropY: 0, paperT: 0, done: false, q1done: false, q2done: false },
+      s2: { dropped: false, dropFalling: false, dropX: 0, dropY: 0, wetT: 0, labelShown: false, done: false, q1done: false },
+      s3: {
+        rodState: 'clean', leftStep: 1, litmusT: 0, smoke: [], smokeBurstFrames: 0, smokeLabel: false, leftDone: false,
+        hclCapT: 0,
+        rodPos: { x: 250, y: 300 }, rodAngle: -0.05,
+        rightDropped: false, rightDropFalling: false, rightDropX: 0, rightDropY: 0, dissolveT: 0, rightDone: false,
+        q1done: false, q2done: false, q3done: false, done: false
+      },
+      s4: {
+        fecl3Added: false, fecl3Level: 0, amineAdded: false, level2: 0, turbidity: 0, settle: 0, cloud: [],
+        labelShown: false, done: false, q1done: false,
+        pourActive: null, pourX: 0, pourY: 0, pourRot: 0, pourBottleLevel: 1, pourStreamOn: false, pourColor: '', pourLabel: '',
+        contactLocalDy: 0,
+        isPouringAmine: false
+      },
+      s5: {
+        cuso4Added: false, level: 0, drops: 0, turbidity: 0, turbidityTarget: 0, colorT: 0, colorTTarget: 0,
+        cloud: [], shakeUntil: 0, midShown: false, finalShown: false, labelPrecipShown: false, labelComplexShown: false,
+        done: false, q1done: false, q2done: false,
+        pourActive: null, pourX: 0, pourY: 0, pourRot: 0, pourBottleLevel: 1, pourStreamOn: false, pourColor: '',
+        fallingDrops: [], dropsReached: 0
+      }
+    };
+    const STAGE_COUNT = 5;
+
+    // ======================================================
+    // VĂN BẢN THOẠI ROBOT & CÂU HỎI (trích nguyên văn kịch bản)
+    // ======================================================
+    const TXT = {
+      s1_before: ' Chúng ta sẽ kiểm tra tính chất của methylamine bằng giấy pH. Bạn hãy kéo lọ CH₃NH₂ nhỏ một giọt lên giấy pH nhé.',
+      s1_after: ' Hãy quan sát màu giấy và đối chiếu với thang màu pH bên dưới. Bạn hãy chọn đáp án cho Câu hỏi 1 nhé.',
+      s1_toQ2: 'Bạn hãy chọn đáp án cho Câu hỏi 2 nhé.',
+      s1_correct: 'Chính xác. Bạn hãy nhấn Tiếp tục để sang phần tiếp theo nhé.',
+      s1_wrong: 'Hãy đối chiếu lại màu giấy với thang màu pH — màu xanh lam nằm ở vùng nào? Bạn hãy thử lại nhé.',
+
+      s2_before: ' Bây giờ hãy thử với aniline. Bạn hãy kéo lọ aniline nhỏ một giọt lên giấy pH và quan sát nhé.',
+      s2_after: ' Hãy so sánh với kết quả ở Stage 1. Bạn hãy chọn đáp án nhé.',
+      s2_correct: 'Chính xác. Bạn hãy nhấn Tiếp tục để sang phần tiếp theo nhé.',
+      s2_wrong: 'Hãy nhìn lại giấy pH — màu của nó có thay đổi không? Bạn hãy thử lại nhé.',
+
+      s3_before: ' Chúng ta sẽ kiểm tra bằng phản ứng với HCl. Bạn hãy thực hiện lần lượt cả hai thí nghiệm và quan sát nhé.',
+      s3_after: ' Hãy quan sát kỹ hiện tượng ở cả hai khu vực. Bạn hãy chọn đáp án cho Câu hỏi 1 nhé.',
+      s3_toQ2: 'Bạn hãy chọn đáp án cho Câu hỏi 2 nhé.',
+      s3_toQ3: 'Từ hai thí nghiệm vừa quan sát, bạn hãy chọn đáp án cho Câu hỏi 3 nhé.',
+      s3_correct: 'Chính xác. Bạn hãy nhấn Tiếp tục để sang phần tiếp theo nhé.',
+      s3_wrong: 'Hãy xem lại hiện tượng ở cả hai thí nghiệm. Bạn hãy thử lại nhé.',
+
+      s4_before: ' Bạn hãy cho FeCl₃ vào ống nghiệm trước, sau đó thêm dung dịch methylamine và quan sát nhé.',
+      s4_after: ' Hãy quan sát kết tủa tạo thành. Bạn hãy chọn đáp án nhé.',
+      s4_correct: 'Chính xác. Bạn hãy nhấn Tiếp tục để sang phần tiếp theo nhé.',
+      s4_wrong: 'Methylamine tạo môi trường base trong ống nghiệm. Hãy nghĩ xem ion Fe³⁺ sẽ phản ứng với OH⁻ tạo ra chất gì. Bạn hãy thử lại nhé.',
+
+      s5_before: ' Bạn hãy cho CuSO₄ vào ống nghiệm, sau đó kéo thanh trượt để thêm methylamine từng giọt nhé.',
+      s5_mid: ' Hãy tiếp tục kéo thanh trượt và quan sát xem điều gì xảy ra tiếp theo nhé.',
+      s5_final: ' Hãy quan sát kỹ hiện tượng vừa xảy ra. Bạn hãy chọn đáp án cho Câu hỏi 1 nhé.',
+      s5_toQ2: 'Bạn hãy chọn đáp án cho Câu hỏi 2 nhé.',
+      s5_correct: 'Chính xác. Bạn hãy nhấn Hoàn thành để kết thúc module nhé.',
+      s5_wrong: 'Hãy kéo lại thanh trượt từ đầu và chú ý hiện tượng ở giai đoạn thêm dư methylamine. Bạn hãy nhấn Replay rồi thử lại nhé.'
+    };
+
+    // ======================================================
+    // STAGE 1 — METHYLAMINE CÓ TÍNH CHẤT GÌ?
+    // ======================================================
+    const S1_CX = 400, S1_CY = 190;
+    function initStage1() {
+      Object.assign(state.s1, { dropped: false, dropFalling: false, dropX: 0, dropY: 0, paperT: 0, done: false, q1done: false, q2done: false });
+      hideAhaMoment(); hideQuiz(); hideS5Slider(); clearStageAction();
+      setRobotSpeech(TXT.s1_before, 'idle');
+      document.getElementById('interactionStatus').innerText = 'Kéo lọ CH₃NH₂ vào giấy pH trên mặt kính đồng hồ.';
+      initNextButton();
+      updateStepProgress();
+    }
+    function drawStage1() {
+      drawWatchGlass(S1_CX, S1_CY);
+      const paperColor = lerpColor(CHEM_COLORS.paperYellow, CHEM_COLORS.paperBlue, state.s1.paperT);
+      drawPaperOnGlass(S1_CX, S1_CY, paperColor);
+      drawPHScaleBar(80, 400, W - 160, 22);
+
+      const bx = 130, by = 60;
+      dragSources.push({ id: 'ch3nh2', ...bottleRect(bx, by), enabled: !state.s1.dropped && !state.isAnimating });
+      dropZones.push({ id: 'paperZone', x: S1_CX - 90, y: S1_CY - 60, w: 180, h: 120, accepts: ['ch3nh2'], onDrop: startStage1Drop });
+
+      if (state.activeDrag && state.activeDrag.id === 'ch3nh2') {
+        drawBottle(state.activeDrag.x, state.activeDrag.y - 30, '#e0f2fe', 'CH3NH2', { rotate: 0.5 });
+      } else {
+        drawBottle(bx, by, '#e0f2fe', 'CH3NH2 0.1M', { disabled: state.s1.dropped });
+      }
+
+      if (state.s1.dropFalling) {
+        ctx.save();
+        ctx.beginPath(); ctx.ellipse(S1_CX, state.s1.dropY, 3.5, 5.5, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#38bdf8'; ctx.fill();
+        ctx.restore();
+      }
+    }
+    function startStage1Drop() {
+      if (state.s1.dropped || state.isAnimating) return;
+      state.s1.dropped = true; state.isAnimating = true; state.s1.dropFalling = true;
+      state.s1.dropY = S1_CY - 70; state.s1.dropX = S1_CX;
+      tween(state.s1, 'dropY', S1_CY, 380, easeOut, () => {
+        state.s1.dropFalling = false;
+        spawnParticles(S1_CX, S1_CY, 'jade', 8);
+        tween(state.s1, 'paperT', 1, 1300, easeInOut, () => {
+          state.isAnimating = false;
+          setRobotSpeech(TXT.s1_after, 'idle');
+          document.getElementById('interactionStatus').innerText = 'Đối chiếu màu giấy với thang màu pH và trả lời câu hỏi.';
+          askStage1Q1();
+        });
+      });
+    }
+    function askStage1Q1() {
+      showGatedQuiz(
+        'Giấy pH đổi màu xanh cho thấy dung dịch methylamine có tính chất gì?',
+        [{ key: 'A', text: 'Có tính acid' }, { key: 'B', text: 'Có tính base' }, { key: 'C', text: 'Trung tính' }],
+        'B', TXT.s1_toQ2, TXT.s1_wrong,
+        () => { state.s1.q1done = true; askStage1Q2(); }
+      );
+    }
+    function askStage1Q2() {
+      showGatedQuiz(
+        'Dựa vào công thức CH₃–NH₂, bộ phận nào trong phân tử quyết định tính base này?',
+        [{ key: 'A', text: 'Nhóm CH₃–' }, { key: 'B', text: 'Nhóm –NH₂' }],
+        'B', TXT.s1_correct, TXT.s1_wrong,
+        () => {
+          state.s1.q2done = true; state.s1.done = true;
+          hideQuiz();
+          showAhaMoment(
+            'Dung dịch methylamine làm giấy pH chuyển màu xanh lam.<br>Methylamine có tính base.<br>Nhóm –NH₂ là nhóm chức quyết định tính base của amine.' +
+            nextHint('Cả aniline cũng có nhóm –NH₂. Vậy aniline có làm giấy pH đổi màu giống methylamine không?')
+          );
+          updateNextButtonState();
+        }
+      );
+    }
+
+    // ======================================================
+    // STAGE 2 — ANILINE CÓ TÍNH BASE GIỐNG METHYLAMINE KHÔNG?
+    // ======================================================
+    function initStage2() {
+      Object.assign(state.s2, { dropped: false, dropFalling: false, dropX: 0, dropY: 0, wetT: 0, labelShown: false, done: false, q1done: false });
+      hideAhaMoment(); hideQuiz(); hideS5Slider(); clearStageAction();
+      setRobotSpeech(TXT.s2_before, 'idle');
+      document.getElementById('interactionStatus').innerText = 'Kéo lọ aniline vào giấy pH trên mặt kính đồng hồ.';
+      initNextButton();
+      updateStepProgress();
+    }
+    function drawStage2() {
+      drawWatchGlass(S1_CX, S1_CY);
+      drawPaperOnGlass(S1_CX, S1_CY, `rgb(${CHEM_COLORS.paperYellow.r},${CHEM_COLORS.paperYellow.g},${CHEM_COLORS.paperYellow.b})`, { wetOverlayT: state.s2.wetT });
+      drawPHScaleBar(80, 400, W - 160, 22);
+
+      // lọ CH3NH2 mờ đi (đã dùng ở Stage 1)
+      drawBottle(110, 60, '#e0f2fe', 'CH3NH2', { disabled: true });
+
+      const bx = 230, by = 60;
+      dragSources.push({ id: 'aniline', ...bottleRect(bx, by), enabled: !state.s2.dropped && !state.isAnimating });
+      dropZones.push({ id: 'paperZone2', x: S1_CX - 90, y: S1_CY - 60, w: 180, h: 120, accepts: ['aniline'], onDrop: startStage2Drop });
+
+      if (state.activeDrag && state.activeDrag.id === 'aniline') {
+        drawBottle(state.activeDrag.x, state.activeDrag.y - 30, '#f5ede0', 'C6H5NH2', { rotate: 0.5 });
+      } else {
+        drawBottle(bx, by, '#f5ede0', 'C6H5NH2', { disabled: state.s2.dropped });
+      }
+
+      if (state.s2.dropFalling) {
+        ctx.save();
+        ctx.beginPath(); ctx.ellipse(S1_CX, state.s2.dropY, 3.5, 5.5, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#e2c9a0'; ctx.fill();
+        ctx.restore();
+      }
+
+      if (state.s2.labelShown) {
+        ctx.save();
+        ctx.fillStyle = COLORS_TEXT.ink2;
+        ctx.font = '700 12px "Be Vietnam Pro", Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Giấy pH không đổi màu', S1_CX + 150, S1_CY);
+        ctx.restore();
+      }
+    }
+    function startStage2Drop() {
+      if (state.s2.dropped || state.isAnimating) return;
+      state.s2.dropped = true; state.isAnimating = true; state.s2.dropFalling = true;
+      state.s2.dropY = S1_CY - 70; state.s2.dropX = S1_CX;
+      tween(state.s2, 'dropY', S1_CY, 380, easeOut, () => {
+        state.s2.dropFalling = false;
+        spawnParticles(S1_CX, S1_CY, 'accent', 6);
+        tween(state.s2, 'wetT', 1, 500, easeOut, () => {
+          state.s2.labelShown = true;
+          state.isAnimating = false;
+          setRobotSpeech(TXT.s2_after, 'idle');
+          document.getElementById('interactionStatus').innerText = 'So sánh với Stage 1 và trả lời câu hỏi.';
+          askStage2Q();
+        });
+      });
+    }
+    function askStage2Q() {
+      showGatedQuiz(
+        'Hiện tượng nào đúng khi nhỏ aniline lên giấy pH?',
+        [{ key: 'A', text: 'Giấy pH chuyển sang màu xanh lam.' }, { key: 'B', text: 'Giấy pH không đổi màu.' }],
+        'B', TXT.s2_correct, TXT.s2_wrong,
+        () => {
+          state.s2.q1done = true; state.s2.done = true;
+          hideQuiz();
+          showAhaMoment(
+            'Aniline không làm giấy pH đổi màu.<br>Dù aniline cũng có nhóm –NH₂, tính base của nó quá yếu — không đủ để làm đổi màu giấy pH.' +
+            nextHint('Nhưng aniline vẫn có nhóm –NH₂. Vậy aniline có thật sự không có tính base không? Hãy kiểm tra bằng phản ứng với HCl.')
+          );
+          updateNextButtonState();
+        }
+      );
+    }
+
+    // ======================================================
+    // STAGE 3 — ANILINE CÓ THẬT SỰ KHÔNG CÓ TÍNH BASE?
+    // ======================================================
+    // Khu trái: ống nghiệm (1) CH3NH2 + đũa thủy tinh + giấy quỳ tím + lọ HCl đặc
+    // Khu phải: cốc aniline + ống nhỏ giọt HCl
+    const S3_LEFT_CX = 175, S3_RIGHT_CX = 585, S3_TUBE_CY = 300, S3_GLASS_CX = 175, S3_GLASS_CY = 110;
+    const S3_ROD_HOME = { x: 250, y: 300 };
+    const S3_HCL_BOTTLE = { x: 290, y: 200 };
+
+    function initStage3() {
+      Object.assign(state.s3, {
+        rodState: 'clean', leftStep: 1, litmusT: 0, smoke: [], smokeBurstFrames: 0, smokeLabel: false, leftDone: false,
+        hclCapT: 0,
+        rodPos: { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y }, rodAngle: -0.05,
+        rightDropped: false, rightDropFalling: false, rightDropX: 0, rightDropY: 0, dissolveT: 0, rightDone: false,
+        q1done: false, q2done: false, q3done: false, done: false
+      });
+      hideAhaMoment(); hideQuiz(); hideS5Slider(); clearStageAction();
+      setRobotSpeech(TXT.s3_before, 'idle');
+      document.getElementById('interactionStatus').innerText = 'Kéo đũa thủy tinh / lọ hóa chất theo gợi ý — thực hiện lần lượt Thí nghiệm 1 (trái) và Thí nghiệm 2 (phải).';
+      initNextButton();
+      updateStepProgress();
+    }
+
+    function drawStage3() {
+      // đường phân cách hai khu vực
+      ctx.save();
+      ctx.strokeStyle = 'rgba(26,26,26,0.12)'; ctx.setLineDash([6, 6]); ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(380, 40); ctx.lineTo(380, H - 30); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.font = '700 11px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2; ctx.textAlign = 'center';
+      ctx.fillText('Thí nghiệm 1 — theo SGK', 175, 30);
+      ctx.fillText('Thí nghiệm 2', 585, 30);
+      ctx.restore();
+
+      // --- Khu trái ---
+      drawTestTube(S3_LEFT_CX, S3_TUBE_CY, 60, 150, 0.55, { fillColor: 'rgba(224,242,254,0.85)', label: 'CH3NH2 (1)' });
+      drawWatchGlass(S3_GLASS_CX, S3_GLASS_CY, 70, 26);
+      drawPaperOnGlass(S3_GLASS_CX, S3_GLASS_CY, lerpColor(CHEM_COLORS.litmusNeutral, CHEM_COLORS.litmusBlue, state.s3.litmusT));
+      drawBottle(S3_HCL_BOTTLE.x, S3_HCL_BOTTLE.y, '#fee2e2', 'HCl dac', { disabled: state.s3.leftStep < 3, capOpenT: state.s3.hclCapT });
+
+      // --- Đũa thủy tinh: học sinh KÉO đũa qua từng mục tiêu theo đúng 4 bước (không phải bấm nút) ---
+      const rodWet = state.s3.rodState === 'ch3nh2' ? 'rgba(56,189,248,0.6)' : (state.s3.rodState === 'hcl' ? 'rgba(255,255,255,0.85)' : null);
+      const rodEnabled = !state.s3.leftDone && !state.isAnimating;
+      dragSources.push({ id: 'rod', x: S3_ROD_HOME.x - 45, y: S3_ROD_HOME.y - 25, w: 90, h: 50, enabled: rodEnabled });
+
+      let rodZoneRect = null, rodHintX = 0, rodHintY = 0, rodHintText = '';
+      if (state.s3.leftStep === 1) { rodZoneRect = { x: S3_LEFT_CX - 40, y: S3_TUBE_CY - 90, w: 80, h: 130 }; rodHintX = S3_LEFT_CX; rodHintY = S3_TUBE_CY - 100; rodHintText = 'Kéo đũa nhúng vào CH3NH2'; }
+      else if (state.s3.leftStep === 2) { rodZoneRect = { x: S3_GLASS_CX - 45, y: S3_GLASS_CY - 45, w: 90, h: 90 }; rodHintX = S3_GLASS_CX; rodHintY = S3_GLASS_CY - 55; rodHintText = 'Kéo đũa chấm lên giấy quỳ tím'; }
+      else if (state.s3.leftStep === 3) { rodZoneRect = { x: S3_HCL_BOTTLE.x - 30, y: S3_HCL_BOTTLE.y - 30, w: 60, h: 100 }; rodHintX = S3_HCL_BOTTLE.x; rodHintY = S3_HCL_BOTTLE.y - 40; rodHintText = 'Kéo đũa sạch nhúng vào HCl'; }
+      else if (state.s3.leftStep === 4) { rodZoneRect = { x: S3_LEFT_CX - 40, y: S3_TUBE_CY - 140, w: 80, h: 60 }; rodHintX = S3_LEFT_CX; rodHintY = S3_TUBE_CY - 150; rodHintText = 'Kéo đũa vào miệng ống nghiệm'; }
+
+      if (rodZoneRect && !state.s3.leftDone) {
+        const rodStepAtRegister = state.s3.leftStep;
+        dropZones.push({ id: 'rodZone', ...rodZoneRect, accepts: ['rod'], onDrop: () => handleRodDrop(rodStepAtRegister) });
+        if (!state.isAnimating) drawHint(rodHintX, rodHintY, rodHintText);
+      }
+
+      if (state.activeDrag && state.activeDrag.id === 'rod') {
+        // Đang cầm bằng con trỏ: đũa bám theo tay, đồng bộ vào rodPos để khi thả ra animation bay tiếp mượt từ đúng vị trí này
+        state.s3.rodPos.x = state.activeDrag.x;
+        state.s3.rodPos.y = state.activeDrag.y;
+        state.s3.rodAngle = Math.atan2(state.activeDrag.y - S3_ROD_HOME.y, state.activeDrag.x - S3_ROD_HOME.x);
+      }
+      drawGlassRod(state.s3.rodPos.x, state.s3.rodPos.y, state.s3.rodAngle, rodWet);
+
+      // Khói trắng bốc lên từ miệng ống (1): đợt bốc đậm đặc khi vừa đưa đũa vào,
+      // sau đó duy trì vài làn khói nhẹ ở trạng thái nghỉ để canvas kết thúc vẫn thấy "khói tại miệng ống".
+      const s3MouthX = S3_LEFT_CX, s3MouthY = S3_TUBE_CY - 78;
+      if (state.s3.smokeBurstFrames > 0 && state.s3.smokeBurstFrames % 3 === 0) {
+        // Bơm thưa hơn (không phải mỗi khung hình) để khói dâng lên từ từ chứ không ùa ra một lúc
+        spawnSmokePuff(state.s3.smoke, s3MouthX, s3MouthY, 1);
+      }
+      if (state.s3.smokeBurstFrames > 0) {
+        state.s3.smokeBurstFrames--;
+      } else if (state.s3.smokeLabel && Math.random() < 0.05) {
+        spawnSmokePuff(state.s3.smoke, s3MouthX, s3MouthY, 1);
+      }
+      updateSmokePuffs(state.s3.smoke);
+      drawSmokePuffs(state.s3.smoke);
+      if (state.s3.smokeLabel) {
+        ctx.save(); ctx.fillStyle = COLORS_TEXT.ink2; ctx.font = '700 11px "Be Vietnam Pro", sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('Khói trắng = CH3NH3Cl', S3_LEFT_CX, S3_TUBE_CY - 148);
+        ctx.restore();
+      }
+
+      // --- Khu phải ---
+      const anilineColor = lerpColorAlpha({ ...CHEM_COLORS.anilineLiquid, a: 0.85 }, CHEM_COLORS.anilineDissolved, state.s3.dissolveT);
+      drawBeaker(S3_RIGHT_CX, S3_TUBE_CY, 90, 110, 0.6, anilineColor, { label: 'Aniline', layerSplit: state.s3.dissolveT < 0.15 ? 0.5 : 0 });
+
+      const dx = 585, dy = 150;
+      dragSources.push({ id: 'hclDropper', x: dx - 20, y: dy - 40, w: 40, h: 100, enabled: !state.s3.rightDone && !state.isAnimating });
+      dropZones.push({ id: 'beaker', x: S3_RIGHT_CX - 60, y: S3_TUBE_CY - 60, w: 120, h: 110, accepts: ['hclDropper'], onDrop: startStage3RightDrop });
+
+      if (state.activeDrag && state.activeDrag.id === 'hclDropper') {
+        drawDropperTool(state.activeDrag.x, state.activeDrag.y - 30, '#fee2e2', 'HCl', { rotate: 0.4 });
+      } else {
+        drawDropperTool(dx, dy, '#fee2e2', 'HCl');
+      }
+      if (state.s3.rightDropFalling) {
+        ctx.save(); ctx.beginPath(); ctx.ellipse(S3_RIGHT_CX, state.s3.rightDropY, 3.5, 5.5, 0, 0, Math.PI * 2);
+        ctx.fillStyle = '#fecaca'; ctx.fill(); ctx.restore();
+      }
+      if (state.s3.rightDone) {
+        ctx.save(); ctx.fillStyle = COLORS_TEXT.ink2; ctx.font = '700 11px "Be Vietnam Pro", sans-serif'; ctx.textAlign = 'center';
+        ctx.fillText('Aniline tan -> C6H5NH3Cl', S3_RIGHT_CX, S3_TUBE_CY - 100);
+        ctx.restore();
+      }
+    }
+    function drawHint(x, y, text) {
+      ctx.save();
+      ctx.fillStyle = 'rgba(60,165,122,0.14)';
+      ctx.beginPath(); ctx.arc(x, y, 8 + Math.sin(time * 2) * 2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = COLORS_TEXT.jadeText; ctx.font = '600 10.5px "Be Vietnam Pro", sans-serif'; ctx.textAlign = 'center';
+      ctx.fillText(text, x, y + 20);
+      ctx.restore();
+    }
+    // Hệ hạt KHÓI TRẮNG (dùng cho phản ứng CH3NH3Cl bốc khói ở Stage 3, bước 4) — chạy hoàn toàn theo khung
+    // hình (không dùng setInterval) nên tự dừng ngay khi rời khỏi stage, không rò rỉ hiệu ứng nền.
+    function spawnSmokePuff(list, x, y, count) {
+      for (let i = 0; i < count; i++) {
+        list.push({
+          x: x + (Math.random() - 0.5) * 14,
+          y: y + (Math.random() - 0.5) * 6,
+          r: 2 + Math.random() * 2,
+          maxR: 13 + Math.random() * 11,
+          age: 0,
+          life: 1700 + Math.random() * 800, // khói tan chậm, lơ lửng lâu hơn thay vì vụt biến mất
+          maxAlpha: 0.5 + Math.random() * 0.3,
+          alpha: 0,
+          vx: (Math.random() - 0.5) * 0.16,
+          vy: -0.34 - Math.random() * 0.28, // bay lên từ từ, không vọt lên nhanh
+          wobble: Math.random() * Math.PI * 2
+        });
+      }
+    }
+    function updateSmokePuffs(list) {
+      for (let i = list.length - 1; i >= 0; i--) {
+        const p = list[i];
+        p.age += 16.7;
+        const t = clamp(p.age / p.life, 0, 1);
+        p.x += p.vx + Math.sin(time * 2 + p.wobble) * 0.06;
+        p.y += p.vy;
+        p.vy *= 0.992; // khói loãng dần, bay chậm lại khi lên cao
+        p.r = lerp(p.r, p.maxR, 0.012); // nở to từ từ thay vì phồng lên gần như ngay lập tức
+        p.alpha = t < 0.2 ? lerp(0, p.maxAlpha, t / 0.2) : lerp(p.maxAlpha, 0, (t - 0.2) / 0.8);
+        if (t >= 1) list.splice(i, 1);
+      }
+    }
+    function drawSmokePuffs(list) {
+      list.forEach(p => {
+        ctx.save();
+        ctx.globalAlpha = clamp(p.alpha, 0, 1);
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r);
+        grad.addColorStop(0, 'rgba(255,255,255,0.95)');
+        grad.addColorStop(0.6, 'rgba(248,250,252,0.55)');
+        grad.addColorStop(1, 'rgba(248,250,252,0)');
+        ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      });
+    }
+
+    // flyRodSequence: chạy tuần tự nhiều "chặng" bay cho đũa thủy tinh (tween vị trí + góc nghiêng).
+    // Mỗi chặng {x,y,angle,duration} vừa tới nơi thì tự chuyển sang chặng kế; nếu có onArrive(next) riêng
+    // (ví dụ để chạy phản ứng / dừng khựng lại một nhịp) thì chặng chỉ tiếp tục khi onArrive tự gọi next().
+    function flyRodSequence(legs, onAllDone) {
+      let i = 0;
+      function runLeg() {
+        if (i >= legs.length) { onAllDone && onAllDone(); return; }
+        const leg = legs[i];
+        const dur = leg.duration || 260;
+        tween(state.s3.rodPos, 'x', leg.x, dur, easeInOut, null);
+        tween(state.s3.rodPos, 'y', leg.y, dur, easeInOut, null);
+        tween(state.s3, 'rodAngle', leg.angle, dur, easeInOut, () => {
+          const proceed = () => { i++; runLeg(); };
+          if (leg.onArrive) leg.onArrive(proceed);
+          else if (leg.holdMs) setTimeout(proceed, leg.holdMs);
+          else proceed();
+        });
+      }
+      runLeg();
+    }
+
+    // dipLeg: drawGlassRod vẽ đũa quanh TÂM của nó (translate rồi rotate quanh cx,cy), không phải quanh đầu đũa.
+    // Nếu cứ đưa thẳng toạ độ "điểm muốn chấm/nhúng vào" làm x,y của leg thì đó là tâm đũa, còn ĐẦU đũa thật sự
+    // sẽ lệch ra xa theo hướng góc nghiêng — đúng như lỗi "đâm vào cạnh lọ" thay vì đúng miệng lọ đã gặp phải.
+    // Hàm này lùi (offset) ngược lại 38px theo góc để khi leg này chạy xong, ĐẦU đũa mới là nơi chạm đúng điểm.
+    function dipLeg(tipX, tipY, angle, duration, onArrive) {
+      return { x: tipX + 38 * Math.cos(angle), y: tipY + 38 * Math.sin(angle), angle, duration, onArrive };
+    }
+
+    // safeEnterLegs: khi mục tiêu nhúng nằm BÊN TRONG một dụng cụ có thành (ống nghiệm, lọ) chứ không phải
+    // một mặt phẳng hở (giấy quỳ, giấy pH), không được bay CHÉO thẳng từ vị trí nghỉ vào thẳng điểm nhúng —
+    // vì tâm đũa với đầu đũa lệch nhau nên đường chéo đó khiến đầu đũa cắt NGANG qua thành ngoài trước khi
+    // "vào" được bên trong, trông như đâm xuyên qua vỏ lọ/ống. Thay vào đó luôn đi 3 chặng, GIỮ NGUYÊN
+    // góc nghiêng (angle) y hệt góc lúc chạm đích trong suốt cả 3 chặng để đầu đũa di chuyển có thể đoán
+    // trước: (1) bay thẳng LÊN độ cao an toàn tại cột hiện tại, (2) NÉ NGANG sang đúng cột của điểm nhúng
+    // trong lúc vẫn ở trên cao, (3) HẠ THẲNG XUỐNG theo phương thẳng đứng đúng vào miệng dụng cụ.
+    function safeEnterLegs(tipX, tipY, angle, hoverY, onArrive) {
+      const land = dipLeg(tipX, tipY, angle, 240, onArrive);
+      return [
+        { x: state.s3.rodPos.x, y: hoverY, angle, duration: 200 },
+        { x: land.x, y: hoverY, angle, duration: 200 },
+        land
+      ];
+    }
+
+    // Đường bay AN TOÀN khi thả hụt mục tiêu: luôn thoát lên độ cao an toàn trước, né ngang về đúng cột
+    // của vị trí nghỉ, rồi mới hạ xuống — tránh trường hợp bay chéo cắt xuyên qua thành ống nghiệm/lọ.
+    function flyRodHomeSafe(duration) {
+      const hoverY = Math.min(state.s3.rodPos.y - 40, 150);
+      flyRodSequence([
+        { x: state.s3.rodPos.x, y: hoverY, angle: -0.3, duration: Math.round(duration * 0.34) },
+        { x: S3_ROD_HOME.x, y: hoverY, angle: -0.15, duration: Math.round(duration * 0.3) },
+        { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y, angle: -0.05, duration: Math.round(duration * 0.36) }
+      ]);
+    }
+
+    // handleRodDrop: xử lý khi học sinh THẢ đũa thủy tinh vào đúng mục tiêu của bước hiện tại.
+    // Mỗi bước: bay vào điểm nhúng -> DỪNG KHỰNG một nhịp ngắn để "chấm/nhúng" -> thoát THẲNG LÊN khỏi
+    // miệng ống/lọ -> NÉ NGANG sang cột của vị trí nghỉ trong lúc vẫn ở độ cao an toàn -> mới HẠ nhẹ về chỗ cũ.
+    // Cách đi 4 chặng này đảm bảo đường bay không bao giờ cắt chéo xuyên qua thành ống nghiệm/lọ hoá chất.
+    function handleRodDrop(step) {
+      if (state.isAnimating || step !== state.s3.leftStep) return;
+      state.isAnimating = true;
+      if (step === 1) {
+        flyRodSequence([
+          ...safeEnterLegs(S3_LEFT_CX, S3_TUBE_CY + 15, -Math.PI / 2, 170, (next) => {
+            // Mực dung dịch CH3NH2 trong ống (fillFrac 0.55, tubeH 150) nổi ở khoảng cy-7.5 =>
+            // đầu đũa PHẢI hạ xuống dưới mức đó mới coi là chạm dung dịch, không dừng lưng chừng khí.
+            state.s3.rodState = 'ch3nh2';
+            spawnParticles(S3_LEFT_CX, S3_TUBE_CY + 15, 'jade', 6);
+            setTimeout(next, 280);
+          }),
+          { x: S3_LEFT_CX, y: 195, angle: -0.6, duration: 260 },
+          { x: S3_ROD_HOME.x, y: 195, angle: -0.25, duration: 220 },
+          { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y, angle: -0.05, duration: 300 }
+        ], () => { state.s3.leftStep = 2; state.isAnimating = false; });
+      } else if (step === 2) {
+        flyRodSequence([
+          dipLeg(S3_GLASS_CX, S3_GLASS_CY, -0.3, 280, (next) => {
+            tween(state.s3, 'litmusT', 1, 650, easeInOut, () => { state.s3.rodState = 'clean'; next(); });
+          }),
+          { x: S3_GLASS_CX, y: S3_GLASS_CY - 45, angle: -0.15, duration: 220 },
+          { x: S3_ROD_HOME.x, y: S3_GLASS_CY - 45, angle: -0.1, duration: 220 },
+          { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y, angle: -0.05, duration: 280 }
+        ], () => { state.s3.leftStep = 3; state.isAnimating = false; });
+      } else if (step === 3) {
+        // Mở nắp lọ HCl TRƯỚC — chỉ khi nắp đã mở XONG HẲN thì đũa mới bắt đầu bay tới nhúng vào,
+        // tránh cảnh đũa chọc vào lọ trong khi nắp còn đang bật lên (2 animation đấm nhau).
+        tween(state.s3, 'hclCapT', 1, 260, easeOut, () => {
+          flyRodSequence([
+            ...safeEnterLegs(S3_HCL_BOTTLE.x, S3_HCL_BOTTLE.y + 40, -Math.PI / 2, 145, (next) => {
+              // Mực HCl trong lọ nổi ở khoảng topY + h*0.22 ≈ topY+14.5 => đầu đũa phải xuống
+              // sâu hơn mức đó mới thật sự chạm chất lỏng, không phải chỉ vừa chạm mặt thoáng.
+              state.s3.rodState = 'hcl';
+              spawnParticles(S3_HCL_BOTTLE.x, S3_HCL_BOTTLE.y + 40, 'jade', 6);
+              setTimeout(next, 280);
+            }),
+            { x: S3_HCL_BOTTLE.x, y: 165, angle: -0.6, duration: 260 },
+            { x: S3_ROD_HOME.x, y: 165, angle: -0.25, duration: 220 },
+            { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y, angle: -0.05, duration: 300 }
+          ], () => { state.s3.leftStep = 4; state.isAnimating = false; });
+        });
+      } else if (step === 4) {
+        flyRodSequence([
+          dipLeg(S3_LEFT_CX, S3_TUBE_CY - 80, -0.4, 280, (next) => {
+            // đầu đũa dừng ngay sát miệng ống -> khói trắng dâng lên TỪ TỪ trong ~2s (xem spawnSmokePuff ở drawStage3)
+            state.s3.smokeBurstFrames = 120;
+            setTimeout(() => { state.s3.smokeLabel = true; next(); }, 2000);
+          }),
+          { x: S3_LEFT_CX, y: S3_TUBE_CY - 190, angle: -0.3, duration: 220 },
+          { x: S3_ROD_HOME.x, y: S3_TUBE_CY - 190, angle: -0.15, duration: 220 },
+          { x: S3_ROD_HOME.x, y: S3_ROD_HOME.y, angle: -0.05, duration: 300 }
+        ], () => {
+          state.s3.leftStep = 5; state.s3.leftDone = true;
+          state.isAnimating = false;
+          checkStage3BothDone();
+        });
+      }
+    }
+    function startStage3RightDrop() {
+      if (state.s3.rightDropped || state.isAnimating) return;
+      state.s3.rightDropped = true; state.isAnimating = true; state.s3.rightDropFalling = true;
+      state.s3.rightDropY = S3_TUBE_CY - 90;
+      tween(state.s3, 'rightDropY', S3_TUBE_CY - 20, 350, easeOut, () => {
+        state.s3.rightDropFalling = false;
+        spawnParticles(S3_RIGHT_CX, S3_TUBE_CY - 20, 'accent', 6);
+        tween(state.s3, 'dissolveT', 1, 1000, easeInOut, () => {
+          state.s3.rightDone = true;
+          state.isAnimating = false;
+          checkStage3BothDone();
+        });
+      });
+    }
+    function checkStage3BothDone() {
+      if (state.s3.leftDone && state.s3.rightDone) {
+        setRobotSpeech(TXT.s3_after, 'idle');
+        document.getElementById('interactionStatus').innerText = 'Trả lời các câu hỏi trắc nghiệm.';
+        askStage3Q1();
+      } else {
+        let msg = !state.s3.leftDone ? 'Bạn hãy hoàn thành Thí nghiệm 1 (trái) trước nhé.' : 'Bạn hãy hoàn thành Thí nghiệm 2 (phải) nhé.';
+        setRobotSpeech(msg, 'idle');
+      }
+    }
+    function askStage3Q1() {
+      showGatedQuiz(
+        'CH₃NH₂ + HCl tạo ra chất nào?',
+        [{ key: 'A', text: 'CH₃NH₂Cl' }, { key: 'B', text: 'CH₃NH₃Cl' }, { key: 'C', text: 'CH₃Cl + NH₃' }],
+        'B', TXT.s3_toQ2, TXT.s3_wrong,
+        () => { state.s3.q1done = true; askStage3Q2(); }
+      );
+    }
+    function askStage3Q2() {
+      showGatedQuiz(
+        'C₆H₅NH₂ + HCl tạo ra chất nào?',
+        [{ key: 'A', text: 'C₆H₅NH₂Cl' }, { key: 'B', text: 'C₆H₅NH₃Cl' }, { key: 'C', text: 'C₆H₆ + NH₄Cl' }],
+        'B', TXT.s3_toQ3, TXT.s3_wrong,
+        () => { state.s3.q2done = true; askStage3Q3(); }
+      );
+    }
+    function askStage3Q3() {
+      showGatedQuiz(
+        'Qua hai thí nghiệm trên, em rút ra kết luận gì về tính base của aniline?',
+        [{ key: 'A', text: 'Chỉ methylamine có tính base.' }, { key: 'B', text: 'Aniline không có tính base.' }, { key: 'C', text: 'Aniline vẫn có tính base nhưng yếu hơn methylamine.' }],
+        'C', TXT.s3_correct, TXT.s3_wrong,
+        () => {
+          state.s3.q3done = true; state.s3.done = true;
+          hideQuiz();
+          showAhaMoment(
+            'Cả methylamine và aniline đều phản ứng được với HCl, tạo muối amoni.<br>Aniline vẫn có tính base — nhưng yếu hơn methylamine.<br>Không làm đổi màu giấy pH ≠ Không có tính base.' +
+            eqBlock(['CH₃NH₂ + HCl → CH₃NH₃Cl (methylammonium chloride)', 'C₆H₅NH₂ + HCl → C₆H₅NH₃Cl (phenylammonium chloride)']) +
+            nextHint('Ngoài phản ứng với acid, tính base của methylamine còn được thể hiện như thế nào trong phản ứng với muối?')
+          );
+          updateNextButtonState();
+        }
+      );
+    }
+
+    // ======================================================
+    // STAGE 4 — TÍNH BASE CỦA METHYLAMINE VỚI FeCl3
+    // ======================================================
+    const S4_CX = 380, S4_CY = 250;
+    function initStage4() {
+      Object.assign(state.s4, {
+        fecl3Added: false, fecl3Level: 0, amineAdded: false, level2: 0, turbidity: 0, settle: 0, cloud: [],
+        labelShown: false, done: false, q1done: false,
+        pourActive: null, pourX: 0, pourY: 0, pourRot: 0, pourBottleLevel: 1, pourStreamOn: false, pourColor: '', pourLabel: '',
+        contactLocalDy: 0,
+        isPouringAmine: false
+      });
+      hideAhaMoment(); hideQuiz(); hideS5Slider(); clearStageAction();
+      setRobotSpeech(TXT.s4_before, 'idle');
+      document.getElementById('interactionStatus').innerText = 'Kéo lọ FeCl₃ vào ống nghiệm, sau đó kéo lọ CH₃NH₂.';
+      initNextButton();
+      updateStepProgress();
+    }
+    const S4_FX = 110, S4_FY = 60, S4_AX = 650, S4_AY = 60;
+
+    // drawPourStream: dòng chất lỏng cong từ miệng lọ đang nghiêng rót xuống mặt thoáng trong ống nghiệm —
+    // tham khảo đúng kỹ thuật quadraticCurveTo trong "Tinh bột gặp Iodine.html" (nút "Lấy 2 mL hồ tinh bột").
+    function drawPourStream(spoutX, spoutY, targetX, targetY, colorCss) {
+      ctx.save();
+      ctx.strokeStyle = colorCss;
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.globalAlpha = 0.75;
+      ctx.beginPath();
+      ctx.moveTo(spoutX, spoutY);
+      ctx.quadraticCurveTo(spoutX + (targetX - spoutX) * 0.5, spoutY + (targetY - spoutY) * 0.25, targetX, targetY);
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // runPourSequence: hoạt cảnh RÓT đầy đủ — lọ tự bay từ vị trí nghỉ tới cạnh ống nghiệm, nghiêng dần,
+    // trong lúc nghiêng thì có dòng chảy cong + bắn giọt tí tách vào đúng mặt thoáng đang dâng lên, mực
+    // chất lỏng trong ống tăng dần đồng bộ, mực trong lọ vơi dần theo; rót xong lọ thẳng lại rồi tự bay
+    // về đúng chỗ cũ. dir = +1 (lọ đứng bên trái, nghiêng phải vào ống) hoặc -1 (lọ đứng bên phải, nghiêng trái).
+    function runPourSequence(stateObj, tubeCx, id, startX, startY, homeX, homeY, dir, colorCss, levelProp, levelTarget, onDone, onStreamStart) {
+      state.isAnimating = true;
+      stateObj.pourActive = id;
+      stateObj.pourColor = colorCss;
+      // Bắt đầu animate NGAY TỪ chỗ học sinh vừa thả tay (startX,startY) — không snap về vị trí nghỉ
+      // ban đầu (homeX,homeY) rồi mới bay tiếp; homeX,homeY chỉ dùng để bay VỀ sau khi rót xong.
+      stateObj.pourX = startX; stateObj.pourY = startY - 30; stateObj.pourRot = 0.5; stateObj.pourBottleLevel = 1; stateObj.pourStreamOn = false;
+      const poseX = tubeCx - dir * 55, poseY = 75;
+      tween(stateObj, 'pourX', poseX, 480, easeOut, null);
+      tween(stateObj, 'pourY', poseY, 480, easeOut, () => {
+        tween(stateObj, 'pourRot', dir * 1.2, 380, easeOut, () => {
+          stateObj.pourStreamOn = true;
+          if (onStreamStart) onStreamStart(); // đúng lúc dòng chảy vừa chạm mặt thoáng — bắt đầu phản ứng NGAY TỪ ĐÂY, không đợi rót xong
+          tween(stateObj, levelProp, levelTarget, 2800, easeInOut, null);
+          tween(stateObj, 'pourBottleLevel', 0.55, 2800, easeInOut, () => {
+            stateObj.pourStreamOn = false;
+            tween(stateObj, 'pourRot', 0, 320, easeOut, () => {
+              tween(stateObj, 'pourX', homeX, 420, easeOut, null);
+              tween(stateObj, 'pourY', homeY, 420, easeOut, () => {
+                stateObj.pourActive = null;
+                onDone();
+              });
+            });
+          });
+        });
+      });
+    }
+
+    function drawStage4() {
+      const fillFrac = state.s4.fecl3Level + state.s4.level2;
+      const tubeH = 190, tubeBottomY = S4_CY + tubeH / 2;
+      const bottomY = tubeH / 2;
+      const liquidTop = bottomY - tubeH * fillFrac;
+
+      let fillColor;
+      if (!state.s4.amineAdded) {
+        fillColor = `rgb(${CHEM_COLORS.fecl3Pale.r},${CHEM_COLORS.fecl3Pale.g},${CHEM_COLORS.fecl3Pale.b})`;
+      } else {
+        const colorCloudy = `rgb(${CHEM_COLORS.fecl3Cloudy.r},${CHEM_COLORS.fecl3Cloudy.g},${CHEM_COLORS.fecl3Cloudy.b})`;
+        const colorPale = `rgb(${CHEM_COLORS.fecl3Pale.r},${CHEM_COLORS.fecl3Pale.g},${CHEM_COLORS.fecl3Pale.b})`;
+        const colorClear = `rgba(${CHEM_COLORS.fecl3Clear.r},${CHEM_COLORS.fecl3Clear.g},${CHEM_COLORS.fecl3Clear.b},${CHEM_COLORS.fecl3Clear.a})`;
+        const colorPrecip = `rgb(${CHEM_COLORS.precipRed.r},${CHEM_COLORS.precipRed.g},${CHEM_COLORS.precipRed.b})`;
+
+        if (state.s4.settle <= 0.01) {
+          // Ngay khi tiếp xúc và trong lúc rót: vẩn đục loang hình tròn lan rộng từ điểm tiếp xúc xuống dưới
+          const maxR = bottomY - liquidTop;
+          const currentR = maxR * state.s4.turbidity;
+
+          const grad = ctx.createRadialGradient(0, state.s4.contactLocalDy, 0, 0, state.s4.contactLocalDy, currentR + 32);
+          grad.addColorStop(0, colorCloudy);
+          grad.addColorStop(clamp(currentR / (currentR + 32), 0, 1), colorCloudy);
+          grad.addColorStop(1, colorPale);
+          fillColor = grad;
+        } else {
+          // Lắng kết tủa: lớp trên trong suốt loang từ trên xuống, kết tủa đáy dâng lên
+          const maxPrecipHeight = (bottomY - liquidTop) * 0.38;
+          const currentPrecipHeight = maxPrecipHeight * state.s4.settle;
+          const precipTopY = bottomY - currentPrecipHeight;
+
+          const settleBoundaryY = liquidTop + (precipTopY - liquidTop) * state.s4.settle;
+
+          const grad = ctx.createLinearGradient(0, liquidTop, 0, bottomY);
+          const pClearEnd = clamp((settleBoundaryY - 25 - liquidTop) / (bottomY - liquidTop), 0, 1);
+          const pCloudyStart = clamp((settleBoundaryY + 25 - liquidTop) / (bottomY - liquidTop), 0, 1);
+          const pPrecipStart = clamp((precipTopY - liquidTop) / (bottomY - liquidTop), 0, 1);
+
+          grad.addColorStop(0, colorClear);
+          grad.addColorStop(pClearEnd, colorClear);
+          grad.addColorStop(pCloudyStart, colorCloudy);
+          grad.addColorStop(pPrecipStart, colorCloudy);
+          grad.addColorStop(pPrecipStart, colorPrecip);
+          grad.addColorStop(1, colorPrecip);
+          fillColor = grad;
+        }
+      }
+
+      updateStage4Cloud();
+
+      drawTestTube(S4_CX, S4_CY, 74, tubeH, fillFrac, {
+        fillColor: fillColor,
+        precipFrac: 0, // Đã vẽ trực tiếp qua gradient fillColor
+        cloud: state.s4.cloud,
+        label: state.s4.labelShown ? 'Kết tủa nâu đỏ = Fe(OH)₃' : 'Ống nghiệm'
+      });
+
+      dragSources.push({ id: 'fecl3', ...bottleRect(S4_FX, S4_FY), enabled: !state.s4.fecl3Added && !state.isAnimating });
+      dragSources.push({ id: 'ch3nh2b', ...bottleRect(S4_AX, S4_AY), enabled: state.s4.fecl3Added && !state.s4.amineAdded && !state.isAnimating });
+      dropZones.push({ id: 'tube4', x: S4_CX - 45, y: S4_CY - 100, w: 90, h: 200, accepts: ['fecl3', 'ch3nh2b'], onDrop: onStage4Drop });
+
+      // Đang rót FeCl3
+      if (state.s4.pourActive === 'fecl3') {
+        drawBottle(state.s4.pourX, state.s4.pourY, state.s4.pourColor, 'FeCl3 0.1M', { rotate: state.s4.pourRot, fillLevel: state.s4.pourBottleLevel });
+        if (state.s4.pourStreamOn) {
+          const pivotX = state.s4.pourX, pivotY = state.s4.pourY + 66 * 0.15;
+          const spoutX = pivotX + 19 * Math.sin(state.s4.pourRot), spoutY = pivotY - 19 * Math.cos(state.s4.pourRot);
+          const liquidTopY = tubeBottomY - tubeH * (state.s4.fecl3Level + state.s4.level2);
+          drawPourStream(spoutX, spoutY, S4_CX, liquidTopY, state.s4.pourColor);
+          if (Math.random() < 0.4) spawnParticles(S4_CX, liquidTopY, 'accent', 2, { limitXMin: S4_CX - 32, limitXMax: S4_CX + 32, liquidTopY: liquidTopY });
+        }
+      } else if (state.activeDrag && state.activeDrag.id === 'fecl3') {
+        drawBottle(state.activeDrag.x, state.activeDrag.y - 30, `rgb(${CHEM_COLORS.fecl3Pale.r},${CHEM_COLORS.fecl3Pale.g},${CHEM_COLORS.fecl3Pale.b})`, 'FeCl3', { rotate: 0.5 });
+      } else {
+        drawBottle(S4_FX, S4_FY, `rgb(${CHEM_COLORS.fecl3Pale.r},${CHEM_COLORS.fecl3Pale.g},${CHEM_COLORS.fecl3Pale.b})`, 'FeCl3 0.1M', { disabled: state.s4.fecl3Added });
+      }
+
+      // Đang rót CH3NH2
+      if (state.s4.pourActive === 'ch3nh2b') {
+        drawBottle(state.s4.pourX, state.s4.pourY, state.s4.pourColor, 'CH3NH2 0.1M', { rotate: state.s4.pourRot, fillLevel: state.s4.pourBottleLevel });
+        if (state.s4.pourStreamOn) {
+          const pivotX = state.s4.pourX, pivotY = state.s4.pourY + 66 * 0.15;
+          const spoutX = pivotX + 19 * Math.sin(state.s4.pourRot), spoutY = pivotY - 19 * Math.cos(state.s4.pourRot);
+          const liquidTopY = tubeBottomY - tubeH * (state.s4.fecl3Level + state.s4.level2);
+          drawPourStream(spoutX, spoutY, S4_CX, liquidTopY, state.s4.pourColor);
+          if (Math.random() < 0.4) spawnParticles(S4_CX, liquidTopY, 'jade', 2, { limitXMin: S4_CX - 32, limitXMax: S4_CX + 32, liquidTopY: liquidTopY });
+        }
+      } else if (state.activeDrag && state.activeDrag.id === 'ch3nh2b') {
+        drawBottle(state.activeDrag.x, state.activeDrag.y - 30, '#e0f2fe', 'CH3NH2', { rotate: 0.5 });
+      } else {
+        drawBottle(S4_AX, S4_AY, '#e0f2fe', 'CH3NH2 0.1M', { disabled: !state.s4.fecl3Added || state.s4.amineAdded });
+      }
+    }
+    function onStage4Drop(id, dropPos) {
+      if (id === 'fecl3') startStage4FeCl3(dropPos);
+      else if (id === 'ch3nh2b') startStage4Amine(dropPos);
+    }
+    function startStage4FeCl3(dropPos) {
+      if (state.s4.fecl3Added || state.isAnimating) return;
+      state.s4.fecl3Added = true;
+      const fecl3Color = `rgb(${CHEM_COLORS.fecl3Pale.r},${CHEM_COLORS.fecl3Pale.g},${CHEM_COLORS.fecl3Pale.b})`;
+      const sx = dropPos ? dropPos.x : S4_FX, sy = dropPos ? dropPos.y : S4_FY;
+      runPourSequence(state.s4, S4_CX, 'fecl3', sx, sy, S4_FX, S4_FY, +1, fecl3Color, 'fecl3Level', 0.25, () => {
+        state.isAnimating = false;
+      });
+    }
+    function updateStage4Cloud() {
+      const tubeH = 190;
+      const bottomY = tubeH / 2;
+      const fillFrac = state.s4.fecl3Level + state.s4.level2;
+      const liquidTop = bottomY - tubeH * fillFrac;
+
+      // Chiều cao lớp kết tủa đặc ở đáy dâng lên
+      const maxPrecipHeight = (bottomY - liquidTop) * 0.38;
+      const currentPrecipHeight = maxPrecipHeight * state.s4.settle;
+      const precipTopY = bottomY - currentPrecipHeight;
+
+      // Ranh giới dung dịch trong suốt phía trên đi xuống
+      const settleBoundaryY = liquidTop + (precipTopY - liquidTop) * state.s4.settle;
+
+      // Sinh hạt kết tủa mới từ điểm tiếp xúc trong lúc đang rót (tốc độ rơi cực kỳ chậm rãi)
+      if (state.s4.isPouringAmine && Math.random() < 0.6) {
+        state.s4.cloud.push({
+          dx: (Math.random() - 0.5) * 16,
+          dy: liquidTop + 1,
+          r: 1.5 + Math.random() * 2.2,
+          alpha: 0.1,
+          targetAlpha: 0.55 + Math.random() * 0.35,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: 0.2 + Math.random() * 0.25,
+          phase: Math.random() * Math.PI * 2,
+          settled: false
+        });
+      }
+
+      state.s4.cloud.forEach(p => {
+        const colorPrecip = CHEM_COLORS.precipRed;
+        p.color = `rgb(${colorPrecip.r},${colorPrecip.g},${colorPrecip.b})`;
+
+        if (!p.settled) {
+          p.dy += p.vy;
+          p.dx += p.vx + Math.sin(time * 0.025 + p.phase) * 0.06;
+          p.dx = clamp(p.dx, -28, 28);
+
+          if (p.alpha < p.targetAlpha) {
+            p.alpha = Math.min(p.targetAlpha, p.alpha + 0.1);
+          }
+
+          // Ở pha lắng, hạt nằm ở lớp trong suốt phía trên thì mờ đi
+          if (state.s4.settle > 0.01 && p.dy < settleBoundaryY) {
+            p.alpha = p.targetAlpha * (1 - state.s4.settle);
+          }
+
+          // Chạm bề mặt lớp kết tủa đáy dâng lên
+          if (p.dy >= precipTopY - 2) {
+            p.settled = true;
+            p.depth = Math.random() * 6; // Độ sâu cố định so với đỉnh kết tủa
+            p.dy = precipTopY + p.depth;
+            p.vx = 0;
+            p.vy = 0;
+          }
+        } else {
+          // Hạt đã lắng: di chuyển đi lên tương ứng cùng với sự dâng lên của kết tủa đặc
+          p.dy = precipTopY + p.depth;
+
+          if (p.depth > 6) {
+            p.alpha = Math.max(0, p.alpha - 0.015);
+          } else {
+            // Giữ vân lổn nhổn trên bề mặt kết tủa đáy
+            p.alpha = 0.5 * (1 - state.s4.settle * 0.4);
+          }
+        }
+      });
+
+      state.s4.cloud = state.s4.cloud.filter(p => p.alpha > 0.01 && p.dy < bottomY);
+    }
+    function startStage4Amine(dropPos) {
+      if (!state.s4.fecl3Added || state.s4.amineAdded || state.isAnimating) return;
+      state.s4.amineAdded = true;
+      const sx = dropPos ? dropPos.x : S4_AX, sy = dropPos ? dropPos.y : S4_AY;
+      runPourSequence(state.s4, S4_CX, 'ch3nh2b', sx, sy, S4_AX, S4_AY, -1, '#e0f2fe', 'level2', 0.35,
+        // onDone (đã rót xong): bắt đầu pha LẮNG
+        () => {
+          state.s4.isPouringAmine = false;
+          state.isAnimating = true;
+          // Tăng thời gian lắng lên 9000ms để hiệu ứng xảy ra chậm rãi, rõ ràng đúng kịch bản
+          tween(state.s4, 'settle', 1, 9000, easeInOut, () => {
+            state.s4.labelShown = true;
+            state.isAnimating = false;
+            setRobotSpeech(TXT.s4_after, 'idle');
+            document.getElementById('interactionStatus').innerText = 'Trả lời câu hỏi về kết tủa.';
+            askStage4Q();
+          });
+        },
+        // onStreamStart (ngay khi dung dịch tiếp xúc): bắt đầu vẩn đục
+        () => {
+          state.s4.isPouringAmine = true;
+          const tubeBottomYNow = S4_CY + 190 / 2;
+          state.s4.contactLocalDy = (tubeBottomYNow - 190 * state.s4.fecl3Level) - S4_CY;
+
+          // Tạo một số hạt khởi đầu ngay tại mặt thoáng, rơi cực kỳ chậm rãi
+          for (let i = 0; i < 8; i++) {
+            state.s4.cloud.push({
+              dx: (Math.random() - 0.5) * 15,
+              dy: state.s4.contactLocalDy + Math.random() * 6,
+              r: 1.5 + Math.random() * 2.2,
+              alpha: 0.1,
+              targetAlpha: 0.55 + Math.random() * 0.35,
+              vx: (Math.random() - 0.5) * 0.2,
+              vy: 0.2 + Math.random() * 0.25,
+              phase: Math.random() * Math.PI * 2,
+              settled: false
+            });
+          }
+
+          // Cho vẩn đục loang tròn từ từ theo dòng chảy (2800ms)
+          tween(state.s4, 'turbidity', 1, 2800, easeInOut, null);
+        }
+      );
+    }
+    function askStage4Q() {
+      showGatedQuiz(
+        'Kết tủa nâu đỏ xuất hiện trong ống nghiệm là chất nào?',
+        [{ key: 'A', text: 'Fe (sắt nguyên chất)' }, { key: 'B', text: 'FeCl₃ (không tan)' }, { key: 'C', text: 'Fe(OH)₃' }],
+        'C', TXT.s4_correct, TXT.s4_wrong,
+        () => {
+          state.s4.q1done = true; state.s4.done = true;
+          hideQuiz();
+          showAhaMoment(
+            'Methylamine tạo môi trường base trong dung dịch.<br>Ion Fe³⁺ phản ứng với OH⁻ tạo kết tủa Fe(OH)₃ màu nâu đỏ.' +
+            eqBlock(['FeCl₃ + 3CH₃NH₂ + 3H₂O → Fe(OH)₃↓ + 3CH₃NH₃Cl']) +
+            nextHint('Đến đây methylamine mới chỉ thể hiện tính base. Liệu methylamine còn có tính chất hóa học đặc trưng nào khác không?')
+          );
+          updateNextButtonState();
+        }
+      );
+    }
+
+    // ======================================================
+    // STAGE 5 — METHYLAMINE + CuSO4 (TẠO PHỨC)
+    // ======================================================
+    const S5_CX = 380, S5_CY = 250;
+    const S5_CUX = 110, S5_CUY = 60;
+    function initStage5() {
+      Object.assign(state.s5, {
+        cuso4Added: false, level: 0, drops: 0, turbidity: 0, turbidityTarget: 0, colorT: 0, colorTTarget: 0,
+        cloud: [], shakeUntil: 0, midShown: false, finalShown: false, labelPrecipShown: false, labelComplexShown: false,
+        done: false, q1done: false, q2done: false,
+        pourActive: null, pourX: 0, pourY: 0, pourRot: 0, pourBottleLevel: 1, pourStreamOn: false, pourColor: '',
+        fallingDrops: [], dropsReached: 0
+      });
+      hideAhaMoment(); hideQuiz(); clearStageAction();
+      const slider = document.getElementById('s5Slider');
+      slider.value = 0; slider.disabled = true;
+      document.getElementById('s5Count').innerText = '0';
+      showS5Slider();
+      setRobotSpeech(TXT.s5_before, 'idle');
+      document.getElementById('interactionStatus').innerText = 'Kéo lọ CuSO₄ vào ống nghiệm, sau đó dùng thanh trượt.';
+      initNextButton();
+      updateStepProgress();
+    }
+    function showS5Slider() { document.getElementById('s5SliderRow').style.display = 'flex'; }
+    function hideS5Slider() { document.getElementById('s5SliderRow').style.display = 'none'; }
+
+    function updateStage5Cloud() {
+      const tubeH = 190;
+      const bottomY = tubeH / 2;
+      const liquidTop = bottomY - tubeH * state.s5.level;
+      const liquidH = tubeH * state.s5.level;
+      const spreadH = liquidH * state.s5.turbidity;
+
+      state.s5.cloud.forEach(p => {
+        const colorPrecip = CHEM_COLORS.cuPrecip;
+        p.color = `rgb(${colorPrecip.r},${colorPrecip.g},${colorPrecip.b})`;
+
+        p.dy += p.vy;
+        p.dx += p.vx + Math.sin(time * 0.05 + p.phase) * 0.1;
+        p.dx = clamp(p.dx, -28, 28);
+
+        // Tăng alpha dần lúc mới xuất hiện
+        if (p.alpha < p.targetAlpha && !p.dissolving) {
+          p.alpha = Math.min(p.targetAlpha, p.alpha + 0.08);
+        }
+
+        // Hạt chỉ hiển thị ở vùng đã loang đục
+        if (p.dy > liquidTop + spreadH) {
+          p.alpha = Math.max(0, p.alpha - 0.08);
+        }
+
+        // Nếu dropsReached > 5 (kết tủa tan dần)
+        if (state.s5.dropsReached > 5) {
+          p.dissolving = true;
+          p.alpha = Math.max(0, p.alpha - 0.025); // tan rã dần
+        }
+
+        // Chạm đáy
+        if (p.dy >= bottomY - 10) {
+          p.vy = 0; p.vx = 0;
+          p.alpha = Math.max(0, p.alpha - 0.015);
+        }
+      });
+
+      state.s5.cloud = state.s5.cloud.filter(p => p.alpha > 0.01 && p.dy < bottomY);
+    }
+
+    function drawStage5() {
+      const now = performance.now();
+      const shakeAngle = now < state.s5.shakeUntil ? Math.sin(now * 0.05) * 0.045 : 0;
+      state.s5.turbidity = lerp(state.s5.turbidity, state.s5.turbidityTarget, 0.08);
+      state.s5.colorT = lerp(state.s5.colorT, state.s5.colorTTarget, 0.05);
+
+      let fillColor = `rgb(${CHEM_COLORS.cuPale.r},${CHEM_COLORS.cuPale.g},${CHEM_COLORS.cuPale.b})`;
+      if (state.s5.cuso4Added) fillColor = lerpColor(CHEM_COLORS.cuPale, CHEM_COLORS.cuDeep, state.s5.colorT);
+
+      updateStage5Cloud();
+
+      drawTestTube(S5_CX, S5_CY, 74, 190, state.s5.level, {
+        fillColor: fillColor,
+        cloud: state.s5.cloud,
+        shakeAngle: shakeAngle,
+        label: state.s5.labelComplexShown ? 'Phức [Cu(CH₃NH₂)₄]²⁺ - xanh lam đậm' : (state.s5.labelPrecipShown ? 'Kết tủa xanh nhạt = Cu(OH)₂' : 'Ống nghiệm')
+      });
+
+      // Vẩn đục Cu(OH)2 phủ lên, loang dần từ trên xuống
+      if (state.s5.turbidity > 0.02) {
+        ctx.save();
+        ctx.translate(S5_CX, S5_CY);
+        if (shakeAngle) ctx.rotate(shakeAngle);
+
+        const liquidTop = 95 - 190 * state.s5.level;
+        const liquidH = 190 * state.s5.level;
+        const spreadH = liquidH * state.s5.turbidity;
+
+        ctx.save();
+        roundRect(ctx, -32, liquidTop, 64, liquidH, 6);
+        ctx.clip();
+
+        const grad = ctx.createLinearGradient(0, liquidTop, 0, liquidTop + spreadH);
+        const colorPrecip = `rgba(${CHEM_COLORS.cuPrecip.r},${CHEM_COLORS.cuPrecip.g},${CHEM_COLORS.cuPrecip.b},${(state.s5.turbidity * 0.75).toFixed(2)})`;
+        grad.addColorStop(0, colorPrecip);
+        grad.addColorStop(clamp((spreadH - 20) / spreadH, 0, 1), colorPrecip);
+        grad.addColorStop(1, 'rgba(195, 225, 240, 0)');
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(-32, liquidTop, 64, spreadH + 5);
+        ctx.restore();
+        ctx.restore();
+      }
+
+      // Cập nhật và vẽ các giọt CH3NH2 trong suốt rơi từ trên xuống
+      const liquidTopY = S5_CY + 95 - 190 * state.s5.level;
+      for (let i = state.s5.fallingDrops.length - 1; i >= 0; i--) {
+        const drop = state.s5.fallingDrops[i];
+        drop.y += drop.speed;
+
+        ctx.save();
+        ctx.fillStyle = 'rgba(224, 242, 254, 0.65)';
+        ctx.strokeStyle = 'rgba(14, 165, 233, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.ellipse(S5_CX, drop.y, 3.2, 5, 0, 0, Math.PI * 2);
+        ctx.fill(); ctx.stroke();
+        ctx.restore();
+
+        if (drop.y >= drop.targetY) {
+          // Tạo giọt bắn cản lại trong lòng ống nghiệm
+          spawnParticles(S5_CX, drop.targetY, 'jade', 3, { limitXMin: S5_CX - 32, limitXMax: S5_CX + 32, liquidTopY: drop.targetY });
+
+          const dropsCount = drop.dropIdx;
+          state.s5.dropsReached = Math.max(state.s5.dropsReached, dropsCount);
+          updateStage5Phenomenon(); // Cập nhật phản ứng loang màu ngay lập tức!
+
+          if (dropsCount <= 5) {
+            const seedCount = 3 + Math.floor(Math.random() * 3);
+            for (let k = 0; k < seedCount; k++) {
+              state.s5.cloud.push({
+                dx: (Math.random() - 0.5) * 16,
+                dy: drop.targetY + 1,
+                r: 1.5 + Math.random() * 2.2,
+                alpha: 0.1,
+                targetAlpha: 0.55 + Math.random() * 0.35,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: 0.35 + Math.random() * 0.45,
+                phase: Math.random() * Math.PI * 2,
+                dissolving: false
+              });
+            }
+          }
+          state.s5.fallingDrops.splice(i, 1);
+        }
+      }
+
+      const cx2 = 650, cy2 = 60;
+      dragSources.push({ id: 'cuso4', ...bottleRect(S5_CUX, S5_CUY), enabled: !state.s5.cuso4Added && !state.isAnimating });
+      dropZones.push({ id: 'tube5', x: S5_CX - 45, y: S5_CY - 100, w: 90, h: 200, accepts: ['cuso4'], onDrop: (id, dropPos) => startStage5CuSO4(dropPos) });
+
+      const cuso4Color = `rgb(${CHEM_COLORS.cuPale.r},${CHEM_COLORS.cuPale.g},${CHEM_COLORS.cuPale.b})`;
+      if (state.s5.pourActive === 'cuso4') {
+        drawBottle(state.s5.pourX, state.s5.pourY, state.s5.pourColor, 'CuSO4 0.1M', { rotate: state.s5.pourRot, fillLevel: state.s5.pourBottleLevel });
+        if (state.s5.pourStreamOn) {
+          const pivotX = state.s5.pourX, pivotY = state.s5.pourY + 66 * 0.15;
+          const spoutX = pivotX + 19 * Math.sin(state.s5.pourRot), spoutY = pivotY - 19 * Math.cos(state.s5.pourRot);
+          const streamLiquidTopY = S5_CY + 95 - 190 * state.s5.level;
+          drawPourStream(spoutX, spoutY, S5_CX, streamLiquidTopY, state.s5.pourColor);
+          if (Math.random() < 0.4) spawnParticles(S5_CX, streamLiquidTopY, 'blue', 2, { limitXMin: S5_CX - 32, limitXMax: S5_CX + 32, liquidTopY: streamLiquidTopY });
+        }
+      } else if (state.activeDrag && state.activeDrag.id === 'cuso4') {
+        drawBottle(state.activeDrag.x, state.activeDrag.y - 30, cuso4Color, 'CuSO4', { rotate: 0.5 });
+      } else {
+        drawBottle(S5_CUX, S5_CUY, cuso4Color, 'CuSO4 0.1M', { disabled: state.s5.cuso4Added });
+      }
+      drawBottle(cx2, cy2, '#e0f2fe', 'CH3NH2 0.1M', { disabled: !state.s5.cuso4Added });
+    }
+    function startStage5CuSO4(dropPos) {
+      if (state.s5.cuso4Added || state.isAnimating) return;
+      state.s5.cuso4Added = true;
+      const cuso4Color = `rgb(${CHEM_COLORS.cuPale.r},${CHEM_COLORS.cuPale.g},${CHEM_COLORS.cuPale.b})`;
+      const sx = dropPos ? dropPos.x : S5_CUX, sy = dropPos ? dropPos.y : S5_CUY;
+      runPourSequence(state.s5, S5_CX, 'cuso4', sx, sy, S5_CUX, S5_CUY, +1, cuso4Color, 'level', 0.34, () => {
+        state.isAnimating = false;
+        document.getElementById('s5Slider').disabled = false;
+      });
+    }
+    function onS5SliderInput(e) {
+      if (!state.s5.cuso4Added) { e.target.value = 0; return; }
+      const v = clamp(parseInt(e.target.value, 10) || 0, 0, 20);
+      if (v === state.s5.drops) return;
+      const increasing = v > state.s5.drops;
+      const prevDrops = state.s5.drops;
+      state.s5.drops = v;
+      document.getElementById('s5Count').innerText = String(v);
+
+      if (increasing) {
+        const diff = v - prevDrops;
+        const liquidTopY = S5_CY + 95 - 190 * state.s5.level;
+        for (let k = 0; k < diff; k++) {
+          setTimeout(() => {
+            state.s5.fallingDrops.push({
+              x: S5_CX,
+              y: S5_CY - 120, // Phía trên miệng ống nghiệm
+              targetY: liquidTopY,
+              speed: 6.5,
+              dropIdx: prevDrops + k + 1
+            });
+          }, k * 160);
+        }
+      } else {
+        // Kéo ngược lùi lại
+        state.s5.dropsReached = v;
+        updateStage5Phenomenon();
+      }
+    }
+    function updateStage5Phenomenon() {
+      const d = state.s5.dropsReached;
+      const precipRaw = clamp(d / 5, 0, 1);
+      const dissolveRaw = d <= 5 ? 0 : clamp((d - 5) / 13, 0, 1);
+      state.s5.turbidityTarget = precipRaw * (1 - dissolveRaw);
+      state.s5.colorTTarget = dissolveRaw;
+      if (d > 5 && d < 20) state.s5.shakeUntil = performance.now() + 500;
+
+      if (!state.s5.labelPrecipShown && d >= 5) state.s5.labelPrecipShown = true;
+      if (!state.s5.midShown && d >= 5) {
+        state.s5.midShown = true;
+        setRobotSpeech(TXT.s5_mid, 'idle');
+      }
+      if (!state.s5.labelComplexShown && d >= 15) {
+        state.s5.labelComplexShown = true;
+        setRobotSpeech(TXT.s5_final, 'idle');
+        document.getElementById('interactionStatus').innerText = 'Trả lời các câu hỏi trắc nghiệm.';
+        askStage5Q1();
+      }
+    }
+    function askStage5Q1() {
+      showGatedQuiz(
+        'Hiện tượng nào chứng tỏ đã xuất hiện phản ứng mới (khác với phản ứng tạo kết tủa ban đầu)?',
+        [{ key: 'A', text: 'Xuất hiện kết tủa xanh nhạt.' }, { key: 'B', text: 'Kết tủa tan tạo dung dịch xanh lam đậm trong suốt.' }, { key: 'C', text: 'Dung dịch sôi lên.' }],
+        'B', TXT.s5_toQ2, TXT.s5_wrong,
+        () => { state.s5.q1done = true; askStage5Q2(); }
+      );
+    }
+    function askStage5Q2() {
+      showGatedQuiz(
+        'Ethylamine (CH₃CH₂NH₂) cũng là alkylamine, có nhóm –NH₂ và gốc alkyl. Ethylamine có tạo được dung dịch phức màu xanh lam với Cu(OH)₂ không?',
+        [{ key: 'A', text: 'Có.' }, { key: 'B', text: 'Không.' }],
+        'A', TXT.s5_correct, TXT.s5_wrong,
+        () => {
+          state.s5.q2done = true; state.s5.done = true;
+          hideQuiz();
+          showAhaMoment(
+            'Methylamine có hai giai đoạn phản ứng với CuSO₄:<br>Giai đoạn 1 (ít CH₃NH₂): tạo kết tủa Cu(OH)₂ màu xanh nhạt.<br>Giai đoạn 2 (dư CH₃NH₂): kết tủa tan, tạo phức [Cu(CH₃NH₂)₄]²⁺ màu xanh lam đậm.<br>Đây là tính chất đặc trưng của alkylamine — không phải của mọi amine.' +
+            eqBlock(['CuSO₄ + 2CH₃NH₂ + 2H₂O → Cu(OH)₂↓ + 2CH₃NH₃⁺ + SO₄²⁻'], 'Giai đoạn 1') +
+            eqBlock(['Cu(OH)₂ + 4CH₃NH₂ → [Cu(CH₃NH₂)₄](OH)₂ (xanh lam đậm)'], 'Giai đoạn 2')
+          );
+          updateNextButtonState();
+        }
+      );
+    }
+    document.getElementById('s5Slider').addEventListener('input', onS5SliderInput);
+
+    // ======================================================
+    // QUIZ ENGINE (trắc nghiệm đơn — đủ dùng cho mọi câu hỏi trong kịch bản)
+    // ======================================================
+    let hideQuizTimeoutId = null;
+    function showGatedQuiz(question, options, correctKey, correctMsg, wrongMsg, onCorrect) {
+      const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+      if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+      const container = document.getElementById('quizContainer');
+      if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+      const qText = document.getElementById('quizQuestionText');
+      if (qText) qText.innerHTML = question;
+      const extra = document.getElementById('quizExtra');
+      if (extra) extra.innerHTML = '';
+
+      const list = document.getElementById('quizOptionsList');
+      if (list) {
+        list.innerHTML = '';
+        options.forEach(opt => {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.className = 'quiz-option-btn';
+          btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="icon_${opt.key}"></span>`;
+          btn.onclick = () => {
+            const btns = document.querySelectorAll('#quizOptionsList .quiz-option-btn');
+            if (opt.key === correctKey) {
+              btns.forEach(b => b.disabled = true);
+              btn.classList.add('opt-correct');
+              btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+              playSuccessFlash();
+              setRobotSpeech(correctMsg, 'correct');
+              lmsRecordAnswer(_qid, question, options, opt.key, true);
+              onCorrect();
+            } else {
+              btn.classList.add('opt-wrong');
+              btn.disabled = true;
+              btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+              btns.forEach(b => { if (!b.classList.contains('opt-wrong')) b.disabled = false; });
+              setRobotSpeech(wrongMsg, 'wrong');
+              lmsRecordAnswer(_qid, question, options, opt.key, false);
+            }
+          };
+          li.appendChild(btn);
+          list.appendChild(li);
+        });
+      }
+    }
+    function hideQuiz() {
+      const container = document.getElementById('quizContainer');
+      if (container) {
+        container.classList.add('fade-out');
+        if (hideQuizTimeoutId) clearTimeout(hideQuizTimeoutId);
+        hideQuizTimeoutId = setTimeout(() => { container.style.display = 'none'; hideQuizTimeoutId = null; }, 200);
+      }
+    }
+
+    // ======================================================
+    // ROBOT / AHA HELPERS
+    // ======================================================
+    let ahaVisible = false;
+    function setRobotSpeech(text, type) {
+      type = type || 'idle';
+      const guideBar = document.getElementById('aiGuideBar');
+      if (guideBar) guideBar.className = `ai-guide card state-${type}`;
+      const el = document.getElementById('aiText');
+      if (el) { el.classList.remove('fade-in'); void el.offsetWidth; el.innerHTML = text; el.classList.add('fade-in'); }
+    }
+    function showAhaMoment(text) {
+      const content = document.getElementById('ahaContent');
+      if (content) content.innerHTML = text;
+      const box = document.getElementById('ahaBox');
+      if (box) box.style.display = 'block';
+      ahaVisible = true;
+    }
+    function hideAhaMoment() {
+      const box = document.getElementById('ahaBox');
+      if (box) box.style.display = 'none';
+      ahaVisible = false;
+    }
+
+    // ======================================================
+    // STEPPER / NAVIGATION
+    // ======================================================
+    function setStageAction(label, iconClass, onclick, disabled) {
+      const container = document.getElementById('actionBtnContainer');
+      let btn = document.getElementById('stageActionBtn');
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.id = 'stageActionBtn';
+        container.insertBefore(btn, container.firstChild);
+      }
+      btn.innerHTML = `<i class="ti ${iconClass}"></i> ${label}`;
+      btn.disabled = !!disabled;
+      btn.onclick = onclick || null;
+      btn.style.display = 'inline-flex';
+    }
+    function clearStageAction() {
+      const btn = document.getElementById('stageActionBtn');
+      if (btn) btn.style.display = 'none';
+    }
+
+    function initNextButton() {
+      const container = document.getElementById('actionBtnContainer');
+      let btn = document.getElementById('nextBtn');
+      if (!btn) {
+        btn = document.createElement('button');
+        btn.className = 'btn-primary';
+        btn.id = 'nextBtn';
+        btn.onclick = handleNextAction;
+        container.appendChild(btn);
+      }
+      btn.innerHTML = state.stage === STAGE_COUNT ? 'Hoàn thành <i class="ti ti-confetti"></i>' : 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+      btn.disabled = true;
+    }
+
+    function isStageDone(s) {
+      if (s === 1) return state.s1.done;
+      if (s === 2) return state.s2.done;
+      if (s === 3) return state.s3.done;
+      if (s === 4) return state.s4.done;
+      if (s === 5) return state.s5.done;
+      return false;
+    }
+
+    function updateNextButtonState() {
+      const nextBtn = document.getElementById('nextBtn');
+      if (!nextBtn) return;
+      nextBtn.disabled = !isStageDone(state.stage);
+      nextBtn.innerHTML = state.stage === STAGE_COUNT ? 'Hoàn thành <i class="ti ti-confetti"></i>' : 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+    }
+
+    function handleNextAction() {
+      if (state.stage === STAGE_COUNT) { if (isStageDone(STAGE_COUNT)) showCompletionModal(); return; }
+      if (state.stage < STAGE_COUNT) jumpToStage(state.stage + 1);
+    }
+
+    function showCompletionModal() {
+      const modal = document.getElementById('completionModal');
+      modal.style.display = 'flex';
+      spawnParticles(W / 2, H / 2, 'jade', 20);
+      requestAnimationFrame(() => modal.classList.add('show'));
+      if (!window._lmsCompletedOnce) {
+        window._lmsCompletedOnce = true;
+        const items = Object.keys(lmsAnswers).map(qid => Object.assign({ id: qid }, lmsAnswers[qid]));
+        const score = items.filter(it => it.correct).length;
+        LMS().complete({ summary: 'Hoàn thành module Tính Chất Hóa Học Của Amine.', score, max: items.length, items });
+      }
+    }
+    function hideCompletionModal() {
+      const modal = document.getElementById('completionModal');
+      modal.classList.remove('show');
+      setTimeout(() => { modal.style.display = 'none'; }, 250);
+    }
+    document.getElementById('completionModal').addEventListener('click', (e) => { if (e.target.id === 'completionModal') hideCompletionModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('completionModal').classList.contains('show')) hideCompletionModal(); });
+
+    function resetCurrentStage() { if (state.isAnimating) return; initStageByIndex(state.stage); }
+    function initStageByIndex(s) {
+      state.activeDrag = null;
+      clearStageAction();
+      if (s === 1) initStage1();
+      else if (s === 2) initStage2();
+      else if (s === 3) initStage3();
+      else if (s === 4) initStage4();
+      else if (s === 5) initStage5();
+    }
+    function updateStepProgress() {
+      const dots = document.getElementById('stepperDots');
+      dots.innerHTML = '';
+      for (let i = 1; i <= STAGE_COUNT; i++) {
+        const dot = document.createElement('div');
+        dot.className = 'step-dot';
+        if (i === state.stage) dot.classList.add('active');
+        else if (i < state.stage) dot.classList.add('done');
+        dot.innerHTML = i < state.stage ? '<i class="ti ti-check"></i>' : String(i);
+        dot.onclick = () => jumpToStage(i);
+        dots.appendChild(dot);
+      }
+      document.getElementById('prevBtn').disabled = (state.stage === 1 || state.isAnimating);
+      document.getElementById('resetBtn').disabled = state.isAnimating;
+      updateNextButtonState();
+    }
+    function goToPrevStage() { if (state.isAnimating) return; if (state.stage > 1) jumpToStage(state.stage - 1); }
+    function jumpToStage(s) { if (state.isAnimating) return; state.stage = s; initStageByIndex(s); lmsReportState('jumpToStage=' + s); }
+
+    // ======================================================
+    // SIDEBAR TRÁI — đồng bộ "Công cụ mô phỏng" + "Cách làm"
+    // ======================================================
+    function computeMicroPhase() {
+      if (state.isAnimating) return 1;
+      if (ahaVisible) return 3;
+      const quizContainer = document.getElementById('quizContainer');
+      const quizOpen = quizContainer && quizContainer.style.display === 'flex';
+      if (quizOpen) return 2;
+      if (isStageDone(state.stage)) return 4;
+      return 0;
+    }
+    function syncToolsAndSteps() {
+      const phase = computeMicroPhase();
+      document.querySelectorAll('#stepList .step-row').forEach(row => {
+        const idx = Number(row.dataset.step);
+        row.classList.toggle('is-active', idx === phase);
+        row.classList.toggle('is-done', idx < phase);
+        const numEl = row.querySelector('.step-num');
+        numEl.innerHTML = idx < phase ? '<i class="ti ti-check"></i>' : String(idx + 1);
+      });
+      const active = { ph: false, tube: false, litmus: false, rod: false, dropper: false };
+      if (state.stage === 1 || state.stage === 2) { active.ph = true; active.dropper = true; }
+      else if (state.stage === 3) { active.litmus = true; active.rod = true; active.tube = true; active.dropper = true; }
+      else if (state.stage === 4 || state.stage === 5) { active.tube = true; active.dropper = true; }
+      document.querySelectorAll('.tool-chip').forEach(chip => {
+        chip.classList.toggle('active', !!active[chip.dataset.tool]);
+      });
+    }
+
+    // ======================================================
+    // BẢNG QUAN SÁT — điền dần khi từng thí nghiệm được khám phá
+    // ======================================================
+    const OBSERVE_ROWS = [
+      { chem: 'CH₃NH₂ + giấy pH', visible: () => state.s1.dropped, phenomenon: () => state.s1.done ? 'Giấy chuyển vàng → xanh lam' : 'Đang thử nghiệm...', conclusion: () => state.s1.done ? 'Có tính base' : '' },
+      { chem: 'Aniline + giấy pH', visible: () => state.s2.dropped, phenomenon: () => state.s2.done ? 'Giấy không đổi màu' : 'Đang thử nghiệm...', conclusion: () => state.s2.done ? 'Base rất yếu' : '' },
+      { chem: 'CH₃NH₂ + HCl', visible: () => state.s3.leftDone, phenomenon: () => 'Khói trắng CH₃NH₃Cl', conclusion: () => state.s3.done ? 'Có tính base' : '' },
+      { chem: 'C₆H₅NH₂ + HCl', visible: () => state.s3.rightDone, phenomenon: () => 'Tan hoàn toàn, đồng nhất', conclusion: () => state.s3.done ? 'Vẫn có tính base (yếu hơn)' : '' },
+      { chem: 'CH₃NH₂ + FeCl₃', visible: () => state.s4.labelShown, phenomenon: () => 'Kết tủa nâu đỏ Fe(OH)₃', conclusion: () => state.s4.done ? 'Base đủ mạnh kết tủa Fe³⁺' : '' },
+      { chem: 'CH₃NH₂ (thiếu) + CuSO₄', visible: () => state.s5.labelPrecipShown, phenomenon: () => 'Kết tủa xanh nhạt Cu(OH)₂', conclusion: () => 'Phản ứng acid – base' },
+      { chem: 'CH₃NH₂ (dư) + CuSO₄', visible: () => state.s5.labelComplexShown, phenomenon: () => 'Tan hết, dung dịch xanh lam đậm', conclusion: () => state.s5.done ? 'Tạo phức [Cu(CH₃NH₂)₄]²⁺' : '' }
+    ];
+    const observePrevTrend = {};
+    function refreshObserveTable() {
+      const tbody = document.getElementById('observeTableBody');
+      const rows = OBSERVE_ROWS.filter(r => r.visible());
+      if (!rows.length) { tbody.innerHTML = '<tr><td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td></tr>'; return; }
+      tbody.innerHTML = '';
+      rows.forEach(r => {
+        const trend = r.conclusion() || '—';
+        const flash = observePrevTrend[r.chem] !== trend && trend !== '—';
+        observePrevTrend[r.chem] = trend;
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${r.chem}</td><td>${r.phenomenon()}</td><td class="${trend === '—' ? 'muted' : ''}${flash ? ' flash' : ''}">${trend}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    setInterval(() => {
+      updateNextButtonState();
+      refreshObserveTable();
+      syncToolsAndSteps();
+    }, 300);
+
+    // ======================================================
+    // MAIN LOOP
+    // ======================================================
+    function loop() {
+      resizeCanvas();
+      time += 0.045;
+      updateTweens(16.7);
+      canvasClickTargets = [];
+      dragSources = [];
+      dropZones = [];
+      ctx.clearRect(0, 0, canvasW, canvasH);
+      drawGrid();
+
+      const scaleX = canvasW / W;
+      const scaleY = canvasH / H;
+      const fitScale = Math.min(scaleX, scaleY);
+      const offsetX = (canvasW - W * fitScale) / 2;
+      const offsetY = (canvasH - H * fitScale) / 2;
+
+      if (flashTimer > 0) {
+        ctx.save();
+        ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+        ctx.fillRect(0, 0, canvasW, canvasH);
+        ctx.restore();
+        flashTimer--;
+      }
+
+      ctx.save();
+      ctx.translate(offsetX, offsetY);
+      ctx.scale(fitScale, fitScale);
+
+      switch (state.stage) {
+        case 1: drawStage1(); break;
+        case 2: drawStage2(); break;
+        case 3: drawStage3(); break;
+        case 4: drawStage4(); break;
+        case 5: drawStage5(); break;
+      }
+
+      updateRings();
+      rings.forEach(r => {
+        ctx.save();
+        ctx.globalAlpha = clamp(r.alpha, 0, 1);
+        ctx.strokeStyle = `rgb(${r.rgb.r},${r.rgb.g},${r.rgb.b})`;
+        ctx.lineWidth = clamp(3 - r.r / 14, 0.5, 3);
+        ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke();
+        ctx.restore();
+      });
+
+      updateParticles();
+      particles.forEach(p => {
+        ctx.save();
+        ctx.fillStyle = p.color.replace('opacity', p.life);
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+        ctx.restore();
+      });
+
+      ctx.restore();
+
+      requestAnimationFrame(loop);
+    }
+
+    // ======================================================
+    // KHỞI CHẠY
+    // ======================================================
+    initStage1();
+    requestAnimationFrame(loop);
+  </script>
+</body>
+
+</html>

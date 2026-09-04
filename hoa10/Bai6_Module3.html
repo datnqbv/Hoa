@@ -1,0 +1,3815 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Độ Âm Điện</title>
+    <script type="application/json" id="athena-context">
+    {
+      "title": "Độ Âm Điện",
+      "subject": "Hóa học",
+      "grade": "10",
+      "objectives": [
+        "Giải thích khái niệm độ âm điện — khả năng hút cặp electron liên kết của một nguyên tử trong phân tử.",
+        "Vận dụng quy luật biến đổi độ âm điện theo chu kì và theo nhóm A để so sánh độ âm điện giữa các nguyên tố."
+      ],
+      "structure": [
+        { "id": "s1" }, { "id": "s2" }, { "id": "s3" }, { "id": "s4" }
+      ],
+      "athenaGuidance": "Mô phỏng 4 giai đoạn dạy khái niệm và quy luật biến đổi độ âm điện. Có nhiều câu hỏi trắc nghiệm, đúng/sai và chọn nhiều đáp án rải trong từng giai đoạn (không tiết lộ đáp án đúng trước, chỉ gợi ý quan sát lại mô hình/animation): Giai đoạn 1 cho quan sát 3 phân tử HF, HCl, HBr rồi hỏi điều gì tạo ra sự khác biệt vị trí cặp electron liên kết (khái niệm độ âm điện). Giai đoạn 2 so sánh C, N, O, F trong chu kì 2 (nhiều câu hỏi liên tiếp gồm cả bộ nhận định Đúng/Sai). Giai đoạn 3 so sánh F, Cl, Br, I trong nhóm VIIA (tương tự, có dự đoán trước khi quan sát). Giai đoạn 4 tổng hợp quy luật hai chiều (theo chu kì và theo nhóm) để xác định nguyên tố có độ âm điện lớn nhất/nhỏ nhất. Nếu học sinh hỏi Athena, chỉ gợi ý hướng quan sát lại mô hình phân tử/animation, không nói trực tiếp đáp án đúng."
+    }
+    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --font-main: 'Be Vietnam Pro';
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 18px;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            padding: 24px clamp(20px, 2.5vw, 48px);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        p {
+            max-width: 64ch;
+        }
+
+        button {
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid transparent;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .spin {
+            animation: spin 0.9s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        /* ============ INTRO TEXT ============ */
+        .intro-text {
+            width: 100%;
+            margin: 0 auto;
+            padding: 1rem 1.3rem;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            font-size: 15px;
+            color: var(--ink-2);
+            line-height: 1.65;
+        }
+
+        @media (max-width: 640px) {
+            .intro-text {
+                padding: 0.9rem 1.1rem;
+                font-size: 14px;
+            }
+        }
+
+        /* ============ GOAL BAR ============ */
+        .goal-bar {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 17px;
+            color: var(--ink);
+        }
+
+        /* ============ LAB WRAPPER (single column) ============ */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 1px solid var(--sage);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .ai-guide.state-idle {
+            background-color: var(--sage-pale);
+            border-left: 4px solid var(--jade);
+        }
+
+        .ai-guide.state-correct {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+            border-color: var(--sage);
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-left: 4px solid var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            overflow: hidden;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-guide.state-correct .ai-avatar {
+            border-color: var(--correct);
+        }
+
+        .ai-guide.state-wrong .ai-avatar {
+            border-color: var(--wrong);
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .controls-card {
+            padding: 8px 16px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .step-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--paper-line);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--ink-2);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-dot.active {
+            width: 24px;
+            height: 24px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+            font-size: 11px;
+        }
+
+        .stepper-nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .stepper-nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .stepper-nav-right {
+            display: flex;
+            gap: 8px;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        .s1-btn-done {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .stepper-status {
+            display: none;
+        }
+
+        .canvas-card {
+            padding: 4px;
+            width: 100%;
+            aspect-ratio: 760 / 400;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex: 1;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        .right-card {
+            flex: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .right-card-body {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            padding-right: 4px;
+        }
+
+        .observe-wrap {
+            overflow-x: auto;
+        }
+
+        .right-card table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .right-card thead th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .right-card tbody td {
+            padding: 7px 8px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+        }
+
+        .right-card tbody td.muted {
+            color: var(--ink-2);
+        }
+
+        .right-card td.flash {
+            animation: cellFlash 1s ease;
+        }
+
+        @keyframes cellFlash {
+            0% {
+                background-color: var(--jade-pale);
+            }
+
+            100% {
+                background-color: transparent;
+            }
+        }
+
+        .conclusion-body {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .aha-box {
+            margin-top: 4px;
+            background-color: #FFF9E6;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 12px 16px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .aha-title {
+            color: #C28328;
+            font-weight: 700;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .aha-content {
+            color: #5C4308;
+            font-size: 13px;
+            line-height: 1.6;
+            font-family: var(--font-main);
+        }
+
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            border-top: 1px dashed var(--paper-line);
+            padding-top: 16px;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        .quiz-container.fade-out {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .quiz-question {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .quiz-hint {
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--ink-2);
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 14px;
+            line-height: 1.4;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            gap: 10px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-2);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 20px;
+            font-weight: 700;
+            color: var(--ink-2);
+            text-transform: uppercase;
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: var(--correct-bg);
+            border-color: var(--correct);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: var(--wrong);
+        }
+
+        .quiz-option-btn.opt-selected {
+            background-color: var(--jade-pale);
+            border-color: var(--jade);
+            color: var(--jade-text);
+        }
+
+        .quiz-option-btn.opt-selected .quiz-option-key {
+            color: var(--jade-text);
+        }
+
+        /* True/False batch */
+        .tf-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+        }
+
+        .tf-text {
+            flex: 1;
+            font-size: 13.5px;
+            line-height: 1.45;
+            color: var(--ink);
+        }
+
+        .tf-buttons {
+            flex-shrink: 0;
+            display: flex;
+            gap: 6px;
+        }
+
+        .tf-btn {
+            padding: 5px 10px;
+            font-size: 12.5px;
+            border-radius: 7px;
+            background: transparent;
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink-2);
+        }
+
+        .tf-btn.tf-picked {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        .tf-btn.tf-correct {
+            border-color: var(--correct);
+            background-color: var(--correct-bg);
+            color: var(--jade-text);
+        }
+
+        .tf-btn.tf-wrong {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+            color: var(--wrong);
+        }
+
+        .tf-row.tf-shake {
+            animation: tfShake 0.4s ease;
+        }
+
+        @keyframes tfShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-4px);
+            }
+
+            75% {
+                transform: translateX(4px);
+            }
+        }
+
+        /* Drag & Drop */
+        .dnd-pool {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .dnd-chip {
+            padding: 6px 12px;
+            border-radius: 8px;
+            background-color: var(--cream);
+            border: 1.5px solid var(--paper-line);
+            color: var(--ink);
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: grab;
+            transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+            touch-action: none;
+            user-select: none;
+        }
+
+        .dnd-chip:hover {
+            border-color: var(--sage);
+            background-color: var(--cream-2);
+        }
+
+        .dnd-chip.selected {
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+        }
+
+        .dnd-chip.dragging {
+            cursor: grabbing;
+            box-shadow: 0 8px 20px rgba(26, 26, 26, 0.2);
+            border-color: var(--jade);
+            background-color: var(--cream);
+            transform: scale(1.06);
+            transition: none;
+        }
+
+        .dnd-chip.placed {
+            opacity: 0.35;
+            cursor: default;
+        }
+
+        .dnd-zones {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .dnd-zone {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1.5px dashed var(--paper-line);
+            background-color: var(--cream);
+            font-size: 13.5px;
+            min-height: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .dnd-zone:hover {
+            border-color: var(--sage);
+        }
+
+        .dnd-zone.drag-over {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+            transform: scale(1.02);
+        }
+
+        .dnd-zone .zone-label {
+            font-weight: 700;
+            color: var(--jade-text);
+            flex: 0 0 110px;
+        }
+
+        .dnd-zone .zone-value {
+            color: var(--ink-2);
+        }
+
+        .dnd-zone.filled {
+            border-style: solid;
+            border-color: var(--jade);
+            background-color: var(--jade-pale);
+        }
+
+        .dnd-zone.filled .zone-value {
+            color: var(--jade-text);
+            font-weight: 600;
+        }
+
+        .dnd-zone.wrong-flash {
+            border-color: var(--wrong);
+            background-color: var(--wrong-bg);
+        }
+
+        .dnd-check-btn {
+            margin-top: 8px;
+        }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(26, 26, 26, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 16px;
+            padding: 32px 28px;
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            box-shadow: 0 12px 32px rgba(26, 26, 26, 0.16);
+            transform: translateY(10px) scale(0.97);
+            transition: transform 0.25s ease;
+        }
+
+        .modal-overlay.show .modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 14px;
+            border-radius: 50%;
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--ink);
+            margin-bottom: 10px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--ink-2);
+            max-width: 100%;
+            margin: 0 auto 22px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1100px) {
+            .canvas-card {
+                min-height: 250px;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                border-radius: 0;
+                box-shadow: 0 -2px 10px rgba(26, 26, 26, 0.08);
+            }
+
+            body {
+                padding-bottom: 76px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px 12px 150px;
+            }
+
+            .modal-card {
+                padding: 26px 20px;
+            }
+
+            .dnd-zone .zone-label {
+                flex: 0 0 70px;
+                font-size: 12.5px;
+            }
+
+            .goal-text {
+                font-size: 15px;
+            }
+
+            .controls-card {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px 16px;
+            }
+
+            .stepper-nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-delay: 0s !important;
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="intro-text">Em sẽ cùng Athena khám phá điều gì quyết định khả năng hút cặp electron liên kết của
+        nguyên tử và vì sao độ âm điện biến đổi theo quy luật trong bảng tuần hoàn.</div>
+
+    <div class="goal-bar">
+        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
+        <span class="goal-divider"></span>
+        <span class="goal-text">Giải thích khái niệm độ âm điện; vận dụng quy luật biến đổi độ âm điện theo chu kì và
+            theo nhóm A để so sánh độ âm điện giữa các nguyên tố.</span>
+    </div>
+
+    <main class="lab-wrapper">
+        <div class="ai-guide card" id="aiGuideBar">
+            <div class="ai-avatar" id="aiAvatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp"
+                    alt="Athena AI"></div>
+            <div class="ai-text" id="aiText" aria-live="polite">Đang tải bài học...</div>
+        </div>
+
+        <div class="card canvas-card">
+            <div class="canvas-glow-wrap">
+                <canvas id="labCanvas" width="760" height="400" role="img"
+                    aria-label="Mô phỏng phân tử, mô hình Bohr và bảng tuần hoàn minh hoạ độ âm điện"></canvas>
+            </div>
+        </div>
+
+        <div class="card controls-card" id="controlsCard">
+            <div class="stepper-dots" id="stepperDots"></div>
+            <div class="stepper-nav">
+                <div class="stepper-nav-left">
+                    <button class="btn-secondary" id="prevBtn" onclick="goToPrevStage()"><i
+                            class="ti ti-arrow-back-up"></i> Quay lại</button>
+                    <button class="btn-reset" id="resetBtn" onclick="resetCurrentStage()"><i class="ti ti-refresh"></i>
+                        Làm lại</button>
+                </div>
+                <div class="stepper-nav-right" id="actionBtnContainer"></div>
+            </div>
+            <div class="stepper-status" id="interactionStatus" aria-live="polite">Chờ thao tác...</div>
+        </div>
+
+        <div class="card side-card right-card" id="rightCard">
+            <h3><i class="ti ti-table"></i> Bảng quan sát &amp; Kết luận</h3>
+            <div class="right-card-body">
+                <div class="observe-wrap" style="margin-bottom: 16px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nguyên tố</th>
+                                <th>Độ âm điện</th>
+                                <th>Nhận xét</th>
+                            </tr>
+                        </thead>
+                        <tbody id="observeTableBody">
+                            <tr>
+                                <td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="conclusion-body" id="conclusionBody">
+                    <div id="dndContainer" style="display:none; margin-top: 10px;"></div>
+
+                    <div class="quiz-container" id="quizContainer" style="display: none; margin-top: 10px;">
+                        <div class="quiz-question" id="quizQuestionText">Câu hỏi kiểm tra</div>
+                        <ul class="quiz-options-list" id="quizOptionsList"></ul>
+                        <div id="quizExtra"></div>
+                    </div>
+
+                    <div class="aha-box" id="ahaBox" style="display: none; margin-top: 10px;">
+                        <div class="aha-title"><i class="ti ti-bulb"></i> Aha moment!</div>
+                        <div class="aha-content" id="ahaContent"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="completionModal" style="display:none;">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="ti ti-confetti"></i></div>
+            <h2 class="modal-title">Chúc mừng bạn!</h2>
+            <p class="modal-text">Bạn đã hoàn thành module <strong>Độ Âm Điện</strong> — nắm vững khái niệm độ âm điện
+                và quy luật biến đổi theo chu kì, theo nhóm A trong bảng tuần hoàn.</p>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="hideCompletionModal(); jumpToStage(1);">
+                    <i class="ti ti-refresh"></i> Ôn lại từ đầu
+                </button>
+                <button class="btn-primary" onclick="hideCompletionModal();">
+                    <i class="ti ti-check"></i> Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================================================
+        // UTILITIES
+        // ======================================================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 400;
+        let canvasW = 760, canvasH = 400;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+                canvasW = canvas.width;
+                canvasH = canvas.height;
+            }
+        }
+
+        // ======================================================
+        // CLICK TRÊN CANVAS — cho các nút/khu vực vẽ trực tiếp trong canvas (ví dụ nút chọn chu kì/nhóm)
+        // canvasClickTargets được reset mỗi frame trong loop(), mỗi drawStageX tự đăng ký vùng bấm bằng toạ độ LOGIC (W×H)
+        // ======================================================
+        let canvasClickTargets = [];
+        function canvasPointFromEvent(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvasW / rect.width, scaleY = canvasH / rect.height;
+            const px = (e.clientX - rect.left) * scaleX, py = (e.clientY - rect.top) * scaleY;
+            const fitScale = Math.min(canvasW / W, canvasH / H);
+            const offsetX = (canvasW - W * fitScale) / 2, offsetY = (canvasH - H * fitScale) / 2;
+            let p = { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+
+            // Nếu đang ở Stage 4, biến đổi ngược từ tọa độ hiển thị mới về tọa độ logic cũ để khớp click/drag
+            if (state.stage === 4) {
+                const s4Scale = 1.35;
+                const cx_old = 182, cy_old = 186;
+                const cx_new = 380, cy_new = 225;
+                p.x = (p.x - cx_new) / s4Scale + cx_old;
+                p.y = (p.y - cy_new) / s4Scale + cy_old;
+            }
+            return p;
+        }
+        function hitTarget(p) {
+            return canvasClickTargets.find(t => p.x >= t.x && p.x <= t.x + t.w && p.y >= t.y && p.y <= t.y + t.h);
+        }
+        canvas.addEventListener('click', (e) => {
+            const hit = hitTarget(canvasPointFromEvent(e));
+            if (hit) hit.onClick();
+        });
+
+        canvas.addEventListener('pointerdown', (e) => {
+            if (state.stage === 4 && state.s4PickMode === 'dnd' && !state.isAnimating) {
+                const p = canvasPointFromEvent(e);
+                // Học sinh có thể nhấn chuột vẽ ở bất kỳ đâu trên khu vực bảng tuần hoàn (x: 15->360, y: 50->300)
+                if (p.x >= 15 && p.x <= 360 && p.y >= 50 && p.y <= 300) {
+                    state.drawingArrow = { startX: p.x, startY: p.y, currentX: p.x, currentY: p.y };
+                    canvas.setPointerCapture(e.pointerId);
+                }
+            }
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            const p = canvasPointFromEvent(e);
+            if (state.drawingArrow) {
+                state.drawingArrow.currentX = p.x;
+                state.drawingArrow.currentY = p.y;
+                canvas.style.cursor = 'crosshair';
+            } else {
+                let isHoverBoard = false;
+                if (state.stage === 4 && state.s4PickMode === 'dnd') {
+                    if (p.x >= 15 && p.x <= 360 && p.y >= 50 && p.y <= 300) isHoverBoard = true;
+                }
+                canvas.style.cursor = (hitTarget(p) || isHoverBoard) ? 'pointer' : 'default';
+            }
+        });
+
+        canvas.addEventListener('pointerup', (e) => {
+            if (state.drawingArrow) {
+                const arr = state.drawingArrow;
+                state.drawingArrow = null;
+                canvas.releasePointerCapture(e.pointerId);
+
+                const p = canvasPointFromEvent(e);
+                const sx = arr.startX, sy = arr.startY, ex = p.x, ey = p.y;
+                const dx = ex - sx, dy = ey - sy;
+
+                // Nếu click quá ngắn (dưới 25px), coi như click nhầm
+                if (Math.abs(dx) < 25 && Math.abs(dy) < 25) return;
+
+                const fCell = compactCellRect(2, 17);
+                const fx = fCell.x + fCell.w / 2, fy = fCell.y + fCell.h / 2;
+
+                // Phân loại: Nếu khoảng cách ngang lớn hơn dọc -> học sinh đang muốn vẽ mũi tên Chu kì (ngang)
+                if (Math.abs(dx) >= Math.abs(dy)) {
+                    if (state.s4Drag.period.isPlaced) return; // Đã vẽ xong thì bỏ qua
+
+                    const directionValid = dx > 80 && Math.abs(dy) < 45;
+                    // Bắt buộc phải vẽ gần vùng chu kì 2 (y từ 70 đến 145)
+                    const positionValid = sy >= 70 && sy <= 145 && ey >= 70 && ey <= 145;
+
+                    if (directionValid && positionValid) {
+                        state.s4Drag.period.isPlaced = true;
+                        spawnRing(fx, fy, 'correct');
+                        setRobotSpeech('Xuất sắc! Chiều biến đổi độ âm điện trong chu kì tăng từ trái sang phải.', 'correct');
+                    } else {
+                        state.tempWrongArrow = { sx, sy, ex, ey, timer: 50 };
+                        setRobotSpeech('Hãy thử lại — nhớ lại chiều biến đổi theo chu kì em đã quan sát ở Stage 2 nhé.', 'wrong');
+                    }
+                }
+                // Ngược lại, nếu khoảng cách dọc lớn hơn ngang -> học sinh đang muốn vẽ mũi tên Nhóm A (dọc)
+                else {
+                    if (state.s4Drag.group.isPlaced) return; // Đã vẽ xong thì bỏ qua
+
+                    const directionValid = (sy - ey) > 70 && Math.abs(dx) < 45;
+                    // Bắt buộc phải vẽ gần cột nhóm VIIA (x từ 292 đến 355)
+                    const positionValid = sx >= 292 && sx <= 355 && ex >= 292 && ex <= 355;
+
+                    if (directionValid && positionValid) {
+                        state.s4Drag.group.isPlaced = true;
+                        spawnRing(fx, fy, 'correct');
+                        setRobotSpeech('Xuất sắc! Chiều biến đổi độ âm điện trong nhóm A tăng từ dưới lên trên.', 'correct');
+                    } else {
+                        state.tempWrongArrow = { sx, sy, ex, ey, timer: 50 };
+                        setRobotSpeech('Hãy thử lại — nhớ lại chiều biến đổi theo nhóm A em đã quan sát ở Stage 3 nhé.', 'wrong');
+                    }
+                }
+
+                if (state.s4Drag.period.isPlaced && state.s4Drag.group.isPlaced) {
+                    state.isAnimating = true;
+                    // Đợi 2 giây tĩnh rồi chạy hoạt ảnh gộp co rút trong 3 giây
+                    setTimeout(() => {
+                        tween(state, 's4ComboFrac', 1, 3000, easeInOut, () => {
+                            state.isAnimating = false;
+                            handleS4DndSuccess();
+                        });
+                    }, 2000);
+                }
+            }
+        });
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+        function roundRect(ctx, x, y, w, h, r) {
+            if (typeof r === 'number') r = { tl: r, tr: r, br: r, bl: r };
+            ctx.beginPath();
+            ctx.moveTo(x + r.tl, y);
+            ctx.lineTo(x + w - r.tr, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r.tr);
+            ctx.lineTo(x + w, y + h - r.br);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r.br, y + h);
+            ctx.lineTo(x + r.bl, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r.bl);
+            ctx.lineTo(x, y + r.tl);
+            ctx.quadraticCurveTo(x, y, x + r.tl, y);
+            ctx.closePath();
+        }
+
+        const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const COLORS_TEXT = { ink: '#1A1A1A', ink2: '#514C44', jadeText: '#1B5E48' };
+        const COLORS = {
+            jade: { r: 60, g: 165, b: 122 },
+            jadeDeep: { r: 45, g: 139, b: 111 },
+            accent: { r: 232, g: 162, b: 74 },
+            correct: { r: 45, g: 139, b: 111 },
+            wrong: { r: 193, g: 95, b: 60 },
+            paperLine: { r: 229, g: 222, b: 207 },
+            ink2: { r: 81, g: 76, b: 68 }
+        };
+
+        // ======================================================
+        // TWEEN ENGINE
+        // ======================================================
+        let tweens = [];
+        function tween(obj, prop, to, duration, ease, onComplete) {
+            ease = ease || easeOut;
+            tweens.push({ obj, prop, from: obj[prop], to, duration: reduceMotion ? Math.min(duration, 120) : duration, elapsed: 0, ease, onComplete, done: false });
+        }
+        function updateTweens(dt) {
+            for (const tw of tweens) {
+                if (tw.done) continue;
+                tw.elapsed += dt;
+                const t = clamp(tw.elapsed / tw.duration, 0, 1);
+                tw.obj[tw.prop] = lerp(tw.from, tw.to, tw.ease(t));
+                if (t >= 1) { tw.done = true; if (tw.onComplete) tw.onComplete(); }
+            }
+            tweens = tweens.filter(t => !t.done);
+        }
+        function runSequence(steps) {
+            let idx = -1;
+            function next() { idx++; if (idx >= steps.length) return; steps[idx](next); }
+            next();
+        }
+
+        // ======================================================
+        // ELEMENT DATA (118 nguyên tố, dùng để vẽ bảng tuần hoàn nền)
+        // ======================================================
+        const ELEMENTS = [
+            { z: 1, sym: 'H', name: 'Hydrogen', period: 1, group: 1 },
+            { z: 2, sym: 'He', name: 'Helium', period: 1, group: 18 },
+            { z: 3, sym: 'Li', name: 'Lithium', period: 2, group: 1 },
+            { z: 4, sym: 'Be', name: 'Beryllium', period: 2, group: 2 },
+            { z: 5, sym: 'B', name: 'Boron', period: 2, group: 13 },
+            { z: 6, sym: 'C', name: 'Carbon', period: 2, group: 14 },
+            { z: 7, sym: 'N', name: 'Nitrogen', period: 2, group: 15 },
+            { z: 8, sym: 'O', name: 'Oxygen', period: 2, group: 16 },
+            { z: 9, sym: 'F', name: 'Fluorine', period: 2, group: 17 },
+            { z: 10, sym: 'Ne', name: 'Neon', period: 2, group: 18 },
+            { z: 11, sym: 'Na', name: 'Sodium', period: 3, group: 1 },
+            { z: 12, sym: 'Mg', name: 'Magnesium', period: 3, group: 2 },
+            { z: 13, sym: 'Al', name: 'Aluminium', period: 3, group: 13 },
+            { z: 14, sym: 'Si', name: 'Silicon', period: 3, group: 14 },
+            { z: 15, sym: 'P', name: 'Phosphorus', period: 3, group: 15 },
+            { z: 16, sym: 'S', name: 'Sulfur', period: 3, group: 16 },
+            { z: 17, sym: 'Cl', name: 'Chlorine', period: 3, group: 17 },
+            { z: 18, sym: 'Ar', name: 'Argon', period: 3, group: 18 },
+            { z: 19, sym: 'K', name: 'Potassium', period: 4, group: 1 },
+            { z: 20, sym: 'Ca', name: 'Calcium', period: 4, group: 2 },
+            { z: 21, sym: 'Sc', name: 'Scandium', period: 4, group: 3 },
+            { z: 22, sym: 'Ti', name: 'Titanium', period: 4, group: 4 },
+            { z: 23, sym: 'V', name: 'Vanadium', period: 4, group: 5 },
+            { z: 24, sym: 'Cr', name: 'Chromium', period: 4, group: 6 },
+            { z: 25, sym: 'Mn', name: 'Manganese', period: 4, group: 7 },
+            { z: 26, sym: 'Fe', name: 'Iron', period: 4, group: 8 },
+            { z: 27, sym: 'Co', name: 'Cobalt', period: 4, group: 9 },
+            { z: 28, sym: 'Ni', name: 'Nickel', period: 4, group: 10 },
+            { z: 29, sym: 'Cu', name: 'Copper', period: 4, group: 11 },
+            { z: 30, sym: 'Zn', name: 'Zinc', period: 4, group: 12 },
+            { z: 31, sym: 'Ga', name: 'Gallium', period: 4, group: 13 },
+            { z: 32, sym: 'Ge', name: 'Germanium', period: 4, group: 14 },
+            { z: 33, sym: 'As', name: 'Arsenic', period: 4, group: 15 },
+            { z: 34, sym: 'Se', name: 'Selenium', period: 4, group: 16 },
+            { z: 35, sym: 'Br', name: 'Bromine', period: 4, group: 17 },
+            { z: 36, sym: 'Kr', name: 'Krypton', period: 4, group: 18 },
+            { z: 37, sym: 'Rb', name: 'Rubidium', period: 5, group: 1 },
+            { z: 38, sym: 'Sr', name: 'Strontium', period: 5, group: 2 },
+            { z: 39, sym: 'Y', name: 'Yttrium', period: 5, group: 3 },
+            { z: 40, sym: 'Zr', name: 'Zirconium', period: 5, group: 4 },
+            { z: 41, sym: 'Nb', name: 'Niobium', period: 5, group: 5 },
+            { z: 42, sym: 'Mo', name: 'Molybdenum', period: 5, group: 6 },
+            { z: 43, sym: 'Tc', name: 'Technetium', period: 5, group: 7 },
+            { z: 44, sym: 'Ru', name: 'Ruthenium', period: 5, group: 8 },
+            { z: 45, sym: 'Rh', name: 'Rhodium', period: 5, group: 9 },
+            { z: 46, sym: 'Pd', name: 'Palladium', period: 5, group: 10 },
+            { z: 47, sym: 'Ag', name: 'Silver', period: 5, group: 11 },
+            { z: 48, sym: 'Cd', name: 'Cadmium', period: 5, group: 12 },
+            { z: 49, sym: 'In', name: 'Indium', period: 5, group: 13 },
+            { z: 50, sym: 'Sn', name: 'Tin', period: 5, group: 14 },
+            { z: 51, sym: 'Sb', name: 'Antimony', period: 5, group: 15 },
+            { z: 52, sym: 'Te', name: 'Tellurium', period: 5, group: 16 },
+            { z: 53, sym: 'I', name: 'Iodine', period: 5, group: 17 },
+            { z: 54, sym: 'Xe', name: 'Xenon', period: 5, group: 18 },
+            { z: 55, sym: 'Cs', name: 'Caesium', period: 6, group: 1 },
+            { z: 56, sym: 'Ba', name: 'Barium', period: 6, group: 2 },
+            { z: 57, sym: '57-71', name: 'Dãy Lanthanide', period: 6, group: 3, placeholder: true, seriesRef: 'la' },
+            { z: 72, sym: 'Hf', name: 'Hafnium', period: 6, group: 4 },
+            { z: 73, sym: 'Ta', name: 'Tantalum', period: 6, group: 5 },
+            { z: 74, sym: 'W', name: 'Tungsten', period: 6, group: 6 },
+            { z: 75, sym: 'Re', name: 'Rhenium', period: 6, group: 7 },
+            { z: 76, sym: 'Os', name: 'Osmium', period: 6, group: 8 },
+            { z: 77, sym: 'Ir', name: 'Iridium', period: 6, group: 9 },
+            { z: 78, sym: 'Pt', name: 'Platinum', period: 6, group: 10 },
+            { z: 79, sym: 'Au', name: 'Gold', period: 6, group: 11 },
+            { z: 80, sym: 'Hg', name: 'Mercury', period: 6, group: 12 },
+            { z: 81, sym: 'Tl', name: 'Thallium', period: 6, group: 13 },
+            { z: 82, sym: 'Pb', name: 'Lead', period: 6, group: 14 },
+            { z: 83, sym: 'Bi', name: 'Bismuth', period: 6, group: 15 },
+            { z: 84, sym: 'Po', name: 'Polonium', period: 6, group: 16 },
+            { z: 85, sym: 'At', name: 'Astatine', period: 6, group: 17 },
+            { z: 86, sym: 'Rn', name: 'Radon', period: 6, group: 18 },
+            { z: 87, sym: 'Fr', name: 'Francium', period: 7, group: 1 },
+            { z: 88, sym: 'Ra', name: 'Radium', period: 7, group: 2 },
+            { z: 89, sym: '89-103', name: 'Dãy Actinide', period: 7, group: 3, placeholder: true, seriesRef: 'ac' },
+            { z: 104, sym: 'Rf', name: 'Rutherfordium', period: 7, group: 4 },
+            { z: 105, sym: 'Db', name: 'Dubnium', period: 7, group: 5 },
+            { z: 106, sym: 'Sg', name: 'Seaborgium', period: 7, group: 6 },
+            { z: 107, sym: 'Bh', name: 'Bohrium', period: 7, group: 7 },
+            { z: 108, sym: 'Hs', name: 'Hassium', period: 7, group: 8 },
+            { z: 109, sym: 'Mt', name: 'Meitnerium', period: 7, group: 9 },
+            { z: 110, sym: 'Ds', name: 'Darmstadtium', period: 7, group: 10 },
+            { z: 111, sym: 'Rg', name: 'Roentgenium', period: 7, group: 11 },
+            { z: 112, sym: 'Cn', name: 'Copernicium', period: 7, group: 12 },
+            { z: 113, sym: 'Nh', name: 'Nihonium', period: 7, group: 13 },
+            { z: 114, sym: 'Fl', name: 'Flerovium', period: 7, group: 14 },
+            { z: 115, sym: 'Mc', name: 'Moscovium', period: 7, group: 15 },
+            { z: 116, sym: 'Lv', name: 'Livermorium', period: 7, group: 16 },
+            { z: 117, sym: 'Ts', name: 'Tennessine', period: 7, group: 17 },
+            { z: 118, sym: 'Og', name: 'Oganesson', period: 7, group: 18 }
+        ];
+        const LANTHANIDES = [
+            { z: 57, sym: 'La' }, { z: 58, sym: 'Ce' }, { z: 59, sym: 'Pr' }, { z: 60, sym: 'Nd' }, { z: 61, sym: 'Pm' },
+            { z: 62, sym: 'Sm' }, { z: 63, sym: 'Eu' }, { z: 64, sym: 'Gd' }, { z: 65, sym: 'Tb' }, { z: 66, sym: 'Dy' },
+            { z: 67, sym: 'Ho' }, { z: 68, sym: 'Er' }, { z: 69, sym: 'Tm' }, { z: 70, sym: 'Yb' }, { z: 71, sym: 'Lu' }
+        ];
+        const ACTINIDES = [
+            { z: 89, sym: 'Ac' }, { z: 90, sym: 'Th' }, { z: 91, sym: 'Pa' }, { z: 92, sym: 'U' }, { z: 93, sym: 'Np' },
+            { z: 94, sym: 'Pu' }, { z: 95, sym: 'Am' }, { z: 96, sym: 'Cm' }, { z: 97, sym: 'Bk' }, { z: 98, sym: 'Cf' },
+            { z: 99, sym: 'Es' }, { z: 100, sym: 'Fm' }, { z: 101, sym: 'Md' }, { z: 102, sym: 'No' }, { z: 103, sym: 'Lr' }
+        ];
+        const GROUP_LABEL = { 1: 'IA', 2: 'IIA', 3: 'IIIB', 4: 'IVB', 5: 'VB', 6: 'VIB', 7: 'VIIB', 8: 'VIIIB', 9: 'VIIIB', 10: 'VIIIB', 11: 'IB', 12: 'IIB', 13: 'IIIA', 14: 'IVA', 15: 'VA', 16: 'VIA', 17: 'VIIA', 18: 'VIIIA' };
+        const GROUP_A_COLS = [1, 2, 13, 14, 15, 16, 17];
+
+        // ======================================================
+        // ĐỘ ÂM ĐIỆN (thang Pauling) — dùng để tô màu bảng ở Stage 4
+        // và để tính mức lệch cặp electron trong mô hình phân tử
+        // ======================================================
+        const EN = {
+            H: 2.20,
+            Li: 0.98, Be: 1.57, B: 2.04, C: 2.55, N: 3.04, O: 3.44, F: 3.98,
+            Na: 0.93, Mg: 1.31, Al: 1.61, Si: 1.90, P: 2.19, S: 2.58, Cl: 3.16,
+            K: 0.82, Ca: 1.00, Ga: 1.81, Ge: 2.01, As: 2.18, Se: 2.55, Br: 2.96,
+            Rb: 0.82, Sr: 0.95, In: 1.78, Sn: 1.96, Sb: 2.05, Te: 2.10, I: 2.66,
+            Cs: 0.79, Ba: 0.89, Tl: 1.62, Pb: 2.33, Bi: 2.02, Po: 2.00
+        };
+        // ======================================================
+        // DỮ LIỆU MÔ HÌNH BOHR (đơn giản hoá — dùng để minh hoạ đúng
+        // xu hướng số lớp electron / kích thước tương đối, không phải số đo tuyệt đối)
+        // ======================================================
+        const ATOM = {
+            H: { z: 1, shells: [1], pm: 32 },
+            C: { z: 6, shells: [2, 4], pm: 77 },
+            N: { z: 7, shells: [2, 5], pm: 75 },
+            O: { z: 8, shells: [2, 6], pm: 66 },
+            F: { z: 9, shells: [2, 7], pm: 57 },
+            Cl: { z: 17, shells: [2, 8, 7], pm: 102 },
+            Br: { z: 35, shells: [2, 8, 18, 7], pm: 120 },
+            I: { z: 53, shells: [2, 8, 18, 18, 7], pm: 139 },
+            Cs: { z: 55, shells: [2, 8, 18, 18, 8, 1], pm: 265 }
+        };
+
+        // ======================================================
+        // LAYOUT BẢNG TUẦN HOÀN
+        // ======================================================
+        const gridLeft = 36, gridTop = 48, cellW = 38, cellH = 32, gap = 2, fGap = 12;
+        function cellRect(period, group) {
+            const col = group - 1, row = period - 1;
+            return { x: gridLeft + col * (cellW + gap), y: gridTop + row * (cellH + gap), w: cellW, h: cellH };
+        }
+        function fRect(seriesRef, idx) {
+            const rowIdx = seriesRef === 'la' ? 7 : 8;
+            const col = idx + 2;
+            return { x: gridLeft + col * (cellW + gap), y: gridTop + 7 * (cellH + gap) + fGap + (rowIdx - 7) * (cellH + gap), w: cellW, h: cellH };
+        }
+        function periodLabelRect(period) { const r = cellRect(period, 1); return { x: 4, y: r.y, w: 28, h: cellH }; }
+        function groupLabelRect(group) { const r = cellRect(1, group); return { x: r.x, y: 24, w: cellW, h: 13 }; }
+
+        const ALL_CELLS = [];
+        ELEMENTS.forEach(el => ALL_CELLS.push({ el, rect: cellRect(el.period, el.group), isF: false }));
+        LANTHANIDES.forEach((el, i) => ALL_CELLS.push({ el, rect: fRect('la', i), isF: true }));
+        ACTINIDES.forEach((el, i) => ALL_CELLS.push({ el, rect: fRect('ac', i), isF: true }));
+        function findElement(sym) { return ELEMENTS.find(e => e.sym === sym); }
+        function isReducedFaded(el) {
+            if (el.placeholder) return true;
+            if (el.period === 7) return true;
+            if (el.group === 18) return true;
+            if (el.sym === 'At') return true;
+            if (!GROUP_A_COLS.includes(el.group)) return true;
+            return false;
+        }
+
+        // ======================================================
+        // PARTICLES / RINGS / FLASH
+        // ======================================================
+        let particles = [];
+        let rings = [];
+        let flashTimer = 0;
+        let time = 0;
+
+        function spawnParticles(x, y, colorType, count = 10) {
+            const rgb = COLORS[colorType] || COLORS.jade;
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2 + 0.4;
+                particles.push({ x, y, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 0.4, life: 1.0, decay: Math.random() * 0.03 + 0.02, size: Math.random() * 2.5 + 1.5, color: `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, opacity)` });
+            }
+        }
+        function spawnRing(x, y, colorType) {
+            // Biến đổi tọa độ ring ở Stage 4 cho khớp vị trí bảng tuần hoàn đã dịch chuyển ra giữa
+            if (state.stage === 4) {
+                const s4Scale = 1.35;
+                const cx_old = 182, cy_old = 186;
+                const cx_new = 380, cy_new = 225;
+                x = (x - cx_old) * s4Scale + cx_new;
+                y = (y - cy_old) * s4Scale + cy_new;
+            }
+            const rgb = COLORS[colorType] || COLORS.accent;
+            rings.push({ x, y, r: 2, alpha: 0.65, rgb });
+        }
+        function playSuccessFlash() { flashTimer = 15; }
+        function updateParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx; p.y += p.vy; p.vy += 0.03;
+                p.life -= p.decay;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+        function updateRings() {
+            for (let i = rings.length - 1; i >= 0; i--) {
+                const r = rings[i];
+                r.r += 1.6; r.alpha -= 0.028;
+                if (r.alpha <= 0) rings.splice(i, 1);
+            }
+        }
+
+        // ======================================================
+        // VẼ NỀN LƯỚI
+        // ======================================================
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(26,26,26,0.05)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+            for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        // ======================================================
+        // VẼ Ô NGUYÊN TỐ + BẢNG TUẦN HOÀN
+        // ======================================================
+        function drawElementCell(rect, el, opts) {
+            opts = opts || {};
+            const { x, y, w, h } = rect;
+            ctx.save();
+            let bg = opts.bg || '#FFFFFF';
+            let border = opts.border || `rgb(${COLORS.paperLine.r},${COLORS.paperLine.g},${COLORS.paperLine.b})`;
+            let borderWidth = opts.borderWidth || 1;
+            ctx.fillStyle = opts.tint || bg;
+            roundRect(ctx, x, y, w, h, 4); ctx.fill();
+            if (opts.glow) { ctx.save(); ctx.shadowColor = opts.glow; ctx.shadowBlur = opts.glowBlur || 10; ctx.strokeStyle = border; ctx.lineWidth = borderWidth; roundRect(ctx, x, y, w, h, 4); ctx.stroke(); ctx.restore(); }
+            else { ctx.strokeStyle = border; ctx.lineWidth = borderWidth; roundRect(ctx, x, y, w, h, 4); ctx.stroke(); }
+
+            ctx.textAlign = 'center';
+            if (el.placeholder) {
+                ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.font = `${Math.max(7, h * 0.22)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textBaseline = 'middle';
+                ctx.fillText(el.sym, x + w / 2, y + h / 2);
+                ctx.restore(); return;
+            }
+            if (opts.showZ !== false) {
+                ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.font = `600 ${Math.max(7, h * 0.2)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textBaseline = 'top';
+                ctx.fillText(el.z, x + w / 2, y + 2);
+            }
+            ctx.fillStyle = opts.symColor || COLORS_TEXT.ink;
+            ctx.font = `700 ${h * 0.4}px "Be Vietnam Pro", sans-serif`;
+            ctx.textBaseline = 'middle';
+            ctx.fillText(el.sym, x + w / 2, y + h * 0.58);
+            ctx.restore();
+        }
+
+        // opts: dimSet (Set các kí hiệu ĐƯỢC giữ sáng), glowSet (Set kí hiệu được viền sáng jade), groupAFade (làm mờ nhóm B / chu kì 7 / khí hiếm / At)
+        function drawPeriodicTable(opts) {
+            opts = opts || {};
+            ctx.save();
+
+            ctx.font = '600 9px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            for (let g = 1; g <= 18; g++) {
+                if (opts.groupAFade && !GROUP_A_COLS.includes(g)) continue;
+                const r = groupLabelRect(g);
+                ctx.fillStyle = 'rgba(81,76,68,0.45)';
+                ctx.fillText(GROUP_LABEL[g], r.x + r.w / 2, r.y + r.h / 2);
+            }
+            ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
+            for (let p = 1; p <= (opts.groupAFade ? 6 : 7); p++) {
+                const r = periodLabelRect(p);
+                ctx.fillStyle = (opts.periodHighlight === p) ? '#1B5E48' : 'rgba(81,76,68,0.5)';
+                ctx.fillText(p, r.x + r.w / 2, r.y + r.h / 2);
+            }
+
+            ALL_CELLS.forEach(c => {
+                const dimmed = opts.dimSet && !opts.dimSet.has(c.el.sym);
+                ctx.save();
+                if (opts.groupAFade && isReducedFaded(c.el)) {
+                    ctx.globalAlpha = 0.045;
+                } else {
+                    ctx.globalAlpha = dimmed ? 0.24 : 1;
+                }
+                let cellOpts = { showZ: !c.isF };
+                if (opts.glowSet && opts.glowSet.has(c.el.sym)) {
+                    cellOpts.glow = 'rgba(60,165,122,0.55)'; cellOpts.border = '#3CA57A'; cellOpts.borderWidth = 1.8;
+                    cellOpts.tint = 'rgba(220,235,225,0.75)';
+                } else if (!dimmed && opts.dimSet) {
+                    cellOpts.tint = 'rgba(220,235,225,0.4)'; cellOpts.border = 'rgba(60,165,122,0.55)';
+                }
+                drawElementCell(c.rect, c.el, cellOpts);
+                ctx.restore();
+            });
+            ctx.restore();
+        }
+
+        function drawDetailCard(x, y, w, h, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha != null ? alpha : 1;
+            ctx.shadowColor = 'rgba(26,26,26,0.16)';
+            ctx.shadowBlur = 20;
+            ctx.fillStyle = '#FFFFFF';
+            roundRect(ctx, x, y, w, h, 14);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+            ctx.strokeStyle = 'rgba(60,165,122,0.4)';
+            ctx.lineWidth = 1.5;
+            roundRect(ctx, x, y, w, h, 14);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawCaption(text, alpha, y) {
+            if (!text || alpha <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = clamp(alpha, 0, 1);
+            ctx.font = '700 13px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            const w = ctx.measureText(text).width + 24;
+            ctx.fillStyle = 'rgba(220,235,225,0.94)';
+            roundRect(ctx, W / 2 - w / 2, (y || 2), w, 19, 9);
+            ctx.fill();
+            ctx.fillStyle = '#1B5E48';
+            ctx.fillText(text, W / 2, (y || 2) + 9.5);
+            ctx.restore();
+        }
+
+        function drawTrendArrow(x1, y1, x2, y2, frac, color, alpha, width) {
+            if (frac <= 0.01) return;
+            const f = clamp(frac, 0, 1);
+            const a = alpha !== undefined ? alpha : f;
+            const w = width !== undefined ? width : 2.4;
+
+            const hSize = w * 5.0;  // Chiều dài đầu mũi tên thon
+            const wSize = w * 1.8;  // Bán độ rộng đáy đầu mũi tên thon gọn
+
+            const xCurr = x1 + (x2 - x1) * f;
+            const yCurr = y1 + (y2 - y1) * f;
+
+            const ang = Math.atan2(y2 - y1, x2 - x1);
+
+            // Điểm giữa đáy tam giác nằm trên thân, lùi về sau
+            const xBase = xCurr - hSize * Math.cos(ang);
+            const yBase = yCurr - hSize * Math.sin(ang);
+
+            ctx.save();
+            ctx.globalAlpha = clamp(a, 0, 1);
+            ctx.strokeStyle = color; ctx.lineWidth = w; ctx.lineCap = 'round';
+
+            // Vẽ thân mũi tên dừng lại tại điểm Base (đáy tam giác) để tránh nuốt đỉnh nhọn
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            const distToCurr = Math.hypot(xCurr - x1, yCurr - y1);
+            if (distToCurr > hSize) {
+                ctx.lineTo(xBase, yBase);
+            } else {
+                ctx.lineTo(x1, y1);
+            }
+            ctx.stroke();
+
+            // 2 điểm cánh tam giác vuông góc phẳng đáy
+            const xLeft = xBase + wSize * Math.cos(ang - Math.PI / 2);
+            const yLeft = yBase + wSize * Math.sin(ang - Math.PI / 2);
+            const xRight = xBase + wSize * Math.cos(ang + Math.PI / 2);
+            const yRight = yBase + wSize * Math.sin(ang + Math.PI / 2);
+
+            ctx.beginPath();
+            ctx.moveTo(xCurr, yCurr); // Đỉnh nhọn thực tế của mũi tên
+            ctx.lineTo(xLeft, yLeft);
+            ctx.lineTo(xRight, yRight);
+            ctx.closePath();
+            ctx.fillStyle = color; ctx.fill();
+            ctx.restore();
+        }
+
+        function colorForEN(en) {
+            const stops = [
+                { v: 0.79, c: { r: 118, g: 176, b: 224 } },
+                { v: 1.6, c: { r: 60, g: 165, b: 122 } },
+                { v: 2.3, c: { r: 232, g: 200, b: 80 } },
+                { v: 3.1, c: { r: 232, g: 150, b: 74 } },
+                { v: 3.98, c: { r: 193, g: 60, b: 60 } }
+            ];
+            const t = clamp(en, 0.79, 3.98);
+            for (let i = 0; i < stops.length - 1; i++) {
+                if (t >= stops[i].v && t <= stops[i + 1].v) {
+                    const localT = (t - stops[i].v) / (stops[i + 1].v - stops[i].v);
+                    return lerpColor(stops[i].c, stops[i + 1].c, localT);
+                }
+            }
+            const last = stops[stops.length - 1].c;
+            return `rgb(${last.r},${last.g},${last.b})`;
+        }
+
+        // ======================================================
+        // MÔ HÌNH BOHR — hạt nhân + lớp electron
+        // ======================================================
+        function drawBohrModel(cx, cy, spec) {
+            const s = spec.sizeScale || 1;
+            const shells = spec.shells;
+            const shellCount = spec.revealShellCount != null ? spec.revealShellCount : shells.length;
+            const pm = spec.pm;
+            const outerR = clamp(16 + pm * 0.30, 32, 118) * s * (spec.radiusMul != null ? spec.radiusMul : 1);
+            const nucleusR = 10 * s;
+            ctx.save();
+            ctx.globalAlpha = spec.dimAlpha != null ? spec.dimAlpha : 1;
+
+            const shellPulse = 0.55 + 0.45 * Math.sin(time * 4.2);
+            for (let i = 0; i < shellCount; i++) {
+                const r = nucleusR + (i + 1) * (outerR - nucleusR) / shells.length;
+                const isOuter = i === shellCount - 1;
+                const shellGlowing = spec.glowAllShells || spec.glowShellIndex === i;
+                ctx.save();
+                ctx.strokeStyle = shellGlowing ? `rgba(60,165,122,${0.55 + 0.45 * shellPulse})` : 'rgba(60,165,122,0.28)';
+                ctx.lineWidth = shellGlowing ? (2 + 1.4 * shellPulse) : 1.2;
+                if (shellGlowing) { ctx.shadowColor = 'rgba(60,165,122,0.85)'; ctx.shadowBlur = 6 + 10 * shellPulse; }
+                ctx.beginPath();
+                ctx.arc(cx, cy, r, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+
+                const count = shells[i];
+                const frac = (isOuter && spec.revealElectronFrac != null) ? spec.revealElectronFrac : 1;
+                const visibleCount = Math.round(count * frac);
+                const speed = 0.22 - i * 0.035;
+                for (let e = 0; e < visibleCount; e++) {
+                    const angle = (e / count) * Math.PI * 2 + time * speed + i * 0.7;
+                    const ex = cx + Math.cos(angle) * r;
+                    const ey = cy + Math.sin(angle) * r;
+                    const highlightThis = spec.glowOuterElectron && isOuter;
+                    ctx.beginPath();
+                    ctx.fillStyle = highlightThis ? '#E8A24A' : '#3CA57A';
+                    ctx.arc(ex, ey, highlightThis ? 3.4 * s : 2.6 * s, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            const grad = ctx.createRadialGradient(cx - nucleusR * 0.3, cy - nucleusR * 0.3, 1, cx, cy, nucleusR);
+            grad.addColorStop(0, '#e8a24a');
+            grad.addColorStop(1, '#b45a2b');
+            ctx.beginPath();
+            ctx.fillStyle = grad;
+            ctx.arc(cx, cy, nucleusR, 0, Math.PI * 2);
+            ctx.fill();
+            if (spec.showProtons) {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.font = `700 ${Math.max(9, 10 * s)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('+' + spec.protons, cx, cy + 0.5);
+            } else {
+                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                ctx.font = `700 ${Math.max(10, 11 * s)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('?', cx, cy + 0.5);
+            }
+
+            if (spec.showLabel) {
+                ctx.fillStyle = COLORS_TEXT.ink;
+                ctx.font = `800 ${Math.max(12, 14 * s)}px "Be Vietnam Pro", sans-serif`;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
+                ctx.fillText(spec.label, cx, cy + outerR + 20 * s);
+            }
+            if (spec.showEn) {
+                ctx.fillStyle = '#B45A2B';
+                ctx.font = `600 ${Math.max(9, 10 * s)}px "Be Vietnam Pro", sans-serif`;
+                ctx.fillText('ĐÂĐ ≈ ' + spec.enVal.toFixed(2), cx, cy + outerR + 20 * s + 14 * s);
+            }
+            ctx.restore();
+        }
+
+        // ======================================================
+        // MÔ HÌNH PHÂN TỬ H–X — cặp electron liên kết lệch về phía X
+        // theo mức chênh lệch độ âm điện (enX - enH)
+        // ======================================================
+        function drawMolecule(cx, cy, spec) {
+            const f = clamp(spec.frac != null ? spec.frac : 1, 0, 1);
+            if (f <= 0.01) return;
+            const scale = spec.scale || 1;
+            const dimAlpha = spec.dimAlpha != null ? spec.dimAlpha : 1;
+            const rH = 15 * scale, rX = 18 * scale;
+
+            // Tính hiệu độ âm điện trước để thay đổi độ dài liên kết động
+            const diff = clamp((spec.enX - spec.enH) / 3.2, 0, 1);
+            // Hiệu độ âm điện càng lớn (2 chấm càng gần X) thì liên kết càng ngắn, hiệu càng nhỏ thì liên kết càng dài
+            const bondLen = lerp(115, 70, diff) * scale;
+
+            const hx = cx - bondLen / 2, xx = cx + bondLen / 2;
+            ctx.save();
+            ctx.globalAlpha = dimAlpha * f;
+
+            ctx.strokeStyle = 'rgba(81,76,68,0.5)';
+            ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(hx + rH, cy); ctx.lineTo(xx - rX, cy); ctx.stroke();
+
+            const shiftT = lerp(0.5, 0.84, diff);
+            const dotX = lerp(hx, xx, shiftT);
+
+            const xGrad = ctx.createRadialGradient(xx, cy, 2, xx, cy, rX * 1.9);
+            xGrad.addColorStop(0, 'rgba(60,165,122,0.28)');
+            xGrad.addColorStop(1, 'rgba(60,165,122,0)');
+            ctx.beginPath(); ctx.fillStyle = xGrad; ctx.arc(xx, cy, rX * 1.9, 0, Math.PI * 2); ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = '#EDEAE2';
+            ctx.arc(hx, cy, rH, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = 'rgba(81,76,68,0.4)'; ctx.lineWidth = 1.4; ctx.stroke();
+
+            ctx.beginPath();
+            ctx.fillStyle = '#DCEAE1';
+            ctx.arc(xx, cy, rX, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#3CA57A'; ctx.lineWidth = 1.8; ctx.stroke();
+
+            if (f > 0.35) {
+                ctx.beginPath(); ctx.fillStyle = '#E8A24A';
+                // Vẽ 2 chấm dọc như dấu hai chấm (:), kẹp hai bên đường liên kết
+                ctx.arc(dotX, cy - 4 * scale, 2.8 * scale, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath();
+                ctx.arc(dotX, cy + 4 * scale, 2.8 * scale, 0, Math.PI * 2); ctx.fill();
+
+                ctx.strokeStyle = '#B45A2B'; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(cx - 13 * scale, cy + 15 * scale); ctx.lineTo(cx + 13 * scale, cy + 15 * scale); ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(cx + 13 * scale, cy + 15 * scale);
+                ctx.lineTo(cx + 7 * scale, cy + 11 * scale);
+                ctx.lineTo(cx + 7 * scale, cy + 19 * scale);
+                ctx.closePath(); ctx.fillStyle = '#B45A2B'; ctx.fill();
+            }
+
+            ctx.fillStyle = COLORS_TEXT.ink;
+            ctx.font = `700 ${11 * scale}px "Be Vietnam Pro", sans-serif`;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillText('H', hx, cy);
+            ctx.fillText(spec.symX, xx, cy);
+
+            if (spec.label) {
+                ctx.font = `600 ${10.5 * scale}px "Be Vietnam Pro", sans-serif`;
+                ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.fillText(spec.label, cx, cy + 40 * scale);
+            }
+            ctx.restore();
+        }
+
+        // ======================================================
+        // MAIN LOOP
+        // ======================================================
+        function loop() {
+            resizeCanvas();
+            time += 0.045;
+            updateTweens(16.7);
+            canvasClickTargets = [];
+            ctx.clearRect(0, 0, canvasW, canvasH);
+            drawGrid();
+
+            const scaleX = canvasW / W;
+            const scaleY = canvasH / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvasW - W * fitScale) / 2;
+            const offsetY = (canvasH - H * fitScale) / 2;
+
+            if (flashTimer > 0) {
+                ctx.save();
+                ctx.fillStyle = `rgba(60, 165, 122, ${flashTimer / 45})`;
+                ctx.fillRect(0, 0, canvasW, canvasH);
+                ctx.restore();
+                flashTimer--;
+            }
+
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(fitScale, fitScale);
+
+            switch (state.stage) {
+                case 1: drawStage1(); break;
+                case 2: drawStage2(); break;
+                case 3: drawStage3(); break;
+                case 4: drawStage4(); break;
+            }
+
+            updateRings();
+            rings.forEach(r => {
+                ctx.save();
+                ctx.globalAlpha = clamp(r.alpha, 0, 1);
+                ctx.strokeStyle = `rgb(${r.rgb.r},${r.rgb.g},${r.rgb.b})`;
+                ctx.lineWidth = clamp(3 - r.r / 14, 0.5, 3);
+                ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI * 2); ctx.stroke();
+                ctx.restore();
+            });
+
+            updateParticles();
+            particles.forEach(p => {
+                ctx.save();
+                ctx.fillStyle = p.color.replace('opacity', p.life);
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+
+            ctx.restore();
+
+            requestAnimationFrame(loop);
+        }
+
+        // ======================================================
+        // LMS / ATHENA INTEGRATION
+        // ======================================================
+        function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
+
+        const lmsAnswers = {};
+        let _lmsQCounter = 0;
+
+        // Ghi nhận 1 câu hỏi vào lmsAnswers, dùng chung cho showGatedQuiz/showMultiSelectQuiz/showTrueFalseSet.
+        // Chỉ đọc dữ liệu câu hỏi thật (question/options) đã có sẵn ở nơi gọi, không suy luận/thêm đáp án nào.
+        function lmsRecordAnswer(qid, prompt, options, chosen, correct) {
+            lmsAnswers[qid] = { stage: state.stage, prompt: prompt, options: options || null, chosen: chosen, correct: !!correct };
+            LMS().event('answered', { id: qid, stage: state.stage, chosen: chosen, correct: !!correct });
+        }
+
+        function lmsReportState(lastAction) {
+            LMS().state({ currentStage: state.stage, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
+            LMS().progress({ done: Math.max(0, state.stage - 1), total: STAGE_COUNT });
+        }
+
+        function reportHeight() {
+            const h = document.documentElement.scrollHeight;
+            LMS().resize({ height: h });
+        }
+        window.addEventListener('load', reportHeight);
+        if (typeof ResizeObserver !== 'undefined') {
+            const _ro = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
+            _ro.observe(document.body);
+        } else {
+            setInterval(reportHeight, 800);
+        }
+
+        // ======================================================
+        // STATE
+        // ======================================================
+        const state = {
+            stage: 1,
+            isAnimating: false,
+
+            s1Done: { HF: false, HCl: false, HBr: false },
+            s1Current: null,
+            s1Correct: null,
+            s1FlyT: { HF: 0, HCl: 0, HBr: 0 },
+            s1FlyStarted: { HF: false, HCl: false, HBr: false },
+            s1FlySeamless: null,
+
+            s2Period: null, s2Picked: [], s2FlipT: { C: 0, N: 0, O: 0, F: 0 }, s2Current: null, s2CompareFrac: 0,
+            s2Q1Done: false, s2Q2Done: false, s2Q4Done: false, s2Done: false,
+
+            s3Group: null, s3Picked: [], s3FlipT: { F: 0, Cl: 0, Br: 0, I: 0 }, s3Current: null, s3CompareFrac: 0, s3ComboFrac: 0, s3PredictMode: false,
+            s3Prediction: null,
+            s3Q1Done: false, s3Q2Done: false, s3Q3Done: false, s3Q4Done: false, s3Q5Done: false, s3Done: false,
+
+            s4RevealFrac: 0, s4PredictCorrect: null, s4PickMode: null, s4MaxDone: false, s4MinDone: false, s4ArrowDone: false, s4ComboFrac: 0,
+            s4Drag: {
+                period: { isPlaced: false },
+                group: { isPlaced: false }
+            },
+            drawingArrow: null,
+            tempWrongArrow: null,
+            activeDrag: null,
+            s4Q1Done: false, s4Q2Done: false, s4Done: false
+        };
+        const STAGE_COUNT = 4;
+
+        if (window.AiducationLMS) {
+            window.AiducationLMS.onResume = function (saved) {
+                if (!saved) return;
+                jumpToStage(saved.currentStage || 1);
+            };
+        }
+
+        // ======================================================
+        // STAGE 1 — ĐỘ ÂM ĐIỆN LÀ GÌ? (HF, HCl, HBr)
+        // ======================================================
+        const S1_SLOTS = [
+            { sym: 'HF', symX: 'F', label: 'H – F' },
+            { sym: 'HCl', symX: 'Cl', label: 'H – Cl' },
+            { sym: 'HBr', symX: 'Br', label: 'H – Br' }
+        ];
+        const EN_H = 2.20, EN_F = 3.98, EN_Cl = 3.16, EN_Br = 2.96;
+        const S1_EN_X = { HF: EN_F, HCl: EN_Cl, HBr: EN_Br };
+
+        function initStage1() {
+            Object.assign(state, { s1Done: { HF: false, HCl: false, HBr: false }, s1Current: null, s1Correct: null, s1FlyT: { HF: 0, HCl: 0, HBr: 0 }, s1FlyStarted: { HF: false, HCl: false, HBr: false }, s1FlySeamless: null });
+            hideAhaMoment(); hideDnd(); hideQuiz();
+            setRobotSpeech('Chúng ta sẽ tìm hiểu về <strong>độ âm điện</strong>. Em hãy click trực tiếp vào một trong ba ô phân tử bên trái trên canvas để quan sát nhé.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Click trực tiếp vào từng ô phân tử bên trái canvas.';
+            renderStage1Buttons();
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function renderStage1Buttons() {
+            // Khong tao nut trong controls nua
+        }
+
+        function clearS1Buttons() {
+            // Khong lam gi ca vi da bo nut
+        }
+
+        function selectS1(sym) {
+            state.s1Done[sym] = true;
+            state.s1Current = sym;
+            renderStage1Buttons();
+            const doneCount = Object.values(state.s1Done).filter(Boolean).length;
+            if (doneCount < 3) {
+                const remaining = S1_SLOTS.map(s => s.sym).filter(x => !state.s1Done[x]);
+                setRobotSpeech(`Đã quan sát ${sym}. Em hãy click tiếp vào các phân tử còn lại trên canvas nhé.`, 'idle');
+                document.getElementById('interactionStatus').innerText = 'Click vào các ô phân tử còn lại.';
+            } else {
+                clearS1Buttons();
+                setRobotSpeech(`Đã quan sát ${sym}. Em hãy quan sát kỹ cả ba phân tử nhé...`, 'idle');
+                document.getElementById('interactionStatus').innerText = 'Đang so sánh cả ba phân tử...';
+                setTimeout(() => {
+                    if (state.stage !== 1) return;
+                    state.s1Current = 'compare';
+                    state.s1FlySeamless = sym;
+                    document.getElementById('interactionStatus').innerText = 'Đang xếp ba phân tử để so sánh...';
+                    const flyDuration = reduceMotion ? 200 : 1300;
+                    const stagger = reduceMotion ? 80 : 550;
+                    const order = [sym, ...S1_SLOTS.map(s => s.sym).filter(x => x !== sym)];
+                    state.s1FlyStarted[sym] = true;
+                    tween(state.s1FlyT, sym, 1, flyDuration, easeInOut, null);
+                    order.slice(1).forEach((symKey, j) => {
+                        const i = j + 1;
+                        setTimeout(() => {
+                            if (state.stage !== 1) return;
+                            state.s1FlyStarted[symKey] = true;
+                            tween(state.s1FlyT, symKey, 1, flyDuration, easeInOut, i === order.length - 1 ? showS1CompareQuiz : null);
+                        }, i * stagger);
+                    });
+                }, reduceMotion ? 200 : 2000);
+            }
+        }
+
+        function showS1CompareQuiz() {
+            if (state.stage !== 1) return;
+            setRobotSpeech('Em hãy nhìn vào vị trí của cặp electron liên kết trong cả ba phân tử. Phân tử nào có cặp electron lệch nhiều nhất? Bạn hãy chọn đáp án bên phải nhé.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho câu hỏi.';
+            showGatedQuiz(
+                'Trong ba phân tử HF, HCl, HBr — nguyên tử H đều giống nhau. Vậy điều gì tạo ra sự khác biệt về vị trí cặp electron liên kết?',
+                [
+                    { key: 'A', text: 'Khối lượng của nguyên tử X — nguyên tử nặng hơn hút mạnh hơn.' },
+                    { key: 'B', text: 'Kích thước của nguyên tử X — nguyên tử lớn hơn chiếm nhiều chỗ hơn nên cặp electron lệch về phía đó.' },
+                    { key: 'C', text: 'Khả năng hút cặp electron liên kết của mỗi nguyên tử X là khác nhau.' },
+                    { key: 'D', text: 'Số electron của nguyên tử X — nguyên tử có nhiều electron hơn thì hút mạnh hơn.' }
+                ], 'C',
+                'Đúng! Không phải khối lượng hay kích thước — mà chính khả năng hút cặp electron liên kết của mỗi nguyên tử tạo ra sự khác biệt đó. F hút mạnh hơn Cl, Cl hút mạnh hơn Br.<br><br>Bạn hãy nhấn <strong>Tiếp tục</strong> để sang phần tiếp theo nhé.',
+                'Hãy loại trừ từng đáp án: ba phân tử đều có H như nhau — sự khác biệt chỉ đến từ X. Điều gì ở X tạo ra sự khác biệt đó?',
+                () => {
+                    state.s1Correct = true;
+                    hideQuiz();
+                    showAhaMoment('Mỗi nguyên tử có khả năng hút cặp electron liên kết khác nhau. Khả năng đó được gọi là <strong>độ âm điện</strong>.');
+                    document.getElementById('interactionStatus').innerText = 'Bấm Tiếp tục để sang Stage 2.';
+                    updateNextButtonState();
+                }
+            );
+        }
+
+        function drawStage1() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(168,201,184,0.5)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(248, 18); ctx.lineTo(248, 382); ctx.stroke();
+            ctx.font = '700 11px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2; ctx.textAlign = 'left';
+            ctx.fillText('BA PHÂN TỬ', 20, 30);
+            ctx.restore();
+
+            const cardX = 20, cardW = 210, cardH = 82, gapY = 14;
+            S1_SLOTS.forEach((s, i) => {
+                const cy0 = 44 + i * (cardH + gapY);
+                const viewed = state.s1Done[s.sym];
+                const active = state.s1Current === s.sym;
+
+                // Register click target on canvas cards for Stage 1 elements
+                if (state.s1Current !== 'compare') {
+                    canvasClickTargets.push({
+                        x: cardX,
+                        y: cy0,
+                        w: cardW,
+                        h: cardH,
+                        onClick: () => selectS1(s.sym)
+                    });
+                }
+
+                ctx.save();
+                roundRect(ctx, cardX, cy0, cardW, cardH, 10);
+                ctx.fillStyle = active ? 'rgba(220,235,225,0.9)' : '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = active ? '#3CA57A' : (viewed ? 'rgba(60,165,122,0.5)' : 'rgba(168,201,184,0.6)');
+                ctx.lineWidth = active ? 2 : 1.4;
+                roundRect(ctx, cardX, cy0, cardW, cardH, 10); ctx.stroke();
+
+                ctx.fillStyle = COLORS_TEXT.ink; ctx.font = '700 16px "Be Vietnam Pro", sans-serif';
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(s.label, cardX + cardW / 2, cy0 + 30);
+
+                ctx.font = '600 11px "Be Vietnam Pro", sans-serif';
+                ctx.fillStyle = viewed ? '#1B5E48' : COLORS_TEXT.ink2;
+                ctx.fillText(viewed ? '✓ Đã quan sát' : 'Chưa quan sát', cardX + cardW / 2, cy0 + 55);
+                ctx.restore();
+            });
+
+            const rx = 280, ry = 18, rw = 460, rh = 364;
+            if (state.s1Current === null) {
+                ctx.save();
+                ctx.font = '600 14px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Chọn một phân tử để quan sát', rx + rw / 2, ry + rh / 2);
+                ctx.restore();
+            } else if (state.s1Current === 'compare') {
+                const startX = rx + rw / 2, startY = ry + rh / 2;
+                S1_SLOTS.forEach((s, i) => {
+                    if (!state.s1FlyStarted[s.sym]) return;
+                    const cy0 = 44 + i * (cardH + gapY);
+                    const rowCy = cy0 + cardH / 2;
+                    const t = state.s1FlyT[s.sym];
+                    const dy = lerp(startY, rowCy, t);
+                    const sc = lerp(1.5, 1.15, t);
+                    const a = s.sym === state.s1FlySeamless ? 1 : clamp(t * 4, 0, 1);
+                    drawMolecule(startX, dy, { symX: s.symX, enH: EN_H, enX: S1_EN_X[s.sym], frac: 1, label: s.label, scale: sc, dimAlpha: a });
+                });
+            } else {
+                const s = S1_SLOTS.find(x => x.sym === state.s1Current);
+                drawMolecule(rx + rw / 2, ry + rh / 2, { symX: s.symX, enH: EN_H, enX: S1_EN_X[s.sym], frac: 1, label: s.label, scale: 1.5 });
+            }
+        }
+
+        // ======================================================
+        // STAGE 2 — CHỌN CHU KÌ (2–6) → KHÁM PHÁ C,N,O,F Ở CHU KÌ 2
+        // ======================================================
+        const S2_ORDER = ['C', 'N', 'O', 'F'];
+        const S2_PERIODS = [2, 3, 4, 5, 6];
+
+        // Bảng tuần hoàn RÚT GỌN riêng cho Stage 2 (chỉ 7 cột nhóm A, không nhóm B/khí hiếm) — nằm ở VÙNG TRÁI canvas
+        const CT_X0 = 30, CT_Y0 = 74, CT_CW = 40, CT_CH = 34, CT_GAP = 4;
+        const S2_BTN_Y = 18, S2_BTN_H = 26, S2_BTN_GAP = 5;
+        function compactCellRect(period, group) {
+            const col = GROUP_A_COLS.indexOf(group);
+            const row = period - 1;
+            return { x: CT_X0 + col * (CT_CW + CT_GAP), y: CT_Y0 + row * (CT_CH + CT_GAP), w: CT_CW, h: CT_CH };
+        }
+        function elementAtPG(period, group) {
+            const el = ELEMENTS.find(e => e.period === period && e.group === group);
+            return (el && el.sym !== 'At') ? el : null;
+        }
+
+        function initStage2() {
+            Object.assign(state, {
+                s2Period: null, s2Picked: [], s2FlipT: { C: 0, N: 0, O: 0, F: 0 }, s2Current: null, s2CompareFrac: 0,
+                s2Q1Done: false, s2Q2Done: false, s2Q4Done: false, s2Done: false
+            });
+            hideAhaMoment(); hideDnd(); hideQuiz();
+            setRobotSpeech('Bảng tuần hoàn đang hiển thị. Bạn hãy bấm chọn một <strong>chu kì</strong> ngay trên canvas (phía trên bảng) để khám phá nhé.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Bấm chọn một chu kì trên canvas.';
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function drawS2PeriodBar() {
+            const totalW = 7 * CT_CW + 6 * CT_GAP;
+            const btnW = (totalW - (S2_PERIODS.length - 1) * S2_BTN_GAP) / S2_PERIODS.length;
+            ctx.save();
+            ctx.font = '700 10px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            S2_PERIODS.forEach((p, i) => {
+                const x = CT_X0 + i * (btnW + S2_BTN_GAP);
+                const active = state.s2Period === p;
+                roundRect(ctx, x, S2_BTN_Y, btnW, S2_BTN_H, 7);
+                ctx.fillStyle = active ? '#3CA57A' : '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = active ? '#2D8B6F' : 'rgba(168,201,184,0.7)';
+                ctx.lineWidth = 1.4;
+                roundRect(ctx, x, S2_BTN_Y, btnW, S2_BTN_H, 7);
+                ctx.stroke();
+                ctx.fillStyle = active ? '#FAF7F0' : COLORS_TEXT.ink;
+                ctx.fillText('Chu kì ' + p, x + btnW / 2, S2_BTN_Y + S2_BTN_H / 2 + 0.5);
+                canvasClickTargets.push({ x, y: S2_BTN_Y, w: btnW, h: S2_BTN_H, onClick: () => selectS2Period(p) });
+            });
+            ctx.restore();
+        }
+
+        function selectS2Period(p) {
+            if (p !== 2) {
+                setRobotSpeech(`Chu kì ${p} em sẽ tự khám phá thêm sau nhé — mình cùng bắt đầu với <strong>Chu kì 2</strong> đã.`, 'idle');
+                return;
+            }
+            state.s2Period = 2;
+            setRobotSpeech('Chu kì 2 gồm Li, Be, B, C, N, O, F. Bạn hãy bấm lần lượt vào <strong>C, N, O, F</strong> ngay trên bảng để xem mô hình nhé (thứ tự tuỳ ý).', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Bấm vào từng nguyên tố C, N, O, F trên bảng.';
+        }
+
+        function clickS2Element(sym) {
+            if (!S2_ORDER.includes(sym)) {
+                setRobotSpeech('Em sẽ thấy giá trị độ âm điện đầy đủ của các nguyên tố này ở <strong>Stage 4</strong>.', 'idle');
+                return;
+            }
+            state.s2Current = sym;
+            if (!state.s2Picked.includes(sym)) {
+                state.s2Picked.push(sym);
+                tween(state.s2FlipT, sym, 1, 500, easeOut);
+            }
+            if (state.s2Picked.length < S2_ORDER.length) {
+                const remaining = S2_ORDER.filter(s => !state.s2Picked.includes(s));
+                setRobotSpeech(`Đã xem ${sym}. Bạn hãy tiếp tục bấm vào ${remaining.join(', ')} nhé.`, 'idle');
+                document.getElementById('interactionStatus').innerText = 'Bấm vào nguyên tố còn lại trên bảng.';
+            } else {
+                setRobotSpeech('Bạn đã xem đủ 4 nguyên tố. Bây giờ hãy nhấn <strong>So sánh</strong> để xem tổng hợp nhé.', 'idle');
+                document.getElementById('interactionStatus').innerText = 'Nhấn So sánh.';
+                setStageAction('So sánh', 'ti-arrows-horizontal', () => runS2Compare(), false);
+            }
+        }
+
+        function runS2Compare() {
+            state.isAnimating = true;
+            state.s2Current = 'compare';
+            setStageAction('Đang so sánh...', 'ti-loader spin', null, true);
+            document.getElementById('interactionStatus').innerText = 'Đang so sánh C → F...';
+            tween(state, 's2CompareFrac', 1, 3000, easeInOut, () => {
+                state.isAnimating = false;
+                clearStageAction();
+                setRobotSpeech('Em nhận thấy mức độ lệch của cặp electron thay đổi như thế nào khi đi từ C sang F? Bạn hãy chọn đáp án cho Câu hỏi 1 nhé.', 'idle');
+                document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho Câu hỏi 1.';
+                showGatedQuiz(
+                    'Trong chu kì 3 có các nguyên tố: Na, Mg, Al, Si, P, S, Cl. Dựa vào quy luật vừa quan sát, nguyên tố nào trong chu kì 3 có độ âm điện lớn nhất?',
+                    [{ key: 'A', text: 'Na' }, { key: 'B', text: 'Si' }, { key: 'C', text: 'P' }, { key: 'D', text: 'Cl' }], 'D',
+                    'Chính xác!', 'Hãy quan sát lại mức độ lệch cặp electron từ H–C đến H–F — cùng quy luật áp dụng cho chu kì 3.',
+                    () => {
+                        state.s2Q1Done = true;
+                        setTimeout(() => {
+                            setRobotSpeech('Bạn hãy trả lời tiếp các nhận định sau nhé.', 'idle');
+                            document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                            showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                                { text: 'Trong cùng chu kì, nguyên tố có điện tích hạt nhân lớn hơn luôn có độ âm điện lớn hơn.', correct: true },
+                                { text: 'Bán kính nguyên tử giảm từ trái sang phải trong chu kì vì số lớp electron tăng thêm.', correct: false },
+                                { text: 'Nếu hai nguyên tố cùng chu kì, nguyên tố đứng sau (nhóm cao hơn) hút cặp electron liên kết mạnh hơn.', correct: true }
+                            ], (allCorrect) => {
+                                if (!allCorrect) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                                state.s2Q2Done = true;
+                                setTimeout(() => {
+                                    hideQuiz();
+                                    setRobotSpeech('Em nhìn vào mô hình Bohr của C và F. Điện tích hạt nhân và số lớp electron thay đổi như thế nào? Điều đó ảnh hưởng đến bán kính ra sao? (Câu hỏi để suy ngẫm, không chấm điểm.)', 'idle');
+                                    document.getElementById('interactionStatus').innerText = 'Đọc và suy ngẫm rồi bấm Tiếp tục.';
+                                    setStageAction('Đã hiểu, tiếp tục', 'ti-arrow-right', () => {
+                                        clearStageAction();
+                                        setRobotSpeech('Bạn hãy trả lời tiếp các nhận định cuối cùng nhé.', 'idle');
+                                        document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                                        showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                                            { text: 'Từ C đến F, điện tích hạt nhân tăng nhưng số lớp electron không đổi, vì vậy bán kính giảm.', correct: true },
+                                            { text: 'Nếu hai yếu tố điện tích hạt nhân và bán kính cùng tăng thì độ âm điện chắc chắn tăng.', correct: false },
+                                            { text: 'Trong chu kì 2, O có độ âm điện lớn hơn N vì O có điện tích hạt nhân lớn hơn và bán kính nhỏ hơn.', correct: true }
+                                        ], (allCorrect2) => {
+                                            if (!allCorrect2) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                                            state.s2Q4Done = true; state.s2Done = true;
+                                            clearStageAction();
+                                            hideQuiz();
+                                            setRobotSpeech('Chính xác. Bạn hãy nhấn <strong>Tiếp tục</strong> để sang phần tiếp theo nhé.', 'correct');
+                                            showAhaMoment('Trong một chu kì, độ âm điện tăng từ trái sang phải vì điện tích hạt nhân tăng trong khi số lớp electron không đổi nên bán kính nguyên tử giảm.');
+                                            document.getElementById('interactionStatus').innerText = 'Hoàn tất! Bấm Tiếp tục.';
+                                            updateNextButtonState();
+                                        });
+                                    }, false);
+                                }, 1000);
+                            });
+                        }, 1000);
+                    }
+                );
+            });
+        }
+
+        function drawStage2() {
+            drawS2PeriodBar();
+
+            // ---- Nhãn cột (IA..VIIA) + nhãn chu kì (1..6) ----
+            ctx.save();
+            ctx.font = '700 10px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            GROUP_A_COLS.forEach(g => {
+                const r = compactCellRect(1, g);
+                ctx.fillText(GROUP_LABEL[g], r.x + r.w / 2, CT_Y0 - 14);
+            });
+            for (let p = 1; p <= 6; p++) {
+                const r = compactCellRect(p, 1);
+                ctx.fillText(String(p), 14, r.y + r.h / 2);
+            }
+            ctx.restore();
+
+            // ---- Bảng tuần hoàn rút gọn (chỉ nhóm A, chu kì 1–6) ----
+            for (let p = 1; p <= 6; p++) {
+                GROUP_A_COLS.forEach(g => {
+                    const el = elementAtPG(p, g);
+                    if (!el) return;
+                    const rect = compactCellRect(p, g);
+                    const isTargetRow = state.s2Period === 2 && p === 2;
+                    const isNonmetalTarget = isTargetRow && S2_ORDER.includes(el.sym);
+                    const isPicked = isNonmetalTarget && state.s2Picked.includes(el.sym);
+                    const flipT = isPicked ? state.s2FlipT[el.sym] : 0;
+                    const isActive = state.s2Current === el.sym;
+
+                    let bg = '#FFFFFF', border = 'rgba(168,201,184,0.6)', alpha = 1, glow = false;
+                    if (state.s2Period !== null) {
+                        if (p !== state.s2Period) {
+                            alpha = 0.08;
+                        } else if (isNonmetalTarget) {
+                            bg = 'rgba(220,235,225,0.95)'; border = '#3CA57A';
+                            if (state.s2Current === 'compare') {
+                                alpha = 0.35; // Mo di mot chut khi so sanh
+                                glow = false;
+                            } else {
+                                glow = true;
+                            }
+                        } else if (isTargetRow) {
+                            bg = 'rgba(220,235,225,0.3)'; border = 'rgba(60,165,122,0.25)'; alpha = 0.25;
+                        } else {
+                            bg = 'rgba(220,235,225,0.7)'; border = '#3CA57A';
+                        }
+                    }
+
+                    ctx.save();
+                    const cellAlpha = alpha;
+                    ctx.globalAlpha = cellAlpha;
+                    if (glow) { ctx.shadowColor = 'rgba(60,165,122,0.6)'; ctx.shadowBlur = 9; }
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6);
+                    ctx.fillStyle = bg; ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = isActive ? '#E8A24A' : border;
+                    ctx.lineWidth = isActive ? 2.2 : (glow ? 1.8 : 1.4);
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6); ctx.stroke();
+                    ctx.restore();
+
+
+                    if (isTargetRow) {
+                        canvasClickTargets.push({ x: rect.x, y: rect.y, w: rect.w, h: rect.h, onClick: () => clickS2Element(el.sym) });
+                    }
+                    if (flipT < 0.98) {
+                        ctx.save();
+                        ctx.globalAlpha = cellAlpha * (1 - flipT);
+                        ctx.font = '700 13px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink;
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(el.sym, rect.x + rect.w / 2, rect.y + rect.h / 2);
+                        ctx.restore();
+                    }
+                });
+            }
+
+            // Draw 4 Bohr models for C, N, O, F dynamically (fly and scale to the left)
+            const s2BohrCoords = [
+                { sym: 'C', x0: 182, y0: 129, x1: 70, y1: 98 },
+                { sym: 'N', x0: 226, y0: 129, x1: 150, y1: 98 },
+                { sym: 'O', x0: 270, y0: 129, x1: 230, y1: 98 },
+                { sym: 'F', x0: 314, y0: 129, x1: 310, y1: 98 }
+            ];
+
+            s2BohrCoords.forEach(b => {
+                const flipT = state.s2FlipT[b.sym];
+                if (flipT > 0.02) {
+                    const data = ATOM[b.sym];
+                    if (data) {
+                        const t = state.s2CompareFrac;
+                        const x = lerp(b.x0, b.x1, t);
+                        const y = lerp(b.y0, b.y1, t);
+                        const scale = lerp(0.34, 0.72, t);
+                        const alphaVal = state.s2CompareFrac > 0.02 ? 1 : flipT;
+
+                        // Draw Bohr model inside
+                        ctx.save();
+                        ctx.globalAlpha = alphaVal;
+                        drawBohrModel(x, y, {
+                            shells: data.shells, pm: data.pm, protons: data.z,
+                            showProtons: true, sizeScale: scale, dimAlpha: 1
+                        });
+                        ctx.restore();
+                    }
+                }
+            });
+
+            // Draw arrow connectors dynamically matching the moving Bohr models
+            if (state.s2CompareFrac > 0.02) {
+                const t = state.s2CompareFrac;
+                const xC = lerp(182, 70, t);
+                const xN = lerp(226, 150, t);
+                const xO = lerp(270, 230, t);
+                const xF = lerp(314, 310, t);
+                const yBohr = lerp(129, 98, t);
+
+                const arrowOffset = lerp(15, 26, t);
+
+                drawTrendArrow(xC + arrowOffset, yBohr, xN - arrowOffset, yBohr, state.s2CompareFrac, '#2D8B6F');
+                drawTrendArrow(xN + arrowOffset, yBohr, xO - arrowOffset, yBohr, state.s2CompareFrac, '#2D8B6F');
+                drawTrendArrow(xO + arrowOffset, yBohr, xF - arrowOffset, yBohr, state.s2CompareFrac, '#2D8B6F');
+
+                const a2 = state.s2CompareFrac;
+                drawTrendArrow(xC, yBohr + 32, xF, yBohr + 32, a2, '#2D8B6F');
+            }
+
+            // ---- Vẽ mô hình Bohr phóng to đè lên phía dưới bảng tuần hoàn bên trái (chu kì 3, 4, 5, 6) để nhìn rõ hơn ----
+            if (state.s2Period === 2 && state.s2Current && state.s2Current !== 'compare') {
+                const sym = state.s2Current;
+                const data = ATOM[sym];
+                if (data) {
+                    ctx.save();
+                    // Vẽ card nền mờ ở vùng dưới bảng tuần hoàn (đè lên chu kì 3, 4, 5, 6)
+                    drawDetailCard(44, 154, 260, 206, 0.92);
+                    // Vẽ Bohr phóng to bên trong card
+                    drawBohrModel(174, 245, {
+                        shells: data.shells, pm: data.pm, protons: data.z,
+                        showProtons: true, showLabel: true, label: "Bohr: " + sym, sizeScale: 1.25, dimAlpha: 1
+                    });
+                    ctx.restore();
+                }
+            }
+
+            // ---- Vạch chia hai vùng ----
+            ctx.save();
+            ctx.strokeStyle = 'rgba(168,201,184,0.5)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(345, 18); ctx.lineTo(345, 382); ctx.stroke();
+            ctx.restore();
+
+            // ---- Vùng phải: mô phỏng phân tử ----
+            const rx = 370, ry = 18, rw = 372, rh = 364;
+            if (state.s2Period === null || state.s2Current === null) {
+                ctx.save();
+                ctx.font = '600 14px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText(state.s2Period === null ? 'Hãy chọn một chu kì để khám phá.' : 'Chọn một nguyên tố để quan sát', rx + rw / 2, ry + rh / 2);
+                ctx.restore();
+            } else {
+                // Vẽ 4 hàng dọc tương ứng C, N, O, F phóng to lên
+                const startY = ry + 46;
+                const rowSpacing = 82;
+                S2_ORDER.forEach((sym, i) => {
+                    const cy = startY + i * rowSpacing;
+                    const isPicked = state.s2Picked.includes(sym);
+                    const isCurrent = state.s2Current === sym;
+
+                    if (isPicked || state.s2Current === 'compare') {
+                        ctx.save();
+                        if (isCurrent && state.s2Current !== 'compare') {
+                            // Vẽ hiệu ứng phát sáng nhẹ phía sau phân tử đang chọn hiện tại
+                            const grad = ctx.createRadialGradient(rx + rw / 2, cy, 5, rx + rw / 2, cy, 90);
+                            grad.addColorStop(0, 'rgba(60,165,122,0.12)');
+                            grad.addColorStop(1, 'rgba(60,165,122,0)');
+                            ctx.fillStyle = grad;
+                            ctx.beginPath();
+                            ctx.arc(rx + rw / 2, cy, 90, 0, Math.PI * 2);
+                            ctx.fill();
+                        }
+
+                        // Vẽ mô hình liên kết với tỷ lệ to và rõ ràng (scale: 1.35)
+                        drawMolecule(rx + rw / 2, cy, {
+                            symX: sym,
+                            enH: EN_H,
+                            enX: EN[sym],
+                            frac: 1,
+                            label: 'H – ' + sym,
+                            scale: 1.35,
+                            dimAlpha: (state.s2Current === 'compare' || isCurrent) ? 1 : 0.65
+                        });
+                        ctx.restore();
+                    }
+                });
+            }
+        }
+
+        // ======================================================
+        // STAGE 3 — NHÓM VIIA (F, Cl, Br, I) + DỰ ĐOÁN
+        // Bảng rút gọn dùng chung với Stage 2 (compactCellRect/elementAtPG),
+        // nút chọn NHÓM đặt trong canvas ngay trên cột tương ứng.
+        // ======================================================
+        const S3_ORDER = ['F', 'Cl', 'Br', 'I'];
+
+        function initStage3() {
+            Object.assign(state, {
+                s3Group: null, s3Picked: [], s3FlipT: { F: 0, Cl: 0, Br: 0, I: 0 }, s3Current: null,
+                s3CompareFrac: 0, s3ComboFrac: 0, s3PredictMode: false, s3Prediction: null,
+                s3Q1Done: false, s3Q2Done: false, s3Q3Done: false, s3Q4Done: false, s3Q5Done: false, s3Done: false
+            });
+            hideAhaMoment(); hideDnd(); hideQuiz();
+            setRobotSpeech('Bây giờ chúng ta khám phá theo chiều dọc — nhóm nguyên tố. Bạn hãy bấm chọn một <strong>nhóm</strong> ngay trên canvas (phía trên bảng) để khám phá nhé.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Bấm chọn một nhóm trên canvas.';
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function drawS3GroupBar() {
+            ctx.save();
+            ctx.font = '700 10px "Be Vietnam Pro", sans-serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            GROUP_A_COLS.forEach((g, i) => {
+                const x = CT_X0 + i * (CT_CW + CT_GAP);
+                const active = state.s3Group === g;
+                roundRect(ctx, x, S2_BTN_Y, CT_CW, S2_BTN_H, 7);
+                ctx.fillStyle = active ? '#3CA57A' : '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = active ? '#2D8B6F' : 'rgba(168,201,184,0.7)';
+                ctx.lineWidth = 1.4;
+                roundRect(ctx, x, S2_BTN_Y, CT_CW, S2_BTN_H, 7);
+                ctx.stroke();
+                ctx.fillStyle = active ? '#FAF7F0' : COLORS_TEXT.ink;
+                ctx.fillText(GROUP_LABEL[g], x + CT_CW / 2, S2_BTN_Y + S2_BTN_H / 2 + 0.5);
+                canvasClickTargets.push({ x, y: S2_BTN_Y, w: CT_CW, h: S2_BTN_H, onClick: () => selectS3Group(g) });
+            });
+            ctx.restore();
+        }
+
+        function selectS3Group(g) {
+            if (state.s3Group === g) return;
+            if (g !== 17) {
+                setRobotSpeech(`Nhóm ${GROUP_LABEL[g]} em sẽ tự khám phá thêm sau nhé — mình cùng bắt đầu với <strong>Nhóm VIIA</strong> đã.`, 'idle');
+                return;
+            }
+            state.s3Group = 17;
+            setRobotSpeech('Nhóm VIIA gồm F, Cl, Br, I. Bạn hãy bấm lần lượt vào <strong>F, Cl, Br, I</strong> ngay trên bảng để xem mô hình nhé (thứ tự tuỳ ý).', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Bấm vào từng nguyên tố F, Cl, Br, I trên bảng.';
+        }
+
+        function clickS3Element(sym) {
+            if (!S3_ORDER.includes(sym)) {
+                setRobotSpeech('Em sẽ thấy giá trị độ âm điện đầy đủ của các nguyên tố này ở <strong>Stage 4</strong>.', 'idle');
+                return;
+            }
+            state.s3Current = sym;
+            if (!state.s3Picked.includes(sym)) {
+                state.s3Picked.push(sym);
+                tween(state.s3FlipT, sym, 1, 500, easeOut);
+            }
+            if (state.s3Picked.length < S3_ORDER.length) {
+                const remaining = S3_ORDER.filter(s => !state.s3Picked.includes(s));
+                setRobotSpeech(`Đã xem ${sym}. Bạn hãy tiếp tục bấm vào ${remaining.join(', ')} nhé.`, 'idle');
+                document.getElementById('interactionStatus').innerText = 'Bấm vào nguyên tố còn lại trên bảng.';
+            } else {
+                setRobotSpeech('Bạn đã xem đủ 4 nguyên tố. Bây giờ hãy nhấn <strong>So sánh</strong> để xem tổng hợp nhé.', 'idle');
+                document.getElementById('interactionStatus').innerText = 'Nhấn So sánh.';
+                setStageAction('So sánh', 'ti-arrows-vertical', () => runS3Compare(), false);
+            }
+        }
+
+        function runS3Compare() {
+            state.isAnimating = true;
+            state.s3Current = 'compare';
+            setStageAction('Đang so sánh...', 'ti-loader spin', null, true);
+            document.getElementById('interactionStatus').innerText = 'Đang so sánh F → I...';
+            tween(state, 's3CompareFrac', 1, 3000, easeInOut, () => {
+                clearStageAction();
+                setTimeout(() => runS3Combo(), 800);
+            });
+        }
+
+        function runS3Combo() {
+            document.getElementById('interactionStatus').innerText = 'Đang tổng hợp hai chiều biến đổi...';
+            tween(state, 's3ComboFrac', 1, 10000, easeInOut, () => {
+                state.isAnimating = false;
+                state.s3PredictMode = true;
+                setRobotSpeech('Dựa trên hai quy luật vừa khám phá (chu kì và nhóm), em hãy dự đoán nguyên tố có độ âm điện lớn nhất trên bảng tuần hoàn. Hãy <strong>click vào một ô nguyên tố</strong> trên bảng nhé. Đây là dự đoán, không chấm điểm — Stage tiếp theo sẽ cho em kiểm chứng.', 'idle');
+                document.getElementById('interactionStatus').innerText = 'Click vào một nguyên tố trên bảng để dự đoán.';
+            });
+        }
+
+        function changeS3Prediction(sym) {
+            state.s3Prediction = sym;
+            setRobotSpeech(`Em vừa thay đổi dự đoán của mình: <strong>${sym}</strong>. Hãy ghi nhớ nhé.`, 'idle');
+        }
+
+        function pickS3Prediction(sym) {
+            if (!state.s3PredictMode) return;
+            state.s3Prediction = sym;
+            state.s3PredictMode = false;
+            setRobotSpeech(`Em vừa đưa ra dự đoán của mình: <strong>${sym}</strong>. Hãy ghi nhớ nhé. Bạn hãy chọn đáp án cho Câu hỏi 1 nhé.`, 'idle');
+            document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho Câu hỏi 1.';
+            showGatedQuiz(
+                'Trong nhóm VIIA, khi đi từ F xuống I, mức độ lệch của cặp electron trong phân tử H–X thay đổi như thế nào, và tại sao?',
+                [
+                    { key: 'A', text: 'Lệch nhiều hơn — vì điện tích hạt nhân tăng nên hút mạnh hơn.' },
+                    { key: 'B', text: 'Lệch ít hơn — vì bán kính tăng làm cặp electron ở xa hạt nhân hơn, lực hút giảm.' },
+                    { key: 'C', text: 'Không đổi — vì cùng nhóm nên độ âm điện như nhau.' },
+                    { key: 'D', text: 'Lệch ít hơn — vì số electron tăng làm lực đẩy tăng.' }
+                ], 'B', 'Chính xác!', 'Hãy quan sát lại mức độ lệch cặp electron từ H–F đến H–I.',
+                () => {
+                    state.s3Q1Done = true;
+                    setTimeout(() => {
+                        setRobotSpeech('Bạn hãy chọn tất cả các phát biểu đúng cho Câu hỏi 2 nhé.', 'idle');
+                        document.getElementById('interactionStatus').innerText = 'Chọn tất cả đáp án đúng.';
+                        showMultiSelectQuiz(
+                            'Nguyên tố X thuộc nhóm VIA, chu kì 3. Nguyên tố Y thuộc nhóm VIA, chu kì 2. Chọn tất cả các phát biểu đúng:',
+                            [
+                                { key: 'A', text: 'Y có bán kính nhỏ hơn X.' },
+                                { key: 'B', text: 'Y có độ âm điện lớn hơn X.' },
+                                { key: 'C', text: 'X có điện tích hạt nhân nhỏ hơn Y.' },
+                                { key: 'D', text: 'X và Y có cùng số lớp electron.' },
+                                { key: 'E', text: 'Cặp electron liên kết trong H–Y lệch về phía Y nhiều hơn so với H–X.' }
+                            ], ['A', 'B', 'E'],
+                            (isCorrect) => {
+                                if (!isCorrect) { setRobotSpeech('Chưa đúng hết. Hãy so sánh X và Y theo cả quy luật chu kì lẫn nhóm rồi thử lại nhé.', 'wrong'); return; }
+                                state.s3Q2Done = true;
+                                setRobotSpeech('Chính xác! Bạn hãy trả lời tiếp các nhận định sau nhé.', 'correct');
+                                setTimeout(() => {
+                                    document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                                    showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                                        { text: 'Trong cùng nhóm, nguyên tố nào có nhiều lớp electron hơn thì bán kính lớn hơn.', correct: true },
+                                        { text: 'Trong nhóm VIIA, điện tích hạt nhân tăng từ F đến I nhưng độ âm điện lại giảm — điều này cho thấy bán kính ảnh hưởng quyết định hơn điện tích hạt nhân trong trường hợp này.', correct: true },
+                                        { text: 'Nếu thêm một lớp electron đồng thời điện tích hạt nhân cũng tăng thì bán kính nguyên tử không thay đổi.', correct: false }
+                                    ], (allCorrect) => {
+                                        if (!allCorrect) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                                        hideQuiz();
+                                        state.s3Q3Done = true;
+                                        setTimeout(() => {
+                                            hideQuiz();
+                                            setRobotSpeech('Em nhìn vào mô hình Bohr của F và I. Số lớp electron và bán kính thay đổi như thế nào? (Câu hỏi để suy ngẫm, không chấm điểm.)', 'idle');
+                                            document.getElementById('interactionStatus').innerText = 'Đọc và suy ngẫm rồi bấm Tiếp tục.';
+                                            setStageAction('Đã hiểu, tiếp tục', 'ti-arrow-right', () => {
+                                                clearStageAction();
+                                                setRobotSpeech('Bạn hãy trả lời tiếp các nhận định sau nhé.', 'idle');
+                                                document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                                                showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                                                    { text: 'Trong nhóm A, khi số lớp electron tăng thêm, dù điện tích hạt nhân cũng tăng nhưng bán kính vẫn tăng vì lớp electron mới ở xa hạt nhân hơn.', correct: true },
+                                                    { text: 'I có độ âm điện nhỏ hơn F chứng tỏ điện tích hạt nhân là yếu tố duy nhất quyết định độ âm điện.', correct: false },
+                                                    { text: 'Nếu hai nguyên tố cùng nhóm, nguyên tố nào ở chu kì lớn hơn thì bán kính lớn hơn và độ âm điện nhỏ hơn.', correct: true }
+                                                ], (allCorrect2) => {
+                                                    if (!allCorrect2) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                                                    hideQuiz();
+                                                    state.s3Q4Done = true;
+                                                    setTimeout(() => {
+                                                        setRobotSpeech('Bạn hãy chọn đáp án cho câu hỏi cuối cùng của Stage này nhé.', 'idle');
+                                                        document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho Câu hỏi 5.';
+                                                        showGatedQuiz(
+                                                            'Tại sao I có điện tích hạt nhân lớn hơn F nhưng độ âm điện lại nhỏ hơn?',
+                                                            [
+                                                                { key: 'A', text: 'Vì điện tích hạt nhân I tuy lớn hơn nhưng cặp electron liên kết ở quá xa hạt nhân — bán kính lớn làm lực hút bị suy giảm đáng kể.' },
+                                                                { key: 'B', text: 'Vì I ở chu kì 5 nên quy luật điện tích hạt nhân không còn áp dụng.' },
+                                                                { key: 'C', text: 'Vì số lớp electron nhiều khiến cặp electron liên kết bị đẩy ra xa và không còn chịu ảnh hưởng của hạt nhân.' },
+                                                                { key: 'D', text: 'Vì bán kính lớn hơn nên điện tích hạt nhân bị "pha loãng" đều ra toàn thể tích nguyên tử.' }
+                                                            ], 'A', 'Chính xác!', 'Hãy nhìn lại mô hình Bohr của F và I — chú ý khoảng cách electron ngoài cùng đến hạt nhân.',
+                                                            () => {
+                                                                hideQuiz();
+                                                                state.s3Q5Done = true; state.s3Done = true;
+                                                                clearStageAction();
+                                                                setRobotSpeech('Chính xác. Bạn hãy nhấn <strong>Tiếp tục</strong> để sang phần cuối nhé.', 'correct');
+                                                                showAhaMoment('Độ âm điện giảm từ trên xuống dưới trong nhóm A vì số lớp electron tăng làm bán kính nguyên tử tăng mạnh — cặp electron liên kết ở xa hạt nhân hơn nên bị hút yếu hơn, dù điện tích hạt nhân cũng tăng.');
+                                                                document.getElementById('interactionStatus').innerText = 'Hoàn tất! Bấm Tiếp tục.';
+                                                                updateNextButtonState();
+                                                            }
+                                                        );
+                                                    }, 1000);
+                                                });
+                                            }, false);
+                                        }, 1000);
+                                    });
+                                }, 900);
+                            }
+                        );
+                    }, 1000);
+                }
+            );
+        }
+
+        function runS3Q2Retry() {
+            showMultiSelectQuiz(
+                'Nguyên tố X thuộc nhóm VIA, chu kì 3. Nguyên tố Y thuộc nhóm VIA, chu kì 2. Chọn tất cả các phát biểu đúng:',
+                [
+                    { key: 'A', text: 'Y có bán kính nhỏ hơn X.' },
+                    { key: 'B', text: 'Y có độ âm điện lớn hơn X.' },
+                    { key: 'C', text: 'X có điện tích hạt nhân nhỏ hơn Y.' },
+                    { key: 'D', text: 'X và Y có cùng số lớp electron.' },
+                    { key: 'E', text: 'Cặp electron liên kết trong H–Y lệch về phía Y nhiều hơn so với H–X.' }
+                ], ['A', 'B', 'E'],
+                (isCorrect) => {
+                    if (!isCorrect) { setRobotSpeech('Vẫn chưa đúng hết. Hãy so sánh X và Y theo cả quy luật chu kì lẫn nhóm rồi thử lại nhé.', 'wrong'); return; }
+                    hideQuiz();
+                    state.s3Q2Done = true;
+                    setRobotSpeech('Chính xác! Bạn hãy trả lời tiếp các nhận định sau nhé.', 'correct');
+                    setTimeout(() => {
+                        document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                        showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                            { text: 'Trong cùng nhóm, nguyên tố nào có nhiều lớp electron hơn thì bán kính lớn hơn.', correct: true },
+                            { text: 'Trong nhóm VIIA, điện tích hạt nhân tăng từ F đến I nhưng độ âm điện lại giảm — điều này cho thấy bán kính ảnh hưởng quyết định hơn điện tích hạt nhân trong trường hợp này.', correct: true },
+                            { text: 'Nếu thêm một lớp electron đồng thời điện tích hạt nhân cũng tăng thì bán kính nguyên tử không thay đổi.', correct: false }
+                        ], (allCorrect) => {
+                            if (!allCorrect) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                            hideQuiz();
+                            state.s3Q3Done = true;
+                            setTimeout(() => {
+                                hideQuiz();
+                                setRobotSpeech('Em nhìn vào mô hình Bohr của F và I. Số lớp electron và bán kính thay đổi như thế nào? (Câu hỏi để suy ngẫm, không chấm điểm.)', 'idle');
+                                document.getElementById('interactionStatus').innerText = 'Đọc và suy ngẫm rồi bấm Tiếp tục.';
+                                setStageAction('Đã hiểu, tiếp tục', 'ti-arrow-right', () => {
+                                    clearStageAction();
+                                    setRobotSpeech('Bạn hãy trả lời tiếp các nhận định sau nhé.', 'idle');
+                                    document.getElementById('interactionStatus').innerText = 'Trả lời các nhận định Đúng/Sai.';
+                                    showTrueFalseSet('Nhận định — Đúng hay Sai?', [
+                                        { text: 'Trong nhóm A, khi số lớp electron tăng thêm, dù điện tích hạt nhân cũng tăng nhưng bán kính vẫn tăng vì lớp electron mới ở xa hạt nhân hơn.', correct: true },
+                                        { text: 'I có độ âm điện nhỏ hơn F chứng tỏ điện tích hạt nhân là yếu tố duy nhất quyết định độ âm điện.', correct: false },
+                                        { text: 'Nếu hai nguyên tố cùng nhóm, nguyên tố nào ở chu kì lớn hơn thì bán kính lớn hơn và độ âm điện nhỏ hơn.', correct: true }
+                                    ], (allCorrect2) => {
+                                        if (!allCorrect2) { setRobotSpeech('Một vài nhận định chưa đúng. Bạn hãy thử lại nhé.', 'wrong'); return; }
+                                        hideQuiz();
+                                        state.s3Q4Done = true;
+                                        setTimeout(() => {
+                                            setRobotSpeech('Bạn hãy chọn đáp án cho câu hỏi cuối cùng của Stage này nhé.', 'idle');
+                                            document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho Câu hỏi 5.';
+                                            showGatedQuiz(
+                                                'Tại sao I có điện tích hạt nhân lớn hơn F nhưng độ âm điện lại nhỏ hơn?',
+                                                [
+                                                    { key: 'A', text: 'Vì điện tích hạt nhân I tuy lớn hơn nhưng cặp electron liên kết ở quá xa hạt nhân — bán kính lớn làm lực hút bị suy giảm đáng kể.' },
+                                                    { key: 'B', text: 'Vì I ở chu kì 5 nên quy luật điện tích hạt nhân không còn áp dụng.' },
+                                                    { key: 'C', text: 'Vì số lớp electron nhiều khiến cặp electron liên kết bị đẩy ra xa và không còn chịu ảnh hưởng của hạt nhân.' },
+                                                    { key: 'D', text: 'Vì bán kính lớn hơn nên điện tích hạt nhân bị "pha loãng" đều ra toàn thể tích nguyên tử.' }
+                                                ], 'A', 'Chính xác!', 'Hãy nhìn lại mô hình Bohr của F và I — chú ý khoảng cách electron ngoài cùng đến hạt nhân.',
+                                                () => {
+                                                    hideQuiz();
+                                                    state.s3Q5Done = true; state.s3Done = true;
+                                                    clearStageAction();
+                                                    setRobotSpeech('Chính xác. Bạn hãy nhấn <strong>Tiếp tục</strong> để sang phần cuối nhé.', 'correct');
+                                                    showAhaMoment('Độ âm điện giảm từ trên xuống dưới trong nhóm A vì số lớp electron tăng làm bán kính nguyên tử tăng mạnh — cặp electron liên kết ở xa hạt nhân hơn nên bị hút yếu hơn, dù điện tích hạt nhân cũng tăng.');
+                                                    document.getElementById('interactionStatus').innerText = 'Hoàn tất! Bấm Tiếp tục.';
+                                                    updateNextButtonState();
+                                                }
+                                            );
+                                        }, 1000);
+                                    });
+                                }, false);
+                            }, 1000);
+                        });
+                    }, 900);
+                }
+            );
+        }
+
+        function drawStage3() {
+            const rx = 370, ry = 18, rw = 372, rh = 364;
+            drawS3GroupBar();
+
+            // ---- Nhãn cột (IA..VIIA) + nhãn chu kì (1..6) ----
+            ctx.save();
+            ctx.font = '700 10px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            GROUP_A_COLS.forEach(g => {
+                const r = compactCellRect(1, g);
+                ctx.fillText(GROUP_LABEL[g], r.x + r.w / 2, CT_Y0 - 14);
+            });
+            for (let p = 1; p <= 6; p++) {
+                const r = compactCellRect(p, 1);
+                ctx.fillText(String(p), 14, r.y + r.h / 2);
+            }
+            ctx.restore();
+
+            const comboActive = state.s3ComboFrac > 0.01;
+            const openPhase = comboActive || state.s3PredictMode;
+
+            // ---- Bảng tuần hoàn rút gọn (chỉ nhóm A, chu kì 1–6) ----
+            for (let p = 1; p <= 6; p++) {
+                GROUP_A_COLS.forEach(g => {
+                    const el = elementAtPG(p, g);
+                    if (!el) return;
+                    const rect = compactCellRect(p, g);
+                    const isTargetCol = state.s3Group === 17 && g === 17;
+                    const isGroupTarget = isTargetCol && S3_ORDER.includes(el.sym);
+                    const isPicked = isGroupTarget && state.s3Picked.includes(el.sym);
+                    const flipT = isPicked ? state.s3FlipT[el.sym] : 0;
+                    const isActive = state.s3Current === el.sym;
+
+                    let bg = '#FFFFFF', border = 'rgba(168,201,184,0.6)', alpha = 1, glow = false;
+                    if (openPhase) {
+                        if (g === 17) { bg = 'rgba(220,235,225,0.6)'; border = '#3CA57A'; }
+                    } else if (state.s3Group !== null) {
+                        if (g !== state.s3Group) {
+                            alpha = 0.08;
+                        } else {
+                            bg = 'rgba(220,235,225,0.95)'; border = '#3CA57A'; glow = true;
+                        }
+                    }
+
+                    ctx.save();
+                    ctx.globalAlpha = alpha;
+                    if (glow) { ctx.shadowColor = 'rgba(60,165,122,0.6)'; ctx.shadowBlur = 9; }
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6);
+                    ctx.fillStyle = bg; ctx.fill();
+                    ctx.shadowBlur = 0;
+                    ctx.strokeStyle = isActive ? '#E8A24A' : border;
+                    ctx.lineWidth = isActive ? 2.2 : (glow ? 1.8 : 1.4);
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6); ctx.stroke();
+                    ctx.restore();
+
+                    if (state.s3PredictMode) {
+                        canvasClickTargets.push({ x: rect.x, y: rect.y, w: rect.w, h: rect.h, onClick: () => pickS3Prediction(el.sym) });
+                    } else if (state.s3Prediction !== null && !state.s3Done) {
+                        canvasClickTargets.push({ x: rect.x, y: rect.y, w: rect.w, h: rect.h, onClick: () => changeS3Prediction(el.sym) });
+                    } else if (isTargetCol && state.s3Current !== 'compare' && !state.s3Done) {
+                        canvasClickTargets.push({ x: rect.x, y: rect.y, w: rect.w, h: rect.h, onClick: () => clickS3Element(el.sym) });
+                    }
+
+                    if (flipT > 0.02 && state.s3Current !== 'compare') {
+                        ctx.save();
+                        ctx.globalAlpha = alpha;
+                        const data = ATOM[el.sym];
+                        drawBohrModel(rect.x + rect.w / 2, rect.y + rect.h / 2, {
+                            shells: data.shells, pm: data.pm, protons: data.z,
+                            showProtons: true, sizeScale: 0.34, dimAlpha: flipT
+                        });
+                        ctx.restore();
+                    }
+                    if (flipT < 0.98) {
+                        ctx.save();
+                        ctx.globalAlpha = alpha * (1 - flipT);
+                        ctx.font = '700 13px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink;
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(el.sym, rect.x + rect.w / 2, rect.y + rect.h / 2);
+                        ctx.restore();
+                    }
+
+                    if (state.s3Prediction === el.sym) {
+                        ctx.save();
+                        ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
+                        ctx.fillStyle = '#E8A24A';
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.shadowColor = 'rgba(232,162,74,0.7)'; ctx.shadowBlur = 6;
+                        ctx.fillText('★', rect.x + rect.w - 7, rect.y + 8);
+                        ctx.restore();
+                    }
+                });
+            }
+
+            // ---- Vẽ 4 Bohr model F, Cl, Br, I dịch sang bên phải và phóng to khi so sánh ----
+            if (state.s3Current === 'compare') {
+                const t = state.s3CompareFrac;
+                const startY = ry + 27;
+                const rowSpacing = 90;
+                S3_ORDER.forEach((sym, i) => {
+                    const cy = startY + i * rowSpacing;
+                    const r = compactCellRect(i + 2, 17);
+                    const x0 = r.x + r.w / 2;
+                    const y0 = r.y + r.h / 2;
+                    const x1 = rx + 30; // 370 + 30 = 400 (Dịch sang vùng bên phải)
+                    const y1 = cy;      // Giãn Y rộng hơn để không đè nhau
+
+                    const bx = lerp(x0, x1, t);
+                    const by = lerp(y0, y1, t);
+                    const bScale = lerp(0.34, 0.78, t); // Scale hợp lý không đè nhau
+
+                    const data = ATOM[sym];
+                    if (data) {
+                        ctx.save();
+                        drawBohrModel(bx, by, {
+                            shells: data.shells, pm: data.pm, protons: data.z,
+                            showProtons: true, sizeScale: bScale, dimAlpha: 1
+                        });
+                        ctx.restore();
+                    }
+                });
+
+                // Vẽ mũi tên trượt dọc bên trái các Bohr (sát vạch ngăn) từ dưới lên (I → F) chạy đồng hành từ đầu
+                const a2 = state.s3CompareFrac;
+                drawTrendArrow(rx - 22, ry + 297, rx - 22, ry + 27, a2, '#2D8B6F');
+            }
+
+            // ---- Animation tổng hợp hai chiều: chu kì 2 (ngang) + nhóm VIIA (dọc) → mũi tên chéo về góc trên-phải (F) ----
+            if (comboActive) {
+                const t = state.s3ComboFrac;
+                const phaseA = clamp(t / 0.45, 0, 1);
+                const phaseB = clamp((t - 0.45) / 0.55, 0, 1);
+                const fCell = compactCellRect(2, 17);
+                const liCell = compactCellRect(2, 1);
+                const iCell = compactCellRect(5, 17);
+
+                const xf = fCell.x + fCell.w / 2;
+                const yf = fCell.y + fCell.h / 2;
+
+                if (t < 0.45) {
+                    // Giai đoạn 1: 2 mũi tên ngang dọc chạy từ ngoài vào chạm nhau tại F
+                    drawTrendArrow(liCell.x - 4, liCell.y + liCell.h / 2, xf, yf, phaseA, '#2D8B6F', 1);
+                    drawTrendArrow(iCell.x + iCell.w / 2, iCell.y + iCell.h + 4, xf, yf, phaseA, '#2D8B6F', 1);
+                } else {
+                    // Giai đoạn 2: 2 mũi tên cũ ngắn dần (co rút) từ đuôi về F, đồng thời tia chéo to hơn dài ra từ F
+                    const xStart = lerp(liCell.x - 4, xf, phaseB);
+                    const yStart = lerp(iCell.y + iCell.h + 4, yf, phaseB);
+
+                    if (phaseB < 0.98) {
+                        drawTrendArrow(xStart, liCell.y + liCell.h / 2, xf, yf, 1, '#2D8B6F', 1 - phaseB);
+                        drawTrendArrow(iCell.x + iCell.w / 2, yStart, xf, yf, 1, '#2D8B6F', 1 - phaseB);
+                    }
+
+                    // Tia to hơn cùng màu xanh (#2D8B6F) dài dần ra hướng chéo lên góc trên bên phải từ F
+                    drawTrendArrow(xf, yf, xf + 55, yf - 55, phaseB, '#2D8B6F', 1, 4.8);
+                }
+            }
+
+            // ---- Vạch chia hai vùng ----
+            ctx.save();
+            ctx.strokeStyle = 'rgba(168,201,184,0.5)'; ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(345, 18); ctx.lineTo(345, 382); ctx.stroke();
+            ctx.restore();
+
+            // ---- Vùng phải: mô phỏng phân tử ----
+            if (state.s3Group === null) {
+                ctx.save();
+                ctx.font = '600 14px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Hãy chọn một nhóm để khám phá.', rx + rw / 2, ry + rh / 2);
+                ctx.restore();
+            } else if (state.s3Current === null) {
+                ctx.save();
+                ctx.font = '600 14px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+                ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                ctx.fillText('Chọn một nguyên tố để quan sát', rx + rw / 2, ry + rh / 2);
+                ctx.restore();
+            } else if (state.s3Current === 'compare') {
+                // Xếp dọc cả 4 phân tử khi so sánh giống như ở Stage 2, dịch sang phải (rx + 200) để cân xứng với Bohr (rx + 30)
+                const startY = ry + 27;
+                const rowSpacing = 90;
+                S3_ORDER.forEach((sym, i) => {
+                    const cy = startY + i * rowSpacing;
+                    drawMolecule(rx + 200, cy, {
+                        symX: sym, enH: EN_H, enX: EN[sym], frac: 1, label: 'H – ' + sym,
+                        scale: 1.35, dimAlpha: 1
+                    });
+                });
+            } else {
+                // Xếp dọc trong lúc chọn từng nguyên tố tự do
+                const startY = ry + 27;
+                const rowSpacing = 90;
+                S3_ORDER.forEach((sym, i) => {
+                    const cy = startY + i * rowSpacing;
+                    const isPicked = state.s3Picked.includes(sym);
+                    const isCurrent = state.s3Current === sym;
+                    if (!isPicked) return;
+                    ctx.save();
+                    if (isCurrent) {
+                        const grad = ctx.createRadialGradient(rx + rw / 2, cy, 5, rx + rw / 2, cy, 90);
+                        grad.addColorStop(0, 'rgba(60,165,122,0.12)');
+                        grad.addColorStop(1, 'rgba(60,165,122,0)');
+                        ctx.fillStyle = grad;
+                        ctx.beginPath(); ctx.arc(rx + rw / 2, cy, 90, 0, Math.PI * 2); ctx.fill();
+                    }
+                    drawMolecule(rx + rw / 2, cy, {
+                        symX: sym, enH: EN_H, enX: EN[sym], frac: 1, label: 'H – ' + sym,
+                        scale: 1.35, dimAlpha: isCurrent ? 1 : 0.65
+                    });
+                    ctx.restore();
+                });
+
+                // ---- Vẽ Bohr phóng to đè lên phía dưới bảng tuần hoàn bên trái (đối với F, Cl, Br, I ở Stage 3) ----
+                if (state.s3Group === 17 && state.s3Current) {
+                    const sym = state.s3Current;
+                    const data = ATOM[sym];
+                    if (data) {
+                        ctx.save();
+                        drawDetailCard(44, 154, 230, 206, 0.92);
+                        drawBohrModel(159, 245, {
+                            shells: data.shells, pm: data.pm, protons: data.z,
+                            showProtons: true, showLabel: true, label: "Bohr: " + sym, sizeScale: 1.25, dimAlpha: 1
+                        });
+                        ctx.restore();
+                    }
+                }
+            }
+        }
+
+        // ======================================================
+        // STAGE 4 — KIỂM CHỨNG VÀ KẾT LUẬN
+        // ======================================================
+        function initStage4() {
+            Object.assign(state, { s4RevealFrac: 0, s4PredictCorrect: null, s4PickMode: null, s4MaxDone: false, s4MinDone: false, s4ArrowDone: false, s4ComboFrac: 0, s4Q1Done: false, s4Q2Done: false, s4Done: false });
+            state.s4Drag.period.isPlaced = false;
+            state.s4Drag.group.isPlaced = false;
+            state.drawingArrow = null;
+            state.tempWrongArrow = null;
+            state.activeDrag = null;
+            hideAhaMoment(); hideDnd(); hideQuiz();
+            setRobotSpeech('Em hãy nhấn <strong>Hiện giá trị độ âm điện</strong> để kiểm chứng dự đoán của mình nhé.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Nhấn Hiện giá trị độ âm điện.';
+            setStageAction('Hiện giá trị độ âm điện', 'ti-table', () => revealS4Table(), false);
+            initNextButton();
+            updateStepProgress();
+        }
+
+        function revealS4Table() {
+            state.isAnimating = true;
+            setStageAction('Đang hiện bảng...', 'ti-loader spin', null, true);
+            tween(state, 's4RevealFrac', 1, 1200, easeInOut, () => {
+                state.isAnimating = false;
+                clearStageAction();
+                checkS4Prediction();
+            });
+        }
+
+        function checkS4Prediction() {
+            if (state.s3Prediction === 'F') {
+                state.s4PredictCorrect = true;
+                setRobotSpeech('Dự đoán của bạn ở Stage 3 hoàn toàn chính xác! Bây giờ hãy nhấp vào nguyên tố có độ âm điện <strong>lớn nhất</strong> trên bảng để xác nhận nhé.', 'correct');
+            } else {
+                state.s4PredictCorrect = false;
+                const fCell = compactCellRect(2, 17);
+                const fx = fCell.x + fCell.w / 2, fy = fCell.y + fCell.h / 2;
+                spawnRing(fx, fy, 'accent');
+                setTimeout(() => spawnRing(fx, fy, 'accent'), 220);
+                setTimeout(() => spawnRing(fx, fy, 'accent'), 440);
+                setRobotSpeech('Dự đoán của bạn ở Stage 3 chưa đúng, không sao — hãy nhìn về góc trên bên phải của bảng nhé. Bây giờ hãy nhấp vào nguyên tố có độ âm điện <strong>lớn nhất</strong> để xác nhận.', 'idle');
+            }
+            document.getElementById('interactionStatus').innerText = 'Chọn nguyên tố có độ âm điện lớn nhất trên bảng.';
+            state.s4PickMode = 'max';
+        }
+
+        function handleS4Pick(sym) {
+            if (state.s4PickMode === 'max') {
+                if (sym !== 'F') {
+                    setRobotSpeech('Hãy nhìn lại bảng màu — ô đỏ đậm nhất chính là nguyên tố có độ âm điện lớn nhất.', 'wrong');
+                    return;
+                }
+                state.s4MaxDone = true;
+                state.s4PickMode = null;
+
+                // Hiệu ứng vòng tròn hào quang tỏa ra từ ô F
+                const fCell = compactCellRect(2, 17);
+                const fx = fCell.x + fCell.w / 2, fy = fCell.y + fCell.h / 2;
+                spawnRing(fx, fy, 'correct');
+                setTimeout(() => spawnRing(fx, fy, 'correct'), 200);
+                setTimeout(() => spawnRing(fx, fy, 'correct'), 400);
+
+                setRobotSpeech('Chính xác! F là nguyên tố có độ âm điện lớn nhất. Bây giờ hãy nhấp vào nguyên tố có độ âm điện <strong>nhỏ nhất</strong>.', 'correct');
+                document.getElementById('interactionStatus').innerText = 'Chọn nguyên tố có độ âm điện nhỏ nhất trên bảng.';
+                setTimeout(() => { state.s4PickMode = 'min'; }, 900);
+            } else if (state.s4PickMode === 'min') {
+                if (sym !== 'Cs') {
+                    setRobotSpeech('Hãy nhìn lại bảng màu — ô xanh nhạt nhất chính là nguyên tố có độ âm điện nhỏ nhất.', 'wrong');
+                    return;
+                }
+                state.s4MinDone = true;
+                state.s4PickMode = null;
+
+                // Hiệu ứng vòng tròn hào quang tỏa ra từ ô Cs
+                const csCell = compactCellRect(6, 1);
+                const csx = csCell.x + csCell.w / 2, csy = csCell.y + csCell.h / 2;
+                spawnRing(csx, csy, 'correct');
+                setTimeout(() => spawnRing(csx, csy, 'correct'), 200);
+                setTimeout(() => spawnRing(csx, csy, 'correct'), 400);
+
+                setRobotSpeech('Chính xác! Cs là nguyên tố có độ âm điện nhỏ nhất. Hãy kéo hai mũi tên vào đúng vị trí để biểu diễn chiều tăng của độ âm điện nhé.', 'correct');
+                document.getElementById('interactionStatus').innerText = 'Kéo thả 2 mũi tên vào đúng vị trí.';
+                setTimeout(() => startS4ArrowDnd(), 900);
+            }
+        }
+
+        function startS4ArrowDnd() {
+            hideDnd();
+            state.s4PickMode = 'dnd';
+            setRobotSpeech('Hãy kéo hai mũi tên lên bảng để biểu diễn chiều tăng của độ âm điện.', 'idle');
+            document.getElementById('interactionStatus').innerText = 'Kéo vẽ 2 mũi tên quy luật trực tiếp trên Canvas.';
+        }
+
+        function handleS4DndSuccess() {
+            state.s4ArrowDone = true;
+            state.s4PickMode = null;
+
+            const fCell = compactCellRect(2, 17);
+            const fx = fCell.x + fCell.w / 2, fy = fCell.y + fCell.h / 2;
+            spawnRing(fx, fy, 'correct');
+            setTimeout(() => spawnRing(fx, fy, 'correct'), 200);
+            setTimeout(() => spawnRing(fx, fy, 'correct'), 400);
+
+            setRobotSpeech('Chính xác! Bạn hãy trả lời câu hỏi vận dụng cuối cùng nhé.', 'correct');
+            setTimeout(() => {
+                document.getElementById('interactionStatus').innerText = 'Chọn đáp án cho Câu hỏi 1.';
+                showGatedQuiz(
+                    'Sắp xếp các nguyên tố O (chu kì 2, nhóm VIA), S (chu kì 3, nhóm VIA), P (chu kì 3, nhóm VA) theo chiều độ âm điện giảm dần:',
+                    [
+                        { key: 'A', text: 'O > S > P' },
+                        { key: 'B', text: 'O > P > S' },
+                        { key: 'C', text: 'S > O > P' },
+                        { key: 'D', text: 'P > S > O' }
+                    ],
+                    'A',
+                    'Xuất sắc! O > S vì cùng nhóm VIA, O ở chu kì nhỏ hơn. S > P vì cùng chu kì 3, S ở nhóm cao hơn.',
+                    'Hãy xét từng cặp: O và S cùng nhóm — dùng quy luật nhóm. S và P cùng chu kì — dùng quy luật chu kì. Sau đó ghép hai kết quả lại.',
+                    () => {
+                        state.s4Q1Done = true;
+                        setTimeout(() => {
+                            setRobotSpeech('Em hãy chọn tất cả các phát biểu giải thích đúng cho các so sánh trên nhé.', 'idle');
+                            document.getElementById('interactionStatus').innerText = 'Chọn tất cả đáp án đúng.';
+                            showMultiSelectQuiz(
+                                'Chọn tất cả các phát biểu đúng:',
+                                [
+                                    { key: 'A', text: 'O > S vì cùng nhóm VIA, O ở chu kì nhỏ hơn nên bán kính nhỏ hơn.' },
+                                    { key: 'B', text: 'S > P vì cùng chu kì 3, S ở nhóm cao hơn nên điện tích hạt nhân lớn hơn và bán kính nhỏ hơn.' },
+                                    { key: 'C', text: 'P > S vì P đứng trước S trong chu kì 3.' },
+                                    { key: 'D', text: 'O > P vì O ở chu kì nhỏ hơn và nhóm cao hơn P — cả hai quy luật đều thuận chiều.' }
+                                ],
+                                ['A', 'B', 'D'],
+                                (isCorrect) => {
+                                    if (!isCorrect) {
+                                        setRobotSpeech('Chưa đúng hết. Hãy xét lại từng cặp nguyên tố theo quy luật chu kì và nhóm rồi thử lại nhé.', 'wrong');
+                                        return;
+                                    }
+                                    state.s4Q2Done = true;
+                                    state.s4Done = true;
+                                    clearStageAction();
+                                    hideQuiz();
+                                    setRobotSpeech('Xuất sắc! Bạn hãy nhấn <strong>Hoàn tất</strong> để kết thúc module nhé.', 'correct');
+                                    showAhaMoment('Bảng độ âm điện xác nhận: F là nguyên tố có độ âm điện lớn nhất, độ âm điện tăng từ trái sang phải trong chu kì và giảm từ trên xuống dưới trong nhóm A.');
+                                    document.getElementById('interactionStatus').innerText = 'Hoàn tất module!';
+                                    updateNextButtonState();
+                                }
+                            );
+                        }, 900);
+                    }
+                );
+            }, 900);
+        }
+
+        function drawStage4() {
+            ctx.save();
+            const s4Scale = 1.35;
+            const cx_old = 182, cy_old = 186;
+            const cx_new = 380, cy_new = 225;
+            ctx.translate(cx_new, cy_new);
+            ctx.scale(s4Scale, s4Scale);
+            ctx.translate(-cx_old, -cy_old);
+
+            // ---- Nhãn cột (IA..VIIA) + nhãn chu kì (1..6) — bảng rút gọn giữ nguyên từ Stage 3 ----
+            ctx.save();
+            ctx.font = '700 10px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink2;
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            GROUP_A_COLS.forEach(g => {
+                const r = compactCellRect(1, g);
+                ctx.fillText(GROUP_LABEL[g], r.x + r.w / 2, CT_Y0 - 14);
+            });
+            for (let p = 1; p <= 6; p++) {
+                const r = compactCellRect(p, 1);
+                ctx.fillText(String(p), 14, r.y + r.h / 2);
+            }
+            ctx.font = '700 12px "Be Vietnam Pro", sans-serif';
+            ctx.fillText('Bảng độ âm điện (thang Pauling)', CT_X0 + (7 * CT_CW + 6 * CT_GAP) / 2, S2_BTN_Y + S2_BTN_H / 2 + 0.5);
+            ctx.restore();
+
+            const f = clamp(state.s4RevealFrac, 0, 1);
+
+            for (let p = 1; p <= 6; p++) {
+                GROUP_A_COLS.forEach(g => {
+                    const el = elementAtPG(p, g);
+                    if (!el) return;
+                    const rect = compactCellRect(p, g);
+                    const isMax = el.sym === 'F' && state.s4MaxDone;
+                    const isMin = el.sym === 'Cs' && state.s4MinDone;
+
+                    ctx.save();
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6);
+                    ctx.fillStyle = '#FFFFFF'; ctx.fill();
+                    ctx.strokeStyle = 'rgba(168,201,184,0.6)'; ctx.lineWidth = 1.4;
+                    roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6); ctx.stroke();
+                    ctx.restore();
+
+                    if (f < 0.98) {
+                        ctx.save();
+                        ctx.globalAlpha = 1 - f;
+                        ctx.font = '700 13px "Be Vietnam Pro", sans-serif'; ctx.fillStyle = COLORS_TEXT.ink;
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(el.sym, rect.x + rect.w / 2, rect.y + rect.h / 2);
+                        ctx.restore();
+                    }
+
+                    if (f > 0.02) {
+                        const col = colorForEN(EN[el.sym]);
+                        ctx.save();
+                        ctx.globalAlpha = f;
+
+                        // Hiệu ứng phát sáng hào quang nhấp nháy cho ô F (isMax) và Cs (isMin)
+                        if (isMax || isMin) {
+                            const glowPulse = 12 + 6 * Math.sin(time * 6.5);
+                            ctx.shadowColor = isMax ? 'rgba(193,60,60,0.95)' : 'rgba(80,160,224,0.95)';
+                            ctx.shadowBlur = glowPulse;
+                        }
+
+                        roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6);
+                        ctx.fillStyle = col; ctx.fill();
+                        ctx.shadowBlur = 0;
+
+                        if (isMax || isMin) {
+                            // Viền ngoài đậm nét phát sáng rực rỡ
+                            ctx.strokeStyle = isMax ? '#C13C3C' : '#4790CC';
+                            ctx.lineWidth = 2.8;
+                            roundRect(ctx, rect.x, rect.y, rect.w, rect.h, 6);
+                            ctx.stroke();
+                        }
+                        ctx.restore();
+
+                        ctx.save();
+                        ctx.globalAlpha = f;
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.font = `700 ${rect.h * 0.3}px "Be Vietnam Pro", sans-serif`;
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        ctx.fillText(el.sym, rect.x + rect.w / 2, rect.y + rect.h * 0.4);
+                        ctx.font = `600 ${rect.h * 0.2}px "Be Vietnam Pro", sans-serif`;
+                        ctx.fillText(EN[el.sym].toFixed(2), rect.x + rect.w / 2, rect.y + rect.h * 0.72);
+                        ctx.restore();
+                    }
+
+                    if (state.s4PickMode) {
+                        canvasClickTargets.push({ x: rect.x, y: rect.y, w: rect.w, h: rect.h, onClick: () => handleS4Pick(el.sym) });
+                    }
+
+                    // Marker dự đoán mang từ Stage 3: ★ vàng nếu sai, ✓ xanh nếu đúng
+                    if (state.s3Prediction === el.sym) {
+                        ctx.save();
+                        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                        if (state.s4PredictCorrect === true) {
+                            ctx.font = '700 14px "Be Vietnam Pro", sans-serif';
+                            ctx.fillStyle = '#2D8B6F';
+                            ctx.shadowColor = 'rgba(45,139,111,0.7)'; ctx.shadowBlur = 6;
+                            ctx.fillText('✓', rect.x + rect.w - 7, rect.y + 8);
+                        } else {
+                            ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
+                            ctx.fillStyle = '#E8A24A';
+                            ctx.shadowColor = 'rgba(232,162,74,0.7)'; ctx.shadowBlur = 6;
+                            ctx.fillText('★', rect.x + rect.w - 7, rect.y + 8);
+                        }
+                        ctx.restore();
+                    }
+                });
+            }
+
+            // ---- (Đã xoá gợi ý Điểm A chỉ dẫn kéo để học sinh tự tư duy vẽ) ----
+
+            // Vẽ mũi tên preview khi đang rê chuột vẽ
+            if (state.drawingArrow) {
+                const arr = state.drawingArrow;
+                drawTrendArrow(arr.startX, arr.startY, arr.currentX, arr.currentY, 1, 'rgba(45,139,111,0.85)', 2.0);
+            }
+
+            // Vẽ mũi tên màu đỏ tạm thời khi kéo sai
+            if (state.tempWrongArrow && state.tempWrongArrow.timer > 0) {
+                const wArr = state.tempWrongArrow;
+                drawTrendArrow(wArr.sx, wArr.sy, wArr.ex, wArr.ey, 1, '#C13C3C', 2.0);
+                wArr.timer--;
+                if (wArr.timer <= 0) state.tempWrongArrow = null;
+            }
+
+            // Vẽ các mũi tên quy luật hoặc hiệu ứng gộp combo
+            const liCell = compactCellRect(2, 1), fCell = compactCellRect(2, 17), iCell = compactCellRect(5, 17);
+            const xf = fCell.x + fCell.w + 8, yf = fCell.y - 6; // Điểm giao nhau chuẩn (342px, 104px)
+
+            if (state.s4ComboFrac > 0.001) {
+                const phaseB = state.s4ComboFrac; // Chạy thẳng từ 0 đến 1
+                const xStart = lerp(liCell.x - 4, xf, phaseB);
+                const yStart = lerp(iCell.y + iCell.h, yf, phaseB);
+
+                // 2 mũi tên cũ đang có sẵn sẽ co rút từ đuôi (mút xuất phát) tiến dần về F rồi biến mất
+                if (phaseB < 0.98) {
+                    drawTrendArrow(xStart, yf, xf, yf, 1.0, '#2D8B6F', 1.0 - phaseB);
+                    drawTrendArrow(xf, yStart, xf, yf, 1.0, '#2D8B6F', 1.0 - phaseB);
+                }
+
+                // Đồng thời mũi tên chéo lớn thứ 3 to rực rỡ (4.8px) xuất phát từ F phóng chéo lên góc trên bên phải
+                drawTrendArrow(xf, yf, xf + 85, yf - 85, phaseB, '#2D8B6F', 1.0, 4.8);
+            } else {
+                // Khi chưa gộp (s4ComboFrac === 0) và chưa hoàn thành toàn bộ mũi tên chéo (s4ArrowDone === false)
+                if (state.s4Drag.period.isPlaced && !state.s4ArrowDone) {
+                    drawTrendArrow(liCell.x - 4, yf, xf, yf, 1.0, '#2D8B6F');
+                }
+                if (state.s4Drag.group.isPlaced && !state.s4ArrowDone) {
+                    drawTrendArrow(xf, iCell.y + iCell.h, xf, yf, 1.0, '#2D8B6F');
+                }
+            }
+
+            // Khi toàn bộ hoạt ảnh combo đã hoàn thành xong
+            if (state.s4ArrowDone) {
+                drawTrendArrow(xf, yf, xf + 85, yf - 85, 1.0, '#2D8B6F', 1.0, 4.8);
+            }
+            ctx.restore();
+        }
+
+        // ======================================================
+        // QUIZ ENGINE
+        // ======================================================
+        let hideQuizTimeoutId = null;
+
+        function showGatedQuiz(question, options, correctKey, correctMsg, wrongMsg, onCorrect) {
+            const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+            const container = document.getElementById('quizContainer');
+            if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+            const qText = document.getElementById('quizQuestionText');
+            if (qText) qText.innerHTML = question;
+            const extra = document.getElementById('quizExtra');
+            if (extra) extra.innerHTML = '';
+
+            const list = document.getElementById('quizOptionsList');
+            if (list) {
+                list.innerHTML = '';
+                options.forEach(opt => {
+                    const li = document.createElement('li');
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option-btn';
+                    btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="icon_${opt.key}"></span>`;
+                    btn.onclick = () => {
+                        const btns = document.querySelectorAll('#quizOptionsList .quiz-option-btn');
+                        const isCorrect = (opt.key === correctKey);
+                        lmsRecordAnswer(_qid, question, options, opt.key, isCorrect);
+                        if (opt.key === correctKey) {
+                            btns.forEach(b => b.disabled = true);
+                            btn.classList.add('opt-correct');
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                            playSuccessFlash();
+                            setRobotSpeech(correctMsg, 'correct');
+                            onCorrect();
+                        } else {
+                            btn.classList.add('opt-wrong');
+                            btn.disabled = true;
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+                            btns.forEach(b => { if (!b.classList.contains('opt-wrong')) b.disabled = false; });
+                            setRobotSpeech(wrongMsg, 'wrong');
+                        }
+                    };
+                    li.appendChild(btn);
+                    list.appendChild(li);
+                });
+            }
+        }
+
+        function showMultiSelectQuiz(question, options, correctKeys, onConfirm) {
+            const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+            const container = document.getElementById('quizContainer');
+            if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+            const qText = document.getElementById('quizQuestionText');
+            if (qText) qText.innerHTML = question + ' <span class="quiz-hint">(có thể chọn nhiều đáp án)</span>';
+            const list = document.getElementById('quizOptionsList');
+            const selected = new Set();
+            if (list) {
+                list.innerHTML = '';
+                options.forEach(opt => {
+                    const li = document.createElement('li');
+                    const btn = document.createElement('button');
+                    btn.className = 'quiz-option-btn';
+                    btn.dataset.key = opt.key;
+                    btn.innerHTML = `<span class="quiz-option-key">${opt.key}.</span><span class="quiz-option-text">${opt.text}</span><span class="quiz-option-feedback-icon" id="micon_${opt.key}"></span>`;
+                    btn.onclick = () => {
+                        if (btn.disabled) return;
+                        if (selected.has(opt.key)) { selected.delete(opt.key); btn.classList.remove('opt-selected'); }
+                        else { selected.add(opt.key); btn.classList.add('opt-selected'); }
+                        const confirmBtn = document.getElementById('msConfirmBtn');
+                        if (confirmBtn) confirmBtn.disabled = selected.size === 0;
+                    };
+                    li.appendChild(btn); list.appendChild(li);
+                });
+            }
+            const extra = document.getElementById('quizExtra');
+            if (extra) {
+                extra.innerHTML = `<button class="btn-primary" id="msConfirmBtn" disabled>Xác nhận <i class="ti ti-check"></i></button>`;
+                const confirmBtn = document.getElementById('msConfirmBtn');
+                if (confirmBtn) {
+                    confirmBtn.onclick = () => {
+                        const correctSet = new Set(correctKeys);
+                        const isCorrect = correctSet.size === selected.size && [...correctSet].every(k => selected.has(k));
+                        lmsRecordAnswer(_qid, question, options, [...selected].sort(), isCorrect);
+
+                        // Disable tạm thời các lựa chọn
+                        document.querySelectorAll('#quizOptionsList .quiz-option-btn').forEach(b => {
+                            b.disabled = true;
+                        });
+                        confirmBtn.disabled = true;
+
+                        if (isCorrect) {
+                            // Nếu đúng: hiện xanh cho tất cả đáp án đúng
+                            document.querySelectorAll('#quizOptionsList .quiz-option-btn').forEach(b => {
+                                const k = b.dataset.key;
+                                const icon = document.getElementById('micon_' + k);
+                                if (correctSet.has(k)) {
+                                    b.classList.remove('opt-selected'); b.classList.add('opt-correct');
+                                    if (icon) icon.innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                                }
+                            });
+                            playSuccessFlash();
+                            onConfirm(true);
+                        } else {
+                            // Nếu sai: chỉ hiện phản hồi trên những đáp án học sinh đã chọn (không làm lộ các đáp án đúng chưa chọn)
+                            document.querySelectorAll('#quizOptionsList .quiz-option-btn').forEach(b => {
+                                const k = b.dataset.key;
+                                const icon = document.getElementById('micon_' + k);
+                                if (selected.has(k)) {
+                                    b.classList.remove('opt-selected');
+                                    if (correctSet.has(k)) {
+                                        b.classList.add('opt-correct');
+                                        if (icon) icon.innerHTML = '<i class="ti ti-circle-check" style="color:var(--correct)"></i>';
+                                    } else {
+                                        b.classList.add('opt-wrong');
+                                        if (icon) icon.innerHTML = '<i class="ti ti-circle-x" style="color:var(--wrong)"></i>';
+                                    }
+                                }
+                            });
+                            onConfirm(false);
+                            // Đợi 1.6 giây cho học sinh quan sát lỗi sai rồi tự động mở khóa để làm lại
+                            setTimeout(() => {
+                                document.querySelectorAll('#quizOptionsList .quiz-option-btn').forEach(b => {
+                                    b.disabled = false;
+                                    b.classList.remove('opt-correct', 'opt-wrong');
+                                    const k = b.dataset.key;
+                                    if (selected.has(k)) {
+                                        b.classList.add('opt-selected');
+                                    }
+                                    const icon = document.getElementById('micon_' + k);
+                                    if (icon) icon.innerHTML = '';
+                                });
+                                confirmBtn.disabled = false;
+                            }, 1600);
+                        }
+                    };
+                }
+            }
+        }
+
+        function showTrueFalseSet(title, statements, onAllDone) {
+            const _qid = 's' + state.stage + '_' + (++_lmsQCounter);
+            if (hideQuizTimeoutId) { clearTimeout(hideQuizTimeoutId); hideQuizTimeoutId = null; }
+            const container = document.getElementById('quizContainer');
+            if (container) { container.style.display = 'flex'; container.classList.remove('fade-out'); }
+            const qText = document.getElementById('quizQuestionText');
+            if (qText) qText.innerHTML = title;
+            const list = document.getElementById('quizOptionsList');
+            const locked = new Array(statements.length).fill(false);
+            const answers = new Array(statements.length).fill(null);
+            let rows = [];
+            if (list) {
+                list.innerHTML = '';
+                statements.forEach((st, idx) => {
+                    const li = document.createElement('li');
+                    li.className = 'tf-row';
+                    li.innerHTML = `<div class="tf-text">${st.text}</div><div class="tf-buttons">
+                        <button class="tf-btn" data-idx="${idx}" data-val="true">Đúng</button>
+                        <button class="tf-btn" data-idx="${idx}" data-val="false">Sai</button>
+                    </div>`;
+                    list.appendChild(li);
+                    rows.push(li);
+                });
+            }
+            const extra = document.getElementById('quizExtra');
+            if (extra) extra.innerHTML = `<button class="btn-primary" id="tfConfirmBtn" disabled>Xác nhận <i class="ti ti-check"></i></button>`;
+            const confirmBtn = document.getElementById('tfConfirmBtn');
+
+            function checkComplete() {
+                if (!confirmBtn) return;
+                confirmBtn.disabled = statements.some((st, idx) => !locked[idx] && answers[idx] === null);
+            }
+            rows.forEach((row, idx) => {
+                row.querySelectorAll('.tf-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        if (locked[idx]) return;
+                        const val = btn.dataset.val === 'true';
+                        answers[idx] = val;
+                        row.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('tf-picked'));
+                        btn.classList.add('tf-picked');
+                        checkComplete();
+                    };
+                });
+            });
+            if (confirmBtn) {
+                confirmBtn.onclick = () => {
+                    const _snapshotAnswers = answers.slice();
+                    statements.forEach((st, idx) => {
+                        if (locked[idx]) return;
+                        const row = rows[idx];
+                        const isRight = answers[idx] === st.correct;
+                        if (isRight) {
+                            locked[idx] = true;
+                            row.querySelectorAll('.tf-btn').forEach(b => {
+                                b.disabled = true;
+                                if ((b.dataset.val === 'true') === st.correct) b.classList.add('tf-correct');
+                            });
+                        } else {
+                            row.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('tf-picked'));
+                            answers[idx] = null;
+                            row.classList.add('tf-shake');
+                            setTimeout(() => row.classList.remove('tf-shake'), 400);
+                        }
+                    });
+                    checkComplete();
+                    const finished = locked.every(Boolean);
+                    if (finished) playSuccessFlash();
+                    lmsRecordAnswer(_qid, title, statements.map(s => s.text), _snapshotAnswers, finished);
+                    onAllDone(finished);
+                };
+            }
+        }
+
+        function hideQuiz() {
+            const container = document.getElementById('quizContainer');
+            if (container) {
+                container.classList.add('fade-out');
+                if (hideQuizTimeoutId) clearTimeout(hideQuizTimeoutId);
+                hideQuizTimeoutId = setTimeout(() => { container.style.display = 'none'; hideQuizTimeoutId = null; }, 200);
+            }
+        }
+
+        // ======================================================
+        // DRAG & DROP
+        // ======================================================
+        let orderState = null;
+        function showOrderDnd(poolItems, slotLabels, correctOrder, onDone) {
+            orderState = { slots: new Array(slotLabels.length).fill(null), correctOrder, onDone, locked: false, selected: null };
+            const box = document.getElementById('dndContainer');
+            if (box) {
+                box.style.display = 'block';
+                box.innerHTML = `
+                    <div style="font-weight:700;font-size:14px;margin-bottom:8px;color:var(--ink);">Kéo (hoặc bấm chọn rồi bấm vào ô) để đặt đúng vị trí:</div>
+                    <div class="dnd-pool" id="dndPool"></div>
+                    <div class="dnd-zones" id="dndZones" style="margin-top:10px;"></div>
+                    <div id="dndCheckWrap"></div>
+                `;
+            }
+            const pool = document.getElementById('dndPool');
+            if (pool) {
+                const shuffled = poolItems.slice().sort(() => Math.random() - 0.5);
+                shuffled.forEach(item => {
+                    const chip = document.createElement('div');
+                    chip.className = 'dnd-chip';
+                    chip.innerText = item.label;
+                    chip.dataset.key = item.key;
+                    chip.onclick = () => { if (!chip._dragMoved) selectOrderChip(chip, item.key); };
+                    chip.addEventListener('pointerdown', (e) => startOrderDrag(e, chip, item.key));
+                    pool.appendChild(chip);
+                });
+            }
+            const zones = document.getElementById('dndZones');
+            if (zones) {
+                slotLabels.forEach((lbl, idx) => {
+                    const zone = document.createElement('div');
+                    zone.className = 'dnd-zone';
+                    zone.dataset.slot = idx;
+                    zone.innerHTML = `<span class="zone-label">${lbl}</span><span class="zone-value">— thả vào đây —</span>`;
+                    zone.onclick = () => handleZoneClick(zone, idx);
+                    zones.appendChild(zone);
+                });
+            }
+        }
+
+        function selectOrderChip(chipEl, key) {
+            if (chipEl.classList.contains('placed')) return;
+            document.querySelectorAll('.dnd-chip').forEach(c => c.classList.remove('selected'));
+            chipEl.classList.add('selected');
+            orderState.selected = { el: chipEl, key };
+        }
+
+        function handleZoneClick(zoneEl, idx) {
+            if (orderState.locked) return;
+            if (orderState.slots[idx]) { removeFromSlot(idx); return; }
+            if (orderState.selected) placeIntoSlot(zoneEl, idx, orderState.selected);
+        }
+
+        function startOrderDrag(e, chip, key) {
+            if (chip.classList.contains('placed') || (orderState && orderState.locked)) return;
+            e.preventDefault();
+            const rect = chip.getBoundingClientRect();
+            const offsetX = e.clientX - rect.left, offsetY = e.clientY - rect.top;
+            chip._dragMoved = false;
+            chip.setPointerCapture(e.pointerId);
+            chip.classList.add('dragging');
+            chip.style.position = 'fixed'; chip.style.left = rect.left + 'px'; chip.style.top = rect.top + 'px';
+            chip.style.width = rect.width + 'px'; chip.style.zIndex = 999;
+            document.querySelectorAll('.dnd-chip').forEach(c => c.classList.remove('selected'));
+
+            function onMove(ev) {
+                const nx = ev.clientX - offsetX, ny = ev.clientY - offsetY;
+                if (Math.abs(nx - rect.left) > 4 || Math.abs(ny - rect.top) > 4) chip._dragMoved = true;
+                chip.style.left = nx + 'px'; chip.style.top = ny + 'px';
+                document.querySelectorAll('.dnd-zone').forEach(z => {
+                    const zr = z.getBoundingClientRect();
+                    const over = ev.clientX >= zr.left && ev.clientX <= zr.right && ev.clientY >= zr.top && ev.clientY <= zr.bottom;
+                    z.classList.toggle('drag-over', over && !z.classList.contains('filled'));
+                });
+            }
+            function onUp(ev) {
+                chip.releasePointerCapture(e.pointerId);
+                chip.removeEventListener('pointermove', onMove);
+                chip.removeEventListener('pointerup', onUp);
+                chip.removeEventListener('pointercancel', onUp);
+                let targetZone = null, targetIdx = null;
+                document.querySelectorAll('.dnd-zone').forEach(z => {
+                    z.classList.remove('drag-over');
+                    const zr = z.getBoundingClientRect();
+                    if (ev.clientX >= zr.left && ev.clientX <= zr.right && ev.clientY >= zr.top && ev.clientY <= zr.bottom) { targetZone = z; targetIdx = Number(z.dataset.slot); }
+                });
+                chip.classList.remove('dragging');
+                chip.style.position = ''; chip.style.left = ''; chip.style.top = ''; chip.style.width = ''; chip.style.zIndex = '';
+                if (targetZone && !targetZone.classList.contains('filled') && !orderState.locked) {
+                    orderState.selected = { el: chip, key };
+                    placeIntoSlot(targetZone, targetIdx, orderState.selected);
+                }
+                setTimeout(() => { chip._dragMoved = false; }, 0);
+            }
+            chip.addEventListener('pointermove', onMove);
+            chip.addEventListener('pointerup', onUp);
+            chip.addEventListener('pointercancel', onUp);
+        }
+
+        function placeIntoSlot(zoneEl, idx, chipInfo) {
+            zoneEl.classList.add('filled');
+            zoneEl.classList.remove('wrong-flash');
+            zoneEl.querySelector('.zone-value').innerText = chipInfo.el.innerText;
+            chipInfo.el.classList.add('placed');
+            chipInfo.el.classList.remove('selected');
+            orderState.slots[idx] = chipInfo.key;
+            orderState.selected = null;
+            spawnParticles(W / 2, 60, 'jade', 4);
+            renderDndCheckButton();
+        }
+
+        function removeFromSlot(idx) {
+            const key = orderState.slots[idx];
+            const zone = document.querySelector(`.dnd-zone[data-slot="${idx}"]`);
+            if (zone) { zone.classList.remove('filled'); zone.querySelector('.zone-value').innerText = '— thả vào đây —'; }
+            orderState.slots[idx] = null;
+            const chip = Array.from(document.querySelectorAll('.dnd-chip')).find(c => c.dataset.key === key);
+            if (chip) chip.classList.remove('placed');
+            renderDndCheckButton();
+        }
+
+        function renderDndCheckButton() {
+            const wrap = document.getElementById('dndCheckWrap');
+            if (wrap) {
+                const allFilled = orderState.slots.every(s => s !== null);
+                if (allFilled && !orderState.locked) {
+                    wrap.innerHTML = `<button class="btn-primary dnd-check-btn" id="dndCheckBtn">Kiểm tra <i class="ti ti-check"></i></button>`;
+                    const checkBtn = document.getElementById('dndCheckBtn');
+                    if (checkBtn) checkBtn.onclick = checkOrderDnd;
+                } else {
+                    wrap.innerHTML = '';
+                }
+            }
+        }
+
+        function checkOrderDnd() {
+            const isCorrect = orderState.slots.every((k, i) => k === orderState.correctOrder[i]);
+            if (isCorrect) {
+                orderState.locked = true;
+                document.querySelectorAll('.dnd-zone').forEach(z => z.onclick = null);
+                playSuccessFlash();
+                spawnParticles(W / 2, H / 2, 'jade', 14);
+                const wrap = document.getElementById('dndCheckWrap');
+                if (wrap) wrap.innerHTML = '';
+                orderState.onDone(true);
+                updateNextButtonState();
+            } else {
+                document.querySelectorAll('.dnd-zone').forEach(z => { z.classList.add('wrong-flash'); setTimeout(() => z.classList.remove('wrong-flash'), 400); });
+                orderState.onDone(false);
+            }
+        }
+
+        function hideDnd() {
+            const box = document.getElementById('dndContainer');
+            if (box) { box.style.display = 'none'; box.innerHTML = ''; }
+            orderState = null;
+        }
+
+        // ======================================================
+        // ROBOT / AHA HELPERS
+        // ======================================================
+        let ahaVisible = false;
+        function setRobotSpeech(text, type) {
+            type = type || 'idle';
+            const guideBar = document.getElementById('aiGuideBar');
+            if (guideBar) guideBar.className = `ai-guide card state-${type}`;
+            const el = document.getElementById('aiText');
+            if (el) { el.classList.remove('fade-in'); void el.offsetWidth; el.innerHTML = text; el.classList.add('fade-in'); }
+        }
+        function showAhaMoment(text) {
+            const content = document.getElementById('ahaContent');
+            if (content) content.innerHTML = text;
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'block';
+            ahaVisible = true;
+        }
+        function hideAhaMoment() {
+            const box = document.getElementById('ahaBox');
+            if (box) box.style.display = 'none';
+            ahaVisible = false;
+        }
+
+        // ======================================================
+        // STEPPER / NAVIGATION (kiểu B)
+        // ======================================================
+        function setStageAction(label, iconClass, onclick, disabled) {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('stageActionBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'stageActionBtn';
+                container.insertBefore(btn, container.firstChild);
+            }
+            btn.innerHTML = `<i class="ti ${iconClass}"></i> ${label}`;
+            btn.disabled = !!disabled;
+            btn.onclick = onclick || null;
+            btn.style.display = 'inline-flex';
+        }
+        function clearStageAction() {
+            const btn = document.getElementById('stageActionBtn');
+            if (btn) btn.style.display = 'none';
+        }
+
+        function initNextButton() {
+            const container = document.getElementById('actionBtnContainer');
+            let btn = document.getElementById('nextBtn');
+            if (!btn) {
+                btn = document.createElement('button');
+                btn.className = 'btn-primary';
+                btn.id = 'nextBtn';
+                btn.onclick = handleNextAction;
+                container.appendChild(btn);
+            }
+            btn.innerHTML = 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            btn.disabled = true;
+        }
+
+        function updateNextButtonState() {
+            const nextBtn = document.getElementById('nextBtn');
+            if (!nextBtn) return;
+            if (state.stage === 1) nextBtn.disabled = !ahaVisible;
+            else if (state.stage === 2) nextBtn.disabled = !state.s2Done;
+            else if (state.stage === 3) nextBtn.disabled = !state.s3Done;
+            else if (state.stage === 4) {
+                nextBtn.disabled = !state.s4Done;
+                nextBtn.innerHTML = state.s4Done ? 'Hoàn tất <i class="ti ti-confetti"></i>' : 'Tiếp tục <i class="ti ti-arrow-right"></i>';
+            }
+        }
+
+        function handleNextAction() {
+            if (state.stage === STAGE_COUNT) { if (state.s4Done) { showCompletionModal(); return; } }
+            if (state.stage < STAGE_COUNT) jumpToStage(state.stage + 1);
+        }
+
+        function showCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.style.display = 'flex';
+            spawnParticles(W / 2, H / 2, 'jade', 20);
+            requestAnimationFrame(() => modal.classList.add('show'));
+
+            if (!window._lmsCompletedOnce) {
+                window._lmsCompletedOnce = true;
+                const _items = Object.keys(lmsAnswers).map(qid => Object.assign({ id: qid }, lmsAnswers[qid]));
+                LMS().complete({
+                    summary: 'Hoàn thành Module: Độ âm điện.',
+                    score: _items.filter(i => i.correct).length,
+                    max: _items.length,
+                    items: _items
+                });
+            }
+        }
+        function hideCompletionModal() {
+            const modal = document.getElementById('completionModal');
+            modal.classList.remove('show');
+            setTimeout(() => { modal.style.display = 'none'; }, 250);
+        }
+        document.getElementById('completionModal').addEventListener('click', (e) => { if (e.target.id === 'completionModal') hideCompletionModal(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.getElementById('completionModal').classList.contains('show')) hideCompletionModal(); });
+
+        function resetCurrentStage() { initStageByIndex(state.stage); }
+        function initStageByIndex(s) {
+            clearS1Buttons();
+            clearStageAction();
+            if (s === 1) initStage1();
+            else if (s === 2) initStage2();
+            else if (s === 3) initStage3();
+            else if (s === 4) initStage4();
+        }
+        function updateStepProgress() {
+            const dots = document.getElementById('stepperDots');
+            dots.innerHTML = '';
+            for (let i = 1; i <= STAGE_COUNT; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'step-dot';
+                if (i === state.stage) dot.classList.add('active');
+                else if (i < state.stage) dot.classList.add('done');
+                dot.innerHTML = i < state.stage ? '<i class="ti ti-check"></i>' : String(i);
+                dot.onclick = () => jumpToStage(i);
+                dots.appendChild(dot);
+            }
+            document.getElementById('prevBtn').disabled = (state.stage === 1 || state.isAnimating);
+            document.getElementById('resetBtn').disabled = state.isAnimating;
+            updateNextButtonState();
+        }
+        function goToPrevStage() { if (state.isAnimating) return; if (state.stage > 1) jumpToStage(state.stage - 1); }
+        function jumpToStage(s) { if (state.isAnimating) return; state.stage = s; initStageByIndex(s); lmsReportState('jumpToStage=' + s); }
+
+        // ======================================================
+        // SIDEBAR TRÁI — đồng bộ "Công cụ mô phỏng" + "Cách làm"
+        // ======================================================
+        function computeMicroPhase() {
+            if (state.isAnimating) return 2;
+            if (ahaVisible) return 4;
+            if (state.stage === 1) return state.s1Done.HBr ? 3 : (state.s1Done.HF ? 1 : 0);
+            if (state.stage === 2) return state.s2Done ? 4 : (state.s2CompareFrac > 0.5 ? 3 : (state.s2Picked.length ? 1 : 0));
+            if (state.stage === 3) return state.s3Done ? 4 : (state.s3CompareFrac > 0.5 ? 3 : (state.s3Picked.length ? 1 : 0));
+            if (state.stage === 4) return state.s4Done ? 4 : (state.s4RevealFrac > 0.5 ? 3 : (state.s4RevealFrac > 0.02 ? 1 : 0));
+            return 0;
+        }
+        function syncToolsAndSteps() {
+            const phase = computeMicroPhase();
+            document.querySelectorAll('#stepList .step-row').forEach(row => {
+                const idx = Number(row.dataset.step);
+                row.classList.toggle('is-active', idx === phase);
+                row.classList.toggle('is-done', idx < phase);
+                const numEl = row.querySelector('.step-num');
+                numEl.innerHTML = idx < phase ? '<i class="ti ti-check"></i>' : String(idx + 1);
+            });
+            const detailActive = state.stage >= 2 || (state.stage === 1 && (state.s1Done.HF || state.s1Done.HCl || state.s1Done.HBr));
+            document.querySelectorAll('.tool-chip').forEach(chip => {
+                const t = chip.dataset.tool;
+                const active = t === 'molecule' || t === 'table' || (detailActive && (t === 'bohr' || t === 'pair')) || (state.stage === 4 && t === 'en');
+                chip.classList.toggle('active', active);
+            });
+        }
+
+        // ======================================================
+        // BẢNG QUAN SÁT — điền dần khi từng phần được khám phá
+        // ======================================================
+        const OBSERVE_ROWS = [
+            { sym: 'C', en: '2.55', visible: () => state.s2Picked.includes('C'), note: () => state.s2Done ? 'Tăng dần C → F' : '' },
+            { sym: 'N', en: '3.04', visible: () => state.s2Picked.includes('N'), note: () => state.s2Done ? 'Tăng dần C → F' : '' },
+            { sym: 'O', en: '3.44', visible: () => state.s2Picked.includes('O'), note: () => state.s2Done ? 'Tăng dần C → F' : '' },
+            { sym: 'F', en: '3.98', visible: () => state.s2Picked.includes('F') || state.s3Picked.includes('F'), note: () => state.s4MaxDone ? 'Lớn nhất bảng' : (state.s2Done ? 'Lớn nhất chu kì 2' : '') },
+            { sym: 'Cl', en: '3.16', visible: () => state.s3Picked.includes('Cl'), note: () => state.s3Done ? 'Giảm dần F → I' : '' },
+            { sym: 'Br', en: '2.96', visible: () => state.s3Picked.includes('Br'), note: () => state.s3Done ? 'Giảm dần F → I' : '' },
+            { sym: 'I', en: '2.66', visible: () => state.s3Picked.includes('I'), note: () => state.s3Done ? 'Giảm dần F → I' : '' },
+            { sym: 'Cs', en: '0.79', visible: () => state.s4MinDone, note: () => 'Nhỏ nhất bảng' }
+        ];
+        const observePrevTrend = {};
+        function refreshObserveTable() {
+            const tbody = document.getElementById('observeTableBody');
+            const rows = OBSERVE_ROWS.filter(r => r.visible());
+            if (!rows.length) { tbody.innerHTML = '<tr><td class="muted" colspan="3">Chưa có dữ liệu quan sát.</td></tr>'; return; }
+            tbody.innerHTML = '';
+            rows.forEach(r => {
+                const trend = r.note() || '?';
+                const flash = observePrevTrend[r.sym] !== trend && trend !== '?';
+                observePrevTrend[r.sym] = trend;
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${r.sym}</td><td>${r.en}</td><td class="${trend === '?' ? 'muted' : ''}${flash ? ' flash' : ''}">${trend}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+
+        setInterval(() => {
+            updateNextButtonState();
+            refreshObserveTable();
+            syncToolsAndSteps();
+        }, 300);
+
+        // ======================================================
+        // KHỞI CHẠY
+        // ======================================================
+        initStage1();
+        requestAnimationFrame(loop);
+    </script>
+</body>
+
+</html>

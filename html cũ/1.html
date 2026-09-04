@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính chất Polyalcohol — Carbohydrate với Cu(OH)₂/NaOH</title>
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+    <style>
+        :root {
+            --primary: #00796B;
+            --primary-mid: #004D40;
+            --primary-light: #E0F2F1;
+            --accent: #F9A825;
+            --accent-dark: #7A5000;
+            --accent-light: #FFF8E1;
+
+            --green: #1B8C5A;
+            --green-light: #E6F4EE;
+            --red: #C62828;
+            --red-light: #FFEBEE;
+            --amber: #EF9F27;
+            --amber-light: #FEF3E0;
+            --amber-dark: #7A4400;
+            --blue: #1565C0;
+            --blue-light: #EBF3FF;
+            --bg: #F7F9FC;
+            --surface: #FFFFFF;
+            --border: #E2E6EF;
+            --text: #0F1B35;
+            --text-2: #4A5568;
+            --text-3: #8A92A3;
+            --radius: 10px;
+            --radius-lg: 14px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        /* ---------- HEADER ---------- */
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-mid) 100%);
+            color: #fff;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .app-header .hdr-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            flex-shrink: 0;
+        }
+
+        .app-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0 0 2px 0;
+            letter-spacing: .1px;
+        }
+
+        .app-header p {
+            margin: 0;
+            font-size: 12.5px;
+            opacity: .85;
+        }
+
+        /* ---------- LAYOUT ---------- */
+        .layout {
+            display: flex;
+            max-width: 1180px;
+            margin: 0 auto;
+            gap: 20px;
+            padding: 20px;
+            align-items: flex-start;
+        }
+
+        .sidebar {
+            width: 272px;
+            flex-shrink: 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .main-panel {
+            flex: 1;
+            min-width: 0;
+            max-width: 860px;
+        }
+
+        @media (max-width:880px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: static;
+            }
+        }
+
+        /* ---------- SIDEBAR ---------- */
+        .sb-section-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin: 0 0 8px 0;
+        }
+
+        .sb-section {
+            margin-bottom: 18px;
+        }
+
+        .sb-tab {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 10px;
+            margin-bottom: 5px;
+            border: 1px solid transparent;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-2);
+            transition: background .15s;
+        }
+
+        .sb-tab:hover:not(:disabled) {
+            background: var(--primary-light);
+        }
+
+        .sb-tab.current {
+            background: var(--primary-light);
+            border-color: var(--primary);
+            color: var(--primary-mid);
+        }
+
+        .sb-tab.done {
+            color: var(--text);
+        }
+
+        .sb-tab:disabled {
+            opacity: .45;
+            cursor: not-allowed;
+        }
+
+        .sb-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--border);
+        }
+
+        .sb-tab.current .sb-dot {
+            background: var(--accent);
+        }
+
+        .sb-tab.done .sb-dot {
+            background: var(--green);
+        }
+
+        .sb-check {
+            margin-left: auto;
+            color: var(--green);
+            font-size: 14px;
+        }
+
+        .sb-lock {
+            margin-left: auto;
+            color: var(--text-3);
+            font-size: 13px;
+        }
+
+        .progress-track {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 14px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width .3s;
+        }
+
+        .sum-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11.5px;
+        }
+
+        .sum-table th {
+            text-align: left;
+            font-size: 10px;
+            color: var(--text-3);
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 4px 4px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sum-table td {
+            padding: 6px 4px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .sum-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .sum-chip {
+            display: inline-block;
+            padding: 1px 6px;
+            border-radius: 5px;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .sum-chip.yes {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .sum-chip.no {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .sum-empty {
+            color: var(--text-3);
+            font-style: italic;
+            font-size: 11.5px;
+        }
+
+        /* ---------- MAIN PANEL ---------- */
+        .mod-header {
+            margin-bottom: 14px;
+        }
+
+        .mod-header h2 {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--primary-mid);
+            margin: 0 0 4px 0;
+        }
+
+        .mod-header p {
+            font-size: 13px;
+            color: var(--text-3);
+            margin: 0;
+        }
+
+        .sim-wrap {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .sim-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            background: #FAFBFD;
+            flex-wrap: wrap;
+        }
+
+        .sim-toolbar-label {
+            font-size: 10.5px;
+            font-weight: 700;
+            color: var(--text-3);
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-right: 6px;
+        }
+
+        .sim-btn {
+            border: 1px solid var(--border);
+            background: #fff;
+            color: var(--text-2);
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all .15s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .sim-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary-mid);
+        }
+
+        .sim-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .legend-wrap {
+            margin-left: auto;
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-3);
+            align-items: center;
+        }
+
+        .legend-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        .sim-canvas-wrap {
+            position: relative;
+            height: 330px;
+            background:
+                radial-gradient(circle at 30% 20%, #fafffe 0%, #f3f7f6 60%, #eef3f2 100%);
+        }
+
+        #simCanvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            cursor: default;
+        }
+
+        .tooltip {
+            position: absolute;
+            display: none;
+            pointer-events: none;
+            background: #1A2233;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 400;
+            padding: 7px 10px;
+            border-radius: 7px;
+            max-width: 220px;
+            line-height: 1.45;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+            z-index: 10;
+        }
+
+        .tooltip b {
+            color: var(--accent);
+        }
+
+        .equation-panel {
+            display: none;
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+            background: var(--primary-light);
+        }
+
+        .equation-panel.show {
+            display: block;
+        }
+
+        .eq-row {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+
+        .eq-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .eq-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary-mid);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            flex-shrink: 0;
+            min-width: 78px;
+        }
+
+        .eq-formula {
+            font-size: 16px;
+            color: var(--text);
+        }
+
+        .eq-condition {
+            font-size: 13px;
+            color: var(--text-2);
+            font-style: italic;
+        }
+
+        .info-box {
+            display: none;
+            margin: 0;
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+        }
+
+        .info-box.show {
+            display: block;
+        }
+
+        .info-box .ib-q {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .opt-row {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 10px;
+        }
+
+        .opt-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            padding: 9px 11px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-2);
+            transition: all .15s;
+        }
+
+        .opt-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .opt-item.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--text);
+        }
+
+        .opt-item input {
+            margin-top: 2px;
+            accent-color: var(--primary);
+        }
+
+        .feedback {
+            font-size: 12.5px;
+            padding: 9px 11px;
+            border-radius: var(--radius-sm);
+            margin-top: 6px;
+            display: none;
+        }
+
+        .feedback.show {
+            display: block;
+        }
+
+        .feedback.correct {
+            background: var(--green-light);
+            color: var(--green);
+        }
+
+        .feedback.wrong {
+            background: var(--red-light);
+            color: var(--red);
+        }
+
+        .submit-row {
+            display: flex;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .predict-grid {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .predict-col {
+            flex: 1;
+            min-width: 180px;
+        }
+
+        .predict-col h4 {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0 0 8px 0;
+        }
+
+        .predict-radio {
+            display: flex;
+            gap: 8px;
+        }
+
+        .predict-radio label {
+            flex: 1;
+            text-align: center;
+            padding: 7px 0;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-2);
+        }
+
+        .predict-radio input {
+            display: none;
+        }
+
+        .predict-radio input:checked+span {
+            color: #fff;
+        }
+
+        .predict-radio label.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #fff;
+        }
+
+        .prep-row {
+            display: none;
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: var(--primary-light);
+        }
+
+        .prep-row.show {
+            display: flex;
+        }
+
+        .prep-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .prep-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #fff;
+            border: 1.5px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-3);
+            flex-shrink: 0;
+        }
+
+        .prep-step.done .prep-num {
+            background: var(--green);
+            border-color: var(--green);
+            color: #fff;
+        }
+
+        .prep-text {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        .prep-btn {
+            flex-shrink: 0;
+        }
+
+        .prep-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .bottle-section {
+            display: none;
+            padding: 14px 18px;
+            border-top: 1px solid var(--border);
+            background: var(--primary-light);
+        }
+
+        .bottle-section.show {
+            display: block;
+        }
+
+        .bottle-hint {
+            font-size: 12.5px;
+            color: var(--text-2);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .bottle-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .bottle-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 10px 14px;
+            border-radius: var(--radius);
+            border: 1.5px solid var(--border);
+            background: #fff;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all .15s;
+            min-width: 78px;
+        }
+
+        .bottle-item .bottle-icon {
+            font-size: 22px;
+        }
+
+        .bottle-item .bottle-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-2);
+        }
+
+        .bottle-item.active {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(249, 168, 37, 0.18);
+            cursor: pointer;
+        }
+
+        .bottle-item.dimmed {
+            opacity: .45;
+            cursor: default;
+        }
+
+        .bottle-item:disabled {
+            cursor: not-allowed;
+        }
+
+        .bottle-item.active:not(:disabled):hover {
+            background: var(--accent-light);
+        }
+
+        .sim-caption {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            padding: 11px 18px;
+            border-top: 1px solid var(--border);
+            background: #fff;
+            font-size: 13px;
+            color: var(--text-2);
+        }
+
+        .sim-caption i {
+            color: var(--accent);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .sim-caption span {
+            font-style: italic;
+        }
+
+        .sim-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 18px;
+            border-top: 1px solid var(--border);
+            background: #FAFBFD;
+            flex-wrap: wrap;
+        }
+
+        .ctrl-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border);
+            background: #fff;
+            color: var(--primary-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 15px;
+            transition: all .15s;
+            flex-shrink: 0;
+        }
+
+        .ctrl-btn:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .ctrl-btn:disabled {
+            opacity: .4;
+            cursor: not-allowed;
+        }
+
+        .step-btn {
+            border: none;
+            background: var(--primary);
+            color: #fff;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 9px 16px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background .15s;
+            margin-left: auto;
+        }
+
+        .step-btn:hover {
+            background: var(--primary-mid);
+        }
+
+        .step-btn:disabled {
+            background: var(--text-3);
+            cursor: not-allowed;
+        }
+
+        .step-btn.secondary {
+            background: #fff;
+            color: var(--primary-mid);
+            border: 1.5px solid var(--border);
+            margin-left: 0;
+        }
+
+        .step-btn.secondary:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .info-note {
+            display: flex;
+            gap: 11px;
+            background: var(--blue-light);
+            border-radius: var(--radius);
+            padding: 13px 15px;
+            margin-bottom: 16px;
+        }
+
+        .info-note .icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .info-note .title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: var(--blue);
+            margin-bottom: 2px;
+        }
+
+        .info-note .body {
+            font-size: 12.5px;
+            color: var(--text-2);
+        }
+
+        .info-note.gold {
+            background: var(--accent-light);
+        }
+
+        .info-note.gold .title {
+            color: var(--accent-dark);
+        }
+
+        .info-note.green {
+            background: var(--green-light);
+        }
+
+        .info-note.green .title {
+            color: var(--green);
+        }
+
+        .final-badge {
+            display: none;
+            text-align: center;
+            padding: 22px;
+            background: linear-gradient(135deg, var(--primary-light), #fff);
+            border: 1.5px dashed var(--primary);
+            border-radius: var(--radius-lg);
+            margin-top: 6px;
+        }
+
+        .final-badge.show {
+            display: block;
+        }
+
+        .final-badge .fb-icon {
+            font-size: 30px;
+            margin-bottom: 6px;
+        }
+
+        .final-badge h3 {
+            margin: 0 0 6px 0;
+            color: var(--primary-mid);
+            font-size: 16px;
+        }
+
+        .final-badge p {
+            margin: 0;
+            color: var(--text-2);
+            font-size: 13px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="hdr-icon">⚗️</div>
+        <div>
+            <h1>Tính chất Polyalcohol — Glucose, Fructose, Saccharose, Maltose</h1>
+            <p>Phản ứng với Cu(OH)₂/NaOH — đối chứng với Tinh bột &amp; Cellulose</p>
+        </div>
+    </header>
+
+    <div class="layout">
+
+        <!-- ============ SIDEBAR ============ -->
+        <aside class="sidebar">
+            <div class="sb-section-label">Tiến độ chung</div>
+            <div class="progress-track">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+
+            <div class="sb-section">
+                <div class="sb-section-label">Phần 1 · Đường đơn &amp; đường đôi</div>
+                <div id="sugarTabs"></div>
+            </div>
+
+            <div class="sb-section">
+                <div class="sb-section-label">Phần 2 · Đối chứng Polysaccharide</div>
+                <div id="polyTabs"></div>
+            </div>
+
+            <div class="sb-section">
+                <div class="sb-section-label">Bảng tổng hợp</div>
+                <table class="sum-table">
+                    <thead>
+                        <tr>
+                            <th>Chất</th>
+                            <th>OH liền kề?</th>
+                            <th>Hiện tượng</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summaryBody">
+                        <tr>
+                            <td colspan="3" class="sum-empty">Chưa có dữ liệu...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </aside>
+
+        <!-- ============ MAIN ============ -->
+        <main class="main-panel">
+
+            <div class="mod-header">
+                <h2 id="stepTitle">Bước 1 · Quan sát cấu trúc Glucose</h2>
+                <p id="stepSub">Click vào các nhóm −OH trên hình để xem chúng có nằm liền kề nhau không.</p>
+            </div>
+
+            <div class="sim-wrap">
+                <div class="sim-toolbar">
+                    <span class="sim-toolbar-label">THÍ NGHIỆM</span>
+                    <button class="sim-btn active" id="viewMolBtn"><i class="ti ti-atom"></i> Cấu trúc / Thí
+                        nghiệm</button>
+                    <button class="sim-btn" id="viewEqBtn"><i class="ti ti-math-function"></i> Phương trình</button>
+                    <div class="legend-wrap" id="legendWrap">
+                        <span><span class="legend-dot" style="background:#FF0D0D"></span>O (oxy)</span>
+                        <span><span class="legend-dot" style="background:#444"></span>H (hidro)</span>
+                        <span><span class="legend-dot" style="background:#F9A825"></span>−OH liền kề</span>
+                    </div>
+                </div>
+
+                <div class="sim-canvas-wrap" id="canvasWrap">
+                    <canvas id="simCanvas"></canvas>
+                    <div class="tooltip" id="tooltip"></div>
+                </div>
+
+                <!-- PREP step: pha Cu(OH)2 từ CuSO4 + NaOH -->
+                <div class="prep-row" id="prepRow">
+                    <div class="prep-step" id="prepStep1">
+                        <span class="prep-num">1</span>
+                        <span class="prep-text">Nhỏ dung dịch CuSO₄ vào ống nghiệm</span>
+                        <button class="sim-btn prep-btn" id="btnAddCuSO4"><i class="ti ti-droplet"></i> Nhỏ
+                            CuSO₄</button>
+                    </div>
+                    <div class="prep-step" id="prepStep2">
+                        <span class="prep-num">2</span>
+                        <span class="prep-text">Nhỏ tiếp dung dịch NaOH để tạo kết tủa Cu(OH)₂</span>
+                        <button class="sim-btn prep-btn" id="btnAddNaOH" disabled><i class="ti ti-droplet"></i> Nhỏ
+                            NaOH</button>
+                    </div>
+                </div>
+
+                <!-- BOTTLE row: chọn dung dịch + dùng công tơ hút -->
+                <div class="bottle-section" id="bottleSection">
+                    <div class="bottle-hint" id="bottleHint">Dùng công tơ hút lấy dung dịch cần thử, cho vào ống nghiệm
+                        Cu(OH)₂/NaOH:</div>
+                    <div class="bottle-row" id="bottleRow"></div>
+                    <button class="sim-btn prep-btn" id="btnShake" style="display:none;"><i
+                            class="ti ti-wave-saw-tool"></i> Lắc ống nghiệm</button>
+                </div>
+
+                <div class="equation-panel" id="eqPanel">
+                    <div class="eq-row">
+                        <span class="eq-label">Phương trình</span>
+                        <span class="eq-formula" id="eqMain"></span>
+                    </div>
+                    <div class="eq-row">
+                        <span class="eq-label">Điều kiện</span>
+                        <span class="eq-condition" id="eqCondition">Nhiệt độ thường, môi trường kiềm (NaOH)</span>
+                    </div>
+                    <div class="eq-row">
+                        <span class="eq-label">Hiện tượng</span>
+                        <span class="eq-condition" id="eqPhenomenon"></span>
+                    </div>
+                </div>
+
+                <!-- QUIZ box (cho 4 chất đường) -->
+                <div class="info-box" id="quizBox">
+                    <div class="ib-q" id="quizQ">Vì sao dung dịch chuyển sang màu xanh lam?</div>
+                    <div class="opt-row" id="quizOptions"></div>
+                    <div class="feedback" id="quizFeedback"></div>
+                </div>
+
+                <!-- PREDICT box (cho tinh bột / cellulose) -->
+                <div class="info-box" id="predictBox">
+                    <div class="ib-q">Tinh bột và cellulose cũng có rất nhiều nhóm −OH. Theo em, chúng có hoà tan được
+                        Cu(OH)₂ (chuyển xanh lam) như glucose không?</div>
+                    <div class="predict-grid">
+                        <div class="predict-col">
+                            <h4>🌾 Tinh bột</h4>
+                            <div class="predict-radio" id="predictTinhbot">
+                                <label data-v="yes"><input type="radio" name="p-tinhbot"><span>Có</span></label>
+                                <label data-v="no"><input type="radio" name="p-tinhbot"><span>Không</span></label>
+                            </div>
+                        </div>
+                        <div class="predict-col">
+                            <h4>🧵 Cellulose</h4>
+                            <div class="predict-radio" id="predictCellulose">
+                                <label data-v="yes"><input type="radio" name="p-cellulose"><span>Có</span></label>
+                                <label data-v="no"><input type="radio" name="p-cellulose"><span>Không</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="feedback" id="predictFeedback"></div>
+                </div>
+
+                <!-- COMPARE box -->
+                <div class="info-box" id="compareBox">
+                    <div class="ib-q">So sánh kích thước &amp; cấu trúc phân tử</div>
+                    <div id="compareText" style="font-size:13px;color:var(--text-2);"></div>
+                </div>
+
+                <div class="sim-caption">
+                    <i class="ti ti-info-circle"></i>
+                    <span id="captionText">Quan sát cấu trúc glucose — click vào nhóm −OH để xem chi tiết.</span>
+                </div>
+
+                <div class="sim-controls" id="simControls">
+                    <button class="ctrl-btn" id="btnReset" title="Đặt lại bước này"><i
+                            class="ti ti-refresh"></i></button>
+                    <button class="step-btn secondary" id="btnPrev" style="display:none;"><i
+                            class="ti ti-chevron-left"></i> Quay lại</button>
+                    <button class="step-btn" id="btnNext">Pha thuốc thử Cu(OH)₂/NaOH <i
+                            class="ti ti-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <div class="info-note" id="hintNote">
+                <div class="icon">💡</div>
+                <div>
+                    <div class="title">Ghi nhớ</div>
+                    <div class="body">Carbohydrate (mono-/disaccharide) chỉ hoà tan Cu(OH)₂ tạo dung dịch xanh lam khi
+                        phân tử có <b>từ 2 nhóm −OH liền kề (vicinal)</b> trở lên — không phải chỉ cần "nhiều" nhóm −OH.
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-badge" id="finalBadge">
+                <div class="fb-icon">🎉</div>
+                <h3>Hoàn thành mô phỏng!</h3>
+                <p id="finalText"></p>
+            </div>
+
+        </main>
+    </div>
+
+    <script defer>
+        (function () {
+            "use strict";
+
+            /* ============================================================
+               1. CONSTANTS & DATA
+               ============================================================ */
+            const CPK = { O: '#FF0D0D', C: '#2B2B2B', H: '#666666' };
+
+            // composite label render specs: array of {t,color}
+            const LABEL_SPEC = {
+                'OH': [{ t: 'O', c: CPK.O }, { t: 'H', c: CPK.H }],
+                'CH2OH': [{ t: 'CH', c: CPK.C }, { t: '\u2082', c: CPK.C, sub: true }, { t: 'O', c: CPK.O }, { t: 'H', c: CPK.H }],
+                'CHO': [{ t: 'CH', c: CPK.C }, { t: 'O', c: CPK.O }],
+                'C=O': [{ t: 'C', c: CPK.C }, { t: '=O', c: CPK.O }],
+                'O': [{ t: 'O', c: CPK.O }],
+            };
+
+            // ---- molecule data: simplified schematic chains ----
+            // each group: {key, oh:true/false}
+            function G(key, oh) { return { key: key, oh: !!oh }; }
+
+            const MOLS = {
+                glucose: {
+                    name: 'Glucose', formula: 'C\u2086H\u2081\u2082O\u2086', type: 'chain',
+                    chain: [G('CHO'), G('OH', 1), G('OH', 1), G('OH', 1), G('OH', 1), G('CH2OH', 1)],
+                    runs: [[1, 2, 3, 4, 5]],
+                    eq: '2C_6H_{12}O_6 + Cu(OH)_2 \\rightarrow (C_6H_{11}O_6)_2Cu + 2H_2O',
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 tan hết, dung dịch chuyển xanh lam đậm.',
+                    dissolves: true,
+                },
+                fructose: {
+                    name: 'Fructose', formula: 'C\u2086H\u2081\u2082O\u2086', type: 'chain',
+                    chain: [G('CH2OH', 1), G('C=O'), G('OH', 1), G('OH', 1), G('OH', 1), G('CH2OH', 1)],
+                    runs: [[2, 3, 4, 5]], isolated: [0],
+                    eq: '2C_6H_{12}O_6 + Cu(OH)_2 \\rightarrow (C_6H_{11}O_6)_2Cu + 2H_2O',
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 tan hết, dung dịch chuyển xanh lam đậm.',
+                    dissolves: true,
+                },
+                saccharose: {
+                    name: 'Saccharose', formula: 'C\u2081\u2082H\u2082\u2082O\u2081\u2081', type: 'linked',
+                    chainA: [G('CH2OH', 1), G('OH', 1), G('OH', 1), G('O')],
+                    chainB: [G('O'), G('OH', 1), G('OH', 1), G('CH2OH', 1)],
+                    runsA: [[0, 1, 2]], runsB: [[1, 2, 3]],
+                    eq: '2C_{12}H_{22}O_{11} + Cu(OH)_2 \\rightarrow (C_{12}H_{21}O_{11})_2Cu + 2H_2O',
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 tan hết, dung dịch chuyển xanh lam đậm.',
+                    dissolves: true,
+                },
+                maltose: {
+                    name: 'Maltose', formula: 'C\u2081\u2082H\u2082\u2082O\u2081\u2081', type: 'linked',
+                    chainA: [G('CH2OH', 1), G('OH', 1), G('OH', 1), G('O')],
+                    chainB: [G('O'), G('OH', 1), G('OH', 1), G('CH2OH', 1)],
+                    runsA: [[0, 1, 2]], runsB: [[1, 2, 3]],
+                    eq: '2C_{12}H_{22}O_{11} + Cu(OH)_2 \\rightarrow (C_{12}H_{21}O_{11})_2Cu + 2H_2O',
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 tan hết, dung dịch chuyển xanh lam đậm.',
+                    dissolves: true,
+                },
+                tinhbot: {
+                    name: 'Tinh bột', formula: '(C\u2086H\u2081\u2080O\u2085)\u2099', type: 'polymer',
+                    unit: [G('CH2OH', 1), G('OH', 1), G('OH', 1), G('O')],
+                    unitRun: [0, 1, 2],
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 KHÔNG tan, màu xanh nhạt ban đầu giữ nguyên.',
+                    dissolves: false,
+                },
+                cellulose: {
+                    name: 'Cellulose', formula: '(C\u2086H\u2081\u2080O\u2085)\u2099', type: 'polymer',
+                    unit: [G('CH2OH', 1), G('OH', 1), G('OH', 1), G('O')],
+                    unitRun: [0, 1, 2],
+                    phenomenon: 'Kết tủa Cu(OH)\u2082 KHÔNG tan, màu xanh nhạt ban đầu giữ nguyên.',
+                    dissolves: false,
+                }
+            };
+
+            const SUGAR_ORDER = ['glucose', 'fructose', 'saccharose', 'maltose'];
+            const POLY_ORDER = ['tinhbot', 'cellulose'];
+
+            /* ============================================================
+               2. STATE
+               ============================================================ */
+            const ST = {
+                phaseGroup: 'sugar',      // 'sugar' | 'poly'
+                sugarIdx: 0,
+                polyIdx: 0,
+                sugarPhase: 'structure',  // structure -> prep -> addsugar -> quiz -> equation -> (next)
+                polyPhase: 'predict',     // predict -> prep -> addsugar -> (switch substance, repeat) -> compare -> conclusion
+                view: 'mol',              // 'mol' | 'eq'  (only meaningful for sugar quiz/equation phases)
+                prepStep: 0,                // 0=trống, 1=đã thêm CuSO4, 2=đã thêm NaOH (đã có Cu(OH)2)
+                addStep: 0,                 // 0=chưa thêm, 1=đã hút thêm dd đường (chưa lắc), 2=đã lắc xong
+                isPlaying: false,
+                animProgress: 0,           // 0..1 (dùng cho animation lắc/hoà tan)
+                animRAF: null,
+                selectedHotspot: null,
+                hoveredHotspot: null,
+                quizAnswered: {},          // per substance bool correct
+                quizSelected: null,
+                predictions: { tinhbot: null, cellulose: null },
+                completedSugars: {},       // id -> {result, ohAdjacent}
+                completedPoly: {},
+                compareOn: false,
+                speedTime: 0,
+            };
+            let hotspots = []; // recomputed every draw: {x,y,r,info,oh}
+
+            /* ============================================================
+               3. CANVAS SETUP & RESIZE  (DPR-aware)
+               ============================================================ */
+            const wrapper = document.getElementById('canvasWrap');
+            const canvas = document.getElementById('simCanvas');
+            const ctx = canvas.getContext('2d');
+            const tooltip = document.getElementById('tooltip');
+            let CW = 0, CH = 0;
+
+            function resizeCanvas() {
+                const rect = wrapper.getBoundingClientRect();
+                CW = rect.width; CH = rect.height;
+                const dpr = window.devicePixelRatio || 1;
+                canvas.width = Math.round(CW * dpr);
+                canvas.height = Math.round(CH * dpr);
+                fullDraw();
+            }
+            let roTimer = null;
+            new ResizeObserver(() => { clearTimeout(roTimer); roTimer = setTimeout(resizeCanvas, 30); }).observe(wrapper);
+
+            /* ============================================================
+               4. HELPERS
+               ============================================================ */
+            function lerp(a, b, t) { return a + (b - a) * t; }
+            function lerpColor(c1, c2, t) {
+                return [Math.round(lerp(c1[0], c2[0], t)), Math.round(lerp(c1[1], c2[1], t)), Math.round(lerp(c1[2], c2[2], t))];
+            }
+            function rgb(a) { return `rgb(${a[0]},${a[1]},${a[2]})`; }
+
+            // BUBBLES for shaking animation
+            const BUBBLES = (function () {
+                const arr = [];
+                for (let i = 0; i < 20; i++) {
+                    arr.push({
+                        rx: Math.random(),
+                        ry: Math.random(),
+                        r: 1.2 + Math.random() * 1.8,
+                        speedY: 0.8 + Math.random() * 1.2,
+                        ph: Math.random() * Math.PI * 2
+                    });
+                }
+                return arr;
+            })();
+
+            function drawGrid() {
+                ctx.save();
+                
+                // Lưới phụ nhỏ (minor lines)
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.015)';
+                ctx.lineWidth = 0.5;
+                const minorSize = 25;
+                for (let x = 0; x < CW; x += minorSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, CH);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < CH; y += minorSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(CW, y);
+                    ctx.stroke();
+                }
+
+                // Lưới chính lớn (major lines)
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.04)';
+                ctx.lineWidth = 1;
+                const majorSize = 100;
+                for (let x = 0; x < CW; x += majorSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, CH);
+                    ctx.stroke();
+                }
+                for (let y = 0; y < CH; y += majorSize) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(CW, y);
+                    ctx.stroke();
+                }
+
+                // Các điểm chữ thập (+) ở giao điểm chính để làm nền kỹ thuật
+                ctx.strokeStyle = 'rgba(0, 0, 0, 0.08)';
+                ctx.lineWidth = 1;
+                const cross = 4;
+                for (let x = majorSize; x < CW; x += majorSize) {
+                    for (let y = majorSize; y < CH; y += majorSize) {
+                        ctx.beginPath();
+                        ctx.moveTo(x - cross, y); ctx.lineTo(x + cross, y);
+                        ctx.moveTo(x, y - cross); ctx.lineTo(x, y + cross);
+                        ctx.stroke();
+                    }
+                }
+                
+                ctx.restore();
+            }
+
+            function drawPipette(ctx, x, y, color) {
+                ctx.save();
+                ctx.translate(x, y);
+                ctx.rotate(-Math.PI / 6); // hơi nghiêng
+                
+                // Vẽ thân pipette thủy tinh
+                ctx.strokeStyle = '#90A4AE';
+                ctx.lineWidth = 1.5;
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                
+                ctx.beginPath();
+                ctx.moveTo(-4, -40);
+                ctx.lineTo(-4, 20);
+                ctx.lineTo(-2, 35);
+                ctx.lineTo(2, 35);
+                ctx.lineTo(4, 20);
+                ctx.lineTo(4, -40);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+                
+                // Vẽ dung dịch bên trong đầu pipette
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(-3, 2);
+                ctx.lineTo(-3, 20);
+                ctx.lineTo(-1.5, 30);
+                ctx.lineTo(1.5, 30);
+                ctx.lineTo(3, 20);
+                ctx.lineTo(3, 2);
+                ctx.closePath();
+                ctx.fill();
+
+                // Quả bóp cao su ở đuôi pipette (màu đỏ cam)
+                ctx.fillStyle = '#E53935';
+                ctx.beginPath();
+                ctx.ellipse(0, -48, 8, 12, 0, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+
+            function drawDrop(ctx, x, y, r, color) {
+                ctx.save();
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(x, y - r);
+                ctx.bezierCurveTo(x - r * 1.5, y + r, x + r * 1.5, y + r, x, y - r);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            function drawRipple(ctx, x, y, rMax, progress, color) {
+                const p = (progress - 0.82) / 0.18;
+                if (p <= 0) return;
+                ctx.save();
+                ctx.strokeStyle = color;
+                ctx.globalAlpha = 1 - p;
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.ellipse(x, y, rMax * p, rMax * p * 0.12, 0, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            function currentSugarId() { return SUGAR_ORDER[ST.sugarIdx]; }
+            function currentPolyId() { return POLY_ORDER[ST.polyIdx]; }
+            function currentSubId() { return ST.phaseGroup === 'sugar' ? currentSugarId() : currentPolyId(); }
+            function currentMol() { return MOLS[currentSubId()]; }
+
+            /* ============================================================
+               5. DRAW — molecule chain
+               ============================================================ */
+            function measureComposite(key, fontSize) {
+                ctx.font = `700 ${fontSize}px Plus Jakarta Sans, sans-serif`;
+                const spec = LABEL_SPEC[key];
+                let total = 0;
+                spec.forEach(p => { total += ctx.measureText(p.t).width; });
+                return total;
+            }
+
+            function drawCompositeLabel(key, x, y, fontSize, highlighted) {
+                const spec = LABEL_SPEC[key];
+                const total = measureComposite(key, fontSize);
+                // highlight pill
+                if (highlighted) {
+                    const pad = 6;
+                    ctx.fillStyle = 'rgba(249,168,37,0.16)';
+                    ctx.strokeStyle = '#F9A825';
+                    ctx.lineWidth = 1.4;
+                    const h = fontSize + 8;
+                    roundRect(x - total / 2 - pad, y - h / 2, total + pad * 2, h, 7);
+                    ctx.fill(); ctx.stroke();
+                }
+                ctx.font = `700 ${fontSize}px Plus Jakarta Sans, sans-serif`;
+                ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
+                let cx = x - total / 2;
+                spec.forEach(p => {
+                    ctx.fillStyle = p.c;
+                    ctx.fillText(p.t, cx, y);
+                    cx += ctx.measureText(p.t).width;
+                });
+            }
+            function roundRect(x, y, w, h, r) {
+                ctx.beginPath();
+                ctx.moveTo(x + r, y);
+                ctx.arcTo(x + w, y, x + w, y + h, r);
+                ctx.arcTo(x + w, y + h, x, y + h, r);
+                ctx.arcTo(x, y + h, x, y, r);
+                ctx.arcTo(x, y, x + w, y, r);
+                ctx.closePath();
+            }
+
+            // draws one chain of groups; returns array of branch point coords (for bracket/bridge use)
+            function drawChain(groups, cx, cy, spacing, highlightedIdxSet, opts) {
+                opts = opts || {};
+                const n = groups.length;
+                const startX = cx - (n - 1) * spacing / 2;
+                const zig = opts.zig != null ? opts.zig : 11;
+                const branchLen = opts.branchLen != null ? opts.branchLen : 34;
+                const fontSize = opts.fontSize || 13;
+                const backbone = [];
+                for (let i = 0; i < n; i++) {
+                    const x = startX + i * spacing;
+                    const y = cy + (i % 2 === 0 ? -zig : zig);
+                    backbone.push({ x, y });
+                }
+                // bonds between backbone carbons
+                ctx.strokeStyle = '#A9B2C3'; ctx.lineWidth = 2;
+                ctx.beginPath();
+                backbone.forEach((p, i) => { i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
+                ctx.stroke();
+
+                const branchPts = [];
+                for (let i = 0; i < n; i++) {
+                    const b = backbone[i];
+                    const up = (i % 2 === 0);
+                    const by = b.y + (up ? -branchLen : branchLen);
+                    branchPts.push({ x: b.x, y: by });
+
+                    // backbone carbon dot
+                    ctx.beginPath(); ctx.arc(b.x, b.y, 4, 0, Math.PI * 2);
+                    ctx.fillStyle = '#6B7585'; ctx.fill();
+
+                    // bond carbon -> branch
+                    ctx.strokeStyle = groups[i].key === 'O' ? '#C9851B' : '#A9B2C3';
+                    ctx.lineWidth = groups[i].key === 'O' ? 2.4 : 2;
+                    ctx.beginPath(); ctx.moveTo(b.x, b.y); ctx.lineTo(b.x, by); ctx.stroke();
+
+                    const highlighted = highlightedIdxSet.has(i);
+                    drawCompositeLabel(groups[i].key, b.x, by, fontSize, highlighted);
+
+                    if (groups[i].oh) {
+                        hotspots.push({ x: b.x, y: by, r: 18, idx: i, key: groups[i].key, ohRun: highlighted });
+                    }
+                }
+                return { backbone, branchPts };
+            }
+
+            // draws an orange dashed bracket BELOW the whole molecule connecting the relevant
+            // branch points (by x-position only) to show "liền kề" — robust regardless of
+            // whether individual branches point up or down in the zigzag.
+            function drawAdjacentBracket(branchPts, run, label, baselineY, tickOffset) {
+                if (run.length < 2) return;
+                const pts = run.map(i => branchPts[i]);
+                const off = tickOffset || 13;
+                ctx.save();
+                ctx.strokeStyle = '#F9A825';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([5, 4]);
+                pts.forEach(p => {
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y + (p.y < baselineY ? off : -off));
+                    ctx.lineTo(p.x, baselineY);
+                    ctx.stroke();
+                });
+                ctx.beginPath();
+                ctx.moveTo(pts[0].x, baselineY);
+                ctx.lineTo(pts[pts.length - 1].x, baselineY);
+                ctx.stroke();
+                ctx.setLineDash([]);
+                if (label) {
+                    const midX = (pts[0].x + pts[pts.length - 1].x) / 2;
+                    ctx.fillStyle = '#7A5000';
+                    ctx.font = '700 11px Plus Jakarta Sans, sans-serif';
+                    ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+                    ctx.fillText(label, midX, baselineY + 4);
+                }
+                ctx.restore();
+            }
+
+            function drawSingleMolecule(id, cx, cy, scale, opts) {
+                opts = opts || {};
+                const data = MOLS[id];
+                const spacing = (opts.spacing || 58) * scale;
+                const fontSize = Math.max(10, (opts.fontSize || 13) * scale);
+                const zig = (opts.zig || 11) * scale;
+                const branchLen = (opts.branchLen || 34) * scale;
+                const baselineY = cy + zig + branchLen + 30 * scale; // shared reference line for all "liền kề" brackets
+                ctx.save();
+                if (data.type === 'chain') {
+                    const runSet = new Set(data.runs.flat());
+                    const r = drawChain(data.chain, cx, cy, spacing, runSet, { fontSize, branchLen, zig });
+                    data.runs.forEach(run => drawAdjacentBracket(r.branchPts, run, 'liền kề', baselineY));
+                } else if (data.type === 'linked') {
+                    const totalSpacing = spacing;
+                    const n = 4;
+                    const halfWidth = (n - 1) * totalSpacing / 2;
+                    const cxA = cx - halfWidth - totalSpacing * 0.55;
+                    const cxB = cx + halfWidth + totalSpacing * 0.55;
+                    const runSetA = new Set(data.runsA.flat());
+                    const runSetB = new Set(data.runsB.flat());
+                    const rA = drawChain(data.chainA, cxA, cy, totalSpacing, runSetA, { fontSize, branchLen, zig });
+                    const rB = drawChain(data.chainB, cxB, cy, totalSpacing, runSetB, { fontSize, branchLen, zig });
+                    data.runsA.forEach(run => drawAdjacentBracket(rA.branchPts, run, 'liền kề', baselineY));
+                    data.runsB.forEach(run => drawAdjacentBracket(rB.branchPts, run, 'liền kề', baselineY));
+                    // bridge bond between the two O atoms (last of A, first of B)
+                    const pA = rA.backbone[rA.backbone.length - 1];
+                    const pB = rB.backbone[0];
+                    ctx.strokeStyle = '#C9851B'; ctx.lineWidth = 2.4;
+                    ctx.beginPath(); ctx.moveTo(pA.x, pA.y); ctx.lineTo(pB.x, pB.y); ctx.stroke();
+                } else if (data.type === 'polymer') {
+                    const reps = opts.reps || 3;
+                    const unitSpacing = spacing * 0.78;
+                    const n = data.unit.length;
+                    const unitWidth = (n - 1) * unitSpacing;
+                    const totalW = reps * (unitWidth + unitSpacing * 0.9);
+                    let curX = cx - totalW / 2;
+                    const runSet = new Set(data.unitRun);
+                    const unitZig = (opts.zig || 9) * scale;
+                    const unitBranch = (opts.branchLen || 30) * scale;
+                    const unitBaseline = cy + unitZig + unitBranch + 26 * scale;
+                    let lastO = null;
+                    for (let u = 0; u < reps; u++) {
+                        const ucx = curX + unitWidth / 2;
+                        const r = drawChain(data.unit, ucx, cy, unitSpacing, runSet, { fontSize: fontSize * 0.92, branchLen: unitBranch, zig: unitZig });
+                        drawAdjacentBracket(r.branchPts, data.unitRun, u === 1 ? 'liền kề' : '', unitBaseline);
+                        if (lastO) {
+                            ctx.strokeStyle = '#C9851B'; ctx.lineWidth = 2.2;
+                            ctx.beginPath(); ctx.moveTo(lastO.x, lastO.y); ctx.lineTo(r.backbone[0].x, r.backbone[0].y); ctx.stroke();
+                        }
+                        lastO = r.backbone[r.backbone.length - 1];
+                        curX += unitWidth + unitSpacing * 0.9;
+                    }
+                    // ellipsis markers
+                    ctx.fillStyle = '#8A92A3'; ctx.font = `700 ${18 * scale}px Plus Jakarta Sans`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+                    ctx.fillText('⋯n', cx - totalW / 2 - 22 * scale, cy);
+                    ctx.fillText('n⋯', cx + totalW / 2 + 22 * scale, cy);
+                }
+                ctx.restore();
+            }
+
+            /* ---------- prep tube (pha Cu(OH)2 từ CuSO4 + NaOH) ---------- */
+            function drawPrepTube(cx, topY, w, h, prepStep, t) {
+                const tubeTop = topY, tubeBottom = topY + h;
+                const r = w / 2;
+                
+                ctx.save();
+                
+                // Hiệu ứng lắc ống nghiệm
+                if (ST.isPlaying && !ST.dropActive) {
+                    const shakeX = Math.sin(t * 26) * 5;
+                    const shakeY = Math.cos(t * 18) * 1.5;
+                    const shakeAngle = Math.sin(t * 22) * 0.035;
+                    ctx.translate(cx, topY + h / 2);
+                    ctx.rotate(shakeAngle);
+                    ctx.translate(-cx + shakeX, -topY - h / 2 + shakeY);
+                }
+
+                // 1. Bóng đổ mềm dưới đáy
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+                ctx.beginPath();
+                ctx.ellipse(cx, tubeBottom + 2, r - 4, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 2. Xác định trạng thái dâng chất lỏng
+                let currentPrepStep = prepStep;
+                let liquidTop = null;
+                let drawLiquid = false;
+
+                if (ST.dropActive && ST.dropSubstance === 'cuso4') {
+                    drawLiquid = true;
+                    const targetTop = tubeTop + h * 0.55;
+                    const startTop = tubeBottom - r;
+                    liquidTop = startTop + (targetTop - startTop) * ST.dropProgress;
+                    currentPrepStep = 1;
+                } else if (ST.dropActive && ST.dropSubstance === 'naoh') {
+                    drawLiquid = true;
+                    const targetTop = tubeTop + h * 0.22;
+                    const startTop = tubeTop + h * 0.55;
+                    liquidTop = startTop + (targetTop - startTop) * ST.dropProgress;
+                    currentPrepStep = 2;
+                } else if (prepStep >= 1) {
+                    drawLiquid = true;
+                    liquidTop = tubeTop + h * (prepStep === 1 ? 0.55 : 0.22);
+                }
+
+                // 3. Vẽ chất lỏng bên trong (nếu có)
+                if (drawLiquid && liquidTop !== null) {
+                    const fillColor = currentPrepStep === 1 ? [191, 229, 255] : [179, 229, 252];
+                    
+                    ctx.save();
+                    // Clip chất lỏng nằm gọn trong đáy ống nghiệm
+                    ctx.beginPath();
+                    ctx.moveTo(cx - r + 2, liquidTop);
+                    ctx.lineTo(cx - r + 2, tubeBottom - r);
+                    ctx.arc(cx, tubeBottom - r, r - 2, Math.PI, 0, false);
+                    ctx.lineTo(cx + r - 2, liquidTop);
+                    ctx.closePath();
+                    ctx.clip();
+                    
+                    // Vẽ thân chất lỏng với gradient 3D
+                    const grad = ctx.createLinearGradient(cx - r, 0, cx + r, 0);
+                    const cLight = lerpColor(fillColor, [255, 255, 255], 0.25);
+                    const cDark = lerpColor(fillColor, [0, 0, 0], 0.12);
+                    grad.addColorStop(0, rgb(cDark));
+                    grad.addColorStop(0.3, rgb(fillColor));
+                    grad.addColorStop(0.5, rgb(cLight));
+                    grad.addColorStop(0.8, rgb(fillColor));
+                    grad.addColorStop(1, rgb(cDark));
+                    
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(cx - r - 4, liquidTop - 4, w + 8, h + 8);
+
+                    // Vẽ các hạt kết tủa Cu(OH)2 loang dần
+                    if (currentPrepStep === 2) {
+                        const opacity = (ST.dropActive && ST.dropSubstance === 'naoh') ? ST.dropProgress : 1;
+                        ctx.globalAlpha = (0.6 + 0.15 * Math.sin(t * 2)) * opacity;
+                        SPECKLES.forEach(s => {
+                            const sx = cx - r + 10 + s.rx * (w - 20);
+                            let maxSy = liquidTop + 8 + s.ry * (h * 0.6) + Math.sin(t * 1.3 + s.ph) * 2.5;
+                            let sy = maxSy;
+                            if (ST.dropActive && ST.dropSubstance === 'naoh') {
+                                sy = liquidTop + 8 + s.ry * (h * 0.6) * ST.dropProgress + Math.sin(t * 1.3 + s.ph) * 2.5;
+                            }
+                            ctx.beginPath(); ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+                            ctx.fillStyle = '#6BA4C7'; ctx.fill();
+                        });
+                        ctx.globalAlpha = 1;
+                    }
+                    
+                    // Vẽ bóng phản chiếu bên trong dung dịch
+                    ctx.fillStyle = 'rgba(255,255,255,0.15)';
+                    ctx.fillRect(cx - r + 4, liquidTop, 5, (tubeBottom - r) - liquidTop);
+                    
+                    ctx.restore();
+
+                    // Vẽ mặt khum elip 3D ở trên cùng của chất lỏng
+                    ctx.save();
+                    const meniscusColor = lerpColor(fillColor, [255, 255, 255], 0.15);
+                    ctx.fillStyle = rgb(meniscusColor);
+                    ctx.beginPath();
+                    ctx.ellipse(cx, liquidTop, r - 2, r * 0.12, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.ellipse(cx, liquidTop, r - 2, r * 0.12, 0, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.restore();
+                }
+
+                // 4. Vẽ vỏ thủy tinh ống nghiệm
+                ctx.lineWidth = 2.5; ctx.strokeStyle = '#B7C2D6';
+                ctx.beginPath();
+                ctx.moveTo(cx - r, tubeTop);
+                ctx.lineTo(cx - r, tubeBottom - r);
+                ctx.arc(cx, tubeBottom - r, r, Math.PI, 0, false);
+                ctx.lineTo(cx + r, tubeTop);
+                ctx.stroke();
+
+                // Vành miệng ống nghiệm
+                ctx.beginPath();
+                ctx.ellipse(cx, tubeTop, r + 2, 4, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Highlight sáng dọc bên trái ống nghiệm thủy tinh
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(cx - r + 5, tubeTop + 8);
+                ctx.lineTo(cx - r + 5, tubeBottom - r - 2);
+                ctx.stroke();
+                
+                ctx.restore();
+
+                // nhãn trạng thái nhỏ phía trên ống nghiệm
+                ctx.save();
+                ctx.font = '600 12px Plus Jakarta Sans, sans-serif'; ctx.textAlign = 'center'; ctx.fillStyle = '#4A5568';
+                let label = 'Ống nghiệm rỗng';
+                if (ST.dropActive) {
+                    label = ST.dropSubstance === 'cuso4' ? 'Đang thêm CuSO₄...' : 'Đang thêm NaOH...';
+                } else {
+                    label = prepStep === 0 ? 'Ống nghiệm rỗng' : prepStep === 1 ? 'Dung dịch CuSO₄ (xanh nhạt, trong)' : 'Kết tủa Cu(OH)₂ (xanh lơ, đục)';
+                }
+                ctx.fillText(label, cx, tubeTop - 12);
+                ctx.restore();
+            }
+
+            /* ---------- test tube ---------- */
+            const SPECKLES = (function () {
+                const arr = [];
+                for (let i = 0; i < 14; i++) { arr.push({ rx: Math.random(), ry: Math.random(), r: 2 + Math.random() * 2.2, ph: Math.random() * Math.PI * 2 }); }
+                return arr;
+            })();
+
+            function drawTestTube(cx, topY, w, h, progress, dissolves, t) {
+                const paleBlue = [179, 229, 252], deepBlue = [21, 101, 192];
+                const dissolveT = dissolves ? progress : 0;
+                const fillColor = lerpColor(paleBlue, deepBlue, dissolveT);
+
+                const tubeTop = topY, tubeBottom = topY + h;
+                const r = w / 2;
+
+                ctx.save();
+                
+                // Hiệu ứng lắc ống nghiệm
+                if (ST.isPlaying && !ST.dropActive) {
+                    const shakeX = Math.sin(t * 26) * 5;
+                    const shakeY = Math.cos(t * 18) * 1.5;
+                    const shakeAngle = Math.sin(t * 22) * 0.035;
+                    ctx.translate(cx, topY + h / 2);
+                    ctx.rotate(shakeAngle);
+                    ctx.translate(-cx + shakeX, -topY - h / 2 + shakeY);
+                }
+
+                // 1. Bóng đổ mềm dưới đáy
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.03)';
+                ctx.beginPath();
+                ctx.ellipse(cx, tubeBottom + 2, r - 4, 3, 0, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 2. Xác định chiều cao chất lỏng
+                let liquidTop = tubeTop + h * 0.22;
+                if (ST.dropActive && ST.dropSubstance === 'sugar') {
+                    const startTop = tubeTop + h * 0.22;
+                    const targetTop = tubeTop + h * 0.18;
+                    liquidTop = startTop + (targetTop - startTop) * ST.dropProgress;
+                } else if (ST.addStep >= 1) {
+                    liquidTop = tubeTop + h * 0.18;
+                }
+
+                // 3. Vẽ chất lỏng
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(cx - r + 2, liquidTop);
+                ctx.lineTo(cx - r + 2, tubeBottom - r);
+                ctx.arc(cx, tubeBottom - r, r - 2, Math.PI, 0, false);
+                ctx.lineTo(cx + r - 2, liquidTop);
+                ctx.closePath();
+                ctx.clip();
+                
+                // Thân chất lỏng với gradient 3D
+                const grad = ctx.createLinearGradient(cx - r, 0, cx + r, 0);
+                const cLight = lerpColor(fillColor, [255, 255, 255], 0.25);
+                const cDark = lerpColor(fillColor, [0, 0, 0], 0.12);
+                grad.addColorStop(0, rgb(cDark));
+                grad.addColorStop(0.3, rgb(fillColor));
+                grad.addColorStop(0.5, rgb(cLight));
+                grad.addColorStop(0.8, rgb(fillColor));
+                grad.addColorStop(1, rgb(cDark));
+                
+                ctx.fillStyle = grad;
+                ctx.fillRect(cx - r - 4, liquidTop - 4, w + 8, h + 8);
+
+                // Vẽ hạt kết tủa Cu(OH)2 (nhạt dần nếu tan, rung lắc mượt mà)
+                const speckleOpacity = dissolves ? Math.max(0, 1 - progress * 1.3) : 0.55 + 0.15 * Math.sin(t * 2);
+                ctx.globalAlpha = Math.max(0, speckleOpacity);
+                SPECKLES.forEach(s => {
+                    const sx = cx - r + 10 + s.rx * (w - 20);
+                    const sy = liquidTop + 8 + s.ry * (h * 0.7) + Math.sin(t * 1.3 + s.ph) * 3;
+                    ctx.beginPath(); ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+                    ctx.fillStyle = '#6BA4C7'; ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+
+                // Bong bóng khí li ti khi đang lắc
+                if (ST.isPlaying && !ST.dropActive) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                    BUBBLES.forEach(b => {
+                        let by = liquidTop + ((b.ry * (h * 0.7) - t * 40 * b.speedY) % (h * 0.7));
+                        if (by < liquidTop) by += h * 0.7;
+                        const bx = cx - r + 10 + b.rx * (w - 20) + Math.sin(t * 5 + b.ph) * 4;
+                        ctx.beginPath();
+                        ctx.arc(bx, by, b.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                        ctx.beginPath();
+                        ctx.arc(bx - b.r * 0.3, by - b.r * 0.3, b.r * 0.25, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillStyle = 'rgba(255, 255, 255, 0.45)';
+                    });
+                }
+
+                // Bóng sáng dọc
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+                ctx.fillRect(cx - r + 4, liquidTop, 5, (tubeBottom - r) - liquidTop);
+                ctx.restore();
+
+                // Vẽ mặt khum elip chất lỏng
+                ctx.save();
+                const meniscusColor = lerpColor(fillColor, [255, 255, 255], 0.15);
+                ctx.fillStyle = rgb(meniscusColor);
+                ctx.beginPath();
+                ctx.ellipse(cx, liquidTop, r - 2, r * 0.12, 0, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.ellipse(cx, liquidTop, r - 2, r * 0.12, 0, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+
+                // 4. Vỏ ống nghiệm thủy tinh
+                ctx.lineWidth = 2.5; ctx.strokeStyle = '#B7C2D6';
+                ctx.beginPath();
+                ctx.moveTo(cx - r, tubeTop);
+                ctx.lineTo(cx - r, tubeBottom - r);
+                ctx.arc(cx, tubeBottom - r, r, Math.PI, 0, false);
+                ctx.lineTo(cx + r, tubeTop);
+                ctx.stroke();
+
+                // Vành miệng
+                ctx.beginPath();
+                ctx.ellipse(cx, tubeTop, r + 2, 4, 0, 0, Math.PI * 2);
+                ctx.stroke();
+
+                // Highlight sáng dọc
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(cx - r + 5, tubeTop + 8);
+                ctx.lineTo(cx - r + 5, tubeBottom - r - 2);
+                ctx.stroke();
+
+                ctx.restore();
+
+                // Stir swirl indicator (nếu lắc nhưng không tan - kết tủa giữ nguyên)
+                if (!dissolves && progress > 0.05 && !ST.isPlaying) {
+                    ctx.save();
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+                    ctx.lineWidth = 2;
+                    const swirlY = (liquidTop + tubeBottom - r) / 2;
+                    ctx.beginPath();
+                    ctx.ellipse(cx, swirlY, r * 0.45, 7, t * 1.5, 0, Math.PI * 2 * Math.min(1, progress * 2));
+                    ctx.stroke();
+                    ctx.restore();
+                }
+            }
+
+            /* ============================================================
+               6. fullDraw — dispatch per phase/view
+               ============================================================ */
+            function fullDraw() {
+                const dpr = window.devicePixelRatio || 1;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                ctx.clearRect(0, 0, CW, CH);
+                
+                // Vẽ lưới nền trước tiên
+                drawGrid();
+                
+                hotspots = [];
+
+                const t = ST.speedTime;
+                const TUBE_W = Math.min(140, CW * 0.22);
+                const TUBE_TOPY = CH * 0.16;
+                const TUBE_H = CH * 0.74;
+
+                if (ST.phaseGroup === 'sugar') {
+                    const phase = ST.sugarPhase;
+                    if (phase === 'structure') {
+                        drawSingleMolecule(currentSugarId(), CW / 2, CH / 2, 1, { spacing: 62, fontSize: 13.5, branchLen: 36, zig: 11 });
+                    } else if (phase === 'prep') {
+                        drawPrepTube(CW / 2, TUBE_TOPY, TUBE_W, TUBE_H, ST.prepStep, t);
+                    } else if (phase === 'addsugar') {
+                        drawTestTube(CW / 2, TUBE_TOPY, TUBE_W, TUBE_H, ST.animProgress, MOLS[currentSugarId()].dissolves, t);
+                        if (ST.addStep === 1) { drawPipetteHint(CW / 2, TUBE_TOPY); }
+                    } else if (phase === 'quiz' || phase === 'equation') {
+                        if (ST.view === 'mol') {
+                            drawSingleMolecule(currentSugarId(), CW / 2, CH / 2, 1, { spacing: 62, fontSize: 13.5, branchLen: 36, zig: 11 });
+                        } else {
+                            drawTestTube(CW / 2, TUBE_TOPY, TUBE_W, TUBE_H, 1, MOLS[currentSugarId()].dissolves, t);
+                        }
+                    }
+                } else {
+                    const phase = ST.polyPhase;
+                    if (phase === 'predict') {
+                        drawSingleMolecule(currentPolyId(), CW / 2, CH / 2, 0.85, { spacing: 50, fontSize: 12, branchLen: 28, zig: 9, reps: 3 });
+                    } else if (phase === 'prep') {
+                        drawPrepTube(CW / 2, TUBE_TOPY, TUBE_W, TUBE_H, ST.prepStep, t);
+                    } else if (phase === 'addsugar') {
+                        drawTestTube(CW / 2, TUBE_TOPY, TUBE_W, TUBE_H, ST.animProgress, false, t);
+                        if (ST.addStep === 1) { drawPipetteHint(CW / 2, TUBE_TOPY); }
+                    } else if (phase === 'compare') {
+                        ctx.save();
+                        ctx.font = '700 11px Plus Jakarta Sans'; ctx.fillStyle = '#8A92A3'; ctx.textAlign = 'center';
+                        ctx.fillText('GLUCOSE (đường đơn — phân tử nhỏ)', CW * 0.26, 22);
+                        ctx.fillText((currentPolyId() === 'tinhbot' ? 'TINH BỘT' : 'CELLULOSE') + ' (polysaccharide — phân tử rất lớn)', CW * 0.74, 22);
+                        ctx.strokeStyle = '#E2E6EF'; ctx.beginPath(); ctx.moveTo(CW / 2, 10); ctx.lineTo(CW / 2, CH - 10); ctx.stroke();
+                        ctx.restore();
+                        drawSingleMolecule('glucose', CW * 0.26, CH / 2 + 10, 0.62, { spacing: 50, fontSize: 11.5, branchLen: 26, zig: 8 });
+                        drawSingleMolecule(currentPolyId(), CW * 0.74, CH / 2 + 10, 0.46, { spacing: 46, fontSize: 9.5, branchLen: 20, zig: 6, reps: 4 });
+                    } else if (phase === 'conclusion') {
+                        drawSingleMolecule(currentPolyId(), CW / 2, CH / 2, 0.85, { spacing: 50, fontSize: 12, branchLen: 28, zig: 9, reps: 3 });
+                    }
+                }
+
+                // Vẽ hoạt cảnh giọt rơi & pipette nếu đang nhỏ giọt
+                if (ST.dropActive) {
+                    const startY = TUBE_TOPY - 45;
+                    let endY = TUBE_TOPY + TUBE_H - TUBE_W / 2; // CuSO4 rơi xuống đáy
+                    let dropColor = 'rgba(144, 202, 249, 0.8)'; // CuSO4 xanh
+                    if (ST.dropSubstance === 'naoh') {
+                        endY = TUBE_TOPY + TUBE_H * 0.55; // NaOH rơi xuống mặt CuSO4
+                        dropColor = 'rgba(235, 243, 250, 0.75)';
+                    } else if (ST.dropSubstance === 'sugar') {
+                        endY = TUBE_TOPY + TUBE_H * 0.22; // Đường rơi xuống mặt Cu(OH)2
+                        dropColor = 'rgba(245, 245, 225, 0.8)';
+                    }
+                    
+                    const currentY = startY + (endY - startY) * ST.dropProgress;
+                    
+                    // Giọt nước rơi
+                    if (ST.dropProgress < 0.94) {
+                        drawDrop(ctx, CW / 2, currentY, 5, dropColor);
+                    }
+                    
+                    // Gợn sóng chạm mặt nước
+                    if (ST.dropProgress >= 0.82) {
+                        drawRipple(ctx, CW / 2, endY, 16, ST.dropProgress, dropColor);
+                    }
+                    
+                    // Pipette
+                    let pipetteOpacity = 1;
+                    let pipetteYOffset = 0;
+                    if (ST.dropProgress > 0.8) {
+                        const p = (ST.dropProgress - 0.8) / 0.2;
+                        pipetteOpacity = 1 - p;
+                        pipetteYOffset = -p * 15;
+                    }
+                    ctx.save();
+                    ctx.globalAlpha = pipetteOpacity;
+                    drawPipette(ctx, CW / 2 + 15, TUBE_TOPY - 45 + pipetteYOffset, dropColor);
+                    ctx.restore();
+                }
+            }
+
+            function drawPipetteHint(cx, tubeTopY) {
+                ctx.save();
+                ctx.font = '600 11px Plus Jakarta Sans, sans-serif';
+                ctx.fillStyle = '#1565C0';
+                ctx.textAlign = 'center';
+                ctx.fillText('ĐÃ THÊM DUNG DỊCH', cx, tubeTopY - 32);
+                
+                // Mũi tên cong chỉ lắc
+                ctx.strokeStyle = '#1565C0';
+                ctx.lineWidth = 1.6;
+                ctx.beginPath();
+                ctx.arc(cx, tubeTopY - 16, 7, -Math.PI / 2, Math.PI / 2, false);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(cx - 3, tubeTopY - 24);
+                ctx.lineTo(cx, tubeTopY - 16);
+                ctx.lineTo(cx + 3, tubeTopY - 24);
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            /* ============================================================
+               7. ANIMATION LOOP
+               ============================================================ */
+            function animLoop() {
+                if (!ST.isPlaying) return;
+                ST.speedTime += 0.045;
+                ST.animProgress = Math.min(ST.animProgress + 0.012, 1);
+                fullDraw();
+                if (ST.animProgress < 1) {
+                    ST.animRAF = requestAnimationFrame(animLoop);
+                } else {
+                    ST.isPlaying = false;
+                    onShakeDone();
+                }
+            }
+            function startShakeAnimation() {
+                if (ST.isPlaying) return;
+                ST.isPlaying = true;
+                ST.animProgress = 0;
+                ST.animRAF = requestAnimationFrame(animLoop);
+                updateCaption();
+            }
+            function startDropAnimation(substance, callback) {
+                if (ST.isPlaying) return;
+                cancelAnimationFrame(ST.animRAF);
+                ST.isPlaying = true;
+                ST.dropActive = true;
+                ST.dropSubstance = substance;
+                ST.dropProgress = 0;
+                
+                function dropLoop() {
+                    ST.dropProgress += 0.022; // Tốc độ rơi nhỏ giọt
+                    ST.speedTime += 0.045;
+                    fullDraw();
+                    if (ST.dropProgress < 1) {
+                        ST.animRAF = requestAnimationFrame(dropLoop);
+                    } else {
+                        ST.dropActive = false;
+                        ST.isPlaying = false;
+                        callback();
+                        renderAll();
+                    }
+                }
+                ST.animRAF = requestAnimationFrame(dropLoop);
+            }
+            function onShakeDone() {
+                ST.addStep = 2;
+                updateCaption();
+                updateControls();
+            }
+            function resetCurrent() {
+                cancelAnimationFrame(ST.animRAF);
+                ST.isPlaying = false; ST.animProgress = 0; ST.speedTime = 0;
+                ST.prepStep = 0; ST.addStep = 0;
+                ST.dropActive = false; ST.dropProgress = 0; ST.dropSubstance = null;
+                updateCaption();
+                fullDraw();
+                updateControls();
+            }
+
+            /* ============================================================
+               8. KATEX RENDER
+               ============================================================ */
+            function renderEquation(id) {
+                const data = MOLS[id];
+                if (window.katex) {
+                    katex.render(data.eq, document.getElementById('eqMain'), { throwOnError: false, displayMode: false });
+                } else {
+                    document.getElementById('eqMain').textContent = data.eq;
+                }
+                document.getElementById('eqPhenomenon').textContent = data.phenomenon;
+            }
+
+            /* ============================================================
+               9. UI — sidebar, table, captions, controls
+               ============================================================ */
+            function buildSidebarTabs() {
+                const sugarWrap = document.getElementById('sugarTabs');
+                sugarWrap.innerHTML = '';
+                SUGAR_ORDER.forEach((id, i) => {
+                    const data = MOLS[id];
+                    const done = !!ST.completedSugars[id];
+                    const isCurrent = ST.phaseGroup === 'sugar' && ST.sugarIdx === i;
+                    const unlocked = i <= ST.sugarIdx || done;
+                    const btn = document.createElement('button');
+                    btn.className = 'sb-tab' + (isCurrent ? ' current' : '') + (done ? ' done' : '');
+                    btn.disabled = !unlocked;
+                    btn.innerHTML = `<span class="sb-dot"></span><span>${data.name}</span>` +
+                        (done ? '<span class="sb-check"><i class="ti ti-check"></i></span>' : '');
+                    btn.addEventListener('click', () => {
+                        if (!unlocked) return;
+                        ST.phaseGroup = 'sugar'; ST.sugarIdx = i; ST.sugarPhase = 'structure'; ST.view = 'mol';
+                        ST.quizSelected = null;
+                        resetCurrent(); renderAll();
+                    });
+                    sugarWrap.appendChild(btn);
+                });
+
+                const polyWrap = document.getElementById('polyTabs');
+                polyWrap.innerHTML = '';
+                const sugarsAllDone = SUGAR_ORDER.every(id => ST.completedSugars[id]);
+                POLY_ORDER.forEach((id, i) => {
+                    const data = MOLS[id];
+                    const done = !!ST.completedPoly[id];
+                    const isCurrent = ST.phaseGroup === 'poly' && ST.polyIdx === i;
+                    const unlocked = sugarsAllDone && (i <= ST.polyIdx || done);
+                    const btn = document.createElement('button');
+                    btn.className = 'sb-tab' + (isCurrent ? ' current' : '') + (done ? ' done' : '');
+                    btn.disabled = !unlocked;
+                    btn.innerHTML = `<span class="sb-dot"></span><span>${data.name}</span>` +
+                        (!sugarsAllDone ? '<span class="sb-lock"><i class="ti ti-lock"></i></span>' :
+                            done ? '<span class="sb-check"><i class="ti ti-check"></i></span>' : '');
+                    btn.addEventListener('click', () => {
+                        if (!unlocked) return;
+                        ST.phaseGroup = 'poly'; ST.polyIdx = i;
+                        ST.polyPhase = (i === 0 && !ST.completedPoly.tinhbot) ? 'predict' : 'predict';
+                        ST.view = 'mol';
+                        resetCurrent(); renderAll();
+                    });
+                    polyWrap.appendChild(btn);
+                });
+            }
+
+            function updateProgressBar() {
+                const totalUnits = SUGAR_ORDER.length + POLY_ORDER.length; // 6 substances total
+                let doneCount = Object.keys(ST.completedSugars).length + Object.keys(ST.completedPoly).length;
+                const pct = Math.round((doneCount / totalUnits) * 100);
+                document.getElementById('progressFill').style.width = pct + '%';
+            }
+
+            function updateSummaryTable() {
+                const body = document.getElementById('summaryBody');
+                const rows = [];
+                SUGAR_ORDER.forEach(id => {
+                    const c = ST.completedSugars[id];
+                    if (c) rows.push({ name: MOLS[id].name, oh: true, result: c.result });
+                });
+                POLY_ORDER.forEach(id => {
+                    const c = ST.completedPoly[id];
+                    if (c) rows.push({ name: MOLS[id].name, oh: 'partial', result: c.result });
+                });
+                if (rows.length === 0) {
+                    body.innerHTML = `<tr><td colspan="3" class="sum-empty">Chưa có dữ liệu...</td></tr>`;
+                    return;
+                }
+                body.innerHTML = rows.map(r => {
+                    const chip = r.oh === true ? '<span class="sum-chip yes">Có</span>'
+                        : r.oh === 'partial' ? '<span class="sum-chip no">Không p.ứ*</span>'
+                            : '<span class="sum-chip no">Không</span>';
+                    return `<tr><td>${r.name}</td><td>${chip}</td><td>${r.result}</td></tr>`;
+                }).join('') + `<tr><td colspan="3" style="font-size:10px;color:var(--text-3);padding-top:4px;">*có OH liền kề trong mỗi mắt xích, nhưng là polysaccharide (phân tử rất lớn) nên không phản ứng</td></tr>`;
+            }
+
+            function updateControls() {
+                const inSugar = ST.phaseGroup === 'sugar';
+                const sp = ST.sugarPhase, pp = ST.polyPhase;
+                const resetBtn = document.getElementById('btnReset');
+                const nextBtn = document.getElementById('btnNext');
+                const prevBtn = document.getElementById('btnPrev');
+                const quizBox = document.getElementById('quizBox');
+                const predictBox = document.getElementById('predictBox');
+                const compareBox = document.getElementById('compareBox');
+                const eqPanel = document.getElementById('eqPanel');
+                const finalBadge = document.getElementById('finalBadge');
+                const prepRow = document.getElementById('prepRow');
+                const bottleSection = document.getElementById('bottleSection');
+
+                quizBox.classList.remove('show'); predictBox.classList.remove('show');
+                compareBox.classList.remove('show'); eqPanel.classList.remove('show');
+                finalBadge.classList.remove('show');
+                prepRow.classList.remove('show'); bottleSection.classList.remove('show');
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'flex';
+
+                const curPhase = inSugar ? sp : pp;
+                resetBtn.disabled = !(curPhase === 'prep' || curPhase === 'addsugar');
+
+                if (inSugar) {
+                    document.getElementById('viewEqBtn').style.display = (sp === 'quiz' || sp === 'equation') ? 'inline-flex' : 'none';
+                    document.getElementById('viewMolBtn').style.display = (sp === 'quiz' || sp === 'equation') ? 'inline-flex' : 'none';
+                    document.getElementById('viewMolBtn').classList.toggle('active', ST.view === 'mol');
+                    document.getElementById('viewEqBtn').classList.toggle('active', ST.view === 'eq');
+
+                    if (sp === 'structure') {
+                        nextBtn.innerHTML = 'Pha thuốc thử Cu(OH)₂/NaOH <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = false;
+                    } else if (sp === 'prep') {
+                        prepRow.classList.add('show');
+                        document.getElementById('btnAddCuSO4').disabled = ST.prepStep >= 1;
+                        document.getElementById('btnAddNaOH').disabled = ST.prepStep !== 1;
+                        document.getElementById('prepStep1').classList.toggle('done', ST.prepStep >= 1);
+                        document.getElementById('prepStep2').classList.toggle('done', ST.prepStep >= 2);
+                        nextBtn.innerHTML = 'Chọn dung dịch để thử <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = ST.prepStep < 2;
+                    } else if (sp === 'addsugar') {
+                        bottleSection.classList.add('show');
+                        buildBottleRow(SUGAR_ORDER, currentSugarId());
+                        document.getElementById('btnShake').style.display = ST.addStep >= 1 ? 'inline-flex' : 'none';
+                        document.getElementById('btnShake').disabled = ST.addStep !== 1;
+                        nextBtn.innerHTML = 'Trả lời câu hỏi <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = ST.addStep < 2;
+                    } else if (sp === 'quiz') {
+                        quizBox.classList.add('show');
+                        const answered = ST.quizAnswered[currentSugarId()];
+                        nextBtn.innerHTML = 'Viết phương trình hoá học <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = !answered;
+                    } else if (sp === 'equation') {
+                        eqPanel.classList.add('show');
+                        const isLast = ST.sugarIdx === SUGAR_ORDER.length - 1;
+                        nextBtn.innerHTML = isLast ? 'Hoàn tất Phần 1 — Mở khoá Phần 2 <i class="ti ti-chevron-right"></i>' : 'Qua chất tiếp theo <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = false;
+                    }
+                } else {
+                    document.getElementById('viewEqBtn').style.display = 'none';
+                    document.getElementById('viewMolBtn').style.display = 'none';
+                    if (pp === 'predict') {
+                        predictBox.classList.add('show');
+                        const a = ST.predictions.tinhbot, b = ST.predictions.cellulose;
+                        nextBtn.innerHTML = 'Pha thuốc thử Cu(OH)₂/NaOH <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = (a === null || b === null);
+                    } else if (pp === 'prep') {
+                        prepRow.classList.add('show');
+                        document.getElementById('btnAddCuSO4').disabled = ST.prepStep >= 1;
+                        document.getElementById('btnAddNaOH').disabled = ST.prepStep !== 1;
+                        document.getElementById('prepStep1').classList.toggle('done', ST.prepStep >= 1);
+                        document.getElementById('prepStep2').classList.toggle('done', ST.prepStep >= 2);
+                        nextBtn.innerHTML = `Chọn dung dịch ${MOLS[currentPolyId()].name} <i class="ti ti-chevron-right"></i>`;
+                        nextBtn.disabled = ST.prepStep < 2;
+                    } else if (pp === 'addsugar') {
+                        bottleSection.classList.add('show');
+                        buildBottleRow(POLY_ORDER, currentPolyId());
+                        document.getElementById('btnShake').style.display = ST.addStep >= 1 ? 'inline-flex' : 'none';
+                        document.getElementById('btnShake').disabled = ST.addStep !== 1;
+                        const isLastPoly = ST.polyIdx === POLY_ORDER.length - 1;
+                        nextBtn.innerHTML = isLastPoly ? 'So sánh cấu trúc <i class="ti ti-chevron-right"></i>' : `Pha thuốc thử cho ${MOLS[POLY_ORDER[ST.polyIdx + 1]].name} <i class="ti ti-chevron-right"></i>`;
+                        nextBtn.disabled = ST.addStep < 2;
+                    } else if (pp === 'compare') {
+                        compareBox.classList.add('show');
+                        nextBtn.innerHTML = 'Xem kết luận <i class="ti ti-chevron-right"></i>';
+                        nextBtn.disabled = false;
+                    } else if (pp === 'conclusion') {
+                        finalBadge.classList.add('show');
+                        nextBtn.style.display = 'none';
+                    }
+                }
+            }
+
+            /* ============================================================
+               10b. BOTTLE ROW (pipette interaction)
+               ============================================================ */
+            const BOTTLE_ICON = { glucose: '🍯', fructose: '🍓', saccharose: '🍬', maltose: '🌾', tinhbot: '🌾', cellulose: '🧵' };
+            function buildBottleRow(list, activeId) {
+                const row = document.getElementById('bottleRow');
+                row.innerHTML = '';
+                list.forEach(id => {
+                    const data = MOLS[id];
+                    const isActive = id === activeId;
+                    const div = document.createElement('button');
+                    div.className = 'bottle-item' + (isActive ? ' active' : '') + (!isActive ? ' dimmed' : '');
+                    div.disabled = !isActive || ST.addStep !== 0;
+                    div.innerHTML = `<span class="bottle-icon">${BOTTLE_ICON[id] || '🧪'}</span><span class="bottle-label">dd ${data.name}</span>`;
+                    if (isActive) {
+                        div.addEventListener('click', () => {
+                            if (ST.addStep !== 0 || ST.isPlaying) return;
+                            startDropAnimation('sugar', () => {
+                                ST.addStep = 1;
+                            });
+                        });
+                    }
+                    row.appendChild(div);
+                });
+            }
+
+            function updateCaption() {
+                const cap = document.getElementById('captionText');
+                const sp = ST.sugarPhase, pp = ST.polyPhase;
+                if (ST.phaseGroup === 'sugar') {
+                    const name = MOLS[currentSugarId()].name;
+                    if (sp === 'structure') cap.textContent = `Quan sát cấu trúc ${name} — click vào nhóm −OH để xem nhóm đó có liền kề nhóm −OH khác không.`;
+                    else if (sp === 'prep') {
+                        if (ST.prepStep === 0) cap.textContent = 'Ống nghiệm đang rỗng — nhỏ dung dịch CuSO₄ vào trước.';
+                        else if (ST.prepStep === 1) cap.textContent = 'Đã có dung dịch CuSO₄ xanh nhạt — nhỏ tiếp dung dịch NaOH để tạo kết tủa.';
+                        else cap.textContent = 'Đã có kết tủa Cu(OH)₂ — sẵn sàng để thử với dung dịch đường.';
+                    } else if (sp === 'addsugar') {
+                        if (ST.addStep === 0) cap.textContent = `Dùng công tơ hút lấy dung dịch ${name} ở lọ bên dưới, cho vào ống nghiệm.`;
+                        else if (ST.addStep === 1) cap.textContent = 'Đã thêm dung dịch — bấm "Lắc ống nghiệm" để quan sát hiện tượng.';
+                        else if (ST.isPlaying) cap.textContent = 'Kết tủa Cu(OH)₂ đang tan dần... quan sát màu dung dịch.';
+                        else cap.textContent = 'Dung dịch chuyển xanh lam đậm — chứng tỏ phân tử có các nhóm −OH liền kề.';
+                    } else if (sp === 'quiz') cap.textContent = 'Trả lời câu hỏi để xác nhận em đã hiểu đúng nguyên nhân của hiện tượng.';
+                    else if (sp === 'equation') cap.textContent = 'Phương trình hoá học mô tả phản ứng vừa quan sát.';
+                } else {
+                    const name = MOLS[currentPolyId()].name;
+                    if (pp === 'predict') cap.textContent = 'Hãy dự đoán TRƯỚC khi xem kết quả thí nghiệm thật.';
+                    else if (pp === 'prep') {
+                        if (ST.prepStep === 0) cap.textContent = `Pha thuốc thử Cu(OH)₂ để thử với ${name} — nhỏ dung dịch CuSO₄ vào trước.`;
+                        else if (ST.prepStep === 1) cap.textContent = 'Đã có dung dịch CuSO₄ — nhỏ tiếp NaOH để tạo kết tủa.';
+                        else cap.textContent = 'Đã có kết tủa Cu(OH)₂ — sẵn sàng để thử.';
+                    } else if (pp === 'addsugar') {
+                        if (ST.addStep === 0) cap.textContent = `Dùng công tơ hút lấy dung dịch ${name}, cho vào ống nghiệm.`;
+                        else if (ST.addStep === 1) cap.textContent = 'Đã thêm dung dịch — bấm "Lắc ống nghiệm" để kiểm tra.';
+                        else if (ST.isPlaying) cap.textContent = 'Đang lắc ống nghiệm...';
+                        else cap.textContent = `Kết tủa Cu(OH)₂ KHÔNG tan! Dù ${name} cũng có rất nhiều nhóm −OH...`;
+                    } else if (pp === 'compare') cap.textContent = 'So sánh kích thước phân tử để hiểu lý do thực sự.';
+                    else if (pp === 'conclusion') cap.textContent = 'Tổng kết lại điều kiện đúng để một carbohydrate thể hiện tính chất poliol.';
+                }
+            }
+
+            /* ============================================================
+               10. QUIZ & PREDICT logic
+               ============================================================ */
+            const QUIZ_OPTIONS = [
+                { v: 'a', t: 'Vì phân tử có chứa nguyên tử oxy.' },
+                { v: 'b', t: 'Vì phân tử có nhiều nhóm −OH liền kề (vicinal), tạo phức tan với Cu²⁺.' },
+                { v: 'c', t: 'Vì đây là một phản ứng oxi hoá – khử.' },
+            ];
+            function buildQuiz() {
+                const wrap = document.getElementById('quizOptions');
+                wrap.innerHTML = '';
+                ST.quizSelected = null;
+                document.getElementById('quizFeedback').className = 'feedback';
+                QUIZ_OPTIONS.forEach(opt => {
+                    const div = document.createElement('label');
+                    div.className = 'opt-item';
+                    div.innerHTML = `<input type="radio" name="quiz"><span>${opt.t}</span>`;
+                    div.addEventListener('click', () => {
+                        document.querySelectorAll('#quizOptions .opt-item').forEach(e => e.classList.remove('selected'));
+                        div.classList.add('selected');
+                        ST.quizSelected = opt.v;
+                        checkQuiz();
+                    });
+                    wrap.appendChild(div);
+                });
+            }
+            function checkQuiz() {
+                const fb = document.getElementById('quizFeedback');
+                if (ST.quizSelected === 'b') {
+                    fb.textContent = '✓ Đúng! Các nhóm −OH phải nằm liền kề nhau để tạo phức tan màu xanh lam với Cu²⁺ trong môi trường kiềm.';
+                    fb.className = 'feedback show correct';
+                    ST.quizAnswered[currentSugarId()] = true;
+                } else {
+                    fb.textContent = '✗ Chưa đúng — không phải chỉ cần có nhóm OH hay liên quan đến oxi hoá khử. Hãy nhớ lại các nhóm −OH liền kề vừa xem ở bước trước.';
+                    fb.className = 'feedback show wrong';
+                    ST.quizAnswered[currentSugarId()] = false;
+                }
+                updateControls();
+            }
+
+            function buildPredictHandlers() {
+                ['predictTinhbot', 'predictCellulose'].forEach(wrapId => {
+                    const key = wrapId === 'predictTinhbot' ? 'tinhbot' : 'cellulose';
+                    document.querySelectorAll(`#${wrapId} label`).forEach(lab => {
+                        lab.addEventListener('click', () => {
+                            document.querySelectorAll(`#${wrapId} label`).forEach(l => l.classList.remove('checked'));
+                            lab.classList.add('checked');
+                            ST.predictions[key] = lab.dataset.v;
+                            const fb = document.getElementById('predictFeedback');
+                            if (ST.predictions.tinhbot !== null && ST.predictions.cellulose !== null) {
+                                fb.textContent = 'Đã ghi nhận dự đoán của em — bấm "Thực hiện thí nghiệm kiểm tra" để xem kết quả thật!';
+                                fb.className = 'feedback show correct';
+                            }
+                            updateControls();
+                        });
+                    });
+                });
+            }
+
+            /* ============================================================
+               11. NEXT / PREV navigation
+               ============================================================ */
+            function goNext() {
+                if (ST.phaseGroup === 'sugar') {
+                    const sp = ST.sugarPhase;
+                    if (sp === 'structure') {
+                        ST.sugarPhase = 'prep'; resetCurrent();
+                    } else if (sp === 'prep') {
+                        ST.sugarPhase = 'addsugar'; resetCurrent();
+                    } else if (sp === 'addsugar') {
+                        ST.sugarPhase = 'quiz'; ST.view = 'mol'; buildQuiz(); fullDraw();
+                    } else if (sp === 'quiz') {
+                        ST.sugarPhase = 'equation'; ST.view = 'eq'; renderEquation(currentSugarId());
+                    } else if (sp === 'equation') {
+                        ST.completedSugars[currentSugarId()] = { result: MOLS[currentSugarId()].phenomenon, ohAdjacent: true };
+                        if (ST.sugarIdx < SUGAR_ORDER.length - 1) {
+                            ST.sugarIdx++; ST.sugarPhase = 'structure'; ST.view = 'mol'; resetCurrent();
+                        } else {
+                            // move to poly group
+                            ST.phaseGroup = 'poly'; ST.polyIdx = 0; ST.polyPhase = 'predict'; ST.view = 'mol'; resetCurrent();
+                            ST.predictions = { tinhbot: null, cellulose: null };
+                        }
+                    }
+                } else {
+                    const pp = ST.polyPhase;
+                    if (pp === 'predict') {
+                        ST.polyPhase = 'prep'; ST.polyIdx = 0; resetCurrent();
+                    } else if (pp === 'prep') {
+                        ST.polyPhase = 'addsugar'; resetCurrent();
+                    } else if (pp === 'addsugar') {
+                        ST.completedPoly[currentPolyId()] = { result: MOLS[currentPolyId()].phenomenon };
+                        if (ST.polyIdx < POLY_ORDER.length - 1) {
+                            ST.polyIdx++; ST.polyPhase = 'prep'; resetCurrent();
+                        } else {
+                            ST.polyPhase = 'compare'; buildCompareText(); fullDraw();
+                        }
+                    } else if (pp === 'compare') {
+                        ST.polyPhase = 'conclusion'; buildFinalText(); fullDraw();
+                    }
+                }
+                renderAll();
+            }
+
+            function buildCompareText() {
+                const polyName = ST.polyIdx === 1 ? 'Cellulose' : 'Tinh bột';
+                document.getElementById('compareText').innerHTML =
+                    `<b>Glucose</b> là phân tử nhỏ (C₆H₁₂O₆, 6 carbon), các nhóm −OH liền kề ở bên ngoài dễ tiếp xúc với Cu(OH)₂ → tạo phức tan, dung dịch xanh lam.<br><br>` +
+                    `<b>${polyName}</b> là <b>polysaccharide</b> — phân tử khối rất lớn, gồm <b>hàng trăm đến hàng nghìn mắt xích glucose</b> nối với nhau thành mạch dài (có thể phân nhánh hoặc cuộn xoắn). ` +
+                    `Tuy mỗi mắt xích vẫn còn nhóm −OH liền kề, nhưng vì đây là carbohydrate thuộc loại <b>polysaccharide</b> (không phải mono-/disaccharide), nó <b>không thể hiện tính chất poliol</b> như glucose, fructose, saccharose hay maltose → không hoà tan được Cu(OH)₂.`;
+            }
+            function buildFinalText() {
+                document.getElementById('finalText').innerHTML =
+                    'Em đã hoàn thành mô phỏng! Ghi nhớ: chỉ <b>mono-saccharide</b> và <b>di-saccharide</b> (glucose, fructose, saccharose, maltose...) ' +
+                    'có các nhóm −OH liền kề ở dạng phân tử nhỏ mới thể hiện <b>tính chất poliol</b> — hoà tan Cu(OH)₂ tạo dung dịch xanh lam. ' +
+                    '<b>Polysaccharide</b> (tinh bột, cellulose) dù vẫn có cấu trúc chứa nhóm OH liền kề trong mỗi mắt xích, nhưng do là phân tử rất lớn nên <b>không</b> có hiện tượng này.';
+            }
+
+            function goPrev() {
+                // simple: go back to structure of same substance
+                if (ST.phaseGroup === 'sugar') { ST.sugarPhase = 'structure'; resetCurrent(); }
+                else { ST.polyPhase = 'predict'; resetCurrent(); }
+                renderAll();
+            }
+
+            /* ============================================================
+               12. RENDER ALL (sync UI to state)
+               ============================================================ */
+            function renderAll() {
+                buildSidebarTabs();
+                updateProgressBar();
+                updateSummaryTable();
+                updateControls();
+                updateCaption();
+                updateHeaderText();
+                fullDraw();
+            }
+
+            function updateHeaderText() {
+                const title = document.getElementById('stepTitle');
+                const sub = document.getElementById('stepSub');
+                if (ST.phaseGroup === 'sugar') {
+                    const name = MOLS[currentSugarId()].name;
+                    const map = { structure: 'Quan sát cấu trúc', prep: 'Pha thuốc thử Cu(OH)₂/NaOH', addsugar: `Thử với dung dịch ${name}`, quiz: 'Câu hỏi kiểm tra', equation: 'Phương trình hoá học' };
+                    title.textContent = `Phần 1 · ${name} — ${map[ST.sugarPhase]}`;
+                    sub.textContent = ({
+                        structure: 'Click vào các nhóm −OH trên hình để xem chúng có nằm liền kề nhau không.',
+                        prep: 'Nhỏ CuSO₄ rồi NaOH vào ống nghiệm rỗng để tạo kết tủa Cu(OH)₂.',
+                        addsugar: 'Dùng công tơ hút lấy dung dịch đường, cho vào ống nghiệm rồi lắc đều.',
+                        quiz: 'Chọn đáp án giải thích đúng nguyên nhân của hiện tượng vừa quan sát.',
+                        equation: 'Xem phương trình hoá học mô tả phản ứng.'
+                    })[ST.sugarPhase];
+                } else {
+                    const name = MOLS[currentPolyId()].name;
+                    const map = { predict: 'Dự đoán trước thí nghiệm', prep: `Pha thuốc thử cho ${name}`, addsugar: `Thử với dung dịch ${name}`, compare: 'So sánh cấu trúc', conclusion: 'Kết luận' };
+                    title.textContent = `Phần 2 · ${map[ST.polyPhase]}`;
+                    sub.textContent = ({
+                        predict: 'Tinh bột và cellulose cũng nhiều nhóm OH — chúng có phản ứng giống glucose không?',
+                        prep: 'Pha kết tủa Cu(OH)₂ giống như đã làm ở Phần 1.',
+                        addsugar: 'Quan sát: kết tủa có tan và đổi màu như các chất đường không?',
+                        compare: 'Vì sao polysaccharide không phản ứng dù cũng có OH liền kề?',
+                        conclusion: 'Tổng kết toàn bộ mô phỏng.'
+                    })[ST.polyPhase];
+                }
+            }
+
+            /* ============================================================
+               13. EVENT HANDLERS — canvas hover/click, buttons
+               ============================================================ */
+            canvas.addEventListener('mousemove', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+                let hit = null;
+                for (const h of hotspots) {
+                    const d = Math.hypot(mx - h.x, my - h.y);
+                    if (d < h.r) { hit = h; break; }
+                }
+                if (hit) {
+                    tooltip.style.display = 'block';
+                    tooltip.style.left = Math.min(CW - 230, hit.x + 14) + 'px';
+                    tooltip.style.top = Math.max(4, hit.y - 46) + 'px';
+                    if (hit.key === 'OH') {
+                        tooltip.innerHTML = hit.ohRun
+                            ? `<b>Nhóm −OH liền kề</b><br>Nhóm này nằm cạnh nhóm −OH khác → có thể cùng tạo phức với Cu²⁺.`
+                            : `<b>Nhóm −OH cô lập</b><br>Nhóm này KHÔNG có nhóm −OH liền kề bên cạnh (bị chắn bởi nhóm không có OH) → một mình không đủ để phản ứng.`;
+                    } else {
+                        tooltip.innerHTML = `<b>Nhóm chức ${hit.key.replace('CH2OH', 'CH₂OH')}</b><br>Vẫn chứa nhóm −OH bậc 1 (đầu mạch).`;
+                    }
+                } else {
+                    tooltip.style.display = 'none';
+                }
+            });
+            canvas.addEventListener('mouseleave', () => { tooltip.style.display = 'none'; });
+            canvas.addEventListener('click', (e) => {
+                const rect = canvas.getBoundingClientRect();
+                const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+                for (const h of hotspots) {
+                    if (Math.hypot(mx - h.x, my - h.y) < h.r) {
+                        ST.selectedHotspot = h.idx;
+                        break;
+                    }
+                }
+            });
+
+            document.getElementById('btnReset').addEventListener('click', resetCurrent);
+            document.getElementById('btnNext').addEventListener('click', goNext);
+            document.getElementById('btnPrev').addEventListener('click', goPrev);
+
+            document.getElementById('btnAddCuSO4').addEventListener('click', () => {
+                if (ST.prepStep !== 0 || ST.isPlaying) return;
+                startDropAnimation('cuso4', () => {
+                    ST.prepStep = 1;
+                });
+            });
+            document.getElementById('btnAddNaOH').addEventListener('click', () => {
+                if (ST.prepStep !== 1 || ST.isPlaying) return;
+                startDropAnimation('naoh', () => {
+                    ST.prepStep = 2;
+                });
+            });
+            document.getElementById('btnShake').addEventListener('click', () => {
+                if (ST.addStep !== 1) return;
+                startShakeAnimation();
+            });
+
+            document.getElementById('viewMolBtn').addEventListener('click', () => {
+                if (ST.phaseGroup !== 'sugar' || (ST.sugarPhase !== 'equation' && ST.sugarPhase !== 'quiz')) return;
+                ST.view = 'mol'; updateControls(); fullDraw();
+            });
+            document.getElementById('viewEqBtn').addEventListener('click', () => {
+                if (ST.phaseGroup !== 'sugar' || (ST.sugarPhase !== 'equation' && ST.sugarPhase !== 'quiz')) return;
+                ST.view = 'eq'; updateControls(); fullDraw();
+            });
+
+            buildPredictHandlers();
+
+            /* ============================================================
+               14. INIT
+               ============================================================ */
+            function init() {
+                resizeCanvas();
+                buildQuiz();
+                renderAll();
+                // wait briefly for katex defer script in case equation phase reached later; renderEquation called on-demand.
+            }
+            window.addEventListener('load', init);
+        })();
+    </script>
+</body>
+
+</html>

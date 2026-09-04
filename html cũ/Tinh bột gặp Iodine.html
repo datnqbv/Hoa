@@ -1,0 +1,1827 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mô Phỏng Thí Nghiệm: Tinh Bột và Iodine</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        /* DESIGN SYSTEM & GLOBAL STYLES */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #f0f4f8;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+        }
+
+        /* TYPOGRAPHY */
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .badge-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        /* HEADER BLOCK */
+        .lab-header {
+            width: 100%;
+            max-width: 760px;
+            background: linear-gradient(0deg, rgba(15, 23, 42, 0.5) 0%, rgba(15, 23, 42, 0.5) 100%), url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.15);
+        }
+
+        .lab-header::before,
+        .lab-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        .lab-header::before {
+            width: 140px;
+            height: 140px;
+            top: -40px;
+            left: -30px;
+        }
+
+        .lab-header::after {
+            width: 220px;
+            height: 220px;
+            bottom: -90px;
+            right: -50px;
+        }
+
+        .lab-header .meta-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .lab-header h1 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .lab-header p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 0.95rem;
+            max-width: 90%;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .info-col-left {
+            flex: 1;
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .info-col-right {
+            flex: 1;
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+
+        .panel-title {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #0f4c81;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .panel-content {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        .panel-content ol {
+            padding-left: 16px;
+        }
+
+        .panel-content li {
+            margin-bottom: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-content li.active-step-text {
+            font-weight: 600;
+            color: #0f4c81;
+            transform: translateX(4px);
+        }
+
+        /* CANVAS ELEMENT */
+        canvas {
+            background: #cdd3dc;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            cursor: default;
+        }
+
+        /* CONTROLS CARD */
+        .controls-card {
+            width: 100%;
+            max-width: 760px;
+            background: #f5f0ff;
+            border: 1px solid #c4b5fd;
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .stepper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(196, 181, 253, 0.4);
+            padding-bottom: 8px;
+        }
+
+        .stepper-title {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #0f4c81;
+        }
+
+        .stepper-counter {
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748b;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        /* Progress Dots */
+        .progress-dots-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 4px 0;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #cbd5e1;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dot.active {
+            background: #0f4c81;
+            transform: scale(1.3);
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.2);
+        }
+
+        .dot.passed {
+            background: #1a7a5e;
+            color: white;
+            font-size: 8px;
+        }
+
+        .dot.passed::after {
+            content: '\ea5e';
+            font-family: 'tabler-icons';
+            position: absolute;
+            font-size: 8px;
+        }
+
+        /* Step Info Card */
+        .step-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 8px;
+            padding: 12px 14px;
+            border-left: 3px solid #0f4c81;
+        }
+
+        .step-card h4 {
+            font-size: 14px;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .step-card p {
+            font-size: 12.5px;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        /* Interactive Quiz Box inside Controls */
+        .quiz-container {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .quiz-container.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quiz-question {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #0f4c81;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .opt-btn {
+            text-align: left;
+            width: 100%;
+            border-radius: 8px;
+            padding: 10px 14px;
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+            font-size: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .opt-btn:hover:not(:disabled) {
+            border-color: #0f4c81;
+            background: #f0f7ff;
+        }
+
+        .opt-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        /* BUTTONS STYLING */
+        button {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 13px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: #0f4c81;
+            color: #0f4c81;
+            background: #f0f7ff;
+        }
+
+        button.btn-active {
+            background: #0f4c81;
+            color: #ffffff;
+            border-color: #0f4c81;
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.btn-active:hover:not(:disabled) {
+            background: #0d4372;
+            color: #ffffff;
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed #cbd5e1;
+            background: transparent;
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            border-color: #1a7a5e;
+            color: #1a7a5e;
+            background: #f0fdfa;
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .navigation-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 8px;
+        }
+
+        .status-text {
+            font-size: 11px;
+            font-weight: 500;
+            color: #64748b;
+            font-style: italic;
+            text-align: right;
+        }
+
+        /* EXPLANATION BOX */
+        .explanation-box {
+            width: 100%;
+            max-width: 760px;
+            border-radius: 12px;
+            padding: 16px 20px;
+            transition: all 0.25s ease;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .explanation-box.state-ready {
+            background: #fef9ee;
+            border: 1px solid #f0c674;
+            border-left: 4px solid #d4930a;
+        }
+
+        .explanation-box.state-reacted {
+            background: #eefbf4;
+            border: 1px solid #6bc9a0;
+            border-left: 4px solid #0f6e56;
+        }
+
+        .explanation-box.fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .explanation-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .state-ready .explanation-title {
+            color: #b47b02;
+        }
+
+        .state-reacted .explanation-title {
+            color: #0f6e56;
+        }
+
+        .explanation-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #334155;
+        }
+
+        /* SPIN ANIMATION FOR LOADER */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spinning {
+            animation: spin 0.9s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="lab-header">
+
+        <h1>Thí nghiệm phản ứng hồ tinh bột với iodine</h1>
+        <p>Khám phá phản ứng đặc trưng nhận biết tinh bột bằng Iodine và cơ chế thuận nghịch bất ngờ dựa trên cấu trúc
+            xoắn không gian phân tử Amylose.</p>
+    </header>
+
+    <div class="info-panel">
+        <div class="info-col-left">
+            <div class="panel-title"><i class="ti ti-target"></i> Mục đích thí nghiệm</div>
+            <div class="panel-content">
+                Thực hiện tương tác nhỏ dung dịch Iodine vào hồ tinh bột để kiểm chứng hiện tượng đổi màu, giải thích
+                cấu trúc phức chất hấp phụ xoắn đặc trưng và tính chất biến đổi thuận nghịch khi có sự tác động của
+                nhiệt độ.
+            </div>
+        </div>
+        <div class="info-col-right">
+            <div class="panel-title"><i class="ti ti-list-numbers"></i> Hướng dẫn thao tác</div>
+            <div class="panel-content">
+                <ol id="procedure-list">
+                    <li id="p-step-1">Nhấn nút đong để lấy 2 mL dung dịch hồ tinh bột vào ống nghiệm.</li>
+                    <li id="p-step-2">Nhấn nút ống nhỏ giọt để cho dung dịch Iodine vào và quan sát.</li>
+                    <li id="p-step-3">Nhấn giữ nút Đun nóng trên ngọn lửa đèn cồn để tăng nhiệt độ.</li>
+                    <li id="p-step-4">Nhấn nút Để nguội để đưa hệ thống quay lại nhiệt độ phòng.</li>
+                    <li id="p-step-5">Phân tích mô hình phân tử để thấu hiểu sâu sắc bản chất phản ứng.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="labCanvas" width="760" height="420"></canvas>
+
+    <div class="controls-card">
+        <div class="stepper-header">
+            <div class="stepper-title"><i class="ti ti-settings"></i> Quy Trình Thí Nghiệm</div>
+            <div id="step-counter" class="stepper-counter">Bước 1 / 5</div>
+        </div>
+
+        <div class="progress-dots-container" id="dots-container">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <div class="step-card" id="current-step-card">
+            <h4 id="step-title">Bước 1: Chuẩn bị dung dịch nền</h4>
+            <p id="step-desc">Hệ thống đang trang bị ống nghiệm rỗng sạch trên giá và dung dịch hồ tinh bột tinh khiết
+                1%. Hãy chuẩn bị nạp mẫu dung dịch vào ống nghiệm.</p>
+        </div>
+
+        <div class="quiz-container" id="quiz-block">
+            <div class="quiz-question" id="quiz-question-text">Câu hỏi tương tác</div>
+            <div class="quiz-options" id="quiz-options-box"></div>
+        </div>
+
+        <div class="navigation-bar">
+            <div class="nav-left">
+                <button id="btn-back" disabled><i class="ti ti-arrow-narrow-left"></i> Xem lại</button>
+                <button id="btn-reset" class="btn-reset"><i class="ti ti-refresh"></i> Làm lại</button>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div id="status-display" class="status-text">Chờ thao tác...</div>
+                <button id="btn-action" class="btn-active">Lấy 2 mL hồ tinh bột <i
+                        class="ti ti-circle-plus"></i></button>
+                <button id="btn-next" style="display:none;" class="btn-active">Tiếp theo <i
+                        class="ti ti-arrow-narrow-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <div id="explanationBox" class="explanation-box state-ready">
+        <div id="explanation-title" class="explanation-title"><i class="ti ti-info-circle"></i> Trạng thái hệ thống
+        </div>
+        <div id="explanation-desc" class="explanation-desc">Chào mừng bạn đến với môi trường thực nghiệm. Hãy làm theo
+            trình tự hướng dẫn các bước để tiến hành nghiên cứu phản ứng.</div>
+    </div>
+
+    <script>
+        // 1. CANVAS CONFIGURATION & UTILITIES
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 420;
+
+        function lerp(a, b, t) {
+            return a + (b - a) * t;
+        }
+
+        function clamp(v, lo, hi) {
+            return Math.max(lo, Math.min(hi, v));
+        }
+
+        function easeOut(t) {
+            return 1 - (1 - t) * (1 - t);
+        }
+
+        function easeInOut(t) {
+            return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+        }
+
+        function lerpColor(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return `rgb(${Math.round(c1.r + (c2.r - c1.r) * t)},${Math.round(c1.g + (c2.g - c1.g) * t)},${Math.round(c1.b + (c2.b - c1.b) * t)})`;
+        }
+
+        function lerpColorObj(c1, c2, t) {
+            t = clamp(t, 0, 1);
+            return {
+                r: c1.r + (c2.r - c1.r) * t,
+                g: c1.g + (c2.g - c1.g) * t,
+                b: c1.b + (c2.b - c1.b) * t,
+                a: c1.a + (c2.a - c1.a) * t
+            };
+        }
+
+        // Color definitions
+        const cStarch = { r: 235, g: 240, b: 245, a: 0.35 };
+        const cIodineDrop = { r: 226, g: 141, b: 34, a: 1.0 };
+        const cBlueViolet = { r: 24, g: 48, b: 112, a: 0.75 };
+        const cClearIodineDilute = { r: 236, g: 202, b: 145, a: 1.0 };
+
+        // 2. STATE MACHINE DATA STRUCTURES
+        let currentStep = 1;
+        let subStep = 0; // 0=Idle, 1=Animating, 2=Secondary wait, 4=Done
+        let isAnimating = false;
+        let animationTimer = 0;
+        let globalTime = 0;
+
+        // Interactive simulation chemical parameters
+        let starchLiquidHeight = 0;
+        let currentLiquidHeight = 0;
+        let reactProgress = 0;
+        let temperature = 25;
+        let totalDropsAdded = 0;
+        let hasReacted = false;
+
+        // Dropper / Beaker / Bottle animation coords
+        const TX = W / 2;
+        const TY = 165;
+
+        let beakerX = 120, beakerY = 325, beakerRot = 0;
+        let starchBeakerLevel = 1.0;
+        let isPouringStarch = false;
+
+        let bottleX = 640, bottleY = 365;
+        let iodineBottleLevel = 1.0;
+        let dropperX = 640, dropperY = 365;
+        let dropperBulbSqueeze = 0;
+        let dropperIsFilled = false;
+        let dropperFilledLevel = 0.0;
+
+        let drop = { active: false, x: 0, y: 0, color: '' };
+        let isDropping = false;
+
+        // Particle System
+        let particles = [];
+        let bubbles = [];
+
+        // Reaction Flash Effect variables
+        let flashActive = false;
+        let flashRadius = 0;
+        let flashAlpha = 0;
+
+        // Step 5 Interactive Model Variables
+        let modelStateHot = false;
+        let modelUncoilProgress = 0;
+        let modelIodineParticles = [];
+
+        // Initialize 22 molecules inside amylose chain for Step 5 simulation
+        for (let i = 0; i < 22; i++) {
+            modelIodineParticles.push({
+                angleOffset: Math.random() * Math.PI * 2,
+                driftX: (Math.random() - 0.5) * 30,
+                driftY: (Math.random() - 0.5) * 20,
+                randSpeed: 0.5 + Math.random() * 0.8
+            });
+        }
+
+        // Quiz Configuration
+        let quizActive = false;
+        let quizCurrentIndex = 0;
+        let quizAnswersData = [
+            {
+                question: "Nếu đun nóng ống nghiệm này bằng đèn cồn, điều gì sẽ xảy ra với màu xanh tím?",
+                options: [
+                    { key: "A", text: "Màu xanh tím chuyển biến đậm đà sắc nét hơn", correct: false, feedback: "Chưa đúng. Nhiệt độ cao không làm phản ứng mạnh hơn — hãy thử đun và quan sát nhé!" },
+                    { key: "B", text: "Màu nhạt dần rồi mất hẳn hoàn toàn", correct: true, feedback: "Chính xác! Nhiệt độ cao làm chuỗi amylose giãn thẳng cấu trúc xoắn, iodine thoát khỏi lòng xoắn gây mất màu." },
+                    { key: "C", text: "Màu sắc giữ nguyên trạng thái không đổi", correct: false, feedback: "Chưa đúng. Nhiệt độ ảnh hưởng cực kỳ nghiêm trọng đến cấu trúc không gian hình học phân tử — hãy đun thử xem!" },
+                    { key: "D", text: "Chất lỏng sôi mạnh rồi mất màu do Iodine bay hơi hết", correct: false, feedback: "Iodine bay hơi một phần rất nhỏ, đó không phải nguyên do cốt lõi cấu thành hiện tượng mất màu này." }
+                ]
+            },
+            {
+                question: "Nếu tiếp tục để ống nghiệm tự làm nguội lại về nhiệt độ thường, màu sắc dung dịch biến chuyển ra sao?",
+                options: [
+                    { key: "A", text: "Vẫn không màu — Iodine đã bị phân hủy hoàn toàn", correct: false, feedback: "Iodine không bị phá hủy cơ tính ở mức nhiệt này — nó chỉ tạm thời ly khai chuỗi xoắn. Hãy để nguội kiểm chứng!" },
+                    { key: "B", text: "Màu xanh tím tái xuất hiện trở lại", correct: true, feedback: "Đúng rồi! Khi hạ nhiệt, chuỗi amylose tự động xoắn cuộn lại cấu trúc hình học ban đầu và giữ chặt phân tử Iodine." },
+                    { key: "C", text: "Dung dịch phát sinh màu sắc mới lạ khác biệt hoàn toàn", correct: false, feedback: "Không sinh ra phản ứng hóa học tạo liên kết mới nào — bản chất đây là tương tác vật lý thuận nghịch." }
+                ]
+            },
+            {
+                question: "Tại sao phân tử Iodine chỉ tạo màu đặc trưng với Tinh bột mà KHÔNG cho phản ứng tương tự với Glucose?",
+                options: [
+                    { key: "A", text: "Do phân tử đường Glucose không có khả năng tan trong nước", correct: false, feedback: "Glucose tan vô cùng tốt tạo liên kết hydro với nước — đây không phải nguyên nhân cấu trúc cấu thành." },
+                    { key: "B", text: "Do Glucose cấu trúc mạch ngắn, không có dạng xoắn giữ phân tử Iodine", correct: true, feedback: "Chính xác! Glucose là monosaccharide kích thước siêu nhỏ, không sở hữu cấu trúc xoắn rỗng như tinh bột để bao bọc hấp phụ Iodine." },
+                    { key: "C", text: "Do Glucose phản ứng hóa học chuyển đổi Iodine sang hợp chất khác", correct: false, feedback: "Glucose hoàn toàn trơ về mặt tương tác với Iodine ở điều kiện thường này, không phát sinh biến đổi chất." },
+                    { key: "D", text: "Do Tinh bột tích lũy mật độ nguyên tử Cacbon dồi dào vượt trội", correct: false, feedback: "Mật độ tổng nguyên tử không chi phối cơ chế này. Mấu chốt tiên quyết là cấu hình không gian ba chiều rỗng lòng xoắn." }
+                ]
+            }
+        ];
+
+        // UI Element Selectors
+        const btnAction = document.getElementById('btn-action');
+        const btnNext = document.getElementById('btn-next');
+        const btnBack = document.getElementById('btn-back');
+        const btnReset = document.getElementById('btn-reset');
+        const statusDisplay = document.getElementById('status-display');
+        const stepCounter = document.getElementById('step-counter');
+        const stepTitle = document.getElementById('step-title');
+        const stepDesc = document.getElementById('step-desc');
+        const explanationBox = document.getElementById('explanationBox');
+        const explanationTitle = document.getElementById('explanation-title');
+        const explanationDesc = document.getElementById('explanation-desc');
+        const quizBlock = document.getElementById('quiz-block');
+        const quizQuestionText = document.getElementById('quiz-question-text');
+        const quizOptionsBox = document.getElementById('quiz-options-box');
+
+        // 3. BACKGROUND GRID FUNCTION
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15, 76, 129, 0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) {
+                ctx.beginPath();
+                ctx.moveTo(x, 0);
+                ctx.lineTo(x, H);
+                ctx.stroke();
+            }
+            for (let y = 0; y <= H; y += 30) {
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(W, y);
+                ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        // 4. ANIMATION PROCEDURES & DRAWING IMPLEMENTATIONS
+        function spawnSplashParticles(x, y, colorStr) {
+            for (let i = 0; i < 6; i++) {
+                particles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: -(Math.random() * 2 + 1.5),
+                    life: 1.0,
+                    decay: 0.04 + Math.random() * 0.03,
+                    size: 2 + Math.random() * 2.5,
+                    color: colorStr
+                });
+            }
+        }
+
+        function updateAndDrawParticles() {
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.08;
+                p.life -= p.decay;
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, p.life);
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+        }
+
+        function handleBubbles(isHeating) {
+            if (isHeating && Math.random() < 0.25) {
+                let liquidBottomY = TY + 130;
+                let liquidSurfaceY = TY + 130 - currentLiquidHeight;
+                bubbles.push({
+                    x: TX - 12 + Math.random() * 24,
+                    y: liquidBottomY - 4,
+                    targetY: liquidSurfaceY,
+                    speed: 0.5 + Math.random() * 1.5,
+                    seed: Math.random() * 10
+                });
+            }
+
+            for (let i = bubbles.length - 1; i >= 0; i--) {
+                let b = bubbles[i];
+                let liquidHeightSpan = (TY + 130) - b.targetY;
+
+                b.y -= b.speed;
+                b.x += Math.sin(globalTime * 0.1 + b.seed) * 0.2;
+
+                let currentDistance = (TY + 130) - b.y;
+                let ratio = clamp(currentDistance / (liquidHeightSpan || 1), 0, 1);
+                let currentRadius = lerp(1.2, 4.2, ratio);
+
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255,255,255,0.6)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, currentRadius, 0, Math.PI * 2);
+                ctx.stroke();
+                ctx.restore();
+
+                if (b.y <= b.targetY + 2) {
+                    bubbles.splice(i, 1);
+                }
+            }
+        }
+
+
+
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.25)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            if (currentLiquidHeight > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(tx - 16, ty + 130 - currentLiquidHeight);
+                ctx.lineTo(tx - 16, ty + 110);
+                ctx.quadraticCurveTo(tx - 16, ty + 132, tx, ty + 132);
+                ctx.quadraticCurveTo(tx + 16, ty + 132, tx + 16, ty + 110);
+                ctx.lineTo(tx + 16, ty + 130 - currentLiquidHeight);
+                ctx.closePath();
+                ctx.clip();
+
+                let baseColor;
+                let hotColorObj = cStarch; // Đun nóng mất màu hoàn toàn về màu trắng đục của tinh bột
+                let roomTempColorObj = lerpColorObj(cStarch, cBlueViolet, reactProgress);
+
+                if (temperature >= 60) {
+                    baseColor = `rgba(${hotColorObj.r},${hotColorObj.g},${hotColorObj.b},${hotColorObj.a})`;
+                } else if (temperature <= 25) {
+                    baseColor = `rgba(${Math.round(roomTempColorObj.r)},${Math.round(roomTempColorObj.g)},${Math.round(roomTempColorObj.b)},${roomTempColorObj.a})`;
+                } else {
+                    // Nhiệt độ từ 25°C đến 60°C: Màu chuyển dần từ hotColorObj sang roomTempColorObj
+                    let colorRatio = clamp((60 - temperature) / 35, 0, 1);
+                    let baseColorObj = lerpColorObj(hotColorObj, roomTempColorObj, colorRatio);
+                    baseColor = `rgba(${Math.round(baseColorObj.r)},${Math.round(baseColorObj.g)},${Math.round(baseColorObj.b)},${baseColorObj.a})`;
+                }
+
+                ctx.fillStyle = baseColor;
+                ctx.fillRect(tx - 25, ty, 50, 140);
+                ctx.restore();
+
+                let surfaceY = ty + 130 - currentLiquidHeight;
+                ctx.save();
+                ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(tx - 16, surfaceY);
+                ctx.quadraticCurveTo(tx, surfaceY + 3, tx + 16, surfaceY);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 12, ty + 10);
+            ctx.lineTo(tx - 12, ty + 115);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Vẽ miệng ống nghiệm (elip mở)
+            ctx.beginPath();
+            ctx.ellipse(tx, ty, 18, 5, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Đã xóa thanh kẹp đỡ ngang ở giữa ống nghiệm theo yêu cầu
+
+            let currentChemLabel = "Trống";
+            if (currentStep === 1 && subStep < 4) currentChemLabel = "Rỗng";
+            else if (totalDropsAdded === 0) currentChemLabel = "Hồ Tinh Bột 1%";
+            else if (temperature > 65) currentChemLabel = "Hồ Tinh Bột + I₂ (Nóng)";
+            else currentChemLabel = "Phức chất Amylose-I₂";
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 11px "Plus Jakarta Sans", Arial';
+            ctx.textAlign = 'left';
+            ctx.fillText(currentChemLabel, tx + 32, ty + 110);
+            ctx.restore();
+        }
+
+        function drawDropper(t) {
+            let x = t.x, y = t.y - 65; // Đẩy cao độ tương đối bám khớp với cổ lọ gốc khi nghỉ
+            ctx.save();
+
+            let sq = t.bulbSqueeze * 3.5;
+            ctx.fillStyle = '#e53e3e'; ctx.beginPath(); ctx.moveTo(x - 9 + sq, y - 10);
+            ctx.quadraticCurveTo(x - 14, y - 35, x, y - 41); ctx.quadraticCurveTo(x + 14, y - 35, x + 9 - sq, y - 10); ctx.fill();
+
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.45)'; ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(x - 7, y - 10); ctx.lineTo(x - 7, y + 22); ctx.lineTo(x - 2, y + 50); ctx.lineTo(x + 2, y + 50); ctx.lineTo(x + 7, y + 22); ctx.lineTo(x + 7, y - 10); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+            if (t.isFilled && t.filledLevel > 0) {
+                ctx.fillStyle = t.color;
+                ctx.beginPath();
+                // Vẽ phần dung dịch ở thân trên tùy thuộc vào tỉ lệ filledLevel
+                let topOffset = 22 * (1 - t.filledLevel);
+                ctx.moveTo(x - 6, y + topOffset);
+                ctx.lineTo(x + 6, y + topOffset);
+                ctx.lineTo(x + 5, y + 22);
+                ctx.lineTo(x + 2, y + 45);
+                ctx.lineTo(x - 2, y + 45);
+                ctx.lineTo(x - 5, y + 22);
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            ctx.fillStyle = '#1e293b'; ctx.font = 'bold 9px "Plus Jakarta Sans", Arial'; ctx.textAlign = 'center';
+            ctx.fillText(t.label, x, y - 48);
+            ctx.restore();
+        }
+
+        function drawReagentBottle(x, y, label, colorStr, bottleLevel = 1.0) {
+            ctx.save();
+            // Thân lọ thủy tinh
+            ctx.fillStyle = 'rgba(235, 242, 252, 0.45)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x - 22, y);
+            ctx.lineTo(x - 22, y - 45);
+            ctx.quadraticCurveTo(x - 22, y - 55, x - 12, y - 55);
+            ctx.lineTo(x - 12, y - 65);
+            ctx.lineTo(x + 12, y - 65);
+            ctx.lineTo(x + 12, y - 55);
+            ctx.quadraticCurveTo(x + 22, y - 55, x + 22, y - 45);
+            ctx.lineTo(x + 22, y);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // Chất lỏng bên trong lọ
+            ctx.fillStyle = colorStr;
+            ctx.beginPath();
+            let liquidHeight = 42 * bottleLevel;
+            let topY = y - 2 - liquidHeight;
+            ctx.moveTo(x - 19, y - 2);
+            ctx.lineTo(x - 19, topY + 2);
+            ctx.quadraticCurveTo(x - 19, topY, x, topY);
+            ctx.quadraticCurveTo(x + 19, topY, x + 19, topY + 2);
+            ctx.lineTo(x + 19, y - 2);
+            ctx.closePath();
+            ctx.fill();
+
+            // Nhãn dán
+            ctx.fillStyle = '#ffffff';
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.fillRect(x - 18, y - 30, 36, 16);
+            ctx.strokeRect(x - 18, y - 30, 36, 16);
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 8.5px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(label, x, y - 18);
+            ctx.restore();
+        }
+
+        function drawStarchBeaker(x, y, rot, label, colorStr, level = 1.0) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rot);
+
+            // Vẽ chất lỏng bên trong cốc
+            if (level > 0) {
+                ctx.fillStyle = colorStr;
+                ctx.fillRect(-18, 40 - 45 * level, 36, 45 * level);
+            }
+
+            // Vẽ thân cốc (hở miệng loe nhẹ)
+            ctx.fillStyle = 'rgba(255,255,255,0.2)';
+            ctx.fillRect(-20, -10, 40, 50);
+
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(-23, -10);
+            ctx.lineTo(-20, -10);
+            ctx.lineTo(-20, 40);
+            ctx.lineTo(20, 40);
+            ctx.lineTo(20, -10);
+            ctx.lineTo(23, -10);
+            ctx.stroke();
+
+            // Nhãn chữ trên cốc khi nó đứng thẳng
+            if (Math.abs(rot) < 0.1) {
+                ctx.fillStyle = '#64748b';
+                ctx.font = 'bold 8px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, 0, 15);
+            }
+
+            ctx.restore();
+        }
+
+        function drawDrop(x, y, color) {
+            ctx.save();
+            ctx.fillStyle = color || 'rgba(226, 141, 34, 0.9)';
+            ctx.beginPath();
+            ctx.moveTo(x, y - 9);
+            ctx.quadraticCurveTo(x - 5, y - 2, x - 4, y + 1);
+            ctx.quadraticCurveTo(x, y + 5, x + 4, y + 1);
+            ctx.quadraticCurveTo(x + 5, y - 2, x, y - 9);
+            ctx.fill();
+
+            ctx.fillStyle = 'rgba(255,255,255,0.5)';
+            ctx.beginPath();
+            ctx.arc(x - 1, y - 2, 1.5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawAlcoholBurner(active) {
+            let bx = TX;
+            let by = TY + 162;
+            ctx.save();
+
+            ctx.strokeStyle = '#64748b';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            ctx.moveTo(bx - 40, by + 40);
+            ctx.lineTo(bx + 40, by + 40);
+            ctx.stroke();
+
+            ctx.fillStyle = 'rgba(200, 220, 240, 0.4)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(bx - 25, by + 40);
+            ctx.quadraticCurveTo(bx - 30, by + 10, bx - 12, by + 10);
+            ctx.lineTo(bx + 12, by + 10);
+            ctx.quadraticCurveTo(bx + 30, by + 10, bx + 25, by + 40);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            ctx.fillStyle = 'rgba(14, 165, 233, 0.25)';
+            ctx.beginPath();
+            ctx.moveTo(bx - 23, by + 38);
+            ctx.quadraticCurveTo(bx - 26, by + 18, bx - 10, by + 18);
+            ctx.lineTo(bx + 10, by + 18);
+            ctx.quadraticCurveTo(bx + 26, by + 18, bx + 23, by + 38);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = '#475569';
+            ctx.fillRect(bx - 5, by, 10, 10);
+
+            if (active) {
+                let flamePulse = Math.sin(globalTime * 0.2) * 3;
+                let flameHeight = 35 + flamePulse;
+
+                let outerGrad = ctx.createLinearGradient(bx, by, bx, by - flameHeight);
+                outerGrad.addColorStop(0, 'rgba(239, 68, 68, 0.8)');
+                outerGrad.addColorStop(0.5, 'rgba(245, 158, 11, 0.8)');
+                outerGrad.addColorStop(1, 'rgba(252, 211, 77, 0)');
+
+                ctx.fillStyle = outerGrad;
+                ctx.beginPath();
+                ctx.moveTo(bx - 10, by);
+                ctx.quadraticCurveTo(bx - 12, by - flameHeight * 0.4, bx, by - flameHeight);
+                ctx.quadraticCurveTo(bx + 12, by - flameHeight * 0.4, bx + 10, by);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = 'rgba(253, 224, 71, 0.9)';
+                ctx.beginPath();
+                ctx.moveTo(bx - 4, by);
+                ctx.quadraticCurveTo(bx - 5, by - flameHeight * 0.3, bx, by - flameHeight * 0.6);
+                ctx.quadraticCurveTo(bx + 5, by - flameHeight * 0.3, bx + 4, by);
+                ctx.closePath();
+                ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawThermometer() {
+            let rx = TX - 120;
+            let ry = TY + 40;
+            ctx.save();
+
+            ctx.fillStyle = '#e2e8f0';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.fillRect(rx - 4, ry, 8, 120);
+            ctx.strokeRect(rx - 4, ry, 8, 120);
+
+            ctx.fillStyle = '#ef4444';
+            ctx.beginPath();
+            ctx.arc(rx, ry + 124, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.stroke();
+
+            let currentFillRatio = (temperature / 100);
+            let indicatorHeight = 110 * currentFillRatio;
+
+            ctx.fillStyle = '#ef4444';
+            ctx.fillRect(rx - 2, ry + 120 - indicatorHeight, 4, indicatorHeight);
+
+            ctx.fillStyle = '#334155';
+            ctx.font = '9px monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText(`${Math.round(temperature)}°C`, rx + 12, ry + 120 - indicatorHeight + 4);
+            ctx.restore();
+        }
+
+        function drawReactionFlash() {
+            if (!flashActive) return;
+            ctx.save();
+            ctx.strokeStyle = `rgba(255, 255, 255, ${flashAlpha})`;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            let surfaceY = TY + 130 - currentLiquidHeight;
+            ctx.arc(TX, surfaceY, flashRadius, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+
+            flashRadius += 1.6;
+            flashAlpha -= 0.035;
+            if (flashAlpha <= 0) {
+                flashActive = false;
+            }
+        }
+
+        function drawMolecularView() {
+            ctx.save();
+            ctx.fillStyle = '#0f4c81';
+            ctx.font = 'bold 15px "Plus Jakarta Sans", Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText("MÔ HÌNH KHÔNG GIAN PHÂN TỬ AMYLOSE-IODINE", W / 2, 40);
+
+            let helixX = 140;
+            let helixY = 220;
+            let helixWidth = 480;
+            let totalTurns = 7;
+
+            let amp = lerp(34, 4, modelUncoilProgress);
+            let freq = (totalTurns * 2 * Math.PI) / helixWidth;
+
+            // Back loops
+            ctx.strokeStyle = 'rgba(15, 76, 129, 0.2)';
+            ctx.lineWidth = 14;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            for (let x = 0; x <= helixWidth; x += 4) {
+                let currentY = helixY + Math.sin(x * freq) * amp;
+                let cosVal = Math.cos(x * freq);
+                if (cosVal < 0) {
+                    if (x === 0) ctx.moveTo(helixX + x, currentY);
+                    else ctx.lineTo(helixX + x, currentY);
+                } else {
+                    ctx.stroke();
+                    ctx.beginPath();
+                }
+            }
+            ctx.stroke();
+
+            // Iodine Molecules
+            modelIodineParticles.forEach((p, idx) => {
+                let progressFraction = (idx + 1) / (modelIodineParticles.length + 1);
+                let targetHelixX = helixX + progressFraction * helixWidth;
+                let currentMolX, currentMolY;
+
+                if (modelUncoilProgress < 0.1) {
+                    let orbitY = Math.sin(targetHelixX * freq + p.angleOffset) * 12;
+                    currentMolX = targetHelixX + Math.cos(globalTime * 0.03 * p.randSpeed + p.angleOffset) * 8;
+                    currentMolY = helixY + orbitY + p.driftY * 0.2;
+                } else {
+                    let escapeDirectionY = p.driftY > 0 ? 1 : -1;
+                    currentMolX = targetHelixX + p.driftX * modelUncoilProgress * 3;
+                    currentMolY = helixY + (p.driftY + escapeDirectionY * 60) * modelUncoilProgress;
+                }
+
+                ctx.fillStyle = '#8b5cf6';
+                ctx.beginPath();
+                ctx.arc(currentMolX - 5, currentMolY, 6, 0, Math.PI * 2);
+                ctx.arc(currentMolX + 5, currentMolY, 6, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = '#c084fc';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(currentMolX - 4, currentMolY);
+                ctx.lineTo(currentMolX + 4, currentMolY);
+                ctx.stroke();
+            });
+
+            // Front segment
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 16;
+            ctx.beginPath();
+            for (let x = 0; x <= helixWidth; x += 4) {
+                let currentY = helixY + Math.sin(x * freq) * amp;
+                let cosVal = Math.cos(x * freq);
+                if (cosVal >= 0) {
+                    if (x === 0) ctx.moveTo(helixX + x, currentY);
+                    else ctx.lineTo(helixX + x, currentY);
+                } else {
+                    ctx.stroke();
+                    ctx.beginPath();
+                }
+            }
+            ctx.stroke();
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 12px "Plus Jakarta Sans"';
+            ctx.textAlign = 'left';
+            ctx.fillText("Chuỗi xoắn Amylose (Tinh bột)", helixX, helixY - 80);
+
+            ctx.fillStyle = '#8b5cf6';
+            ctx.fillText("Phân tử Iodine (I₂)", helixX + 320, helixY + 110);
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = 'italic 12px "Plus Jakarta Sans"';
+            ctx.textAlign = 'center';
+            if (modelUncoilProgress > 0.7) {
+                ctx.fillText("Trạng thái: Chuỗi xoắn duỗi thẳng do nhiệt độ cao → Phóng thích các phân tử I₂ tự do (Mất màu)", W / 2, H - 40);
+            } else {
+                ctx.fillText("Trạng thái: Chuỗi giữ chặt các phân tử I₂ cố định trong lòng vòng xoắn rỗng (Phức xanh tím)", W / 2, H - 40);
+            }
+            ctx.restore();
+        }
+
+        // 6. MAIN LOOP
+        function simulationLoop() {
+            globalTime++;
+            ctx.clearRect(0, 0, W, H);
+
+            drawGrid();
+
+            if (currentStep <= 4) {
+                // Cập nhật nhiệt độ đồng bộ trong vòng lặp chính (60fps)
+                if (currentStep === 3 && subStep === 1) {
+                    temperature = Math.min(82, temperature + 0.35);
+                    if (temperature >= 82 && subStep !== 4) {
+                        subStep = 4;
+                        setSimulationStep(3, 4);
+                        changeExplanation(
+                            "<i class='ti ti-circle-check'></i> Biến tính cấu trúc: Mất màu",
+                            "Nhiệt lượng làm <b>chuỗi xoắn Amylose duỗi thẳng</b>, giải phóng Iodine ra khỏi lòng xoắn phân tử → Dung dịch mất màu.",
+                            "ready"
+                        );
+                    }
+                }
+
+                if (currentStep === 4 && subStep === 1) {
+                    temperature = Math.max(25, temperature - 0.2); // Tốc độ giảm nhiệt độ đồng bộ mượt mà
+                    if (temperature <= 25 && subStep !== 4) {
+                        subStep = 4;
+                        isAnimating = false;
+                        setSimulationStep(4, 4);
+                        changeExplanation(
+                            "<i class='ti ti-circle-check'></i> Kết quả thuận nghịch",
+                            "Khi về nhiệt độ thường, chuỗi Amylose <b>cuộn ngược trở lại</b>, ôm trọn Iodine → Phức màu xanh tím được phục hồi.",
+                            "reacted"
+                        );
+                    }
+                }
+
+                // 1. Vẽ mặt bàn phòng thí nghiệm vững chãi
+                ctx.fillStyle = 'rgba(215, 225, 235, 0.4)';
+                ctx.fillRect(0, 365, W, 55);
+                ctx.beginPath();
+                ctx.moveTo(0, 365);
+                ctx.lineTo(W, 365);
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                // 2. Vẽ đèn cồn và các thiết bị gia nhiệt
+                drawAlcoholBurner(currentStep === 3 && subStep === 1);
+                drawTestTube();
+                drawThermometer();
+                drawReactionFlash();
+                updateAndDrawParticles();
+                handleBubbles(currentStep === 3 && subStep === 1);
+
+                // 3. Vẽ cốc tinh bột (luôn xuất hiện)
+                drawStarchBeaker(beakerX, beakerY, beakerRot, "Hồ Tinh Bột 1%", "rgba(235, 240, 245, 0.35)", starchBeakerLevel);
+
+                // 4. Vẽ lọ Iodine và dropper (xuất hiện ở mọi bước thực nghiệm)
+                drawReagentBottle(bottleX, bottleY, "Dung dịch I₂", "rgba(226, 141, 34, 0.9)", iodineBottleLevel);
+                drawDropper({
+                    x: dropperX,
+                    y: dropperY,
+                    bulbSqueeze: dropperBulbSqueeze,
+                    isFilled: dropperIsFilled,
+                    filledLevel: dropperFilledLevel,
+                    color: "rgba(226, 141, 34, 0.95)",
+                    label: "Ống nhỏ giọt"
+                });
+
+                // 5. Cập nhật và vẽ giọt nước rơi
+                if (drop.active) {
+                    drop.y += 4.5;
+                    drawDrop(drop.x, drop.y, drop.color);
+
+                    let surfaceCurrentY = TY + 130 - currentLiquidHeight;
+                    if (drop.y >= surfaceCurrentY - 2) {
+                        drop.active = false;
+
+                        // Tính toán mức độ phản ứng tăng dần theo số giọt
+                        reactProgress = clamp((totalDropsAdded + 1) * 0.25, 0, 1);
+
+                        flashActive = true;
+                        flashRadius = 2;
+                        flashAlpha = 0.8;
+                        spawnSplashParticles(TX, surfaceCurrentY, 'rgba(226, 141, 34, 0.8)');
+                    }
+                }
+
+                // POURING (Bước 1)
+                if (currentStep === 1 && subStep === 1) {
+                    animationTimer++;
+                    if (animationTimer < 60) {
+                        let t = animationTimer / 60;
+                        beakerX = lerp(120, TX - 45, easeOut(t));
+                        beakerY = lerp(325, TY - 45, easeOut(t));
+                        beakerRot = 0;
+                    } else if (animationTimer >= 60 && animationTimer <= 240) {
+                        isPouringStarch = true;
+                        let tPour = (animationTimer - 60) / 180;
+                        if (animationTimer < 120) {
+                            beakerRot = lerp(0, Math.PI / 4, (animationTimer - 60) / 60);
+                        } else {
+                            beakerRot = Math.PI / 4;
+                        }
+
+                        starchLiquidHeight = lerp(0, 65, tPour);
+                        currentLiquidHeight = starchLiquidHeight;
+                        starchBeakerLevel = lerp(1.0, 0.7, tPour);
+
+                        let rotRad = beakerRot;
+                        let startX = beakerX + 20 * Math.cos(rotRad) + 10 * Math.sin(rotRad);
+                        let startY = beakerY + 20 * Math.sin(rotRad) - 10 * Math.cos(rotRad);
+
+                        ctx.save();
+                        ctx.strokeStyle = 'rgba(235, 240, 245, 0.45)';
+                        ctx.lineWidth = 3.5;
+                        ctx.beginPath();
+                        ctx.moveTo(startX, startY);
+                        ctx.quadraticCurveTo(TX - 5, TY - 10, TX, TY + 50);
+                        ctx.stroke();
+                        ctx.restore();
+
+                        if (Math.random() < 0.2) spawnSplashParticles(TX, TY + 110, 'rgba(235, 240, 245, 0.35)');
+                    } else {
+                        isPouringStarch = false;
+                        let exitProgress = animationTimer - 240;
+                        beakerRot = lerp(Math.PI / 4, 0, clamp(exitProgress / 20, 0, 1));
+                        beakerX = lerp(TX - 45, 120, clamp(exitProgress / 40, 0, 1));
+                        beakerY = lerp(TY - 45, 325, clamp(exitProgress / 40, 0, 1));
+                    }
+
+                    if (animationTimer >= 280 && subStep !== 4) {
+                        subStep = 4;
+                        isAnimating = false;
+                        setSimulationStep(1, 4);
+                    }
+                }
+
+                // DROPPER ANIMATION (Bước 2)
+                if (currentStep === 2 && subStep === 1) {
+                    animationTimer++;
+                    if (totalDropsAdded === 0) {
+                        // Giọt 1: hạ xuống lọ -> bóp hút -> bay sang ống nghiệm -> nhỏ giọt
+                        if (animationTimer < 40) {
+                            let t = animationTimer / 40;
+                            dropperY = lerp(365, 380, easeOut(t)); // Chỉ cắm sâu tối đa 380 tránh xuyên đáy lọ
+                        } else if (animationTimer >= 40 && animationTimer < 80) {
+                            let t = (animationTimer - 40) / 40;
+                            dropperBulbSqueeze = Math.sin(t * Math.PI);
+                            if (t > 0.5) {
+                                dropperIsFilled = true;
+                                iodineBottleLevel = lerp(1.0, 0.9, (t - 0.5) / 0.5);
+                                dropperFilledLevel = lerp(0.0, 1.0, (t - 0.5) / 0.5); // Chất lỏng dâng đầy dropper
+                            }
+                        } else if (animationTimer >= 80 && animationTimer < 140) {
+                            let t = (animationTimer - 80) / 60;
+                            dropperX = lerp(640, TX, easeInOut(t));
+                            dropperY = lerp(380, TY + 5, easeInOut(t));
+                            dropperBulbSqueeze = 0; // Nhả bóng khi di chuyển
+                        } else if (animationTimer >= 140 && animationTimer < 180) {
+                            let actionProgress = animationTimer - 140;
+                            if (!drop.active && actionProgress === 5) {
+                                drop.active = true;
+                                drop.x = TX;
+                                drop.y = dropperY - 15;
+                                drop.color = "rgba(226, 141, 34, 0.95)";
+                            }
+                            // Bóp bóng đỏ của dropper khi nhỏ giọt
+                            dropperBulbSqueeze = Math.sin((actionProgress / 40) * Math.PI);
+                            // Giảm dần chất lỏng trong dropper khi giọt rơi ra
+                            dropperFilledLevel = lerp(1.0, 0.75, clamp(actionProgress / 40, 0, 1));
+                        } else {
+                            totalDropsAdded = 1;
+                            subStep = 0;
+                            isAnimating = false;
+                            dropperBulbSqueeze = 0;
+                            dropperFilledLevel = 0.75;
+                            statusDisplay.innerText = "Đã nhỏ 1/4 giọt. Nhấp để nhỏ tiếp...";
+                            btnAction.disabled = false;
+                            btnAction.innerHTML = "Nhỏ Iodine";
+                        }
+                    } else if (totalDropsAdded === 1) {
+                        // Giọt 2: nhỏ giọt tại chỗ
+                        if (animationTimer < 40) {
+                            let actionProgress = animationTimer;
+                            if (!drop.active && actionProgress === 5) {
+                                drop.active = true;
+                                drop.x = TX;
+                                drop.y = dropperY - 15;
+                                drop.color = "rgba(226, 141, 34, 0.95)";
+                            }
+                            // Bóp bóng đỏ
+                            dropperBulbSqueeze = Math.sin((actionProgress / 40) * Math.PI);
+                            // Giảm tiếp chất lỏng trong dropper từ 0.75 về 0.5
+                            dropperFilledLevel = lerp(0.75, 0.5, clamp(actionProgress / 40, 0, 1));
+                        } else {
+                            totalDropsAdded = 2;
+                            subStep = 0;
+                            isAnimating = false;
+                            dropperBulbSqueeze = 0;
+                            dropperFilledLevel = 0.5;
+                            statusDisplay.innerText = "Đã nhỏ 2/4 giọt. Nhấp để nhỏ tiếp...";
+                            btnAction.disabled = false;
+                            btnAction.innerHTML = "Nhỏ Iodine";
+                        }
+                    } else if (totalDropsAdded === 2) {
+                        // Giọt 3: nhỏ giọt tại chỗ
+                        if (animationTimer < 40) {
+                            let actionProgress = animationTimer;
+                            if (!drop.active && actionProgress === 5) {
+                                drop.active = true;
+                                drop.x = TX;
+                                drop.y = dropperY - 15;
+                                drop.color = "rgba(226, 141, 34, 0.95)";
+                            }
+                            // Bóp bóng đỏ
+                            dropperBulbSqueeze = Math.sin((actionProgress / 40) * Math.PI);
+                            // Giảm tiếp chất lỏng từ 0.5 về 0.25
+                            dropperFilledLevel = lerp(0.5, 0.25, clamp(actionProgress / 40, 0, 1));
+                        } else {
+                            totalDropsAdded = 3;
+                            subStep = 0;
+                            isAnimating = false;
+                            dropperBulbSqueeze = 0;
+                            dropperFilledLevel = 0.25;
+                            statusDisplay.innerText = "Đã nhỏ 3/4 giọt. Nhấp để nhỏ tiếp...";
+                            btnAction.disabled = false;
+                            btnAction.innerHTML = "Nhỏ Iodine";
+                        }
+                    } else if (totalDropsAdded === 3) {
+                        // Giọt 4: nhỏ giọt rồi bay về cắm vào lọ
+                        if (animationTimer < 40) {
+                            let actionProgress = animationTimer;
+                            if (!drop.active && actionProgress === 5) {
+                                drop.active = true;
+                                drop.x = TX;
+                                drop.y = dropperY - 15;
+                                drop.color = "rgba(226, 141, 34, 0.95)";
+                            }
+                            // Bóp bóng đỏ
+                            dropperBulbSqueeze = Math.sin((actionProgress / 40) * Math.PI);
+                            // Giảm hết chất lỏng từ 0.25 về 0.0
+                            dropperFilledLevel = lerp(0.25, 0.0, clamp(actionProgress / 40, 0, 1));
+                        } else if (animationTimer >= 40 && animationTimer < 100) {
+                            dropperIsFilled = false;
+                            dropperBulbSqueeze = 0;
+                            let t = (animationTimer - 40) / 60;
+                            dropperX = lerp(TX, 640, easeInOut(t));
+                            dropperY = lerp(TY + 5, 380, easeInOut(t)); // Bay về cắm từ 380
+                        } else if (animationTimer >= 100 && animationTimer < 130) {
+                            let t = (animationTimer - 100) / 30;
+                            dropperY = lerp(380, 365, easeInOut(t)); // Hạ về vị trí cắm sâu 365
+                        } else {
+                            totalDropsAdded = 4;
+                            subStep = 4;
+                            isAnimating = false;
+                            dropperBulbSqueeze = 0;
+                            dropperFilledLevel = 0.0;
+                            setSimulationStep(2, 4);
+                            changeExplanation(
+                                "<i class='ti ti-circle-check'></i> Phản ứng chỉ thị màu",
+                                "Dung dịch nhanh chóng chuyển sang màu <b>xanh tím đặc trưng</b> sâu thẳm. Phân tử Iodine đã chui vào lòng xoắn rỗng của Amylose tạo phức chất.",
+                                "reacted"
+                            );
+                            statusDisplay.innerText = "Hoàn tất bước 2";
+                        }
+                    }
+                }
+            } else {
+                if (modelStateHot) {
+                    modelUncoilProgress = lerp(modelUncoilProgress, 1, 0.04);
+                } else {
+                    modelUncoilProgress = lerp(modelUncoilProgress, 0, 0.04);
+                }
+                drawMolecularView();
+            }
+
+            requestAnimationFrame(simulationLoop);
+        }
+
+        // 7. STEP TRANSITIONS
+        function changeExplanation(title, desc, statusClass) {
+            explanationBox.classList.add('fade');
+            setTimeout(() => {
+                explanationTitle.innerHTML = title;
+                explanationDesc.innerHTML = desc;
+                explanationBox.className = `explanation-box state-${statusClass}`;
+                explanationBox.classList.remove('fade');
+            }, 200);
+        }
+
+        function setSimulationStep(step, sub) {
+            currentStep = step;
+            subStep = sub;
+
+            // Đồng bộ khôi phục vị trí các dụng cụ phù hợp với từng bước
+            if (step === 1) {
+                beakerX = 120; beakerY = 325; beakerRot = 0;
+                starchBeakerLevel = 1.0;
+            } else {
+                beakerX = 120; beakerY = 325; beakerRot = 0;
+                starchBeakerLevel = 0.7;
+            }
+
+            if (step === 1 || (step === 2 && sub === 0)) {
+                dropperX = 640; dropperY = 365;
+                dropperBulbSqueeze = 0;
+                dropperIsFilled = false;
+                dropperFilledLevel = 0.0;
+                iodineBottleLevel = 1.0;
+                totalDropsAdded = 0;
+                reactProgress = 0;
+            } else {
+                dropperX = 640; dropperY = 365;
+                dropperBulbSqueeze = 0;
+                dropperIsFilled = false;
+                dropperFilledLevel = 0.0;
+                iodineBottleLevel = 0.9;
+                totalDropsAdded = 4;
+                reactProgress = 1.0;
+            }
+
+            document.querySelectorAll('#procedure-list li').forEach(el => el.classList.remove('active-step-text'));
+            let activeLi = document.getElementById(`p-step-${step}`);
+            if (activeLi) activeLi.classList.add('active-step-text');
+
+            const dots = document.querySelectorAll('#dots-container .dot');
+            dots.forEach((dot, idx) => {
+                dot.className = "dot";
+                if (idx + 1 === step) dot.classList.add('active');
+                else if (idx + 1 < step) dot.classList.add('passed');
+            });
+
+            stepCounter.innerText = `Bước ${step} / 5`;
+
+            // === ĐÂY LÀ DÒNG FIX LỖI LIỆT NÚT Ở BƯỚC 2 ===
+            // Đảm bảo mỗi khi chuyển state, nút bấm luôn được RESET mở khóa
+            btnAction.disabled = false;
+
+            switch (step) {
+                case 1:
+                    stepTitle.innerText = "Bước 1: Đong lấy mẫu hồ tinh bột";
+                    stepDesc.innerText = "Nạp cấu tử nền ban đầu: hãy click để rót 2 mL dung dịch hồ tinh bột 1% vào ống nghiệm.";
+                    btnAction.style.display = (sub === 4) ? "none" : "inline-flex";
+                    btnAction.innerHTML = "Lấy 2 mL hồ tinh bột <i class='ti ti-circle-plus'></i>";
+                    btnAction.disabled = (sub === 4 || isAnimating);
+                    btnNext.style.display = (sub === 4) ? "inline-flex" : "none";
+                    btnBack.disabled = true;
+                    if (sub !== 4) statusDisplay.innerText = "Chờ nạp mẫu...";
+                    else statusDisplay.innerText = "Chuẩn bị mẫu hoàn tất.";
+                    break;
+
+                case 2:
+                    stepTitle.innerText = "Bước 2: Phản ứng chỉ thị với Iodine";
+                    stepDesc.innerText = "Nhấn nút 'Nhỏ Iodine' dưới đây để nhỏ 4 giọt thuốc thử màu vàng nâu vào ống nghiệm.";
+                    btnAction.style.display = (sub === 4) ? "none" : "inline-flex";
+                    btnAction.innerHTML = "Nhỏ Iodine";
+                    if (sub === 4) btnAction.disabled = true;
+                    btnNext.style.display = (sub === 4) ? "inline-flex" : "none";
+                    btnBack.disabled = false;
+                    if (sub !== 4) {
+                        if (totalDropsAdded === 0) statusDisplay.innerText = "Nhấn nút để thực hiện nhỏ giọt...";
+                        else statusDisplay.innerText = `Đã nhỏ ${totalDropsAdded}/4 giọt. Nhấp tiếp...`;
+                    }
+                    break;
+
+                case 3:
+                    stepTitle.innerText = "Bước 3: Gia nhiệt hệ thống thực nghiệm";
+                    stepDesc.innerText = "Nhấn GIỮ vào nút 'Đun nóng' để điều khiển ngọn lửa đèn cồn nung nóng đáy ống nghiệm.";
+                    btnAction.style.display = (sub === 4) ? "none" : "inline-flex";
+                    btnAction.innerHTML = "Đun nóng";
+                    if (sub === 4) btnAction.disabled = true;
+                    btnNext.style.display = (sub === 4) ? "inline-flex" : "none";
+                    btnBack.disabled = false;
+                    break;
+
+                case 4:
+                    stepTitle.innerText = "Bước 4: Hạ nhiệt làm nguội tự nhiên";
+                    stepDesc.innerText = "Click khởi động chu trình hạ nhiệt độ tự động để đưa hệ dung dịch quay trở về nhiệt độ phòng.";
+                    btnAction.style.display = (sub === 4) ? "none" : "inline-flex";
+                    btnAction.innerHTML = "Để nguội";
+                    if (sub === 4) btnAction.disabled = true;
+                    btnNext.style.display = (sub === 4) ? "inline-flex" : "none";
+                    btnBack.disabled = false;
+                    break;
+
+                case 5:
+                    stepTitle.innerText = "Bước 5: Thấu hiểu mô hình phân tử vĩ mô";
+                    stepDesc.innerText = "Sử dụng nút tùy chọn chuyển đổi trạng thái Nhiệt độ để tương tác trực quan với mô hình.";
+                    btnAction.style.display = "inline-flex";
+                    btnAction.innerHTML = "Đun nóng / Để nguội (Mô hình) <i class='ti ti-arrows-left-right'></i>";
+                    btnAction.disabled = false;
+                    btnNext.style.display = (sub === 4) ? "inline-flex" : "none";
+                    btnBack.disabled = false;
+                    if (sub === 0) loadQuizBlock(2);
+                    break;
+            }
+        }
+
+        // Quiz Generator logic
+        function loadQuizBlock(index) {
+            quizActive = true;
+            quizCurrentIndex = index;
+            let qData = quizAnswersData[index];
+            quizQuestionText.innerHTML = `<i class='ti ti-help-circle'></i> Câu hỏi tư duy: ${qData.question}`;
+            quizOptionsBox.innerHTML = "";
+
+            qData.options.forEach(opt => {
+                let btnOpt = document.createElement('button');
+                btnOpt.className = "opt-btn";
+                btnOpt.innerHTML = `<b>${opt.key}.</b> ${opt.text}`;
+
+                btnOpt.onclick = (e) => {
+                    document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+                    if (opt.correct) {
+                        e.target.style.backgroundColor = "#dcfce7";
+                        e.target.style.borderColor = "#22c55e";
+                    } else {
+                        e.target.style.backgroundColor = "#fee2e2";
+                        e.target.style.borderColor = "#ef4444";
+                    }
+                    verifyQuizAnswer(opt);
+                };
+                quizOptionsBox.appendChild(btnOpt);
+            });
+            quizBlock.classList.add('active');
+        }
+
+        function verifyQuizAnswer(selectedOption) {
+            if (selectedOption.correct) {
+                changeExplanation("<i class='ti ti-circle-check'></i> Phản hồi chính xác!", selectedOption.feedback, "reacted");
+
+                if (quizCurrentIndex === 0) {
+                    setTimeout(() => {
+                        quizBlock.classList.remove('active');
+                        quizActive = false;
+                        setSimulationStep(3, 0);
+                        changeExplanation("<i class='ti ti-flame'></i> Sẵn sàng đun nóng", "Hãy nhấn giữ nút 'Đun nóng' để tiến hành thực nghiệm kiểm chứng luận điểm.", "ready");
+                    }, 1800);
+                } else if (quizCurrentIndex === 1) {
+                    setTimeout(() => {
+                        quizBlock.classList.remove('active');
+                        quizActive = false;
+                        setSimulationStep(4, 0);
+                        changeExplanation("<i class='ti ti-snowflake'></i> Sẵn sàng làm nguội", "Hãy nhấn kích hoạt nút 'Để nguội' để quan sát màu sắc tái sinh.", "ready");
+                    }, 1800);
+                } else if (quizCurrentIndex === 2) {
+                    subStep = 4;
+                    btnNext.style.display = "inline-flex";
+                    btnNext.innerHTML = "Hoàn thành thí nghiệm ✓";
+                    btnNext.classList.add("btn-active");
+                }
+            } else {
+                changeExplanation("<i class='ti ti-alert-circle'></i> Gợi ý tư duy", selectedOption.feedback, "ready");
+                setTimeout(() => {
+                    document.querySelectorAll('.opt-btn').forEach(b => {
+                        b.disabled = false;
+                        b.style.backgroundColor = "";
+                        b.style.borderColor = "";
+                    });
+                }, 1500);
+            }
+        }
+
+        // 8. INTERACTIVE INPUT HANDLERS
+        btnAction.onclick = () => {
+            if (isAnimating) return;
+
+            if (currentStep === 1 && subStep === 0) {
+                isAnimating = true;
+                subStep = 1;
+                animationTimer = 0;
+                btnAction.disabled = true;
+                btnAction.innerHTML = "Đang nạp mẫu... <i class='ti ti-loader spinning'></i>";
+                statusDisplay.innerText = "Đang đong dung dịch hồ tinh bột...";
+            }
+            else if (currentStep === 2 && subStep === 0) {
+                isAnimating = true;
+                subStep = 1;
+                animationTimer = 0;
+                btnAction.disabled = true;
+                btnAction.innerHTML = "Đang nhỏ Iodine... <i class='ti ti-loader spinning'></i>";
+                statusDisplay.innerText = `Đang nhỏ giọt thứ ${totalDropsAdded + 1}...`;
+            }
+            else if (currentStep === 4 && subStep === 0) {
+                isAnimating = true;
+                subStep = 1;
+                btnAction.disabled = true;
+                statusDisplay.innerText = "Đang tự động hạ nhiệt hệ thống...";
+                reactProgress = 1.0;
+            }
+            else if (currentStep === 5) {
+                modelStateHot = !modelStateHot;
+                statusDisplay.innerText = modelStateHot ? "Mô hình: Trạng thái NÓNG" : "Mô hình: Trạng thái NGUỘI";
+            }
+        };
+
+        // Long Press Handler Mechanics logic for Step 3
+        btnAction.onmousedown = () => {
+            if (currentStep === 3 && subStep === 0) {
+                subStep = 1;
+                statusDisplay.innerText = "Đang tiến hành đun nóng liên tục...";
+                btnAction.innerHTML = "Đang đun... <i class='ti ti-loader spinning'></i>";
+            }
+        };
+
+        btnAction.onmouseup = () => {
+            if (currentStep === 3 && subStep === 1) {
+                subStep = 0;
+                statusDisplay.innerText = "Tạm dừng đun nóng.";
+                btnAction.innerHTML = "Đun nóng";
+            }
+        };
+        btnAction.onmouseleave = btnAction.onmouseup;
+
+        // Next Button Flow Router
+        btnNext.onclick = () => {
+            if (currentStep === 1 && subStep === 4) {
+                setSimulationStep(2, 0);
+                changeExplanation("<i class='ti ti-flask'></i> Thêm chỉ thị nhận biết", "Hãy bấm vào nút 'Nhỏ Iodine' để nhỏ 4 giọt thuốc thử trực tiếp vào ống.", "ready");
+            }
+            else if (currentStep === 2 && subStep === 4) {
+                btnNext.style.display = "none";
+                btnBack.disabled = true;
+                loadQuizBlock(0);
+                changeExplanation("<i class='ti ti-help-circle'></i> Trả lời câu hỏi", "Hãy chọn đáp án đúng để mở khóa bước tiếp theo.", "ready");
+            }
+            else if (currentStep === 3 && subStep === 4) {
+                btnNext.style.display = "none";
+                btnBack.disabled = true;
+                loadQuizBlock(1);
+                changeExplanation("<i class='ti ti-help-circle'></i> Trả lời câu hỏi", "Hãy chọn đáp án đúng để mở khóa bước tiếp theo.", "ready");
+            }
+            else if (currentStep === 4 && subStep === 4) {
+                setSimulationStep(5, 0);
+                changeExplanation("<i class='ti ti-microscope'></i> Phân tích động lực học", "Hãy phân tích mô hình 3D để tường tận cơ chế hấp phụ thuận nghịch.", "reacted");
+            }
+            else if (currentStep === 5 && subStep === 4) {
+                changeExplanation(
+                    "CHÚC MỪNG!",
+                    "Bạn đã hoàn thành xuất sắc toàn bộ khóa học mô phỏng chuyên sâu thí nghiệm <b>Tương tác thuận nghịch giữa Tinh bột và Iodine</b>! Hãy nhấn nút <i>Làm lại</i> nếu muốn thực hành lại quy trình.",
+                    "reacted"
+                );
+                statusDisplay.innerText = "Hoàn thành thí nghiệm!";
+            }
+        };
+
+        btnBack.onclick = () => {
+            if (isAnimating || quizActive) return;
+            if (currentStep > 1) {
+                if (currentStep === 5) {
+                    btnNext.innerHTML = "Tiếp theo <i class='ti ti-arrow-narrow-right'></i>";
+                    btnNext.classList.remove("btn-active");
+                }
+                setSimulationStep(currentStep - 1, 4);
+                changeExplanation("<i class='ti ti-info-circle'></i> Xem lại", "Dữ liệu trạng thái lịch sử đã được tải lại.", "ready");
+            }
+        };
+
+        btnReset.onclick = () => {
+            if (isAnimating) return;
+            starchLiquidHeight = 0; currentLiquidHeight = 0; reactProgress = 0; temperature = 25;
+            totalDropsAdded = 0; hasReacted = false; isDropping = false; modelStateHot = false; modelUncoilProgress = 0;
+            particles = []; bubbles = [];
+
+            // Reset vị trí và mực nước của dụng cụ
+            beakerX = 120; beakerY = 325; beakerRot = 0;
+            starchBeakerLevel = 1.0;
+            iodineBottleLevel = 1.0;
+            dropperX = 640; dropperY = 365;
+            dropperBulbSqueeze = 0;
+            dropperIsFilled = false;
+            dropperFilledLevel = 0.0;
+            drop.active = false;
+
+            quizBlock.classList.remove('active');
+            quizActive = false;
+            btnNext.innerHTML = "Tiếp theo <i class='ti ti-arrow-narrow-right'></i>";
+            btnNext.classList.remove("btn-active");
+
+            changeExplanation("<i class='ti ti-info-circle'></i> Khởi tạo lại", "Môi trường đã được làm sạch, sẵn sàng thực nghiệm mới.", "ready");
+            setSimulationStep(1, 0);
+        };
+
+        // Start initialization
+        setSimulationStep(1, 0);
+        simulationLoop();
+
+    </script>
+</body>
+
+</html>

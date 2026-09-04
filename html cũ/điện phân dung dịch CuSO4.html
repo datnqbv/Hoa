@@ -1,0 +1,1394 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>Điện Phân Dung Dịch CuSO₄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css" />
+    <style>
+        :root {
+            --navy: #0f4c81;
+            --teal: #1a7a5e;
+            --teal-light: #0f6e56;
+            --bg: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --text: #1e293b;
+            --muted: #64748b;
+            --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font);
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px 48px;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            width: 100%;
+            max-width: 760px;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            min-height: 148px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png') center 30%/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 220px;
+            height: 220px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+            top: -60px;
+            right: -50px;
+            pointer-events: none;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .07);
+            bottom: -40px;
+            left: 30px;
+            pointer-events: none;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, .9);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-badge .ti {
+            font-size: 1.1rem;
+        }
+
+        .header h1 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.3px;
+            line-height: 1.25;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, .70);
+            font-size: .875rem;
+            margin-top: 6px;
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            background: transparent;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 10px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .info-label .ti {
+            font-size: 1rem;
+        }
+
+        .info-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .info-col ul li {
+            font-size: .82rem;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 7px;
+            line-height: 1.55;
+        }
+
+        .info-col ul li::before {
+            content: '';
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--navy);
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        /* CANVAS WRAP */
+        .canvas-wrap {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 9px 18px;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border);
+            font-size: .78rem;
+            color: var(--muted);
+        }
+
+        .status-bar .ti {
+            font-size: .95rem;
+            color: var(--navy);
+        }
+
+        .status-bar strong {
+            color: var(--navy);
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* CONTROLS */
+        .controls {
+            width: 100%;
+            max-width: 760px;
+            background: #f0f7ff;
+            border: 1px solid #a3c4e9;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .ctrl-header {
+            padding: 12px 20px 10px;
+            border-bottom: 1px solid var(--border);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ctrl-header .ti {
+            font-size: 1rem;
+        }
+
+        .ctrl-row {
+            display: flex;
+            align-items: center;
+            padding: 11px 20px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+            transition: background .2s;
+        }
+
+        .ctrl-row:last-child {
+            border-bottom: none;
+        }
+
+        .ctrl-row.step-active {
+            background: #f0f7ff;
+        }
+
+        .ctrl-row.step-done {
+            background: #f8fffc;
+        }
+
+        .ctrl-row.step-locked {
+            opacity: .5;
+            pointer-events: none;
+        }
+
+        .step-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            flex-shrink: 0;
+            border: 2px solid var(--border);
+            background: #fff;
+            color: var(--muted);
+            transition: all .2s;
+        }
+
+        .step-badge.active {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .step-badge.done {
+            border-color: var(--teal);
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .ctrl-label {
+            font-size: .82rem;
+            font-weight: 600;
+            color: var(--text);
+            min-width: 180px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .ctrl-label-main {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ctrl-label-main .ti {
+            color: var(--navy);
+            font-size: .95rem;
+        }
+
+        .ctrl-label-sub {
+            font-size: .73rem;
+            font-weight: 400;
+            color: var(--muted);
+            margin-top: 1px;
+            padding-left: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-family: var(--font);
+            font-size: .79rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .2s;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            color: var(--text);
+            white-space: nowrap;
+        }
+
+        .btn:hover:not(:disabled):not(.active) {
+            border-color: var(--navy);
+            color: var(--navy);
+            background: #eff6ff;
+        }
+
+        .btn.active {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, .25);
+        }
+
+        .btn.active-teal {
+            background: var(--teal);
+            color: #fff;
+            border-color: var(--teal);
+            box-shadow: 0 4px 12px rgba(26, 122, 94, .25);
+        }
+
+        .btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, .25);
+            padding: 8px 20px;
+            font-size: .83rem;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: #0a3d6b;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:disabled {
+            transform: none;
+        }
+
+        .btn-reset {
+            background: #f8fafc;
+            color: var(--muted);
+            border: 1.5px dashed var(--border);
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            border-color: var(--teal);
+            color: var(--teal);
+            background: #f0faf6;
+        }
+
+        .step-done-icon {
+            font-size: 1rem;
+            color: var(--teal);
+        }
+
+        /* EXPLANATION */
+        .explanation-box {
+            width: 100%;
+            max-width: 760px;
+            background: #f5f0fa;
+            border: 1px solid #c4a8e0;
+            border-left: 4px solid var(--navy);
+            border-radius: 14px;
+            padding: 18px 22px;
+            transition: border-left-color .4s, background .4s, opacity .2s, transform .2s;
+        }
+
+        .explanation-box.reacted {
+            border-left-color: var(--teal-light);
+            background: #eaf8f1;
+            border-color: #7bc4a0;
+        }
+
+        .eb-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .6px;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+
+        .eb-title.reacted {
+            color: var(--teal-light);
+        }
+
+        .eb-content {
+            font-size: .84rem;
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .eb-content p {
+            margin-bottom: 8px;
+        }
+
+        .eb-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .eb-content strong {
+            color: var(--navy);
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: 6px;
+            padding: 1px 8px;
+            font-size: .78rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin: 1px 2px;
+        }
+
+        .chip.teal {
+            background: #f0faf6;
+            border-color: #a7f3d0;
+            color: var(--teal-light);
+        }
+
+        .chip.orange {
+            background: #fff7ed;
+            border-color: #fed7aa;
+            color: #c2410c;
+        }
+
+        .pheno-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .pheno-card {
+            border-radius: 10px;
+            padding: 11px 14px;
+            border: 1px solid;
+        }
+
+        .pheno-card.anode {
+            background: #fff7ed;
+            border-color: #fed7aa;
+        }
+
+        .pheno-card.cathode {
+            background: #fdf2f8;
+            border-color: #f9a8d4;
+        }
+
+        .pheno-card .pc-lbl {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 5px;
+        }
+
+        .pheno-card.anode .pc-lbl {
+            color: #c2410c;
+        }
+
+        .pheno-card.cathode .pc-lbl {
+            color: #9d174d;
+        }
+
+        .pheno-card p {
+            font-size: .77rem;
+            color: var(--text);
+            line-height: 1.55;
+            margin: 0;
+        }
+
+        .eq-box {
+            background: #f1f5f9;
+            border-radius: 8px;
+            padding: 9px 14px;
+            font-size: .82rem;
+            color: var(--text);
+            margin-top: 7px;
+            border-left: 3px solid var(--navy);
+            font-family: 'Courier New', monospace;
+            line-height: 1.85;
+        }
+
+        .eq-box.teal {
+            border-left-color: var(--teal);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <h1>Thí Nghiệm: Điện Phân Dung Dịch CuSO₄</h1>
+        <p>Quan sát trực quan quá trình điện phân với điện cực than chì — hiện tượng tại anốt và catốt</p>
+    </header>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-target"></i>Mục đích thí nghiệm</div>
+            <ul>
+                <li>Quan sát hiện tượng tại cực dương (anốt) và cực âm (catốt) khi điện phân CuSO₄</li>
+                <li>Xác định sản phẩm: khí O₂ thoát ra ở anốt, kim loại Cu bám ở catốt</li>
+                <li>Viết phương trình ion tại từng điện cực và nêu bản chất quá trình</li>
+            </ul>
+        </div>
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-tool"></i>Hướng dẫn thao tác</div>
+            <ul>
+                <li>
+                    Rót khoảng 50 mL dung dịch CuSO₄ 0,5M vào ống thủy tinh hình chữ U sao cho mực nước ở hai nhánh cân
+                    bằng nhau.
+                </li>
+                <li>Nhúng hai điện cực than chì vào hai nhánh của ống chữ U.</li>
+                <li>Sử dụng dây dẫn để nối hai điện cực than chì với hai cực của nguồn điện một chiều.</li>
+                <li>Bật nguồn điện, điều chỉnh điện áp trong khoảng từ 3V đến 6V và tiến hành điện phân trong khoảng
+                    thời gian 5 phút.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas-wrap">
+        <div class="status-bar">
+            <i class="ti ti-info-circle" id="statusIcon"></i>
+            <span id="statusText">Thực hiện lần lượt từng bước bên dưới để tiến hành thí nghiệm.</span>
+        </div>
+        <canvas id="cvs" width="760" height="560"></canvas>
+    </div>
+
+    <!-- CONTROLS: 4 bước theo kịch bản thí nghiệm -->
+    <div class="controls">
+        <div class="ctrl-header"><i class="ti ti-list-check"></i>Các bước tiến hành thí nghiệm</div>
+
+        <!-- Bước 1 -->
+        <div class="ctrl-row step-active" id="row1">
+            <div class="step-badge active" id="badge1">1</div>
+            <div class="ctrl-label">
+                <div class="ctrl-label-main"><i class="ti ti-droplet"></i>Bước 1 — Rót dung dịch CuSO₄</div>
+                <div class="ctrl-label-sub">Chọn nồng độ, rót ~50 mL vào ống chữ U</div>
+            </div>
+            <div class="btn-group" id="concGroup">
+                <button class="btn active" data-conc="0.5" onclick="selectConc(this)">
+                    <i class="ti ti-flask"></i>CuSO₄ 0,5M
+                </button>
+            </div>
+            <button class="btn btn-primary" id="btnStep1" onclick="doStep1()">
+                <i class="ti ti-droplet-filled"></i>Rót vào ống
+            </button>
+        </div>
+
+        <!-- Bước 2 -->
+        <div class="ctrl-row step-locked" id="row2">
+            <div class="step-badge" id="badge2">2</div>
+            <div class="ctrl-label">
+                <div class="ctrl-label-main"><i class="ti ti-line-dashed"></i>Bước 2 — Nhúng điện cực than chì</div>
+                <div class="ctrl-label-sub">Nhúng 2 cực vào 2 nhánh của ống chữ U</div>
+            </div>
+            <button class="btn btn-primary" id="btnStep2" onclick="doStep2()">
+                <i class="ti ti-arrow-down"></i>Nhúng điện cực
+            </button>
+        </div>
+
+        <!-- Bước 3 -->
+        <div class="ctrl-row step-locked" id="row3">
+            <div class="step-badge" id="badge3">3</div>
+            <div class="ctrl-label">
+                <div class="ctrl-label-main"><i class="ti ti-plug"></i>Bước 3 — Nối dây dẫn vào nguồn DC</div>
+                <div class="ctrl-label-sub">Dây đỏ → cực (+) · Dây xanh → cực (−)</div>
+            </div>
+            <button class="btn btn-primary" id="btnStep3" onclick="doStep3()">
+                <i class="ti ti-plug-connected"></i>Nối dây điện
+            </button>
+        </div>
+
+        <!-- Bước 4 -->
+        <div class="ctrl-row step-locked" id="row4">
+            <div class="step-badge" id="badge4">4</div>
+            <div class="ctrl-label">
+                <div class="ctrl-label-main"><i class="ti ti-bolt"></i>Bước 4 — Bật nguồn &amp; Điện phân</div>
+                <div class="ctrl-label-sub">Chọn điện áp 3–6V, điện phân trong 5 phút</div>
+            </div>
+            <div class="btn-group" id="voltGroup">
+                <button class="btn active" data-volt="6" onclick="selectVolt(this)"><i
+                        class="ti ti-bolt"></i>6V</button>
+            </div>
+            <button class="btn btn-primary" id="btnStep4" onclick="doStep4()">
+                <i class="ti ti-player-play"></i>Bật nguồn
+            </button>
+        </div>
+
+        <!-- Reset -->
+        <div class="ctrl-row" style="justify-content:flex-end;padding:10px 20px;">
+            <button class="btn btn-reset" onclick="resetAll()">
+                <i class="ti ti-refresh"></i>Đặt lại từ đầu
+            </button>
+        </div>
+    </div>
+
+    <!-- EXPLANATION -->
+    <div class="explanation-box" id="expBox">
+        <div class="eb-title" id="expTitle"><i class="ti ti-info-circle"></i><span>Chuẩn bị thí nghiệm</span></div>
+        <div class="eb-content" id="expContent">
+            <p>Thí nghiệm điện phân dung dịch <strong>CuSO₄</strong> với điện cực <strong>than chì (C)</strong> — một
+                loại điện cực trơ, không tham gia phản ứng hóa học.</p>
+            <p>Trong dung dịch CuSO₄, các ion phân ly: <span class="chip">Cu²⁺</span> <span class="chip">SO₄²⁻</span>
+                <span class="chip">H⁺</span> <span class="chip teal">OH⁻</span>. Khi có điện trường, các cation di
+                chuyển về catốt và anion về anốt. Thực hiện từng bước để bắt đầu!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // ═══════════════════════════════════════════════════
+        //  CANVAS SETUP
+        // ═══════════════════════════════════════════════════
+        const canvas = document.getElementById('cvs');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 560;
+        canvas.width = W; canvas.height = H;
+
+        // ── Layout constants ──
+        const CX = W / 2;      // center x of U-tube
+        const UTOP = 190;        // top of U-tube arms (liquid level area)
+        const UBOT = 340;        // bottom center of U arc
+        const UARM = 115;        // half-distance between arms (arm center x offset)
+        const AW = 32;         // arm half-width
+
+        // Electrode arm centers
+        const LX = CX - UARM;   // left arm (cathode −)
+        const RX = CX + UARM;   // right arm (anode +)
+
+        // Power supply box (top center)
+        const PSW = 130, PSH = 56;
+        const PSX = CX - PSW / 2;
+        const PSY = 22;
+
+        // Wire connection points on PSU
+        const PS_NEG_X = PSX + 22;   // negative terminal (left, blue)
+        const PS_POS_X = PSX + PSW - 22; // positive terminal (right, red)
+        const PS_BOT_Y = PSY + PSH;
+
+        // Electrode top/bottom in tube
+        const ELEC_TOP = UTOP - 20;
+        const ELEC_BOT = UBOT - 18;
+        const ELEC_HW = 10;
+
+        // ── State ──
+        let step = 0;    // 0=init,1=liquid,2=electrodes,3=wires,4=running,5=done
+        let currentConc = 0.5;
+        let currentVolt = 6;
+        let progress = 0;    // 0→1 during electrolysis
+        let animStart = null;
+        let rafId = null;
+        let ANIM_DUR = 7000;
+        let bubbles = [];
+        let wiresAnimT = 0;    // 0→1 wire drawing animation
+        let wiresDrawing = false;
+        let electrodesT = 0;    // 0→1 electrodes drop animation
+        let electrodesDrop = false;
+        let liquidT = 0;    // 0→1 liquid fill animation
+        let liquidFilling = false;
+
+        // ═══════════════════════════════════════════════════
+        //  HELPERS
+        // ═══════════════════════════════════════════════════
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function lerpColor(c1, c2, t) {
+            return `rgb(${Math.round(lerp(c1[0], c2[0], t))},${Math.round(lerp(c1[1], c2[1], t))},${Math.round(lerp(c1[2], c2[2], t))})`;
+        }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: GRID
+        // ═══════════════════════════════════════════════════
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = '#e8eef5'; ctx.lineWidth = .6;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: POWER SUPPLY UNIT
+        // ═══════════════════════════════════════════════════
+        function drawPSU() {
+            ctx.save();
+            // Shadow
+            ctx.shadowColor = 'rgba(0,0,0,.12)'; ctx.shadowBlur = 10; ctx.shadowOffsetY = 3;
+            // Body
+            const grad = ctx.createLinearGradient(PSX, PSY, PSX, PSY + PSH);
+            grad.addColorStop(0, '#2d3748'); grad.addColorStop(1, '#1a202c');
+            ctx.beginPath(); ctx.roundRect(PSX, PSY, PSW, PSH, 10);
+            ctx.fillStyle = grad; ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.strokeStyle = '#4a5568'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            // Brand strip top
+            ctx.beginPath(); ctx.roundRect(PSX + 4, PSY + 3, PSW - 8, 6, 3);
+            ctx.fillStyle = '#0f4c81'; ctx.fill();
+
+            // Screen
+            ctx.beginPath(); ctx.roundRect(PSX + 8, PSY + 14, 60, 28, 5);
+            ctx.fillStyle = '#0d1117'; ctx.fill();
+            ctx.strokeStyle = '#374151'; ctx.lineWidth = 1; ctx.stroke();
+            // Screen glow
+            ctx.beginPath(); ctx.roundRect(PSX + 9, PSY + 15, 58, 26, 4);
+            const glow = ctx.createLinearGradient(PSX + 9, PSY + 15, PSX + 9, PSY + 41);
+            glow.addColorStop(0, '#064e3b'); glow.addColorStop(1, '#022c22');
+            ctx.fillStyle = glow; ctx.fill();
+
+            // Volt display
+            ctx.fillStyle = '#34d399'; ctx.font = 'bold 16px "Courier New"';
+            ctx.textAlign = 'center';
+            const voltDisplay = (step >= 4) ? `${currentVolt}V` : '--V';
+            ctx.fillText(voltDisplay, PSX + 38, PSY + 31);
+            ctx.fillStyle = '#6ee7b7'; ctx.font = 'bold 7px Arial';
+            ctx.fillText('DC OUTPUT', PSX + 38, PSY + 40);
+
+            // Power LED
+            const ledOn = step >= 3;
+            ctx.beginPath(); ctx.arc(PSX + PSW - 28, PSY + 20, 5, 0, Math.PI * 2);
+            ctx.fillStyle = ledOn ? '#4ade80' : '#374151'; ctx.fill();
+            if (ledOn && (step === 4)) {
+                ctx.beginPath(); ctx.arc(PSX + PSW - 28, PSY + 20, 9, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(74,222,128,.18)'; ctx.fill();
+            }
+            ctx.fillStyle = '#9ca3af'; ctx.font = '7px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('PWR', PSX + PSW - 28, PSY + 31);
+
+            // Terminals
+            // Negative (−) blue
+            ctx.beginPath(); ctx.arc(PS_NEG_X, PSY + PSH - 8, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#2563eb'; ctx.fill();
+            ctx.strokeStyle = '#93c5fd'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('−', PS_NEG_X, PSY + PSH - 5);
+
+            // Positive (+) red
+            ctx.beginPath(); ctx.arc(PS_POS_X, PSY + PSH - 8, 6, 0, Math.PI * 2);
+            ctx.fillStyle = '#dc2626'; ctx.fill();
+            ctx.strokeStyle = '#fca5a5'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = '#fff'; ctx.font = 'bold 8px Arial'; ctx.textAlign = 'center';
+            ctx.fillText('+', PS_POS_X, PSY + PSH - 5);
+
+            // Labels under terminals
+            ctx.fillStyle = '#9ca3af'; ctx.font = '7px Arial';
+            ctx.fillText('NEG', PS_NEG_X, PSY + PSH + 8);
+            ctx.fillText('POS', PS_POS_X, PSY + PSH + 8);
+
+            // Label
+            ctx.fillStyle = '#e2e8f0'; ctx.font = 'bold 8px Arial'; ctx.textAlign = 'right';
+            ctx.fillText('NGUỒN ĐIỆN MỘT CHIỀU (DC)', PSX + PSW - 6, PSY + 10);
+
+            ctx.restore();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: WIRES (animated)
+        // ═══════════════════════════════════════════════════
+        function drawWires() {
+            if (step < 3) return;
+            const t = clamp(wiresAnimT, 0, 1);
+
+            // Wire routing:
+            // Blue (−): PSU neg → down to LX (cathode)
+            // Red  (+): PSU pos → down to RX (anode)
+            const blueRoute = [
+                [PS_NEG_X, PS_BOT_Y + 8],
+                [PS_NEG_X, UTOP - 48],
+                [LX, UTOP - 48],
+                [LX, ELEC_TOP - 4]
+            ];
+            const redRoute = [
+                [PS_POS_X, PS_BOT_Y + 8],
+                [PS_POS_X, UTOP - 62],
+                [RX, UTOP - 62],
+                [RX, ELEC_TOP - 4]
+            ];
+
+            function drawRoute(pts, color, t) {
+                // Calculate total path length for animation
+                let segs = [];
+                let total = 0;
+                for (let i = 1; i < pts.length; i++) {
+                    const dx = pts[i][0] - pts[i - 1][0], dy = pts[i][1] - pts[i - 1][1];
+                    const len = Math.sqrt(dx * dx + dy * dy);
+                    segs.push(len); total += len;
+                }
+                const drawn = total * t;
+                let acc = 0;
+                ctx.save();
+                ctx.strokeStyle = color; ctx.lineWidth = 2.8;
+                ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+                ctx.setLineDash([]);
+                ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+                for (let i = 0; i < segs.length; i++) {
+                    const remaining = drawn - acc;
+                    if (remaining <= 0) break;
+                    const frac = clamp(remaining / segs[i], 0, 1);
+                    const px = lerp(pts[i][0], pts[i + 1][0], frac);
+                    const py = lerp(pts[i][1], pts[i + 1][1], frac);
+                    ctx.lineTo(px, py);
+                    acc += segs[i];
+                }
+                ctx.stroke();
+                // Connector dot at PSU terminal
+                if (t > 0.05) {
+                    ctx.beginPath(); ctx.arc(pts[0][0], pts[0][1], 3, 0, Math.PI * 2);
+                    ctx.fillStyle = color; ctx.fill();
+                }
+                ctx.restore();
+            }
+
+            drawRoute(blueRoute, '#3b82f6', t);
+            drawRoute(redRoute, '#ef4444', t);
+
+            // Wire labels (appear after wires fully drawn)
+            if (t > 0.95) {
+                ctx.save();
+                ctx.font = 'bold 9px Arial'; ctx.textAlign = 'center';
+                ctx.fillStyle = '#3b82f6';
+                ctx.fillText('Dây xanh (−)', LX, UTOP - 55);
+                ctx.fillStyle = '#ef4444';
+                ctx.fillText('Dây đỏ (+)', RX, UTOP - 70);
+                ctx.restore();
+            }
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: U-TUBE
+        // ═══════════════════════════════════════════════════
+        function drawUTube() {
+            ctx.save();
+            const lx = LX, rx = RX, aw = AW;
+            const top = UTOP, bot = UBOT;
+            const arcR = UARM; // radius of bottom curve
+
+            // Glass walls — left arm
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2.5; ctx.lineCap = 'butt';
+            // Left arm outer-left
+            ctx.beginPath(); ctx.moveTo(lx - aw, top); ctx.lineTo(lx - aw, bot); ctx.stroke();
+            // Left arm outer-right
+            ctx.beginPath(); ctx.moveTo(lx + aw, top); ctx.lineTo(lx + aw, bot); ctx.stroke();
+            // Right arm outer-left
+            ctx.beginPath(); ctx.moveTo(rx - aw, top); ctx.lineTo(rx - aw, bot); ctx.stroke();
+            // Right arm outer-right
+            ctx.beginPath(); ctx.moveTo(rx + aw, top); ctx.lineTo(rx + aw, bot); ctx.stroke();
+            // Bottom arcs
+            ctx.beginPath(); ctx.arc(CX, bot, arcR + aw, 0, Math.PI, false); ctx.stroke();
+            ctx.beginPath(); ctx.arc(CX, bot, arcR - aw, 0, Math.PI, false); ctx.stroke();
+
+            // Glass sheen
+            ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = 2;
+            ctx.beginPath(); ctx.moveTo(lx - aw + 5, top + 8); ctx.lineTo(lx - aw + 5, bot - 6); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(rx - aw + 5, top + 8); ctx.lineTo(rx - aw + 5, bot - 6); ctx.stroke();
+
+
+            // Base stand
+            ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 4; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(CX - 80, H - 22); ctx.lineTo(CX + 80, H - 22); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(CX, H - 22); ctx.lineTo(CX, bot + arcR + aw + 2); ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: LIQUID inside U-tube
+        // ═══════════════════════════════════════════════════
+        function drawLiquid() {
+            if (step < 1) return;
+            const t = clamp(liquidT, 0, 1);
+            const lx = LX, rx = RX, aw = AW;
+            const bot = UBOT;
+            // Liquid fills from bottom upward
+            const liqTarget = ELEC_BOT - (ELEC_BOT - ELEC_TOP) * 0.25;
+            const topY = lerp(bot + 20, liqTarget, easeOut(t));
+
+            ctx.save();
+            // Solution color: CuSO4 blue, darkens as Cu²⁺ depletes
+            let c1 = [135, 206, 250], c2 = [59, 130, 246];
+            if (step >= 4) {
+                // fade to lighter as reaction progresses (Cu²⁺ depleted)
+                const p = clamp(progress, 0, 1);
+                c1 = [lerp(135, 190, p), lerp(206, 210, p), lerp(250, 255, p)];
+                c2 = [lerp(59, 120, p), lerp(130, 170, p), lerp(246, 240, p)];
+            }
+            const liqGrad = ctx.createLinearGradient(CX, topY, CX, bot + UARM);
+            liqGrad.addColorStop(0, lerpColor(c1, c2, 0));
+            liqGrad.addColorStop(1, lerpColor(c1, c2, 1));
+
+            // Path: left arm inner, bottom arc inner, right arm inner
+            ctx.beginPath();
+            ctx.moveTo(lx - aw + 3, topY);
+            ctx.lineTo(lx - aw + 3, bot);
+            ctx.arc(CX, bot, UARM + aw - 3, Math.PI, 0, true);
+            ctx.lineTo(rx + aw - 3, topY);
+            ctx.lineTo(rx - aw + 3, topY);
+            ctx.lineTo(rx - aw + 3, bot);
+            ctx.arc(CX, bot, UARM - aw + 3, 0, Math.PI, false);
+            ctx.lineTo(lx + aw - 3, topY);
+            ctx.closePath();
+            ctx.fillStyle = liqGrad;
+            ctx.globalAlpha = 0.62;
+            ctx.fill();
+            ctx.globalAlpha = 1;
+
+            // Surface shimmer
+            ctx.beginPath();
+            ctx.moveTo(lx - aw + 4, topY); ctx.lineTo(lx + aw - 4, topY);
+            ctx.strokeStyle = 'rgba(255,255,255,.5)'; ctx.lineWidth = 1.5;
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(rx - aw + 4, topY); ctx.lineTo(rx + aw - 4, topY);
+            ctx.stroke();
+
+            // Label
+            ctx.fillStyle = '#1e40af'; ctx.font = '600 11px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`CuSO₄ ${currentConc}M`, CX, bot + UARM + aw + 22);
+
+            ctx.restore();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: ELECTRODES
+        // ═══════════════════════════════════════════════════
+        function drawElectrodes() {
+            if (step < 2) return;
+            const t = clamp(electrodesT, 0, 1);
+            const ey = easeOut(t);
+
+            // Electrode drops from above UTOP down to final position
+            const topNow = lerp(UTOP - 80, ELEC_TOP, ey);
+            const botNow = lerp(UTOP - 80 + (ELEC_BOT - ELEC_TOP), ELEC_BOT, ey);
+
+            ctx.save();
+
+            const hw = ELEC_HW;
+            const ew = hw * 2;
+
+            // ── CATHODE (left, −) ──
+            const catX = LX;
+            const rodGrad1 = ctx.createLinearGradient(catX - hw, 0, catX + hw, 0);
+            rodGrad1.addColorStop(0, '#374151');
+            rodGrad1.addColorStop(.45, '#6b7280');
+            rodGrad1.addColorStop(1, '#1f2937');
+            ctx.beginPath(); ctx.roundRect(catX - hw, topNow, ew, botNow - topNow, 4);
+            ctx.fillStyle = rodGrad1; ctx.fill();
+            ctx.strokeStyle = '#9ca3af'; ctx.lineWidth = .5; ctx.stroke();
+
+            // Copper deposit — only on submerged part, dark at bottom, fading up
+            if (step >= 4 && progress > 0.05) {
+                const liqTop = ELEC_BOT - (ELEC_BOT - ELEC_TOP) * 0.25;
+                const subTop = Math.max(topNow, liqTop);
+                const subH = botNow - subTop;
+                if (subH > 0) {
+                    const dp = clamp((progress - 0.05) / 0.95, 0, 1);
+                    const depH = subH * dp;
+                    const depY = botNow - depH;
+                    const cupGrad = ctx.createLinearGradient(0, depY, 0, botNow);
+                    cupGrad.addColorStop(0, 'rgba(180,83,9,0.15)');
+                    cupGrad.addColorStop(0.5, 'rgba(180,83,9,0.5)');
+                    cupGrad.addColorStop(1, 'rgba(146,64,14,0.9)');
+                    ctx.beginPath(); ctx.roundRect(catX - hw - 1, depY, ew + 2, depH, 2);
+                    ctx.fillStyle = cupGrad; ctx.fill();
+                }
+            }
+
+            // Cathode label
+            if (electrodesT > 0.85) {
+                ctx.fillStyle = '#2563eb'; ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('CATỐT (−)', catX, topNow - 10);
+            }
+
+            // ── ANODE (right, +) ──
+            const anodX = RX;
+            const rodGrad2 = ctx.createLinearGradient(anodX - hw, 0, anodX + hw, 0);
+            rodGrad2.addColorStop(0, '#374151');
+            rodGrad2.addColorStop(.45, '#6b7280');
+            rodGrad2.addColorStop(1, '#1f2937');
+            ctx.beginPath(); ctx.roundRect(anodX - hw, topNow, ew, botNow - topNow, 4);
+            ctx.fillStyle = rodGrad2; ctx.fill();
+            ctx.strokeStyle = '#9ca3af'; ctx.lineWidth = .5; ctx.stroke();
+
+            // Anode label
+            if (electrodesT > 0.85) {
+                ctx.fillStyle = '#dc2626'; ctx.font = 'bold 10px Arial'; ctx.textAlign = 'center';
+                ctx.fillText('ANỐT (+)', anodX, topNow - 10);
+            }
+
+            ctx.restore();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  DRAW: BUBBLES (O₂ at anode)
+        // ═══════════════════════════════════════════════════
+        function spawnBubble() {
+            const liqTop = ELEC_BOT - (ELEC_BOT - ELEC_TOP) * 0.25;
+            const x = RX + (Math.random() - 0.5) * (ELEC_HW * 2.5);
+            const y = lerp(ELEC_BOT - 5, liqTop + 5, Math.random());
+            bubbles.push({
+                x, y, baseX: x,
+                r: 1.0 + Math.random() * 1.5,
+                vy: 0.3 + Math.random() * 0.5,
+                alpha: .7 + Math.random() * .3,
+                wobble: Math.random() * Math.PI * 2,
+                ws: .03 + Math.random() * .03
+            });
+        }
+
+        function updateBubbles() {
+            const liqTop = ELEC_BOT - (ELEC_BOT - ELEC_TOP) * 0.25;
+            bubbles.forEach(b => {
+                b.y -= b.vy;
+                b.x = b.baseX + Math.sin(b.wobble) * 1;
+                b.wobble += b.ws;
+                if (b.y < liqTop) b.alpha -= .05;
+                else b.alpha -= .003;
+            });
+            bubbles = bubbles.filter(b => b.alpha > 0);
+        }
+
+        function drawBubbles() {
+            ctx.save();
+            bubbles.forEach(b => {
+                ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                ctx.strokeStyle = `rgba(148,163,184,${b.alpha * .7})`;
+                ctx.fillStyle = `rgba(255,255,255,${b.alpha * .2})`;
+                ctx.lineWidth = 1; ctx.fill(); ctx.stroke();
+            });
+            ctx.restore();
+        }
+
+
+        // ═══════════════════════════════════════════════════
+        //  MAIN DRAW
+        // ═══════════════════════════════════════════════════
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+            drawGrid();
+            drawUTube();
+            drawLiquid();
+            drawElectrodes();
+            drawWires();
+            drawPSU();
+            drawBubbles();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  ANIMATION ENGINE (single unified rAF)
+        // ═══════════════════════════════════════════════════
+        let lastTs = 0;
+        function tick(ts) {
+            const dt = ts - lastTs; lastTs = ts;
+            let needMore = false;
+
+            if (liquidFilling) {
+                liquidT = clamp(liquidT + dt / 900, 0, 1);
+                if (liquidT >= 1) { liquidFilling = false; unlockStep(2); }
+                else needMore = true;
+            }
+            if (electrodesDrop) {
+                electrodesT = clamp(electrodesT + dt / 700, 0, 1);
+                if (electrodesT >= 1) { electrodesDrop = false; unlockStep(3); }
+                else needMore = true;
+            }
+            if (wiresDrawing) {
+                wiresAnimT = clamp(wiresAnimT + dt / 900, 0, 1);
+                if (wiresAnimT >= 1) { wiresDrawing = false; unlockStep(4); }
+                else needMore = true;
+            }
+            if (step === 4) {
+                if (!animStart) animStart = ts;
+                progress = clamp((ts - animStart) / ANIM_DUR, 0, 1);
+                if (Math.random() < 0.22 * (1 + currentVolt / 6)) spawnBubble();
+                updateBubbles();
+                needMore = true;
+                if (progress >= 1) {
+                    step = 5; needMore = false;
+                    finishElectrolysis();
+                }
+            }
+
+            draw();
+            if (needMore) rafId = requestAnimationFrame(tick);
+        }
+
+        function startTick() {
+            if (rafId) cancelAnimationFrame(rafId);
+            lastTs = performance.now();
+            rafId = requestAnimationFrame(tick);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  STEP CONTROLLERS
+        // ═══════════════════════════════════════════════════
+        function selectConc(btn) {
+            if (step > 0) return;
+            document.querySelectorAll('#concGroup .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentConc = parseFloat(btn.dataset.conc);
+        }
+        function selectVolt(btn) {
+            if (step > 4) return;
+            document.querySelectorAll('#voltGroup .btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentVolt = parseInt(btn.dataset.volt);
+            updateStatus();
+        }
+
+        function doStep1() {
+            if (step !== 0) return;
+            step = 1; liquidFilling = true; liquidT = 0;
+            markDone(1); lockRow(1);
+            setStatus(`<i class="ti ti-droplet-filled"></i>`, `Đang rót dung dịch <strong>CuSO₄ ${currentConc}M</strong> vào ống chữ U…`);
+            updateExp('step1');
+            startTick();
+        }
+        function doStep2() {
+            if (step !== 1) return;
+            step = 2; electrodesDrop = true; electrodesT = 0;
+            markDone(2); lockRow(2);
+            setStatus(`<i class="ti ti-arrow-down"></i>`, `Đang nhúng <strong>hai điện cực than chì</strong> vào hai nhánh ống chữ U…`);
+            updateExp('step2');
+            startTick();
+        }
+        function doStep3() {
+            if (step !== 2) return;
+            step = 3; wiresDrawing = true; wiresAnimT = 0;
+            markDone(3); lockRow(3);
+            setStatus(`<i class="ti ti-plug-connected"></i>`, `Đang nối <strong>dây đỏ → anốt (+)</strong> và <strong>dây xanh → catốt (−)</strong>…`);
+            updateExp('step3');
+            startTick();
+        }
+        function doStep4() {
+            if (step !== 3) return;
+            step = 4; animStart = null; progress = 0; bubbles = [];
+            ANIM_DUR = 6500;
+            markDone(4); lockRow(4);
+            document.getElementById('btnStep4').innerHTML = '<i class="ti ti-loader-2"></i>Đang chạy…';
+            document.getElementById('btnStep4').disabled = true;
+            setStatus(`<i class="ti ti-bolt"></i>`, `Điện phân đang chạy tại <strong>${currentVolt}V</strong> — quan sát bọt O₂ ở anốt, lớp Cu đỏ ở catốt…`);
+            updateExp('step4');
+            startTick();
+        }
+
+        function finishElectrolysis() {
+            // keep bubbles visible
+            document.getElementById('btnStep4').innerHTML = '<i class="ti ti-check"></i>Hoàn thành';
+            setStatus(`<i class="ti ti-circle-check"></i>`, `Điện phân hoàn tất! <strong>Quan sát lớp đồng đỏ</strong> bám trên catốt và <strong>bọt O₂</strong> còn sủi ở anốt.`);
+            updateExp('done');
+            draw();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  STEP UI HELPERS
+        // ═══════════════════════════════════════════════════
+        function markDone(n) {
+            const badge = document.getElementById('badge' + n);
+            badge.innerHTML = '<i class="ti ti-check" style="font-size:.7rem"></i>';
+            badge.classList.remove('active'); badge.classList.add('done');
+        }
+        function lockRow(n) {
+            const row = document.getElementById('row' + n);
+            row.classList.remove('step-active'); row.classList.add('step-done');
+        }
+        function unlockStep(n) {
+            const row = document.getElementById('row' + n);
+            row.classList.remove('step-locked'); row.classList.add('step-active');
+            const badge = document.getElementById('badge' + n);
+            badge.classList.add('active');
+            draw();
+        }
+        function setStatus(iconHtml, text) {
+            document.getElementById('statusIcon').outerHTML = `<span id="statusIcon">${iconHtml}</span>`;
+            document.getElementById('statusText').innerHTML = text;
+        }
+        function updateStatus() {
+            if (step === 0) setStatus(`<i class="ti ti-info-circle"></i>`, `Thực hiện lần lượt từng bước bên dưới để tiến hành thí nghiệm.`);
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  RESET
+        // ═══════════════════════════════════════════════════
+        function resetAll() {
+            if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+            step = 0; liquidT = 0; electrodesT = 0; wiresAnimT = 0;
+            liquidFilling = false; electrodesDrop = false; wiresDrawing = false;
+            progress = 0; animStart = null; bubbles = [];
+            currentConc = 0.5; currentVolt = 6;
+
+            // Reset rows
+            [1, 2, 3, 4].forEach(n => {
+                const row = document.getElementById('row' + n);
+                const badge = document.getElementById('badge' + n);
+                badge.innerHTML = n; badge.classList.remove('active', 'done');
+                if (n === 1) { row.className = 'ctrl-row step-active'; badge.classList.add('active'); }
+                else { row.className = 'ctrl-row step-locked'; }
+            });
+            // Reset buttons
+            document.getElementById('btnStep1').disabled = false;
+            document.getElementById('btnStep1').innerHTML = '<i class="ti ti-droplet-filled"></i>Rót vào ống';
+            document.getElementById('btnStep2').disabled = false;
+            document.getElementById('btnStep2').innerHTML = '<i class="ti ti-arrow-down"></i>Nhúng điện cực';
+            document.getElementById('btnStep3').disabled = false;
+            document.getElementById('btnStep3').innerHTML = '<i class="ti ti-plug-connected"></i>Nối dây điện';
+            document.getElementById('btnStep4').disabled = false;
+            document.getElementById('btnStep4').innerHTML = '<i class="ti ti-player-play"></i>Bật nguồn';
+            // Reset selectors
+            document.querySelectorAll('#concGroup .btn').forEach(b => b.classList.toggle('active', b.dataset.conc === '0.5'));
+            document.querySelectorAll('#voltGroup .btn').forEach(b => b.classList.toggle('active', b.dataset.volt === '6'));
+
+            setStatus(`<i class="ti ti-info-circle"></i>`, `Thực hiện lần lượt từng bước bên dưới để tiến hành thí nghiệm.`);
+            updateExp('init');
+            draw();
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  EXPLANATION
+        // ═══════════════════════════════════════════════════
+        function fadeExp(cb) {
+            const box = document.getElementById('expBox');
+            box.style.opacity = '0'; box.style.transform = 'translateY(6px)';
+            setTimeout(() => {
+                cb();
+                box.style.opacity = '1'; box.style.transform = 'translateY(0)';
+            }, 210);
+        }
+
+        const expData = {
+            init: {
+                reacted: false,
+                icon: 'ti-info-circle', title: 'Chuẩn bị thí nghiệm',
+                html: `<p>Thí nghiệm điện phân dung dịch <strong>CuSO₄</strong> với điện cực <strong>than chì (C)</strong> — một loại điện cực trơ, không tham gia phản ứng hóa học.</p>
+    <p>Trong dung dịch CuSO₄, các ion phân ly: <span class="chip">Cu²⁺</span> <span class="chip">SO₄²⁻</span> <span class="chip">H⁺</span> <span class="chip teal">OH⁻</span>. Khi có điện trường, các cation di chuyển về catốt và anion về anốt. Thực hiện từng bước để bắt đầu!</p>`
+            },
+            step1: {
+                reacted: false,
+                icon: 'ti-droplet', title: 'Bước 1 — Rót dung dịch CuSO₄',
+                html: `<p>Rót <strong>~50 mL dung dịch CuSO₄ 0,5M</strong> vào ống thủy tinh hình chữ U sao cho mực nước ở <strong>hai nhánh cân bằng nhau</strong>.</p>
+    <p>Dung dịch CuSO₄ có màu <strong>xanh lam đặc trưng</strong> do ion <span class="chip">Cu²⁺</span> hấp thụ ánh sáng đỏ-vàng. Nồng độ càng cao, màu càng đậm.</p>`
+            },
+            step2: {
+                reacted: false,
+                icon: 'ti-line-dashed', title: 'Bước 2 — Nhúng điện cực than chì',
+                html: `<p>Nhúng <strong>hai điện cực than chì (C)</strong> vào hai nhánh của ống chữ U. Than chì là <strong>điện cực trơ</strong> — không bị oxi hóa hay khử trong quá trình điện phân.</p>
+    <p>Điện cực bên trái sẽ nối với cực âm <span class="chip">CATỐT (−)</span>, điện cực bên phải nối với cực dương <span class="chip orange">ANỐT (+)</span>.</p>`
+            },
+            step3: {
+                reacted: false,
+                icon: 'ti-plug', title: 'Bước 3 — Nối dây dẫn điện',
+                html: `<p>Sử dụng dây dẫn để nối hai điện cực với nguồn điện một chiều (DC):</p>
+    <p><strong style="color:#dc2626"><i class="ti ti-circle-filled" style="font-size:.7rem"></i> Dây đỏ</strong> → cực dương (+) của nguồn → nối vào <strong>anốt</strong> (điện cực phải)<br>
+    <strong style="color:#2563eb"><i class="ti ti-circle-filled" style="font-size:.7rem"></i> Dây xanh</strong> → cực âm (−) của nguồn → nối vào <strong>catốt</strong> (điện cực trái)</p>`
+            },
+            step4: {
+                reacted: false,
+                icon: 'ti-bolt', title: 'Bước 4 — Đang tiến hành điện phân…',
+                html: `<p>Nguồn điện DC được bật. Điện trường xuất hiện làm các ion di chuyển có hướng — bắt đầu quá trình <strong>điện phân</strong>.</p>
+    <div class="pheno-grid">
+      <div class="pheno-card anode">
+        <div class="pc-lbl"><i class="ti ti-circle-plus"></i>ANỐT (+) — Oxi hóa</div>
+        <p>Phân tử <strong>H₂O</strong> bị oxi hóa, thoát <strong>khí O₂</strong> sủi bọt lên từ bề mặt điện cực than chì.</p>
+      </div>
+      <div class="pheno-card cathode">
+        <div class="pc-lbl"><i class="ti ti-circle-minus"></i>CATỐT (−) — Khử</div>
+        <p>Ion <strong>Cu²⁺</strong> bị khử thành <strong>Cu kim loại</strong> màu đỏ gạch bám trên điện cực.</p>
+      </div>
+    </div>`
+            },
+            done: {
+                reacted: true,
+                icon: 'ti-circle-check', title: 'Kết quả điện phân',
+                html: `<p>Sau quá trình điện phân, quan sát thấy:</p>
+    <div class="pheno-grid">
+      <div class="pheno-card anode">
+        <div class="pc-lbl"><i class="ti ti-circle-plus"></i>ANỐT (+) — Bọt khí O₂</div>
+        <p>Bọt khí <strong>O₂</strong> thoát ra liên tục. H₂O bị <strong>oxi hóa</strong> nhường 4e⁻.</p>
+      </div>
+      <div class="pheno-card cathode">
+        <div class="pc-lbl"><i class="ti ti-circle-minus"></i>CATỐT (−) — Lớp đồng đỏ</div>
+        <p>Lớp <strong>Cu màu đỏ gạch</strong> bám chặt trên điện cực — Cu²⁺ nhận 2e⁻ bị <strong>khử</strong> thành Cu.</p>
+      </div>
+    </div>
+    <div class="eq-box"><strong>Anốt (+):</strong>  2H₂O → O₂↑ + 4H⁺ + 4e⁻</div>
+    <div class="eq-box teal" style="margin-top:6px"><strong>Catốt (−):</strong>  Cu²⁺ + 2e⁻ → Cu↓  (màu đỏ gạch)</div>
+    <p style="margin-top:10px;font-size:.79rem;color:#64748b"><i class="ti ti-bulb" style="color:#0f4c81"></i> <strong>Kết luận:</strong> Điện phân CuSO₄ với điện cực trơ làm <em>cạn dần Cu²⁺</em> trong dung dịch — dung dịch mất màu xanh dần. Đây là nguyên lý của <strong>mạ điện</strong>.</p>`
+            }
+        };
+
+        function updateExp(key) {
+            const d = expData[key];
+            fadeExp(() => {
+                const box = document.getElementById('expBox');
+                box.classList.toggle('reacted', !!d.reacted);
+                document.getElementById('expTitle').className = 'eb-title' + (d.reacted ? ' reacted' : '');
+                document.getElementById('expTitle').innerHTML = `<i class="ti ${d.icon}"></i><span>${d.title}</span>`;
+                document.getElementById('expContent').innerHTML = d.html;
+            });
+        }
+
+        // ═══════════════════════════════════════════════════
+        //  INIT
+        // ═══════════════════════════════════════════════════
+        draw();
+    </script>
+</body>
+
+</html>

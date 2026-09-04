@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm: Phản ứng của Kẽm và Acid</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --panel-purpose-bg: #fcf9fb;
+            --panel-purpose-border: #ffabc7;
+            --panel-guide-bg: #eaf6fc;
+            --panel-guide-border: #7bb9e5;
+            --control-bg: #f5f0ff;
+            --control-border: #c4b5fd;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            line-height: 1.5;
+        }
+
+        .lab-header,
+        .lab-info-panel,
+        .lab-canvas-container,
+        .lab-controls,
+        .lab-explanation {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        .lab-header {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.15);
+        }
+
+        .lab-header::before,
+        .lab-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .lab-header::before {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -40px;
+        }
+
+        .lab-header::after {
+            width: 120px;
+            height: 120px;
+            bottom: -30px;
+            left: -20px;
+        }
+
+        .lab-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .lab-header h1 {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .lab-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .lab-info-panel {
+            display: flex;
+            gap: 12px;
+            border-left: 4px solid var(--primary);
+            padding-left: 0;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 10px;
+        }
+
+        .info-col.purpose {
+            background-color: var(--panel-purpose-bg);
+            border: 1px solid var(--panel-purpose-border);
+        }
+
+        .info-col.guide {
+            background-color: var(--panel-guide-bg);
+            border: 1px solid var(--panel-guide-border);
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .info-content ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .info-content li {
+            margin-bottom: 4px;
+        }
+
+        .lab-canvas-container {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        #labCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            background-color: #e2eaf4;
+        }
+
+        .lab-controls {
+            background: var(--control-bg);
+            border: 1px solid var(--control-border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stepper-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .stepper-header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stepper-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.15);
+            box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.2);
+        }
+
+        .step-dot.completed {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .step-dot-line {
+            flex: 1;
+            height: 2px;
+            background: #e2e8f0;
+            max-width: 40px;
+        }
+
+        .step-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-left: 3px solid var(--primary);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .step-card-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .step-card-desc {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        .stepper-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stepper-nav-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lab-btn {
+            font-family: var(--font-stack);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .lab-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: #f0f7ff;
+        }
+
+        .lab-btn.btn-primary {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+
+        .lab-btn.btn-primary:hover:not(:disabled) {
+            background-color: #0c3e69;
+            color: white;
+        }
+
+        .lab-btn.btn-reset {
+            border: 1.5px dashed var(--border);
+            background-color: transparent;
+        }
+
+        .lab-btn.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background-color: #f0fdf4;
+        }
+
+        .lab-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .stepper-status {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ti-spin {
+            display: inline-block;
+            animation: spin 0.9s linear infinite;
+        }
+
+        .lab-explanation {
+            border-radius: 14px;
+            padding: 16px 20px;
+            transition: all 0.3s ease;
+            background: #fef9ee;
+            border: 1px solid #f0c674;
+            border-left: 4px solid #d4930a;
+        }
+
+        .lab-explanation.reacted {
+            background: #eefbf4;
+            border: 1px solid #6bc9a0;
+            border-left: 4px solid #0f6e56;
+        }
+
+        .explanation-title {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .explanation-text {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="lab-header">
+        <div class="lab-header-badge">
+            <i class="ti ti-microscope"></i>
+            <span>Mô phỏng Hóa học</span>
+        </div>
+        <h1>Tính chất hóa học của Kim loại</h1>
+        <p>Thực nghiệm phản ứng thế giữa kim loại Kẽm (Zn) và dung dịch Acid loãng.</p>
+    </header>
+
+    <section class="lab-info-panel">
+        <div class="info-col purpose">
+            <div class="info-label"><i class="ti ti-bulb"></i> Mục đích thí nghiệm</div>
+            <div class="info-content">
+                Quan sát phản ứng oxi hóa - khử xảy ra khi cho kim loại hoạt động (đứng trước H trong dãy hoạt động hóa
+                học) tiếp xúc với dung dịch acid loãng, minh chứng sự giải phóng khí Hydrogen.
+            </div>
+        </div>
+        <div class="info-col guide">
+            <div class="info-label"><i class="ti ti-list-check"></i> Hướng dẫn thao tác</div>
+            <div class="info-content">
+                <ol>
+                    <li>Sử dụng thìa xúc hóa chất (spatula) lấy các hạt kẽm (Zn) thả vào bên trong ống nghiệm.</li>
+                    <li>Sử dụng ống hút nhỏ giọt lấy dung dịch H₂SO₄ 10%.</li>
+                    <li>Nhỏ trực tiếp dung dịch acid vào ống nghiệm chứa kẽm hạt và quan sát bề mặt kim loại.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <div class="lab-canvas-container">
+        <canvas id="labCanvas" width="760" height="440"></canvas>
+    </div>
+
+    <section class="lab-controls">
+        <div class="stepper-header">
+            <div class="stepper-header-left">
+                <i class="ti ti-checkup-list"></i> Quy Trình Thí Nghiệm
+            </div>
+            <div id="step-counter">Bước 1 / 2</div>
+        </div>
+
+        <div class="stepper-progress">
+            <div class="step-dot active" id="dot-1">1</div>
+            <div class="step-dot-line"></div>
+            <div class="step-dot" id="dot-2">2</div>
+        </div>
+
+        <div class="step-card" id="step-card">
+            <div class="step-card-title" id="step-title">Bước 1: Chuẩn bị kẽm hạt</div>
+            <div class="step-card-desc" id="step-desc">Cho một vài hạt kẽm (Zn) tinh khiết vào đáy ống nghiệm khô.</div>
+        </div>
+
+        <div class="stepper-nav">
+            <div class="stepper-nav-group">
+                <button class="lab-btn btn-reset" id="btn-reset" onclick="resetLab()">
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            </div>
+            <div class="stepper-nav-group">
+                <span class="stepper-status" id="stepper-status">Chờ thao tác</span>
+                <button class="lab-btn btn-primary" id="btn-action" onclick="runCurrentStep()">
+                    <i class="ti ti-player-play"></i> Thực hiện
+                </button>
+                <button class="lab-btn" id="btn-next" onclick="nextStep()" style="display: none;">
+                    Tiếp theo <i class="ti ti-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="lab-explanation" id="explanation-box">
+        <div class="explanation-title" id="explanation-title">
+            <i class="ti ti-info-circle"></i> Trạng thái ban đầu
+        </div>
+        <div class="explanation-text" id="explanation-text">
+            Hệ thống ống nghiệm đã được làm sạch và sấy khô. Vui lòng làm theo hướng dẫn trên bảng điều khiển để bắt đầu
+            tiến hành thí nghiệm.
+        </div>
+    </footer>
+
+    <script>
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 440;
+
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        const TX = W / 2;
+        const TY = 160;
+
+        let currentStep = 1;
+        let subStep = 0;
+        let animTimer = 0;
+        let globalTime = 0;
+        let isAnimating = false;
+        let hasReacted = false;
+
+        let zincPellets = [];
+        let liquidHeight = 0;
+        let dropY = TY - 80;
+        let spoonProg = 0;
+        let dropperProg = 0;
+        let dropSize = 0;
+        let isDropping = false;
+
+        let flashRadius = 0;
+        let flashOpacity = 0;
+        let particles = [];
+        let attachedBubbles = [];
+
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15,76,129,0.04)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.fillStyle = 'rgba(235, 245, 255, 0.2)';
+            ctx.fill();
+
+            if (liquidHeight > 0) {
+                let liquidTop = (ty + 130) - liquidHeight;
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(tx - 15, ty + 20);
+                ctx.lineTo(tx - 15, ty + 110);
+                ctx.quadraticCurveTo(tx - 15, ty + 130, tx, ty + 130);
+                ctx.quadraticCurveTo(tx + 15, ty + 130, tx + 15, ty + 110);
+                ctx.lineTo(tx + 15, ty + 20);
+                ctx.clip();
+
+                ctx.beginPath();
+                ctx.moveTo(tx - 18, liquidTop);
+                ctx.lineTo(tx - 18, ty + 140);
+                ctx.lineTo(tx + 18, ty + 140);
+                ctx.lineTo(tx + 18, liquidTop);
+                ctx.quadraticCurveTo(tx, liquidTop + 4, tx - 18, liquidTop);
+
+                ctx.fillStyle = 'rgba(215, 235, 245, 0.45)';
+                ctx.fill();
+
+                ctx.beginPath();
+                let shimmerY = liquidTop + Math.sin(globalTime * 0.05) * 1;
+                ctx.moveTo(tx - 15, shimmerY);
+                ctx.quadraticCurveTo(tx, shimmerY + 3, tx + 15, shimmerY);
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+                ctx.lineWidth = 1.5;
+                ctx.stroke();
+
+                ctx.restore();
+            }
+
+            drawZincPellets();
+            drawAttachedBubbles();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 12, ty + 10);
+            ctx.lineTo(tx - 12, ty + 115);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            // Miệng ống dạng ellipse mở
+            ctx.beginPath();
+            ctx.ellipse(tx, ty, 18, 4, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawSpoon(x, y, rotation, hasZinc) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+
+            let grad = ctx.createLinearGradient(0, -5, 0, 5);
+            grad.addColorStop(0, '#e2e8f0');
+            grad.addColorStop(0.5, '#94a3b8');
+            grad.addColorStop(1, '#64748b');
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.moveTo(100, -3); ctx.lineTo(-20, -3); ctx.lineTo(-20, 3); ctx.lineTo(100, 3);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(-20, -3);
+            ctx.quadraticCurveTo(-35, 0, -45, -5);
+            ctx.quadraticCurveTo(-50, 0, -45, 5);
+            ctx.quadraticCurveTo(-35, 0, -20, 3);
+            ctx.fill();
+
+            if (hasZinc) {
+                ctx.fillStyle = '#64748b';
+                ctx.beginPath(); ctx.arc(-30, -5, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(-35, -4, 2.5, 0, Math.PI * 2); ctx.fill();
+                ctx.beginPath(); ctx.arc(-26, -3, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.6)';
+                ctx.beginPath(); ctx.arc(-30, -6, 1, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawDropper(x, y, liquidColor, label) {
+            ctx.save();
+            ctx.fillStyle = '#e53e3e';
+            ctx.beginPath();
+            ctx.moveTo(x - 9, y - 10);
+            ctx.quadraticCurveTo(x - 14, y - 35, x, y - 40);
+            ctx.quadraticCurveTo(x + 14, y - 35, x + 9, y - 10);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = 'rgba(255,255,255,0.25)';
+            ctx.beginPath(); ctx.ellipse(x - 4, y - 28, 3, 8, -0.3, 0, Math.PI * 2); ctx.fill();
+
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.45)';
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.7)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(x - 7, y - 10); ctx.lineTo(x - 7, y + 22);
+            ctx.lineTo(x - 2, y + 50); ctx.lineTo(x + 2, y + 50);
+            ctx.lineTo(x + 7, y + 22); ctx.lineTo(x + 7, y - 10);
+            ctx.closePath();
+            ctx.fill(); ctx.stroke();
+
+            if (liquidColor) {
+                ctx.fillStyle = liquidColor;
+                ctx.beginPath();
+                ctx.moveTo(x - 5, y); ctx.lineTo(x - 2, y + 45);
+                ctx.lineTo(x + 2, y + 45); ctx.lineTo(x + 5, y);
+                ctx.closePath(); ctx.fill();
+            }
+
+            ctx.fillStyle = 'rgba(255,255,255,0.15)';
+            ctx.fillRect(x - 6, y - 8, 3, 55);
+
+            if (label) {
+                ctx.fillStyle = '#1e293b';
+                ctx.font = 'bold 10px "Plus Jakarta Sans", sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(label, x, y - 50);
+            }
+            ctx.restore();
+        }
+
+        function drawDrop(x, y, size, color) {
+            ctx.save();
+            ctx.fillStyle = color || 'rgba(215, 235, 245, 0.6)';
+            ctx.beginPath();
+            ctx.moveTo(x, y - size * 2.5);
+            ctx.quadraticCurveTo(x - size, y - size, x - size, y + size / 2);
+            ctx.quadraticCurveTo(x, y + size * 1.5, x + size, y + size / 2);
+            ctx.quadraticCurveTo(x + size, y - size, x, y - size * 2.5);
+            ctx.fill();
+
+            if (size > 2) {
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.beginPath(); ctx.arc(x - size / 3, y + size / 4, size / 4, 0, Math.PI * 2); ctx.fill();
+            }
+            ctx.restore();
+        }
+
+        function drawZincPellets() {
+            ctx.save();
+            zincPellets.forEach(p => {
+                ctx.fillStyle = '#94a3b8';
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y - p.r);
+                ctx.lineTo(p.x + p.r * 0.8, p.y - p.r * 0.5);
+                ctx.lineTo(p.x + p.r, p.y + p.r * 0.6);
+                ctx.lineTo(p.x - p.r * 0.7, p.y + p.r);
+                ctx.lineTo(p.x - p.r, p.y - p.r * 0.2);
+                ctx.closePath(); ctx.fill();
+
+                ctx.fillStyle = 'rgba(255,255,255,0.4)';
+                ctx.beginPath(); ctx.arc(p.x - p.r * 0.2, p.y - p.r * 0.3, p.r * 0.3, 0, Math.PI * 2); ctx.fill();
+            });
+            ctx.restore();
+        }
+
+        function drawAttachedBubbles() {
+            ctx.save();
+            attachedBubbles.forEach(b => {
+                let wobble = Math.sin(globalTime * 0.08 + b.seed) * 0.15;
+                let bx = b.x;
+                let by = b.y;
+                if (b.type === 'wall') {
+                    by += wobble * 0.4;
+                } else {
+                    bx += wobble;
+                    by += Math.cos(globalTime * 0.08 + b.seed) * 0.15;
+                }
+
+                if (b.type === 'bottom') {
+                    // Bọt bám đáy xung quanh hạt kẽm có màu xám trong suốt phản chiếu màu Zn bên dưới
+                    ctx.fillStyle = `rgba(71, 85, 105, ${b.opacity * 0.45})`;
+                    ctx.strokeStyle = `rgba(47, 55, 69, ${b.opacity * 0.85})`;
+                    ctx.lineWidth = 0.55;
+                } else {
+                    // Bọt bám thành ống nghiệm thủy tinh trong suốt
+                    ctx.fillStyle = `rgba(240, 248, 255, ${b.opacity * 0.4})`;
+                    ctx.strokeStyle = `rgba(148, 163, 184, ${b.opacity * 0.7})`;
+                    ctx.lineWidth = 0.4;
+                }
+
+                ctx.beginPath();
+                ctx.arc(bx, by, b.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+
+                if (b.r > 1.2) {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+                    ctx.beginPath();
+                    ctx.arc(bx - b.r * 0.35, by - b.r * 0.35, b.r * 0.25, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            });
+            ctx.restore();
+        }
+
+        function spawnParticle(type, x, y, options = {}) {
+            let p = {
+                type: type, x: x, y: y,
+                vx: options.vx || 0, vy: options.vy || 0,
+                life: 1.0, size: options.size || 2,
+                color: options.color || '#ffffff',
+                targetY: options.targetY || 0,
+                seed: Math.random() * 100
+            };
+            particles.push(p);
+        }
+
+        function updateAndDrawParticles() {
+            ctx.save();
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+
+                if (p.type === 'zinc_fall') {
+                    p.vy += 0.3; p.x += p.vx; p.y += p.vy;
+                    p.x += Math.sin(p.y * 0.15 + globalTime * 0.1) * 0.5;
+                    if (p.y >= p.targetY) {
+                        zincPellets.push({ x: p.x, y: p.targetY, r: p.size });
+                        particles.splice(i, 1); continue;
+                    }
+                    ctx.fillStyle = '#64748b';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                }
+                else if (p.type === 'bubble') {
+                    p.life -= 0.002; // Bọt sống lâu hơn một chút vì bay chậm hơn
+                    p.y += p.vy;
+                    p.x += Math.sin(globalTime * 0.08 + p.seed) * 0.3 + p.vx; // Lắc lư nhẹ hơn
+
+                    // Giới hạn va chạm thành ống nghiệm (không cho bọt chớm ra ngoài thành ống)
+                    let limitLeft = TX - 15.5 + p.size;
+                    let limitRight = TX + 15.5 - p.size;
+                    if (p.x < limitLeft) { p.x = limitLeft; p.vx = -p.vx * 0.4; }
+                    if (p.x > limitRight) { p.x = limitRight; p.vx = -p.vx * 0.4; }
+
+                    let liquidTop = TY + 130 - liquidHeight;
+                    if (p.y <= liquidTop + 1) {
+                        // Chỉ tạo gợn sóng khi bọt ở vùng trung tâm (tránh sát thành ống)
+                        if (Math.random() < 0.12 && p.x > TX - 12 && p.x < TX + 12) {
+                            spawnParticle('ripple', p.x, liquidTop, { size: 0.3, life: 0.25 });
+                        }
+                        particles.splice(i, 1); continue;
+                    }
+
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+                    if (p.size > 1.0) {
+                        ctx.strokeStyle = 'rgba(148, 163, 184, 0.3)';
+                        ctx.lineWidth = 0.25;
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                    } else {
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                    }
+                }
+                else if (p.type === 'splash') {
+                    p.life -= 0.05; p.vy += 0.1; p.x += p.vx; p.y += p.vy;
+                    if (p.life <= 0) { particles.splice(i, 1); continue; }
+                    ctx.fillStyle = `rgba(215, 235, 245, ${p.life})`;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill();
+                }
+                else if (p.type === 'ripple') {
+                    p.life -= 0.04; p.size += 0.6; // Loang chậm hơn một chút
+                    if (p.life <= 0) { particles.splice(i, 1); continue; }
+                    
+                    // Giới hạn bán kính ngang để không loang ra ngoài thành ống nghiệm (thành trong khoảng TX - 15.5 đến TX + 15.5)
+                    let maxR = Math.min(p.x - (TX - 15.5), (TX + 15.5) - p.x);
+                    if (maxR > 0) {
+                        let rx = Math.min(p.size * 1.5, maxR);
+                        let ry = rx * 0.3;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${p.life})`; ctx.lineWidth = 0.8;
+                        ctx.beginPath(); ctx.ellipse(p.x, p.y, rx, ry, 0, 0, Math.PI * 2); ctx.stroke();
+                    }
+                }
+            }
+            ctx.restore();
+        }
+
+        function drawEffects() {
+            if (flashOpacity > 0) {
+                ctx.save();
+                let gradient = ctx.createRadialGradient(TX, TY + 125, 0, TX, TY + 125, flashRadius);
+                gradient.addColorStop(0, `rgba(255, 255, 255, ${flashOpacity})`);
+                gradient.addColorStop(1, 'rgba(255,255,255,0)');
+                ctx.fillStyle = gradient;
+                ctx.beginPath(); ctx.arc(TX, TY + 125, flashRadius, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+
+                flashRadius += 2.5;
+                flashOpacity -= 0.05;
+            }
+        }
+
+        function updateUI() {
+            document.getElementById('dot-1').className = 'step-dot' + (currentStep === 1 ? ' active' : (currentStep > 1 ? ' completed' : ''));
+            document.getElementById('dot-2').className = 'step-dot' + (currentStep === 2 ? ' active' : '');
+            document.getElementById('step-counter').innerText = `Bước ${currentStep} / 2`;
+
+            if (currentStep === 1) {
+                document.getElementById('dot-1').innerHTML = subStep === 4 ? '<i class="ti ti-check"></i>' : '1';
+                document.getElementById('step-title').innerText = "Bước 1: Chuẩn bị kẽm hạt";
+                document.getElementById('step-desc').innerText = "Cho một vài hạt kẽm (Zn) tinh khiết vào đáy ống nghiệm khô.";
+            } else {
+                document.getElementById('dot-1').innerHTML = '<i class="ti ti-check"></i>';
+                document.getElementById('dot-2').innerHTML = subStep === 4 ? '<i class="ti ti-check"></i>' : '2';
+                document.getElementById('step-title').innerText = "Bước 2: Nhỏ dung dịch Acid";
+                document.getElementById('step-desc').innerText = "Nhỏ từ từ dung dịch Acid loãng vào ống nghiệm chứa kẽm.";
+            }
+
+            const btnAction = document.getElementById('btn-action');
+            const btnNext = document.getElementById('btn-next');
+            const btnReset = document.getElementById('btn-reset');
+            const statusEl = document.getElementById('stepper-status');
+
+            if (isAnimating) {
+                btnAction.disabled = true; btnNext.disabled = true; btnReset.disabled = true;
+                statusEl.innerText = "Đang thực hiện..."; statusEl.style.color = "var(--primary)";
+                btnAction.innerHTML = `<i class="ti ti-loader ti-spin"></i> Xử lý`;
+            } else {
+                btnReset.disabled = false;
+                if (subStep === 4) {
+                    btnAction.style.display = 'none';
+                    if (currentStep < 2) {
+                        btnNext.style.display = 'inline-flex'; btnNext.disabled = false;
+                        statusEl.innerText = "Hoàn tất bước " + currentStep; statusEl.style.color = "var(--secondary)";
+                    } else {
+                        btnNext.style.display = 'none'; statusEl.innerText = "Thí nghiệm hoàn tất"; statusEl.style.color = "var(--secondary)";
+                    }
+                } else {
+                    btnAction.style.display = 'inline-flex'; btnNext.style.display = 'none'; btnAction.disabled = false;
+                    btnAction.innerHTML = `<i class="ti ti-player-play"></i> Thực hiện`;
+                    statusEl.innerText = "Chờ thao tác"; statusEl.style.color = "var(--text-sub)";
+                }
+            }
+        }
+
+        function updateExplanation(type) {
+            let box = document.getElementById('explanation-box');
+            let tEl = document.getElementById('explanation-title');
+            let pEl = document.getElementById('explanation-text');
+            box.classList.add('fade');
+
+            setTimeout(() => {
+                if (type === 'step1') {
+                    box.classList.remove('reacted'); tEl.innerHTML = `<i class="ti ti-info-circle"></i> Trạng thái`;
+                    pEl.innerText = `Các hạt Kẽm (Zn) ở trạng thái rắn đã được đưa vào ống nghiệm. Kim loại Kẽm có màu xám bạc.`;
+                } else if (type === 'step2') {
+                    box.classList.add('reacted'); tEl.innerHTML = `<i class="ti ti-circle-check"></i> Hiện tượng quan sát`;
+                    pEl.innerHTML = `Ngay khi tiếp xúc với acid, bọt khí xuất hiện và sủi lên liên tục từ bề mặt của các hạt kẽm. Khí thoát ra là Hydrogen (H₂).<br><br><b>Phương trình hóa học:</b><br>Zn + H₂SO₄ → ZnSO₄ + H₂↑`;
+                } else {
+                    box.classList.remove('reacted'); tEl.innerHTML = `<i class="ti ti-info-circle"></i> Trạng thái ban đầu`;
+                    pEl.innerText = `Hệ thống ống nghiệm đã được làm sạch và sấy khô. Vui lòng làm theo hướng dẫn trên bảng điều khiển để bắt đầu tiến hành thí nghiệm.`;
+                }
+                box.classList.remove('fade');
+            }, 200);
+        }
+
+        function runCurrentStep() {
+            if (isAnimating) return;
+            isAnimating = true; subStep = 1; animTimer = 0; updateUI();
+        }
+
+        function nextStep() {
+            if (currentStep < 2) { currentStep++; subStep = 0; animTimer = 0; updateUI(); }
+        }
+
+        function resetLab() {
+            currentStep = 1; subStep = 0; animTimer = 0; isAnimating = false; hasReacted = false;
+            zincPellets = []; liquidHeight = 0; particles = []; spoonProg = 0; dropperProg = 0; dropSize = 0; isDropping = false;
+            attachedBubbles = [];
+            updateExplanation('reset'); updateUI();
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            globalTime++;
+            drawGrid();
+            drawTestTube();
+
+            if (currentStep === 1 && subStep === 1) {
+                animTimer += 0.015;
+                if (animTimer <= 1.0) {
+                    spoonProg = easeOut(animTimer);
+                    let sx = lerp(W + 100, TX + 40, spoonProg); let sy = lerp(TY - 100, TY - 25, spoonProg);
+                    drawSpoon(sx, sy, 0, true);
+                }
+                else if (animTimer > 1.0 && animTimer <= 2.5) {
+                    let tiltProg = easeInOut(clamp((animTimer - 1.0) * 2, 0, 1));
+                    let angle = lerp(0, -Math.PI / 4, tiltProg);
+                    drawSpoon(TX + 40, TY - 25, angle, tiltProg < 0.5);
+                    if (animTimer > 1.2 && animTimer < 1.4 && globalTime % 3 === 0) {
+                        spawnParticle('zinc_fall', TX + (Math.random() - 0.5) * 12, TY - 25, { vy: Math.random(), targetY: TY + 122 + Math.random() * 8, size: 2.5 + Math.random() * 1.5 });
+                    }
+                }
+                else if (animTimer > 2.5 && animTimer <= 3.5) {
+                    let outProg = easeOut(animTimer - 2.5);
+                    let sx = lerp(TX + 40, W + 100, outProg); let sy = lerp(TY - 25, TY - 100, outProg);
+                    drawSpoon(sx, sy, -Math.PI / 4, false);
+                }
+                else if (animTimer > 3.5) {
+                    isAnimating = false; subStep = 4; updateExplanation('step1'); updateUI();
+                }
+            }
+            else if (currentStep === 2 && subStep === 1) {
+                animTimer += 0.012;
+
+                if (animTimer <= 1.0) {
+                    dropperProg = easeOut(animTimer);
+                    let dx = lerp(-100, TX, dropperProg); let dy = lerp(TY - 150, TY - 50, dropperProg);
+                    drawDropper(dx, dy, 'rgba(215, 235, 245, 0.45)', 'H₂SO₄');
+                }
+                else if (animTimer > 1.0 && animTimer <= 1.5) {
+                    drawDropper(TX, TY - 50, 'rgba(215, 235, 245, 0.45)', 'H₂SO₄');
+                    let formProg = (animTimer - 1.0) * 2; dropSize = lerp(0, 4, formProg);
+                    drawDrop(TX, TY, dropSize);
+                }
+                else if (animTimer > 1.5 && animTimer <= 2.2) {
+                    drawDropper(TX, TY - 50, 'rgba(215, 235, 245, 0.45)', 'H₂SO₄');
+
+                    if (!isDropping) { isDropping = true; dropY = TY; }
+
+                    dropY += 6;
+                    let targetHitY = TY + 130 - liquidHeight;
+
+                    if (dropY < targetHitY) {
+                        drawDrop(TX, dropY, 4);
+                    } else if (dropY >= targetHitY && isDropping) {
+                        isDropping = false;
+
+                        // SỬA LỖI TẠI ĐÂY: Kích hoạt hasReacted ngay khi chạm đích
+                        if (!hasReacted) {
+                            hasReacted = true;
+                            flashRadius = 5;
+                            flashOpacity = 1.0;
+                        } else {
+                            spawnParticle('ripple', TX, targetHitY, {});
+                        }
+
+                        for (let k = 0; k < 5; k++) {
+                            spawnParticle('splash', TX, targetHitY, { vx: (Math.random() - 0.5) * 3, vy: -(Math.random() * 2 + 1), size: 1.5 });
+                        }
+                    }
+
+                    liquidHeight = lerp(liquidHeight, 60, (animTimer - 1.5) * 0.05);
+                }
+                else if (animTimer > 2.2 && animTimer <= 3.2) {
+                    liquidHeight = lerp(liquidHeight, 60, 0.1);
+                    let outProg = easeOut(animTimer - 2.2);
+                    let dx = lerp(TX, -100, outProg); let dy = lerp(TY - 50, TY - 150, outProg);
+                    drawDropper(dx, dy, 'rgba(215, 235, 245, 0.45)', 'H₂SO₄');
+                }
+                else if (animTimer > 3.2) {
+                    liquidHeight = 60; isAnimating = false; subStep = 4;
+                    updateExplanation('step2'); updateUI();
+                }
+            }
+
+            // Sinh bọt khí li ti bay lên nhẹ nhàng
+            if (hasReacted && liquidHeight > 10) {
+                if (zincPellets.length > 0) {
+                    // Tăng số lượng bọt mịn nhẹ sinh ra để tạo lớp sương sủi bọt rõ nhưng nhỏ và chậm
+                    let bubbleCount = Math.floor(Math.random() * 3) + 3; // Sinh 3-5 bọt mịn mỗi frame
+                    for (let b = 0; b < bubbleCount; b++) {
+                        let z = zincPellets[Math.floor(Math.random() * zincPellets.length)];
+                        let bx = z.x + (Math.random() - 0.5) * z.r * 1.6;
+                        let by = z.y - z.r + Math.random() * 3;
+
+                        let isFine = Math.random() < 0.94; // 94% bọt siêu mịn
+                        let size = isFine ? (0.2 + Math.random() * 0.5) : (0.8 + Math.random() * 0.6); // Nhỏ hơn nữa
+                        let vy = isFine ? -(Math.random() * 0.15 + 0.15) : -(Math.random() * 0.25 + 0.25); // Chậm hơn nữa (chỉ từ -0.15 đến -0.5)
+                        let vx = (Math.random() - 0.5) * 0.08; // Nhẹ nhàng hơn, ít phân tán ngang
+
+                        spawnParticle('bubble', bx, by, {
+                            vx: vx,
+                            vy: vy,
+                            size: size
+                        });
+                    }
+                }
+            }
+
+            // Sinh bọt bám đáy và bám thành ống nghiệm dần dần
+            if (hasReacted && liquidHeight > 10) {
+                // Sinh bọt bám đáy chật đầy đáy bình
+                if (attachedBubbles.filter(b => b.type === 'bottom').length < 80 && Math.random() < 0.65) {
+                    let angle = Math.random() * Math.PI; // nửa dưới để bám đáy cong
+                    let dist = Math.random() * 14;
+                    let bx = TX + Math.cos(angle) * dist;
+                    let by = TY + 125 + Math.sin(angle) * 7 + (Math.random() - 0.5) * 4;
+                    
+                    if (zincPellets.length > 0 && Math.random() < 0.5) {
+                        let z = zincPellets[Math.floor(Math.random() * zincPellets.length)];
+                        let a = Math.random() * Math.PI * 2;
+                        let d = Math.random() * z.r * 1.3;
+                        bx = clamp(z.x + Math.cos(a) * d, TX - 15, TX + 15);
+                        by = clamp(z.y + Math.sin(a) * d, TY + 112, TY + 132);
+                    }
+
+                    attachedBubbles.push({
+                        type: 'bottom',
+                        x: bx,
+                        y: by,
+                        r: 0.8 + Math.random() * 2.8,
+                        opacity: 0.5 + Math.random() * 0.45,
+                        seed: Math.random() * 100
+                    });
+                }
+
+                // Sinh bọt bám thành ống nghiệm
+                if (attachedBubbles.filter(b => b.type === 'wall').length < 16 && Math.random() < 0.15) {
+                    let side = Math.random() < 0.5 ? 'left' : 'right';
+                    let r = 1.2 + Math.random() * 2.3;
+                    let bx = side === 'left' ? (TX - 17.5 + r) : (TX + 17.5 - r);
+
+                    let liquidTop = (TY + 130) - liquidHeight;
+                    let by = liquidTop + 8 + Math.random() * (liquidHeight - 16);
+                    if (by < TY + 130) {
+                        attachedBubbles.push({
+                            type: 'wall',
+                            side: side,
+                            x: bx,
+                            y: by,
+                            r: r,
+                            opacity: 0.6 + Math.random() * 0.3,
+                            seed: Math.random() * 100
+                        });
+                    }
+                }
+            }
+
+            drawEffects();
+            updateAndDrawParticles();
+
+            requestAnimationFrame(loop);
+        }
+
+        updateUI();
+        loop();
+    </script>
+</body>
+
+</html>

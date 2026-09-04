@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chuẩn Độ Fe(II) bằng KMnO₄ — Hóa Học 12</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0f4c81;
+            --teal: #1a7a5e;
+            --teal-dark: #0f6e56;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border: #cbd5e1;
+            --surface: #ffffff;
+            --bg: #f0f4f8;
+            --shadow-btn: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px 48px;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        .header {
+            width: 100%;
+            max-width: 760px;
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            top: -60px;
+            right: -40px;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            bottom: -30px;
+            left: 60px;
+        }
+
+        .header-overlay {
+            display: none;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.90);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 8px;
+            font-family: inherit;
+        }
+
+        .header-badge i {
+            font-size: 1.25rem;
+        }
+
+        .header h1 {
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.35rem;
+            letter-spacing: -0.3px;
+            line-height: 1.3;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            width: 100%;
+            max-width: 760px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 1rem 1.25rem;
+            border-radius: 14px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+        }
+
+        .info-label {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .info-label i {
+            font-size: 13px;
+        }
+
+        .info-col p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .info-col ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-col ul li {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            padding: 2px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 6px;
+        }
+
+        .info-col ul li i {
+            font-size: 13px;
+            color: var(--navy);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        /* CANVAS */
+        .canvas-wrap {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        /* ── STEPPER CONTROLS ── */
+        .stepper-wrap {
+            width: 100%;
+            max-width: 760px;
+            background: #cbe6e7;
+            border: 1px solid #31786e;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .stepper-header {
+            padding: 0.75rem 1.25rem;
+            border-bottom: 1px solid #a8cce4;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .stepper-header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+        }
+
+        .stepper-progress-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        /* Progress bar */
+        .progress-bar-wrap {
+            padding: 0 1.25rem;
+            border-bottom: 1px solid #a8cce4;
+            background: #e6f0f8;
+        }
+
+        .step-dots {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            padding: 10px 0;
+            position: relative;
+        }
+
+        .step-dot-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .step-dot-item::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: -50%;
+            right: 50%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .step-dot-item:first-child::before {
+            display: none;
+        }
+
+        .step-dot-item.completed::before {
+            background: var(--navy);
+        }
+
+        .step-dot-item.active::before {
+            background: var(--navy);
+        }
+
+        .step-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+            transition: all 0.25s;
+            flex-shrink: 0;
+        }
+
+        .step-dot-item.completed .step-dot {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: #fff;
+        }
+
+        .step-dot-item.active .step-dot {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: #fff;
+            box-shadow: 0 0 0 4px rgba(15, 76, 129, 0.15);
+        }
+
+        .step-dot-label {
+            font-size: 9.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            text-align: center;
+            line-height: 1.3;
+            max-width: 72px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .step-dot-item.active .step-dot-label {
+            color: var(--navy);
+        }
+
+        .step-dot-item.completed .step-dot-label {
+            color: var(--navy);
+        }
+
+        /* Active step card */
+        .step-card {
+            padding: 1rem 1.25rem;
+            border-bottom: 1px solid #a8cce4;
+            min-height: 90px;
+        }
+
+        .step-card-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--navy);
+            margin-bottom: 6px;
+        }
+
+        .step-card h3 {
+            font-size: 0.92rem;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .step-card p {
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        .step-card p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Step-specific input rows */
+        .step-input-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: #f8fafc;
+            color: var(--text-primary);
+            transition: all 0.2s;
+        }
+
+        .btn:hover:not(:disabled) {
+            border-color: var(--navy);
+            color: var(--navy);
+            background: rgba(15, 76, 129, 0.05);
+        }
+
+        .btn.active {
+            background: var(--navy);
+            color: #fff;
+            border-color: var(--navy);
+            box-shadow: var(--shadow-btn);
+        }
+
+        .btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        /* Nav buttons */
+        .step-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .btn-nav-prev {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 16px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: 1.5px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .btn-nav-prev:hover:not(:disabled) {
+            border-color: var(--text-primary);
+            color: var(--text-primary);
+        }
+
+        .btn-nav-prev:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .btn-nav-next {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            background: var(--navy);
+            color: #fff;
+            box-shadow: var(--shadow-btn);
+            transition: all 0.2s;
+        }
+
+        .btn-nav-next:hover:not(:disabled) {
+            background: #0d3f6d;
+        }
+
+        .btn-nav-next:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .btn-nav-next.anim-running {
+            background: #92400e;
+        }
+
+        .btn-reset-small {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            border: 1.5px dashed var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .btn-reset-small:hover {
+            border-color: var(--teal);
+            color: var(--teal);
+        }
+
+        /* Observation badge */
+        .obs-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 11px;
+            border-radius: 20px;
+            font-size: 0.77rem;
+            font-weight: 600;
+            border: 1px solid;
+            margin-top: 8px;
+        }
+
+        .obs-badge.purple {
+            background: rgba(109, 40, 217, 0.08);
+            color: #6d28d9;
+            border-color: rgba(109, 40, 217, 0.2);
+        }
+
+        .obs-badge.green {
+            background: rgba(26, 122, 94, 0.08);
+            color: var(--teal-dark);
+            border-color: rgba(26, 122, 94, 0.2);
+        }
+
+        .obs-badge.pink {
+            background: rgba(219, 39, 119, 0.08);
+            color: #be185d;
+            border-color: rgba(219, 39, 119, 0.2);
+        }
+
+        .obs-badge.orange {
+            background: rgba(217, 119, 6, 0.08);
+            color: #b45309;
+            border-color: rgba(217, 119, 6, 0.2);
+        }
+
+        /* Equation box */
+        .eq-box {
+            margin: 8px 0 0;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: #faf5ff;
+            border: 1px solid #e9d5ff;
+            font-size: 0.81rem;
+            font-family: 'Courier New', monospace;
+            color: #6b21a8;
+            font-weight: 600;
+        }
+
+        /* Result card (bước 7) */
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .result-cell {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+
+        .result-cell-label {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .result-cell-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.3px;
+        }
+
+        .result-cell-value small {
+            font-size: 0.72rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-left: 3px;
+        }
+
+        .result-cell.highlight {
+            border-color: var(--teal-dark);
+            background: rgba(26, 122, 94, 0.05);
+        }
+
+        .result-cell.highlight .result-cell-value {
+            color: var(--teal-dark);
+        }
+
+        /* Animating indicator */
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin {
+            display: inline-block;
+            animation: spin 0.9s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-overlay"></div>
+        <div class="header-content">
+            <h1>Chuẩn Độ Fe(II) bằng Dung Dịch KMnO₄</h1>
+            <p>Phương pháp chuẩn độ oxi hóa — khử · Xác định nồng độ muối Fe(II)</p>
+        </div>
+    </header>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-target"></i> Mục đích thí nghiệm</div>
+            <p>Xác định nồng độ dung dịch FeSO₄ bằng cách chuẩn độ với KMnO₄ trong môi trường axit H₂SO₄ loãng. Điểm
+                tương đương nhận biết khi dung dịch chuyển sang màu <strong>tím nhạt bền</strong> (≥ 10 giây).</p>
+        </div>
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-route"></i> Quy trình thao tác</div>
+            <ul>
+                <li><i class="ti ti-arrow-right"></i> Dùng pipette lấy chính xác 5 mL dung dịch FeSO₄ vào bình tam giác.
+                </li>
+                <li><i class="ti ti-arrow-right"></i> Thêm khoảng 5 mL dung dịch H₂SO₄ 10% để tạo môi trường axit.</li>
+                <li><i class="ti ti-arrow-right"></i> Nạp dung dịch KMnO₄ vào burette và điều chỉnh về vạch số 0.</li>
+                <li><i class="ti ti-arrow-right"></i> Bắt đầu nhỏ từ từ dung dịch KMnO₄ vào bình tam giác và liên tục
+                    lắc đều.</li>
+                <li><i class="ti ti-arrow-right"></i> Quan sát hiện tượng KMnO₄ mất màu ngay lập tức do phản ứng oxi hóa
+                    - khử.</li>
+                <li><i class="ti ti-arrow-right"></i> Xác định điểm tương đương khi dung dịch chuyển sang màu tím nhạt
+                    bền (≥ 10 giây).</li>
+                <li><i class="ti ti-arrow-right"></i> Đọc thể tích KMnO₄ tiêu tốn trên burette và tính toán nồng độ
+                    FeSO₄.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- CANVAS -->
+    <div class="canvas-wrap">
+        <canvas id="lab" width="760" height="440"></canvas>
+    </div>
+
+    <!-- STEPPER -->
+    <div class="stepper-wrap">
+
+        <!-- Header -->
+        <div class="stepper-header">
+            <div class="stepper-header-left">
+                <i class="ti ti-list-numbers"></i> Quy Trình Thí Nghiệm
+            </div>
+            <span class="stepper-progress-text" id="progress-text">Bước 1 / 7</span>
+        </div>
+
+        <!-- Step dots -->
+        <div class="progress-bar-wrap">
+            <div class="step-dots" id="step-dots">
+                <!-- rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Active step content -->
+        <div class="step-card" id="step-card">
+            <!-- rendered by JS -->
+        </div>
+
+        <!-- Nav -->
+        <div class="step-nav">
+            <div style="display:flex;gap:8px;align-items:center;">
+                <button class="btn-nav-prev" id="btn-prev" onclick="goPrev()">
+                    <i class="ti ti-arrow-left"></i> Quay lại
+                </button>
+                <button class="btn-reset-small" onclick="resetAll()">
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            </div>
+            <button class="btn-nav-next" id="btn-next" onclick="goNext()">
+                Tiếp theo <i class="ti ti-arrow-right"></i>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        // ════════════════════════════════════════════
+        //  CANVAS ENGINE
+        // ════════════════════════════════════════════
+        const canvas = document.getElementById('lab');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 440;
+        canvas.width = W; canvas.height = H;
+
+        const FLASK_X = W / 2;
+        const FLASK_Y = 268;
+        const BURETTE_X = W / 2;
+        const BURETTE_TOP = 28;
+        const BURETTE_H = 172;
+
+        // ── Canvas state ──
+        let cState = {
+            burette_filled: false,   // bước 3: đổ KMnO4 vào burette
+            burette_zeroed: false,   // bước 3: chỉnh về vạch 0
+            flask_has_feso4: false,  // bước 1: lấy FeSO4 vào bình
+            flask_has_h2so4: false,  // bước 2: thêm H2SO4
+            isDropping: false,
+            isWaiting10s: false,     // Chờ 10 giây xem độ bền màu
+            waitTimer: 0,            // Bộ đếm thời gian chờ
+            dropCount: 0,
+            totalDrops: 88,          // Đổi thành 88 giọt tương ứng 4.4 mL
+            buretteFill: 0,          // 0→1 lượng KMnO4 đã dùng
+            reactProgress: 0,        // 0→1 màu dung dịch
+            done: false,
+            endpointReached: false,
+            selectedVol: 4.4,        // Thể tích dùng chuẩn độ là 4.4 mL
+            shakeAngle: 0,
+            shakeTime: 0,
+            dropY: 0,
+            dropVisible: false,
+            dropTimer: 0,
+            dropInterval: 20,
+            pipetteAnim: 0,
+            pipetteAnimT: 0,
+            beaker_feso4_level: 1,
+            cylinderAnim: 0,
+            cylinderAnimT: 0,
+            buretteFillAnim: 0,
+            buretteFillAnimT: 0,
+            beaker_kmno4_level: 1.0,
+            burette_fill_level: 0,
+        };
+        let particles = [];
+        let feso4Drops = [];
+        let feso4DropTimer = 0;
+        let h2so4Drops = [];
+        let h2so4DropTimer = 0;
+        let kmno4Drops = [];
+        let kmno4DropTimer = 0;
+
+        function lerpColor(a, b, t) {
+            t = Math.max(0, Math.min(1, t));
+            return `rgb(${Math.round(a.r + (b.r - a.r) * t)},${Math.round(a.g + (b.g - a.g) * t)},${Math.round(a.b + (b.b - a.b) * t)})`;
+        }
+        function easeInOut(t) { return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+        const PIPETTE_HOME_TIP_X = 142, PIPETTE_HOME_TIP_Y = 292;
+        const PIPETTE_POUR_TIP_X = 374, PIPETTE_POUR_TIP_Y = 242;
+        const PIPETTE_BEAKER_TIP_X = 240, PIPETTE_BEAKER_TIP_Y = 350;
+        const BEAKER_X = 240, BEAKER_Y = 320, BEAKER_W = 38, BEAKER_H = 80;
+        const CYLINDER_HOME_X = 90, CYLINDER_HOME_Y = 198;
+        const CYLINDER_POUR_X = 356, CYLINDER_POUR_Y = 236;
+        const KMNO4_BEAKER_HOME_X = 540, KMNO4_BEAKER_HOME_Y = 180;
+        const KMNO4_BEAKER_POUR_X = 398, KMNO4_BEAKER_POUR_Y = 18;
+        function spawnParticles(x, y) {
+            for (let i = 0; i < 2; i++) particles.push({
+                x: x + (Math.random() - .5) * 10, y: y,
+                vx: (Math.random() - .5) * 0.6, vy: -(Math.random() * 0.8 + 0.3),
+                life: 1, size: Math.random() * 1.5 + 1.5
+            });
+        }
+        function updateParticles() {
+            particles = particles.filter(p => p.life > 0);
+            particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.04; p.life -= 0.025; });
+        }
+        function drawParticles() {
+            particles.forEach(p => {
+                ctx.save(); ctx.globalAlpha = p.life * 0.7;
+                ctx.fillStyle = 'rgba(139,0,200,0.8)';
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+            });
+        }
+
+        function drawGrid() {
+            ctx.save(); ctx.strokeStyle = 'rgba(15,76,129,0.04)'; ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawStand() {
+            ctx.save();
+            ctx.beginPath(); ctx.moveTo(W / 2 - 120, H - 8); ctx.lineTo(W / 2 + 120, H - 8);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 8; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(W / 2 - 100, H - 8); ctx.lineTo(W / 2 - 100, 16);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 5; ctx.stroke();
+            [[60], [130]].forEach(([y]) => {
+                ctx.beginPath(); ctx.moveTo(W / 2 - 100, y); ctx.lineTo(W / 2 - 15, y);
+                ctx.strokeStyle = '#64748b'; ctx.lineWidth = 3; ctx.stroke();
+            });
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 11px "Plus Jakarta Sans",sans-serif';
+            ctx.textAlign = 'left'; ctx.fillText('Giá đỡ', W / 2 - 95, H - 18); ctx.restore();
+        }
+
+        function drawBurette() {
+            const bx = BURETTE_X, by = BURETTE_TOP, bw = 22, bh = BURETTE_H;
+            ctx.save();
+            // Thân burette: Vẽ hở miệng trên (chỉ vẽ 3 cạnh)
+            ctx.beginPath();
+            ctx.moveTo(bx - bw / 2, by);
+            ctx.lineTo(bx - bw / 2, by + bh);
+            ctx.lineTo(bx + bw / 2, by + bh);
+            ctx.lineTo(bx + bw / 2, by);
+            ctx.fillStyle = 'rgba(220,235,255,0.3)'; ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
+            // KMnO4 bên trong
+            if (cState.burette_filled) {
+                const fillLevel = (cState.burette_fill_level !== undefined && cState.buretteFillAnim > 0) ? cState.burette_fill_level : (1 - cState.buretteFill);
+                const fillH = bh * fillLevel;
+                if (fillH > 2) {
+                    ctx.beginPath(); ctx.rect(bx - bw / 2 + 2, by + (bh - fillH), bw - 4, fillH);
+                    ctx.fillStyle = 'rgba(109,40,217,0.55)'; ctx.fill();
+                }
+            }
+            // Vạch chia
+            for (let i = 0; i <= 5; i++) {
+                const ty = by + (bh / 5) * i;
+                ctx.beginPath(); ctx.moveTo(bx + bw / 2, ty); ctx.lineTo(bx + bw / 2 + 6, ty);
+                ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1; ctx.stroke();
+                ctx.fillStyle = '#64748b'; ctx.font = '9px "Plus Jakarta Sans",sans-serif';
+                ctx.textAlign = 'left'; ctx.fillText(i * 5 + '', bx + bw / 2 + 8, ty + 3);
+            }
+            // Vạch đọc 0 nổi bật nếu zeroed
+            if (cState.burette_zeroed) {
+                ctx.save();
+                ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1.5;
+                ctx.beginPath(); ctx.moveTo(bx - bw / 2 - 6, by); ctx.lineTo(bx + bw / 2 + 6, by); ctx.stroke();
+                ctx.fillStyle = '#dc2626'; ctx.font = 'bold 9px "Plus Jakarta Sans",sans-serif';
+                ctx.textAlign = 'right'; ctx.fillText('0 mL', bx - bw / 2 - 8, by + 3); ctx.restore();
+            }
+            // Khóa van xoay
+            ctx.beginPath(); ctx.moveTo(bx - bw / 2 - 5, by + bh); ctx.lineTo(bx + bw / 2 + 5, by + bh);
+            ctx.strokeStyle = '#475569'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(bx, by + bh); ctx.lineTo(bx, by + bh + 14);
+            ctx.strokeStyle = '#475569'; ctx.lineWidth = 2; ctx.stroke();
+
+            // Tay vặn khóa van động (mở thẳng đứng khi nhỏ giọt hoặc đuổi khí, đóng nằm ngang khi dừng)
+            const isValveOpen = cState.isDropping || (cState.buretteFillAnim === 2 && cState.buretteFillAnimT < 0.25);
+            ctx.save();
+            ctx.translate(bx + 8, by + bh + 5);
+            if (isValveOpen) {
+                // Thẳng đứng (mở) - vẽ màu đỏ
+                ctx.beginPath(); ctx.moveTo(0, -7); ctx.lineTo(0, 7);
+                ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+            } else {
+                // Nằm ngang (đóng) - vẽ màu xám sẫm
+                ctx.beginPath(); ctx.moveTo(-7, 0); ctx.lineTo(7, 0);
+                ctx.strokeStyle = '#475569'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+            }
+            // Tâm xoay
+            ctx.beginPath(); ctx.arc(0, 0, 3, 0, Math.PI * 2);
+            ctx.fillStyle = '#1e293b'; ctx.fill();
+            ctx.restore();
+            // Nhãn
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 11px "Plus Jakarta Sans",sans-serif';
+            ctx.textAlign = 'center'; ctx.fillText('Burette 25 mL', bx, by - 13);
+            if (cState.burette_filled) {
+                ctx.fillStyle = '#6d28d9'; ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif';
+                ctx.fillText('KMnO₄ 0,02 M', bx, by - 3);
+            }
+            // Vạch kết quả sau khi chuẩn độ
+            if (cState.done || cState.isWaiting10s) {
+                const markY = by + bh * cState.buretteFill;
+                ctx.save(); ctx.strokeStyle = '#dc2626'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 3]);
+                ctx.beginPath(); ctx.moveTo(bx + bw / 2, markY); ctx.lineTo(bx + bw / 2 + 32, markY); ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillStyle = '#dc2626'; ctx.font = 'bold 9px "Plus Jakarta Sans",sans-serif';
+                ctx.textAlign = 'left'; ctx.fillText('V = ' + cState.selectedVol.toFixed(1) + ' mL', bx + bw / 2 + 34, markY + 3);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+
+        function drawFlask() {
+            const fx = FLASK_X, fy = FLASK_Y;
+            ctx.save(); ctx.translate(fx, fy);
+            if (cState.shakeTime > 0 || cState.isDropping) ctx.rotate(Math.sin(cState.shakeAngle) * 0.025);
+            const neck = 18, base = 65, fh = 100;
+            // Thân
+            ctx.beginPath();
+            ctx.moveTo(-neck, 0); ctx.lineTo(-base, fh);
+            ctx.quadraticCurveTo(-base, fh + 14, 0, fh + 14);
+            ctx.quadraticCurveTo(base, fh + 14, base, fh);
+            ctx.lineTo(neck, 0); ctx.closePath();
+            ctx.fillStyle = 'rgba(220,235,255,0.35)'; ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+            // Chất lỏng
+            if (cState.flask_has_feso4 || cState.pipetteAnim === 4 || cState.cylinderAnim === 2) {
+                let liquidTop = fh * 0.925;
+                if (cState.pipetteAnim === 4 && !cState.flask_has_feso4) {
+                    liquidTop = fh - (fh - fh * 0.925) * easeInOut(cState.pipetteAnimT);
+                } else if (cState.flask_has_h2so4) {
+                    liquidTop = fh * 0.85;
+                } else if (cState.cylinderAnim === 2) {
+                    liquidTop = fh * 0.925 - (fh * 0.925 - fh * 0.85) * easeInOut(cState.cylinderAnimT);
+                } else {
+                    liquidTop = fh * 0.925;
+                }
+                let liquidColor;
+                if (cState.flask_has_h2so4 && !cState.isDropping && !cState.done && !cState.isWaiting10s) {
+                    liquidColor = 'rgba(200,220,210,0.5)'; // sau H2SO4, gần không màu
+                } else if (cState.cylinderAnim === 2) {
+                    const c = lerpColor({ r: 190, g: 230, b: 200 }, { r: 200, g: 220, b: 210 }, cState.cylinderAnimT);
+                    const alpha = 0.55 - 0.05 * cState.cylinderAnimT;
+                    liquidColor = c.replace('rgb', 'rgba').replace(')', `,${alpha.toFixed(2)})`);
+                } else if (!cState.flask_has_h2so4 && !cState.isDropping && !cState.done && !cState.isWaiting10s) {
+                    liquidColor = 'rgba(190,230,200,0.55)'; // FeSO4 xanh nhạt
+                } else {
+                    // Đang chuẩn độ / xong: nội suy màu từ giây thứ 2-3 (khoảng giọt thứ 8 trở đi)
+                    const startChangingDrop = 8;
+                    if (cState.dropCount < startChangingDrop) {
+                        liquidColor = 'rgba(200, 220, 210, 0.5)'; // gần không màu
+                    } else {
+                        const factor = (cState.dropCount - startChangingDrop) / (cState.totalDrops - startChangingDrop);
+                        const c = lerpColor({ r: 200, g: 220, b: 210 }, { r: 180, g: 65, b: 145 }, factor);
+                        const alpha = 0.50 + 0.15 * factor;
+                        liquidColor = c.replace('rgb', 'rgba').replace(')', `,${alpha.toFixed(2)})`);
+                    }
+                }
+                const topW = neck + (base - neck) * (liquidTop / fh);
+                ctx.beginPath();
+                ctx.moveTo(-topW, liquidTop); ctx.lineTo(-base, fh);
+                ctx.quadraticCurveTo(-base, fh + 11, 0, fh + 11);
+                ctx.quadraticCurveTo(base, fh + 11, base, fh);
+                ctx.lineTo(topW, liquidTop); ctx.closePath();
+                ctx.fillStyle = liquidColor; ctx.fill();
+                // Nhãn trạng thái dung dịch
+                let text = '';
+                let textColor = '#0f172a';
+                if (cState.done && cState.endpointReached) {
+                    text = 'Tím nhạt bền';
+                } else if (cState.done && !cState.endpointReached) {
+                    text = cState.selectedVol > 4.4 ? 'Tím đậm' : 'Còn Fe²⁺ dư';
+                } else if (cState.isWaiting10s) {
+                    text = 'Tím nhạt (theo dõi...)';
+                } else if (cState.isDropping) {
+                    text = 'Đang phản ứng...';
+                }
+
+                if (text) {
+                    ctx.save();
+                    ctx.font = 'bold 9.5px "Plus Jakarta Sans",sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.strokeStyle = '#ffffff';
+                    ctx.lineWidth = 3;
+                    ctx.strokeText(text, 0, fh * 0.93);
+                    ctx.fillStyle = textColor;
+                    ctx.fillText(text, 0, fh * 0.93);
+                    ctx.restore();
+                }
+            }
+            // Vệt sáng
+            ctx.beginPath(); ctx.moveTo(-neck + 4, 4); ctx.lineTo(-base + 9, fh - 10);
+            ctx.strokeStyle = 'rgba(255,255,255,0.5)'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.stroke();
+            // Cổ bình
+            ctx.beginPath(); ctx.moveTo(-neck, 0); ctx.lineTo(-neck, -22); ctx.moveTo(neck, 0); ctx.lineTo(neck, -22);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2; ctx.stroke();
+            // Miệng bình hở
+            ctx.beginPath();
+            ctx.ellipse(0, -22, neck + 3, 2.5, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 2.5; ctx.stroke();
+            // Nhãn dưới bình
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 11px "Plus Jakarta Sans",sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Bình tam giác 100 mL', 0, fh + 24); ctx.restore();
+        }
+
+        function drawMeasuringCylinderAt(ox, oy, angle, fillFraction) {
+            ctx.save();
+            ctx.translate(ox, oy);
+            ctx.rotate(angle);
+
+            const ow = 20, oh = 92;
+
+            // Draw cylinder glass body (relative to mouth center 0,0) - Open top (3 sides)
+            ctx.beginPath();
+            ctx.moveTo(-ow / 2, 0);
+            ctx.lineTo(-ow / 2, oh);
+            ctx.lineTo(ow / 2, oh);
+            ctx.lineTo(ow / 2, 0);
+            ctx.fillStyle = 'rgba(220,235,255,0.4)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Draw open mouth ellipse at the top (y = 0)
+            ctx.beginPath();
+            ctx.ellipse(0, 0, ow / 2, 2.5, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Draw base ellipse at the bottom
+            ctx.beginPath();
+            ctx.ellipse(0, oh, ow / 2, 5, 0, 0, Math.PI);
+            ctx.fillStyle = 'rgba(220,235,255,0.6)';
+            ctx.fill();
+            ctx.stroke();
+
+            // Draw tick marks (vạch chia)
+            for (let i = 0; i <= 3; i++) {
+                const ty = (oh / 3) * i;
+                ctx.beginPath();
+                ctx.moveTo(ow / 2, ty);
+                ctx.lineTo(ow / 2 + 5, ty);
+                ctx.strokeStyle = '#94a3b8';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+
+            // Draw H2SO4 liquid inside
+            if (fillFraction > 0.01) {
+                const liquidH = oh * fillFraction;
+                ctx.beginPath();
+                ctx.rect(-ow / 2 + 2, oh - liquidH, ow - 4, liquidH - 2);
+                ctx.fillStyle = 'rgba(200,240,220,0.45)';
+                ctx.fill();
+            }
+
+            ctx.restore();
+
+            // Draw labels above the cylinder (keep it horizontal)
+            ctx.save();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif';
+            ctx.textAlign = 'center';
+            // Rotate label position with cylinder to keep it close
+            const labelX = ox + 22 * Math.sin(angle);
+            const labelY = oy - 22 * Math.cos(angle);
+            ctx.fillText('Ống đong', labelX, labelY);
+            ctx.fillText('H₂SO₄ 10%', labelX, labelY + 10);
+            ctx.restore();
+        }
+
+        function drawMeasuringCylinder() {
+            ctx.save();
+            let ox = CYLINDER_HOME_X, oy = CYLINDER_HOME_Y;
+            let angle = 0;
+            let fillFraction = 0.82;
+
+            if (cState.cylinderAnim === 1) {
+                const t = easeInOut(cState.cylinderAnimT);
+                ox = CYLINDER_HOME_X + (CYLINDER_POUR_X - CYLINDER_HOME_X) * t;
+                oy = CYLINDER_HOME_Y + (CYLINDER_POUR_Y - CYLINDER_HOME_Y) * t;
+                angle = 0 + (75 * Math.PI / 180) * t;
+                fillFraction = 0.82;
+            } else if (cState.cylinderAnim === 2) {
+                ox = CYLINDER_POUR_X;
+                oy = CYLINDER_POUR_Y;
+                angle = 75 * Math.PI / 180;
+                fillFraction = 0.82 - (0.82 - 0.38) * cState.cylinderAnimT;
+            } else if (cState.cylinderAnim === 3) {
+                const t = easeInOut(cState.cylinderAnimT);
+                ox = CYLINDER_POUR_X + (CYLINDER_HOME_X - CYLINDER_POUR_X) * t;
+                oy = CYLINDER_POUR_Y + (CYLINDER_HOME_Y - CYLINDER_POUR_Y) * t;
+                angle = (75 * Math.PI / 180) * (1 - t);
+                fillFraction = 0.38;
+            } else {
+                if (cState.flask_has_h2so4) {
+                    fillFraction = 0.38;
+                } else {
+                    fillFraction = 0.82;
+                }
+            }
+
+            drawMeasuringCylinderAt(ox, oy, angle, fillFraction);
+            ctx.restore();
+        }
+
+        function drawFeSO4Beaker() {
+            ctx.save();
+            const bx = BEAKER_X, by = BEAKER_Y, bw = BEAKER_W, bh = BEAKER_H;
+            // Fill body (closed path)
+            ctx.beginPath();
+            ctx.moveTo(bx - bw / 2, by);
+            ctx.lineTo(bx - bw / 2 - 3, by + bh);
+            ctx.lineTo(bx + bw / 2 + 3, by + bh);
+            ctx.lineTo(bx + bw / 2, by);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(220,235,255,0.3)'; ctx.fill();
+
+            // Stroke body (3 sides, open top)
+            ctx.beginPath();
+            ctx.moveTo(bx - bw / 2, by);
+            ctx.lineTo(bx - bw / 2 - 3, by + bh);
+            ctx.lineTo(bx + bw / 2 + 3, by + bh);
+            ctx.lineTo(bx + bw / 2, by);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
+
+            // Draw open mouth ellipse at the top (by)
+            ctx.beginPath();
+            ctx.ellipse(bx, by, bw / 2, 3, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
+            const level = cState.beaker_feso4_level;
+            if (level > 0.01) {
+                const liquidH = bh * 0.72 * level;
+                const liquidY = by + bh - liquidH;
+                const frac = (liquidY - by) / bh;
+                const tw = bw / 2 + 3 * (1 - frac);
+                const botW = bw / 2 + 3;
+                ctx.beginPath();
+                ctx.moveTo(bx - tw, liquidY);
+                ctx.lineTo(bx - botW, by + bh);
+                ctx.lineTo(bx + botW, by + bh);
+                ctx.lineTo(bx + tw, liquidY);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(190,230,200,0.5)'; ctx.fill();
+            }
+            for (let i = 0; i <= 3; i++) {
+                const ty = by + (bh / 3) * i;
+                const xOff = 3 * (1 - i / 3);
+                ctx.beginPath(); ctx.moveTo(bx + bw / 2 + xOff, ty); ctx.lineTo(bx + bw / 2 + xOff + 4, ty);
+                ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1; ctx.stroke();
+            }
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Cốc FeSO₄', bx, by - 14);
+            ctx.fillText('~0,10 M', bx, by - 3); ctx.restore();
+        }
+
+        function drawKMnO4BeakerAt(bx, by, angle, fillFraction) {
+            ctx.save();
+            ctx.translate(bx, by);
+            ctx.rotate(angle);
+
+            const bw = 30, bh = 45;
+            // Thân cốc: vẽ hở miệng trên (chỉ vẽ 3 cạnh)
+            ctx.beginPath();
+            ctx.moveTo(-bw / 2, 0);
+            ctx.lineTo(-bw / 2, bh);
+            ctx.lineTo(bw / 2, bh);
+            ctx.lineTo(bw / 2, 0);
+            ctx.fillStyle = 'rgba(220,235,255,0.3)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Vẽ thêm mỏ cốc (spout) ở miệng bên trái của cốc để thể hiện cốc mỏ hở
+            ctx.beginPath();
+            ctx.moveTo(-bw / 2, 2);
+            ctx.lineTo(-bw / 2 - 4, 0);
+            ctx.lineTo(-bw / 2, 6);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Liquid
+            if (fillFraction > 0.01) {
+                const liquidH = bh * 0.75 * fillFraction;
+                ctx.beginPath();
+                ctx.rect(-bw / 2 + 1.5, bh - liquidH, bw - 3, liquidH - 1.5);
+                ctx.fillStyle = 'rgba(109,40,217,0.7)';
+                ctx.fill();
+            }
+
+            ctx.restore();
+
+            // Label above beaker
+            ctx.save();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif';
+            ctx.textAlign = 'center';
+            const labelX = bx + 18 * Math.sin(angle);
+            const labelY = by - 18 * Math.cos(angle);
+            ctx.fillText('Cốc KMnO₄', labelX, labelY);
+            ctx.restore();
+        }
+
+        function drawKMnO4Beaker() {
+            ctx.save();
+            let bx = KMNO4_BEAKER_HOME_X, by = KMNO4_BEAKER_HOME_Y;
+            let angle = 0;
+            let fillFraction = cState.beaker_kmno4_level;
+
+            if (cState.buretteFillAnim === 1) {
+                const t = easeInOut(cState.buretteFillAnimT);
+                bx = KMNO4_BEAKER_HOME_X + (KMNO4_BEAKER_POUR_X - KMNO4_BEAKER_HOME_X) * t;
+                by = KMNO4_BEAKER_HOME_Y + (KMNO4_BEAKER_POUR_Y - KMNO4_BEAKER_HOME_Y) * t;
+                angle = 0 + (-75 * Math.PI / 180) * t;
+                fillFraction = 1.0;
+            } else if (cState.buretteFillAnim === 2) {
+                bx = KMNO4_BEAKER_POUR_X;
+                by = KMNO4_BEAKER_POUR_Y;
+                angle = -75 * Math.PI / 180;
+                fillFraction = 1.0 - (1.0 - 0.4) * cState.buretteFillAnimT;
+            } else if (cState.buretteFillAnim === 3) {
+                const t = easeInOut(cState.buretteFillAnimT);
+                bx = KMNO4_BEAKER_POUR_X + (KMNO4_BEAKER_HOME_X - KMNO4_BEAKER_POUR_X) * t;
+                by = KMNO4_BEAKER_POUR_Y + (KMNO4_BEAKER_HOME_Y - KMNO4_BEAKER_POUR_Y) * t;
+                angle = (-75 * Math.PI / 180) * (1 - t);
+                fillFraction = 0.4;
+            }
+
+            drawKMnO4BeakerAt(bx, by, angle, fillFraction);
+            ctx.restore();
+        }
+
+        function drawPipetteAt(tipX, tipY, angle, pipetteFull) {
+            ctx.save();
+            ctx.translate(tipX, tipY);
+            ctx.rotate(angle);
+
+            // Tip of pipette (relative to tip = 0,0)
+            ctx.beginPath();
+            ctx.moveTo(-2, -12);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(2, -12);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Main tube
+            ctx.beginPath();
+            ctx.moveTo(0, -114);
+            ctx.lineTo(0, -12);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Middle bulb (glass container)
+            ctx.beginPath();
+            ctx.ellipse(0, -68, 9, 21, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(220,235,255,0.5)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Liquid in middle bulb
+            const fillAlpha = 0.18 + 0.37 * pipetteFull;
+            ctx.beginPath();
+            ctx.ellipse(0, -68, 7, 18, 0, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(190,230,200,${fillAlpha.toFixed(2)})`;
+            ctx.fill();
+
+            // Top yellow bulb (rubber bóp)
+            ctx.beginPath();
+            ctx.ellipse(0, -123, 8, 13, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#fbbf24';
+            ctx.fill();
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            ctx.restore();
+
+            // Draw label without rotation above the pipette top (raise offset to 145 to prevent overlap with yellow bulb)
+            ctx.save();
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif';
+            ctx.textAlign = 'center';
+            const labelX = tipX + 145 * Math.sin(angle);
+            const labelY = tipY - 145 * Math.cos(angle);
+            ctx.fillText('Pipette 10 mL', labelX, labelY);
+            ctx.restore();
+        }
+
+        function drawPipette() {
+            ctx.save();
+            let tipX = PIPETTE_HOME_TIP_X, tipY = PIPETTE_HOME_TIP_Y;
+            let angle = 0;
+
+            if (cState.pipetteAnim === 1) {
+                const t = easeInOut(cState.pipetteAnimT);
+                tipX = PIPETTE_HOME_TIP_X + (PIPETTE_BEAKER_TIP_X - PIPETTE_HOME_TIP_X) * t;
+                tipY = PIPETTE_HOME_TIP_Y + (PIPETTE_BEAKER_TIP_Y - PIPETTE_HOME_TIP_Y) * t;
+                angle = 0;
+            } else if (cState.pipetteAnim === 2) {
+                tipX = PIPETTE_BEAKER_TIP_X;
+                tipY = PIPETTE_BEAKER_TIP_Y;
+                angle = 0;
+            } else if (cState.pipetteAnim === 3) {
+                const t = easeInOut(cState.pipetteAnimT);
+                tipX = PIPETTE_BEAKER_TIP_X + (PIPETTE_POUR_TIP_X - PIPETTE_BEAKER_TIP_X) * t;
+                tipY = PIPETTE_BEAKER_TIP_Y + (PIPETTE_POUR_TIP_Y - PIPETTE_BEAKER_TIP_Y) * t;
+                angle = 0 + (-Math.PI / 6 - 0) * t; // tilt from 0 to -30 degrees
+            } else if (cState.pipetteAnim === 4) {
+                tipX = PIPETTE_POUR_TIP_X;
+                tipY = PIPETTE_POUR_TIP_Y;
+                angle = -Math.PI / 6;
+            } else if (cState.pipetteAnim === 5) {
+                const t = easeInOut(cState.pipetteAnimT);
+                tipX = PIPETTE_POUR_TIP_X + (PIPETTE_HOME_TIP_X - PIPETTE_POUR_TIP_X) * t;
+                tipY = PIPETTE_POUR_TIP_Y + (PIPETTE_HOME_TIP_Y - PIPETTE_POUR_TIP_Y) * t;
+                angle = -Math.PI / 6 + (0 - (-Math.PI / 6)) * t; // tilt back to 0
+            }
+
+            let pipetteFull;
+            if (cState.pipetteAnim === 2) pipetteFull = cState.pipetteAnimT;
+            else if (cState.pipetteAnim === 3) pipetteFull = 1;
+            else if (cState.pipetteAnim === 4) pipetteFull = 1 - cState.pipetteAnimT;
+            else pipetteFull = 0;
+
+            drawPipetteAt(tipX, tipY, angle, pipetteFull);
+            ctx.restore();
+        }
+
+        function drawWashBottle() {
+            ctx.save();
+            const wx = 660, wy = 218;
+            ctx.beginPath();
+            ctx.moveTo(wx - 20, wy); ctx.lineTo(wx - 22, wy + 82);
+            ctx.quadraticCurveTo(wx - 22, wy + 102, wx, wy + 102);
+            ctx.quadraticCurveTo(wx + 22, wy + 102, wx + 22, wy + 82);
+            ctx.lineTo(wx + 20, wy); ctx.closePath();
+            ctx.fillStyle = 'rgba(220,235,255,0.4)'; ctx.fill();
+            ctx.strokeStyle = '#94a3b8'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.beginPath(); ctx.rect(wx - 8, wy - 32, 16, 34);
+            ctx.fillStyle = 'rgba(220,235,255,0.4)'; ctx.fill(); ctx.stroke();
+            ctx.beginPath(); ctx.ellipse(wx, wy - 32, 12, 4, 0, 0, Math.PI * 2);
+            ctx.fillStyle = '#cbd5e1'; ctx.fill(); ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(wx - 18, wy + 32); ctx.lineTo(wx - 20, wy + 82);
+            ctx.quadraticCurveTo(wx - 20, wy + 98, wx, wy + 98);
+            ctx.quadraticCurveTo(wx + 20, wy + 98, wx + 20, wy + 82);
+            ctx.lineTo(wx + 18, wy + 32);
+            ctx.fillStyle = 'rgba(147,210,255,0.42)'; ctx.fill();
+            ctx.fillStyle = '#0f172a'; ctx.font = 'bold 10px "Plus Jakarta Sans",sans-serif'; ctx.textAlign = 'center';
+            ctx.fillText('Bình tia nước cất', wx, wy - 40); ctx.restore();
+        }
+
+        function drawFeSO4Drops() {
+            feso4Drops.forEach(d => {
+                const x = d.startX + (d.targetX - d.startX) * d.progress;
+                const y = d.startY + (d.targetY - d.startY) * d.progress;
+                ctx.save();
+                ctx.globalAlpha = 0.85 - d.progress * 0.3;
+                ctx.fillStyle = 'rgba(120,200,150,0.8)';
+                ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        function drawH2SO4Drops() {
+            h2so4Drops.forEach(d => {
+                const x = d.startX + (d.targetX - d.startX) * d.progress;
+                const y = d.startY + (d.targetY - d.startY) * d.progress;
+                ctx.save();
+                ctx.globalAlpha = 0.85 - d.progress * 0.3;
+                ctx.fillStyle = 'rgba(200,240,220,0.8)';
+                ctx.beginPath(); ctx.arc(x, y, 3, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        function drawKMnO4Drops() {
+            kmno4Drops.forEach(d => {
+                const x = d.startX + (d.targetX - d.startX) * d.progress;
+                const y = d.startY + (d.targetY - d.startY) * d.progress;
+                ctx.save();
+                ctx.globalAlpha = 0.85 - d.progress * 0.3;
+                ctx.fillStyle = 'rgba(109,40,217,0.8)';
+                ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            });
+        }
+
+        function drawDrop() {
+            if (!cState.dropVisible) return;
+            ctx.save();
+            ctx.beginPath(); ctx.arc(BURETTE_X, cState.dropY, 5.5, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(109,40,217,0.88)'; ctx.fill();
+            ctx.beginPath(); ctx.moveTo(BURETTE_X - 3, cState.dropY - 4);
+            ctx.quadraticCurveTo(BURETTE_X, cState.dropY - 11, BURETTE_X + 3, cState.dropY - 4);
+            ctx.fillStyle = 'rgba(109,40,217,0.45)'; ctx.fill(); ctx.restore();
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            drawGrid(); drawStand(); drawMeasuringCylinder(); drawFeSO4Beaker(); drawKMnO4Beaker(); drawWashBottle();
+            drawBurette(); drawFlask(); drawFeSO4Drops(); drawH2SO4Drops(); drawKMnO4Drops(); drawPipette(); drawDrop(); drawParticles();
+
+            if (cState.shakeTime > 0 || cState.isDropping) {
+                cState.shakeAngle += 0.18;
+                if (cState.shakeTime > 0) cState.shakeTime--;
+            }
+
+            if (cState.pipetteAnim > 0) {
+                const speeds = [0, 0.020, 0.012, 0.018, 0.009, 0.020];
+                cState.pipetteAnimT += speeds[cState.pipetteAnim];
+                if (cState.pipetteAnim === 2) {
+                    cState.beaker_feso4_level = 1 - 0.35 * easeInOut(cState.pipetteAnimT);
+                }
+                if (cState.pipetteAnim === 4) {
+                    feso4DropTimer++;
+                    if (feso4DropTimer % 6 === 0) {
+                        feso4Drops.push({
+                            startX: PIPETTE_POUR_TIP_X, startY: PIPETTE_POUR_TIP_Y,
+                            targetX: PIPETTE_POUR_TIP_X, targetY: FLASK_Y + 95,
+                            progress: 0
+                        });
+                    }
+                    feso4Drops.forEach(d => { d.progress += 0.08; });
+                    feso4Drops = feso4Drops.filter(d => d.progress < 1);
+                }
+                if (cState.pipetteAnimT >= 1) {
+                    cState.pipetteAnimT = 0;
+                    cState.pipetteAnim++;
+                    if (cState.pipetteAnim === 5) {
+                        cState.flask_has_feso4 = true;
+                        feso4Drops = [];
+                    }
+                    if (cState.pipetteAnim > 5) {
+                        cState.pipetteAnim = 0;
+                        feso4DropTimer = 0;
+                        renderStep();
+                    }
+                }
+            }
+
+            if (cState.cylinderAnim > 0) {
+                const speeds = [0, 0.020, 0.008, 0.020];
+                cState.cylinderAnimT += speeds[cState.cylinderAnim];
+                if (cState.cylinderAnim === 2) {
+                    h2so4DropTimer++;
+                    if (h2so4DropTimer % 6 === 0) {
+                        h2so4Drops.push({
+                            startX: CYLINDER_POUR_X, startY: CYLINDER_POUR_Y,
+                            targetX: CYLINDER_POUR_X, targetY: FLASK_Y + 95,
+                            progress: 0
+                        });
+                    }
+                    h2so4Drops.forEach(d => { d.progress += 0.08; });
+                    h2so4Drops = h2so4Drops.filter(d => d.progress < 1);
+                }
+                if (cState.cylinderAnimT >= 1) {
+                    cState.cylinderAnimT = 0;
+                    cState.cylinderAnim++;
+                    if (cState.cylinderAnim === 3) {
+                        cState.flask_has_h2so4 = true;
+                        h2so4Drops = [];
+                    }
+                    if (cState.cylinderAnim > 3) {
+                        cState.cylinderAnim = 0;
+                        h2so4DropTimer = 0;
+                        renderStep();
+                    }
+                }
+            }
+
+            if (cState.buretteFillAnim > 0) {
+                const speeds = [0, 0.020, 0.007, 0.020];
+                cState.buretteFillAnimT += speeds[cState.buretteFillAnim];
+                if (cState.buretteFillAnim === 2) {
+                    cState.burette_filled = true;
+                    cState.burette_fill_level = easeInOut(cState.buretteFillAnimT);
+                    cState.beaker_kmno4_level = 1.0 - (1.0 - 0.4) * easeInOut(cState.buretteFillAnimT);
+                    kmno4DropTimer++;
+                    if (kmno4DropTimer % 5 === 0) {
+                        kmno4Drops.push({
+                            startX: 392, startY: 32,
+                            targetX: 380, targetY: 50,
+                            progress: 0
+                        });
+                    }
+                    kmno4Drops.forEach(d => { d.progress += 0.12; });
+                    kmno4Drops = kmno4Drops.filter(d => d.progress < 1);
+                }
+                if (cState.buretteFillAnimT >= 1) {
+                    cState.buretteFillAnimT = 0;
+                    cState.buretteFillAnim++;
+                    if (cState.buretteFillAnim === 3) {
+                        cState.burette_zeroed = true;
+                        cState.beaker_kmno4_level = 0.4;
+                        cState.burette_fill_level = 1.0;
+                        kmno4Drops = [];
+                    }
+                    if (cState.buretteFillAnim > 3) {
+                        cState.buretteFillAnim = 0;
+                        kmno4DropTimer = 0;
+                        renderStep();
+                    }
+                }
+            }
+
+            if (cState.isDropping) {
+                const liquidSurfaceY = FLASK_Y + 85; // y = 353 (mặt dung dịch sau khi thêm H2SO4 ở mức fh * 0.85)
+                cState.dropTimer++;
+                if (cState.dropTimer >= cState.dropInterval) {
+                    cState.dropTimer = 0; cState.dropVisible = true;
+                    cState.dropY = BURETTE_TOP + BURETTE_H + 15;
+                }
+                if (cState.dropVisible) {
+                    cState.dropY += 10;
+                    if (cState.dropY >= liquidSurfaceY) {
+                        cState.dropVisible = false;
+                        cState.dropCount++;
+                        cState.buretteFill = (cState.dropCount / cState.totalDrops) * (4.4 / 25.0);
+                        cState.reactProgress = cState.dropCount / cState.totalDrops;
+                        spawnParticles(FLASK_X, liquidSurfaceY);
+                        if (cState.dropCount >= cState.totalDrops) {
+                            cState.isDropping = false;
+                            cState.isWaiting10s = true;
+                            cState.waitTimer = 600; // 10 giây ở 60fps
+                            cState.shakeTime = 0; // dừng lắc ngay lập tức
+                        } else {
+                            cState.shakeTime = 22;
+                        }
+                    }
+                }
+            }
+
+            if (cState.isWaiting10s) {
+                cState.waitTimer--;
+                cState.reactProgress = 1.0;
+                cState.buretteFill = 4.4 / 25.0;
+                if (cState.waitTimer <= 0) {
+                    cState.isWaiting10s = false;
+                    cState.done = true;
+                    cState.endpointReached = true;
+                    onDropsDone();
+                }
+            }
+            updateParticles();
+            requestAnimationFrame(loop);
+        }
+        loop();
+
+        // ════════════════════════════════════════════
+        //  STEP DEFINITIONS
+        // ════════════════════════════════════════════
+        const STEPS = [
+            {
+                id: 1,
+                label: 'Lấy FeSO₄',
+                icon: 'ti-droplet-filled',
+                title: 'Bước 1 — Lấy dung dịch FeSO₄ vào bình tam giác',
+                desc: 'Dùng <strong>pipette 10 mL</strong> + quả bóp cao su lấy chính xác <strong>5 mL dung dịch FeSO₄ (~0,10 M)</strong> cho vào bình tam giác 100 mL.',
+                obs: null,
+                action: { label: 'Lấy 5 mL FeSO₄', icon: 'ti-droplet', key: 'step1_do' },
+                canProceed: () => cState.flask_has_feso4,
+                onAction: () => {
+                    if (cState.pipetteAnim === 0 && !cState.flask_has_feso4) {
+                        cState.pipetteAnim = 1;
+                        cState.pipetteAnimT = 0;
+                        feso4DropTimer = 0;
+                        feso4Drops = [];
+                        renderStep();
+                    }
+                },
+            },
+            {
+                id: 2,
+                label: 'Thêm H₂SO₄',
+                icon: 'ti-flask',
+                title: 'Bước 2 — Thêm H₂SO₄ vào bình tam giác',
+                desc: 'Dùng <strong>ống đong 10 mL</strong> lấy khoảng <strong>5 mL dung dịch H₂SO₄ 10%</strong> và đổ vào bình tam giác đang chứa FeSO₄. H₂SO₄ tạo môi trường axit cần thiết cho phản ứng oxi hóa – khử.',
+                obs: '<i class="ti ti-eye"></i> Dung dịch gần như không màu sau khi thêm H₂SO₄',
+                obsBadge: 'green',
+                action: { label: 'Đổ H₂SO₄ vào bình', icon: 'ti-flask', key: 'step2_do' },
+                canProceed: () => cState.flask_has_h2so4,
+                onAction: () => {
+                    if (cState.cylinderAnim === 0 && !cState.flask_has_h2so4) {
+                        cState.cylinderAnim = 1;
+                        cState.cylinderAnimT = 0;
+                        h2so4DropTimer = 0;
+                        h2so4Drops = [];
+                        renderStep();
+                    }
+                },
+            },
+            {
+                id: 3,
+                label: 'Nạp Burette',
+                icon: 'ti-container',
+                title: 'Bước 3 — Nạp KMnO₄ vào burette, chỉnh về vạch 0',
+                desc: 'Cho <strong>dung dịch KMnO₄ 0,02 M</strong> vào burette 25 mL. Mở khóa xả bọt khí, rồi điều chỉnh mức dung dịch chính xác về <strong>vạch số 0</strong> trên burette.',
+                obs: null,
+                action: { label: 'Nạp KMnO₄ & Chỉnh vạch 0', icon: 'ti-adjustments', key: 'step3_do' },
+                canProceed: () => cState.burette_filled && cState.burette_zeroed,
+                onAction: () => {
+                    if (cState.buretteFillAnim === 0 && (!cState.burette_filled || !cState.burette_zeroed)) {
+                        cState.buretteFillAnim = 1;
+                        cState.buretteFillAnimT = 0;
+                        kmno4DropTimer = 0;
+                        kmno4Drops = [];
+                        renderStep();
+                    }
+                },
+            },
+            {
+                id: 4,
+                label: 'Chuẩn độ',
+                icon: 'ti-player-play',
+                title: 'Bước 4 — Mở khóa burette, nhỏ từ từ KMnO₄',
+                desc: 'Mở khóa burette, nhỏ <strong>từ từ từng giọt</strong> dung dịch KMnO₄ vào bình tam giác. Trong quá trình nhỏ, phải <strong>liên tục lắc đều</strong> bình tam giác. Bấm nút để bắt đầu chuẩn độ.',
+                obs: null,
+                runButton: true,
+                canProceed: () => cState.done,
+                onAction: null,
+            },
+            {
+                id: 5,
+                label: 'Quan sát',
+                icon: 'ti-eye',
+                title: 'Bước 5 — Quan sát sự thay đổi màu sắc',
+                desc: 'Ban đầu, khi KMnO₄ rơi xuống dung dịch trong bình tam giác, nó sẽ <strong>mất màu ngay lập tức</strong> do phản ứng oxi hóa – khử xảy ra. Đây là dấu hiệu cho thấy Fe²⁺ đang khử MnO₄⁻.',
+                obs: '<i class="ti ti-eye"></i> KMnO₄ mất màu ngay khi nhỏ xuống — Fe²⁺ đang khử MnO₄⁻',
+                obsBadge: 'purple',
+                canProceed: () => cState.done,
+                onAction: null,
+            },
+            {
+                id: 6,
+                label: 'Điểm tương đương',
+                icon: 'ti-eye',
+                title: 'Bước 6 — Quan sát điểm tương đương',
+                desc: 'Tiếp tục chuẩn độ cho đến khi dung dịch <strong>chuyển sang màu tím nhạt bền</strong> trong khoảng <strong>10 giây</strong> thì khóa burette ngay. Đây là điểm tương đương — toàn bộ Fe²⁺ đã bị oxi hóa.',
+                obsFromResult: true,
+                canProceed: () => cState.done,
+                onAction: null,
+            },
+            {
+                id: 7,
+                label: 'Đọc kết quả',
+                icon: 'ti-calculator',
+                title: 'Bước 7 — Đọc và tính toán kết quả',
+                desc: 'Đọc thể tích KMnO₄ đã dùng trên burette. Áp dụng công thức từ phương trình phản ứng để tính nồng độ FeSO₄ ban đầu.',
+                resultCard: true,
+                canProceed: () => true,
+                onAction: null,
+            },
+        ];
+
+        // ════════════════════════════════════════════
+        //  STEPPER STATE
+        // ════════════════════════════════════════════
+        let currentStep = 0; // 0-indexed
+        let stepDone = new Array(7).fill(false);
+
+        function renderDots() {
+            const wrap = document.getElementById('step-dots');
+            wrap.innerHTML = '';
+            STEPS.forEach((s, i) => {
+                const item = document.createElement('div');
+                item.className = 'step-dot-item';
+                if (i < currentStep) item.classList.add('completed');
+                if (i === currentStep) item.classList.add('active');
+                item.onclick = () => { if (i < currentStep) jumpTo(i); };
+                item.innerHTML = `
+      <div class="step-dot">${i < currentStep ? '<i class="ti ti-check" style="font-size:11px"></i>' : s.id}</div>
+      <div class="step-dot-label">${s.label}</div>
+    `;
+                wrap.appendChild(item);
+            });
+            document.getElementById('progress-text').textContent = `Bước ${currentStep + 1} / 7`;
+        }
+
+        function renderStep() {
+            const s = STEPS[currentStep];
+            const card = document.getElementById('step-card');
+
+            let html = `
+    <div class="step-card-tag"><i class="ti ${s.icon}"></i> Bước ${s.id} / 7</div>
+    <h3>${s.title}</h3>
+    <p>${s.desc}</p>
+  `;
+
+            // Observation note
+            if (s.obs && !s.obsFromResult) {
+                html += `<div class="obs-badge ${s.obsBadge || 'green'}" style="margin-top:8px">${s.obs}</div>`;
+            }
+
+            // Run button (step 4)
+            if (s.runButton) {
+                if (!cState.done && !cState.isDropping && !cState.isWaiting10s) {
+                    html += `<div class="step-input-row">
+        <button class="btn" style="background:var(--navy);color:#fff;border-color:var(--navy)" onclick="startDropping()">
+          <i class="ti ti-player-play"></i> Bắt đầu chuẩn độ
+        </button>
+      </div>`;
+                } else if (cState.isDropping) {
+                    html += `<div class="step-input-row">
+        <span style="font-size:0.82rem;color:#92400e;font-weight:600"><i class="ti ti-loader spin"></i> Đang nhỏ giọt... lắc đều bình</span>
+      </div>`;
+                } else if (cState.isWaiting10s) {
+                    const remainingSec = (cState.waitTimer / 60).toFixed(1);
+                    html += `<div class="step-input-row">
+        <span style="font-size:0.82rem;color:#92400e;font-weight:600"><i class="ti ti-loader spin"></i> Màu tím nhạt xuất hiện. Đang theo dõi độ bền màu (${remainingSec}s)...</span>
+      </div>`;
+                } else if (cState.done) {
+                    html += `<div class="obs-badge purple" style="margin-top:8px;background:rgba(168,85,247,0.08);color:#a855f7;border-color:rgba(168,85,247,0.2)"><i class="ti ti-check"></i> Đã hoàn thành chuẩn độ — màu tím nhạt tồn tại bền lâu hơn 10 giây! Chuyển bước tiếp để quan sát</div>`;
+                }
+            }
+
+            // Observation from result (step 6)
+            if (s.obsFromResult && cState.done) {
+                if (cState.endpointReached) {
+                    html += `
+        <div class="obs-badge pink" style="margin-top:8px;background:rgba(168,85,247,0.08);color:#a855f7;border-color:rgba(168,85,247,0.2)"><i class="ti ti-sparkles"></i> Dung dịch chuyển sang màu tím nhạt và bền lâu hơn 10 giây — Đạt điểm tương đương!</div>
+        <p style="margin-top:8px;font-size:0.81rem;color:var(--text-secondary)">
+          Toàn bộ Fe²⁺ đã bị oxi hóa thành Fe³⁺. Giọt KMnO₄ dư cuối cùng không còn chất khử → dung dịch giữ màu tím nhạt.
+        </p>
+        <div class="eq-box">MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O</div>
+      `;
+                } else if (cState.selectedVol < 4.4) {
+                    html += `
+        <div class="obs-badge orange" style="margin-top:8px"><i class="ti ti-alert-circle"></i> Dung dịch chưa đổi màu — vẫn còn Fe²⁺ dư, chưa đến điểm tương đương</div>
+        <p style="margin-top:8px;font-size:0.81rem;color:var(--text-secondary)">
+          Với ${cState.selectedVol.toFixed(1)} mL KMnO₄, chưa đủ để oxi hóa hết Fe²⁺. Hãy quay lại bước 4 và thực hiện lại chuẩn độ.
+        </p>
+      `;
+                } else {
+                    html += `
+        <div class="obs-badge purple" style="margin-top:8px"><i class="ti ti-alert-triangle"></i> Màu tím đậm — đã vượt điểm tương đương, KMnO₄ dư</div>
+        <p style="margin-top:8px;font-size:0.81rem;color:var(--text-secondary)">
+          Với ${cState.selectedVol.toFixed(1)} mL KMnO₄ đã dư — KMnO₄ không bị khử nữa, tích lũy trong dung dịch. Thử lại với 4,4 mL để chính xác hơn.
+        </p>
+      `;
+                }
+            } else if (s.obsFromResult && !cState.done) {
+                html += `<div class="obs-badge orange" style="margin-top:8px"><i class="ti ti-clock"></i> Hoàn thành bước 4 để xem kết quả quan sát</div>`;
+            }
+
+            // Action button (steps 1,2,3)
+            if (s.action) {
+                const done = s.canProceed();
+                if (cState.pipetteAnim > 0 && currentStep === 0) {
+                    html += `<div class="step-input-row">
+        <span style="font-size:0.82rem;color:#92400e;font-weight:600"><i class="ti ti-loader spin"></i> Đang lấy dung dịch FeSO₄ vào bình tam giác...</span>
+      </div>`;
+                } else if (cState.cylinderAnim > 0 && currentStep === 1) {
+                    html += `<div class="step-input-row">
+        <span style="font-size:0.82rem;color:#92400e;font-weight:600"><i class="ti ti-loader spin"></i> Đang thêm dung dịch H₂SO₄ vào bình tam giác...</span>
+      </div>`;
+                } else if (cState.buretteFillAnim > 0 && currentStep === 2) {
+                    html += `<div class="step-input-row">
+        <span style="font-size:0.82rem;color:#92400e;font-weight:600"><i class="ti ti-loader spin"></i> Đang nạp dung dịch KMnO₄ vào burette...</span>
+      </div>`;
+                } else if (!done) {
+                    html += `<div class="step-input-row">
+        <button class="btn" style="background:var(--navy);color:#fff;border-color:var(--navy)" onclick="doStepAction(${currentStep})">
+          <i class="ti ${s.action.icon}"></i> ${s.action.label}
+        </button>
+      </div>`;
+                } else {
+                    html += `<div class="obs-badge green" style="margin-top:8px"><i class="ti ti-check"></i> Thao tác đã thực hiện — có thể chuyển bước tiếp</div>`;
+                }
+            }
+
+            // Result card (step 7)
+            if (s.resultCard && cState.done) {
+                const vol = cState.selectedVol;
+                const nKMnO4 = vol * 0.02;       // mmol (vol in mL)
+                const nFe2 = 5 * nKMnO4;
+                const cFeSO4 = nFe2 / 5;          // M (5 mL = 0.005 L, nFe2 in mmol → C = mmol/5mL = mmol/5 = M)
+                html += `
+      <div class="eq-box" style="margin-top:10px">MnO₄⁻ + 5Fe²⁺ + 8H⁺ → Mn²⁺ + 5Fe³⁺ + 4H₂O</div>
+      <div class="result-grid">
+        <div class="result-cell">
+          <div class="result-cell-label">Thể tích KMnO₄ đã dùng</div>
+          <div class="result-cell-value">${vol.toFixed(1)}<small>mL</small></div>
+        </div>
+        <div class="result-cell">
+          <div class="result-cell-label">n(KMnO₄)</div>
+          <div class="result-cell-value">${nKMnO4.toFixed(3)}<small>mmol</small></div>
+        </div>
+        <div class="result-cell">
+          <div class="result-cell-label">n(Fe²⁺) = 5 × n(KMnO₄)</div>
+          <div class="result-cell-value">${nFe2.toFixed(3)}<small>mmol</small></div>
+        </div>
+        <div class="result-cell ${cState.endpointReached ? 'highlight' : ''}">
+          <div class="result-cell-label">C(FeSO₄) tính được</div>
+          <div class="result-cell-value">${cFeSO4.toFixed(3)}<small>M</small></div>
+        </div>
+      </div>
+      ${cState.endpointReached
+                        ? `<div class="obs-badge green" style="margin-top:10px"><i class="ti ti-circle-check"></i> Kết quả hợp lệ — nồng độ FeSO₄ ≈ ${cFeSO4.toFixed(3)} M</div>`
+                        : `<div class="obs-badge orange" style="margin-top:10px"><i class="ti ti-alert-circle"></i> Chưa đạt điểm tương đương — kết quả chưa chính xác, hãy làm lại</div>`
+                    }
+    `;
+            } else if (s.resultCard && !cState.done) {
+                html += `<div class="obs-badge orange" style="margin-top:10px"><i class="ti ti-clock"></i> Hoàn thành bước 5 (chuẩn độ) để xem tính toán kết quả</div>`;
+            }
+
+            card.innerHTML = html;
+
+            // Nav buttons
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            btnPrev.disabled = currentStep === 0;
+
+            if (currentStep === STEPS.length - 1) {
+                btnNext.innerHTML = cState.endpointReached
+                    ? '<i class="ti ti-check"></i> Hoàn thành thí nghiệm'
+                    : 'Làm lại từ đầu <i class="ti ti-refresh"></i>';
+                btnNext.disabled = false;
+                btnNext.onclick = cState.endpointReached ? null : resetAll;
+            } else {
+                const canGo = s.canProceed();
+                const isRunning = cState.isDropping || cState.isWaiting10s;
+                btnNext.innerHTML = isRunning
+                    ? '<i class="ti ti-loader spin"></i> Đang chuẩn độ...'
+                    : 'Tiếp theo <i class="ti ti-arrow-right"></i>';
+                btnNext.disabled = !canGo || isRunning;
+                btnNext.onclick = goNext;
+                if (isRunning) btnNext.classList.add('anim-running');
+                else btnNext.classList.remove('anim-running');
+            }
+        }
+
+        function doStepAction(idx) {
+            const s = STEPS[idx];
+            if (s.onAction) s.onAction();
+        }
+
+
+        function startDropping() {
+            if (cState.isDropping || cState.done || cState.isWaiting10s) return;
+            cState.isDropping = true;
+            cState.isWaiting10s = false;
+            cState.waitTimer = 0;
+            cState.reactProgress = 0; cState.buretteFill = 0;
+            cState.dropCount = 0; cState.dropVisible = false;
+            cState.dropY = BURETTE_TOP + BURETTE_H + 15;
+            cState.dropTimer = 0; cState.shakeTime = 0; cState.shakeAngle = 0;
+            particles = [];
+            cState.selectedVol = 4.4; // thể tích dùng chuẩn độ là 4.4 mL
+            cState.totalDrops = 88; // 88 giọt
+            cState.dropInterval = 20; // tốc độ nhỏ giọt đều đặn
+            renderStep();
+        }
+
+        function onDropsDone() {
+            // Called from loop() when dropping finishes
+            renderStep();
+        }
+
+        function goNext() {
+            if (currentStep < STEPS.length - 1) {
+                currentStep++;
+                renderDots();
+                renderStep();
+            }
+        }
+        function goPrev() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderDots();
+                renderStep();
+            }
+        }
+        function jumpTo(i) {
+            currentStep = i;
+            renderDots();
+            renderStep();
+        }
+
+        function resetAll() {
+            currentStep = 0;
+            cState = {
+                burette_filled: false, burette_zeroed: false,
+                flask_has_feso4: false, flask_has_h2so4: false,
+                isDropping: false, isWaiting10s: false, waitTimer: 0,
+                dropCount: 0, totalDrops: 88,
+                buretteFill: 0, reactProgress: 0, done: false,
+                endpointReached: false, selectedVol: 4.4,
+                shakeAngle: 0, shakeTime: 0,
+                dropY: 0, dropVisible: false, dropTimer: 0, dropInterval: 20,
+                pipetteAnim: 0, pipetteAnimT: 0,
+                beaker_feso4_level: 1,
+                cylinderAnim: 0, cylinderAnimT: 0,
+                buretteFillAnim: 0, buretteFillAnimT: 0,
+                beaker_kmno4_level: 1.0,
+                burette_fill_level: 0,
+            };
+            particles = [];
+            feso4Drops = [];
+            feso4DropTimer = 0;
+            h2so4Drops = [];
+            h2so4DropTimer = 0;
+            kmno4Drops = [];
+            kmno4DropTimer = 0;
+            renderDots(); renderStep();
+        }
+
+        // Init
+        renderDots();
+        renderStep();
+    </script>
+</body>
+
+</html>

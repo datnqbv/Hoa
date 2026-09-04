@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Liệu Tương Tác: Ăn Mòn Điện Hóa Sắt</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        /* DESIGN SYSTEM & MÀU SẮC */
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --success-border: #0f6e56;
+            --success-bg: #f8fffc;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* RESET & TYPOGRAPHY CƠ BẢN */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px 20px;
+            background-color: var(--bg-body);
+            font-family: var(--font-stack);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            margin: 0;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        /* LABEL NHỎ / BADGE */
+        .label-small {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* LAYOUT TỔNG THỂ (Không wrapper, max-width 760px) */
+        header,
+        .info-panel,
+        canvas,
+        .controls,
+        .explanation-box {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        /* HEADER */
+        header {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 16px rgba(15, 76, 129, 0.1);
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 220px;
+            height: 220px;
+            top: -70px;
+            right: -50px;
+        }
+
+        header::after {
+            width: 150px;
+            height: 150px;
+            bottom: -60px;
+            left: 15%;
+        }
+
+        header .badge {
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            margin-bottom: 8px;
+        }
+
+        header .header-badge {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 1.5rem;
+            margin-bottom: 6px;
+        }
+
+        header p.desc {
+            margin: 0;
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 0.95rem;
+            font-weight: 400;
+            line-height: 1.4;
+            max-width: 95%;
+        }
+
+        /* INFO PANEL */
+        .info-panel {
+            background-color: transparent;
+            border: none;
+            border-radius: 14px;
+            display: flex;
+            padding: 0;
+            gap: 0;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 0 16px;
+        }
+
+        .info-col:first-child {
+            padding: 12px 16px;
+            border-right: none;
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+            border-radius: 10px;
+        }
+
+        .info-col:last-child {
+            padding: 12px 16px;
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+            border-radius: 10px;
+        }
+
+        .info-col .label-small {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .info-col p,
+        .info-col ul {
+            margin: 0;
+            padding-left: 16px;
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .info-col p {
+            padding-left: 0;
+        }
+
+        /* CANVAS */
+        canvas {
+            background-color: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            display: block;
+        }
+
+        /* CONTROLS */
+        .controls {
+            background-color: transparent;
+            border: none;
+            border-radius: 14px;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            border-radius: 10px;
+        }
+
+        .control-row:nth-child(1) {
+            background: #ffffee;
+            border: 1px solid #e8a0be;
+        }
+
+        .control-row:nth-child(2) {
+            background: #f0fbf6;
+            border: 1px solid #6bbf9a;
+        }
+
+        .control-row:nth-child(3) {
+            background: #f5f2fd;
+            border: 1px solid #9b7ed0;
+        }
+
+        .control-row:nth-child(4) {
+            background: #fffaf0;
+            border: 1px solid #e8a84a;
+        }
+
+        .control-label {
+            min-width: 160px;
+            color: var(--text-sub);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            flex: 1;
+        }
+
+        button {
+            font-family: var(--font-stack);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            outline: none;
+        }
+
+        button:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        button.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.active:hover:not(:disabled) {
+            color: #ffffff;
+        }
+
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        button.btn-run {
+            background-color: var(--secondary);
+            color: #ffffff;
+            border-color: var(--secondary);
+        }
+
+        button.btn-run:hover:not(:disabled) {
+            background-color: #135d47;
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(26, 122, 94, 0.25);
+        }
+
+        button.btn-reset {
+            border: 1.5px dashed var(--text-sub);
+            background-color: transparent;
+        }
+
+        button.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        .status-badge {
+            margin-left: auto;
+            background: rgba(15, 76, 129, 0.08);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 8px;
+        }
+
+        /* EXPLANATION BOX */
+        .explanation-box {
+            background-color: #fffef5;
+            border: 1px solid #d4b84a;
+            border-radius: 14px;
+            border-left: 4px solid var(--primary);
+            padding: 18px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .explanation-box.reacted {
+            border-left-color: var(--success-border);
+            background-color: #d6f2e8;
+            border-color: #5aad8a;
+        }
+
+        .eb-title {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .explanation-box.reacted .eb-title {
+            color: var(--success-border);
+        }
+
+        .eb-content {
+            font-size: 13.5px;
+            line-height: 1.6;
+            color: var(--text-main);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+
+        /* Animation class */
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        @media (max-width: 600px) {
+            .info-panel {
+                flex-direction: column;
+            }
+
+            .info-col:first-child {
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding-right: 0;
+                padding-left: 0;
+                padding-bottom: 12px;
+            }
+
+            .info-col:last-child {
+                padding-left: 0;
+            }
+
+            .control-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .status-badge {
+                margin-left: 0;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>THÍ NGHIỆM: SỰ ĂN MÒN ĐIỆN HÓA SẮT</h1>
+        <p class="desc">Mô phỏng quá trình ăn mòn điện hóa của hợp kim sắt
+            trong các môi trường chất lỏng khác nhau theo thời gian.</p>
+    </header>
+
+    <div class="info-panel">
+        <div class="info-col">
+            <div class="label-small"><i class="ti ti-target-arrow"></i> Mục đích thí nghiệm</div>
+            <p>Khảo sát hiện tượng ăn mòn điện hóa học của kim loại. Nhận biết các điều kiện phát sinh dòng điện hóa và
+                quan sát sự tạo thành gỉ sét (Fe(OH)₃) khi để kim loại ngoài không khí.</p>
+        </div>
+        <div class="info-col">
+            <div class="label-small"><i class="ti ti-list-check"></i> Hướng dẫn thao tác</div>
+            <ul>
+                <li>Đặt một đinh sắt vào trong ống nghiệm trống.</li>
+                <li>Rót khoảng 5 ml nước máy vào ống nghiệm sao cho ngập đinh sắt.</li>
+                <li>Để ống nghiệm tiếp xúc trực tiếp ngoài không khí trong khoảng thời gian là 3 ngày.</li>
+            </ul>
+        </div>
+    </div>
+
+    <canvas id="labCanvas" width="760" height="340"></canvas>
+
+    <div class="controls">
+        <div class="control-row">
+            <div class="control-label label-small"><i class="ti ti-droplet"></i> Dung dịch (A)</div>
+            <div class="btn-group">
+                <button id="waterBtn" class="active" onclick="addWater()">Nước cất (H₂O)</button>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <div class="control-label label-small"><i class="ti ti-tool"></i> Vật liệu (B)</div>
+            <div class="btn-group">
+                <button class="active" disabled>Sắt (Fe)</button>
+            </div>
+        </div>
+
+        <div class="control-row" id="progressRow" style="display:none;">
+            <div class="control-label label-small"><i class="ti ti-clock"></i> Tiến độ (3 ngày)</div>
+            <div class="btn-group" style="flex-direction:column; align-items:flex-start; gap:6px; padding:4px 0;">
+                <div style="width:100%; background:#e2e8f0; border-radius:99px; height:8px; overflow:hidden;">
+                    <div id="progressBar"
+                        style="height:100%; width:0%; background:var(--secondary); border-radius:99px; transition:width 0.15s linear;">
+                    </div>
+                </div>
+                <span id="progressLabel" class="label-small" style="color:var(--text-sub);">Ngày 0.0 / 3</span>
+            </div>
+        </div>
+
+        <div class="control-row">
+            <div class="btn-group">
+                <button id="runBtn" class="btn-run" onclick="startSimulation()" disabled>
+                    <i class="ti ti-player-play"></i> Tiến hành & Chờ 3 ngày
+                </button>
+                <button id="resetBtn" class="btn-reset" onclick="resetSimulation()">
+                    <i class="ti ti-refresh"></i> Đặt lại
+                </button>
+            </div>
+            <div id="statusBar" class="label-small status-badge">
+                <i class="ti ti-info-circle"></i> Chưa thêm dung dịch
+            </div>
+        </div>
+    </div>
+
+    <div id="explanationBox" class="explanation-box">
+        <div id="ebTitle" class="eb-title label-small">
+            <i class="ti ti-info-circle"></i> CHUẨN BỊ THÍ NGHIỆM
+        </div>
+        <div id="ebContent" class="eb-content">
+            Hệ thống đã làm sạch đinh sắt bằng giấy nhám để loại bỏ dầu mỡ và đặt sẵn vào ống nghiệm trống. Vui lòng
+            thiết lập các tham số và nhấn <b>"Tiến hành & Chờ 3 ngày"</b> để quan sát sự ăn mòn điện hóa.
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = canvas.width;
+        const H = canvas.height;
+
+        const TX = W / 2;
+        const TY = 150;
+        let dropY = TY - 80;
+
+        // STATE
+        let isAnimating = false;
+        let isDropping = false;
+        let hasDropped = false;   // nước đã vào ống
+        let waterLevel = 0;       // 0.0 → 1.0, mực nước dâng dần
+        let simRunning = false;   // đồng hồ 3 ngày đang chạy
+        let simTime = 0;       // 0.0 → 1.0
+        let hasReacted = false;   // mô phỏng hoàn tất
+        let particles = [];
+
+        function lerpColor(c1, c2, t) {
+            return `rgba(
+                ${Math.round(c1.r + (c2.r - c1.r) * t)},
+                ${Math.round(c1.g + (c2.g - c1.g) * t)},
+                ${Math.round(c1.b + (c2.b - c1.b) * t)},
+                ${c1.a + (c2.a - c1.a) * t}
+            )`;
+        }
+
+        function updateStatusBar(state) {
+            const bar = document.getElementById('statusBar');
+            const map = {
+                initial: `<i class="ti ti-info-circle"></i> Chưa thêm dung dịch`,
+                ready: `<i class="ti ti-check"></i> Đã thêm nước cất — nhấn Tiến hành`,
+                running: `<i class="ti ti-clock"></i> Đang mô phỏng 3 ngày...`,
+                done: `<i class="ti ti-circle-check"></i> Hoàn tất sau 3 ngày`,
+            };
+            bar.innerHTML = map[state] ?? map.initial;
+        }
+
+        function updateProgressUI(t) {
+            document.getElementById('progressBar').style.width = Math.round(t * 100) + '%';
+            document.getElementById('progressLabel').textContent = `Ngày ${(t * 3).toFixed(1)} / 3`;
+        }
+
+        function updateExplanation() {
+            const eb = document.getElementById('explanationBox');
+            const title = document.getElementById('ebTitle');
+            const content = document.getElementById('ebContent');
+            content.classList.add('fade');
+            title.classList.add('fade');
+            setTimeout(() => {
+                if (!hasReacted) {
+                    eb.classList.remove('reacted');
+                    title.innerHTML = `<i class="ti ti-info-circle"></i> CHUẨN BỊ THÍ NGHIỆM`;
+                    content.innerHTML = hasDropped
+                        ? `Nước cất đã được thêm vào ống nghiệm. Nhấn <b>"Tiến hành & Chờ 3 ngày"</b> để bắt đầu mô phỏng quá trình ăn mòn.`
+                        : `Hệ thống đã làm sạch đinh sắt bằng giấy nhám và đặt sẵn vào ống nghiệm trống. Nhấn nút <b>"Nước cất (H₂O)"</b> để thêm dung dịch vào ống.`;
+                } else {
+                    eb.classList.add('reacted');
+                    title.innerHTML = `<i class="ti ti-circle-check"></i> KẾT QUẢ KHI MỞ NẮP SAU 3 NGÀY`;
+                    content.innerHTML = `<b>Hiện tượng:</b> Nước trong ống nghiệm chuyển sang màu nâu cam sậm của rỉ sét. Phần dưới đáy xuất hiện lượng lớn cặn gỉ lắng xuống.<br><br>
+                    <b>Giải thích:</b> Sắt (Fe) cùng tiếp xúc với dung dịch điện li (nước cất có hòa tan O₂ và CO₂). Fe là cực âm bị oxi hóa. Tại cực dương (C), O₂ bị khử tạo ra OH⁻. Phản ứng tạo ra Fe(OH)₂, sau đó tiếp tục tác dụng với O₂ tạo ra gỉ sắt có thành phần chính là <i>Fe₂O₃.nH₂O</i> (màu nâu đỏ).`;
+                }
+                content.classList.remove('fade');
+                title.classList.remove('fade');
+            }, 200);
+        }
+
+        function addWater() {
+            if (isDropping || hasDropped || simRunning) return;
+            isDropping = true;
+            dropY = TY - 80;
+            document.getElementById('waterBtn').disabled = true;
+        }
+
+        function startSimulation() {
+            if (!hasDropped || simRunning || hasReacted) return;
+            simRunning = true;
+            isAnimating = true;
+            document.getElementById('runBtn').disabled = true;
+            document.getElementById('progressRow').style.display = 'flex';
+            updateStatusBar('running');
+        }
+
+        function resetSimulation() {
+            isAnimating = false;
+            isDropping = false;
+            hasDropped = false;
+            waterLevel = 0;
+            simRunning = false;
+            simTime = 0;
+            hasReacted = false;
+            dropY = TY - 80;
+            particles = [];
+            document.getElementById('waterBtn').disabled = false;
+            document.getElementById('runBtn').disabled = true;
+            document.getElementById('progressRow').style.display = 'none';
+            updateProgressUI(0);
+            updateStatusBar('initial');
+            updateExplanation();
+        }
+
+        function createRustParticles() {
+            if (Math.random() < 0.2) {
+                particles.push({
+                    x: TX + (Math.random() * 20 - 10),
+                    y: TY + 65 + Math.random() * 20,
+                    targetY: TY + 120 + Math.random() * 10,
+                    size: Math.random() * 2.5 + 1,
+                    speed: 0.2 + Math.random() * 0.3,
+                    wobble: Math.random() * 0.5
+                });
+            }
+        }
+
+        function drawNail(tx, ty) {
+            ctx.save();
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(tx - 3, ty + 20, 6, 95);
+            ctx.fillRect(tx - 7, ty + 16, 14, 4);
+            ctx.beginPath();
+            ctx.moveTo(tx - 3, ty + 115);
+            ctx.lineTo(tx + 3, ty + 115);
+            ctx.lineTo(tx, ty + 125);
+            ctx.fill();
+            if (simTime > 0 && waterLevel > 0) {
+                const waterTopY = ty + 128 - waterLevel * 78;
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(0, waterTopY, W, H);
+                ctx.clip();
+                ctx.fillStyle = `rgba(153, 56, 20, ${simTime * 0.7})`;
+                ctx.fillRect(tx - 4, ty + 30, 8, 30);
+                ctx.fillRect(tx - 3, ty + 70, 6, 20);
+                ctx.fillRect(tx - 4, ty + 100, 8, 15);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+
+        function drawTestTube() {
+            const tx = TX, ty = TY;
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx - 18, ty + 110);
+            ctx.quadraticCurveTo(tx - 18, ty + 135, tx, ty + 135);
+            ctx.quadraticCurveTo(tx + 18, ty + 135, tx + 18, ty + 110);
+            ctx.lineTo(tx + 18, ty);
+            ctx.fillStyle = 'rgba(220, 235, 255, 0.25)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            drawNail(tx, ty);
+
+            if (waterLevel > 0) {
+                const baseColor = { r: 100, g: 190, b: 255, a: 0.55 };
+                const targetColor = { r: 190, g: 120, b: 60, a: 0.70 };
+                const liquidColor = simTime > 0
+                    ? lerpColor(baseColor, targetColor, simTime)
+                    : `rgba(100, 190, 255, 0.55)`;
+                // topY dâng từ đáy (ty+128) lên (ty+50) theo waterLevel
+                const topY = ty + 128 - waterLevel * 78;
+                ctx.beginPath();
+                ctx.moveTo(tx - 15, topY);
+                ctx.lineTo(tx - 15, ty + 110);
+                ctx.quadraticCurveTo(tx - 15, ty + 130, tx, ty + 130);
+                ctx.quadraticCurveTo(tx + 15, ty + 130, tx + 15, ty + 110);
+                ctx.lineTo(tx + 15, topY);
+                ctx.fillStyle = liquidColor;
+                ctx.fill();
+            }
+
+            if (simTime > 0) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(tx - 15, ty);
+                ctx.lineTo(tx - 15, ty + 110);
+                ctx.quadraticCurveTo(tx - 15, ty + 130, tx, ty + 130);
+                ctx.quadraticCurveTo(tx + 15, ty + 130, tx + 15, ty + 110);
+                ctx.lineTo(tx + 15, ty);
+                ctx.closePath();
+                ctx.clip();
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(130, 40, 15, ${0.5 + simTime * 0.5})`;
+                    ctx.fill();
+                    if (p.y < p.targetY) {
+                        p.y += p.speed;
+                        p.x += Math.sin(p.y * 0.1) * p.wobble;
+                    }
+                });
+                ctx.restore();
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 12, ty + 10);
+            ctx.lineTo(tx - 12, ty + 115);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.moveTo(tx - 18, ty);
+            ctx.lineTo(tx + 18, ty);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('Sắt (Fe)', tx, ty + 155);
+            ctx.restore();
+        }
+
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+
+            ctx.strokeStyle = 'rgba(203, 213, 225, 0.4)';
+            ctx.lineWidth = 1;
+            for (let i = 20; i < W; i += 20) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, H); ctx.stroke();
+            }
+            for (let j = 20; j < H; j += 20) {
+                ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(W, j); ctx.stroke();
+            }
+
+            // Giọt rơi
+            if (isDropping) {
+                dropY += 4;
+                if (dropY >= TY + 55) {
+                    isDropping = false;
+                    hasDropped = true;
+                }
+            }
+
+            // Nước dâng dần sau khi giọt chạm ống
+            if (hasDropped && waterLevel < 1 && !simRunning) {
+                waterLevel = Math.min(1, waterLevel + 0.018);
+                if (waterLevel >= 1) {
+                    document.getElementById('runBtn').disabled = false;
+                    updateStatusBar('ready');
+                    updateExplanation();
+                }
+            }
+
+            // Đồng hồ 3 ngày
+            if (simRunning) {
+                simTime += 0.003;
+                if (simTime >= 1) {
+                    simTime = 1;
+                    simRunning = false;
+                    hasReacted = true;
+                    isAnimating = false;
+                    updateExplanation();
+                    updateStatusBar('done');
+                }
+                updateProgressUI(simTime);
+                createRustParticles();
+            }
+
+            if (isDropping) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.moveTo(TX, dropY);
+                ctx.quadraticCurveTo(TX - 5, dropY + 8, TX, dropY + 14);
+                ctx.quadraticCurveTo(TX + 5, dropY + 8, TX, dropY);
+                ctx.fillStyle = 'rgba(56, 160, 240, 0.92)';
+                ctx.shadowColor = 'rgba(56, 160, 240, 0.5)';
+                ctx.shadowBlur = 6;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Ống hút
+            ctx.save();
+            const py = TY - 120;
+            ctx.fillStyle = 'rgba(241, 245, 249, 0.7)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(TX - 6, py); ctx.lineTo(TX - 6, py + 30);
+            ctx.lineTo(TX - 2, py + 40); ctx.lineTo(TX - 2, py + 50);
+            ctx.lineTo(TX + 2, py + 50); ctx.lineTo(TX + 2, py + 40);
+            ctx.lineTo(TX + 6, py + 30); ctx.lineTo(TX + 6, py);
+            ctx.closePath(); ctx.fill(); ctx.stroke();
+
+            if (!hasDropped && !isDropping) {
+                ctx.fillStyle = 'rgba(56, 160, 240, 0.55)';
+                ctx.beginPath();
+                ctx.moveTo(TX - 4, py + 15); ctx.lineTo(TX - 4, py + 30);
+                ctx.lineTo(TX - 1.5, py + 38); ctx.lineTo(TX - 1.5, py + 48);
+                ctx.lineTo(TX + 1.5, py + 48); ctx.lineTo(TX + 1.5, py + 38);
+                ctx.lineTo(TX + 4, py + 30); ctx.lineTo(TX + 4, py + 15);
+                ctx.fill();
+            }
+
+            ctx.fillStyle = '#ef4444';
+            ctx.beginPath(); ctx.roundRect(TX - 8, py - 16, 16, 16, [4, 4, 0, 0]); ctx.fill();
+            ctx.fillStyle = 'var(--text-sub)';
+            ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText('Nước (H₂O)', TX + 12, py + 22);
+            ctx.restore();
+
+            drawTestTube();
+            requestAnimationFrame(loop);
+        }
+
+        loop();
+    </script>
+</body>
+
+</html>

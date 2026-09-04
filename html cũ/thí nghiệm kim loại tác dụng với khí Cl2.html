@@ -1,0 +1,1979 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm Kim loại kiềm tác dụng với khí Chlorine</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tabler Icons Webfont -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+
+    <style>
+        /* ================= DESIGN SYSTEM & RESET ================= */
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --primary-light: #1d6fa5;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --btn-normal-bg: #f8fafc;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 20px;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* KHÔNG DÙNG WRAPPER BAO NGOÀI - MỖI BLOCK CÓ MAX-WIDTH RIÊNG */
+        .block-element {
+            width: 100%;
+            max-width: 760px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        /* ================= HEADER BLOCK ================= */
+        header.block-element {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 140px;
+        }
+
+        header::before,
+        header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+            pointer-events: none;
+        }
+
+        header::before {
+            width: 220px;
+            height: 220px;
+            top: -60px;
+            right: -30px;
+        }
+
+        header::after {
+            width: 320px;
+            height: 320px;
+            bottom: -160px;
+            left: -60px;
+        }
+
+        .header-badge {
+            align-self: flex-start;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        header h1 {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            color: rgba(255, 255, 255, 0.70);
+            font-size: 13.5px;
+            position: relative;
+            z-index: 2;
+            line-height: 1.4;
+        }
+
+        /* ================= TABS SELECT METAL ================= */
+        .tabs-container.block-element {
+            display: flex;
+            gap: 8px;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .tab-btn i {
+            font-size: 18px;
+        }
+
+        .tab-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        .tab-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* ================= INFO PANEL ================= */
+        .info-panel.block-element {
+            display: flex;
+            background: transparent;
+            border: none;
+            gap: 12px;
+            padding: 0;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: 12px;
+        }
+
+        .info-col:first-child {
+            background: #fcf9fb;
+            border: 1px solid #ffabc7;
+
+        }
+
+        .info-col:last-child {
+            background: #eaf6fc;
+            border: 1px solid #7bb9e5;
+
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-content {
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.55;
+            text-align: justify;
+        }
+
+        .info-content ol {
+            padding-left: 16px;
+        }
+
+        .info-content li {
+            margin-bottom: 4px;
+        }
+
+        /* ================= CANVAS MO PHONG ================= */
+        .canvas-container.block-element {
+            position: relative;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            background: #f8fafc;
+        }
+
+        canvas {
+            display: block;
+            background: #eef2f7;
+            max-width: 100%;
+        }
+
+        /* ================= CONTROLS BAR (Kiểu B - Stepper) ================= */
+        .controls.block-element {
+            padding: 18px 22px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: #f5f0ff;
+            border: 1px solid #c4b5fd;
+        }
+
+        .ctrl-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13.5px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .ctrl-header-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .step-counter {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--text-sub);
+        }
+
+        /* Progress Dots */
+        .progress-dots {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: 6px 0;
+        }
+
+        .progress-dots::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--border);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            color: var(--text-sub);
+        }
+
+        .dot.done {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: white;
+        }
+
+        .dot.active {
+            border-color: var(--primary);
+            border-width: 3px;
+            transform: scale(1.18);
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Step Card */
+        .step-card {
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-left: 3px solid #d97706;
+            border-radius: 8px;
+            padding: 12px 16px;
+            min-height: 76px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 13.5px;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .step-desc {
+            font-size: 12.5px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        /* Nav Actions */
+        .nav-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 10px;
+        }
+
+        button.btn-action {
+            border: none;
+            background: var(--btn-normal-bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 9px 18px;
+            font-family: var(--font-stack);
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        button.btn-action:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #ffffff;
+        }
+
+        button.btn-action.btn-primary {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        button.btn-action.btn-primary:hover:not(:disabled) {
+            background: var(--primary-light);
+            border-color: var(--primary-light);
+            color: #ffffff;
+        }
+
+        button.btn-action.btn-reset {
+            border: 1.5px dashed var(--border);
+            background: transparent;
+        }
+
+        button.btn-action.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background: #ffffff;
+        }
+
+        button.btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            box-shadow: none !important;
+        }
+
+        .status-text {
+            font-size: 11.5px;
+            color: var(--text-sub);
+            font-weight: 500;
+            text-align: right;
+            margin-top: 4px;
+        }
+
+        /* ================= EXPLANATION BOX ================= */
+        .explanation.block-element {
+            border: 1px solid #f0c674;
+            border-left: 4px solid #d4930a;
+            background: #fef9ee;
+            padding: 16px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .explanation.success.block-element {
+            border: 1px solid #6bc9a0;
+            border-left: 4px solid #0f6e56;
+            background: #eefbf4;
+        }
+
+        .explanation-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 6px;
+            color: #d4930a;
+        }
+
+        .explanation-header i {
+            font-size: 20px;
+        }
+
+        .explanation.success .explanation-header {
+            color: #0f6e56;
+        }
+
+        .explanation-text {
+            font-size: 13px;
+            color: var(--text-main);
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .explanation-text p {
+            margin-bottom: 6px;
+        }
+
+        .explanation-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .chemical-eq {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 6px;
+            color: var(--text-main);
+        }
+
+        /* Utility classes */
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+
+        .fade-transition {
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .spin-icon {
+            animation: spin 0.9s linear infinite;
+        }
+
+        sub {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline;
+            bottom: -0.25em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="block-element">
+        <div class="header-badge"><i class="ti ti-flask"></i> Hóa học lớp 11/12</div>
+        <h1>Phản ứng của Kim loại kiềm với Chlorine</h1>
+        <p>Mô phỏng động học chuỗi phản ứng đốt cháy Lithium, Natri, Kali trong bình khí khí Chlorine (Cl₂), minh họa
+            trực quan sự biến đổi hóa học.</p>
+    </header>
+
+    <div class="block-element tabs-container">
+        <button id="tab-Li" class="tab-btn active" onclick="changeMetalTab('Li')">
+            <i class="ti ti-atom"></i> Thí nghiệm Lithium (Li)
+        </button>
+        <button id="tab-Na" class="tab-btn" onclick="changeMetalTab('Na')">
+            <i class="ti ti-atom"></i> Thí nghiệm Natri (Na)
+        </button>
+        <button id="tab-K" class="tab-btn" onclick="changeMetalTab('K')">
+            <i class="ti ti-atom"></i> Thí nghiệm Kali (K)
+        </button>
+    </div>
+
+    <div class="block-element info-panel">
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-target"></i> Mục đích thí nghiệm</div>
+            <div class="info-content" id="info-purpose">Đang tải...</div>
+        </div>
+        <div class="info-col">
+            <div class="info-label"><i class="ti ti-list-check"></i> Hướng dẫn thao tác</div>
+            <div class="info-content" id="info-guide">Đang tải...</div>
+        </div>
+    </div>
+
+    <div class="block-element canvas-container">
+        <canvas id="labCanvas" width="760" height="420"></canvas>
+    </div>
+
+    <div class="block-element controls">
+        <div class="ctrl-header">
+            <div class="ctrl-header-left">
+                <i class="ti ti-settings"></i> Trình điều khiển quy trình tuần tự
+            </div>
+            <div class="step-counter" id="stepCounter">Bước 1 / 3</div>
+        </div>
+
+        <div class="progress-dots" id="progressDots"></div>
+
+        <div class="step-card" id="stepCard">
+            <div class="step-title" id="stepTitle">Đang nạp dữ liệu</div>
+            <div class="step-desc" id="stepDesc">Vui lòng đợi...</div>
+        </div>
+
+        <div class="nav-actions">
+            <div class="nav-left">
+                <button class="btn-action btn-reset" id="btnReset" onclick="resetExperiment()">
+                    <i class="ti ti-refresh"></i> Làm lại thí nghiệm
+                </button>
+            </div>
+            <div>
+                <button class="btn-action btn-primary" id="btnNext" onclick="handleStepClick()">
+                    Tiến hành đốt <i class="ti ti-arrow-right"></i>
+                </button>
+                <div class="status-text" id="statusText">Sẵn sàng thực hiện</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block-element explanation fade-transition" id="explanationBox">
+        <div class="explanation-header" id="expHeader">
+            <i class="ti ti-info-circle"></i> Trạng thái chuẩn bị
+        </div>
+        <div class="explanation-text" id="expText">
+            Vui lòng chọn kim loại và thực hiện theo các bước hướng dẫn.
+        </div>
+    </div>
+
+    <script>
+        // ================= MATHEMATICAL UTILS =================
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        // ================= CANVAS SETUP =================
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 420;
+
+        // Vị trí tĩnh trên canvas
+        const LAMP_X = 220, LAMP_Y = 340;
+        const JAR_X = 540, JAR_Y = 370;
+        const SPOON_START_X = 220, SPOON_START_Y = 160;
+
+        // State chính của Simulation
+        let activeMetal = 'Li'; // Li, Na, K
+        let currentStep = 0;   // 0: Đốt nóng, 1: Phản ứng, 2: Kết quả
+        let subStep = 0;       // 0: Idle, 1: Animating, 4: Done
+
+        let animTimer = 0;
+        let time = 0;
+
+        // Biến kiểm soát thời gian vòng lặp (Lock FPS)
+        let lastTime = 0;
+
+        // Biến di động và hiệu ứng
+        let spoonX = SPOON_START_X;
+        let spoonY = SPOON_START_Y;
+        let metalGlow = 0;        // Nóng đỏ của kim loại (0 -> 1)
+        let metalSize = 6;        // Kích thước mẩu kim loại (giảm khi cháy)
+        let metalState = 'solid'; // solid, liquid, flame
+        let chlorineOpacity = 0.65; // Khí chlorine màu vàng lục (giảm khi phản ứng)
+        let fireIntensity = 0;    // Cường độ ngọn lửa phản ứng trong bình
+        let flashAlpha = 0;       // Glow phản ứng ban đầu
+        let isLampBurning = true; // Ngọn lửa đèn cồn
+
+        // Biến trạng thái của nắp thủy tinh mài
+        let glassPlateX = JAR_X;
+        let glassPlateY = JAR_Y - 180;
+        let glassPlateAlpha = 1.0;
+
+        // Hệ thống hạt
+        let particles = [];      // Hạt lửa phản ứng
+        let smokeParticles = []; // Hạt khói trắng
+        let sparkParticles = []; // Tia lửa bắn ra (đặc biệt cho K, Na)
+
+        // ================= DỮ LIỆU CÁC KIM LOẠI KIỀM =================
+        const metalsData = {
+            'Li': {
+                name: 'Lithium (Lithium)',
+                formula: 'Li',
+                product: 'LiCl',
+                productName: 'Lithium chloride',
+                color: '#e2e8f0', // Xám bạc sáng
+                flameColor: 'rgba(255, 30, 80, 0.85)', // Đỏ hồng chói
+                flashColor: 'rgba(255, 240, 240, 0.95)', // Trắng chói pha hồng
+                description: 'Lithium phản ứng mạnh, cháy bùng lên với ngọn lửa đỏ hồng / trắng chói lớn. Sau đó ngọn lửa thu nhỏ dần rồi tắt hẳn. Phản ứng tạo ra lớp khói trắng của muối Lithium chloride.',
+                equation: '2Li + Cl<sub>2</sub> &rarr; 2LiCl',
+                burnDuration: 420, // cháy tối ưu trong 7 giây (2s cháy to, 5s lịm tắt)
+                intensity: 1.2,
+                smokeDensity: 1.0,
+                meltProgress: 0.15
+            },
+            'Na': {
+                name: 'Natri (Sodium)',
+                formula: 'Na',
+                product: 'NaCl',
+                productName: 'Sodium chloride',
+                color: '#cbd5e1', // Xám bạc vừa
+                flameColor: 'rgba(255, 140, 0, 0.85)', // Vàng cam rực rỡ
+                flashColor: 'rgba(255, 230, 150, 0.95)',
+                description: 'Natri phản ứng vô cùng mãnh liệt, cháy bùng lên với ngọn lửa sáng chói rực rỡ màu vàng cam đặc trưng. Lửa bùng rất lớn lúc đầu, sau đó tắt đi và sinh ra lượng khói trắng muối ăn dày đặc lấp đầy bình thủy tinh.',
+                equation: '2Na + Cl<sub>2</sub> &rarr; 2NaCl',
+                burnDuration: 390, // cháy bùng lớn 1.5s (90f) rồi giảm dần tắt hẳn trong 5s (300f)
+                intensity: 1.4,
+                smokeDensity: 1.0, // dùng chung hiệu ứng khói lan tỏa của Lithium
+                meltProgress: 0.5 // Natri dễ nóng chảy thành giọt cầu bóng loáng trước khi cháy
+            },
+            'K': {
+                name: 'Kali (Potassium)',
+                formula: 'K',
+                product: 'KCl',
+                productName: 'Potassium chloride',
+                color: '#94a3b8', // Xám bạc sẫm
+                flameColor: 'rgba(255, 230, 160, 0.95)', // Vàng cam/trắng sáng chói
+                flashColor: 'rgba(255, 240, 180, 0.95)',
+                description: 'Kali phản ứng cực kì mãnh liệt, cháy chớp nhoáng và chói lóa ngay tức thì trong bình khí, ngọn lửa tím hồng bùng lên cực nhanh rồi cũng tắt hẳn ngay lập tức. Phản ứng sinh ra lượng khói trắng dày đặc bao phủ toàn bộ bên trong bình.',
+                equation: '2K + Cl<sub>2</sub> &rarr; 2KCl',
+                burnDuration: 250, // cháy nhanh chớp nhoáng cực kỳ tối ưu
+                intensity: 1.8,
+                smokeDensity: 3.5,
+                meltProgress: 0.8 // Kali nóng chảy siêu nhanh
+            }
+        };
+
+        const steps = [
+            {
+                title: "Bước 1: Nung nóng kim loại trên ngọn lửa đèn cồn",
+                desc: "Nhấn nút 'Tiến hành đốt' để đưa thìa sắt chứa mẩu kim loại kiềm hơ nóng trên ngọn lửa đèn cồn. Kim loại sẽ nóng đỏ, chảy lỏng (với Natri, Kali) và bắt đầu bắt cháy."
+            },
+            {
+                title: "Bước 2: Phản ứng với khí Chlorine trong bình",
+                desc: "Nhấn 'Đưa vào bình khí' để di chuyển nhanh thìa sắt đang bắt cháy vào bình chứa khí Chlorine màu vàng lục và đậy kín nắp cao su."
+            },
+            {
+                title: "Bước 3: Quan sát hiện tượng & Kết quả",
+                desc: "Nhấn 'Xem kết quả' để quan sát lượng muối clorua kết tủa dưới dạng khói trắng đọng lại trong bình, đồng thời xem phương trình hóa học và giải thích chi tiết."
+            }
+        ];
+
+        // ================= APPLICATION CONTROLLER =================
+        function changeMetalTab(metal) {
+            if (subStep === 1) return; // Đang chạy animation thì không cho chuyển
+            activeMetal = metal;
+
+            // Cập nhật giao diện tab active
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(`tab-${metal}`).classList.add('active');
+
+            resetExperiment();
+        }
+
+        function init() {
+            resetExperiment();
+            lastTime = performance.now();
+            requestAnimationFrame(loop);
+        }
+
+        function resetExperiment() {
+            currentStep = 0;
+            subStep = 0;
+            animTimer = 0;
+            spoonX = SPOON_START_X;
+            spoonY = SPOON_START_Y;
+            metalGlow = 0;
+            metalSize = 6;
+            metalState = 'solid';
+            chlorineOpacity = 0.65;
+            fireIntensity = 0;
+            flashAlpha = 0;
+            isLampBurning = true;
+
+            // Reset trạng thái nắp thủy tinh
+            glassPlateX = JAR_X;
+            glassPlateY = JAR_Y - 180;
+            glassPlateAlpha = 1.0;
+
+            particles = [];
+            smokeParticles = [];
+            sparkParticles = [];
+
+            updatePanelInfo();
+            updateUI();
+        }
+
+        function updatePanelInfo() {
+            const metal = metalsData[activeMetal];
+
+            // Cột Trái: Mục đích
+            document.getElementById('info-purpose').innerHTML = `
+                <p>Khảo sát và so sánh hoạt tính hóa học của ba kim loại kiềm liên tiếp là <strong>Lithium (Li)</strong>, <strong>Natri (Na)</strong> và <strong>Kali (K)</strong> với khí phi kim hoạt động mạnh <strong>Chlorine (Cl₂)</strong>.</p>
+                <p style="margin-top: 6px;">Quan sát màu sắc ngọn lửa đặc trưng và tốc độ phản ứng để chứng minh quy luật biến đổi tính chất kim loại trong nhóm IA.</p>
+            `;
+
+            // Cột Phải: Hướng dẫn
+            document.getElementById('info-guide').innerHTML = `
+                <ol>
+                    <li>Đốt mẩu kim loại <strong>${metal.formula}</strong> trên ngọn lửa đèn cồn đến khi nóng đỏ, bắt cháy.</li>
+                    <li>Đưa nhanh thìa sắt vào bình khí <strong>Cl₂</strong> màu vàng lục và đậy kín.</li>
+                    <li>Quan sát ngọn lửa bùng cháy, lượng khói trắng muối <strong>${metal.product}</strong> và sự mất màu của khí <strong>Cl₂</strong>.</li>
+                </ol>
+            `;
+        }
+
+        function updateUI() {
+            if (currentStep < 3) {
+                const stepData = steps[currentStep];
+                document.getElementById('stepCounter').innerText = `Bước ${currentStep + 1} / 3`;
+                document.getElementById('stepTitle').innerText = stepData.title;
+                document.getElementById('stepDesc').innerText = stepData.desc;
+            } else {
+                document.getElementById('stepCounter').innerText = `Hoàn tất`;
+                document.getElementById('stepTitle').innerText = `Thí nghiệm hoàn thành thành công!`;
+                document.getElementById('stepDesc').innerText = `Bạn đã hoàn tất quan sát mô phỏng phản ứng của ${metalsData[activeMetal].formula} với khí Chlorine. Bấm 'Làm lại thí nghiệm' để thực hiện lại.`;
+            }
+
+            // Render progress dots
+            const progressDots = document.getElementById('progressDots');
+            let dotsHTML = '';
+            for (let i = 0; i < 3; i++) {
+                let cls = 'dot';
+                let icon = i + 1;
+                if (i < currentStep) {
+                    cls += ' done';
+                    icon = '<i class="ti ti-check"></i>';
+                } else if (i === currentStep) {
+                    cls += ' active';
+                }
+                dotsHTML += `<div class="${cls}">${icon}</div>`;
+            }
+            progressDots.innerHTML = dotsHTML;
+
+            // Cập nhật trạng thái các nút
+            const btnReset = document.getElementById('btnReset');
+            const btnNext = document.getElementById('btnNext');
+            const statusText = document.getElementById('statusText');
+
+            if (subStep === 1) {
+                // Đang hoạt cảnh - khóa tất cả nút
+                btnReset.disabled = true;
+                btnNext.disabled = true;
+                btnNext.innerHTML = `<i class="ti ti-loader spin-icon"></i> Đang diễn ra...`;
+                statusText.innerText = "Hệ thống đang chạy hoạt ảnh mô phỏng...";
+
+                // Khóa cả các tab kim loại
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.disabled = true);
+            } else {
+                btnReset.disabled = false;
+                btnNext.disabled = false;
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.disabled = false);
+
+                if (currentStep === 0) {
+                    btnNext.innerHTML = `Tiến hành đốt <i class="ti ti-arrow-right"></i>`;
+                    statusText.innerText = "Chờ thao tác nung nóng kim loại.";
+                } else if (currentStep === 1) {
+                    btnNext.innerHTML = `Đưa vào bình khí <i class="ti ti-arrow-right"></i>`;
+                    statusText.innerText = "Kim loại đã bắt cháy! Hãy đưa nhanh vào bình Cl₂.";
+                } else if (currentStep === 2) {
+                    btnNext.innerHTML = `Xem kết quả <i class="ti ti-arrow-right"></i>`;
+                    statusText.innerText = "Phản ứng đã hoàn tất. Bấm để xem tổng kết.";
+                } else {
+                    btnNext.disabled = true;
+                    btnNext.innerHTML = `Hoàn tất <i class="ti ti-circle-check"></i>`;
+                    statusText.innerText = "Thí nghiệm kết thúc thành công.";
+                }
+            }
+
+            updateExplanationBox();
+        }
+
+        function updateExplanationBox() {
+            const box = document.getElementById('explanationBox');
+            const header = document.getElementById('expHeader');
+            const text = document.getElementById('expText');
+            const metal = metalsData[activeMetal];
+
+            // Hiệu ứng fade chuyển nội dung
+            box.classList.add('fade');
+
+            setTimeout(() => {
+                if (currentStep === 0 && subStep === 0) {
+                    box.className = "block-element explanation fade-transition";
+                    header.innerHTML = `<i class="ti ti-info-circle"></i> Trạng thái chuẩn bị`;
+                    text.innerHTML = `Mẩu kim loại <strong>${metal.name}</strong> xám bạc được đặt trên thìa sắt. Bình chứa khí <strong>Chlorine (Cl₂)</strong> bên phải có màu vàng lục nhạt đặc trưng. Đèn cồn đã sẵn sàng.`;
+                } else if (currentStep === 0 && subStep === 1) {
+                    box.className = "block-element explanation fade-transition";
+                    header.innerHTML = `<i class="ti ti-flame"></i> Đang nung nóng kim loại...`;
+                    text.innerHTML = `Đốt nóng mẩu <strong>${metal.formula}</strong> trên ngọn lửa đèn cồn. Nhiệt lượng lớn làm kim loại nóng đỏ lên${activeMetal !== 'Li' ? ', nóng chảy dần thành hạt lỏng tròn trịa' : ''} và bắt đầu bắt cháy với oxy ngoài không khí.`;
+                } else if (currentStep === 1 && subStep === 0) {
+                    box.className = "block-element explanation fade-transition";
+                    header.innerHTML = `<i class="ti ti-flame"></i> Kim loại đã bắt cháy`;
+                    text.innerHTML = `Mẩu <strong>${metal.formula}</strong> đang cháy trên thìa với ngọn lửa nhỏ. Chuẩn bị đưa nhanh vào bình khí để phản ứng với clo.`;
+                } else if (currentStep === 1 && subStep === 1) {
+                    box.className = "block-element explanation fade-transition";
+                    header.innerHTML = `<i class="ti ti-sparkles"></i> Phản ứng hóa học xảy ra mãnh liệt!`;
+                    text.innerHTML = `Đưa mẩu <strong>${metal.formula}</strong> cháy vào bình khí. Phản ứng xảy ra vô cùng mãnh liệt, tỏa ra nhiệt lượng và ánh sáng chói lóa. Khí <strong>Cl₂</strong> màu vàng lục bị tiêu thụ dần tạo thành khói trắng muối clorua.`;
+                } else if (currentStep >= 2) {
+                    box.className = "block-element explanation success fade-transition";
+                    header.innerHTML = `<i class="ti ti-circle-check"></i> Kết quả & Giải thích hiện tượng`;
+
+                    let flameColorDesc = '';
+                    if (activeMetal === 'Li') {
+                        flameColorDesc = 'cháy bùng lên mãnh liệt với ánh sáng trắng chói lớn và ngọn lửa đỏ hồng, sau đó ngọn lửa nhanh chóng thu nhỏ, yếu dần rồi tắt hẳn do các chất bị tiêu thụ hết';
+                    } else if (activeMetal === 'Na') {
+                        flameColorDesc = 'phản ứng vô cùng mãnh liệt, cháy chói lóa với ngọn lửa màu vàng cam rực rỡ';
+                    } else if (activeMetal === 'K') {
+                        flameColorDesc = 'phản ứng cực kì dữ dội, cháy chớp nhoáng với ánh sáng tím hồng chói lóa';
+                    }
+
+                    text.innerHTML = `
+                        <p><strong>Hiện tượng:</strong> Khi đưa vào bình khí clo, kim loại <strong>${metal.formula}</strong> ${flameColorDesc}. Bình khí mất màu vàng lục của clo, xuất hiện lớp khói trắng dày đặc của muối <strong>${metal.productName} (${metal.product})</strong> lấp đầy lòng bình.</p>
+                        <p><strong>Giải thích:</strong> Các kim loại kiềm có tính khử rất mạnh, dễ dàng nhường electron cho chlorine (chất oxi hóa mạnh) tạo thành hợp chất ion muối chloride màu trắng bền vững.</p>
+                        <div class="chemical-eq">Phương trình: ${metal.equation}</div>
+                        <p style="margin-top: 8px;"><strong>So sánh:</strong> Tốc độ và mức độ mãnh liệt tăng dần từ <strong>Li &lt; Na &lt; K</strong> do bán kính nguyên tử tăng dần, lực hút hạt nhân với electron hóa trị ngoài cùng yếu đi, làm khả năng nhường electron (tính kim loại) tăng lên.</p>
+                    `;
+                }
+
+                box.classList.remove('fade');
+            }, 200);
+        }
+
+        function handleStepClick() {
+            if (subStep === 1) return;
+
+            if (currentStep === 0) {
+                // Bắt đầu đốt nóng kim loại
+                subStep = 1;
+                animTimer = 0;
+                updateUI();
+            } else if (currentStep === 1) {
+                // Bắt đầu đưa vào bình khí
+                subStep = 1;
+                animTimer = 0;
+                updateUI();
+            } else if (currentStep === 2) {
+                // Chuyển sang bước kết quả
+                currentStep = 3; // Hoàn tất các bước
+                isLampBurning = false; // Tắt đèn cồn khi kết thúc
+                updateUI();
+            }
+        }
+
+        // ================= DRAWING ELEMENTS ON CANVAS =================
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15,76,129,0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawAlcoholLamp() {
+            const lx = LAMP_X, ly = LAMP_Y;
+            ctx.save();
+
+            // Thân đèn bằng thủy tinh chứa cồn đỏ
+            ctx.beginPath();
+            ctx.moveTo(lx - 32, ly);
+            ctx.lineTo(lx + 32, ly);
+            ctx.quadraticCurveTo(lx + 45, ly + 35, lx + 28, ly + 45);
+            ctx.lineTo(lx - 28, ly + 45);
+            ctx.quadraticCurveTo(lx - 45, ly + 35, lx - 32, ly);
+            ctx.fillStyle = 'rgba(200, 225, 255, 0.4)';
+            ctx.fill();
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Dung dịch cồn bên trong
+            ctx.beginPath();
+            ctx.moveTo(lx - 28, ly + 15);
+            ctx.lineTo(lx + 28, ly + 15);
+            ctx.quadraticCurveTo(lx + 38, ly + 35, lx + 26, ly + 43);
+            ctx.lineTo(lx - 26, ly + 43);
+            ctx.quadraticCurveTo(lx - 38, ly + 35, lx - 28, ly + 15);
+            ctx.fillStyle = 'rgba(239, 68, 68, 0.25)'; // Màu cồn đỏ loãng
+            ctx.fill();
+
+            // Bấc đèn & giá kim loại giữ bấc
+            ctx.fillStyle = '#64748b';
+            ctx.fillRect(lx - 8, ly - 10, 16, 10);
+            ctx.fillStyle = '#334155';
+            ctx.fillRect(lx - 3, ly - 18, 6, 18);
+
+            // Vẽ ngọn lửa đèn cồn nếu đang cháy
+            if (isLampBurning) {
+                const f = Math.sin(time * 0.15) * 2; // Dao động nhẹ ngọn lửa
+                ctx.beginPath();
+                ctx.moveTo(lx, ly - 18);
+                ctx.quadraticCurveTo(lx - 12 + f, ly - 40, lx, ly - 65);
+                ctx.quadraticCurveTo(lx + 12 + f, ly - 40, lx, ly - 18);
+                ctx.fillStyle = 'rgba(249, 115, 22, 0.7)'; // Flame ngoài cam
+                ctx.fill();
+
+                ctx.beginPath();
+                ctx.moveTo(lx, ly - 18);
+                ctx.quadraticCurveTo(lx - 6 + f, ly - 32, lx, ly - 48);
+                ctx.quadraticCurveTo(lx + 6 + f, ly - 32, lx, ly - 18);
+                ctx.fillStyle = 'rgba(59, 130, 246, 0.8)'; // Flame trong xanh dương
+                ctx.fill();
+            }
+
+            // Nhãn đèn cồn
+            ctx.fillStyle = '#64748b';
+            ctx.font = '500 11px var(--font-stack)';
+            ctx.textAlign = 'center';
+            ctx.fillText("ĐÈN CỒN", lx, ly + 60);
+
+            ctx.restore();
+        }
+
+        function drawGasJar() {
+            const jx = JAR_X, jy = JAR_Y;
+            ctx.save();
+
+            // 1. Clip path theo lòng bình tam giác để giới hạn khí Cl2, khói trắng và ngọn lửa bên trong
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(jx - 21, jy - 180); // Cổ bình trái (miệng bình thật)
+            ctx.lineTo(jx - 21, jy - 135); // Cổ bình dưới trái
+            ctx.lineTo(jx - 70, jy - 15);  // Thân chéo trái
+            ctx.quadraticCurveTo(jx - 70, jy - 2, jx - 50, jy - 1); // Góc đáy trái
+            ctx.quadraticCurveTo(jx, jy + 3, jx + 50, jy - 1);      // Đáy cong 3D khít với viền chai thủy tinh
+            ctx.quadraticCurveTo(jx + 70, jy - 2, jx + 70, jy - 15); // Góc đáy phải
+            ctx.lineTo(jx + 21, jy - 135); // Thân chéo phải
+            ctx.lineTo(jx + 21, jy - 180); // Cổ bình phải (miệng bình thật)
+            ctx.closePath();
+            ctx.clip();
+
+            // Vẽ khí Chlorine màu vàng lục ô-liu đặc trưng bên trong (giống ảnh thực tế)
+            if (chlorineOpacity > 0) {
+                ctx.fillStyle = `rgba(186, 182, 45, ${chlorineOpacity})`; // Màu vàng lục ô-liu (olive-yellow)
+                ctx.fillRect(jx - 100, jy - 200, 200, 220);
+            }
+
+            // === KALI: Bình bùng sáng từ bên trong (vẽ trước khói) ===
+            if (activeMetal === 'K' && fireIntensity > 0.3) {
+                const maxI = 2.2 * metalsData['K'].intensityMult;
+                const norm = Math.min(1.0, fireIntensity / maxI);
+                const flicker = 1 + Math.sin(time * 0.031) * 0.05 + Math.sin(time * 0.073) * 0.025;
+                const gx = jx, gy = jy - 75;
+                const r = 140 * norm * flicker;
+
+                // Nền vàng ấm che chlorine xanh
+                ctx.fillStyle = `rgba(255, 220, 120, ${0.85 * norm})`;
+                ctx.fillRect(jx - 100, jy - 200, 200, 220);
+
+                // Glow radial trắng chói ở tâm
+                const gGlow = ctx.createRadialGradient(gx, gy, 0, gx, gy, r);
+                gGlow.addColorStop(0, `rgba(255, 255, 240, ${0.95 * norm})`);
+                gGlow.addColorStop(0.25, `rgba(255, 245, 200, ${0.85 * norm})`);
+                gGlow.addColorStop(0.55, `rgba(255, 220, 120, ${0.55 * norm})`);
+                gGlow.addColorStop(0.85, `rgba(255, 190, 60,  ${0.25 * norm})`);
+                gGlow.addColorStop(1, `rgba(255, 170, 30,  0)`);
+
+                ctx.fillStyle = gGlow;
+                ctx.beginPath();
+                ctx.arc(gx, gy, r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            const metal = metalsData[activeMetal];
+
+            // 1. Vẽ các hạt khói đọng trong bình dạng Radial Gradient mịn màng trước ngọn lửa
+            ctx.save();
+            ctx.filter = 'blur(8px)';
+            smokeParticles.forEach(p => {
+                let bottomFade = 1.0;
+                if (p.y > jy - 50) {
+                    bottomFade = clamp((jy - p.y) / 50, 0.0, 1.0);
+                    bottomFade = Math.pow(bottomFade, 1.5);
+                }
+                const currentAlpha = p.alpha * bottomFade;
+
+                const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size);
+                const stop0 = currentAlpha * 0.95;
+                const stop1 = currentAlpha * 0.55;
+
+                grad.addColorStop(0, `rgba(255, 255, 255, ${stop0})`);
+                grad.addColorStop(0.35, `rgba(180, 185, 195, ${stop1})`);
+                grad.addColorStop(1, 'rgba(180, 185, 195, 0)');
+                ctx.fillStyle = grad;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            ctx.restore();
+
+            // 2. Vẽ hiệu ứng hạt lửa, tia lửa và ngọn lửa chính 3D bên trong bình (Bước 2) đè lên khói
+            if (currentStep === 1) {
+                // 2.1. Vẽ các hạt lửa bay lơ lửng bốc lên
+                particles.forEach(p => {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size * 0.55, 0, Math.PI * 2);
+                    ctx.fillStyle = p.color.replace('0.85', (p.life * 0.65).toString());
+                    ctx.fill();
+                });
+
+                // 2.2. Vẽ tia lửa điện / ánh sáng phát ra
+                sparkParticles.forEach(sp => {
+                    ctx.beginPath();
+                    ctx.moveTo(sp.x, sp.y);
+                    ctx.lineTo(sp.x + sp.vx * 2.5, sp.y + sp.vy * 2.5);
+                    ctx.strokeStyle = sp.color;
+                    ctx.lineWidth = sp.width;
+                    ctx.stroke();
+                });
+
+                // 2.3. Vẽ ngọn lửa bập bùng chân thực 3D (Flame tongues) - Cường độ to hơn nhẹ
+                if (fireIntensity > 0 && activeMetal !== 'K') {
+                    ctx.save();
+                    const fx = spoonX + 10;
+                    const fy = spoonY;
+                    const fHeight = Math.min(85, 69 * fireIntensity); // Chiều cao tối ưu để không liếm quá cổ bình
+
+                    // Cấu hình các lưỡi lửa lệch pha động liên tục tạo ngọn lửa 3D sống động và nhọn đầu
+                    const tongues = [
+                        {
+                            dx: -5 + Math.sin(time * 0.2) * 2,
+                            w: 9.5,
+                            h: fHeight * 0.72,
+                            flicker: Math.sin(time * 0.28) * 5,
+                            colorAlpha: 0.38
+                        }, // Lưỡi trái co giãn
+                        {
+                            dx: 5 + Math.cos(time * 0.23) * 2,
+                            w: 9.5,
+                            h: fHeight * 0.78,
+                            flicker: Math.cos(time * 0.25) * 5,
+                            colorAlpha: 0.38
+                        }, // Lưỡi phải co giãn
+                        {
+                            dx: Math.sin(time * 0.15) * 1.5,
+                            w: 13.5,
+                            h: fHeight * 1.0,
+                            flicker: Math.sin(time * 0.19) * 6,
+                            colorAlpha: 0.75
+                        }  // Lưỡi giữa chính co giãn mạnh
+                    ];
+
+                    // Sắp xếp vẽ từ lưỡi phụ đến lưỡi chính
+                    tongues.forEach(t => {
+                        if (t.h <= 0) return;
+                        ctx.beginPath();
+                        ctx.moveTo(fx + t.dx - t.w * 0.8, fy);
+                        ctx.quadraticCurveTo(
+                            fx + t.dx - t.w * 1.2 + t.flicker,
+                            fy - t.h * 0.5,
+                            fx + t.dx + t.flicker * 0.7,
+                            fy - t.h
+                        );
+                        ctx.quadraticCurveTo(
+                            fx + t.dx + t.w * 1.2 + t.flicker,
+                            fy - t.h * 0.5,
+                            fx + t.dx + t.w * 0.8,
+                            fy
+                        );
+                        ctx.closePath();
+
+                        // Linear gradient dọc cho từng lưỡi lửa từ chân lên đỉnh
+                        const grad = ctx.createLinearGradient(fx + t.dx, fy, fx + t.dx + t.flicker * 0.5, fy - t.h);
+                        const baseColor = metal.flameColor;
+
+                        grad.addColorStop(0, '#ffffff'); // Chân lửa sáng trắng
+                        grad.addColorStop(0.25, baseColor.replace('0.85', t.colorAlpha.toString())); // Thân lửa
+                        grad.addColorStop(0.7, baseColor.replace('0.85', (t.colorAlpha * 0.45).toString())); // Ngọn lửa mờ dần
+                        grad.addColorStop(1, 'rgba(255, 255, 255, 0)'); // Biến mất ở đỉnh
+
+                        ctx.fillStyle = grad;
+                        ctx.fill();
+                    });
+
+                    // Lõi lửa trong cùng siêu chói (Sáng trắng bập bùng ở trung tâm)
+                    const coreHeight = fHeight * 0.55;
+                    if (coreHeight > 3) {
+                        const coreFlicker = Math.sin(time * 0.33) * 2;
+                        ctx.beginPath();
+                        ctx.moveTo(fx - 4, fy);
+                        ctx.quadraticCurveTo(fx - 7 + coreFlicker, fy - coreHeight * 0.5, fx + coreFlicker * 0.5, fy - coreHeight);
+                        ctx.quadraticCurveTo(fx + 7 + coreFlicker, fy - coreHeight * 0.5, fx + 4, fy);
+                        ctx.closePath();
+
+                        const coreGrad = ctx.createLinearGradient(fx, fy, fx + coreFlicker, fy - coreHeight);
+                        coreGrad.addColorStop(0, '#ffffff');
+                        coreGrad.addColorStop(0.7, metal.flameColor.replace('0.85', '0.85'));
+                        coreGrad.addColorStop(1, 'rgba(255,255,255,0)');
+
+                        ctx.fillStyle = coreGrad;
+                        ctx.fill();
+                    }
+
+                    // Hiệu ứng quầng sáng bùng tròn tỏa rộng mềm mại giống như ảnh thực tế
+                    if (activeMetal === 'Li' || activeMetal === 'K') {
+                        const reactProgress = (animTimer - 75) / metal.burnDuration;
+                        if (reactProgress >= 0 && reactProgress < 0.98) {
+                            let glowSize = 0;
+                            let glowAlpha = 0;
+
+                            if (activeMetal === 'Li') {
+                                if (reactProgress < 0.28) {
+                                    const p = reactProgress / 0.28;
+                                    glowSize = lerp(10, 32, p); // To dần từ 10px lên 32px trong 2 giây đầu (ôm sát ngọn lửa)
+                                    glowAlpha = lerp(0.3, 0.85, p); // Sáng mạnh dần lên
+                                } else {
+                                    const p = (reactProgress - 0.28) / 0.70;
+                                    glowSize = lerp(32, 5, p); // Thu nhỏ dần về 5px
+                                    glowAlpha = lerp(0.85, 0, p); // Mờ dần về 0
+                                }
+                            } else {
+                                // Kali: bùng sáng cực đại rất nhanh ngay từ đầu lấp đầy bình, sau đó giảm dần về 0
+                                if (reactProgress < 0.2) {
+                                    const p = reactProgress / 0.2;
+                                    glowSize = lerp(30, 95, p); // bùng nhanh lên 95px
+                                    glowAlpha = lerp(0.5, 0.95, p); // sáng rực rỡ
+                                } else {
+                                    const p = (reactProgress - 0.2) / 0.78;
+                                    glowSize = lerp(95, 5, p); // thu nhỏ dần về 5px
+                                    glowAlpha = lerp(0.95, 0, p); // mờ dần về 0
+                                }
+                            }
+
+                            if (glowSize > 0 && glowAlpha > 0) {
+                                const glowGrad = ctx.createRadialGradient(fx, fy, 2, fx, fy, glowSize);
+                                if (activeMetal === 'Li') {
+                                    glowGrad.addColorStop(0, `rgba(255, 255, 255, ${glowAlpha})`); // Tâm sáng trắng
+                                    glowGrad.addColorStop(0.25, `rgba(255, 160, 40, ${glowAlpha * 0.85})`); // Vàng cam ấm áp như màu tia lửa
+                                    glowGrad.addColorStop(0.65, `rgba(255, 30, 80, ${glowAlpha * 0.35})`); // Đỏ hồng đặc trưng
+                                    glowGrad.addColorStop(1, 'rgba(255, 30, 80, 0)');
+                                } else {
+                                    // Kali: quầng sáng cam vàng chói lọi pha sắc hồng trên khói (y như ảnh chụp thực tế)
+                                    glowGrad.addColorStop(0, `rgba(255, 255, 255, ${glowAlpha})`); // tâm trắng chói
+                                    glowGrad.addColorStop(0.3, `rgba(255, 190, 80, ${glowAlpha * 0.85})`); // vàng cam rực rỡ
+                                    glowGrad.addColorStop(0.7, `rgba(255, 120, 160, ${glowAlpha * 0.4})`); // ánh cam hồng lan ra khói
+                                    glowGrad.addColorStop(1, 'rgba(255, 120, 160, 0)');
+                                }
+
+                                ctx.fillStyle = glowGrad;
+                                ctx.beginPath();
+                                ctx.arc(fx, fy, glowSize, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+                    }
+                    ctx.restore();
+                }
+            }
+
+            // Vẽ lớp khí màu vàng lục tươi đọng đậm sát đáy bình tam giác (giống ảnh thực tế, đè lên khói và giữ nguyên)
+            ctx.save();
+            const bottomGrad = ctx.createLinearGradient(jx, jy, jx, jy - 20); // Giảm chiều cao xuống còn 20px
+            bottomGrad.addColorStop(0, 'rgba(225, 205, 10, 0.85)'); // Vàng hổ phách/vàng đậm tươi sát đáy
+            bottomGrad.addColorStop(0.7, 'rgba(186, 182, 45, 0.55)'); // Vàng ô-liu trung gian
+            bottomGrad.addColorStop(1, 'rgba(186, 182, 45, 0)');    // tan nhanh khi đi lên
+            ctx.fillStyle = bottomGrad;
+            ctx.beginPath();
+            ctx.rect(jx - 80, jy - 25, 160, 30); // Phủ hoàn toàn bề rộng của đáy bình tam giác (xóa sạch viền trắng)
+            ctx.fill();
+            ctx.restore();
+
+            ctx.restore(); // Hủy bỏ clip path sau khi vẽ xong chất khí/lửa/khói bên trong
+
+            // 2. Vẽ vỏ thủy tinh bình tam giác
+            ctx.beginPath();
+            ctx.moveTo(jx - 22, jy - 180); // Miệng bình trái
+            ctx.lineTo(jx - 22, jy - 135); // Cổ bình trái
+            ctx.lineTo(jx - 72, jy - 18);  // Sườn chéo trái
+            ctx.quadraticCurveTo(jx - 72, jy, jx - 52, jy); // Góc đáy trái bo tròn
+
+            // Vẽ đáy bình hơi cong nhẹ 3D
+            ctx.quadraticCurveTo(jx, jy + 4, jx + 52, jy);
+            ctx.quadraticCurveTo(jx + 72, jy, jx + 72, jy - 18); // Góc đáy phải
+            ctx.lineTo(jx + 22, jy - 135); // Sườn chéo phải
+            ctx.lineTo(jx + 22, jy - 180); // Cổ bình phải
+
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+            ctx.fill();
+
+            // Vẽ vành miệng bình loe nhẹ (Lip)
+            ctx.beginPath();
+            ctx.ellipse(jx, jy - 180, 22, 4, 0, 0, Math.PI * 2);
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Vẽ vệt sáng phản quang dọc theo thân bình tam giác để tạo hiệu ứng 3D bóng bẩy
+            ctx.beginPath();
+            ctx.moveTo(jx - 15, jy - 145);
+            ctx.lineTo(jx - 55, jy - 22);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+            ctx.lineWidth = 3.5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            // Nhãn dán trên cổ bình như trong hình
+            ctx.fillStyle = 'rgba(240, 240, 240, 0.9)';
+            ctx.fillRect(jx - 18, jy - 165, 36, 16);
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(jx - 18, jy - 165, 36, 16);
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 11px var(--font-stack)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText("Cl₂", jx, jy - 157);
+
+            // Nhãn tên thiết bị ở dưới đáy bình
+            ctx.fillStyle = '#64748b';
+            ctx.font = '500 11px var(--font-stack)';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'alphabetic';
+            ctx.fillText("BÌNH TAM GIÁC Cl₂", jx, jy + 25);
+
+            ctx.restore();
+        }
+
+        function drawSpoon(sx, sy) {
+            ctx.save();
+            const metal = metalsData[activeMetal];
+
+            // 1. Cán thìa sắt (dây sắt thẳng dài có uốn góc vuông nối sang chén)
+            ctx.beginPath();
+            ctx.moveTo(sx, sy - 170);   // Đầu cán cầm tay (nhô cao lên trên nắp cao su)
+            ctx.lineTo(sx, sy + 3);     // Điểm uốn góc
+            ctx.lineTo(sx + 10, sy + 3); // Nối ngang sang chạm vào chén thìa
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // 2. Nút cao su màu vàng gỗ đâm xuyên qua cán thìa sắt (dây sắt thẳng dài, dày và to giống ảnh thực tế)
+            const isInJar = (currentStep === 1 && animTimer > 40) || currentStep >= 2;
+            const stopperX = isInJar ? JAR_X : sx;
+
+            ctx.fillStyle = '#d2b48c'; // Màu vàng gỗ ấm
+            ctx.beginPath();
+            ctx.moveTo(stopperX - 24, sy - 144); // Mặt trên trái
+            ctx.lineTo(stopperX + 24, sy - 144); // Mặt trên phải
+            ctx.lineTo(stopperX + 19, sy - 118); // Mặt dưới phải
+            ctx.lineTo(stopperX - 19, sy - 118); // Mặt dưới trái
+            ctx.closePath();
+            ctx.fill();
+            ctx.strokeStyle = '#8d6e63'; // Viền nâu sẫm
+            ctx.lineWidth = 1.8;
+            ctx.stroke();
+
+            // Vẽ hiệu ứng đổ bóng & vân sáng tối 3D cho nút cao su
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.28)';
+            ctx.beginPath();
+            ctx.moveTo(stopperX - 22, sy - 142);
+            ctx.lineTo(stopperX - 12, sy - 142);
+            ctx.lineTo(stopperX - 10, sy - 120);
+            ctx.lineTo(stopperX - 18, sy - 120);
+            ctx.closePath();
+            ctx.fill();
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+            ctx.beginPath();
+            ctx.moveTo(stopperX + 10, sy - 142);
+            ctx.lineTo(stopperX + 22, sy - 142);
+            ctx.lineTo(stopperX + 17, sy - 120);
+            ctx.lineTo(stopperX + 8, sy - 120);
+            ctx.closePath();
+            ctx.fill();
+
+            // 2. Chén thìa sắt (Deflagrating spoon) bo tròn hướng lên
+            ctx.beginPath();
+            ctx.arc(sx + 10, sy + 3, 7, 0, Math.PI, false);
+            ctx.fillStyle = '#78909c';
+            ctx.fill();
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Vẽ hiệu ứng chén thìa nóng đỏ rực rỡ khi phản ứng và nguội dần từ từ khi kết thúc (giống ảnh thực tế)
+            let currentSpoonGlow = 0;
+            if (currentStep === 1 && subStep === 1) {
+                const reactProgress = (animTimer - 75) / metal.burnDuration;
+                if (reactProgress >= 0) {
+                    // Thìa nóng đỏ cực đại lúc bùng cháy và nguội dần theo tiến trình phản ứng xuống 0.3
+                    currentSpoonGlow = lerp(1.0, 0.3, reactProgress);
+                }
+            } else if (currentStep === 2) {
+                // Tiếp tục làm nguội mượt mà từ 0.3 về 0
+                currentSpoonGlow = Math.max(0, 0.3 - animTimer / 180);
+            }
+
+            if (currentSpoonGlow > 0) {
+                ctx.save();
+                // Giới hạn hiệu ứng nóng đỏ nằm gọn trong chén thìa sắt (bán kính 7.5px, nửa hình tròn phía dưới)
+                ctx.beginPath();
+                ctx.arc(sx + 10, sy + 3, 7.5, 0, Math.PI, false);
+                const gradSpoon = ctx.createRadialGradient(sx + 10, sy + 3, 1, sx + 10, sy + 3, 8);
+                gradSpoon.addColorStop(0, `rgba(255, 240, 210, ${currentSpoonGlow * 0.95})`); // Lõi trắng vàng mờ dần theo độ nguội
+                gradSpoon.addColorStop(0.4, `rgba(255, 90, 0, ${currentSpoonGlow * 0.9})`); // Đỏ cam rực
+                gradSpoon.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                ctx.fillStyle = gradSpoon;
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // 3. Mẩu kim loại kiềm trong chén thìa
+            if (metalSize > 0) {
+                let currentMetalColor = metal.color;
+
+                if (metalState === 'liquid') {
+                    // Nóng chảy bóng bẩy (xám bạc ánh kim rực rỡ)
+                    currentMetalColor = '#e2e8f0';
+                }
+
+                ctx.beginPath();
+                // lithium giữ dạng hạt đậu, natri/kali nóng chảy bo tròn hơn
+                if (metalState === 'liquid') {
+                    ctx.arc(sx + 10, sy + 1, metalSize, 0, Math.PI * 2);
+                } else {
+                    ctx.ellipse(sx + 10, sy + 1, metalSize * 1.2, metalSize * 0.8, 0, 0, Math.PI * 2);
+                }
+                ctx.fillStyle = currentMetalColor;
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+                ctx.stroke();
+
+                // Hiệu ứng kim loại nung nóng đỏ lên
+                if (metalGlow > 0) {
+                    ctx.save();
+                    ctx.beginPath();
+                    ctx.arc(sx + 10, sy + 1, metalSize + 1, 0, Math.PI * 2);
+                    // Tạo màu đỏ rực của sắt nung
+                    const grad = ctx.createRadialGradient(sx + 10, sy + 1, 0, sx + 10, sy + 1, metalSize + 3);
+                    grad.addColorStop(0, 'rgba(255, 120, 50, 0.95)');
+                    grad.addColorStop(0.6, `rgba(239, 68, 68, ${metalGlow})`);
+                    grad.addColorStop(1, 'rgba(239, 68, 68, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+
+            // 4. Ngọn lửa nhỏ lúc đang bắt cháy ngoài không khí và trong lúc di chuyển trước khi bùng cháy
+            if (metalState === 'flame' && (currentStep === 0 || (currentStep === 1 && animTimer < 160))) {
+                const fs = Math.sin(time * 0.35) * 1.5;
+                ctx.beginPath();
+                ctx.moveTo(sx + 10, sy);
+                ctx.quadraticCurveTo(sx + 5 + fs, sy - 8, sx + 10, sy - 16);
+                ctx.quadraticCurveTo(sx + 15 + fs, sy - 8, sx + 10, sy);
+
+                const gradSmall = ctx.createLinearGradient(sx + 10, sy, sx + 10 + fs * 0.5, sy - 16);
+                gradSmall.addColorStop(0, '#ffffff');
+                gradSmall.addColorStop(0.4, metal.flameColor);
+                gradSmall.addColorStop(1, 'rgba(255,255,255,0)');
+
+                ctx.fillStyle = gradSmall;
+                ctx.fill();
+
+                // Tâm sáng rực
+                ctx.beginPath();
+                ctx.arc(sx + 10, sy - 3, 3, 0, Math.PI * 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.fill();
+            }
+
+            ctx.restore();
+        }
+
+        // ================= HIỆU ỨNG HẠT VÀ HOẠT CẢNH =================
+        function spawnFireParticles(x, y, mult) {
+            if (activeMetal === 'K') return; // Kali không sinh hạt lửa để giữ quầng sáng mịn màng như ảnh thực tế
+            const metal = metalsData[activeMetal];
+            // Sinh hạt lửa (giảm tốc độ bay để ngọn lửa cháy dai dẳng và tự nhiên hơn)
+            const count = Math.ceil(2.5 * mult);
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: x + (Math.random() - 0.5) * 12,
+                    y: y + (Math.random() - 0.5) * 6,
+                    vx: (Math.random() - 0.5) * 1.5 * mult,
+                    vy: -(Math.random() * 1.0 + 0.5) * mult, // hạt lửa bay lên chậm rãi hơn
+                    size: Math.random() * 7 + 3,
+                    life: 1.0,
+                    decay: Math.random() * 0.025 + 0.015, // hạt lửa tắt chậm hơn để ngọn lửa cháy đọng lâu hơn
+                    color: metal.flameColor
+                });
+            }
+        }
+
+        function spawnSparks(x, y, count) {
+            const metal = metalsData[activeMetal];
+            for (let i = 0; i < count; i++) {
+                const angle = Math.random() * Math.PI * 2;
+                const speed = Math.random() * 2.2 + 1.0; // giảm tốc độ bắn tia lửa để mượt mà hơn
+                sparkParticles.push({
+                    x: x,
+                    y: y,
+                    vx: Math.cos(angle) * speed,
+                    vy: Math.sin(angle) * speed,
+                    width: Math.random() * 1.2 + 0.5,
+                    life: 1.0,
+                    decay: Math.random() * 0.045 + 0.025,
+                    color: activeMetal === 'Li' ? '#ff9eb5' : (activeMetal === 'Na' ? '#ffd899' : '#e8ccff')
+                });
+            }
+        }
+
+        function spawnSmoke(x, y, density) {
+            // Giới hạn tổng số lượng hạt khói tối đa là 150 để đảm bảo hiệu năng mượt mà trên mọi thiết bị
+            const maxSmoke = 600; // Li, Na, K đều tích tụ khói lan đầy bình
+            if (smokeParticles.length >= maxSmoke) {
+                smokeParticles.shift(); // Loại bỏ hạt cũ nhất
+            }
+            const count = Math.ceil(density);
+            for (let i = 0; i < count; i++) {
+                if (smokeParticles.length >= maxSmoke) break;
+
+                // Khói tỏa 360° lan đầy bình, dùng chung cho cả Li, Na, K (K dày hơn nhờ smokeDensity cao)
+                const isLi = true;
+                const initialAlpha = isLi ? (Math.random() * 0.15 + 0.65) : 0.95; // Lithium khói tăng độ mờ để nhìn thấy được
+                const sizeVal = isLi ? (Math.random() * 5 + 8) : (Math.random() * 8 + 10);
+
+                // Lithium: Khói tỏa đều 360 độ từ chén thìa để lan khắp lọ (cả đáy lọ và vách lọ)
+                let vxVal, vyVal;
+                if (isLi) {
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 1.0 + 0.3; // vận tốc tỏa ra
+                    vxVal = Math.cos(angle) * speed;
+                    vyVal = Math.sin(angle) * speed - 0.15; // xu hướng bay lên nhẹ
+                } else {
+                    vyVal = -(Math.random() * 0.5 + 0.3);
+                    vxVal = (Math.random() - 0.5) * 0.6;
+                }
+                const decayVal = isLi ? (Math.random() * 0.004 + 0.003) : (Math.random() * 0.003 + 0.002); // Phân rã vừa phải
+
+                smokeParticles.push({
+                    x: x + (Math.random() - 0.5) * 12,
+                    y: y + (Math.random() - 0.5) * 6,
+                    vx: vxVal,
+                    vy: vyVal,
+                    size: sizeVal,
+                    alpha: initialAlpha,
+                    decay: decayVal
+                });
+            }
+        }
+
+        function updateParticles() {
+            // 1. Cập nhật hạt lửa
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.size *= 0.93;
+                p.life -= p.decay;
+
+                // Triệt tiêu hạt lửa khi vượt quá giới hạn cổ bình (nút cao su đậy)
+                if (p.y < JAR_Y - 180) {
+                    p.life = 0;
+                }
+
+                if (p.life <= 0 || p.size <= 0.6) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            // 2. Cập nhật tia lửa bắn ra (sparks)
+            for (let i = sparkParticles.length - 1; i >= 0; i--) {
+                let sp = sparkParticles[i];
+                sp.x += sp.vx;
+                sp.y += sp.vy;
+                sp.vy += 0.09; // Trọng lực kéo xuống
+                sp.life -= sp.decay;
+
+                // Triệt tiêu tia lửa khi vượt quá giới hạn cổ bình (nút cao su đậy)
+                if (sp.y < JAR_Y - 180) {
+                    sp.life = 0;
+                }
+
+                if (sp.life <= 0) {
+                    sparkParticles.splice(i, 1);
+                }
+            }
+
+            // 3. Cập nhật khói trắng khuếch tán trong bình chứa khí
+            for (let i = smokeParticles.length - 1; i >= 0; i--) {
+                let p = smokeParticles[i];
+
+                // Hiệu ứng đối lưu nhiệt (phần giữa bốc lên, dọc vách bình chìm xuống)
+                const dx = p.x - JAR_X;
+                if (Math.abs(dx) < 25) {
+                    p.vy -= 0.008; // Đi lên ở vùng giữa bình
+                } else {
+                    p.vy += 0.006; // Đi xuống ở vùng biên (vách bình)
+                }
+
+                // Gió thổi gợn sóng ngang làm khói đung đưa bay bay
+                p.vx += Math.sin(time * 0.025 + p.y * 0.04) * 0.015;
+
+                // Giới hạn tốc độ di chuyển nhẹ nhàng, tự nhiên
+                p.vx = clamp(p.vx, -0.8, 0.8);
+                p.vy = clamp(p.vy, -0.6, 0.6);
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.size += 0.08; // Khói lan rộng ra chậm hơn để giữ độ đặc
+
+                // Giới hạn trong bình tam giác (Wobble và dội khi chạm vách bình)
+                const jy = JAR_Y;
+                const minY = jy - 175; // Mặt trên cổ bình tam giác (miệng bình thật)
+                const maxY = jy - 5;   // Đáy bình
+
+                let limitW = 18; // Độ rộng giới hạn tại Y tương ứng
+                if (p.y >= jy - 135) {
+                    const tRatio = clamp((p.y - (jy - 135)) / 135, 0, 1);
+                    limitW = lerp(18, 65, tRatio); // phình dần từ cổ (18px) xuống đáy (65px)
+                }
+
+                // Co giới hạn biên của x lại một chút dựa trên size hạt để khói hoàn toàn không chạm rìa bình ngoài đời thực
+                const borderOffset = Math.min(limitW - 4, p.size * 0.2);
+                const minX = JAR_X - limitW + borderOffset;
+                const maxX = JAR_X + limitW - borderOffset;
+
+                // Dội nhẹ và đảo chiều vận tốc khi chạm vách để giữ khói luôn tuần hoàn chuyển động
+                if (p.x < minX) { p.x = minX; p.vx = Math.abs(p.vx) * 0.4; }
+                if (p.x > maxX) { p.x = maxX; p.vx = -Math.abs(p.vx) * 0.4; }
+
+                // Khi chạm đỉnh bình (nút cao su đậy), dội nhẹ đi xuống
+                if (p.y < minY) {
+                    p.y = minY;
+                    p.vy = Math.abs(p.vy) * 0.4;
+                }
+                // Khi chạm đáy bình, dội nhẹ đi lên
+                if (p.y > maxY) {
+                    p.y = maxY;
+                    p.vy = -Math.abs(p.vy) * 0.4;
+                }
+
+                // Khói không phân rã biến mất hoàn toàn mà đọng lại nguyên vẹn và rõ nét trong bình
+                // (Li, Na, K dùng chung: giữ độ rõ cao, đọng đầy bình)
+                p.alpha = Math.max(0.90, p.alpha - p.decay * 0.1);
+                if (p.size > 55) {
+                    p.size = 55;
+                }
+
+                // Không bao giờ xóa hạt khói khi đã hình thành để tích tụ dần (chỉ giới hạn bởi maxSmoke)
+                if (p.alpha <= 0) {
+                    smokeParticles.splice(i, 1);
+                }
+            }
+        }
+
+        // ================= VẼ MŨI TÊN CHỈ KIM LOẠI BAN ĐẦU =================
+        function drawMetalArrow() {
+            ctx.save();
+            const fromX = 140, fromY = 110;
+            const toX = 215, toY = 153;
+
+            // Vẽ đường thẳng của mũi tên
+            ctx.beginPath();
+            ctx.moveTo(fromX, fromY);
+            ctx.lineTo(toX, toY);
+            ctx.strokeStyle = '#ef4444'; // Màu đỏ nổi bật
+            ctx.lineWidth = 2.5;
+            ctx.stroke();
+
+            // Vẽ đầu mũi tên
+            const angle = Math.atan2(toY - fromY, toX - fromX);
+            const arrowLength = 9;
+            ctx.beginPath();
+            ctx.moveTo(toX, toY);
+            ctx.lineTo(toX - arrowLength * Math.cos(angle - Math.PI / 6), toY - arrowLength * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(toX - arrowLength * Math.cos(angle + Math.PI / 6), toY - arrowLength * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+
+            // Vẽ chấm tròn nhỏ ở điểm bắt đầu
+            ctx.beginPath();
+            ctx.arc(fromX, fromY, 4, 0, Math.PI * 2);
+            ctx.fillStyle = '#ef4444';
+            ctx.fill();
+
+            // Vẽ nhãn chữ
+            ctx.fillStyle = '#1e293b';
+            ctx.font = 'bold 12px var(--font-stack)';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+
+            let label = "Kim loại Lithium (Li)";
+            if (activeMetal === 'Na') label = "Kim loại Natri (Na)";
+            else if (activeMetal === 'K') label = "Kim loại Kali (K)";
+
+            ctx.fillText(label, fromX - 8, fromY);
+            ctx.restore();
+        }
+
+        // ================= VẼ NẮP THỦY TINH MÀI ĐẬY BÌNH KHÍ =================
+        function drawGlassStopper(x, y, alpha) {
+            if (alpha <= 0) return;
+            ctx.save();
+            ctx.globalAlpha = alpha;
+
+            // Vẽ nút thủy tinh mài
+            ctx.fillStyle = 'rgba(215, 235, 250, 0.7)';
+            ctx.strokeStyle = '#94a3b8';
+            ctx.lineWidth = 1.5;
+
+            // 1. Núm tròn trên cùng
+            ctx.beginPath();
+            ctx.arc(x, y - 34, 12, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Phần cổ thắt và loe bên dưới núm tròn
+            ctx.beginPath();
+            ctx.moveTo(x - 6, y - 24); // Cổ thắt trái
+            ctx.quadraticCurveTo(x - 12, y - 16, x - 12, y - 10); // Loe ra
+            ctx.lineTo(x + 12, y - 10);
+            ctx.quadraticCurveTo(x + 12, y - 16, x + 6, y - 24); // Loe vào
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+
+            // 3. Phần chân nút cắm vào miệng bình (hình thang mài nhám)
+            ctx.beginPath();
+            ctx.moveTo(x - 12, y - 10);
+            ctx.lineTo(x + 12, y - 10);
+            ctx.lineTo(x + 10, y + 8);
+            ctx.lineTo(x - 10, y + 8);
+            ctx.closePath();
+            ctx.fillStyle = 'rgba(200, 220, 240, 0.85)'; // Hơi đục hơn do mài nhám
+            ctx.fill();
+            ctx.stroke();
+
+            // Vẽ vệt sáng phản quang dọc nút để tạo hiệu ứng 3D bóng bẩy
+            ctx.beginPath();
+            ctx.arc(x - 4, y - 36, 4, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.moveTo(x - 4, y - 20);
+            ctx.lineTo(x - 4, y + 5);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // ================= VẼ GLOW CHỚP PHẢN ỨNG BAN ĐẦU =================
+        function drawReactionFlash() {
+            if (flashAlpha > 0) {
+                ctx.save();
+                const metal = metalsData[activeMetal];
+                const displayAlpha = Math.min(0.95, flashAlpha);
+                const grad = ctx.createRadialGradient(JAR_X, JAR_Y - 60, 10, JAR_X, JAR_Y - 60, 220);
+                grad.addColorStop(0, metal.flashColor.replace('0.95', displayAlpha.toString()));
+                grad.addColorStop(0.5, metal.flameColor.replace('0.85', (displayAlpha * 0.45).toString()));
+                grad.addColorStop(1, 'rgba(0,0,0,0)');
+
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, W, H);
+                ctx.restore();
+
+                flashAlpha -= 0.04; // Giảm dần flash mượt mà
+            }
+        }
+
+        // ================= LOOP FRAME ANIMATION =================
+        function loop(timestamp) {
+            if (!timestamp) {
+                timestamp = performance.now();
+            }
+
+            const fpsInterval = 1000 / 60; // lock ở 60 FPS
+            const elapsed = timestamp - lastTime;
+
+            if (elapsed < fpsInterval) {
+                requestAnimationFrame(loop);
+                return; // Chưa đủ thời gian cho 1 frame (16.67ms), bỏ qua để lock FPS
+            }
+
+            // Bù trừ sai số thời gian
+            lastTime = timestamp - (elapsed % fpsInterval);
+
+            time++;
+            ctx.clearRect(0, 0, W, H);
+
+            drawGrid();
+            drawAlcoholLamp();
+
+            // Vẽ bình khí trước
+            drawGasJar();
+
+            // Vẽ nắp mài thủy tinh đậy bình
+            drawGlassStopper(glassPlateX, glassPlateY, glassPlateAlpha);
+
+            const metal = metalsData[activeMetal];
+
+            // STATE MACHINE LOGIC
+            if (currentStep === 0 && subStep === 1) {
+                animTimer++;
+
+                // Pha 1: Di chuyển thìa sắt sang đèn cồn
+                if (animTimer <= 40) {
+                    const t = easeInOut(animTimer / 40);
+                    spoonX = lerp(SPOON_START_X, LAMP_X - 10, t);
+                    spoonY = lerp(SPOON_START_Y, LAMP_Y - 45, t);
+                }
+                // Pha 2: Hơ nóng trên ngọn lửa
+                else if (animTimer <= 110) {
+                    const progress = (animTimer - 40) / 70;
+
+                    // Nóng đỏ từ từ
+                    metalGlow = progress;
+
+                    // Dao động lắc nhẹ trên lửa
+                    spoonY = LAMP_Y - 45 + Math.sin(time * 0.25) * 1.5;
+
+                    // Hiện tượng chảy lỏng
+                    if (progress > metal.meltProgress) {
+                        metalState = 'liquid';
+                    }
+                }
+                // Pha 3: Bắt cháy ngọn lửa nhỏ ngoài không khí
+                else if (animTimer <= 140) {
+                    metalState = 'flame';
+                    // Đốm lửa nhỏ hình thành trên mẩu kim loại
+                }
+                // Kết thúc bước 1
+                else {
+                    subStep = 4; // Hoàn thành bước 1
+                    currentStep = 1; // Cho phép nhảy sang bước 2
+                    animTimer = 0;
+                    updateUI();
+                }
+            }
+            else if (currentStep === 1 && subStep === 1) {
+                animTimer++;
+
+                // Pha 1: Di chuyển từ đèn cồn sang miệng bình khí (40 frames)
+                // Uốn cong mượt mà theo đường Bezier bậc 2 vồng qua giữa thiết bị
+                if (animTimer <= 40) {
+                    const t = easeInOut(animTimer / 40);
+                    const x0 = LAMP_X - 10;
+                    const y0 = LAMP_Y - 45;
+                    const x2 = JAR_X - 10;
+                    const y2 = JAR_Y - 215;
+                    const x1 = (x0 + x2) / 2;
+                    const y1 = y2 - 60; // Vồng lên cao hơn miệng bình để chuyển động tự nhiên
+
+                    spoonX = (1 - t) * (1 - t) * x0 + 2 * (1 - t) * t * x1 + t * t * x2;
+                    spoonY = (1 - t) * (1 - t) * y0 + 2 * (1 - t) * t * y1 + t * t * y2;
+
+                    // Cho nắp mài thủy tinh trượt bay ra khi thìa đến gần (từ frame 15 đến 35)
+                    if (animTimer >= 15 && animTimer <= 35) {
+                        const tGlass = (animTimer - 15) / 20;
+                        const easeGlass = easeOut(tGlass);
+                        glassPlateX = JAR_X + easeGlass * 80;
+                        glassPlateY = (JAR_Y - 180) - easeGlass * 55;
+                        glassPlateAlpha = 1 - easeGlass;
+                    } else if (animTimer > 35) {
+                        glassPlateAlpha = 0;
+                    }
+                }
+                // Pha 2: Hạ thìa nhanh vào sâu trong bình khí Chlorine và đậy nắp (35 frames)
+                else if (animTimer <= 75) {
+                    const t = easeOut((animTimer - 40) / 35);
+                    spoonX = JAR_X - 10;
+                    spoonY = lerp(JAR_Y - 215, JAR_Y - 60, t);
+
+                    // Natri / Kali: Bắt đầu cháy lớn ngay khi vừa đi qua miệng bình (animTimer > 40)
+                    if ((activeMetal === 'Na' || activeMetal === 'K') && animTimer > 40) {
+                        const intensityFactor = activeMetal === 'Na' ? 1.05 : 2.2;
+                        fireIntensity = intensityFactor * metal.intensity;
+                        spawnFireParticles(spoonX + 10, spoonY, fireIntensity);
+                        spawnSmoke(spoonX + 10, spoonY, fireIntensity * metal.smokeDensity);
+                        // Chỉ Natri mới bắn tia lửa pháo hoa
+                        if (activeMetal === 'Na' && Math.random() < 0.2) {
+                            spawnSparks(spoonX + 10, spoonY, 2);
+                        }
+                        if (animTimer === 41) {
+                            flashAlpha = activeMetal === 'Na' ? 1.2 : 1.8;
+                        }
+                    } else {
+                        fireIntensity = 0;
+                    }
+
+                    // Chuẩn bị bắt đầu phản ứng ngay khi đậy nắp ở frame cuối của pha này
+                    if (animTimer === 75) {
+                        if (activeMetal === 'Li') {
+                            flashAlpha = 0; // Tắt chớp sáng cho Lithium
+                            spawnSparks(spoonX + 10, spoonY + 1, 0);
+                        } else if (activeMetal === 'Na' || activeMetal === 'K') {
+                            // Natri / Kali đã cháy từ khi vào bình
+                        }
+                    }
+                }
+                // Pha 3: Phản ứng cháy bùng lên mãnh liệt
+                else if (animTimer <= 75 + metal.burnDuration) {
+                    const reactProgress = (animTimer - 75) / metal.burnDuration;
+
+                    // Thiết lập tiến trình cường độ lửa bất đối xứng: cháy bùng lên rồi lịm dần từ từ
+                    let intensityFactor = 0;
+                    if (activeMetal === 'Li') {
+                        // Lithium: khi cho vào cháy bé (0.15), lớn hơn chút chút (0.35) trong 2 giây đầu, sau đó giảm dần về tắt hẳn (0) trong 5 giây sau
+                        if (reactProgress < 0.28) {
+                            const p = reactProgress / 0.28;
+                            intensityFactor = lerp(0.15, 0.35, p); // Tăng dần từ cháy rất bé (0.15) lên lớn hơn chút (0.35)
+                        } else if (reactProgress < 0.98) {
+                            const p = (reactProgress - 0.28) / 0.70;
+                            intensityFactor = lerp(0.35, 0, p); // Giảm dần từ 0.35 về tắt hẳn (0)
+                        } else {
+                            intensityFactor = 0;
+                        }
+                    } else if (activeMetal === 'Na') {
+                        // Natri: bùng to giữ ở mức cao nhất (clamp 85) trọn 1.5s (reactProgress<90/390=0.23),
+                        // rồi giảm dần đều tới TẮT HẲN trong 5s. Pha giảm bắt đầu ĐÚNG ngưỡng clamp
+                        // (85/69≈1.23, chia intensity 1.4 ≈ 0.88) để lửa co lại ngay, không đứng to.
+                        if (reactProgress < 0.23) {
+                            intensityFactor = 1.05 + Math.sin(time * 0.35) * 0.06;
+                        } else if (reactProgress < 0.99) {
+                            const p = (reactProgress - 0.23) / 0.76;
+                            intensityFactor = lerp(0.88, 0, p);
+                        } else {
+                            intensityFactor = 0;
+                        }
+                    } else if (activeMetal === 'K') {
+                        // Kali: phản ứng cực mạnh bùng cháy lớn ngay từ đầu, bùng to giữ nguyên trong 1.5s (reactProgress < 0.35), sau đó giảm dần về tắt hẳn
+                        if (reactProgress < 0.35) {
+                            intensityFactor = 2.2 + Math.sin(time * 0.45) * 0.1;
+                        } else if (reactProgress < 0.98) {
+                            const p = (reactProgress - 0.35) / 0.63;
+                            intensityFactor = lerp(2.2, 0, p);
+                        } else {
+                            intensityFactor = 0;
+                        }
+                    }
+                    fireIntensity = intensityFactor * metal.intensity;
+
+                    // Bắn các hạt lửa và khói liên tục dựa trên cường độ lửa hiện tại
+                    if (fireIntensity > 0) {
+                        spawnFireParticles(spoonX + 10, spoonY, fireIntensity);
+                    }
+
+                    // Khói bốc lên đều đặn theo tiến trình phản ứng cho đến khi tắt hẳn
+                    if (reactProgress < 0.98) {
+                        spawnSmoke(spoonX + 10, spoonY, Math.max(0.15, intensityFactor) * metal.smokeDensity);
+                    }
+
+                    // Chỉ Natri mới sinh tia lửa bay ra trong suốt quá trình phản ứng (Li và K không có)
+                    if (activeMetal === 'Na' && Math.random() < 0.1 * fireIntensity) {
+                        spawnSparks(spoonX + 10, spoonY, 2);
+                    }
+
+                    // Kim loại tiêu biến dần (tiêu biến hết trước khi kết thúc thời gian phản ứng)
+                    metalSize = Math.max(0, 6 * (1 - Math.min(1, reactProgress * 1.25)));
+
+                    // Khí Chlorine mất màu dần nhưng vẫn giữ lại sắc vàng lục nhạt ở đáy bình
+                    chlorineOpacity = Math.max(0.12, 0.65 * (1 - Math.min(1, reactProgress * 1.15)));
+                }
+                // Kết thúc bước 2
+                else {
+                    fireIntensity = 0;
+                    metalState = 'burnt';
+                    subStep = 4; // Hoàn thành bước 2
+                    currentStep = 2; // Cho phép nhảy sang bước 3
+                    animTimer = 0;
+                    updateUI();
+                }
+            } else if (currentStep === 2) {
+                animTimer++; // Chạy tiếp timer để làm nguội thìa sắt
+            }
+
+            // Vẽ thìa sắt đè lên bình khí
+            drawSpoon(spoonX, spoonY);
+
+            // Vẽ mũi tên chỉ vào mẩu kim loại khi thí nghiệm chưa bắt đầu (chuẩn bị)
+            if (currentStep === 0 && subStep === 0) {
+                drawMetalArrow();
+            }
+
+            // Vẽ flash phản ứng nếu có (Đã tắt để loại bỏ hiệu ứng bùng tròn bao quanh)
+            // drawReactionFlash();
+
+            // Cập nhật và vẽ các hạt chuyển động
+            updateParticles();
+
+            requestAnimationFrame(loop);
+        }
+
+        // ================= LÀM LẠI HOÀN TOÀN THÍ NGHIỆM =================
+        function handleStepClickOld() {
+            // Không sử dụng, hàm chính là handleStepClick()
+        }
+
+        // Bắt đầu khởi động trang mô phỏng
+        window.onload = () => {
+            init();
+        };
+    </script>
+</body>
+
+</html>

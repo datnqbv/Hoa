@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thí nghiệm: Kim loại kiềm tác dụng với nước (Top-Down View)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <style>
+        :root {
+            --bg-body: #f0f4f8;
+            --surface: #ffffff;
+            --border: #cbd5e1;
+            --primary: #0f4c81;
+            --secondary: #1a7a5e;
+            --text-main: #1e293b;
+            --text-sub: #64748b;
+            --panel-purpose-bg: #fcf9fb;
+            --panel-purpose-border: #ffabc7;
+            --panel-guide-bg: #eaf6fc;
+            --panel-guide-border: #7bb9e5;
+            --control-bg: #f5f0ff;
+            --control-border: #c4b5fd;
+            --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-stack);
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            line-height: 1.5;
+        }
+
+        .lab-header,
+        .lab-info-panel,
+        .lab-canvas-container,
+        .lab-controls,
+        .lab-explanation {
+            width: 100%;
+            max-width: 760px;
+        }
+
+        .lab-header {
+            background: url('https://www.aiducation.edu.vn/images/fifingfig_Modern_editorial_illustration_of_a_stylized_Vietnames_f0b08847-9f6d-48cf-90ac-b8ed2eb77baf.png');
+            background-position: center 30%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(15, 76, 129, 0.15);
+        }
+
+        .lab-header::before,
+        .lab-header::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .lab-header::before {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -40px;
+        }
+
+        .lab-header::after {
+            width: 120px;
+            height: 120px;
+            bottom: -30px;
+            left: -20px;
+        }
+
+        .lab-header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .lab-header h1 {
+            color: #ffffff;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.3px;
+        }
+
+        .lab-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 13px;
+            margin: 0;
+        }
+
+        .lab-info-panel {
+            display: flex;
+            gap: 12px;
+            padding-left: 0;
+        }
+
+        .info-col {
+            flex: 1;
+            padding: 14px 16px;
+            border-radius: 10px;
+        }
+
+        .info-col.purpose {
+            background-color: var(--panel-purpose-bg);
+            border: 1px solid var(--panel-purpose-border);
+        }
+
+        .info-col.guide {
+            background-color: var(--panel-guide-bg);
+            border: 1px solid var(--panel-guide-border);
+        }
+
+        .info-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .info-content {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .info-content ol {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .info-content li {
+            margin-bottom: 4px;
+        }
+
+        .info-content li:last-child {
+            margin-bottom: 0;
+        }
+
+        .lab-canvas-container {
+            background: #cadcf2;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: block;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        #labCanvas {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .lab-controls {
+            background: var(--control-bg);
+            border: 1px solid var(--control-border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(196, 181, 253, 0.4);
+        }
+
+        .control-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            justify-content: flex-start;
+            gap: 12px;
+        }
+
+        .control-label {
+            min-width: 160px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .lab-btn {
+            font-family: var(--font-stack);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background-color: #f8fafc;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            user-select: none;
+        }
+
+        .lab-btn:hover:not(:disabled) {
+            border-color: var(--primary);
+            color: var(--primary);
+            background-color: #f0f7ff;
+        }
+
+        .lab-btn.active {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 12px rgba(15, 76, 129, 0.25);
+        }
+
+        .lab-btn.btn-action {
+            background-color: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            padding: 10px 22px;
+        }
+
+        .lab-btn.btn-action:hover:not(:disabled) {
+            background-color: #0c3e69;
+            border-color: #0c3e69;
+            color: #ffffff;
+        }
+
+        .lab-btn.btn-reset {
+            border: 1.5px dashed var(--border);
+            background-color: transparent;
+        }
+
+        .lab-btn.btn-reset:hover:not(:disabled) {
+            border-color: var(--secondary);
+            color: var(--secondary);
+            background-color: #f0fdf4;
+        }
+
+        .lab-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .ti-spin {
+            display: inline-block;
+            animation: spin 0.9s linear infinite;
+        }
+
+        .lab-explanation {
+            border-radius: 14px;
+            padding: 16px 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+            background: #fef9ee;
+            border: 1px solid #f0c674;
+            border-left: 4px solid #d4930a;
+        }
+
+        .lab-explanation.reacted {
+            background: #eefbf4;
+            border: 1px solid #6bc9a0;
+            border-left: 4px solid #0f6e56;
+        }
+
+        .explanation-title {
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .explanation-text {
+            font-size: 13px;
+            color: var(--text-main);
+            margin: 0;
+            white-space: pre-line;
+        }
+
+        .fade {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="lab-header">
+
+        <h1>Phản ứng của Kim loại kiềm (Li, Na, K) với Nước</h1>
+        <p>Mô phỏng động học quá trình hòa tan, biến đổi hình thái cấu trúc và năng lượng ở góc nhìn từ trên xuống.</p>
+    </header>
+
+    <section class="lab-info-panel">
+        <div class="info-col purpose">
+            <div class="info-label"><i class="ti ti-target-arrow"></i> Mục đích thí nghiệm</div>
+            <div class="info-content">
+                Quan sát, so sánh mức độ hoạt động hóa học tăng dần của các kim loại kiềm cấu hình electron s¹ (Lithium,
+                Natri, Kali) khi tương tác vật lý trực tiếp với phân tử nước nguyên chất.
+            </div>
+        </div>
+        <div class="info-col guide">
+            <div class="info-label"><i class="ti ti-list-numbers"></i> Hướng dẫn thao tác</div>
+            <div class="info-content">
+                <ol>
+                    <li>Lựa chọn một trong ba kim loại kiềm trong tủ bảo quản.</li>
+                    <li>Nhấn nút <b>"Thả vào nước"</b> để sử dụng kẹp gắp mẫu vật thả vào chậu.</li>
+                    <li>Quan sát hiện tượng sinh khí, quỹ đạo di chuyển trên bề mặt và ngọn lửa đặc trưng.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <div class="lab-canvas-container">
+        <canvas id="labCanvas" width="760" height="500"></canvas>
+    </div>
+
+    <section class="lab-controls">
+        <div class="control-row">
+            <div class="control-label"><i class="ti ti-atom-2"></i> Chọn kim loại</div>
+            <div class="btn-group">
+                <button class="lab-btn active" onclick="selectMetal('Li')" id="btn-Li"><i
+                        class="ti ti-hexagon-letter-l"></i> Lithium (Li)</button>
+                <button class="lab-btn" onclick="selectMetal('Na')" id="btn-Na"><i class="ti ti-hexagon-letter-n"></i>
+                    Natri (Na)</button>
+                <button class="lab-btn" onclick="selectMetal('K')" id="btn-K"><i class="ti ti-hexagon-letter-k"></i>
+                    Kali (K)</button>
+            </div>
+        </div>
+        <div class="control-row">
+            <button class="lab-btn btn-action" id="btn-run" onclick="startExperiment()"><i
+                    class="ti ti-player-play"></i> Thả vào nước</button>
+            <button class="lab-btn btn-reset" id="btn-reset" onclick="resetExperiment()"><i class="ti ti-refresh"></i>
+                Đặt lại thí nghiệm</button>
+        </div>
+    </section>
+
+    <footer class="lab-explanation" id="explanation-box">
+        <div class="explanation-title" id="explanation-title"><i class="ti ti-info-circle"></i> Trạng thái hệ thống: Sẵn
+            sàng</div>
+        <div class="explanation-text" id="explanation-text">Chưa tiến hành phản ứng. Nước trong khay thủy tinh ở trạng
+            thái tĩnh, trong suốt.</div>
+    </footer>
+
+    <script>
+        // --- MATH & UTILS ---
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function drawLightningBolt(startX, startY, length, angle) {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255, 140, 50, 0.9)'; // viền ngoài màu cam vàng rực lửa
+            ctx.lineWidth = 1.0 + Math.random() * 0.8; // làm tia sét thanh mảnh, bé đi nhiều
+            ctx.lineCap = 'round';
+            ctx.shadowBlur = 10; // quầng sáng phát sáng nhỏ lại, ôm sát tia sét
+            ctx.shadowColor = '#ff6a00'; // màu cam đỏ ấm rực rỡ của lửa tự nhiên
+
+            let curX = startX;
+            let curY = startY;
+            let targetX = startX + Math.cos(angle) * length;
+            let targetY = startY + Math.sin(angle) * length * 0.8; // phóng lên trên thẳng đứng hơn nên phối cảnh ít dẹt hơn
+
+            let steps = 5;
+            ctx.beginPath();
+            ctx.moveTo(curX, curY);
+
+            for (let i = 1; i <= steps; i++) {
+                let t = i / steps;
+                let lx = lerp(startX, targetX, t);
+                let ly = lerp(startY, targetY, t);
+
+                if (i < steps) {
+                    let offset = (Math.random() - 0.5) * 18;
+                    let perpAngle = angle + Math.PI / 2;
+                    lx += Math.cos(perpAngle) * offset;
+                    ly += Math.sin(perpAngle) * offset * 0.8;
+                }
+
+                ctx.lineTo(lx, ly);
+            }
+            ctx.stroke();
+
+            ctx.strokeStyle = '#ffffff'; // lõi trắng mảnh ở giữa
+            ctx.lineWidth = 0.5;
+            ctx.shadowBlur = 0;
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 500;
+
+        // --- CAMERA & GEOMETRY (Isometric/Top-Down perspective) ---
+        const cx = W / 2;         // Tâm chậu
+        const cy = 250;           // Tâm bề mặt nước
+        const rx = 240;           // Bán kính ngang của chậu
+        const ry = 160;           // Bán kính dọc (phối cảnh) của chậu
+        const glassRimY = cy - 30; // Miệng ly cao hơn mặt nước
+        const glassBottomY = cy + 70; // Đáy ly thấp hơn mặt nước
+
+        // --- SYSTEM STATE ---
+        let currentMetal = 'Li';
+        let isAnimating = false;
+        let hasReacted = false;
+        let subStep = 0;
+        let animTimer = 0;
+        let globalTime = 0;
+        let reactionFrames = 0;
+        let lightningAngle1 = 0;
+        let lightningAngle2 = 0;
+
+        // --- KINEMATIC STATE (3D coordinates mapped to 2D) ---
+        let mX = cx;      // Tọa độ X trên mặt nước
+        let mY = cy;      // Tọa độ Y trên mặt nước
+        let mZ = 120;     // Độ cao so với mặt nước (khi rơi)
+        let mRadius = 12;
+        let mColor = '#a1a1aa';
+        let mSpeedX = 0;
+        let mSpeedY = 0;  // Vận tốc theo trục Y (sâu/nông trên mặt phẳng 2D)
+
+        let splashRings = [];
+        let particles = [];
+
+        // --- DATA ---
+        const metalData = {
+            'Li': {
+                name: 'Lithium (Li)', size: 11, color: '#94a3b8',
+                desc: 'Thí nghiệm với Lithium: Khi được thả vào nước, mẩu Lithium phản ứng, sủi bọt khí (khí hydrogen) và di chuyển chậm trên mặt nước. Mẩu kim loại từ từ tan dần cho đến khi biến mất hoàn toàn.\nPhương trình: 2Li + 2H₂O → 2LiOH + H₂↑',
+                speed: 1.2, hasFlame: false, isSphere: false, decayRate: 0.022
+            },
+            'Na': {
+                name: 'Natri (Na)', size: 13, color: '#cbd5e1',
+                desc: 'Thí nghiệm với Natri: Mẩu Natri phản ứng mãnh liệt hơn so với Lithium. Mẩu kim loại nhanh chóng nóng chảy, vo tròn lại thành một hạt nhỏ, chạy với tốc độ cao và xoay vòng trên mặt nước, đồng thời sủi bọt khí mạnh mẽ. Natri tan rất nhanh và tạo ra những tiếng xèo xèo.\nPhương trình: 2Na + 2H₂O → 2NaOH + H₂↑',
+                speed: 4.5, hasFlame: false, isSphere: true, decayRate: 0.027
+            },
+            'K': {
+                name: 'Kali (K)', size: 15, color: '#94a3b8',
+                desc: 'Thí nghiệm với Kali: Mẩu Kali ngay khi chạm vào mặt nước đã bùng cháy lập tức với ngọn lửa màu tím hồng đặc trưng, kèm theo tiếng nổ lép bép và khói trắng. Phản ứng diễn ra cực kì mãnh liệt và kết thúc chỉ trong chớp mắt.\nPhương trình: 2K + 2H₂O → 2KOH + H₂↑',
+                speed: 4.8, hasFlame: true, isSphere: true, decayRate: 0.05
+            }
+        };
+
+        // --- DRAWING FUNCTIONS ---
+        function drawGrid() {
+            ctx.save();
+            ctx.strokeStyle = 'rgba(15,76,129,0.03)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke(); }
+            for (let y = 0; y <= H; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke(); }
+            ctx.restore();
+        }
+
+        function drawGlassBowl() {
+            ctx.save();
+
+            // 1. Đáy chậu thủy tinh
+            ctx.beginPath();
+            ctx.ellipse(cx, glassBottomY, rx, ry, 0, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(235, 245, 255, 0.1)';
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            // 2. Nước (Thể tích chất lỏng)
+            ctx.fillStyle = 'rgba(215, 235, 250, 0.15)';
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx - 4, ry - 4, 0, 0, Math.PI); // Nửa dưới mặt nước
+            ctx.lineTo(cx - rx + 4, glassBottomY);
+            ctx.ellipse(cx, glassBottomY, rx - 4, ry - 4, 0, Math.PI, 0, true); // Nửa dưới đáy
+            ctx.closePath();
+            ctx.fill();
+
+            // 3. Mặt nước (Water Surface - Giữ trong suốt/trắng nhạt)
+            ctx.fillStyle = 'rgba(230, 245, 255, 0.25)';
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx - 4, ry - 4, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Gợn sóng/phản chiếu trên mặt nước
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, rx - 20, ry - 12, 0, 0.2, Math.PI - 0.2);
+            ctx.stroke();
+
+            // 4. Miệng chậu thủy tinh (Glass rim)
+            ctx.strokeStyle = 'rgba(150, 180, 190, 0.7)'; // Màu xanh của cạnh kính
+            ctx.lineWidth = 5;
+            ctx.beginPath();
+            ctx.ellipse(cx, glassRimY, rx, ry, 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Vệt sáng highlight trên miệng chậu
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.ellipse(cx, glassRimY, rx, ry, 0, 3.5, 5);
+            ctx.stroke();
+
+            // 5. Viền dọc thành chậu
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(cx - rx, glassRimY); ctx.lineTo(cx - rx, glassBottomY);
+            ctx.moveTo(cx + rx, glassRimY); ctx.lineTo(cx + rx, glassBottomY);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // Kẹp gắp (Tweezers) - Điều chỉnh Z-index bằng mZ
+        function drawTweezers(zHeight, openProg = 0) {
+            ctx.save();
+            let tx = mX;
+            let ty = mY - zHeight - 10; // Giả lập cao độ Z bằng cách trừ đi Y
+            let openWidth = lerp(4, 16, openProg);
+
+            ctx.strokeStyle = '#4a5568';
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+
+            // Gọng kẹp 2 bên
+            ctx.beginPath(); ctx.moveTo(tx - 6, ty - 120); ctx.lineTo(tx - 8, ty); ctx.lineTo(tx - openWidth, ty + 24); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(tx + 6, ty - 120); ctx.lineTo(tx + 8, ty); ctx.lineTo(tx + openWidth, ty + 24); ctx.stroke();
+
+            // Chốt kẹp
+            ctx.fillStyle = '#1e293b'; ctx.beginPath(); ctx.arc(tx, ty - 80, 4, 0, Math.PI * 2); ctx.fill();
+            ctx.restore();
+        }
+
+        // Vẽ mẫu vật trên mặt nước
+        function drawMetalSample() {
+            if (mRadius <= 0) return;
+            ctx.save();
+            let data = metalData[currentMetal];
+
+            // Tính tọa độ render (Áp dụng Z thành độ cao hiển thị Y)
+            let renderX = mX;
+            let renderY = mY - mZ;
+
+            if (subStep === 3 && data.hasFlame) {
+                if (currentMetal === 'K' && reactionFrames >= 95) {
+                    // Vẽ quầng lửa tròn cháy sáng chói lọi màu lửa tự nhiên ôm quanh Kali
+                    ctx.save();
+
+                    // Lớp phát sáng shadow cực mạnh màu cam đỏ ấm
+                    ctx.shadowBlur = 45 + Math.random() * 15;
+                    ctx.shadowColor = 'rgba(255, 106, 0, 0.95)';
+
+                    // 1. Quầng lửa tỏa tròn (Radial Gradient màu vàng cam rực)
+                    let grad = ctx.createRadialGradient(renderX, renderY, mRadius * 0.5, renderX, renderY, mRadius * 2.5);
+                    grad.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+                    grad.addColorStop(0.2, 'rgba(255, 230, 150, 0.9)');
+                    grad.addColorStop(0.6, 'rgba(255, 120, 30, 0.75)');
+                    grad.addColorStop(1, 'rgba(255, 50, 0, 0)');
+                    ctx.fillStyle = grad;
+                    ctx.beginPath();
+                    ctx.arc(renderX, renderY, mRadius * 2.5, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    // 2. Vẽ viền lửa cháy sáng nhấp nháy hình tròn ôm quanh
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+                    ctx.lineWidth = 2 + Math.random() * 3;
+                    ctx.beginPath();
+                    ctx.arc(renderX, renderY, mRadius * (1.3 + Math.random() * 0.3), 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    // 3. Vành ngoài màu cam đỏ nhấp nháy
+                    ctx.strokeStyle = 'rgba(255, 75, 0, 0.7)';
+                    ctx.lineWidth = 1.5 + Math.random() * 2;
+                    ctx.beginPath();
+                    ctx.arc(renderX, renderY, mRadius * (1.6 + Math.random() * 0.4), 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    ctx.restore();
+                } else if (currentMetal !== 'K') {
+                    ctx.shadowBlur = 30;
+                    ctx.shadowColor = 'rgba(216, 180, 254, 0.9)';
+                }
+            }
+
+            ctx.fillStyle = mColor;
+            ctx.strokeStyle = '#4b5563';
+            ctx.lineWidth = 1.5;
+
+            if (data.isSphere && subStep === 3) {
+                ctx.beginPath(); ctx.arc(renderX, renderY, mRadius, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.beginPath(); ctx.arc(renderX - mRadius * 0.3, renderY - mRadius * 0.3, mRadius * 0.25, 0, Math.PI * 2); ctx.fill();
+            } else {
+                ctx.beginPath();
+                ctx.moveTo(renderX - mRadius, renderY); ctx.lineTo(renderX, renderY - mRadius * 0.8);
+                ctx.lineTo(renderX + mRadius, renderY); ctx.lineTo(renderX, renderY + mRadius * 0.9);
+                ctx.closePath(); ctx.fill(); ctx.stroke();
+            }
+            ctx.restore();
+        }
+
+        function drawEffects() {
+            ctx.save();
+            splashRings.forEach((ring, idx) => {
+                ctx.strokeStyle = `rgba(255, 255, 255, ${ring.alpha})`;
+                ctx.lineWidth = ring.lineWidth;
+                ctx.beginPath();
+                // Sóng tỏa ra cũng phải là hình ellipse theo góc nhìn
+                ctx.ellipse(ring.x, ring.y, ring.r, ring.r * 0.65, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            });
+            ctx.restore();
+        }
+
+        function spawnParticle(type, x, y, options = {}) {
+            particles.push({
+                type: type, x: x, y: y, z: 0,
+                vx: options.vx || (Math.random() - 0.5) * 2,
+                vy: options.vy || (Math.random() - 0.5) * 2,
+                vz: options.vz || 0,
+                life: 1.0, decay: options.decay || 0.02,
+                size: options.size || 2 + Math.random() * 3,
+                color: options.color || '#ffffff'
+            });
+        }
+
+        function updateAndDrawParticles() {
+            ctx.save();
+            for (let i = particles.length - 1; i >= 0; i--) {
+                let p = particles[i];
+                p.life -= p.decay;
+                if (p.life <= 0) { particles.splice(i, 1); continue; }
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.z += p.vz;
+
+                let renderX = p.x;
+                let renderY = p.y - p.z; // Tọa độ thật trên màn hình
+
+                if (p.type === 'bubble') {
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+                    ctx.beginPath(); ctx.arc(renderX, renderY, p.size, 0, Math.PI * 2); ctx.fill();
+                }
+                else if (p.type === 'smoke') {
+                    p.vz += 0.2; p.size += 0.1;
+                    ctx.fillStyle = `rgba(241, 245, 249, ${p.life * 0.3})`;
+                    ctx.beginPath(); ctx.arc(renderX, renderY, p.size, 0, Math.PI * 2); ctx.fill();
+                }
+                else if (p.type === 'flame') {
+                    p.vz += p.shape === 'circle' ? 0.15 : 0.5;
+                    p.size *= p.shape === 'circle' ? 0.92 : 0.95;
+                    ctx.fillStyle = p.color;
+                    ctx.shadowBlur = p.shape === 'circle' ? 25 : 10;
+                    ctx.shadowColor = p.color;
+                    ctx.beginPath();
+                    if (p.shape === 'circle') {
+                        ctx.arc(renderX, renderY, p.size, 0, Math.PI * 2);
+                    } else {
+                        ctx.moveTo(renderX - p.size, renderY);
+                        ctx.quadraticCurveTo(renderX, renderY - p.size * 2, renderX, renderY - p.size * 3);
+                        ctx.quadraticCurveTo(renderX + p.size, renderY - p.size * 2, renderX + p.size, renderY);
+                    }
+                    ctx.fill(); ctx.shadowBlur = 0;
+                }
+                else if (p.type === 'spark') {
+                    p.vz -= 0.1; // Trọng lực kéo xuống mặt nước
+                    if (p.z < 0) { p.z = 0; p.vx *= 0.5; p.vy *= 0.5; }
+                    ctx.fillStyle = p.color; ctx.fillRect(renderX, renderY, p.size, p.size);
+                }
+            }
+            ctx.restore();
+        }
+
+        // --- CONTROLS LOGIC ---
+        function updateExplanation(title, text, isDone = false) {
+            let box = document.getElementById('explanation-box');
+            let tEl = document.getElementById('explanation-title');
+            let pEl = document.getElementById('explanation-text');
+            box.classList.add('fade');
+            setTimeout(() => {
+                if (isDone) {
+                    box.classList.add('reacted'); tEl.innerHTML = `<i class="ti ti-circle-check"></i> Kết quả thực nghiệm: ${title}`;
+                } else {
+                    box.classList.remove('reacted'); tEl.innerHTML = `<i class="ti ti-info-circle"></i> Trạng thái hệ thống: ${title}`;
+                }
+                pEl.innerText = text; box.classList.remove('fade');
+            }, 200);
+        }
+
+        function selectMetal(metalCode) {
+            if (isAnimating) return;
+            currentMetal = metalCode;
+            document.querySelectorAll('.btn-group .lab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`btn-${metalCode}`).classList.add('active');
+            resetExperimentState();
+        }
+
+        function resetExperimentState() {
+            let data = metalData[currentMetal];
+            mX = cx; mY = cy; mZ = 140; // Đưa về vị trí trung tâm, trên cao
+            mRadius = data.size; mColor = data.color;
+
+            // Random hướng ban đầu
+            let angle = Math.random() * Math.PI * 2;
+            mSpeedX = Math.cos(angle) * data.speed;
+            mSpeedY = Math.sin(angle) * data.speed * 0.6; // Nhân 0.6 cho speed Y vì phối cảnh dẹt
+
+            subStep = 0; animTimer = 0; hasReacted = false; splashRings = []; particles = [];
+            reactionFrames = 0;
+            // Chọn góc chếch lên trên (từ -120 độ đến -60 độ)
+            lightningAngle1 = -Math.PI / 2 + (Math.random() - 0.5) * (Math.PI / 3);
+            lightningAngle2 = -Math.PI / 2 + (Math.random() - 0.5) * (Math.PI / 3);
+            updateExplanation("Sẵn sàng", `Đã nạp mẫu kim loại ${data.name}. Nước trong khay thủy tinh ở trạng thái tĩnh, trong suốt.`);
+            document.getElementById('btn-run').disabled = false;
+            document.getElementById('btn-run').innerHTML = `<i class="ti ti-player-play"></i> Thả vào nước`;
+        }
+
+        function startExperiment() {
+            if (isAnimating || subStep !== 0) return;
+            isAnimating = true; subStep = 1; animTimer = 0;
+            let runBtn = document.getElementById('btn-run');
+            runBtn.disabled = true; runBtn.innerHTML = `<i class="ti ti-loader ti-spin"></i> Đang thực hiện...`;
+            document.getElementById('btn-reset').disabled = true;
+            updateExplanation("Đang tiến hành", "Kẹp gắp thả mẫu kim loại vào trung tâm bề mặt nước.");
+        }
+
+        function resetExperiment() { resetExperimentState(); }
+
+        // --- MAIN LOOP ---
+        function loop() {
+            ctx.clearRect(0, 0, W, H);
+            globalTime++;
+
+            drawGrid();
+            drawGlassBowl();
+
+            if (subStep === 1) { // Kẹp di chuyển xuống
+                animTimer += 0.02;
+                mZ = lerp(140, 20, easeInOut(animTimer));
+                drawTweezers(mZ, 0);
+                if (animTimer >= 1.0) { subStep = 2; animTimer = 0; }
+            }
+            else if (subStep === 2) { // Kẹp nhả mẫu vật rơi
+                animTimer += 0.05;
+                mZ -= 4; // Rơi tự do
+                let tweezerZ = lerp(20, 140, easeOut(clamp(animTimer, 0, 1)));
+                drawTweezers(tweezerZ, clamp(animTimer * 2, 0, 1));
+
+                if (mZ <= 0) { // Chạm mặt nước
+                    mZ = 0; subStep = 3; animTimer = 0; hasReacted = true;
+                    splashRings.push({ x: mX, y: mY, r: 2, alpha: 0.8, lineWidth: 3 });
+                    splashRings.push({ x: mX, y: mY, r: 12, alpha: 0.5, lineWidth: 1.5 });
+                    updateExplanation(`Phản ứng của ${metalData[currentMetal].name}`, "Mẫu vật va chạm mặt nước, phản ứng bắt đầu.");
+                }
+            }
+            else if (subStep === 3) { // Chạy trên mặt nước 2D trong không gian Ellipse
+                let data = metalData[currentMetal];
+                animTimer += 0.0025;
+                reactionFrames++;
+
+                // 1. Cập nhật vị trí
+                if (currentMetal === 'Na') {
+                    // Natri chạy xoay vòng lắt léo: thay đổi hướng vận tốc liên tục bằng cách xoay nhẹ vector vận tốc
+                    let angleChange = 0.1 * Math.sin(globalTime * 0.08);
+                    let cosA = Math.cos(angleChange);
+                    let sinA = Math.sin(angleChange);
+                    let newSpeedX = mSpeedX * cosA - (mSpeedY / 0.6) * sinA;
+                    let newSpeedY = (mSpeedX * sinA + (mSpeedY / 0.6) * cosA) * 0.6;
+
+                    // Tốc độ thay đổi lúc nhanh lúc chậm theo thời gian
+                    let speedFactor = 0.4 + 1.0 * (Math.sin(globalTime * 0.04) * 0.5 + 0.5);
+                    // Chuẩn hóa vận tốc kết hợp hệ số tốc độ thay đổi
+                    let currentSpeed = Math.sqrt(newSpeedX * newSpeedX + (newSpeedY / 0.6) * (newSpeedY / 0.6));
+                    if (currentSpeed > 0) {
+                        mSpeedX = (newSpeedX / currentSpeed) * data.speed * speedFactor;
+                        mSpeedY = ((newSpeedY / 0.6) / currentSpeed) * data.speed * speedFactor * 0.6;
+                    }
+                } else if (currentMetal === 'K') {
+                    // Kịch bản chuyển động của Kali:
+                    if (reactionFrames < 45) {
+                        // Giai đoạn 1: Đứng yên hoặc di chuyển cực kỳ chậm tại điểm chạm nước ban đầu, không bắn hạt spark, vẽ tia sét chớp nhoáng ở cuối loop
+                        mSpeedX = (Math.random() - 0.5) * 0.2;
+                        mSpeedY = (Math.random() - 0.5) * 0.1;
+                    } else if (reactionFrames >= 45 && reactionFrames < 95) {
+                        // Giai đoạn 2: Phóng nhanh sang vị trí thứ 2 và dừng lại
+                        if (reactionFrames === 45) {
+                            let angle = Math.random() * Math.PI * 2;
+                            mSpeedX = Math.cos(angle) * 7.5;
+                            mSpeedY = Math.sin(angle) * 7.5 * 0.6;
+                        }
+
+                        if (reactionFrames > 75) {
+                            mSpeedX *= 0.85;
+                            mSpeedY *= 0.85;
+                        }
+
+                        if (reactionFrames === 85 || reactionFrames === 95) {
+                            for (let s = 0; s < 15; s++) {
+                                spawnParticle('spark', mX, mY, {
+                                    vx: (Math.random() - 0.5) * 12,
+                                    vy: (Math.random() - 0.5) * 9,
+                                    vz: 5 + Math.random() * 5,
+                                    size: 2.0 + Math.random() * 2.5,
+                                    decay: 0.02,
+                                    color: '#fef08a'
+                                });
+                            }
+                        }
+                    } else {
+                        // Giai đoạn 3 (sau 95 frame): Chạy nhanh vừa phải và bùng cháy tròn rực rỡ
+                        if (reactionFrames === 95) {
+                            let angle = Math.random() * Math.PI * 2;
+                            mSpeedX = Math.cos(angle) * data.speed;
+                            mSpeedY = Math.sin(angle) * data.speed * 0.6;
+                        }
+
+                        let angleChange = (Math.random() - 0.5) * 0.5;
+                        let cosA = Math.cos(angleChange);
+                        let sinA = Math.sin(angleChange);
+                        let newSpeedX = mSpeedX * cosA - (mSpeedY / 0.6) * sinA;
+                        let newSpeedY = (mSpeedX * sinA + (mSpeedY / 0.6) * cosA) * 0.6;
+
+                        let currentSpeed = Math.sqrt(newSpeedX * newSpeedX + (newSpeedY / 0.6) * (newSpeedY / 0.6));
+                        if (currentSpeed > 0) {
+                            mSpeedX = (newSpeedX / currentSpeed) * data.speed;
+                            mSpeedY = ((newSpeedY / 0.6) / currentSpeed) * data.speed * 0.6;
+                        }
+                    }
+                }
+
+                mX += mSpeedX;
+                mY += mSpeedY;
+
+                // 2. Xử lý va chạm biên giới hạn (Boundary Ellipse Collision)
+                // Khoảng cách theo phương trình Ellipse (tính theo tỷ lệ Rx, Ry)
+                let boundRx = rx - 20; // Trừ hao lề
+                let boundRy = ry - 14;
+                let dx = (mX - cx) / boundRx;
+                let dy = (mY - cy) / boundRy;
+                let distSq = dx * dx + dy * dy;
+
+                if (distSq >= 1) {
+                    // Bật lại ngược chiều + thêm ngẫu nhiên để quỹ đạo hỗn loạn
+                    let dist = Math.sqrt(distSq);
+                    mX = cx + (dx / dist) * boundRx;
+                    mY = cy + (dy / dist) * boundRy;
+
+                    mSpeedX = -mSpeedX + (Math.random() - 0.5) * 2;
+                    mSpeedY = -mSpeedY + (Math.random() - 0.5) * 2;
+
+                    // Chuẩn hóa vận tốc
+                    let currentSpeed = Math.sqrt(mSpeedX * mSpeedX + mSpeedY * mSpeedY);
+                    mSpeedX = (mSpeedX / currentSpeed) * data.speed;
+                    mSpeedY = (mSpeedY / currentSpeed) * data.speed * 0.6; // Giữ nguyên phối cảnh trục Y
+                }
+
+                // 3. Giảm kích thước
+                mRadius -= data.decayRate;
+
+                // 4. Sinh hạt
+                // Sủi bọt khí (Hydro): Li sủi từ từ, Na và K sủi rất mạnh mẽ
+                let bubbleChance = currentMetal === 'Li' ? 0.5 : 0.85;
+                if (Math.random() < bubbleChance) {
+                    let numBubbles = currentMetal === 'Li' ? 1 : 3;
+                    for (let b = 0; b < numBubbles; b++) {
+                        spawnParticle('bubble', mX + (Math.random() - 0.5) * mRadius, mY + (Math.random() - 0.5) * mRadius, {
+                            vx: -mSpeedX * 0.3 + (Math.random() - 0.5) * 1.5,
+                            vy: -mSpeedY * 0.3 + (Math.random() - 0.5) * 0.8,
+                            vz: 0,
+                            decay: 0.04,
+                            size: 1.5 + Math.random() * 2.5
+                        });
+                    }
+                }
+
+                // Sinh khói trắng (Cả 3 thí nghiệm đều sinh khói trắng rõ ràng hơn)
+                if (currentMetal === 'Li') {
+                    // Lithium sinh khói trắng rất nhẹ bay chậm
+                    if (Math.random() < 0.2) {
+                        spawnParticle('smoke', mX, mY, {
+                            vx: -mSpeedX * 0.2 + (Math.random() - 0.5) * 0.8,
+                            vy: -mSpeedY * 0.2 + (Math.random() - 0.5) * 0.4,
+                            vz: 0.5, size: 2 + Math.random() * 2, decay: 0.02
+                        });
+                    }
+                } else if (currentMetal === 'Na') {
+                    // Natri sinh khói trắng rõ ràng hơn
+                    if (Math.random() < 0.35) {
+                        spawnParticle('smoke', mX, mY, {
+                            vx: -mSpeedX * 0.2 + (Math.random() - 0.5) * 1.2,
+                            vy: -mSpeedY * 0.2 + (Math.random() - 0.5) * 0.6,
+                            vz: 0.8, size: 3 + Math.random() * 2, decay: 0.015
+                        });
+                    }
+                } else if (currentMetal === 'K') {
+                    // Kali sinh khói trắng dày đặc bốc lên cao nhanh hơn
+                    // Khi đã bùng cháy (reactionFrames >= 95) thì sinh khói nhiều gấp ba
+                    let smokeCount = reactionFrames >= 95 ? 3 : 1;
+                    for (let k = 0; k < smokeCount; k++) {
+                        spawnParticle('smoke', mX + (Math.random() - 0.5) * mRadius, mY, {
+                            vx: -mSpeedX * 0.1 + (Math.random() - 0.5) * 2.0,
+                            vy: -mSpeedY * 0.1 + (Math.random() - 0.5) * 1.0,
+                            vz: 1.5, size: 4 + Math.random() * 4, decay: 0.008
+                        });
+                    }
+                }
+
+                // Sinh lửa & tia lửa cho Kali
+                if (data.hasFlame) {
+                    if (reactionFrames < 95) {
+                        // Trước 95 frame: Chưa cháy ngọn lửa, tia sét sấm sét được vẽ trực tiếp ở cuối hàm loop()
+                    } else {
+                        // Sau 95 frame: Bùng cháy sáng rực rỡ hình tròn, sinh vệt đuôi lửa ngắn bay nhanh
+                        for (let l = 0; l < 2; l++) {
+                            let flameColor = Math.random() > 0.4 ? 'rgba(255, 235, 180, 0.95)' : 'rgba(255, 110, 20, 0.9)';
+                            spawnParticle('flame', mX + (Math.random() - 0.5) * mRadius, mY, {
+                                vx: -mSpeedX * 0.2 + (Math.random() - 0.5) * 1.0,
+                                vy: -mSpeedY * 0.2 + (Math.random() - 0.5) * 0.5,
+                                vz: 0.2,
+                                size: mRadius * (0.8 + Math.random() * 0.4),
+                                decay: 0.08,
+                                color: flameColor,
+                                shape: 'circle'
+                            });
+                        }
+                        if (Math.random() < 0.3) {
+                            spawnParticle('spark', mX, mY, {
+                                vx: (Math.random() - 0.5) * 7,
+                                vy: (Math.random() - 0.5) * 5,
+                                vz: 3 + Math.random() * 3,
+                                size: 2.0 + Math.random() * 1.5,
+                                decay: 0.03,
+                                color: '#fef08a'
+                            });
+                        }
+                    }
+                }
+
+                // Tia lửa cho Natri
+                if (currentMetal === 'Na' && Math.random() < 0.08) {
+                    spawnParticle('spark', mX, mY, {
+                        vx: (Math.random() - 0.5) * 3, vy: (Math.random() - 0.5) * 2, vz: 2, size: 1.5, decay: 0.04, color: '#fba518'
+                    });
+                }
+
+                if (mRadius <= 0.5) {
+                    mRadius = 0; subStep = 4; isAnimating = false;
+                    document.getElementById('btn-reset').disabled = false;
+
+                    // Khôi phục trạng thái nút btn-run khi kết thúc
+                    let runBtn = document.getElementById('btn-run');
+                    runBtn.disabled = true;
+                    runBtn.innerHTML = `<i class="ti ti-player-play"></i> Thả vào nước`;
+
+                    updateExplanation(data.name, data.desc, true);
+                }
+            }
+            else { drawTweezers(140, 1); }
+
+            splashRings.forEach((ring, index) => {
+                ring.r += 1.5; ring.alpha -= 0.02;
+                if (ring.alpha <= 0) splashRings.splice(index, 1);
+            });
+
+            drawEffects();
+            drawMetalSample();
+            updateAndDrawParticles();
+
+            // Vẽ tia sét sấm sét phóng ra chớp nhoáng (0.1 giây) cho Kali
+            if (subStep === 3 && currentMetal === 'K') {
+                let renderX = mX;
+                let renderY = mY - mZ;
+
+                // Tia chớp 1: từ frame 3 đến 8 (~0.1 giây sau chạm nước)
+                if (reactionFrames >= 3 && reactionFrames <= 8) {
+                    // Chỉ vẽ duy nhất 1 tia sét hướng lên trên, giữ nguyên chiều dài phóng sét
+                    drawLightningBolt(renderX, renderY, 110, lightningAngle1);
+                }
+
+                // Tia chớp 2: từ frame 80 đến 85 (~0.1 giây ở vị trí mới)
+                if (reactionFrames >= 80 && reactionFrames <= 85) {
+                    // Chỉ vẽ duy nhất 1 tia sét hướng lên trên, giữ nguyên chiều dài phóng sét
+                    drawLightningBolt(renderX, renderY, 120, lightningAngle2);
+                }
+            }
+
+            requestAnimationFrame(loop);
+        }
+
+        resetExperimentState();
+        loop();
+    </script>
+</body>
+
+</html>
