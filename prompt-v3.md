@@ -148,8 +148,17 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
 ```css
 @media (max-width: 767px) {
   .canvas-glow-wrap {
-    aspect-ratio: 760 / 480; /* mobile: tăng chiều cao để dụng cụ và hiệu ứng dễ quan sát */
+    aspect-ratio: 760 / 560; /* mobile: tăng chiều cao để dụng cụ và hiệu ứng dễ quan sát */
   }
+  body { gap: 9px; padding: 12px 12px 82px; }
+  .app-shell, .lab-wrapper { gap: 9px; }
+  .intro-text { padding: 8px 10px; font-size: 12.5px; line-height: 1.45; }
+  .learning-goal { padding: 7px 10px; gap: 7px; }
+  .goal-label { gap: 4px; font-size: 10px; letter-spacing: 0.45px; }
+  .goal-text { font-size: 13px; line-height: 1.4; }
+  .ai-guide { align-items: flex-start; gap: 8px; padding: 8px 10px; }
+  .ai-avatar { flex-basis: 32px; width: 32px; height: 32px; border-width: 1.5px; }
+  .guide-text { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; font-size: 12.5px; line-height: 1.4; }
   .controls-card {
     position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 50;
     background: var(--cream-2); border-top: 1px solid var(--paper-line);
@@ -157,9 +166,10 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
     padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
     margin: 0 !important;
   }
-  body { padding-bottom: 76px; } /* chừa chỗ để nội dung cuối trang không bị thanh nút che */
 }
 ```
+
+Trên mobile, intro-text PHẢI dùng một phiên bản câu ngắn riêng; hướng dẫn Athena theo bước cũng phải rút còn 1–2 câu ngắn. Không chỉ giảm font rồi giữ nguyên đoạn văn dài vì ba khối đầu vẫn chiếm quá nhiều chiều cao.
 
 2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
@@ -291,7 +301,7 @@ chạm), theo mô hình tap-to-toggle — chạm lần 1 để hiện, chạm l�
 
 ```javascript
 // Quy đổi tọa độ click về hệ tọa độ NGUỒN 760×600 của cảnh — dùng cùng fitScale,
-// offsetX/offsetY, SCENE_SCALE và SCENE_OFFSET_X như trong loop() (mục B2)
+// offsetX/offsetY và sceneScale responsive như trong loop() (mục B2)
 function getLogicPos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvasW / W, scaleY = canvasH / H;
@@ -301,9 +311,11 @@ function getLogicPos(e) {
   const px = e.clientX - rect.left, py = e.clientY - rect.top;
   const logicX = (px - offsetX) / fitScale;
   const logicY = (py - offsetY) / fitScale;
+  const sceneScale = getSceneScale();
+  const sceneOffsetX = (W - W * sceneScale) / 2;
   return {
-    x: (logicX - SCENE_OFFSET_X) / SCENE_SCALE,
-    y: logicY / SCENE_SCALE
+    x: (logicX - sceneOffsetX) / sceneScale,
+    y: logicY / sceneScale
   };
 }
 
@@ -359,15 +371,15 @@ YÊU CẦU CANVAS
 
 Lưu ý chung: gradient/glow/shadow BỊ CẤM trong UI (CSS) nhưng ĐƯỢC PHÉP bên trong canvas khi dùng để mô phỏng vật thể thật (ánh kim loại, chất lỏng, LED phát sáng) — dùng tiết chế, phục vụ tính chân thực, không trang trí thừa.
 
-**Chiều cao hiển thị canvas do `aspect-ratio` responsive trên `.canvas-glow-wrap` quyết định**: desktop dùng `760 / 320` để khung thấp, mobile ≤767px dùng `760 / 480` để khung cao và dễ quan sát hơn. Hệ logic JavaScript vẫn là `760×380`; `loop()` dùng `fitScale` và offset để tự căn giữa cảnh trong hai tỷ lệ hiển thị mà không kéo méo X/Y. KHÔNG dùng `stretch` hoặc scale X/Y khác nhau. `resizeCanvas()` chỉ đồng bộ buffer pixel theo kích thước CSS thực tế.
+**Chiều cao hiển thị canvas do `aspect-ratio` responsive trên `.canvas-glow-wrap` quyết định**: desktop dùng `760 / 320` để khung thấp, mobile ≤767px dùng `760 / 560` để khung cao và dễ quan sát hơn. Hệ logic JavaScript vẫn là `760×380`; `loop()` dùng `fitScale` và offset để tự căn giữa cảnh trong hai tỷ lệ hiển thị mà không kéo méo X/Y. Cảnh nguồn dùng scale responsive: `0.67` trên desktop và `0.88` trên mobile, nhờ đó dụng cụ thực sự lớn hơn trên mobile thay vì chỉ tăng khoảng trắng của canvas. `resizeCanvas()` chỉ đồng bộ buffer pixel theo kích thước CSS thực tế.
 
 ### A. Kích thước & Utility bắt buộc
 ```js
 const canvas = document.getElementById('labCanvas');
 const ctx = canvas.getContext('2d');
 const W = 760, H = 380; // khung logic ngang, gọn; khớp aspect-ratio 760/380 trong CSS
-const SCENE_SCALE = 0.67; // thu đều cảnh nguồn 760×600 để không cắt dụng cụ/nhãn
-const SCENE_OFFSET_X = (W - W * SCENE_SCALE) / 2; // căn giữa cảnh sau khi thu
+const mobileCanvasQuery = window.matchMedia('(max-width: 767px)');
+function getSceneScale() { return mobileCanvasQuery.matches ? 0.88 : 0.67; }
 let canvasW = W, canvasH = H; // kích thước PIXEL THẬT của canvas trên màn hình — resizeCanvas() cập nhật liên tục
 
 // Kích thước CSS của canvas do aspect-ratio trên .canvas-glow-wrap quyết định (xem LAYOUT TỔNG THỂ) —
@@ -433,11 +445,13 @@ function loop() {
         flashTimer--;
     }
 
+    const sceneScale = getSceneScale();
+    const sceneOffsetX = (W - W * sceneScale) / 2;
     ctx.save();
     ctx.translate(offsetX, offsetY);
     ctx.scale(fitScale, fitScale);
-    ctx.translate(SCENE_OFFSET_X, 0);
-    ctx.scale(SCENE_SCALE, SCENE_SCALE); // thu ĐỀU cảnh nguồn 760×600 vào khung 760×380
+    ctx.translate(sceneOffsetX, 0);
+    ctx.scale(sceneScale, sceneScale); // 0.67 desktop; 0.88 mobile
 
     switch (state.stage) {
         case 1: drawStage1(); break;
@@ -454,7 +468,7 @@ function loop() {
     requestAnimationFrame(loop);
 }
 ```
-Vì sao làm vậy: `drawGrid()` vẽ THEO KÍCH THƯỚC THẬT nên luôn phủ kín 100% khung viền. Nội dung mô phỏng được nhân lần lượt với `fitScale` và `SCENE_SCALE`, đều là scale đồng nhất, nên dụng cụ không méo. Cách này tạo canvas ngang, thấp hơn nhưng vẫn giữ đủ đèn cồn, giá đỡ, xô/chậu nước và nhãn ở đáy cảnh.
+Vì sao làm vậy: `drawGrid()` vẽ THEO KÍCH THƯỚC THẬT nên luôn phủ kín 100% khung viền. Nội dung mô phỏng được nhân lần lượt với `fitScale` và `sceneScale`, đều là scale đồng nhất, nên dụng cụ không méo. Desktop giữ canvas thấp; mobile vừa tăng tỷ lệ khung vừa phóng cảnh lên 0.88 để dụng cụ chiếm phần lớn canvas, không tạo khoảng trắng vô ích.
 
 ### C. Hệ thống particle (bắt buộc)
 Mọi file đều cần mảng particles[] để tạo hiệu ứng (bọt khí, kết tủa, bột rơi, hơi bay...). Cấu trúc mỗi particle:

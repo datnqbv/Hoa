@@ -53,6 +53,7 @@
       width:100%; padding:1rem 1.3rem; background:var(--jade-pale); border:1px solid var(--sage);
       border-left:4px solid var(--jade); border-radius:12px; font-size:15px; color:var(--ink-2); line-height:1.65;
     }
+    .mobile-copy { display:none; }
     .learning-goal {
       display:flex; align-items:center; gap:10px; width:100%; padding:10px 16px;
       background:var(--jade-pale); border-left:4px solid var(--jade); border-radius:10px;
@@ -183,8 +184,19 @@
     .completion-banner i { color:var(--correct); font-size:1.35rem; margin-top:2px; }
     .muted { color:var(--ink-2); }
     @media (max-width:767px) {
-      body { padding-bottom:82px; }
-      .canvas-glow-wrap { aspect-ratio:760 / 480; }
+      body { gap:9px; padding:12px 12px 82px; }
+      .app-shell, .lab-wrapper { gap:9px; }
+      .desktop-copy { display:none; }
+      .mobile-copy { display:inline; }
+      .intro-text { padding:8px 10px; font-size:12.5px; line-height:1.45; }
+      .learning-goal { padding:7px 10px; gap:7px; }
+      .goal-label { gap:4px; font-size:10px; letter-spacing:.45px; }
+      .goal-divider { margin:2px 0; }
+      .goal-text { font-size:13px; line-height:1.4; }
+      .ai-guide { align-items:flex-start; gap:8px; padding:8px 10px; }
+      .ai-avatar { flex-basis:32px; width:32px; height:32px; border-width:1.5px; }
+      .guide-text { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:3; line-clamp:3; font-size:12.5px; line-height:1.4; }
+      .canvas-glow-wrap { aspect-ratio:760 / 560; }
       .controls-card {
         position:fixed !important; left:0; right:0; bottom:0; z-index:50; width:100%; border-radius:0;
         border-left:0; border-right:0; border-bottom:0; border-top:1px solid var(--paper-line);
@@ -194,12 +206,7 @@
       .btn { padding-inline:11px; }
     }
     @media (max-width:640px) {
-      body { padding-left:20px; padding-right:20px; font-size:16px; }
-      .intro-text { padding:.9rem 1.1rem; font-size:14px; }
-      .goal-text { font-size:15px; }
-      .ai-guide { align-items:flex-start; padding:10px 12px; }
-      .ai-avatar { flex-basis:40px; width:40px; height:40px; }
-      .guide-text { font-size:.9rem; }
+      body { padding-left:12px; padding-right:12px; font-size:16px; }
       .content-card { padding:13px 12px; }
       .section-title { font-size:1.12rem; }
       .hide-mobile { display:none; }
@@ -215,7 +222,8 @@
 <body>
   <main class="app-shell">
     <div class="intro-text">
-      Bạn sẽ tiến hành phản ứng nitro hóa phenol, theo dõi sự biến đổi của hỗn hợp qua từng giai đoạn và dùng bằng chứng thực nghiệm để đánh giá giả thuyết ban đầu.
+      <span class="desktop-copy">Bạn sẽ tiến hành phản ứng nitro hóa phenol, theo dõi sự biến đổi của hỗn hợp qua từng giai đoạn và dùng bằng chứng thực nghiệm để đánh giá giả thuyết ban đầu.</span>
+      <span class="mobile-copy">Bạn sẽ nitro hóa phenol, quan sát hiện tượng và dùng bằng chứng để đánh giá giả thuyết.</span>
     </div>
 
     <section class="learning-goal" aria-label="Mục tiêu học tập">
@@ -227,7 +235,7 @@
     <section class="lab-wrapper">
       <section class="ai-guide" aria-label="Hướng dẫn của Athena">
         <div class="ai-avatar"><img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena"></div>
-        <div class="guide-text" id="guideText" aria-live="polite">Hôm nay bạn sẽ kiểm chứng khả năng phản ứng của phenol với HNO₃ đặc. Hãy đọc giả thuyết bên dưới rồi bấm “Bắt đầu thí nghiệm”.</div>
+        <div class="guide-text" id="guideText" aria-live="polite">Đọc giả thuyết rồi bấm “Bắt đầu thí nghiệm”.</div>
       </section>
 
       <section class="card controls-card" aria-label="Điều khiển thí nghiệm">
@@ -354,8 +362,8 @@
     'use strict';
 
     const W = 760, H = 380;
-    const SCENE_SCALE = .67;
-    const SCENE_OFFSET_X = (W - W * SCENE_SCALE) / 2;
+    const mobileCanvasQuery = window.matchMedia('(max-width: 767px)');
+    function getSceneScale(){return mobileCanvasQuery.matches ? .88 : .67;}
     const canvas = document.getElementById('labCanvas');
     const ctx = canvas.getContext('2d');
     let canvasW = W, canvasH = H;
@@ -472,6 +480,14 @@
       window.setTimeout(()=>{el.textContent=message;el.classList.remove('is-changing');reportHeight();},160);
     }
 
+    function responsiveStepGuide(step,phase){
+      const item=stepData[step-1];
+      if(!mobileCanvasQuery.matches)return item[phase];
+      if(phase==='idle')return `Bước ${step}: Bấm “${item.label}” và quan sát.`;
+      if(phase==='running')return `Đang ${item.label.toLocaleLowerCase('vi-VN')}... Hãy quan sát trên canvas.`;
+      return step<8?`Đã xong bước ${step}. Tiếp theo: ${stepData[step].label}.`:'Đã xong 8 bước. Hãy hoàn thành bảng quan sát.';
+    }
+
     function renderControls(){
       const icon=actionButton.querySelector('i');
       if(state.isAnimating){
@@ -491,7 +507,7 @@
       if(state.isAnimating)return;
       if(!state.started){
         state.started=true; state.currentStep=1; state.lastAction='Bắt đầu thí nghiệm';
-        updateAIGuide(stepData[0].idle); renderControls(); syncLMS('experiment_started',{id:'exp1'}); return;
+        updateAIGuide(responsiveStepGuide(1,'idle')); renderControls(); syncLMS('experiment_started',{id:'exp1'}); return;
       }
       if(state.currentStep>=1&&state.currentStep<=8)startStep(state.currentStep);
     }
@@ -503,7 +519,7 @@
       state.isAnimating=true; state.subStep=1; state.lastAction=`Bắt đầu bước ${step}: ${stepData[step-1].label}`;
       animation.step=step; animation.start=performance.now(); animation.duration=stepData[step-1].duration*(reduceMotion?.58:1); animation.lastDrop=-1; animation.lastGrain=-1; animation.finished=false;
       scene.tool=step; scene.toolProgress=0;
-      updateAIGuide(stepData[step-1].running); renderControls(); saveState();
+      updateAIGuide(responsiveStepGuide(step,'running')); renderControls(); saveState();
     }
 
     function finishStep(step){
@@ -512,7 +528,7 @@
       if(!state.completedSteps.includes(step))state.completedSteps.push(step);
       applyStepFinal(step); state.lastAction=`Hoàn thành bước ${step}: ${stepData[step-1].label}`;
       state.currentStep=step<8?step+1:9; scene.tool=null; scene.toolProgress=0;
-      updateAIGuide(stepData[step-1].done); unlockObservationRows(); renderControls();
+      updateAIGuide(responsiveStepGuide(step,'done')); unlockObservationRows(); renderControls();
       LMS().event('step_completed',{id:'exp1',step,label:stepData[step-1].label}); updateProgress(); saveState();
       if(step===8)window.setTimeout(()=>{$('observationCard').scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});},250);
       checkUnlocks(); reportHeight();
@@ -856,8 +872,9 @@
       ctx.clearRect(0,0,canvasW,canvasH);drawGrid();
       const scaleX=canvasW/W,scaleY=canvasH/H,fitScale=Math.min(scaleX,scaleY),offsetX=(canvasW-W*fitScale)/2,offsetY=(canvasH-H*fitScale)/2;
       if(flashTimer>0){ctx.save();ctx.fillStyle=`rgba(232,162,74,${flashTimer/70})`;ctx.fillRect(0,0,canvasW,canvasH);ctx.restore();flashTimer--;}
+      const sceneScale=getSceneScale(),sceneOffsetX=(W-W*sceneScale)/2;
       ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(fitScale,fitScale);
-      ctx.translate(SCENE_OFFSET_X,0);ctx.scale(SCENE_SCALE,SCENE_SCALE);drawScene();
+      ctx.translate(sceneOffsetX,0);ctx.scale(sceneScale,sceneScale);drawScene();
       ctx.restore();requestAnimationFrame(loop);
     }
 
@@ -977,7 +994,7 @@
       ['conclusionFeedback','hypothesisFeedback'].forEach(id=>{$(id).className='';$(id).textContent='';});
       document.querySelectorAll('.choice-btn').forEach(b=>{b.disabled=false;b.classList.remove('is-selected');});
       $('hypothesisExplain').value='';$('hypothesisExplain').disabled=false;$('submitHypothesis').disabled=false;$('submitConclusion').disabled=false;
-      updateAIGuide('Hôm nay bạn sẽ kiểm chứng khả năng phản ứng của phenol với HNO₃ đặc. Hãy đọc giả thuyết bên dưới rồi bấm “Bắt đầu thí nghiệm”.');
+      updateAIGuide('Đọc giả thuyết rồi bấm “Bắt đầu thí nghiệm”.');
       unlockObservationRows();renderControls();checkUnlocks();updateProgress();LMS().event('reset',{id:'exp1'});saveState();window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
     }
 
@@ -997,7 +1014,7 @@
       state.isAnimating=false;state.subStep=0;state.completedSteps=(state.completedSteps||[]).filter(n=>Number.isInteger(n)&&n>=1&&n<=8);
       if(state.started&&state.currentStep<1)state.currentStep=1;if(state.completedSteps.length===8)state.currentStep=9;
       rebuildScene();unlockObservationRows();restoreFormState();renderControls();checkUnlocks();
-      const msg=state.completed?'Bài đã hoàn thành. Bạn có thể xem lại hiện tượng và phần chốt kiến thức.':state.currentStep<=8?stepData[Math.max(0,state.currentStep-1)].idle:'Hãy hoàn thành bảng quan sát và phần kết luận.';
+      const msg=state.completed?'Bài đã hoàn thành. Bạn có thể xem lại hiện tượng và phần chốt kiến thức.':state.currentStep<=8?responsiveStepGuide(Math.max(1,state.currentStep),'idle'):'Hãy hoàn thành bảng quan sát và phần kết luận.';
       updateAIGuide(msg);updateProgress();reportHeight();
     }
 
