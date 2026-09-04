@@ -157,7 +157,7 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
 }
 ```
 
-2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` (Kiểu A có nhiều nhóm biến) và progress dots (Kiểu B nhiều bước): phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
+2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
 3.	Layout đã LUÔN là cột đơn ở mọi kích thước màn hình (không riêng mobile) — không cần media query đổi số cột hay reset chiều cao sidebar như bản 3-cột trước, vì không còn sidebar nào cả. Trang phải chạy tốt từ 360px (mobile) tới desktop chỉ với 1 bộ CSS.
 
@@ -222,7 +222,6 @@ THANH HƯỚNG DẪN AI (`.ai-guide`, đứng đầu tiên trong `.lab-wrapper`)
 ```
 `object-fit: cover` giữ ảnh tròn trịa, không bị bóp méo tỷ lệ dù khung `.ai-avatar` là hình tròn còn ảnh WebP gốc là hình chữ nhật/vuông.
 •	Ở giữa: text hướng dẫn theo ngữ cảnh (`flex: 1`) — cỡ ~1rem, weight 500–600, màu `var(--ink)`, line-height 1.5. Nội dung do hàm `updateAIGuide()` cập nhật theo bước/hành động/kết quả. Vùng text đặt `aria-live="polite"` để screen reader đọc được diễn biến.
-•	Bên PHẢI: badge "Bước X/N" — chip nền `var(--cream)`, border 1px `var(--sage)`, chữ `var(--jade-text)` weight 700, `flex-shrink: 0`. CHỈ hiện với kiểu B (stepper); kiểu A/C ẩn badge này.
 •	Khi text đổi: fade transition (opacity 0→1 + translateY 4px, ~200ms)
 •	Giọng văn AI: thân thiện, chủ động, ngắn gọn 1–2 câu — nêu việc vừa xảy ra + việc cần làm tiếp (ví dụ: "Đã dùng ngón tay bịt miệng ống nghiệm. Tiếp theo úp ngược ống nghiệm vào cốc nước.")
 
@@ -231,7 +230,7 @@ HÀNG NÚT TƯƠNG TÁC (`.controls-card`, đứng thứ 2 trong `.lab-wrapper` 
 
 Có 3 kiểu controls — phần KỊCH BẢN bên dưới sẽ chỉ định dùng kiểu nào. Cả 3 kiểu đều nằm ở CÙNG vị trí này (1 card ngang ngay dưới thanh AI, phía trên canvas), chỉ khác nội dung bên trong.
 
-**QUY TẮC BẮT BUỘC — CHỈ 1 DÒNG:** card controls PHẢI nén gọn trong ĐÚNG 1 hàng ngang duy nhất (`display: flex; flex-wrap: nowrap; align-items: center;`), TUYỆT ĐỐI không được xuống dòng thứ 2 dù ở kiểu nào. Chiều cao card cố định thấp (~60–64px kể cả padding — đủ chứa nút cao tối thiểu 44px, xem "Style chung tất cả kiểu" bên dưới). Lý do: phần chiều cao tiết kiệm được từ việc nén controls xuống 1 dòng sẽ CHUYỂN THẲNG sang tăng chiều cao canvas — xem mục YÊU CẦU CANVAS. Nếu nội dung 1 kiểu (nhiều nhóm biến ở kiểu A, hoặc nhiều progress dots ở kiểu B) rộng hơn bề ngang card ở màn hình hẹp: cho phép cuộn NGANG bên trong chính hàng đó (`overflow-x: auto; overflow-y: hidden;`) — không bao giờ wrap xuống dòng.
+**QUY TẮC BẮT BUỘC — CHỈ 1 DÒNG:** card controls PHẢI nén gọn trong ĐÚNG 1 hàng ngang duy nhất (`display: flex; flex-wrap: nowrap; align-items: center;`), TUYỆT ĐỐI không được xuống dòng thứ 2 dù ở kiểu nào. Chiều cao card cố định thấp (~60–64px kể cả padding — đủ chứa nút cao tối thiểu 44px, xem "Style chung tất cả kiểu" bên dưới). Lý do: phần chiều cao tiết kiệm được từ việc nén controls xuống 1 dòng sẽ CHUYỂN THẲNG sang tăng chiều cao canvas — xem mục YÊU CẦU CANVAS. Nếu nội dung một kiểu rộng hơn bề ngang card ở màn hình hẹp: cho phép cuộn NGANG bên trong chính hàng đó (`overflow-x: auto; overflow-y: hidden;`) — không bao giờ wrap xuống dòng.
 
 ### Kiểu A — Chọn biến + Nút hành động
 Dùng cho thí nghiệm so sánh nhiều tổ hợp (chọn hóa chất A, chọn chỉ thị B, bấm "Nhỏ 1 giọt").
@@ -242,8 +241,8 @@ Dùng cho thí nghiệm so sánh nhiều tổ hợp (chọn hóa chất A, chọ
 
 ### Kiểu B — Stepper tuần tự
 Dùng cho thí nghiệm nhiều bước phải thực hiện theo thứ tự.
-•	KHÔNG cần header bar "Quy Trình Thí Nghiệm" hay step card mô tả riêng — tên bước, mô tả và badge "Bước X/N" đã do THANH HƯỚNG DẪN AI phía trên đảm nhiệm
-•	1 hàng duy nhất: progress dots bên trái (dãy chấm tròn ngang, thu nhỏ nếu nhiều bước — chấm hiện tại scale lớn + viền `var(--jade)` đậm, chấm đã qua nền `var(--jade)` + icon check màu cream, chấm chưa đến nền `var(--paper-line)`) → nút "Quay lại" + "Làm lại" (giữa) → nút hành động chính của bước hiện tại ("Tiếp tục" / "Quan sát" / "Hoàn thành"...) bên phải cùng (label nút đổi theo ngữ cảnh bước) — KHÔNG xuống hàng thứ 2 trong bất kỳ trường hợp nào (dùng cuộn ngang nếu cần)
+•	KHÔNG cần header bar "Quy Trình Thí Nghiệm" hay step card mô tả riêng — tên bước và mô tả đã do THANH HƯỚNG DẪN AI phía trên đảm nhiệm
+•	1 hàng duy nhất: nút "Quay lại" + "Làm lại" → khoảng trống co giãn → nút hành động chính của bước hiện tại ("Tiếp tục" / "Quan sát" / "Hoàn thành"...) nằm ngoài cùng bên phải, label nút đổi theo ngữ cảnh bước. KHÔNG xuống hàng thứ 2 trong bất kỳ trường hợp nào (dùng cuộn ngang nếu cần)
 •	Nút hành động chính PHẢI disabled khi animation đang chạy
 •	Bỏ dòng "Status" riêng (đã tiết kiệm để giữ 1 dòng) — trạng thái ("Đang thực hiện...", "Hoàn tất"...) gộp vào text của THANH HƯỚNG DẪN AI phía trên thay vì hiện riêng ở đây
 
@@ -831,6 +830,136 @@ ________________________________________
 KỊCH BẢN VÀ KIẾN THỨC CHO GAME:
 
 
+FILE SẢN XUẤT — KỊCH BẢN SIMULATION
+Phản ứng nitro hóa của phenol — Tổng hợp picric acid
+Hóa học 11 | NL2 — Tìm hiểu thế giới tự nhiên dưới góc độ hóa học
+Dạng simulation	Thí nghiệm 🔬
+Năng lực	NL2 — Tìm hiểu thế giới tự nhiên dưới góc độ hóa học
+Số Stage	Không chia Stage (1 thí nghiệm duy nhất)
+Thời gian dự kiến	≈15 phút tương tác (các giai đoạn đun được mô phỏng tăng tốc)
+
+STAGE DUY NHẤT — Phản ứng nitro hóa phenol: tổng hợp picric acid
+🎯 Mục tiêu stage
+Học sinh tiến hành thí nghiệm nitro hóa phenol bằng HNO₃ đặc trong môi trường H₂SO₄ đặc, quan sát hiện tượng qua các giai đoạn chính và rút ra kết luận về khả năng phản ứng thế của phenol.
+🔒 Mục tiêu học tập hiển thị ở panel — nguyên văn: "Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc."
+🖥️ Canvas
+Canvas chứa duy nhất không gian thí nghiệm tương tác. KHÔNG đặt mục tiêu, giả thuyết, bảng, kết luận, câu hỏi vào đây.
+Bố cục canvas: ống nghiệm ở trung tâm, bàn thí nghiệm phía dưới. Các dụng cụ/hoá chất lần lượt xuất hiện khi học sinh bấm nút tương ứng ở thanh công cụ bên trái canvas. Trạng thái hiện tại của thí nghiệm luôn hiển thị rõ trên ống nghiệm.
+Trình tự animation theo từng thao tác:
+Bước	Nút học sinh bấm	Animation canvas	Trạng thái ống nghiệm sau thao tác
+1	"Cho phenol vào ống nghiệm"	Spatula múc chất rắn trắng (phenol) cho vào ống nghiệm. Hiển thị nhãn "C₆H₅OH — 0,5 g" cạnh ống.	Chất rắn trắng ở đáy ống nghiệm.
+2	"Thêm H₂SO₄ đặc"	Ống nhỏ giọt thêm từ từ 1,5 mL H₂SO₄ đặc vào ống nghiệm. Nhãn "H₂SO₄ đặc — 1,5 mL" xuất hiện.	Hỗn hợp chưa đồng nhất.
+3	"Đun nóng"	Ống nghiệm được kẹp và đun nóng nhẹ. Animation tăng tốc, kết thúc khi hỗn hợp trở thành chất lỏng đồng nhất.	Chất lỏng đồng nhất.
+4	"Làm lạnh"	Ống nghiệm được đặt vào chậu nước đá. Nhiệt kế hiển thị nhiệt độ giảm dần; ống nghiệm giữ ổn định trong chậu đá trước khi thêm HNO₃.	Hỗn hợp đồng nhất đã được làm lạnh.
+5	"Nhỏ HNO₃ đặc + lắc nhẹ"	Dùng ống nhỏ giọt thêm từ từ 1 mL HNO₃ đặc vào ống nghiệm đang được làm lạnh. Sau khi thêm hết, dùng kẹp ống nghiệm lắc nhẹ để trộn đều. Nhãn "HNO₃ đặc — 1 mL" xuất hiện. Hỗn hợp dần nhuốm màu đỏ tối.	Hỗn hợp màu đỏ tối, đồng nhất.
+6	"Đun cách thủy"	Ống nghiệm được đặt vào cốc nước nóng/bể cách thủy. Đồng hồ đếm ngược 15 phút nhưng animation được tăng tốc; hơi nước bốc nhẹ.	Hỗn hợp vẫn có màu đỏ tối trong quá trình đun cách thủy.
+7	"Để nguội"	Ống nghiệm được lấy khỏi bể cách thủy và đặt trên giá đến khi nhiệt độ giảm về gần nhiệt độ phòng.	Hỗn hợp đỏ tối, đã nguội.
+8	"Rót vào nước lạnh"	Hỗn hợp sau phản ứng được rót từ từ vào cốc chứa khoảng 20 mL nước lạnh. Màu dung dịch nhạt dần; tinh thể màu vàng xuất hiện và lắng xuống đáy cốc. Không hiển thị tên sản phẩm ở bước này.	Cốc chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
+
+📋 Panel bên cạnh canvas
+Panel hiển thị lần lượt theo tiến trình: Mục tiêu → Giả thuyết → Bảng báo cáo (mở dần) → Kết luận → Câu hỏi.
+Panel 1 — Mục tiêu (hiển thị ngay khi vào bài):
+🔒 Nguyên văn: "Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc."
+Kèm theo câu dẫn: "Trong thí nghiệm này, bạn sẽ tiến hành nitro hóa phenol bằng HNO₃ đặc trong môi trường H₂SO₄ đặc, quan sát các hiện tượng chính và dùng kết quả thực nghiệm để đánh giá giả thuyết ban đầu."
+Panel 2 — Giả thuyết (hiển thị sau khi học sinh đọc mục tiêu, trước khi bắt đầu thao tác):
+"Phenol có khả năng phản ứng với HNO₃ đặc."
+→ Nút "Bắt đầu thí nghiệm". Hệ thống ghi nhớ giả thuyết này để hiển thị lại ở phần 6A.
+Panel 3 — Bảng báo cáo (mở dần theo tiến trình, học sinh điền ngay sau mỗi bước quan trọng):
+STT	Giai đoạn thí nghiệm	Hiện tượng quan sát được	Mở ra sau bước
+1	Đun nóng phenol với H₂SO₄ đặc	Học sinh chọn đáp án có sẵn
+(Gợi ý: hỗn hợp trở thành chất lỏng đồng nhất / xuất hiện kết tủa / hỗn hợp sôi mạnh)	Bước 3
+2	Nhỏ từ từ HNO₃ đặc và lắc nhẹ	Học sinh chọn đáp án có sẵn
+(Gợi ý: hỗn hợp nhuốm màu đỏ tối / không có thay đổi rõ rệt / xuất hiện tinh thể vàng)	Bước 5
+3	Rót hỗn hợp sau phản ứng vào nước lạnh	Học sinh chọn đáp án có sẵn
+(Gợi ý: xuất hiện tinh thể màu vàng / dung dịch vẫn trong suốt / xuất hiện chất rắn màu trắng)	Bước 8
+
+Nếu học sinh chọn khác hiện tượng đã hiển thị trên canvas: hệ thống hiện gợi ý nhẹ "Bạn có muốn xem lại hiện tượng ở bước này không?" — không chỉ thẳng câu trả lời.
+
+Panel 4 — Kết luận (hiển thị sau khi học sinh điền đủ bảng báo cáo):
+Phần 5A — Học sinh điền vào chỗ trống:
+"Trong điều kiện thí nghiệm, phenol phản ứng với HNO₃ đặc theo phản ứng ________ trên vòng benzene (thế / cộng / phân hủy). Các nhóm –NO₂ ưu tiên thế vào các vị trí ________ (ortho và para / meta / bất kỳ) so với nhóm –OH, tạo thành sản phẩm là ________ có dạng tinh thể màu ________."
+ 
+Phần 5B — Chốt kiến thức (hệ thống hiển thị sau khi học sinh hoàn thành 5A):
+"Trong điều kiện thí nghiệm, phenol bị nitro hóa tạo 2,4,6-trinitrophenol (picric acid). Nhóm –OH hoạt hóa vòng benzene và định hướng phản ứng thế vào các vị trí ortho, para, vì vậy phenol tham gia phản ứng thế trên vòng dễ hơn benzene. Khi rót hỗn hợp sau phản ứng vào nước lạnh, picric acid ít tan nên tách ra dưới dạng tinh thể màu vàng."
+Panel 5 — Câu hỏi (hiển thị sau phần Kết luận):
+→ Xem chi tiết ở mục Phản hồi bên dưới.
+🤖 Robot
+Robot dẫn dắt + hướng dẫn thao tác (làm GÌ, Ở ĐÂU). KHÔNG giải thích thay canvas. Lời thoại ngắn gọn, không quá 2 câu mỗi lượt.
+Mở đầu bài (hiển thị cùng Panel Mục tiêu):
+🤖 "Hôm nay bạn sẽ kiểm chứng xem phenol có khả năng phản ứng với HNO₃ đặc hay không. Hãy đọc mục tiêu và giả thuyết ở panel bên, rồi bấm "Bắt đầu thí nghiệm" nhé!"
+
+Hướng dẫn từng bước (trong quá trình thao tác):
+🤖 "Bước 1: Bấm "Cho phenol vào ống nghiệm" ở thanh công cụ bên trái canvas để bắt đầu."
+🤖 "Bước 2: Bấm "Thêm H₂SO₄ đặc" để thêm acid vào ống nghiệm. Quan sát trạng thái của hỗn hợp."
+🤖 "Bước 3: Bấm "Đun nóng" và quan sát đến khi hỗn hợp trở thành chất lỏng đồng nhất."
+🤖 "Bước 4: Bấm "Làm lạnh" và chờ ống nghiệm ổn định trong chậu nước đá trước khi thêm HNO₃."
+🤖 "Bước 5: Bấm "Nhỏ HNO₃ đặc + lắc nhẹ". Chú ý sự thay đổi màu của hỗn hợp."
+🤖 "Bước 6: Bấm "Đun cách thủy" và theo dõi hỗn hợp trong giai đoạn đun."
+🤖 "Bước 7: Bấm "Để nguội" và chờ hỗn hợp về gần nhiệt độ phòng."
+🤖 "Bước 8: Bấm "Rót vào nước lạnh" và quan sát thật kỹ hiện tượng xảy ra trong cốc."
+
+
+Sau khi học sinh điền đủ bảng báo cáo:
+🤖 "Tốt lắm! Bạn đã ghi nhận đầy đủ hiện tượng. Bây giờ hãy rút kết luận từ những gì quan sát được ở panel nhé."
+👆 Thao tác học sinh
+Trên canvas:
+• Bấm lần lượt 8 nút theo thứ tự (nút tiếp theo chỉ mở ra sau khi hoàn thành bước trước)
+• Ở bước thêm HNO₃, hệ thống mô phỏng nhỏ từ từ 1 mL HNO₃ đặc rồi lắc nhẹ bằng kẹp ống nghiệm
+
+Trên panel:
+• Đọc Mục tiêu → đọc Giả thuyết → bấm "Bắt đầu thí nghiệm"
+• Điền vào từng ô bảng báo cáo ngay sau khi ô tương ứng mở ra
+• Điền vào chỗ trống phần Kết luận 5A
+• Phần 6A: chọn [Ủng hộ / Không ủng hộ / Chưa đủ cơ sở kết luận] + nhập giải thích ngắn
+• Phần 6B: chọn đáp án MCQ cho 3 câu
+✅ Phản hồi
+A. Phản hồi thị giác khi thao tác sai trên canvas (chỉ thị giác, không phán xét):
+Tình huống sai	Canvas hiển thị	Thông báo hệ thống
+Bấm "Nhỏ HNO₃" khi chưa qua bước làm lạnh (bỏ qua Bước 4)	Hỗn hợp phản ứng quá mạnh, xuất hiện nhiều hơi/khí và ống nghiệm rung nhẹ. Animation dừng để tránh tiếp tục thao tác.	"Phản ứng diễn ra quá mạnh. Hãy thử lại từ bước làm lạnh."
+Rót hỗn hợp vào nước lạnh ngay sau khi đun cách thủy, chưa qua bước để nguội (bỏ qua Bước 7)	Hỗn hợp acid nóng tiếp xúc với nước làm chất lỏng sôi và bắn mạnh. Animation dừng.	"Hãy thử lại — cần để hỗn hợp nguội trước khi rót vào nước lạnh."
+
+B. Phần 6A — Đánh giá giả thuyết:
+Hệ thống hiển thị lại giả thuyết ban đầu đặt cạnh kết quả thực nghiệm học sinh vừa ghi trong bảng báo cáo.
+Câu hỏi hiển thị: "Dựa vào kết quả thực nghiệm vừa thực hiện, các bằng chứng quan sát được có ủng hộ giả thuyết ‘Phenol có khả năng phản ứng với HNO₃ đặc.’ hay không? Hãy giải thích ngắn gọn dựa trên kết quả thí nghiệm."
+Học sinh chọn [Ủng hộ / Không ủng hộ / Chưa đủ cơ sở kết luận] + nhập giải thích. KHÔNG tính điểm MCQ.
+Phân tích hệ thống phản hồi: Kết quả thí nghiệm ủng hộ giả thuyết. Sau khi thêm HNO₃ đặc trong điều kiện thí nghiệm, hỗn hợp thay đổi và cuối cùng thu được tinh thể màu vàng khi rót vào nước lạnh, cho thấy đã hình thành sản phẩm mới. Hệ thống chỉ chấp nhận lựa chọn khi phần giải thích có viện dẫn ít nhất một bằng chứng quan sát phù hợp.
+C. Phần 6B — Câu hỏi MCQ (3 câu, đặt sau 6A):
+	Nội dung
+Câu 1	Trong thí nghiệm, hiện tượng nào là bằng chứng trực tiếp cho thấy sản phẩm rắn được tách ra sau phản ứng?
+A. Hỗn hợp trở thành chất lỏng đồng nhất khi đun với H₂SO₄ đặc
+B. Xuất hiện tinh thể màu vàng khi rót hỗn hợp vào nước lạnh
+C. Nhiệt độ hỗn hợp giảm khi làm lạnh
+D. Hỗn hợp được đun trong bể cách thủy
+Đáp án đúng	B
+Giải thích khi đúng	Tinh thể màu vàng xuất hiện khi rót hỗn hợp sau phản ứng vào nước lạnh là bằng chứng quan sát trực tiếp cho thấy sản phẩm rắn đã được tách ra.
+Gợi ý khi sai	Hãy tập trung vào hiện tượng xuất hiện một chất rắn mới sau khi hoàn tất phản ứng.
+Câu 2	Tại sao cần để hỗn hợp sau phản ứng nguội trước khi rót vào nước lạnh?
+A. Để HNO₃ chuyển hoàn toàn thành H₂SO₄
+B. Để phenol bay hơi hết khỏi hỗn hợp
+C. Để làm phản ứng nitro hóa xảy ra nhanh hơn
+D. Để hạn chế hiện tượng sôi, bắn mạnh khi hỗn hợp acid nóng tiếp xúc với nước
+Đáp án đúng	D
+Giải thích khi đúng	Hỗn hợp sau phản ứng còn nóng và chứa acid mạnh. Để nguội trước khi rót vào nước lạnh giúp hạn chế hiện tượng sôi và bắn mạnh, làm thao tác an toàn hơn.
+Gợi ý khi sai	Hãy nghĩ đến điều có thể xảy ra khi một hỗn hợp acid đang nóng tiếp xúc với nước.
+Câu 3	Nhận xét nào đúng về ảnh hưởng của nhóm –OH đến phản ứng thế trên vòng benzene của phenol?
+A. Nhóm –OH hoạt hóa vòng benzene và định hướng thế vào các vị trí ortho, para
+B. Nhóm –OH làm vòng benzene kém phản ứng hơn benzene
+C. Nhóm –OH chỉ định hướng thế vào vị trí meta
+D. Nhóm –OH không ảnh hưởng đến khả năng phản ứng của vòng benzene
+Đáp án đúng	A
+Giải thích khi đúng	Nhóm –OH hoạt hóa vòng benzene, làm phenol dễ tham gia phản ứng thế hơn benzene và định hướng tác nhân thế vào các vị trí ortho, para.
+Gợi ý khi sai	Hãy xem lại phần chốt kiến thức về tác dụng định hướng của nhóm –OH trên vòng benzene.
+
+Lưu ý phân bố đáp án: Câu 1 → B, Câu 2 → D, Câu 3 → A. Đội build cần đảm bảo thứ tự phương án hiển thị đúng như trên để vị trí đáp án đúng được phân bố khác nhau giữa các câu.
+Cơ chế MCQ: Trả lời sai → hiện gợi ý (không lộ đáp án) → cho thử lại tối đa 2 lần → mới hiện đáp án đúng + giải thích đầy đủ.
+💡 Aha moment
+Nhóm –OH hoạt hóa vòng benzene và định hướng phản ứng thế vào các vị trí ortho, para; trong điều kiện thí nghiệm, phenol tạo 2,4,6-trinitrophenol.
+▶ Điều kiện kết thúc
+• Học sinh hoàn thành đủ 8 bước thao tác trên canvas
+• Điền đủ 3 ô bảng báo cáo ở panel
+• Hoàn thành phần Kết luận 5A
+• Trả lời phần 6A (đánh giá giả thuyết)
+• Hoàn thành 3 câu MCQ phần 6B
 
 
 ________________________________________
