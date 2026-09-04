@@ -207,6 +207,12 @@
       tbody tr.is-complete { background:var(--correct-bg); border-left-color:var(--correct); }
       tbody td { display:grid; grid-template-columns:92px minmax(0,1fr); gap:8px; padding:6px 2px; border:0; font-size:13px; }
       tbody td::before { content:attr(data-label); color:var(--jade-text); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
+      .field, .hypothesis-box, .evaluation-box { min-width:0; max-width:100%; }
+      .obs-select, .fill-select, textarea {
+        display:block; width:100%; min-width:0; max-width:100%; font-size:16px;
+      }
+      .obs-select, .fill-select { text-overflow:ellipsis; white-space:nowrap; }
+      .obs-select option, .fill-select option { font-size:16px; }
     }
     @media (max-width:640px) {
       body { padding-left:12px; padding-right:12px; font-size:16px; }
@@ -833,7 +839,7 @@
     }
 
     function drawThermometer(){
-      const visible=(animation.step>=4&&state.isAnimating)||(state.completedSteps.includes(4)&&!state.completedSteps.includes(8));if(!visible)return;
+      const visible=(state.isAnimating&&animation.step>=4&&animation.step<8)||(!state.isAnimating&&state.completedSteps.includes(4)&&!state.completedSteps.includes(8));if(!visible)return;
       const x=492,y=185,h=190;ctx.fillStyle='rgba(240,248,255,.7)';ctx.strokeStyle='#75838d';ctx.lineWidth=2;roundedRect(x-7,y,14,h,7);ctx.fill();ctx.stroke();
       const frac=clamp(scene.temp/100,0,1);ctx.fillStyle='#c15f3c';ctx.fillRect(x-2,y+h-12-(h-24)*frac,4,(h-24)*frac);ctx.beginPath();ctx.arc(x,y+h-8,7,0,Math.PI*2);ctx.fill();
       ctx.fillStyle='#1A1A1A';ctx.font="bold 13px 'JetBrains Mono', monospace";ctx.textAlign='left';ctx.fillText(`${Math.round(scene.temp)}°C`,x+15,y+18);

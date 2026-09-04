@@ -173,6 +173,8 @@ Trên mobile, briefing mặc định thu gọn; hướng dẫn Athena theo bư�
 
 2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
+Các `select`, `input` và `textarea` trên mobile bắt buộc dùng `font-size:16px`, `width:100%`, `min-width:0`, `max-width:100%`. Mốc 16px ngăn Safari/iOS tự phóng trang khi mở dropdown; `min-width:0` ngăn field làm giãn card. Với `select`, dùng thêm `text-overflow:ellipsis; white-space:nowrap` để lựa chọn dài không phá bố cục.
+
 3.	Layout đã LUÔN là cột đơn ở mọi kích thước màn hình (không riêng mobile) — không cần media query đổi số cột hay reset chiều cao sidebar như bản 3-cột trước, vì không còn sidebar nào cả. Trang phải chạy tốt từ 360px (mobile) tới desktop chỉ với 1 bộ CSS.
 
 ________________________________________
@@ -875,7 +877,7 @@ Bước	Nút học sinh bấm	Animation canvas	Trạng thái ống nghiệm sau 
 5	"Nhỏ HNO₃ đặc + lắc nhẹ"	Dùng ống nhỏ giọt thêm từ từ 1 mL HNO₃ đặc vào ống nghiệm đang được làm lạnh. Sau khi thêm hết, dùng kẹp ống nghiệm lắc nhẹ để trộn đều. Không dùng hiệu ứng nháy hoặc lớp màu phủ toàn canvas trong lúc nhỏ giọt. Nhãn "HNO₃ đặc — 1 mL" xuất hiện. Hỗn hợp dần nhuốm màu đỏ tối.	Hỗn hợp màu đỏ tối, đồng nhất.
 6	"Đun cách thủy"	Ống nghiệm được đặt vào cốc nước nóng/bể cách thủy. Đồng hồ đếm ngược 15 phút nhưng animation được tăng tốc; hơi nước bốc nhẹ.	Hỗn hợp vẫn có màu đỏ tối trong quá trình đun cách thủy.
 7	"Để nguội"	Ống nghiệm được lấy khỏi bể cách thủy và đặt trên giá đến khi nhiệt độ giảm về gần nhiệt độ phòng.	Hỗn hợp đỏ tối, đã nguội.
-8	"Rót vào nước lạnh"	Animation kéo dài khoảng 6–7 giây: ống nghiệm được nâng lên, di chuyển đến xô nước lạnh khoảng 20 mL rồi nghiêng chậm. Dòng hỗn hợp liên tục phải bám đúng miệng ống sau khi xoay, chảy theo đường cong vào trong xô, có vệt phản sáng, ripple và hạt bắn tại điểm chạm. Mực nước dâng dần, màu đỏ tối khuếch tán rồi nhạt dần; tinh thể vàng hình thành từng phần và lắng xuống đáy. Cuối cùng dòng rót dừng, ống nghiệm nghiêng lại và trở về giá. Không hiển thị tên sản phẩm ở bước này.	Xô chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
+8	"Rót vào nước lạnh"	Ngay khi bắt đầu bước 8 phải loại bỏ nhiệt kế khỏi canvas, không để nhiệt kế nằm giữa ống nghiệm và xô trong lúc rót. Animation kéo dài khoảng 6–7 giây: ống nghiệm được nâng lên, di chuyển đến xô nước lạnh khoảng 20 mL rồi nghiêng chậm. Dòng hỗn hợp liên tục phải bám đúng miệng ống sau khi xoay, chảy theo đường cong vào trong xô, có vệt phản sáng, ripple và hạt bắn tại điểm chạm. Mực nước dâng dần, màu đỏ tối khuếch tán rồi nhạt dần; tinh thể vàng hình thành từng phần và lắng xuống đáy. Cuối cùng dòng rót dừng, ống nghiệm nghiêng lại và trở về giá. Không hiển thị tên sản phẩm ở bước này.	Xô chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
 
 📋 Các khối nội dung trong bố cục một cột
 Không dựng panel bên cạnh canvas. Nội dung xếp dọc theo thứ tự: briefing gộp Mục tiêu + mô tả → Athena → controls → canvas → Bảng quan sát (chứa giả thuyết ban đầu) → Kết luận & Câu hỏi.
