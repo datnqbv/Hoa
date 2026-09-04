@@ -765,8 +765,13 @@
       if(fill>0.01){
         ctx.save();ctx.beginPath();ctx.moveTo(x+4,y+4);ctx.lineTo(x+4,y+h-r);ctx.arc(g.x,y+h-r,r-4,Math.PI,0,true);ctx.lineTo(x+w-4,y+4);ctx.closePath();ctx.clip();
         const liqH=(h-26)*fill,surface=y+h-liqH;
+        const pourTilt=animation.step===8&&state.isAnimating?Math.min(.82,g.angle):0;
+        /* Tạo cả khối dung dịch dạng nêm/dốc, cao rõ ở phía miệng rót. */
+        const surfaceSlope=Math.min(62,Math.tan(pourTilt)*(w*.60)),slosh=reduceMotion?0:Math.sin(time*5.2)*(1.4+pourTilt*1.5);
+        const surfaceLeft=surface+surfaceSlope+slosh,surfaceRight=surface-surfaceSlope-slosh;
         const pale=[213,221,202],red=[104,35,32],color=lerpColor(pale,red,scene.dark);
-        const grad=ctx.createLinearGradient(x,surface,x,y+h);grad.addColorStop(0,color);grad.addColorStop(1,scene.dark>.2?'#4d1d1c':'#bfcab7');ctx.fillStyle=grad;ctx.fillRect(x,surface,w,liqH+20);
+        const grad=ctx.createLinearGradient(x,Math.min(surfaceLeft,surfaceRight),x,y+h);grad.addColorStop(0,color);grad.addColorStop(1,scene.dark>.2?'#4d1d1c':'#bfcab7');ctx.fillStyle=grad;
+        ctx.beginPath();ctx.moveTo(x-8,surfaceLeft);ctx.lineTo(x+w+8,surfaceRight);ctx.lineTo(x+w+8,y+h+12);ctx.lineTo(x-8,y+h+12);ctx.closePath();ctx.fill();
         if(scene.homogeneous<.95&&scene.phenol>0){
           const visible=(1-scene.homogeneous)*(1-emptying);ctx.globalAlpha=visible;
           for(let i=0;i<powderSeeds.length;i++){
@@ -775,8 +780,8 @@
           }
           ctx.globalAlpha=1;
         }
-        const wave=reduceMotion?0:Math.sin(time*2)*1.2;
-        ctx.strokeStyle='rgba(255,255,255,.65)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+6,surface);ctx.quadraticCurveTo(g.x,surface+3+wave,x+w-6,surface);ctx.stroke();
+        const wave=reduceMotion?0:Math.sin(time*4.1)*1.4;
+        ctx.strokeStyle='rgba(255,255,255,.68)';ctx.lineWidth=2.6;ctx.beginPath();ctx.moveTo(x+5,surfaceLeft);ctx.quadraticCurveTo(g.x,surface+wave,x+w-5,surfaceRight);ctx.stroke();
         ctx.restore();
       }else if(scene.phenol>0&&scene.acid===0){
         const settledAlpha=animation.step===1&&state.isAnimating?smoothstep(.56,.88,scene.toolProgress):1;
@@ -877,7 +882,15 @@
       ctx.save();ctx.globalAlpha=p;const x=292,y=350,w=176,h=155;
       ctx.fillStyle=kind==='ice'?'rgba(170,220,238,.55)':'rgba(225,180,96,.30)';ctx.strokeStyle=kind==='ice'?'#5995aa':'#b9873f';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+10,y+h);ctx.quadraticCurveTo(x+w/2,y+h+18,x+w-10,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.fill();ctx.stroke();
       ctx.strokeStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.moveTo(x+8,y+24);ctx.quadraticCurveTo(380,y+31,x+w-8,y+24);ctx.stroke();
-      if(kind==='ice')for(let i=0;i<9;i++){const ix=x+18+(i%5)*34,iy=y+70+Math.floor(i/5)*36;ctx.fillStyle='rgba(220,246,255,.78)';ctx.strokeStyle='#83bdd1';ctx.lineWidth=1.5;roundedRect(ix,iy,28,24,5);ctx.fill();ctx.stroke();}
+      if(kind==='ice'){
+        ctx.save();ctx.beginPath();ctx.rect(x+7,y+4,w-14,h-9);ctx.clip();
+        for(let i=0;i<9;i++){
+          const ix=x+16+(i%5)*32,iy=y+70+Math.floor(i/5)*36;
+          ctx.fillStyle='rgba(220,246,255,.78)';ctx.strokeStyle='#83bdd1';ctx.lineWidth=1.5;
+          roundedRect(ix,iy,24,24,5);ctx.fill();ctx.stroke();
+        }
+        ctx.restore();
+      }
       else{ctx.fillStyle='#8f6a36';roundedRect(x-8,y+h+3,w+16,16,6);ctx.fill();}
       ctx.restore();
     }
@@ -917,9 +930,10 @@
       const g=tubeGeometry(),centerY=g.y+155,localX=34,localY=-155,cos=Math.cos(g.angle),sin=Math.sin(g.angle);
       const sourceX=g.x+localX*cos-localY*sin,sourceY=centerY+localX*sin+localY*cos;
       const targetX=clamp(sourceX,505,600),targetY=getReceiverSurfaceY();
-      const pulse=reduceMotion?0:Math.sin(time*13)*.45;
+      const pulse=reduceMotion?0:Math.sin(time*13)*.38,flowStrength=smoothstep(.24,.34,t)*(1-smoothstep(.76,.85,t));
       ctx.save();ctx.lineCap='round';
-      ctx.strokeStyle='rgba(93,35,31,.88)';ctx.lineWidth=5+pulse;ctx.beginPath();ctx.moveTo(sourceX,sourceY);ctx.quadraticCurveTo(sourceX+12,(sourceY+targetY)/2-8,targetX,targetY);ctx.stroke();
+      const streamGrad=ctx.createLinearGradient(sourceX,sourceY,targetX,targetY);streamGrad.addColorStop(0,'rgba(83,28,27,.96)');streamGrad.addColorStop(1,'rgba(139,68,43,.82)');
+      ctx.strokeStyle=streamGrad;ctx.lineWidth=2+flowStrength*4+pulse;ctx.beginPath();ctx.moveTo(sourceX,sourceY);ctx.quadraticCurveTo(sourceX+12,(sourceY+targetY)/2-8,targetX,targetY);ctx.stroke();
       ctx.strokeStyle='rgba(255,224,204,.34)';ctx.lineWidth=1.35;ctx.beginPath();ctx.moveTo(sourceX-1,sourceY);ctx.quadraticCurveTo(sourceX+9,(sourceY+targetY)/2-10,targetX-1,targetY);ctx.stroke();
       ctx.restore();
     }
