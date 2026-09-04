@@ -48,7 +48,7 @@
     button:focus-visible, select:focus-visible, textarea:focus-visible {
       outline:3px solid var(--accent); outline-offset:2px;
     }
-    .app-shell { width:100%; min-width:0; max-width:1100px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+    .app-shell { width:100%; min-width:0; max-width:100%; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
     .intro-text {
       width:100%; padding:1rem 1.3rem; background:var(--jade-pale); border:1px solid var(--sage);
       border-left:4px solid var(--jade); border-radius:12px; font-size:15px; color:var(--ink-2); line-height:1.65;
@@ -95,7 +95,7 @@
     @keyframes spin { to { transform:rotate(360deg); } }
     .canvas-card { width:100%; padding:4px; display:flex; justify-content:center; background:var(--cream-2); }
     .canvas-glow-wrap {
-      position:relative; width:100%; aspect-ratio:760 / 480; padding:2px; border-radius:10px;
+      position:relative; width:100%; aspect-ratio:760 / 320; padding:2px; border-radius:10px;
       overflow:hidden; display:flex;
     }
     .canvas-glow-wrap::before {
@@ -184,6 +184,7 @@
     .muted { color:var(--ink-2); }
     @media (max-width:767px) {
       body { padding-bottom:82px; }
+      .canvas-glow-wrap { aspect-ratio:760 / 480; }
       .controls-card {
         position:fixed !important; left:0; right:0; bottom:0; z-index:50; width:100%; border-radius:0;
         border-left:0; border-right:0; border-bottom:0; border-top:1px solid var(--paper-line);
@@ -246,7 +247,7 @@
 
       <section class="card canvas-card">
         <div class="canvas-glow-wrap">
-          <canvas id="labCanvas" width="760" height="480" role="img" aria-label="Mô phỏng phản ứng nitro hóa phenol trong ống nghiệm, qua các giai đoạn thêm hóa chất, gia nhiệt, làm lạnh và kết tinh"></canvas>
+          <canvas id="labCanvas" width="760" height="380" role="img" aria-label="Mô phỏng phản ứng nitro hóa phenol trong ống nghiệm, qua các giai đoạn thêm hóa chất, gia nhiệt, làm lạnh và kết tinh"></canvas>
         </div>
       </section>
 
@@ -352,8 +353,8 @@
   <script>
     'use strict';
 
-    const W = 760, H = 480;
-    const SCENE_SCALE = H / 600;
+    const W = 760, H = 380;
+    const SCENE_SCALE = .67;
     const SCENE_OFFSET_X = (W - W * SCENE_SCALE) / 2;
     const canvas = document.getElementById('labCanvas');
     const ctx = canvas.getContext('2d');

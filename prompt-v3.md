@@ -19,9 +19,9 @@ Trong canvas: `ctx.font = "bold 12px 'JetBrains Mono', monospace"` cho MỌI nh�
     o	Heading / số lớn: font-weight: 700–800
     o	Nhấn mạnh / label: font-weight: 600
     o	Body: font-weight: 400, line-height: 1.7, độ rộng dòng tối đa ~64ch
-•	Body text tối thiểu **17–18px** (Be Vietnam Pro nét mảnh, tiếng Việt nhiều dấu dễ bể khi chữ nhỏ). Không bao giờ dùng weight dưới 400.
+•	Body text mặc định **17px** (Be Vietnam Pro nét mảnh, tiếng Việt nhiều dấu dễ bể khi chữ nhỏ). Không bao giờ dùng weight dưới 400.
 •	Label nhỏ/badge: font-size tối thiểu **12px**, font-weight: 600, text-transform: uppercase, letter-spacing: 0.6px
-•	Type scale (responsive): display `clamp(2.25rem,5vw,3.5rem)` · h1 `clamp(1.9rem,4vw,2.75rem)` · h2 `clamp(1.5rem,3vw,2rem)` · h3 `1.3rem` · body `1.125rem` · small `0.9rem`
+•	Type scale (responsive): display `clamp(2.25rem,5vw,3.5rem)` · h1 `clamp(1.9rem,4vw,2.75rem)` · h2 `clamp(1.5rem,3vw,2rem)` · h3 `1.18rem` · body `17px` · small `0.86rem`. Với simulation dạng cột đơn: text thanh Athena khoảng `0.95rem`, button khoảng `0.82rem`, nội dung bảng khoảng `0.86rem` để giao diện gọn nhưng vẫn dễ đọc.
 •	Trích dẫn có thể dùng italic
 
 ________________________________________
@@ -73,6 +73,7 @@ LAYOUT TỔNG THỂ (quan trọng)
 
 •	body: `display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px clamp(20px, 2.5vw, 48px)` — padding 2 bên co giãn theo bề rộng màn hình (tối thiểu 20px trên mobile)
 •	Độ rộng của MỌI khối lớn (intro-text, thanh mục tiêu, `.lab-wrapper`): **100%** (`width: 100%`), `margin: 0 auto`. Toàn trang đọc như 1 cột đơn canh giữa (không còn dashboard 3 cột rộng lấp màn hình).
+•	Bọc toàn bộ nội dung trong `.app-shell { width:100%; min-width:0; max-width:100%; margin:0 auto; }` để nội dung dùng hết chiều rộng khả dụng của iframe khi tải lên LMS, không tạo khoảng trống dư hai bên. Các khối con vẫn `width:100%` trong cột này.
 •	Thứ tự các khối từ trên xuống: ① Intro-text (thay cho header cũ) → ② Thanh mục tiêu học tập → ③ `.lab-wrapper` (cột đơn)
 •	**Bố cục CỘT ĐƠN (không còn 3 cột/dashboard, không còn sideLeft/sideRight)** — mọi nội dung xếp dọc theo đúng 1 thứ tự duy nhất: thanh hướng dẫn AI (`guide`) → hàng nút tương tác (`controls`) → canvas (`canvas`) → card "Bảng quan sát" → card "Kết luận & trắc nghiệm". Không còn khái niệm "khớp chiều cao 3 cột", không cần JS đo/ép chiều cao nào cả — mỗi card cao tự nhiên theo nội dung, cuộn theo TRANG (không dùng `overflow-y:auto` nội bộ):
 
@@ -96,7 +97,7 @@ LAYOUT TỔNG THỂ (quan trọng)
 .canvas-glow-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 760 / [CHIỀU_CAO]; /* PHẢI khớp đúng W×H logic khai báo trong JS (mục YÊU CẦU CANVAS, phần A) */
+    aspect-ratio: 760 / 320; /* desktop: khung ngang thấp, tiết kiệm chiều cao trang */
     padding: 2px; /* độ dày viền — chỉnh nhỏ/to tại đây */
     border-radius: 10px;
     overflow: hidden;
@@ -129,7 +130,7 @@ HTML: canvas PHẢI được bọc trong `.canvas-glow-wrap` (không đặt `<ca
 ```html
 <div class="card canvas-card">
     <div class="canvas-glow-wrap">
-        <canvas id="labCanvas" width="760" height="[CHIỀU_CAO]" role="img" aria-label="..."></canvas>
+        <canvas id="labCanvas" width="760" height="380" role="img" aria-label="..."></canvas>
     </div>
 </div>
 ```
@@ -146,6 +147,9 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
 1.	**Ghim nút hành động chính xuống đáy màn hình khi ≤767px** — vì `controls-card` đứng ở vị trí thứ 2 (ngay trên canvas), nhưng học sinh thường cuộn xuống đọc "Kết luận & trắc nghiệm" TRƯỚC khi bấm tiếp — lúc đó phải cuộn ngược lên mới bấm được nút, gây khó chịu. Ghim cố định card `controls` xuống đáy màn hình trong trường hợp này:
 ```css
 @media (max-width: 767px) {
+  .canvas-glow-wrap {
+    aspect-ratio: 760 / 480; /* mobile: tăng chiều cao để dụng cụ và hiệu ứng dễ quan sát */
+  }
   .controls-card {
     position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 50;
     background: var(--cream-2); border-top: 1px solid var(--paper-line);
@@ -286,8 +290,8 @@ chạm), theo mô hình tap-to-toggle — chạm lần 1 để hiện, chạm l�
 ```
 
 ```javascript
-// Quy đổi toạ độ click về hệ logic W×H (không phải kích thước pixel thật của canvas) —
-// dùng đúng cùng công thức fitScale/offsetX/offsetY như trong loop() (mục B2)
+// Quy đổi tọa độ click về hệ tọa độ NGUỒN 760×600 của cảnh — dùng cùng fitScale,
+// offsetX/offsetY, SCENE_SCALE và SCENE_OFFSET_X như trong loop() (mục B2)
 function getLogicPos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvasW / W, scaleY = canvasH / H;
@@ -295,7 +299,12 @@ function getLogicPos(e) {
   const offsetX = (canvasW - W * fitScale) / 2;
   const offsetY = (canvasH - H * fitScale) / 2;
   const px = e.clientX - rect.left, py = e.clientY - rect.top;
-  return { x: (px - offsetX) / fitScale, y: (py - offsetY) / fitScale };
+  const logicX = (px - offsetX) / fitScale;
+  const logicY = (py - offsetY) / fitScale;
+  return {
+    x: (logicX - SCENE_OFFSET_X) / SCENE_SCALE,
+    y: logicY / SCENE_SCALE
+  };
 }
 
 let activeHitId = null;
@@ -350,13 +359,15 @@ YÊU CẦU CANVAS
 
 Lưu ý chung: gradient/glow/shadow BỊ CẤM trong UI (CSS) nhưng ĐƯỢC PHÉP bên trong canvas khi dùng để mô phỏng vật thể thật (ánh kim loại, chất lỏng, LED phát sáng) — dùng tiết chế, phục vụ tính chân thực, không trang trí thừa.
 
-**Chiều cao canvas do `aspect-ratio` trên `.canvas-glow-wrap` quyết định** (khớp tỉ lệ `W×H` logic bên dưới) — KHÔNG dùng `stretch`/`flex:1`/`height:100%` để giãn canvas theo card cha (không còn khái niệm giãn khớp cột nào cần quan tâm, vì layout đã là cột đơn). `resizeCanvas()` ở mục A chỉ có nhiệm vụ đồng bộ **buffer pixel** của canvas theo đúng kích thước CSS đã hiển thị, không quyết định kích thước CSS.
+**Chiều cao hiển thị canvas do `aspect-ratio` responsive trên `.canvas-glow-wrap` quyết định**: desktop dùng `760 / 320` để khung thấp, mobile ≤767px dùng `760 / 480` để khung cao và dễ quan sát hơn. Hệ logic JavaScript vẫn là `760×380`; `loop()` dùng `fitScale` và offset để tự căn giữa cảnh trong hai tỷ lệ hiển thị mà không kéo méo X/Y. KHÔNG dùng `stretch` hoặc scale X/Y khác nhau. `resizeCanvas()` chỉ đồng bộ buffer pixel theo kích thước CSS thực tế.
 
 ### A. Kích thước & Utility bắt buộc
 ```js
 const canvas = document.getElementById('labCanvas');
 const ctx = canvas.getContext('2d');
-const W = 760, H = [CHIỀU_CAO]; // kích thước LOGIC cố định — H từ 480-680 tùy nội dung, xác định ở KỊCH BẢN. Mọi tọa độ vẽ trong toàn bộ code (drawStageX, particle, molecule...) LUÔN viết theo hệ W×H này, không bao giờ đổi theo kích thước hiển thị thật.
+const W = 760, H = 380; // khung logic ngang, gọn; khớp aspect-ratio 760/380 trong CSS
+const SCENE_SCALE = 0.67; // thu đều cảnh nguồn 760×600 để không cắt dụng cụ/nhãn
+const SCENE_OFFSET_X = (W - W * SCENE_SCALE) / 2; // căn giữa cảnh sau khi thu
 let canvasW = W, canvasH = H; // kích thước PIXEL THẬT của canvas trên màn hình — resizeCanvas() cập nhật liên tục
 
 // Kích thước CSS của canvas do aspect-ratio trên .canvas-glow-wrap quyết định (xem LAYOUT TỔNG THỂ) —
@@ -398,7 +409,7 @@ function drawGrid() {
 Nền canvas: `var(--cream)` hoặc trắng ngà ấm — đồng bộ với nền trang.
 
 ### B2. `loop()` — bắt buộc theo đúng khung này để canvas lấp đầy mà không méo nội dung
-Toàn bộ code vẽ nội dung thí nghiệm (drawStageX, particles, rings, molecule...) vẫn viết tọa độ theo hệ logic `W×H` như bình thường — KHÔNG cần sửa gì trong các hàm đó. Chỉ riêng `loop()` cần bọc chúng trong 1 khối `translate/scale` để tự động quy đổi sang kích thước thật:
+Canvas hiển thị theo khung logic 760×380. Các hàm dựng cảnh có thể tiếp tục dùng hệ tọa độ nguồn 760×600 để dễ bố trí dụng cụ; trong `loop()` phải thu đều cảnh bằng `SCENE_SCALE = 0.67` và căn giữa bằng `SCENE_OFFSET_X`. Tuyệt đối không kéo giãn X/Y bằng hai tỉ lệ khác nhau.
 ```js
 function loop() {
     resizeCanvas();
@@ -425,6 +436,8 @@ function loop() {
     ctx.save();
     ctx.translate(offsetX, offsetY);
     ctx.scale(fitScale, fitScale);
+    ctx.translate(SCENE_OFFSET_X, 0);
+    ctx.scale(SCENE_SCALE, SCENE_SCALE); // thu ĐỀU cảnh nguồn 760×600 vào khung 760×380
 
     switch (state.stage) {
         case 1: drawStage1(); break;
@@ -441,7 +454,7 @@ function loop() {
     requestAnimationFrame(loop);
 }
 ```
-Vì sao làm vậy: `drawGrid()` vẽ THEO KÍCH THƯỚC THẬT nên luôn phủ kín 100% khung viền — cảm giác "lấp đầy". Còn toàn bộ nội dung mô phỏng (card, phân tử, bảng tuần hoàn...) vẫn được vẽ đúng 1 tỉ lệ đều `fitScale` (không bao giờ kéo lệch X/Y khác nhau) nên không bao giờ bị méo hình, chỉ to/nhỏ và canh giữa theo đúng kích thước khung thật.
+Vì sao làm vậy: `drawGrid()` vẽ THEO KÍCH THƯỚC THẬT nên luôn phủ kín 100% khung viền. Nội dung mô phỏng được nhân lần lượt với `fitScale` và `SCENE_SCALE`, đều là scale đồng nhất, nên dụng cụ không méo. Cách này tạo canvas ngang, thấp hơn nhưng vẫn giữ đủ đèn cồn, giá đỡ, xô/chậu nước và nhãn ở đáy cảnh.
 
 ### C. Hệ thống particle (bắt buộc)
 Mọi file đều cần mảng particles[] để tạo hiệu ứng (bọt khí, kết tủa, bột rơi, hơi bay...). Cấu trúc mỗi particle:
@@ -690,10 +703,11 @@ Mỗi thao tác thí nghiệm phải được chia thành các pha nhỏ, mỗi 
 | Thao tác | Pha animation bắt buộc | Thời gian tối thiểu |
 |----------|----------------------|-------------------|
 | Nhỏ giọt | ① Bút lerp đến vị trí → ② Giọt hình thành ở tip (r tăng 0→4) → ③ Giọt rơi với hình giọt nước thực (đầu tròn, đuôi nhọn lên, dùng quadraticCurveTo) → ④ Chạm mặt nước: spawn ripple ring + 3–5 micro-particle bắn tỏa | 1.5s |
-| Rót dung dịch | ① Bình/ống nghiêng (rotate) → ② Stream bézier arc từ miệng bình: rộng 3–4px tại nguồn, thu về 1–2px ở cuối. **Tọa độ X endpoint phải clamp trong miệng ống nhận: `clamp(sourceX, targetCenterX − halfWidth + 2, targetCenterX + halfWidth − 2)`** — tuyệt đối không dùng X nguồn làm endpoint. Vẽ bằng `quadraticCurveTo` với control point lệch ngang 8–12px để tạo cảm giác quán tính → ③ Ripple ring + micro-particles tại điểm va chạm → ④ Mực nước dâng dần (lerp waterLevel) → ⑤ Bình nghiêng về lại | 2.5s |
-| Cho bột/chất rắn vào | ① Thìa/spatula xuất hiện di chuyển đến miệng bình (lerp x,y) → ② Thìa nghiêng (rotate) → ③ Particles (hạt bột) rơi từ thìa xuống (spawn + gravity) → ④ Hạt chìm/lắng trong dung dịch → ⑤ Thìa rút ra | 2s |
+| Rót dung dịch | ① Bình/ống được nâng và di chuyển đến bình nhận → ② nghiêng chậm → ③ stream bézier liên tục PHẢI xuất phát đúng từ miệng bình sau khi đã biến đổi theo góc quay; rộng 4–5px tại nguồn, có vệt phản sáng mảnh → ④ endpoint clamp trong miệng bình nhận → ⑤ ripple ring + micro-particles tại điểm va chạm → ⑥ mực nước dâng dần, màu khuếch tán dần → ⑦ chất rắn hình thành và lắng → ⑧ dòng rót dừng, bình nghiêng lại rồi trở về vị trí | 5–7s |
+| Cho bột/chất rắn vào | ① Thìa/spatula xuất hiện với đống hạt nhìn rõ trên lòng thìa → ② di chuyển đến miệng bình → ③ thìa nghiêng và lượng chất rắn trên thìa giảm dần → ④ spawn khoảng 20–30 hạt riêng biệt có gravity, lệch X và wobble nhẹ → ⑤ hạt tích tụ/lắng tự nhiên ở đáy → ⑥ thìa rút ra | 2–3s |
 | Khuấy/lắc | ① Đũa thủy tinh xuất hiện → ② Quay tròn (rotate animation) hoặc ống nghiệm lắc (oscillate góc ±5°) → ③ Particles di chuyển xoáy → ④ Màu dung dịch thay đổi dần (lerpColor) | 2s |
-| Đun nóng | ① Ngọn lửa xuất hiện dưới bình (vẽ flame shape, flickering) → ② Bọt khí nhỏ xuất hiện (spawn bubbles ở đáy) → ③ Bọt lớn dần, bay lên nhiều hơn → ④ Hơi nước bay lên trên mặt (particles bay lên + fade) | 3s |
+| Đun nóng | ① Vẽ đầy đủ đèn cồn gồm bình thủy tinh, cồn, nắp kim loại và bấc → ② ngọn lửa ba lớp xanh–vàng–cam xuất hiện, dao động bằng nhiều hàm `Math.sin()` và có quầng nhiệt nhẹ → ③ bọt khí nhỏ xuất hiện ở đáy → ④ bọt lớn dần, bay lên nhiều hơn → ⑤ hơi nước bay lên và fade | 3s |
+| Làm lạnh | ① Chậu nước đá xuất hiện và ống nghiệm được hạ vào chậu → ② nhiệt kế giảm từ từ → ③ spawn các bông tuyết nhiều kích thước quanh chậu/ống nghiệm; mỗi bông chuyển động tỏa ra, xoay và fade dần → ④ giữ ống nghiệm ổn định trước thao tác kế tiếp | 3s |
 | Lắp dụng cụ | ① Dụng cụ xuất hiện ở ngoài canvas (hoặc trên cao) → ② Di chuyển mượt đến vị trí đích (lerp + easeOut) → ③ Đến nơi, có hiệu ứng nhẹ (nhún, flash) | 1.5s |
 | Nối dây điện | ① Đường dây vẽ dần từ cực nguồn đến điện cực (animated path, progress 0→1 theo tổng chiều dài) → ② Khi nối xong, glow nhẹ | 1.5s |
 | Bật nguồn điện | ① LED sáng (glow) → ② Chấm sáng (electron dots) chạy dọc dây dẫn → ③ Bọt khí bắt đầu ở điện cực | 1s |
@@ -844,27 +858,27 @@ Học sinh tiến hành thí nghiệm nitro hóa phenol bằng HNO₃ đặc tro
 🔒 Mục tiêu học tập hiển thị ở panel — nguyên văn: "Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc."
 🖥️ Canvas
 Canvas chứa duy nhất không gian thí nghiệm tương tác. KHÔNG đặt mục tiêu, giả thuyết, bảng, kết luận, câu hỏi vào đây.
-Bố cục canvas: ống nghiệm ở trung tâm, bàn thí nghiệm phía dưới. Các dụng cụ/hoá chất lần lượt xuất hiện khi học sinh bấm nút tương ứng ở thanh công cụ bên trái canvas. Trạng thái hiện tại của thí nghiệm luôn hiển thị rõ trên ống nghiệm.
+Bố cục canvas ngang 760×380: ống nghiệm ở trung tâm, bàn thí nghiệm phía dưới; toàn bộ cảnh nguồn được thu đồng đều và căn giữa để canvas thấp, gọn nhưng không cắt dụng cụ. Các dụng cụ/hoá chất lần lượt xuất hiện khi học sinh bấm nút tương ứng ở thanh điều khiển phía trên canvas. Trạng thái hiện tại của thí nghiệm luôn hiển thị rõ trên canvas.
 Trình tự animation theo từng thao tác:
 Bước	Nút học sinh bấm	Animation canvas	Trạng thái ống nghiệm sau thao tác
-1	"Cho phenol vào ống nghiệm"	Spatula múc chất rắn trắng (phenol) cho vào ống nghiệm. Hiển thị nhãn "C₆H₅OH — 0,5 g" cạnh ống.	Chất rắn trắng ở đáy ống nghiệm.
+1	"Cho phenol vào ống nghiệm"	Spatula xuất hiện với một đống phenol trắng nhìn rõ trên lòng thìa, di chuyển đến miệng ống rồi nghiêng chậm. Lượng phenol trên thìa giảm dần trong khi khoảng 20–30 hạt riêng biệt rơi có gia tốc, lệch ngang nhẹ và tích tụ tự nhiên ở đáy. Sau đó thìa rút ra và nhãn "C₆H₅OH — 0,5 g" xuất hiện cạnh ống.	Chất rắn trắng ở đáy ống nghiệm.
 2	"Thêm H₂SO₄ đặc"	Ống nhỏ giọt thêm từ từ 1,5 mL H₂SO₄ đặc vào ống nghiệm. Nhãn "H₂SO₄ đặc — 1,5 mL" xuất hiện.	Hỗn hợp chưa đồng nhất.
-3	"Đun nóng"	Ống nghiệm được kẹp và đun nóng nhẹ. Animation tăng tốc, kết thúc khi hỗn hợp trở thành chất lỏng đồng nhất.	Chất lỏng đồng nhất.
-4	"Làm lạnh"	Ống nghiệm được đặt vào chậu nước đá. Nhiệt kế hiển thị nhiệt độ giảm dần; ống nghiệm giữ ổn định trong chậu đá trước khi thêm HNO₃.	Hỗn hợp đồng nhất đã được làm lạnh.
+3	"Đun nóng"	Ống nghiệm được kẹp và đun nóng nhẹ bằng đèn cồn vẽ đầy đủ bình, cồn, nắp và bấc. Ngọn lửa ba lớp xanh–vàng–cam dao động liên tục, có quầng nhiệt nhẹ; hỗn hợp tan dần đến khi trở thành chất lỏng đồng nhất.	Chất lỏng đồng nhất.
+4	"Làm lạnh"	Ống nghiệm được đặt vào chậu nước đá. Nhiệt kế hiển thị nhiệt độ giảm dần; các bông tuyết nhiều kích thước tỏa ra quanh chậu và ống nghiệm, xoay rồi mờ dần. Ống nghiệm giữ ổn định trước khi thêm HNO₃.	Hỗn hợp đồng nhất đã được làm lạnh.
 5	"Nhỏ HNO₃ đặc + lắc nhẹ"	Dùng ống nhỏ giọt thêm từ từ 1 mL HNO₃ đặc vào ống nghiệm đang được làm lạnh. Sau khi thêm hết, dùng kẹp ống nghiệm lắc nhẹ để trộn đều. Nhãn "HNO₃ đặc — 1 mL" xuất hiện. Hỗn hợp dần nhuốm màu đỏ tối.	Hỗn hợp màu đỏ tối, đồng nhất.
 6	"Đun cách thủy"	Ống nghiệm được đặt vào cốc nước nóng/bể cách thủy. Đồng hồ đếm ngược 15 phút nhưng animation được tăng tốc; hơi nước bốc nhẹ.	Hỗn hợp vẫn có màu đỏ tối trong quá trình đun cách thủy.
 7	"Để nguội"	Ống nghiệm được lấy khỏi bể cách thủy và đặt trên giá đến khi nhiệt độ giảm về gần nhiệt độ phòng.	Hỗn hợp đỏ tối, đã nguội.
-8	"Rót vào nước lạnh"	Hỗn hợp sau phản ứng được rót từ từ vào cốc chứa khoảng 20 mL nước lạnh. Màu dung dịch nhạt dần; tinh thể màu vàng xuất hiện và lắng xuống đáy cốc. Không hiển thị tên sản phẩm ở bước này.	Cốc chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
+8	"Rót vào nước lạnh"	Animation kéo dài khoảng 6–7 giây: ống nghiệm được nâng lên, di chuyển đến xô nước lạnh khoảng 20 mL rồi nghiêng chậm. Dòng hỗn hợp liên tục phải bám đúng miệng ống sau khi xoay, chảy theo đường cong vào trong xô, có vệt phản sáng, ripple và hạt bắn tại điểm chạm. Mực nước dâng dần, màu đỏ tối khuếch tán rồi nhạt dần; tinh thể vàng hình thành từng phần và lắng xuống đáy. Cuối cùng dòng rót dừng, ống nghiệm nghiêng lại và trở về giá. Không hiển thị tên sản phẩm ở bước này.	Xô chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
 
-📋 Panel bên cạnh canvas
-Panel hiển thị lần lượt theo tiến trình: Mục tiêu → Giả thuyết → Bảng báo cáo (mở dần) → Kết luận → Câu hỏi.
-Panel 1 — Mục tiêu (hiển thị ngay khi vào bài):
+📋 Các khối nội dung trong bố cục một cột
+Không dựng panel bên cạnh canvas. Nội dung xếp dọc theo thứ tự: intro-text → thanh Mục tiêu → Athena → controls → canvas → Bảng quan sát (chứa giả thuyết ban đầu) → Kết luận & Câu hỏi.
+Khối 1 — Mục tiêu (hiển thị ngay khi vào bài trong intro-text và thanh mục tiêu):
 🔒 Nguyên văn: "Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc."
 Kèm theo câu dẫn: "Trong thí nghiệm này, bạn sẽ tiến hành nitro hóa phenol bằng HNO₃ đặc trong môi trường H₂SO₄ đặc, quan sát các hiện tượng chính và dùng kết quả thực nghiệm để đánh giá giả thuyết ban đầu."
-Panel 2 — Giả thuyết (hiển thị sau khi học sinh đọc mục tiêu, trước khi bắt đầu thao tác):
+Khối 2 — Giả thuyết (hiển thị trong card Bảng quan sát ngay từ đầu, trước khi bắt đầu thao tác):
 "Phenol có khả năng phản ứng với HNO₃ đặc."
-→ Nút "Bắt đầu thí nghiệm". Hệ thống ghi nhớ giả thuyết này để hiển thị lại ở phần 6A.
-Panel 3 — Bảng báo cáo (mở dần theo tiến trình, học sinh điền ngay sau mỗi bước quan trọng):
+→ Nút "Bắt đầu thí nghiệm" nằm trong thanh controls phía trên canvas. Hệ thống ghi nhớ giả thuyết này để hiển thị lại ở phần 6A.
+Khối 3 — Bảng báo cáo (mở dần theo tiến trình, học sinh điền ngay sau mỗi bước quan trọng):
 STT	Giai đoạn thí nghiệm	Hiện tượng quan sát được	Mở ra sau bước
 1	Đun nóng phenol với H₂SO₄ đặc	Học sinh chọn đáp án có sẵn
 (Gợi ý: hỗn hợp trở thành chất lỏng đồng nhất / xuất hiện kết tủa / hỗn hợp sôi mạnh)	Bước 3
@@ -875,28 +889,28 @@ STT	Giai đoạn thí nghiệm	Hiện tượng quan sát được	Mở ra sau b�
 
 Nếu học sinh chọn khác hiện tượng đã hiển thị trên canvas: hệ thống hiện gợi ý nhẹ "Bạn có muốn xem lại hiện tượng ở bước này không?" — không chỉ thẳng câu trả lời.
 
-Panel 4 — Kết luận (hiển thị sau khi học sinh điền đủ bảng báo cáo):
+Khối 4 — Kết luận (hiển thị sau khi học sinh điền đủ bảng báo cáo):
 Phần 5A — Học sinh điền vào chỗ trống:
 "Trong điều kiện thí nghiệm, phenol phản ứng với HNO₃ đặc theo phản ứng ________ trên vòng benzene (thế / cộng / phân hủy). Các nhóm –NO₂ ưu tiên thế vào các vị trí ________ (ortho và para / meta / bất kỳ) so với nhóm –OH, tạo thành sản phẩm là ________ có dạng tinh thể màu ________."
  
 Phần 5B — Chốt kiến thức (hệ thống hiển thị sau khi học sinh hoàn thành 5A):
 "Trong điều kiện thí nghiệm, phenol bị nitro hóa tạo 2,4,6-trinitrophenol (picric acid). Nhóm –OH hoạt hóa vòng benzene và định hướng phản ứng thế vào các vị trí ortho, para, vì vậy phenol tham gia phản ứng thế trên vòng dễ hơn benzene. Khi rót hỗn hợp sau phản ứng vào nước lạnh, picric acid ít tan nên tách ra dưới dạng tinh thể màu vàng."
-Panel 5 — Câu hỏi (hiển thị sau phần Kết luận):
+Khối 5 — Câu hỏi (hiển thị sau phần Kết luận):
 → Xem chi tiết ở mục Phản hồi bên dưới.
-🤖 Robot
-Robot dẫn dắt + hướng dẫn thao tác (làm GÌ, Ở ĐÂU). KHÔNG giải thích thay canvas. Lời thoại ngắn gọn, không quá 2 câu mỗi lượt.
-Mở đầu bài (hiển thị cùng Panel Mục tiêu):
-🤖 "Hôm nay bạn sẽ kiểm chứng xem phenol có khả năng phản ứng với HNO₃ đặc hay không. Hãy đọc mục tiêu và giả thuyết ở panel bên, rồi bấm "Bắt đầu thí nghiệm" nhé!"
+🤖 Athena
+Athena dẫn dắt + hướng dẫn thao tác (làm GÌ, Ở ĐÂU). KHÔNG giải thích thay canvas. Lời thoại ngắn gọn, không quá 2 câu mỗi lượt.
+Mở đầu bài (hiển thị cùng khối Mục tiêu):
+🤖 "Hôm nay bạn sẽ kiểm chứng xem phenol có khả năng phản ứng với HNO₃ đặc hay không. Hãy đọc mục tiêu và giả thuyết bên dưới, rồi bấm "Bắt đầu thí nghiệm" nhé!"
 
 Hướng dẫn từng bước (trong quá trình thao tác):
-🤖 "Bước 1: Bấm "Cho phenol vào ống nghiệm" ở thanh công cụ bên trái canvas để bắt đầu."
+🤖 "Bước 1: Bấm "Cho phenol vào ống nghiệm" ở thanh điều khiển phía trên canvas để bắt đầu."
 🤖 "Bước 2: Bấm "Thêm H₂SO₄ đặc" để thêm acid vào ống nghiệm. Quan sát trạng thái của hỗn hợp."
 🤖 "Bước 3: Bấm "Đun nóng" và quan sát đến khi hỗn hợp trở thành chất lỏng đồng nhất."
 🤖 "Bước 4: Bấm "Làm lạnh" và chờ ống nghiệm ổn định trong chậu nước đá trước khi thêm HNO₃."
 🤖 "Bước 5: Bấm "Nhỏ HNO₃ đặc + lắc nhẹ". Chú ý sự thay đổi màu của hỗn hợp."
 🤖 "Bước 6: Bấm "Đun cách thủy" và theo dõi hỗn hợp trong giai đoạn đun."
 🤖 "Bước 7: Bấm "Để nguội" và chờ hỗn hợp về gần nhiệt độ phòng."
-🤖 "Bước 8: Bấm "Rót vào nước lạnh" và quan sát thật kỹ hiện tượng xảy ra trong cốc."
+🤖 "Bước 8: Bấm "Rót vào nước lạnh" và quan sát thật kỹ hiện tượng xảy ra trong xô nước lạnh."
 
 
 Sau khi học sinh điền đủ bảng báo cáo:
