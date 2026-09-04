@@ -72,9 +72,9 @@ ________________________________________
 LAYOUT TỔNG THỂ (quan trọng)
 
 •	body: `display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 24px clamp(20px, 2.5vw, 48px)` — padding 2 bên co giãn theo bề rộng màn hình (tối thiểu 20px trên mobile)
-•	Độ rộng của MỌI khối lớn (intro-text, thanh mục tiêu, `.lab-wrapper`): **100%** (`width: 100%`), `margin: 0 auto`. Toàn trang đọc như 1 cột đơn canh giữa (không còn dashboard 3 cột rộng lấp màn hình).
+•	Độ rộng của MỌI khối lớn (`.briefing`, `.lab-wrapper`): **100%** (`width: 100%`), `margin: 0 auto`. Toàn trang đọc như 1 cột đơn canh giữa (không còn dashboard 3 cột rộng lấp màn hình).
 •	Bọc toàn bộ nội dung trong `.app-shell { width:100%; min-width:0; max-width:100%; margin:0 auto; }` để nội dung dùng hết chiều rộng khả dụng của iframe khi tải lên LMS, không tạo khoảng trống dư hai bên. Các khối con vẫn `width:100%` trong cột này.
-•	Thứ tự các khối từ trên xuống: ① Intro-text (thay cho header cũ) → ② Thanh mục tiêu học tập → ③ `.lab-wrapper` (cột đơn)
+•	Thứ tự các khối từ trên xuống: ① Thanh briefing gộp mục tiêu + mô tả ngắn, có thể thu gọn → ② `.lab-wrapper` (cột đơn)
 •	**Bố cục CỘT ĐƠN (không còn 3 cột/dashboard, không còn sideLeft/sideRight)** — mọi nội dung xếp dọc theo đúng 1 thứ tự duy nhất: thanh hướng dẫn AI (`guide`) → hàng nút tương tác (`controls`) → canvas (`canvas`) → card "Bảng quan sát" → card "Kết luận & trắc nghiệm". Không còn khái niệm "khớp chiều cao 3 cột", không cần JS đo/ép chiều cao nào cả — mỗi card cao tự nhiên theo nội dung, cuộn theo TRANG (không dùng `overflow-y:auto` nội bộ):
 
 ```css
@@ -97,7 +97,7 @@ LAYOUT TỔNG THỂ (quan trọng)
 .canvas-glow-wrap {
     position: relative;
     width: 100%;
-    aspect-ratio: 760 / 320; /* desktop: khung ngang thấp, tiết kiệm chiều cao trang */
+    height: clamp(320px, 42vw, 540px); /* desktop: đủ lớn nhưng không kéo trang quá dài */
     padding: 2px; /* độ dày viền — chỉnh nhỏ/to tại đây */
     border-radius: 10px;
     overflow: hidden;
@@ -122,7 +122,7 @@ LAYOUT TỔNG THỂ (quan trọng)
     height: 100%;
     display: block;
     touch-action: none;
-    flex: 1; /* lấp đầy khung aspect-ratio ở trên; kích thước PIXEL thật vẫn được JS resizeCanvas() đồng bộ, xem mục YÊU CẦU CANVAS */
+    flex: 1; /* lấp đầy chiều cao responsive của wrapper; buffer pixel vẫn được JS đồng bộ */
 }
 ```
 
@@ -148,17 +148,17 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
 ```css
 @media (max-width: 767px) {
   .canvas-glow-wrap {
-    aspect-ratio: 760 / 560; /* mobile: tăng chiều cao để dụng cụ và hiệu ứng dễ quan sát */
+    height: clamp(300px, 48vh, 420px); /* mobile: ưu tiên vùng quan sát theo chiều cao màn hình */
   }
   body { gap: 9px; padding: 12px 12px 82px; }
   .app-shell, .lab-wrapper { gap: 9px; }
-  .intro-text { padding: 8px 10px; font-size: 12.5px; line-height: 1.45; }
-  .learning-goal { padding: 7px 10px; gap: 7px; }
+  .briefing { padding: 7px 10px; }
+  .briefing-details { font-size: 12.5px; line-height: 1.4; }
   .goal-label { gap: 4px; font-size: 10px; letter-spacing: 0.45px; }
   .goal-text { font-size: 13px; line-height: 1.4; }
   .ai-guide { align-items: flex-start; gap: 8px; padding: 8px 10px; }
   .ai-avatar { flex-basis: 32px; width: 32px; height: 32px; border-width: 1.5px; }
-  .guide-text { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 3; line-clamp: 3; font-size: 12.5px; line-height: 1.4; }
+  .guide-text { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; line-clamp: 2; font-size: 12.5px; line-height: 1.4; }
   .controls-card {
     position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 50;
     background: var(--cream-2); border-top: 1px solid var(--paper-line);
@@ -169,47 +169,45 @@ Thứ tự 5 card con trực tiếp trong `.lab-wrapper` (tất cả full-width 
 }
 ```
 
-Trên mobile, intro-text PHẢI dùng một phiên bản câu ngắn riêng; hướng dẫn Athena theo bước cũng phải rút còn 1–2 câu ngắn. Không chỉ giảm font rồi giữ nguyên đoạn văn dài vì ba khối đầu vẫn chiếm quá nhiều chiều cao.
+Trên mobile, briefing mặc định thu gọn; hướng dẫn Athena theo bước rút còn 1–2 câu ngắn. Khi học sinh bắt đầu thí nghiệm, briefing tự thu gọn để canvas tiến lên gần đầu màn hình.
 
 2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
 3.	Layout đã LUÔN là cột đơn ở mọi kích thước màn hình (không riêng mobile) — không cần media query đổi số cột hay reset chiều cao sidebar như bản 3-cột trước, vì không còn sidebar nào cả. Trang phải chạy tốt từ 360px (mobile) tới desktop chỉ với 1 bộ CSS.
 
 ________________________________________
-INTRO-TEXT (thay hoàn toàn cho header banner — BẮT BUỘC, mọi file mới)
+BRIEFING GỘP MỤC TIÊU + MÔ TẢ (thay hoàn toàn cho header banner — BẮT BUỘC)
 
-Không dựng `<header>` trang trí (không ảnh nền, không gradient, không badge, không 2 pseudo-element
-hình tròn trang trí như bản trước). Thay bằng 1 đoạn dẫn giải ngắn 1-2 câu ngay đầu trang, dạng thẻ
-card nhấn mạnh — không icon, không title label, chỉ đoạn văn. Giọng "bạn" (không "em"), nêu ngắn gọn
-thí nghiệm này giúp học sinh hiểu/làm được gì — lấy tinh thần từ `objectives` sẽ khai báo trong
-Athena manifest (xem mục TÍCH HỢP LMS).
+Không dựng `<header>` trang trí. Gộp mục tiêu học tập và đoạn dẫn giải vào một thanh `.briefing` duy nhất để giảm chiều cao phần đầu. Hàng chính luôn hiển thị label MỤC TIÊU, câu giả thuyết và nút Thu gọn/Xem thêm; mô tả 1 câu đặt trong `.briefing-details`. Trên mobile mặc định thu gọn, trên desktop mặc định mở; sau khi bấm bắt đầu thì tự thu gọn.
 
 ```html
-<div class="intro-text">
-  Bạn sẽ [1-2 câu mô tả mục tiêu thí nghiệm].
-</div>
+<section class="briefing" id="briefing">
+  <div class="briefing-main">
+    <span class="goal-label"><i class="ti ti-target"></i>Mục tiêu</span>
+    <span class="goal-divider"></span>
+    <span class="goal-text">Kiểm chứng giả thuyết: ...</span>
+    <button class="briefing-toggle" id="briefingToggle" aria-expanded="true">Thu gọn</button>
+  </div>
+  <p class="briefing-details" id="briefingDetails">Bạn sẽ [1 câu mô tả ngắn].</p>
+</section>
 ```
 ```css
-.intro-text {
-  width: 100%;margin: 0 auto;
-  padding: 1rem 1.3rem; background: var(--jade-pale); border: 1px solid var(--sage);
-  border-left: 4px solid var(--jade); border-radius: 12px;
-  font-size: 15px; color: var(--ink-2); line-height: 1.65;
-}
-@media (max-width: 640px) {
-  .intro-text { padding: 0.9rem 1.1rem; font-size: 14px; }
-}
+.briefing { width:100%; padding:10px 16px; background:var(--jade-pale); border:1px solid var(--sage); border-left:4px solid var(--jade); border-radius:10px; }
+.briefing-main { display:flex; align-items:center; gap:10px; }
+.briefing-details { margin:7px 0 0; color:var(--ink-2); line-height:1.5; }
+.briefing.is-collapsed .briefing-details { display:none; }
+.briefing-toggle { margin-left:auto; flex-shrink:0; background:transparent; border:0; color:var(--jade-text); cursor:pointer; }
 ```
 
 **File cũ đang patch/sửa lỗi (đã có sẵn header cũ, không build lại từ đầu):** KHÔNG xoá `<header>`/JS
 liên quan — chỉ ẩn bằng CSS (`.app-header, header { display: none !important; }`), giữ nguyên node
-để tránh vỡ code khác đang trỏ vào id/class bên trong nó, rồi thêm `.intro-text` mới ngay sau vị trí
+để tránh vỡ code khác đang trỏ vào id/class bên trong nó, rồi thêm `.briefing` mới ngay sau vị trí
 header cũ (đã ẩn), trước phần thân chính.
 
 ________________________________________
-THANH MỤC TIÊU HỌC TẬP (ngay dưới intro-text)
+THÀNH PHẦN MỤC TIÊU TRONG BRIEFING
 
-•	CHỈ gồm 1 khối duy nhất: **Mục tiêu học tập** — dạng THANH NGANG MỎNG nằm ngay dưới intro-text (không phải card to nhiều dòng)
+•	CHỈ gồm 1 khối duy nhất: **Mục tiêu học tập** — dạng THANH NGANG MỎNG trong hàng chính của briefing (không phải card to nhiều dòng)
 •	`display: flex; align-items: center; gap: 10px; width: 100%`. Label, divider và text đều canh giữa theo chiều dọc của hàng.
 •	Style kiểu call-out: background: `var(--jade-pale)`; border-left: 4px solid `var(--jade)`; border-radius: 10px; padding: 10px 16px
 •	Bên trái: label "MỤC TIÊU" = `<span>` riêng chứa icon Tabler (ti-target) + chữ, style `display: flex; align-items: center; gap: 6px; flex-shrink: 0` — uppercase 12px weight 600 màu `var(--jade-text)`, không xuống dòng
@@ -256,7 +254,7 @@ Dùng cho thí nghiệm so sánh nhiều tổ hợp (chọn hóa chất A, chọ
 ### Kiểu B — Stepper tuần tự
 Dùng cho thí nghiệm nhiều bước phải thực hiện theo thứ tự.
 •	KHÔNG cần header bar "Quy Trình Thí Nghiệm" hay step card mô tả riêng — tên bước và mô tả đã do THANH HƯỚNG DẪN AI phía trên đảm nhiệm
-•	1 hàng duy nhất: nút "Quay lại" + "Làm lại" → khoảng trống co giãn → nút hành động chính của bước hiện tại ("Tiếp tục" / "Quan sát" / "Hoàn thành"...) nằm ngoài cùng bên phải, label nút đổi theo ngữ cảnh bước. KHÔNG xuống hàng thứ 2 trong bất kỳ trường hợp nào (dùng cuộn ngang nếu cần)
+•	1 hàng duy nhất, chỉ giữ nút "Làm lại" và nút hành động chính của bước hiện tại nằm ngoài cùng bên phải. Không dùng nút "Quay lại" vì làm tăng tải nhận thức nhưng không hoàn tác trạng thái thí nghiệm. Label nút chính đổi theo ngữ cảnh bước. KHÔNG xuống hàng thứ 2.
 •	Nút hành động chính PHẢI disabled khi animation đang chạy
 •	Bỏ dòng "Status" riêng (đã tiết kiệm để giữ 1 dòng) — trạng thái ("Đang thực hiện...", "Hoàn tất"...) gộp vào text của THANH HƯỚNG DẪN AI phía trên thay vì hiện riêng ở đây
 
@@ -342,14 +340,17 @@ KHỐI KẾT QUẢ (dưới canvas — 2 card cuối cùng trong `.lab-wrapper`,
 ### Khối 1 — "Bảng quan sát"
 •	Card: nền `var(--cream-2)`, border 1px `var(--paper-line)`, radius 12px, padding 14px 16px
 •	Tiêu đề: icon ti-table + "Bảng quan sát", weight 700
+•	Áp dụng progressive disclosure: trước khi xong bước 3 chỉ hiện một dòng nhắc “Bảng quan sát sẽ mở sau bước 3”; sau đó mới hiện bảng. Các hàng chưa đến mốc mở phải `display:none`, không chiếm chiều cao.
 •	Bảng `<table>` nhỏ gọn: hàng header nền `var(--jade-pale)`, chữ `var(--jade-text)` uppercase 12px weight 600; ô có border-bottom 1px `var(--paper-line)`; chữ nội dung 0.9rem màu `var(--ink)`
 •	Cột/hàng của bảng do KỊCH BẢN quy định (điều kiện thí nghiệm, hiện tượng quan sát...)
 •	Giá trị CHƯA quan sát được: hiển thị "?" màu `var(--ink-2)` — khi bước tương ứng hoàn thành, JS điền giá trị thật kèm fade + nền ô nháy `var(--jade-pale)` khoảng 1s để hút mắt học sinh
 •	Nếu bảng nhiều cột không vừa bề ngang: bọc trong div `overflow-x: auto` — không để tràn card
+•	Trên mobile ≤767px, không ép người dùng cuộn ngang bảng: ẩn `thead`, chuyển từng hàng đã mở thành card dọc và dùng `td::before { content: attr(data-label) }` làm nhãn. Mỗi `<td>` bắt buộc có `data-label` tương ứng.
 •	Chiều cao tự nhiên theo nội dung
 
 ### Khối 2 — "Kết luận & trắc nghiệm"
 Đây là explanationBox — chứa kết luận và câu hỏi trắc nghiệm THEO TỪNG BƯỚC thí nghiệm:
+•	Toàn bộ card này ẩn cho tới khi học sinh hoàn thành 8 bước và ghi đúng đủ các dòng quan sát; không hiển thị một card khóa dài từ đầu trang.
 •	Card ngoài: nền `var(--cream-2)`, border 1px `var(--paper-line)`, radius 12px, padding 14px 16px; tiêu đề icon ti-checklist + "Kết luận & Câu hỏi", weight 700
 •	Chiều cao tự nhiên theo nội dung, KHÔNG giới hạn `max-height`/`overflow-y:auto` nội bộ — nội dung dài bao nhiêu thì trang dài bấy nhiêu, học sinh cuộn trang bình thường như đọc 1 bài viết.
 •	Nội dung tổ chức theo bước: mỗi bước hoàn thành sẽ THÊM 1 khối kết luận nhỏ + câu trắc nghiệm tương ứng (nếu kịch bản có) vào cuối danh sách — khối mới nhất tự cuộn vào tầm nhìn (`scrollIntoView({behavior:'smooth', block:'nearest'})`)
@@ -371,18 +372,18 @@ YÊU CẦU CANVAS
 
 Lưu ý chung: gradient/glow/shadow BỊ CẤM trong UI (CSS) nhưng ĐƯỢC PHÉP bên trong canvas khi dùng để mô phỏng vật thể thật (ánh kim loại, chất lỏng, LED phát sáng) — dùng tiết chế, phục vụ tính chân thực, không trang trí thừa.
 
-**Chiều cao hiển thị canvas do `aspect-ratio` responsive trên `.canvas-glow-wrap` quyết định**: desktop dùng `760 / 320` để khung thấp, mobile ≤767px dùng `760 / 560` để khung cao và dễ quan sát hơn. Hệ logic JavaScript vẫn là `760×380`; `loop()` dùng `fitScale` và offset để tự căn giữa cảnh trong hai tỷ lệ hiển thị mà không kéo méo X/Y. Cảnh nguồn dùng scale responsive: `0.67` trên desktop và `0.88` trên mobile, nhờ đó dụng cụ thực sự lớn hơn trên mobile thay vì chỉ tăng khoảng trắng của canvas. `resizeCanvas()` chỉ đồng bộ buffer pixel theo kích thước CSS thực tế.
+**Chiều cao hiển thị canvas dùng `clamp()` trên `.canvas-glow-wrap`**: desktop `clamp(320px, 42vw, 540px)`; mobile ≤767px dùng `clamp(300px, 48vh, 420px)` để vùng mô phỏng lớn nhưng không lấn hết màn hình. Hệ logic JavaScript vẫn là `760×380`; `loop()` dùng `fitScale` và offset để tự căn giữa cảnh mà không kéo méo X/Y. Cảnh nguồn dùng scale responsive: `0.67` trên desktop và `0.88` trên mobile. `resizeCanvas()` chỉ đồng bộ buffer pixel theo kích thước CSS thực tế.
 
 ### A. Kích thước & Utility bắt buộc
 ```js
 const canvas = document.getElementById('labCanvas');
 const ctx = canvas.getContext('2d');
-const W = 760, H = 380; // khung logic ngang, gọn; khớp aspect-ratio 760/380 trong CSS
+const W = 760, H = 380; // hệ tọa độ logic; chiều cao CSS được điều khiển độc lập bằng clamp()
 const mobileCanvasQuery = window.matchMedia('(max-width: 767px)');
 function getSceneScale() { return mobileCanvasQuery.matches ? 0.88 : 0.67; }
 let canvasW = W, canvasH = H; // kích thước PIXEL THẬT của canvas trên màn hình — resizeCanvas() cập nhật liên tục
 
-// Kích thước CSS của canvas do aspect-ratio trên .canvas-glow-wrap quyết định (xem LAYOUT TỔNG THỂ) —
+// Kích thước CSS của canvas do width/height responsive trên .canvas-glow-wrap quyết định —
 // hàm này chỉ đo kích thước hiển thị THẬT rồi đồng bộ vào canvas.width/height (buffer pixel), gọi ở
 // đầu mỗi frame trong loop(). Nhờ vậy nền lưới ô vuông luôn phủ kín 100% khung, ảnh không bị mờ/vỡ nét
 // do lệch tỉ lệ buffer/CSS, dù màn hình có DPR khác nhau.
@@ -852,7 +853,7 @@ ro.observe(document.body);
 - [ ] `LMS().complete()` bắn đúng 1 lần, `results.items[]` khớp 1-1 câu hỏi thật trong bài
 - [ ] `LMS().state()` gọi ở mọi thay đổi bước/đáp án có ý nghĩa + có `onResume`
 - [ ] Đã gọi `LMS().resize()` lúc load + mỗi khi chiều cao nội dung đổi
-- [ ] Không còn `<header>` banner trang trí trong file mới — chỉ có `.intro-text` (xem mục INTRO-TEXT). Nếu là file cũ đang patch: `<header>` cũ đã ẩn bằng CSS, không xóa khỏi DOM.
+- [ ] Không còn `<header>` banner trang trí trong file mới — chỉ có `.briefing` gộp mục tiêu và mô tả. Nếu là file cũ đang patch: `<header>` cũ đã ẩn bằng CSS, không xóa khỏi DOM.
 
 ________________________________________
 KỊCH BẢN VÀ KIẾN THỨC CHO GAME:
@@ -885,8 +886,8 @@ Bước	Nút học sinh bấm	Animation canvas	Trạng thái ống nghiệm sau 
 8	"Rót vào nước lạnh"	Animation kéo dài khoảng 6–7 giây: ống nghiệm được nâng lên, di chuyển đến xô nước lạnh khoảng 20 mL rồi nghiêng chậm. Dòng hỗn hợp liên tục phải bám đúng miệng ống sau khi xoay, chảy theo đường cong vào trong xô, có vệt phản sáng, ripple và hạt bắn tại điểm chạm. Mực nước dâng dần, màu đỏ tối khuếch tán rồi nhạt dần; tinh thể vàng hình thành từng phần và lắng xuống đáy. Cuối cùng dòng rót dừng, ống nghiệm nghiêng lại và trở về giá. Không hiển thị tên sản phẩm ở bước này.	Xô chứa dung dịch nhạt màu và tinh thể vàng ở đáy.
 
 📋 Các khối nội dung trong bố cục một cột
-Không dựng panel bên cạnh canvas. Nội dung xếp dọc theo thứ tự: intro-text → thanh Mục tiêu → Athena → controls → canvas → Bảng quan sát (chứa giả thuyết ban đầu) → Kết luận & Câu hỏi.
-Khối 1 — Mục tiêu (hiển thị ngay khi vào bài trong intro-text và thanh mục tiêu):
+Không dựng panel bên cạnh canvas. Nội dung xếp dọc theo thứ tự: briefing gộp Mục tiêu + mô tả → Athena → controls → canvas → Bảng quan sát (chứa giả thuyết ban đầu) → Kết luận & Câu hỏi.
+Khối 1 — Mục tiêu (hiển thị ngay khi vào bài trong briefing có thể thu gọn):
 🔒 Nguyên văn: "Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc."
 Kèm theo câu dẫn: "Trong thí nghiệm này, bạn sẽ tiến hành nitro hóa phenol bằng HNO₃ đặc trong môi trường H₂SO₄ đặc, quan sát các hiện tượng chính và dùng kết quả thực nghiệm để đánh giá giả thuyết ban đầu."
 Khối 2 — Giả thuyết (hiển thị trong card Bảng quan sát ngay từ đầu, trước khi bắt đầu thao tác):
