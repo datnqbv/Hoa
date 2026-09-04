@@ -126,6 +126,8 @@
       border-radius:8px; background:var(--cream); color:var(--ink); font-size:.86rem;
     }
     .obs-select:disabled, .fill-select:disabled { opacity:.65; }
+    .custom-select { position:relative; width:100%; min-width:0; }
+    .custom-select-trigger, .custom-select-menu { display:none; }
     .inline-feedback { min-height:1.4em; margin:6px 0 0; color:var(--ink-2); font-size:.82rem; line-height:1.5; }
     .inline-feedback.is-wrong { color:var(--wrong); }
     .inline-feedback.is-correct { color:var(--correct); }
@@ -213,6 +215,26 @@
       }
       .obs-select, .fill-select { text-overflow:ellipsis; white-space:nowrap; }
       .obs-select option, .fill-select option { font-size:16px; }
+      .custom-select > select { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
+      .custom-select-trigger {
+        display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; min-width:0;
+        min-height:44px; padding:8px 10px; border:1px solid var(--sage); border-radius:8px;
+        background:var(--cream); color:var(--ink); text-align:left; font-size:16px; cursor:pointer;
+      }
+      .custom-select-trigger span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+      .custom-select-trigger:disabled { opacity:.65; cursor:not-allowed; }
+      .custom-select-menu {
+        position:absolute; top:calc(100% + 4px); left:0; z-index:80; width:100%; min-width:0; max-height:220px;
+        overflow-y:auto; padding:4px; border:1px solid var(--sage); border-radius:8px;
+        background:var(--cream); box-shadow:0 8px 18px rgba(26,26,26,.16);
+      }
+      .custom-select.is-open .custom-select-menu { display:block; }
+      .custom-select.open-up .custom-select-menu { top:auto; bottom:calc(100% + 4px); }
+      .custom-select-option {
+        display:block; width:100%; min-height:42px; padding:8px 10px; border:0; border-radius:6px;
+        background:transparent; color:var(--ink); text-align:left; white-space:normal; line-height:1.35; cursor:pointer;
+      }
+      .custom-select-option:hover, .custom-select-option:focus-visible, .custom-select-option.is-selected { background:var(--jade-pale); color:var(--jade-text); }
     }
     @media (max-width:640px) {
       body { padding-left:12px; padding-right:12px; font-size:16px; }
@@ -501,6 +523,28 @@
       if(phase==='idle')return `Bước ${step}: Bấm “${item.label}” và quan sát.`;
       if(phase==='running')return `Đang ${item.label.toLocaleLowerCase('vi-VN')}... Hãy quan sát trên canvas.`;
       return step<8?`Đã xong bước ${step}. Tiếp theo: ${stepData[step].label}.`:'Đã xong 8 bước. Hãy hoàn thành bảng quan sát.';
+    }
+
+    function syncCustomSelect(select){
+      const wrap=select.closest('.custom-select');if(!wrap)return;
+      const selected=select.options[select.selectedIndex],trigger=wrap.querySelector('.custom-select-trigger');
+      trigger.querySelector('span').textContent=selected?selected.textContent:'Chọn đáp án';trigger.disabled=select.disabled;
+      wrap.querySelectorAll('.custom-select-option').forEach(option=>option.classList.toggle('is-selected',option.dataset.value===select.value));
+    }
+    function closeCustomSelects(except){
+      document.querySelectorAll('.custom-select.is-open').forEach(wrap=>{if(wrap!==except){wrap.classList.remove('is-open','open-up');wrap.querySelector('.custom-select-trigger').setAttribute('aria-expanded','false');}});
+    }
+    function enhanceSelects(){
+      document.querySelectorAll('.obs-select,.fill-select').forEach(select=>{
+        if(select.closest('.custom-select'))return;
+        const wrap=document.createElement('div');wrap.className='custom-select';select.parentNode.insertBefore(wrap,select);wrap.appendChild(select);
+        const trigger=document.createElement('button');trigger.type='button';trigger.className='custom-select-trigger';trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<span></span><i class="ti ti-chevron-down" aria-hidden="true"></i>';
+        const menu=document.createElement('div');menu.className='custom-select-menu';menu.setAttribute('role','listbox');
+        Array.from(select.options).forEach(nativeOption=>{const option=document.createElement('button');option.type='button';option.className='custom-select-option';option.dataset.value=nativeOption.value;option.textContent=nativeOption.textContent;option.setAttribute('role','option');option.addEventListener('click',()=>{select.value=nativeOption.value;syncCustomSelect(select);closeCustomSelects();select.dispatchEvent(new Event('change',{bubbles:true}));});menu.appendChild(option);});
+        wrap.append(trigger,menu);trigger.addEventListener('click',()=>{if(select.disabled)return;const opening=!wrap.classList.contains('is-open');closeCustomSelects(wrap);wrap.classList.toggle('is-open',opening);trigger.setAttribute('aria-expanded',String(opening));if(opening){syncCustomSelect(select);const spaceBelow=window.innerHeight-trigger.getBoundingClientRect().bottom;wrap.classList.toggle('open-up',spaceBelow<Math.min(menu.scrollHeight,220)+76);}});
+        new MutationObserver(()=>syncCustomSelect(select)).observe(select,{attributes:true,attributeFilter:['disabled']});syncCustomSelect(select);
+      });
+      document.addEventListener('click',event=>{if(!event.target.closest('.custom-select'))closeCustomSelects();});
     }
 
     function renderControls(){
@@ -931,6 +975,7 @@
         status.textContent=state.reportCorrect[id]?'Đã ghi nhận':unlocked?'Chờ bạn chọn':`Mở sau bước ${cfg.unlock}`;
         if(state.reportAnswers[id])select.value=state.reportAnswers[id];
       });
+      document.querySelectorAll('.obs-select').forEach(syncCustomSelect);
     }
     function handleObservation(id,index){
       const select=$(id),cfg=observationConfig[id],value=select.value;state.reportAnswers[id]=value;
@@ -1045,6 +1090,7 @@
       document.querySelectorAll('.choice-btn').forEach(b=>{b.classList.toggle('is-selected',b.dataset.value===state.hypothesis.choice);b.disabled=state.hypothesis.accepted;});
       $('hypothesisExplain').disabled=state.hypothesis.accepted;$('submitHypothesis').disabled=state.hypothesis.accepted;
       if(state.hypothesis.accepted)showBox('hypothesisFeedback','Đánh giá giả thuyết đã được ghi nhận.','correct');
+      document.querySelectorAll('.obs-select,.fill-select').forEach(syncCustomSelect);
     }
 
     function safeResume(saved){
@@ -1070,7 +1116,7 @@
     const ro=new ResizeObserver(()=>{clearTimeout(window._rz);window._rz=setTimeout(reportHeight,100);});ro.observe(document.body);
     if(window.AiducationLMS)window.AiducationLMS.onResume=safeResume;
 
-    setBriefingCollapsed(mobileCanvasQuery.matches);unlockObservationRows();renderControls();checkUnlocks();LMS().ready({id:'exp1'});updateProgress();saveState();requestAnimationFrame(loop);
+    enhanceSelects();setBriefingCollapsed(mobileCanvasQuery.matches);unlockObservationRows();renderControls();checkUnlocks();LMS().ready({id:'exp1'});updateProgress();saveState();requestAnimationFrame(loop);
   </script>
 </body>
 </html>

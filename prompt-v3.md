@@ -173,7 +173,7 @@ Trên mobile, briefing mặc định thu gọn; hướng dẫn Athena theo bư�
 
 2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
-Các `select`, `input` và `textarea` trên mobile bắt buộc dùng `font-size:16px`, `width:100%`, `min-width:0`, `max-width:100%`. Mốc 16px ngăn Safari/iOS tự phóng trang khi mở dropdown; `min-width:0` ngăn field làm giãn card. Với `select`, dùng thêm `text-overflow:ellipsis; white-space:nowrap` để lựa chọn dài không phá bố cục.
+Các `select`, `input` và `textarea` trên mobile bắt buộc dùng `font-size:16px`, `width:100%`, `min-width:0`, `max-width:100%`. Mốc 16px ngăn Safari/iOS tự phóng trang khi mở dropdown; `min-width:0` ngăn field làm giãn card. Không dựa vào popup native của `<select>` trên mobile vì trình duyệt có thể tự mở rộng menu theo option dài nhất. Hãy giữ `<select>` ẩn làm nguồn dữ liệu và dựng một custom select accessible (`button[aria-haspopup="listbox"]` + menu `role="listbox"`) có chiều rộng đúng `100%` của field. Option dài được wrap, menu có `max-height` và tự mở lên trên nếu không đủ chỗ phía dưới. Khi chọn custom option phải cập nhật giá trị select gốc rồi phát sự kiện `change` để không phá logic bài học.
 
 3.	Layout đã LUÔN là cột đơn ở mọi kích thước màn hình (không riêng mobile) — không cần media query đổi số cột hay reset chiều cao sidebar như bản 3-cột trước, vì không còn sidebar nào cả. Trang phải chạy tốt từ 360px (mobile) tới desktop chỉ với 1 bộ CSS.
 
