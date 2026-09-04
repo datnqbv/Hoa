@@ -453,7 +453,7 @@
     };
     const animation = {step:0,start:0,duration:0,lastDrop:-1,lastGrain:-1,finished:false};
     let particles = [], rings = [];
-    const powderSeeds = Array.from({length:52},()=>({x:(Math.random()-.5)*44,y:Math.random()*25,size:1.5+Math.random()*2.7}));
+    const powderSeeds = Array.from({length:58},()=>({x:(Math.random()-.5)*46,y:Math.random()*27,size:2+Math.random()*3}));
     const crystalSeeds = Array.from({length:68},()=>({x:(Math.random()-.5)*102,targetY:480+Math.random()*24,size:2+Math.random()*4,angle:(Math.random()-.5)*1.2,delay:Math.random()*.55,wobble:.3+Math.random()*.6}));
 
     const $ = id => document.getElementById(id);
@@ -580,8 +580,9 @@
         scene.phenol=smoothstep(.58,.90,t);
         emitPhenolGrains(t);
       }else if(step===2){
-        scene.acid=smoothstep(.28,.82,t);
-        emitTimedDrops(t,.28,.78,5,'#d8e6e8',270);
+        /* Acid tăng liên tục theo thời gian rót để mặt chất lỏng dâng lên rõ ràng. */
+        scene.acid=smoothstep(.20,.90,t);
+        emitTimedDrops(t,.20,.86,7,'#d8e6e8',270);
       }else if(step===3){
         const heat=smoothstep(.08,.88,t); scene.temp=lerp(25,72,heat); scene.homogeneous=smoothstep(.25,.9,t);
         if(t>.25&&t<.88&&Math.random()<.16)spawnBubble(380,410);
@@ -710,7 +711,8 @@
       ctx.save();ctx.translate(g.x,g.y+h/2);ctx.rotate(g.angle);ctx.scale(g.scale,g.scale);ctx.translate(-g.x,-(g.y+h/2));
       const x=g.x-w/2,y=g.y;
       const emptying=animation.step===8&&state.isAnimating?smoothstep(.24,.84,scene.toolProgress):scene.pour;
-      let fill=scene.acid>0?.60:scene.phenol>0?.18:0; fill*=1-emptying*.92;
+      /* Bước H2SO4: nội suy trực tiếp chiều cao chất lỏng, không bật ngay lên mức cuối. */
+      let fill=scene.acid>0?lerp(.08,.60,scene.acid):0; fill*=1-emptying*.92;
       if(fill>0.01){
         ctx.save();ctx.beginPath();ctx.moveTo(x+4,y+4);ctx.lineTo(x+4,y+h-r);ctx.arc(g.x,y+h-r,r-4,Math.PI,0,true);ctx.lineTo(x+w-4,y+4);ctx.closePath();ctx.clip();
         const liqH=(h-26)*fill,surface=y+h-liqH;
@@ -718,7 +720,10 @@
         const grad=ctx.createLinearGradient(x,surface,x,y+h);grad.addColorStop(0,color);grad.addColorStop(1,scene.dark>.2?'#4d1d1c':'#bfcab7');ctx.fillStyle=grad;ctx.fillRect(x,surface,w,liqH+20);
         if(scene.homogeneous<.95&&scene.phenol>0){
           const visible=(1-scene.homogeneous)*(1-emptying);ctx.globalAlpha=visible;
-          for(const p of powderSeeds){ctx.fillStyle='#f7f2df';ctx.beginPath();ctx.arc(g.x+p.x,y+h-14-p.y,p.size,0,Math.PI*2);ctx.fill();}
+          for(let i=0;i<powderSeeds.length;i++){
+            const p=powderSeeds[i];ctx.fillStyle=i%3===0?'#fffdf0':'#f2dfad';ctx.strokeStyle='#8b7041';ctx.lineWidth=1.05;
+            ctx.beginPath();ctx.arc(g.x+p.x,y+h-14-p.y,p.size,0,Math.PI*2);ctx.fill();ctx.stroke();
+          }
           ctx.globalAlpha=1;
         }
         const wave=reduceMotion?0:Math.sin(time*2)*1.2;
@@ -727,12 +732,13 @@
       }else if(scene.phenol>0&&scene.acid===0){
         const settledAlpha=animation.step===1&&state.isAnimating?smoothstep(.56,.88,scene.toolProgress):1;
         ctx.save();ctx.globalAlpha=settledAlpha;
-        for(const p of powderSeeds){
-          const py=y+h-14-p.y;ctx.fillStyle='#f7f2df';ctx.beginPath();ctx.arc(g.x+p.x,py,p.size,0,Math.PI*2);ctx.fill();
+        for(let i=0;i<powderSeeds.length;i++){
+          const p=powderSeeds[i],py=y+h-14-p.y;ctx.fillStyle=i%3===0?'#fffdf0':'#f2dfad';ctx.strokeStyle='#80663a';ctx.lineWidth=1.15;
+          ctx.beginPath();ctx.arc(g.x+p.x,py,p.size,0,Math.PI*2);ctx.fill();ctx.stroke();
         }
         ctx.restore();
       }
-      ctx.fillStyle='rgba(225,239,248,.18)';ctx.strokeStyle='#8c9aa5';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h-r);ctx.arc(g.x,y+h-r,r,Math.PI,0,true);ctx.lineTo(x+w,y);ctx.fill();ctx.stroke();
+      ctx.fillStyle='rgba(225,239,248,.10)';ctx.strokeStyle='#8c9aa5';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h-r);ctx.arc(g.x,y+h-r,r,Math.PI,0,true);ctx.lineTo(x+w,y);ctx.fill();ctx.stroke();
       ctx.strokeStyle='#687781';ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(g.x,y,r+4,6,0,0,Math.PI*2);ctx.stroke();
       ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x+11,y+14);ctx.lineTo(x+11,y+h-r-15);ctx.stroke();
       for(let i=0;i<4;i++){ctx.strokeStyle='rgba(81,76,68,.38)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x+3,y+105+i*38);ctx.lineTo(x+14+(i%2)*5,y+105+i*38);ctx.stroke();}
@@ -779,16 +785,37 @@
     function drawBurner(){
       const active=animation.step===3&&state.isAnimating&&scene.toolProgress>.08&&scene.toolProgress<.94;if(!active)return;
       const t=scene.toolProgress,fade=smoothstep(.08,.18,t)*(1-smoothstep(.86,.94,t));
-      const flick=reduceMotion?0:Math.sin(time*17)*4+Math.sin(time*29)*2;
+      const flick=reduceMotion?0:Math.sin(time*12)*2.4+Math.sin(time*21)*1.1;
+      const sway=reduceMotion?0:Math.sin(time*8)*2.2;
       ctx.save();ctx.globalAlpha=fade;
-      const glow=ctx.createRadialGradient(380,382,6,380,392,70);glow.addColorStop(0,'rgba(232,162,74,.34)');glow.addColorStop(1,'rgba(232,162,74,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(380,392,70,0,Math.PI*2);ctx.fill();
+      const glow=ctx.createRadialGradient(380,380,4,380,388,82);glow.addColorStop(0,'rgba(255,176,49,.62)');glow.addColorStop(.42,'rgba(238,104,31,.24)');glow.addColorStop(1,'rgba(232,92,28,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(380,388,82,0,Math.PI*2);ctx.fill();
       ctx.fillStyle='rgba(190,218,226,.48)';ctx.strokeStyle='#647681';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(337,492);ctx.quadraticCurveTo(340,446,358,440);ctx.lineTo(402,440);ctx.quadraticCurveTo(420,446,423,492);ctx.quadraticCurveTo(380,507,337,492);ctx.closePath();ctx.fill();ctx.stroke();
       const alcohol=ctx.createLinearGradient(0,458,0,498);alcohol.addColorStop(0,'rgba(122,196,218,.35)');alcohol.addColorStop(1,'rgba(61,139,165,.62)');ctx.fillStyle=alcohol;ctx.beginPath();ctx.moveTo(341,478);ctx.quadraticCurveTo(380,470,419,478);ctx.lineTo(422,492);ctx.quadraticCurveTo(380,502,338,492);ctx.closePath();ctx.fill();
       ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(350,456);ctx.quadraticCurveTo(345,474,350,487);ctx.stroke();
       ctx.fillStyle='#59656e';roundedRect(359,427,42,17,5);ctx.fill();ctx.fillStyle='#252b2f';roundedRect(376,415,8,18,3);ctx.fill();
-      ctx.fillStyle='#e57835';ctx.beginPath();ctx.moveTo(380,419);ctx.quadraticCurveTo(352,392+flick,378,350-flick);ctx.quadraticCurveTo(410,390-flick,380,419);ctx.fill();
-      ctx.fillStyle='#f6c453';ctx.beginPath();ctx.moveTo(380,414);ctx.quadraticCurveTo(364,394+flick*.35,380,368-flick*.35);ctx.quadraticCurveTo(398,395-flick*.25,380,414);ctx.fill();
-      ctx.fillStyle='#6eb6db';ctx.beginPath();ctx.moveTo(380,412);ctx.quadraticCurveTo(372,401,380,388);ctx.quadraticCurveTo(388,401,380,412);ctx.fill();
+      /* Ngọn lửa minh họa dạng giọt: vỏ đỏ, lớp cam và lõi vàng. */
+      ctx.save();
+      ctx.shadowColor='rgba(224,68,43,.38)';ctx.shadowBlur=8;
+      ctx.fillStyle='#e33f32';ctx.strokeStyle='#c9342c';ctx.lineWidth=2.4;ctx.lineJoin='round';
+      ctx.beginPath();ctx.moveTo(380,420);
+      ctx.bezierCurveTo(363,419,352,408,352,391);
+      ctx.bezierCurveTo(352,376,361+sway*.25,365,370+sway*.55,355-flick*.25);
+      ctx.bezierCurveTo(376+sway,348-flick,377+sway,341-flick*.6,378+sway,335-flick*.45);
+      ctx.bezierCurveTo(382+sway*.7,348-flick*.25,399+sway*.25,354,405,368);
+      ctx.bezierCurveTo(416,393,403,414,380,420);ctx.closePath();ctx.fill();ctx.stroke();
+      ctx.shadowBlur=0;
+      ctx.fillStyle='#f27a2a';ctx.beginPath();ctx.moveTo(380,416);
+      ctx.bezierCurveTo(366,414,360,404,362,391);
+      ctx.bezierCurveTo(364,380,370+sway*.35,370,374+sway*.45,360-flick*.25);
+      ctx.bezierCurveTo(382+sway*.25,369,397,379,398,392);
+      ctx.bezierCurveTo(399,405,391,414,380,416);ctx.closePath();ctx.fill();
+      ctx.fillStyle='#ffd83f';ctx.beginPath();ctx.moveTo(380,414);
+      ctx.bezierCurveTo(370,410,367,402,369,394);
+      ctx.bezierCurveTo(371,386,377+sway*.18,379,380+sway*.2,371-flick*.12);
+      ctx.bezierCurveTo(384,380,393,390,392,400);
+      ctx.bezierCurveTo(391,408,386,412,380,414);ctx.closePath();ctx.fill();
+      ctx.fillStyle='rgba(255,245,151,.72)';ctx.beginPath();ctx.ellipse(378,400,5,10,-.22,0,Math.PI*2);ctx.fill();
+      ctx.restore();
       ctx.fillStyle='#514C44';ctx.font="bold 11px 'JetBrains Mono', monospace";ctx.textAlign='center';ctx.fillText('Đèn cồn',380,525);
       ctx.restore();
     }
