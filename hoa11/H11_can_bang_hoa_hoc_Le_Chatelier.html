@@ -73,7 +73,7 @@
             background-color: var(--cream);
             color: var(--ink);
             font-family: var(--font-main);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.7;
             display: flex;
@@ -215,36 +215,33 @@
             position: relative;
         }
 
-        .intro-text {
+        /* App shell bao bọc toàn bộ nội dung */
+        .app-shell {
             width: 100%;
+            min-width: 0;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 1rem 1.3rem;
-            background-color: var(--jade-pale);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Briefing Component: Mục tiêu + Mô tả gộp chuẩn Aiducation */
+        .briefing {
+            width: 100%;
+            padding: 10px 16px;
+            background: var(--jade-pale);
             border: 1px solid var(--sage);
             border-left: 4px solid var(--jade);
-            border-radius: 12px;
-            font-size: 16px;
-            color: var(--ink-2);
-            line-height: 1.65;
+            border-radius: 10px;
+            transition: all 0.2s ease;
         }
 
-        @media (max-width: 640px) {
-            .intro-text {
-                padding: 0.9rem 1.1rem;
-                font-size: 14px;
-            }
-        }
-
-        .goal-bar {
+        .briefing-main {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            margin: 0 auto;
-            background-color: var(--jade-pale);
-            border-left: 4px solid var(--jade);
-            border-radius: 10px;
-            padding: 10px 16px;
         }
 
         .goal-label {
@@ -272,12 +269,37 @@
             color: var(--ink);
             line-height: 1.5;
             font-weight: 500;
+            flex: 1;
         }
 
-        @media (max-width: 640px) {
-            .goal-text {
-                font-size: 14px;
-            }
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
         }
 
         .lab-wrapper {
@@ -386,7 +408,7 @@
         .canvas-glow-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 760 / 370;
+            height: clamp(320px, 42vw, 540px);
             padding: 2px;
             border-radius: 10px;
             overflow: hidden;
@@ -809,6 +831,58 @@
 
         /* Mobile layout optimizations */
         @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(300px, 48vh, 420px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-content {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
             .controls-card {
                 position: fixed !important;
                 left: 0;
@@ -823,8 +897,60 @@
                 border-radius: 0;
             }
 
-            body {
-                padding-bottom: 80px;
+            /* Responsive observation table as vertical cards */
+            .table-wrap {
+                border: none;
+                overflow: visible;
+            }
+
+            .observation-table thead {
+                display: none;
+            }
+
+            .observation-table,
+            .observation-table tbody,
+            .observation-table tr,
+            .observation-table td {
+                display: block;
+                width: 100%;
+            }
+
+            .observation-table tr {
+                margin-bottom: 12px;
+                border: 1px solid var(--paper-line);
+                border-radius: 8px;
+                background: var(--cream);
+                padding: 8px;
+            }
+
+            .observation-table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 6px 8px;
+                border-bottom: 1px solid var(--paper-line);
+                text-align: right;
+            }
+
+            .observation-table td:last-child {
+                border-bottom: none;
+            }
+
+            .observation-table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--ink-2);
+                font-size: 12px;
+                text-align: left;
+                margin-right: 12px;
+                flex-shrink: 0;
+            }
+
+            /* Mobile form controls font-size */
+            .cloze-select,
+            .obs-select,
+            textarea {
+                font-size: 16px !important;
             }
         }
 
@@ -856,20 +982,24 @@
         }
     </script>
 
-    <!-- INTRO-TEXT BANNER -->
-    <div class="intro-text">
-        Bạn sẽ quan sát phản ứng thuận nghịch 2NO₂(g) ⇌ N₂O₄(g) ở trạng thái cân bằng, lần lượt tác động vào nhiệt độ, nồng độ và áp suất theo 2 pha để tự khám phá và vận dụng nguyên lí chuyển dịch cân bằng Le Chatelier.
-    </div>
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
 
-    <!-- THANH MỤC TIÊU HỌC TẬP -->
-    <div class="goal-bar">
-        <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
-        <span class="goal-divider"></span>
-        <span class="goal-text">Khảo sát ảnh hưởng của nhiệt độ, nồng độ và áp suất đến cân bằng phản ứng 2NO₂(g) (nâu đỏ) ⇌ N₂O₄(g) (không màu), từ đó khái quát hóa thành nguyên lí Le Chatelier.</span>
-    </div>
+        <!-- BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text">Khảo sát ảnh hưởng của nhiệt độ, nồng độ và áp suất đến cân bằng phản ứng 2NO₂(g) (nâu đỏ) ⇌ N₂O₄(g) (không màu), từ đó khái quát hóa thành nguyên lí Le Chatelier.</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Bạn sẽ quan sát phản ứng thuận nghịch 2NO₂(g) ⇌ N₂O₄(g) ở trạng thái cân bằng, lần lượt tác động vào nhiệt độ, nồng độ và áp suất theo 2 pha để tự khám phá và vận dụng nguyên lí chuyển dịch cân bằng Le Chatelier.
+            </p>
+        </section>
 
-    <!-- KHỐI CHÍNH LAB-WRAPPER -->
-    <div class="lab-wrapper">
+        <!-- KHỐI CHÍNH LAB-WRAPPER -->
+        <div class="lab-wrapper">
 
         <!-- 1. THANH HƯỚNG DẪN ATHENA AI -->
         <div class="ai-guide" id="aiGuide">
@@ -977,46 +1107,46 @@
                     </thead>
                     <tbody id="obsTableBody">
                         <tr id="rowA1">
-                            <td><strong>A. Nhiệt độ</strong></td>
-                            <td>Tăng (25°C → 60°C)</td>
-                            <td id="cellA1Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellA1Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellA1Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>A. Nhiệt độ</strong></td>
+                            <td data-label="Tác động cụ thể">Tăng (25°C → 60°C)</td>
+                            <td id="cellA1Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellA1Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellA1Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                         <tr id="rowA2">
-                            <td><strong>A. Nhiệt độ</strong></td>
-                            <td>Giảm (25°C → 0°C)</td>
-                            <td id="cellA2Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellA2Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellA2Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>A. Nhiệt độ</strong></td>
+                            <td data-label="Tác động cụ thể">Giảm (25°C → 0°C)</td>
+                            <td id="cellA2Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellA2Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellA2Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                         <tr id="rowB1">
-                            <td><strong>B. Nồng độ</strong></td>
-                            <td>Thêm NO₂</td>
-                            <td id="cellB1Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellB1Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellB1Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>B. Nồng độ</strong></td>
+                            <td data-label="Tác động cụ thể">Thêm NO₂</td>
+                            <td id="cellB1Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellB1Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellB1Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                         <tr id="rowB2">
-                            <td><strong>B. Nồng độ</strong></td>
-                            <td>Thêm N₂O₄</td>
-                            <td id="cellB2Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellB2Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellB2Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>B. Nồng độ</strong></td>
+                            <td data-label="Tác động cụ thể">Thêm N₂O₄</td>
+                            <td id="cellB2Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellB2Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellB2Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                         <tr id="rowC1">
-                            <td><strong>C. Áp suất</strong></td>
-                            <td>Tăng P (nén pít-tông)</td>
-                            <td id="cellC1Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellC1Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellC1Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>C. Áp suất</strong></td>
+                            <td data-label="Tác động cụ thể">Tăng P (nén pít-tông)</td>
+                            <td id="cellC1Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellC1Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellC1Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                         <tr id="rowC2">
-                            <td><strong>C. Áp suất</strong></td>
-                            <td>Giảm P (giãn pít-tông)</td>
-                            <td id="cellC2Color"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellC2Shift"><span class="text-muted">Chưa thực hiện (?)</span></td>
-                            <td id="cellC2Explain"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td data-label="Yếu tố"><strong>C. Áp suất</strong></td>
+                            <td data-label="Tác động cụ thể">Giảm P (giãn pít-tông)</td>
+                            <td id="cellC2Color" data-label="Màu sắc (cân bằng mới)"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellC2Shift" data-label="Chiều dịch chuyển"><span class="text-muted">Chưa thực hiện (?)</span></td>
+                            <td id="cellC2Explain" data-label="Giải thích bản chất"><span class="text-muted">Chưa thực hiện (?)</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -1037,6 +1167,7 @@
         </div>
 
     </div>
+    </div> <!-- end .app-shell -->
 
     <!-- MAIN JAVASCRIPT LOGIC & SIMULATION ENGINE -->
     <script>
@@ -2340,6 +2471,19 @@
             renderExplanationPanel();
             updateAthenaContent();
 
+            // Auto-collapse briefing when experiment begins (targetStage >= 2) per design spec
+            if (targetStage >= 2) {
+                const briefing = document.getElementById('briefing');
+                const toggleBtn = document.getElementById('briefingToggle');
+                if (briefing && !briefing.classList.contains('is-collapsed')) {
+                    briefing.classList.add('is-collapsed');
+                    if (toggleBtn) {
+                        toggleBtn.textContent = 'Xem thêm';
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                }
+            }
+
             // Toggle visibility of observation table (stages 4+) and explanation card (stages 3+)
             const obsCard = document.getElementById('observationCard');
             const expCard = document.getElementById('explanationCard');
@@ -3071,7 +3215,29 @@
             const h = document.documentElement.scrollHeight;
             LMS().resize({ height: h });
         }
+
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+
+            // Mặc định thu gọn trên mobile
+            if (window.innerWidth <= 767) {
+                briefing.classList.add('is-collapsed');
+                toggleBtn.textContent = 'Xem thêm';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.textContent = isCollapsed ? 'Xem thêm' : 'Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
+        }
+
         window.addEventListener('load', () => {
+            initBriefing();
             reportHeight();
             LMS().ready();
         });
