@@ -173,7 +173,7 @@ Trên mobile, briefing mặc định thu gọn; hướng dẫn Athena theo bư�
 
 2.	**Không cuộn ngang bất ngờ ở 375px** — test thực tế ở đúng 375px (không chỉ 390/414px), đặc biệt hàng `controls` có nhiều nút hoặc nhiều nhóm biến: phải cuộn NGANG được bên trong chính hàng đó (`overflow-x:auto`), tuyệt đối không để tràn ra ngoài viewport đẩy cả trang cuộn ngang.
 
-Các `select`, `input` và `textarea` trên mobile bắt buộc dùng `font-size:16px`, `width:100%`, `min-width:0`, `max-width:100%`. Mốc 16px ngăn Safari/iOS tự phóng trang khi mở dropdown; `min-width:0` ngăn field làm giãn card. Không dựa vào popup native của `<select>` trên mobile vì trình duyệt có thể tự mở rộng menu theo option dài nhất. Hãy giữ `<select>` ẩn làm nguồn dữ liệu và dựng một custom select accessible (`button[aria-haspopup="listbox"]` + menu `role="listbox"`) có chiều rộng đúng `100%` của field. Option dài được wrap, menu có `max-height` và tự mở lên trên nếu không đủ chỗ phía dưới. Khi chọn custom option phải cập nhật giá trị select gốc rồi phát sự kiện `change` để không phá logic bài học.
+Các `select`, `input` và `textarea` trên mobile bắt buộc dùng `font-size:16px`, `width:100%`, `min-width:0`, `max-width:100%`. Mốc 16px ngăn Safari/iOS tự phóng trang khi mở dropdown; `min-width:0` ngăn field làm giãn card. Dùng cùng một custom select trên cả desktop và mobile để giao diện nhất quán; không hiển thị popup native của `<select>`. Hãy giữ `<select>` ẩn làm nguồn dữ liệu và dựng một custom select accessible (`button[aria-haspopup="listbox"]` + menu `role="listbox"`) có chiều rộng đúng `100%` của field. Option dài được wrap, menu có `max-height` và tự mở lên trên nếu không đủ chỗ phía dưới. Khi chọn custom option phải cập nhật giá trị select gốc rồi phát sự kiện `change` để không phá logic bài học.
 
 3.	Layout đã LUÔN là cột đơn ở mọi kích thước màn hình (không riêng mobile) — không cần media query đổi số cột hay reset chiều cao sidebar như bản 3-cột trước, vì không còn sidebar nào cả. Trang phải chạy tốt từ 360px (mobile) tới desktop chỉ với 1 bộ CSS.
 
@@ -346,7 +346,7 @@ KHỐI KẾT QUẢ (dưới canvas — 2 card cuối cùng trong `.lab-wrapper`,
 •	Bảng `<table>` nhỏ gọn: hàng header nền `var(--jade-pale)`, chữ `var(--jade-text)` uppercase 12px weight 600; ô có border-bottom 1px `var(--paper-line)`; chữ nội dung 0.9rem màu `var(--ink)`
 •	Cột/hàng của bảng do KỊCH BẢN quy định (điều kiện thí nghiệm, hiện tượng quan sát...)
 •	Giá trị CHƯA quan sát được: hiển thị "?" màu `var(--ink-2)` — khi bước tương ứng hoàn thành, JS điền giá trị thật kèm fade + nền ô nháy `var(--jade-pale)` khoảng 1s để hút mắt học sinh
-•	Nếu bảng nhiều cột không vừa bề ngang: bọc trong div `overflow-x: auto` — không để tràn card
+•	Không đặt custom dropdown bên trong ancestor có `overflow:auto/hidden` vì menu mở lên hoặc xuống sẽ bị cắt. Với bảng có custom select, `.table-wrap` dùng `overflow:visible`; tại breakpoint mobile bảng đã chuyển thành card nên không cần cuộn ngang. Field đang mở phải có `z-index` cao hơn các hàng xung quanh.
 •	Trên mobile ≤767px, không ép người dùng cuộn ngang bảng: ẩn `thead`, chuyển từng hàng đã mở thành card dọc và dùng `td::before { content: attr(data-label) }` làm nhãn. Mỗi `<td>` bắt buộc có `data-label` tương ứng.
 •	Chiều cao tự nhiên theo nội dung
 
