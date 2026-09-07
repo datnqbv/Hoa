@@ -427,11 +427,25 @@
             position: relative;
             width: 100%;
             height: clamp(320px, 42vw, 540px);
+            padding: 2px;
             border-radius: 10px;
             overflow: hidden;
             display: flex;
-            border: 1.5px solid var(--paper-line);
-            background-color: var(--cream);
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         #labCanvas {
@@ -1741,9 +1755,9 @@
             if (canvas.width !== targetW || canvas.height !== targetH) {
                 canvas.width = targetW;
                 canvas.height = targetH;
-                canvasW = rect.width;
-                canvasH = rect.height;
             }
+            canvasW = rect.width;
+            canvasH = rect.height;
         }
 
         // State Machine
@@ -1817,11 +1831,17 @@
 
         function getLogicPos(e) {
             const rect = canvas.getBoundingClientRect();
-            const px = (e.clientX - rect.left) * (W / rect.width);
-            const py = (e.clientY - rect.top) * (H / rect.height);
+            const dpr = canvas.width / rect.width;
+            const px = (e.clientX - rect.left) * dpr;
+            const py = (e.clientY - rect.top) * dpr;
+            const scaleX = canvas.width / W;
+            const scaleY = canvas.height / H;
+            const fitScale = Math.min(scaleX, scaleY);
+            const offsetX = (canvas.width - W * fitScale) / 2;
+            const offsetY = (canvas.height - H * fitScale) / 2;
             return {
-                x: px,
-                y: py,
+                x: (px - offsetX) / fitScale,
+                y: (py - offsetY) / fitScale,
                 rawX: e.clientX - rect.left,
                 rawY: e.clientY - rect.top
             };
@@ -2858,6 +2878,7 @@
         // ======================================================
         function loop() {
             try {
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
                 resizeCanvas();
                 time += 0.045;
                 updateAnimationTweens();
@@ -2873,10 +2894,15 @@
                     flashTimer--;
                 }
 
-                const scale = canvas.width / W;
+                const scaleX = canvas.width / W;
+                const scaleY = canvas.height / H;
+                const fitScale = Math.min(scaleX, scaleY);
+                const offsetX = (canvas.width - W * fitScale) / 2;
+                const offsetY = (canvas.height - H * fitScale) / 2;
 
                 ctx.save();
-                ctx.scale(scale, scale);
+                ctx.translate(offsetX, offsetY);
+                ctx.scale(fitScale, fitScale);
 
                 // Draw Scene Layers
                 drawGrid();
