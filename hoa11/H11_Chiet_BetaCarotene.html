@@ -71,7 +71,7 @@
             background-color: var(--cream);
             color: var(--ink);
             font-family: var(--font-main);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.7;
             display: flex;
@@ -80,6 +80,16 @@
             gap: 16px;
             padding: 24px clamp(20px, 2.5vw, 48px);
             width: 100%;
+        }
+
+        .app-shell {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         h1,
@@ -171,38 +181,21 @@
             background-color: #f7dfb0;
         }
 
-        /* 1. INTRO-TEXT */
-        .intro-text {
+        /* BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS */
+        .briefing {
             width: 100%;
             margin: 0;
-            padding: 1rem 1.3rem;
-            background-color: var(--jade-pale);
-            border: 1px solid var(--sage);
-            border-left: 4px solid var(--jade);
-            border-radius: 12px;
-            font-size: 15px;
-            color: var(--ink-2);
-            line-height: 1.65;
-        }
-
-        @media (max-width: 640px) {
-            .intro-text {
-                padding: 0.9rem 1.1rem;
-                font-size: 14px;
-            }
-        }
-
-        /* 2. THANH MỤC TIÊU HỌC TẬP */
-        .goal-bar {
-            width: 100%;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             background-color: var(--jade-pale);
             border-left: 4px solid var(--jade);
             border-radius: 10px;
             padding: 10px 16px;
+        }
+
+        .briefing-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
         }
 
         .goal-label {
@@ -226,15 +219,41 @@
         }
 
         .goal-text {
-            font-size: 16.5px;
+            font-size: 15px;
             color: var(--ink);
             line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
         }
 
-        @media (max-width: 640px) {
-            .goal-text {
-                font-size: 14.5px;
-            }
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
         }
 
         /* 3. LAB WRAPPER (FULL 100%) */
@@ -360,6 +379,58 @@
         }
 
         @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(300px, 48vh, 420px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-text {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
             .controls-card {
                 position: fixed !important;
                 left: 0 !important;
@@ -397,7 +468,7 @@
         .canvas-glow-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 760 / 430;
+            height: clamp(320px, 42vw, 540px);
             padding: 2px;
             border-radius: 10px;
             overflow: hidden;
@@ -1337,21 +1408,21 @@
 
 <body>
 
-    <!-- 1. INTRO-TEXT (1-2 CÂU NGẮN GỌN) -->
-    <div class="intro-text">
-        Bạn sẽ thực hiện phương pháp chiết lỏng–lỏng để tách hợp chất hữu cơ β-carotene từ nước ép cà rốt bằng dung môi
-        hexane. Qua các thao tác lắc trộn và phân tách pha trong phễu chiết, bạn sẽ khám phá nguyên tắc phân bố chất
-        theo độ tan và sự khác biệt khối lượng riêng.
-    </div>
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
 
-    <!-- 2. THANH MỤC TIÊU HỌC TẬP -->
-    <div class="goal-bar">
-        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
-        <span class="goal-divider"></span>
-        <span class="goal-text">Trình bày được nguyên tắc và cách thức tiến hành các phương pháp chiết để tách biệt và
-            tinh chế hợp chất hữu cơ. Thực hiện được các thí nghiệm về chiết. Vận dụng được các phương pháp chiết để
-            tách biệt và tinh chế một số hợp chất hữu cơ trong cuộc sống.</span>
-    </div>
+        <!-- BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text">Trình bày được nguyên tắc và cách thức tiến hành các phương pháp chiết để tách biệt và tinh chế hợp chất hữu cơ. Thực hiện được các thí nghiệm về chiết. Vận dụng được các phương pháp chiết để tách biệt và tinh chế một số hợp chất hữu cơ trong cuộc sống.</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Bạn sẽ thực hiện phương pháp chiết lỏng–lỏng để tách hợp chất hữu cơ β-carotene từ nước ép cà rốt bằng dung môi hexane. Qua các thao tác lắc trộn và phân tách pha trong phễu chiết, bạn sẽ khám phá nguyên tắc phân bố chất theo độ tan và sự khác biệt khối lượng riêng.
+            </p>
+        </section>
 
     <!-- 3. LAB WRAPPER (FULL 100%) -->
     <main class="lab-wrapper">
@@ -1680,6 +1751,7 @@
         </div>
 
     </main>
+    </div> <!-- end .app-shell -->
 
     <!-- POPUP CHÚC MỪNG HOÀN THÀNH -->
     <div class="modal-backdrop hidden" id="celebrationModal" role="dialog" aria-modal="true"
@@ -1741,15 +1813,32 @@
             LMS().state({ currentStep: milestonesDone, totalSteps: TOTAL_MILESTONES, answeredSoFar: lmsAnswers, lastAction: lastAction || '' });
         }
         function reportHeight() { LMS().resize({ height: document.documentElement.scrollHeight }); }
-        window.addEventListener('load', reportHeight);
-        const _lmsRo = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); });
-        _lmsRo.observe(document.body);
-        if (window.AiducationLMS) {
-            window.AiducationLMS.onResume = function (saved) {
-                if (saved && saved.lastAction === 'completed') showElement('blockSummary');
-            };
+
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+
+            // Mặc định thu gọn trên mobile
+            if (window.innerWidth <= 767) {
+                briefing.classList.add('is-collapsed');
+                toggleBtn.textContent = 'Xem thêm';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.textContent = isCollapsed ? 'Xem thêm' : 'Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
         }
-        LMS().ready();
+
+        window.addEventListener('load', () => {
+            initBriefing();
+            reportHeight();
+            LMS().ready();
+        });
 
         // ======================================================
         // UTILITIES & EASING
@@ -3277,6 +3366,18 @@
                 state.subStep = 0;
                 document.getElementById('canvasLockOverlay').classList.add('hidden');
                 document.getElementById('resetBtn').disabled = false;
+
+                // Auto-collapse briefing when experiment starts per design spec
+                const briefing = document.getElementById('briefing');
+                const toggleBtn = document.getElementById('briefingToggle');
+                if (briefing && !briefing.classList.contains('is-collapsed')) {
+                    briefing.classList.add('is-collapsed');
+                    if (toggleBtn) {
+                        toggleBtn.textContent = 'Xem thêm';
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                }
+
                 bumpMilestone();
                 updateControlsUI();
                 return;

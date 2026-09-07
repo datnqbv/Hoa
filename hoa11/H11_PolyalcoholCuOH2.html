@@ -70,7 +70,7 @@
             background-color: var(--cream);
             color: var(--ink);
             font-family: var(--font-main);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.7;
             display: flex;
@@ -79,6 +79,16 @@
             gap: 16px;
             padding: 24px clamp(20px, 2.5vw, 48px);
             width: 100%;
+        }
+
+        .app-shell {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         h1,
@@ -173,42 +183,21 @@
             background-color: var(--jade-pale);
         }
 
-        /* KHỐI 100% WIDTH FULL MÀN HÌNH */
-        .intro-text,
-        .goal-bar,
-        .lab-wrapper {
+        /* BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS */
+        .briefing {
             width: 100%;
             margin: 0;
-        }
-
-        /* 1. INTRO-TEXT */
-        .intro-text {
-            padding: 1rem 1.3rem;
-            background-color: var(--jade-pale);
-            border: 1px solid var(--sage);
-            border-left: 4px solid var(--jade);
-            border-radius: 12px;
-            font-size: 15px;
-            color: var(--ink-2);
-            line-height: 1.65;
-        }
-
-        @media (max-width: 640px) {
-            .intro-text {
-                padding: 0.9rem 1.1rem;
-                font-size: 14px;
-            }
-        }
-
-        /* 2. THANH MỤC TIÊU HỌC TẬP */
-        .goal-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
             background-color: var(--jade-pale);
             border-left: 4px solid var(--jade);
             border-radius: 10px;
             padding: 10px 16px;
+        }
+
+        .briefing-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
         }
 
         .goal-label {
@@ -232,15 +221,41 @@
         }
 
         .goal-text {
-            font-size: 17px;
+            font-size: 15px;
             color: var(--ink);
             line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
         }
 
-        @media (max-width: 640px) {
-            .goal-text {
-                font-size: 15px;
-            }
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
         }
 
         /* 3. LAB WRAPPER - CỘT ĐƠN */
@@ -352,6 +367,58 @@
         }
 
         @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(300px, 48vh, 420px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-text {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
             .controls-card {
                 position: fixed !important;
                 left: 0;
@@ -383,7 +450,7 @@
         .canvas-glow-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 760 / 460;
+            height: clamp(320px, 42vw, 540px);
             padding: 2px;
             border-radius: 10px;
             overflow: hidden;
@@ -937,26 +1004,21 @@
     </style>
 </head>
 
-<body>
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
 
-    <!-- 1. INTRO-TEXT -->
-    <div class="intro-text">
-        Bạn sẽ thực hiện thí nghiệm tạo copper(II) hydroxide và khảo sát phản ứng riêng của polyalcohol (glycerol) so
-        với monohydric alcohol (ethanol) với Cu(OH)₂, từ đó rút ra điều kiện cấu tạo để alcohol hòa tan được Cu(OH)₂.
-    </div>
-
-    <!-- 2. THANH MỤC TIÊU HỌC TẬP -->
-    <div class="goal-bar">
-        <span class="goal-label">
-            <i class="ti ti-target"></i> Mục tiêu
-        </span>
-        <span class="goal-divider"></span>
-        <span class="goal-text">
-            Trình bày được tính chất hoá học của alcohol: phản ứng riêng của polyalcohol với Cu(OH)₂/OH⁻. Thực hiện được
-            thí nghiệm glycerol tác dụng với copper(II) hydroxide; mô tả các hiện tượng thí nghiệm và giải thích được
-            tính chất hoá học của alcohol.
-        </span>
-    </div>
+        <!-- BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text">Trình bày được tính chất hoá học của alcohol: phản ứng riêng của polyalcohol với Cu(OH)₂/OH⁻. Thực hiện được thí nghiệm glycerol tác dụng với copper(II) hydroxide; mô tả các hiện tượng thí nghiệm và giải thích được tính chất hoá học của alcohol.</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Bạn sẽ thực hiện thí nghiệm tạo copper(II) hydroxide và khảo sát phản ứng riêng của polyalcohol (glycerol) so với monohydric alcohol (ethanol) với Cu(OH)₂, từ đó rút ra điều kiện cấu tạo để alcohol hòa tan được Cu(OH)₂.
+            </p>
+        </section>
 
     <!-- 3. KHỐI LAB CHÍNH (CỘT ĐƠN) -->
     <div class="lab-wrapper" id="labWrapper">
@@ -1254,6 +1316,7 @@
         </div>
 
     </div>
+    </div> <!-- end .app-shell -->
 
     <!-- POPUP MODAL CHÚC MỪNG -->
     <div class="modal-backdrop" id="celebrationModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
@@ -1300,7 +1363,31 @@
             const h = document.documentElement.scrollHeight;
             LMS().resize({ height: h });
         }
-        window.addEventListener('load', reportHeight);
+
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+
+            // Mặc định thu gọn trên mobile
+            if (window.innerWidth <= 767) {
+                briefing.classList.add('is-collapsed');
+                toggleBtn.textContent = 'Xem thêm';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.textContent = isCollapsed ? 'Xem thêm' : 'Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
+        }
+
+        window.addEventListener('load', () => {
+            initBriefing();
+            reportHeight();
+        });
         const ro = new ResizeObserver(() => {
             clearTimeout(window._rz);
             window._rz = setTimeout(reportHeight, 100);
@@ -2400,6 +2487,18 @@
 
             if (!state.labStarted) {
                 state.labStarted = true;
+
+                // Auto-collapse briefing when experiment starts per design spec
+                const briefing = document.getElementById('briefing');
+                const toggleBtn = document.getElementById('briefingToggle');
+                if (briefing && !briefing.classList.contains('is-collapsed')) {
+                    briefing.classList.add('is-collapsed');
+                    if (toggleBtn) {
+                        toggleBtn.textContent = 'Xem thêm';
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                }
+
                 updateAIGuide("Bấm Nhỏ CuSO₄ phía trên để bắt đầu thí nghiệm.");
                 updateControlsUI();
                 reportHeight();

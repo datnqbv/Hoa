@@ -66,7 +66,7 @@
             background-color: var(--cream);
             color: var(--ink);
             font-family: var(--font-main);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.7;
             display: flex;
@@ -75,6 +75,16 @@
             gap: 16px;
             padding: 24px clamp(16px, 2.5vw, 40px);
             width: 100%;
+        }
+
+        .app-shell {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
         }
 
         h1,
@@ -165,37 +175,21 @@
             }
         }
 
-        /* INTRO + GOAL BAR */
-        .intro-text {
+        /* BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS */
+        .briefing {
             width: 100%;
             margin: 0;
-            padding: 1rem 1.3rem;
-            background-color: var(--jade-pale);
-            border: 1px solid var(--sage);
-            border-left: 4px solid var(--jade);
-            border-radius: 12px;
-            font-size: 16px;
-            color: var(--ink-2);
-            line-height: 1.65;
-        }
-
-        @media (max-width: 640px) {
-            .intro-text {
-                padding: 0.9rem 1.1rem;
-                font-size: 14px;
-            }
-        }
-
-        .goal-bar {
-            width: 100%;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
             background-color: var(--jade-pale);
             border-left: 4px solid var(--jade);
             border-radius: 10px;
             padding: 10px 16px;
+        }
+
+        .briefing-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
         }
 
         .goal-label {
@@ -219,15 +213,41 @@
         }
 
         .goal-text {
-            font-size: 17px;
+            font-size: 15px;
             color: var(--ink);
             line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
         }
 
-        @media (max-width: 640px) {
-            .goal-text {
-                font-size: 15px;
-            }
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
         }
 
         /* HYPOTHESIS BANNER CARD */
@@ -411,6 +431,58 @@
         }
 
         @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(300px, 48vh, 420px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-text {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
             .controls-card {
                 position: fixed !important;
                 left: 0;
@@ -442,7 +514,7 @@
         .canvas-glow-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 760 / 312;
+            height: clamp(320px, 42vw, 540px);
             padding: 2px;
             border-radius: 10px;
             overflow: hidden;
@@ -1157,20 +1229,21 @@
     </style>
 </head>
 
-<body>
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
 
-    <div class="intro-text">
-        Bạn sẽ điều chế khí ethylene (C₂H₄) từ ethanol và H₂SO₄ đặc, dẫn qua bình rửa khí NaOH để loại tạp chất SO₂, rồi
-        sục vào dung dịch thuốc tím (KMnO₄). Qua quan sát hiện tượng mất màu và tạo kết tủa, bạn sẽ rút ra tính chất oxi
-        hóa không hoàn toàn đặc trưng của alkene.
-    </div>
-
-    <div class="goal-bar">
-        <span class="goal-label"><i class="ti ti-target-arrow"></i> Mục tiêu</span>
-        <span class="goal-divider"></span>
-        <span class="goal-text">Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng oxi hóa không hoàn
-            toàn (phản ứng làm mất màu thuốc tím của alkene).</span>
-    </div>
+        <!-- BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text">Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng oxi hóa không hoàn toàn (phản ứng làm mất màu thuốc tím của alkene).</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Bạn sẽ điều chế khí ethylene (C₂H₄) từ ethanol và H₂SO₄ đặc, dẫn qua bình rửa khí NaOH để loại tạp chất SO₂, rồi sục vào dung dịch thuốc tím (KMnO₄). Qua quan sát hiện tượng mất màu và tạo kết tủa, bạn sẽ rút ra tính chất oxi hóa không hoàn toàn đặc trưng của alkene.
+            </p>
+        </section>
 
     <div class="hypothesis-box" id="hypoBanner">
         <div class="hypothesis-content">
@@ -1401,6 +1474,7 @@
         </div>
 
     </main>
+    </div> <!-- end .app-shell -->
 
     <div class="modal-backdrop hidden" id="celebrationModal" role="dialog" aria-modal="true"
         aria-labelledby="modalTitle">
@@ -1462,7 +1536,32 @@
         function reportHeight() {
             LMS().resize({ height: document.documentElement.scrollHeight });
         }
-        window.addEventListener('load', reportHeight);
+
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+
+            // Mặc định thu gọn trên mobile
+            if (window.innerWidth <= 767) {
+                briefing.classList.add('is-collapsed');
+                toggleBtn.textContent = 'Xem thêm';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.textContent = isCollapsed ? 'Xem thêm' : 'Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
+        }
+
+        window.addEventListener('load', () => {
+            initBriefing();
+            reportHeight();
+            LMS().ready();
+        });
         const _lmsRo = new ResizeObserver(() => {
             clearTimeout(window._rz);
             window._rz = setTimeout(reportHeight, 100);
@@ -1474,7 +1573,6 @@
                 if (saved && saved.lastAction === 'completed') showElement('blockSummary');
             };
         }
-        LMS().ready();
 
         // ======================================================
         // UTILITIES
@@ -2908,6 +3006,18 @@
             mainActionBtn.classList.remove('hidden');
             mainActionBtn.disabled = false;
             resetBtn.disabled = false;
+
+            // Auto-collapse briefing when experiment starts per design spec
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (briefing && !briefing.classList.contains('is-collapsed')) {
+                briefing.classList.add('is-collapsed');
+                if (toggleBtn) {
+                    toggleBtn.textContent = 'Xem thêm';
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                }
+            }
+
             setGuide('Bạn bắt đầu bằng cách rót ethanol vào bình cầu — bấm nút Rót ethanol ở thanh công cụ.');
             updateControlsButton();
             bumpMilestone();

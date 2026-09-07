@@ -71,7 +71,7 @@
             background-color: var(--cream);
             color: var(--ink);
             font-family: var(--font-main);
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 400;
             line-height: 1.7;
             display: flex;
@@ -168,42 +168,33 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
         }
 
-        /* 1. INTRO-TEXT */
-        .intro-text {
+        /* App shell bao bọc toàn bộ nội dung */
+        .app-shell {
             width: 100%;
+            min-width: 0;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 1.05rem 1.35rem;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Briefing Component: Mục tiêu + Mô tả gộp chuẩn Aiducation */
+        .briefing {
+            width: 100%;
+            padding: 10px 16px;
             background: var(--jade-pale);
             border: 1px solid var(--sage);
             border-left: 4px solid var(--jade);
-            border-radius: 12px;
-            font-size: 15.5px;
-            color: var(--ink-2);
-            line-height: 1.65;
+            border-radius: 10px;
+            transition: all 0.2s ease;
         }
 
-        @media (max-width: 640px) {
-            .card {
-                padding: 12px 14px;
-            }
-
-            .intro-text {
-                padding: 0.9rem 1.1rem;
-                font-size: 14px;
-            }
-        }
-
-        /* 2. THANH MỤC TIÊU HỌC TẬP */
-        .goal-bar {
+        .briefing-main {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             width: 100%;
-            margin: 0 auto;
-            background: var(--jade-pale);
-            border-left: 4px solid var(--jade);
-            border-radius: 10px;
-            padding: 10px 16px;
         }
 
         .goal-label {
@@ -211,7 +202,7 @@
             align-items: center;
             gap: 6px;
             flex-shrink: 0;
-            font-size: 12.5px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.6px;
@@ -227,15 +218,41 @@
         }
 
         .goal-text {
-            font-size: 16px;
+            font-size: 15px;
             color: var(--ink);
             line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
         }
 
-        @media (max-width: 640px) {
-            .goal-text {
-                font-size: 14.5px;
-            }
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
         }
 
         /* 3. LAB WRAPPER - CỘT ĐƠN FULL 100% */
@@ -338,6 +355,58 @@
         }
 
         @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(300px, 48vh, 420px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-text {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
             .controls-card {
                 position: fixed !important;
                 left: 0 !important;
@@ -352,10 +421,6 @@
                 padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px)) !important;
                 margin: 0 !important;
                 justify-content: flex-start !important;
-            }
-
-            body {
-                padding-bottom: 76px;
             }
         }
 
@@ -372,7 +437,7 @@
         .canvas-glow-wrap {
             position: relative;
             width: 100%;
-            aspect-ratio: 760 / 360;
+            height: clamp(320px, 42vw, 540px);
             padding: 2px;
             border-radius: 10px;
             overflow: hidden;
@@ -1311,23 +1376,24 @@
 
 <body>
 
-    <!-- 1. INTRO-TEXT (1-2 CÂU NGẮN GỌN THEO DESIGN SYSTEM) -->
-    <div class="intro-text">
-        Bạn sẽ kiểm chứng khả năng phản ứng của phenol với dung dịch bromine ở điều kiện thường qua thí nghiệm nhỏ từng
-        giọt nước bromine vào ống nghiệm chứa phenol 5%, quan sát sự biến đổi màu sắc và hình thành kết tủa trắng
-        2,4,6-tribromophenol.
-    </div>
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
 
-    <!-- 2. THANH MỤC TIÊU HỌC TẬP -->
-    <div class="goal-bar">
-        <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
-        <span class="goal-divider"></span>
-        <span class="goal-text">Kiểm chứng giả thuyết phenol có khả năng phản ứng với dung dịch bromine ở điều kiện
-            thường.</span>
-    </div>
+        <!-- BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text">Kiểm chứng giả thuyết phenol có khả năng phản ứng với dung dịch bromine ở điều kiện thường.</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Bạn sẽ kiểm chứng khả năng phản ứng của phenol với dung dịch bromine ở điều kiện thường qua thí nghiệm nhỏ từng giọt nước bromine vào ống nghiệm chứa phenol 5%, quan sát sự biến đổi màu sắc và hình thành kết tủa trắng 2,4,6-tribromophenol.
+            </p>
+        </section>
 
-    <!-- 3. LAB WRAPPER - CỘT ĐƠN FULL 100% -->
-    <main class="lab-wrapper">
+        <!-- 3. LAB WRAPPER - CỘT ĐƠN FULL 100% -->
+        <main class="lab-wrapper">
 
         <!-- THANH HƯỚNG DẪN ATHENA (VỊ TRÍ 1) -->
         <div class="ai-guide" id="aiGuideBar">
@@ -1543,6 +1609,7 @@
         </div>
 
     </main>
+    </div> <!-- end .app-shell -->
 
     <!-- MODAL CHÚC MỪNG HOÀN THÀNH TOÀN BÀI -->
     <div class="modal-backdrop hidden" id="celebrationModal" role="dialog" aria-modal="true" aria-labelledby="celebTitle">
@@ -1616,7 +1683,32 @@
         function reportHeight() {
             LMS().resize({ height: document.documentElement.scrollHeight });
         }
-        window.addEventListener('load', reportHeight);
+
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+
+            // Mặc định thu gọn trên mobile
+            if (window.innerWidth <= 767) {
+                briefing.classList.add('is-collapsed');
+                toggleBtn.textContent = 'Xem thêm';
+                toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.textContent = isCollapsed ? 'Xem thêm' : 'Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
+        }
+
+        window.addEventListener('load', () => {
+            initBriefing();
+            reportHeight();
+            LMS().ready();
+        });
         const _ro = new ResizeObserver(() => {
             clearTimeout(window._rz);
             window._rz = setTimeout(reportHeight, 80);
@@ -1630,7 +1722,6 @@
                 }
             };
         }
-        LMS().ready();
 
         // ======================================================
         // 2. STATE MACHINE CHO THÍ NGHIỆM
@@ -2885,6 +2976,17 @@
             document.getElementById('btnStart').classList.add('hidden');
             document.getElementById('btnPhenol').classList.remove('hidden');
             document.getElementById('btnReset').disabled = false;
+
+            // Auto-collapse briefing when experiment starts per design spec
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (briefing && !briefing.classList.contains('is-collapsed')) {
+                briefing.classList.add('is-collapsed');
+                if (toggleBtn) {
+                    toggleBtn.textContent = 'Xem thêm';
+                    toggleBtn.setAttribute('aria-expanded', 'false');
+                }
+            }
 
             setAIGuide(
                 "Bạn sẽ kiểm chứng khả năng phản ứng của phenol với nước bromine ở điều kiện thường. Hãy bắt đầu bằng cách bấm nút 'Lấy 1 mL dung dịch phenol 5%'."
