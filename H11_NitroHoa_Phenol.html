@@ -426,7 +426,7 @@
         done:'Hỗn hợp đã chuyển sang màu đỏ tối và đồng nhất. Ghi hiện tượng rồi chuyển sang đun cách thủy.' },
       { id:'bath', label:'Đun cách thủy', icon:'ti-temperature', duration:4800,
         idle:'Bước 6: Bấm “Đun cách thủy” và theo dõi hỗn hợp trong giai đoạn đun tăng tốc.',
-        running:'Ống nghiệm đang được đun cách thủy. Đồng hồ 15 phút đang chạy tăng tốc, hơi nước bốc nhẹ.',
+        running:'Ống nghiệm đang được đun cách thủy trong nồi nước sôi, hơi nước bốc nhẹ.',
         done:'Giai đoạn đun cách thủy đã hoàn tất. Tiếp theo, để hỗn hợp nguội gần nhiệt độ phòng.' },
       { id:'rest', label:'Để nguội', icon:'ti-temperature-minus', duration:3300,
         idle:'Bước 7: Bấm “Để nguội” và chờ hỗn hợp về gần nhiệt độ phòng.',
@@ -916,13 +916,37 @@
     }
 
     function drawBath(kind){
-      const showIce=(animation.step===4||animation.step===5)&&state.isAnimating||(!state.isAnimating&&state.currentStep===5&&state.completedSteps.includes(4));
+      let showIce=false;
+      let iceAlpha=1;
+      let iceOffsetY=0;
+
+      if(kind==='ice'){
+        if(animation.step===4&&state.isAnimating){
+          showIce=true;
+          iceAlpha=smoothstep(.02,.2,scene.toolProgress);
+          iceOffsetY=lerp(40,0,iceAlpha);
+        }else if(animation.step===5&&state.isAnimating){
+          // Ở bước 5: chỉ hiển thị xô đá lúc đang nhỏ HNO3, trước khi lắc bình (t=0.6) thì xô đá trượt xuống và biến mất hoàn toàn
+          if(scene.toolProgress<.58){
+            showIce=true;
+            iceAlpha=1-smoothstep(.44,.58,scene.toolProgress);
+            iceOffsetY=lerp(0,50,1-iceAlpha);
+          }
+        }else if(!state.isAnimating&&state.currentStep===5&&state.completedSteps.includes(4)){
+          showIce=true;
+          iceAlpha=1;
+          iceOffsetY=0;
+        }
+        if(!showIce)return;
+      }
+
       const showHot=(animation.step===6&&state.isAnimating);
-      if(kind==='ice'&&!showIce||kind==='hot'&&!showHot)return;
-      const p=kind==='ice'?(animation.step===4?smoothstep(.02,.2,scene.toolProgress):1):scene.waterBath;
-      ctx.save();ctx.globalAlpha=p;const x=292,y=350,w=176,h=155;
+      if(kind==='hot'&&!showHot)return;
+
+      const p=(kind==='ice')?iceAlpha:scene.waterBath;
+      ctx.save();ctx.globalAlpha=p;const x=292,y=350+(kind==='ice'?iceOffsetY:0),w=176,h=155;
       ctx.fillStyle=kind==='ice'?'rgba(170,220,238,.55)':'rgba(225,180,96,.30)';ctx.strokeStyle=kind==='ice'?'#5995aa':'#b9873f';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+10,y+h);ctx.quadraticCurveTo(x+w/2,y+h+18,x+w-10,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.fill();ctx.stroke();
-      ctx.strokeStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.moveTo(x+8,y+24);ctx.quadraticCurveTo(380,y+31,x+w-8,y+24);ctx.stroke();
+      ctx.strokeStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.moveTo(x+8,y+24);ctx.quadraticCurveTo(380,y+31+(kind==='ice'?iceOffsetY:0),x+w-8,y+24);ctx.stroke();
       if(kind==='ice'){
         ctx.save();ctx.beginPath();ctx.rect(x+7,y+4,w-14,h-9);ctx.clip();
         for(let i=0;i<9;i++){
@@ -944,26 +968,115 @@
     }
 
     function drawClock(){
-      if(animation.step!==6||!state.isAnimating)return;const x=570,y=160;ctx.fillStyle='rgba(250,247,240,.95)';ctx.strokeStyle='#3CA57A';ctx.lineWidth=2;roundedRect(x-58,y-32,116,64,9);ctx.fill();ctx.stroke();
-      ctx.fillStyle='#1B5E48';ctx.font="bold 11px 'JetBrains Mono', monospace";ctx.textAlign='center';ctx.fillText('ĐUN CÁCH THỦY',x,y-8);ctx.font="bold 20px 'JetBrains Mono', monospace";ctx.fillText(`${scene.clock}:00`,x,y+19);
+      // Đã bỏ hiển thị thời gian đun cách thủy theo yêu cầu
     }
 
     function drawBeaker(){
-      const visible=(animation.step===8&&state.isAnimating)||scene.pour>=1;if(!visible)return;const x=485,y=385,w=130,h=130;
+      // Bước 7 hiển thị bình thí nghiệm / cốc đong thủy tinh đựng nước lạnh sẵn sàng đón hỗn hợp
+      const visible=(animation.step>=7&&state.isAnimating)||state.currentStep>=7||scene.pour>=1;if(!visible)return;
+      const x=485,y=385,w=126,h=128,r=10;
       const surface=getReceiverSurfaceY()+(reduceMotion?0:Math.sin(time*2.4)*1.2);
-      ctx.save();ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+10,y+h);ctx.quadraticCurveTo(x+w/2,y+h+10,x+w-10,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.clip();
-      const waterGrad=ctx.createLinearGradient(x,surface,x,y+h);waterGrad.addColorStop(0,lerpColor([190,220,226],[224,205,119],scene.pour*.42));waterGrad.addColorStop(1,lerpColor([111,174,192],[183,132,66],scene.pour*.34));ctx.fillStyle=waterGrad;ctx.fillRect(x,surface,w,y+h-surface+12);
-      ctx.strokeStyle='rgba(255,255,255,.78)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x+6,surface);ctx.quadraticCurveTo(x+w/2,surface+4,x+w-6,surface);ctx.stroke();
-      if(scene.pour>.12&&scene.pour<.96){ctx.fillStyle=`rgba(132,58,42,${.12*(1-scene.pour)})`;for(let i=0;i<7;i++){ctx.beginPath();ctx.arc(572+Math.sin(time*2+i)*22,surface+18+i*7,8+i*2,0,Math.PI*2);ctx.fill();}}
-      ctx.restore();ctx.fillStyle='rgba(230,244,249,.18)';ctx.strokeStyle='#83939d';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+10,y+h);ctx.quadraticCurveTo(x+w/2,y+h+10,x+w-10,y+h);ctx.lineTo(x+w,y);ctx.fill();ctx.stroke();ctx.beginPath();ctx.ellipse(x+w/2,y,w/2+2,6,0,0,Math.PI*2);ctx.stroke();
-      ctx.strokeStyle='#83939d';ctx.lineWidth=3;ctx.beginPath();ctx.arc(x+w/2,y+20,w*.62,Math.PI*.06,Math.PI*.94);ctx.stroke();
-      ctx.fillStyle='#83939d';roundedRect(x-8,y+24,12,27,4);ctx.fill();roundedRect(x+w-4,y+24,12,27,4);ctx.fill();
+      ctx.save();
+      // 1. Nước lạnh bên trong lòng cốc
+      ctx.beginPath();
+      ctx.moveTo(x+3,y);
+      ctx.lineTo(x+3,y+h-r);
+      ctx.arcTo(x+3,y+h,x+3+r,y+h,r);
+      ctx.lineTo(x+w-3-r,y+h);
+      ctx.arcTo(x+w-3,y+h,x+w-3,y+h-r,r);
+      ctx.lineTo(x+w-3,y);
+      ctx.closePath();
+      ctx.clip();
+      const waterGrad=ctx.createLinearGradient(x,surface,x,y+h);
+      waterGrad.addColorStop(0,lerpColor([190,225,235],[224,205,119],scene.pour*.42));
+      waterGrad.addColorStop(1,lerpColor([120,185,205],[183,132,66],scene.pour*.34));
+      ctx.fillStyle=waterGrad;
+      ctx.fillRect(x,surface,w,y+h-surface+10);
+      ctx.strokeStyle='rgba(255,255,255,.78)';
+      ctx.lineWidth=2;
+      ctx.beginPath();
+      ctx.moveTo(x+6,surface);
+      ctx.quadraticCurveTo(x+w/2,surface+4,x+w-6,surface);
+      ctx.stroke();
+      if(scene.pour>.12&&scene.pour<.96){
+        ctx.fillStyle=`rgba(132,58,42,${.12*(1-scene.pour)})`;
+        for(let i=0;i<7;i++){
+          ctx.beginPath();
+          ctx.arc(555+Math.sin(time*2+i)*20,surface+18+i*7,8+i*2,0,Math.PI*2);
+          ctx.fill();
+        }
+      }
+      ctx.restore();
+
+      // 2. Thân cốc thủy tinh (Beaker) phòng thí nghiệm - không quai xô
+      ctx.save();
+      ctx.fillStyle='rgba(230,244,249,.16)';
+      ctx.strokeStyle='#64748B';
+      ctx.lineWidth=2.4;
+      ctx.beginPath();
+      ctx.moveTo(x-4,y);
+      ctx.lineTo(x+2,y+5);
+      ctx.lineTo(x+3,y+h-r);
+      ctx.arcTo(x+3,y+h,x+3+r,y+h,r);
+      ctx.lineTo(x+w-3-r,y+h);
+      ctx.arcTo(x+w-3,y+h,x+w-3,y+h-r,r);
+      ctx.lineTo(x+w-3,y);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Miệng loe cốc
+      ctx.beginPath();
+      ctx.ellipse(x+w/2,y,w/2+1,5,0,0,Math.PI*2);
+      ctx.stroke();
+
+      // Vạch phản chiếu ánh sáng thủy tinh
+      ctx.strokeStyle='rgba(255,255,255,.65)';
+      ctx.lineWidth=3;
+      ctx.beginPath();
+      ctx.moveTo(x+10,y+15);
+      ctx.lineTo(x+10,y+h-14);
+      ctx.stroke();
+
+      // Vạch chia độ cốc thủy tinh
+      ctx.strokeStyle='rgba(80,95,110,.55)';
+      ctx.lineWidth=1.2;
+      for(let v=1;v<=4;v++){
+        const vy=y+h-v*20;
+        ctx.beginPath();
+        ctx.moveTo(x+5,vy);
+        ctx.lineTo(x+16+(v%2)*5,vy);
+        ctx.stroke();
+      }
+
+      // Tinh thể picric acid kết tủa màu vàng
       if(scene.crystals>0){
-        ctx.save();ctx.beginPath();ctx.rect(x+8,y+34,w-16,h-34);ctx.clip();
-        for(let i=0;i<crystalSeeds.length;i++){const c=crystalSeeds[i],p=clamp((scene.crystals-c.delay)/(1-c.delay),0,1);if(p<=0)continue;const sx=x+w/2+c.x*.65,sy=lerp(y+42+((i*17)%50),c.targetY,p);const wob=Math.sin(time*2+i)*c.wobble*(1-p);ctx.save();ctx.translate(sx+wob,sy);ctx.rotate(c.angle);ctx.globalAlpha=.35+.65*p;ctx.fillStyle='#e6c52f';ctx.fillRect(-c.size*.35,-c.size*1.2,c.size*.7,c.size*2.4);ctx.restore();}
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(x+8,y+34,w-16,h-34);
+        ctx.clip();
+        for(let i=0;i<crystalSeeds.length;i++){
+          const c=crystalSeeds[i],p=clamp((scene.crystals-c.delay)/(1-c.delay),0,1);
+          if(p<=0)continue;
+          const sx=x+w/2+c.x*.65,sy=lerp(y+42+((i*17)%50),c.targetY,p);
+          const wob=Math.sin(time*2+i)*c.wobble*(1-p);
+          ctx.save();
+          ctx.translate(sx+wob,sy);
+          ctx.rotate(c.angle);
+          ctx.globalAlpha=.35+.65*p;
+          ctx.fillStyle='#e6c52f';
+          ctx.fillRect(-c.size*.35,-c.size*1.2,c.size*.7,c.size*2.4);
+          ctx.restore();
+        }
         ctx.restore();
       }
-      ctx.fillStyle='#1A1A1A';ctx.font="bold 12px 'JetBrains Mono', monospace";ctx.textAlign='center';ctx.fillText('Xô nước lạnh ~20 mL',x+w/2,y+h+28);
+
+      // Nhãn tên bình / cốc thí nghiệm
+      ctx.fillStyle='#1A1A1A';
+      ctx.font="bold 12px 'JetBrains Mono', monospace";
+      ctx.textAlign='center';
+      ctx.fillText('Cốc nước lạnh ~20 mL',x+w/2,y+h+26);
+      ctx.restore();
     }
 
     function drawPourStream(){
@@ -999,12 +1112,10 @@
       ctx.textAlign='center';ctx.font="bold 12px 'JetBrains Mono', monospace";ctx.fillStyle='#1A1A1A';
       let labels=[];if(scene.phenol>0)labels.push('C6H5OH — 0,5 g');if(scene.acid>0)labels.push('H2SO4 đặc — 1,5 mL');if(scene.nitric>0)labels.push('HNO3 đặc — 1 mL');
       labels.forEach((s,i)=>{const w=ctx.measureText(s).width+18,x=92,y=90+i*34;ctx.fillStyle='rgba(250,247,240,.94)';ctx.strokeStyle='#A8C9B8';ctx.lineWidth=1.5;roundedRect(x-w/2,y-17,w,26,6);ctx.fill();ctx.stroke();ctx.fillStyle='#1A1A1A';ctx.fillText(s,x,y+1);});
-      const status=!state.started?'Sẵn sàng bắt đầu':state.isAnimating?`Đang thực hiện bước ${animation.step}`:state.currentStep===9?'Đã hoàn tất 8 bước':`Chờ thao tác bước ${state.currentStep}`;
-      ctx.font="bold 12px 'JetBrains Mono', monospace";const sw=ctx.measureText(status).width+22;ctx.fillStyle='rgba(220,234,225,.94)';ctx.strokeStyle='#3CA57A';roundedRect(W-sw-26,28,sw,30,7);ctx.fill();ctx.stroke();ctx.fillStyle='#1B5E48';ctx.fillText(status,W-sw/2-26,48);
     }
 
     function drawScene(){
-      drawBench();drawStand();drawBath('ice');drawBath('hot');drawBurner();drawBeaker();drawTestTube();drawPourStream();drawSpatula();drawDropper();drawThermometer();drawClock();drawParticles();drawLabels();
+      drawBench();drawStand();drawBath('ice');drawBath('hot');drawBurner();drawBeaker();drawTestTube();drawPourStream();drawSpatula();drawDropper();drawThermometer();drawParticles();drawLabels();
     }
 
     function loop(now){
