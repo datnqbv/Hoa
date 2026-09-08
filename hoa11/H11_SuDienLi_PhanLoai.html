@@ -1521,14 +1521,12 @@
                                 Đường và ethanol tan rất tốt nhưng không dẫn điện. Cùng 0,1M nhưng HCl dẫn điện mạnh, CH₃COOH dẫn điện yếu.
                             </div>
                         </div>
-                        <p style="margin-top:8px;">Dựa vào kết quả thực nghiệm vừa thực hiện, giả thuyết trên là đúng, sai hay đúng một phần? Hãy chọn và giải thích ngắn gọn:</p>
+                        <p style="margin-top:8px;">Dựa vào kết quả thực nghiệm vừa thực hiện, giả thuyết trên là đúng hay sai? Hãy chọn nhận định của bạn:</p>
                         <div style="display:flex; flex-wrap:wrap; gap:8px;">
                             <button class="btn-secondary hypo-choice" data-val="Đúng" onclick="selectHypo('Đúng')">Đúng</button>
-                            <button class="btn-secondary hypo-choice" data-val="Đúng một phần" onclick="selectHypo('Đúng một phần')">Đúng một phần</button>
                             <button class="btn-secondary hypo-choice" data-val="Sai" onclick="selectHypo('Sai')">Sai</button>
                         </div>
-                        <textarea class="free-text" id="hypoNote" placeholder="Giải thích ngắn gọn nhận định của bạn dựa trên kết quả thí nghiệm..." oninput="checkHypoReady()"></textarea>
-                        <div style="display: flex; justify-content: flex-end;">
+                        <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
                             <button class="btn-primary" id="btnConfirmHypo" onclick="confirmHypo()" disabled>
                                 <i class="ti ti-send"></i> Xác nhận đánh giá
                             </button>
@@ -2266,16 +2264,30 @@
                 ctx.fillText(ion.label, ion.x, ion.y);
                 ctx.restore();
 
-                // Lớp vỏ hydrat hóa bao quanh ion đã tách ra
+                // Lớp vỏ hydrat hóa bao quanh ion đã tách ra (6 phân tử H2O định hướng tương tác tĩnh điện theo Hình 2.3 SGK)
                 if (ion.pullProgress > 0.25) {
-                    const sheathCount = 4;
+                    const sheathCount = 6;
+                    const orbitDist = (ion.type === 'Na') ? (ion.r + 13) : (ion.r + 15);
                     for (let s = 0; s < sheathCount; s++) {
-                        const sang = s * (Math.PI * 2 / sheathCount) + time * 0.5;
-                        const sx = ion.x + Math.cos(sang) * (ion.r + 14);
-                        const sy = ion.y + Math.sin(sang) * (ion.r + 14);
-                        // Với Na+, đầu O (đỏ, âm) quay vào trong
-                        // Với Cl-, đầu H (trắng, dương) quay vào trong
-                        const rot = (ion.type === 'Na') ? sang + Math.PI : sang;
+                        const sang = s * (Math.PI * 2 / sheathCount) + time * 0.35;
+                        const sx = ion.x + Math.cos(sang) * orbitDist;
+                        const sy = ion.y + Math.sin(sang) * orbitDist;
+
+                        // Đường liên kết tương tác ion - lưỡng cực phân tử nước (ion-dipole)
+                        ctx.save();
+                        ctx.strokeStyle = (ion.type === 'Na') ? 'rgba(239, 68, 68, 0.35)' : 'rgba(148, 163, 184, 0.45)';
+                        ctx.lineWidth = 1;
+                        ctx.setLineDash([2, 2]);
+                        ctx.beginPath();
+                        ctx.moveTo(ion.x, ion.y);
+                        ctx.lineTo(sx, sy);
+                        ctx.stroke();
+                        ctx.restore();
+
+                        // Định hướng phân tử H2O phân cực theo tương tác hút tĩnh điện:
+                        // - Bao quanh Na+ (cation dương): đầu O (đỏ, δ⁻) hướng vào trong, 2 hạt H (trắng, δ⁺) hướng ra ngoài -> rot = sang
+                        // - Bao quanh Cl- (anion âm): 2 hạt H (trắng, δ⁺) hướng vào trong, đầu O (đỏ, δ⁻) hướng ra ngoài -> rot = sang + Math.PI
+                        const rot = (ion.type === 'Na') ? sang : sang + Math.PI;
                         drawWaterMolecule(sx, sy, rot);
                     }
                 }
@@ -2380,24 +2392,12 @@
             ctx.fillStyle = '#047857';
             ctx.fillText('HCl ⟶ H⁺ + Cl⁻  (mũi tên 1 chiều →)', 56, 95);
 
-            // Khung badge bộ đếm hạt HCl
-            ctx.fillStyle = '#FFFFFF';
-            ctx.strokeStyle = '#A7F3D0';
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.roundRect(52, 106, 296, 24, 6);
-            ctx.fill(); ctx.stroke();
-
-            ctx.fillStyle = '#065F46';
-            ctx.font = '700 12.5px "JetBrains Mono", monospace';
-            ctx.fillText('⚡ Bộ đếm: Ion ~1994 | Phân tử: ~3', 58, 122);
-
             // Cập nhật hạt HCl
             hclParticles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 if (p.x < 55 || p.x > 345) p.vx *= -1;
-                if (p.y < 136 || p.y > 310) p.vy *= -1;
+                if (p.y < 112 || p.y > 315) p.vy *= -1;
 
                 ctx.save();
                 if (p.type === 'H') {
@@ -2440,24 +2440,12 @@
             ctx.fillStyle = '#92400E';
             ctx.fillText('CH₃COOH ⇌ H⁺ + CH₃COO⁻  (thuận nghịch ⇌)', 416, 95);
 
-            // Khung badge bộ đếm hạt CH3COOH
-            ctx.fillStyle = '#FFFFFF';
-            ctx.strokeStyle = '#FDE68A';
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.roundRect(412, 106, 296, 24, 6);
-            ctx.fill(); ctx.stroke();
-
-            ctx.fillStyle = '#78350F';
-            ctx.font = '700 12.5px "JetBrains Mono", monospace';
-            ctx.fillText('⚡ Bộ đếm: Ion ~6 | Phân tử: ~997', 418, 122);
-
             // Cập nhật hạt CH3COOH
             ch3coohParticles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
-                if (p.x < 415 || p.x > 705) p.vx *= -1;
-                if (p.y < 136 || p.y > 310) p.vy *= -1;
+                if (p.x < 426 || p.x > 694) p.vx *= -1;
+                if (p.y < 112 || p.y > 315) p.vy *= -1;
 
                 ctx.save();
                 if (p.type === 'H') {
@@ -2468,10 +2456,15 @@
                     ctx.fillText('H⁺', p.x, p.y + 3);
                 } else if (p.type === 'CH3COO') {
                     ctx.fillStyle = '#2563EB';
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 10.5, 0, Math.PI * 2); ctx.fill();
-                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 9.5px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('Ac⁻', p.x, p.y + 3);
+                    ctx.strokeStyle = '#FFFFFF';
+                    ctx.lineWidth = 1.4;
+                    ctx.beginPath();
+                    ctx.roundRect(p.x - 22, p.y - 9.5, 44, 19, 5);
+                    ctx.fill(); ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.font = '700 9px "JetBrains Mono", monospace';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('CH₃COO⁻', p.x, p.y + 3);
                 } else {
                     // Phân tử CH3COOH nguyên vẹn
                     ctx.fillStyle = '#64748B';
@@ -2517,7 +2510,7 @@
                         <span class="sample-sub">${sample.desc}</span>
                     </td>
                     <td>
-                        <select id="selLight_${idx + 1}" onchange="handleObsChange(${idx + 1})">
+                        <select id="selLight_${idx + 1}" onchange="handleObsChange(${idx + 1}, 'light')">
                             <option value="">-- Chọn hiện tượng đèn --</option>
                             <option value="strong">Đèn sáng mạnh</option>
                             <option value="weak">Đèn sáng yếu</option>
@@ -2525,7 +2518,7 @@
                         </select>
                     </td>
                     <td>
-                        <select id="selConduct_${idx + 1}" onchange="handleObsChange(${idx + 1})">
+                        <select id="selConduct_${idx + 1}" onchange="handleObsChange(${idx + 1}, 'conduct')">
                             <option value="">-- Dẫn điện? --</option>
                             <option value="yes">Có dẫn điện</option>
                             <option value="no">Không dẫn điện</option>
@@ -2536,11 +2529,15 @@
             });
         }
 
-        function handleObsChange(cupId) {
-            const selL = document.getElementById('selLight_' + cupId);
-            const selC = document.getElementById('selConduct_' + cupId);
-            if (selL) selL.classList.remove('wrong-field', 'correct-field');
-            if (selC) selC.classList.remove('wrong-field', 'correct-field');
+        function handleObsChange(cupId, fieldType) {
+            // Chỉ xóa màu của đúng ô vừa được chọn lại, giữ nguyên màu xanh/đỏ của tất cả các ô khác
+            if (fieldType === 'light') {
+                const selL = document.getElementById('selLight_' + cupId);
+                if (selL) selL.classList.remove('wrong-field', 'correct-field');
+            } else if (fieldType === 'conduct') {
+                const selC = document.getElementById('selConduct_' + cupId);
+                if (selC) selC.classList.remove('wrong-field', 'correct-field');
+            }
 
             const lVal = document.getElementById('selLight_' + cupId).value;
             const cVal = document.getElementById('selConduct_' + cupId).value;
@@ -2945,27 +2942,33 @@
             document.querySelectorAll('.hypo-choice').forEach(b => {
                 b.classList.toggle('active', b.getAttribute('data-val') === val);
             });
-            checkHypoReady();
+            document.getElementById('btnConfirmHypo').disabled = false;
         }
 
         function checkHypoReady() {
-            const note = document.getElementById('hypoNote') ? document.getElementById('hypoNote').value.trim() : '';
-            document.getElementById('btnConfirmHypo').disabled = !(chosenHypo && note.length > 0);
+            document.getElementById('btnConfirmHypo').disabled = !chosenHypo;
         }
 
         function confirmHypo() {
             document.getElementById('btnConfirmHypo').disabled = true;
+            document.querySelectorAll('.hypo-choice').forEach(b => b.disabled = true);
+            const isCorrect = (chosenHypo === 'Sai');
             const fb = document.getElementById('hypoFeedback');
             fb.classList.remove('hidden');
+            fb.className = isCorrect ? 'feedback-box correct' : 'feedback-box warning';
             fb.innerHTML = `
-                <i class="ti ti-info-circle" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                <i class="${isCorrect ? 'ti ti-check' : 'ti ti-alert-triangle'}" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
                 <div>
-                    <strong>Phân tích khoa học: Giả thuyết ban đầu chỉ đúng một phần</strong><br>
-                    • Vế thứ nhất sai: Đường và ethanol tan rất tốt trong nước nhưng hoàn toàn không dẫn điện vì không phân li ra ion.<br>
-                    • Vế thứ hai cũng chưa chính xác: Mức độ dẫn điện phụ thuộc vào <strong>nồng độ ion tự do</strong> trong dung dịch, không đơn giản là lượng chất tan (cùng nồng độ 0,1M nhưng HCl dẫn điện mạnh hơn CH₃COOH rất nhiều).
+                    <strong>${isCorrect ? 'Chính xác! Giả thuyết ban đầu là Sai.' : 'Chưa chính xác: Giả thuyết ban đầu là Sai.'}</strong><br>
+                    • <strong>Vế 1 sai:</strong> Đường và ethanol tan rất tốt trong nước nhưng hoàn toàn không dẫn điện vì không phân li ra ion.<br>
+                    • <strong>Vế 2 sai:</strong> Mức độ dẫn điện phụ thuộc vào <strong>nồng độ ion tự do</strong> trong dung dịch, không phụ thuộc vào lượng chất tan (cùng nồng độ 0,1M nhưng HCl dẫn điện mạnh hơn CH₃COOH rất nhiều).
                 </div>
             `;
-            setGuide("Rất sâu sắc! Bạn đã đánh giá chính xác: tính dẫn điện phụ thuộc vào nồng độ ion tự do, không phải lượng chất tan.", 'state-correct');
+            if (isCorrect) {
+                setGuide("Xuất sắc! Bạn đã nhận định đúng: giả thuyết ban đầu là sai vì tính dẫn điện phụ thuộc nồng độ ion tự do.", 'state-correct');
+            } else {
+                setGuide("Lưu ý: Giả thuyết ban đầu là sai! Đường, ethanol tan nhưng không dẫn điện, tính dẫn điện phụ thuộc ion tự do.", 'state-wrong');
+            }
 
             setTimeout(() => {
                 document.getElementById('blockStage11').classList.remove('hidden');
@@ -2990,7 +2993,7 @@
                 ],
                 correct: 'B',
                 explain: 'HCl phân li gần như hoàn toàn (→), gần 100% phân tử tạo ion; CH₃COOH phân li thuận nghịch (⇌), chỉ một phần rất nhỏ phân tử phân li ra ion. Nhiều ion tự do hơn ⟶ dòng điện mạnh hơn ⟶ đèn sáng hơn.',
-                hint: 'Nhìn lại bộ đếm ion ở mô hình Pha 2 — số lượng ion ở cốc HCl và CH₃COOH chênh lệch như thế nào?'
+                hint: 'Nhìn lại mô hình phân tử ở Pha 2 — số lượng ion ở cốc HCl và CH₃COOH chênh lệch như thế nào?'
             },
             {
                 id: 'nl1_2',
