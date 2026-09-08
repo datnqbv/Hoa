@@ -2147,23 +2147,31 @@
             // Chú giải màu sắc
             ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
             // Na+
-            ctx.fillStyle = '#7C3AED';
-            ctx.beginPath(); ctx.arc(155, 85, 8, 0, Math.PI * 2); ctx.fill();
-            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5; ctx.stroke();
+            const gLegNa = ctx.createRadialGradient(153, 83, 0.8, 155, 85, 8.5);
+            gLegNa.addColorStop(0, '#DDD6FE');
+            gLegNa.addColorStop(0.35, '#8B5CF6');
+            gLegNa.addColorStop(1, '#4C1D95');
+            ctx.fillStyle = gLegNa;
+            ctx.beginPath(); ctx.arc(155, 85, 8.5, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
             ctx.fillStyle = '#0F172A'; ctx.textAlign = 'left';
             ctx.fillText('Ion Na⁺ (tím)', 170, 89);
 
             // Cl-
-            ctx.fillStyle = '#059669';
-            ctx.beginPath(); ctx.arc(280, 85, 10, 0, Math.PI * 2); ctx.fill();
-            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5; ctx.stroke();
+            const gLegCl = ctx.createRadialGradient(277, 82, 1, 280, 85, 11);
+            gLegCl.addColorStop(0, '#86EFAC');
+            gLegCl.addColorStop(0.35, '#10B981');
+            gLegCl.addColorStop(1, '#064E3B');
+            ctx.fillStyle = gLegCl;
+            ctx.beginPath(); ctx.arc(280, 85, 11, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
             ctx.fillStyle = '#0F172A';
-            ctx.fillText('Ion Cl⁻ (xanh lá)', 296, 89);
+            ctx.fillText('Ion Cl⁻ (xanh lá)', 298, 89);
 
-            // H2O phân cực
-            ctx.fillStyle = '#DC2626'; ctx.beginPath(); ctx.arc(430, 85, 7, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#0F172A';
-            ctx.fillText('O (δ⁻ đỏ) / H (δ⁺ trắng) — Phân tử H₂O phân cực', 445, 89);
+            // H2O phân cực (cục đỏ 3D O và 2 hạt trắng H)
+            drawWaterMolecule(438, 86, 0);
+            ctx.fillStyle = '#0F172A'; ctx.textAlign = 'left';
+            ctx.fillText('O (cục đỏ δ⁻) / H (2 hạt trắng δ⁺) — H₂O phân cực', 458, 89);
 
             // Khung bể chứa nước (blue box)
             const boxX = 60, boxY = 106, boxW = 640, boxH = 254, boxR = 12;
@@ -2233,7 +2241,7 @@
                 const delay = idx * 0.4;
                 if (timer > delay) {
                     ion.pulled = true;
-                    if (ion.pullProgress < 1) {
+                    if (ion.pullProgress < 1) {1
                         ion.pullProgress += 0.012;
                         const p = easeOut(ion.pullProgress);
                         ion.x = lerp(ion.origX, ion.targetX, p);
@@ -2249,7 +2257,21 @@
             // 4. Vẽ các ion và lớp vỏ hydrat hóa (phân tử H2O định hướng đúng đầu tích điện)
             naclIons.forEach((ion) => {
                 ctx.save();
-                ctx.fillStyle = ion.color;
+                if (ion.type === 'Cl') {
+                    const gCl = ctx.createRadialGradient(ion.x - 3.5, ion.y - 3.5, 1, ion.x, ion.y, ion.r);
+                    gCl.addColorStop(0, '#86EFAC');
+                    gCl.addColorStop(0.35, '#10B981');
+                    gCl.addColorStop(0.8, '#059669');
+                    gCl.addColorStop(1, '#064E3B');
+                    ctx.fillStyle = gCl;
+                } else {
+                    const gNa = ctx.createRadialGradient(ion.x - 2.5, ion.y - 2.5, 0.8, ion.x, ion.y, ion.r);
+                    gNa.addColorStop(0, '#DDD6FE');
+                    gNa.addColorStop(0.35, '#8B5CF6');
+                    gNa.addColorStop(0.8, '#7C3AED');
+                    gNa.addColorStop(1, '#4C1D95');
+                    ctx.fillStyle = gNa;
+                }
                 ctx.beginPath();
                 ctx.arc(ion.x, ion.y, ion.r, 0, Math.PI * 2);
                 ctx.fill();
@@ -2265,31 +2287,42 @@
                 ctx.restore();
 
                 // Lớp vỏ hydrat hóa bao quanh ion đã tách ra (6 phân tử H2O định hướng tương tác tĩnh điện theo Hình 2.3 SGK)
-                if (ion.pullProgress > 0.25) {
+                if (ion.pullProgress > 0.2) {
                     const sheathCount = 6;
-                    const orbitDist = (ion.type === 'Na') ? (ion.r + 13) : (ion.r + 15);
+                    const isCl = (ion.type === 'Cl');
+                    const orbitDist = isCl ? (ion.r + 17) : (ion.r + 15);
+                    const sheathAlpha = Math.min(1, (ion.pullProgress - 0.2) * 1.5);
+
+                    ctx.save();
+                    ctx.globalAlpha = sheathAlpha;
                     for (let s = 0; s < sheathCount; s++) {
-                        const sang = s * (Math.PI * 2 / sheathCount) + time * 0.35;
+                        const sang = s * (Math.PI * 2 / sheathCount) + time * 0.3;
                         const sx = ion.x + Math.cos(sang) * orbitDist;
                         const sy = ion.y + Math.sin(sang) * orbitDist;
 
                         // Đường liên kết tương tác ion - lưỡng cực phân tử nước (ion-dipole)
                         ctx.save();
-                        ctx.strokeStyle = (ion.type === 'Na') ? 'rgba(239, 68, 68, 0.35)' : 'rgba(148, 163, 184, 0.45)';
-                        ctx.lineWidth = 1;
-                        ctx.setLineDash([2, 2]);
+                        ctx.strokeStyle = isCl ? 'rgba(71, 85, 105, 0.7)' : 'rgba(239, 68, 68, 0.55)';
+                        ctx.lineWidth = 1.2;
+                        ctx.setLineDash([3, 2.5]);
                         ctx.beginPath();
-                        ctx.moveTo(ion.x, ion.y);
-                        ctx.lineTo(sx, sy);
+                        // Bắt đầu từ bề mặt ion
+                        ctx.moveTo(ion.x + Math.cos(sang) * ion.r, ion.y + Math.sin(sang) * ion.r);
+                        // Điểm kết thúc:
+                        // - Với Cl-: chạm vào bề mặt hạt Hydro (đầu dương)
+                        // - Với Na+: chạm vào bề mặt hạt Oxi (đầu âm)
+                        const targetDist = isCl ? (orbitDist - 9.5) : (orbitDist - 6.2);
+                        ctx.lineTo(ion.x + Math.cos(sang) * targetDist, ion.y + Math.sin(sang) * targetDist);
                         ctx.stroke();
                         ctx.restore();
 
-                        // Định hướng phân tử H2O phân cực theo tương tác hút tĩnh điện:
+                        // Định hướng phân tử H2O phân cực theo tương tác hút tĩnh điện (Hình 2.3 SGK):
+                        // - Bao quanh Cl- (anion âm): 2 hạt H (trắng/xám, δ⁺) hướng vào trong, đầu O (đỏ, δ⁻) hướng ra ngoài -> rot = sang + Math.PI
                         // - Bao quanh Na+ (cation dương): đầu O (đỏ, δ⁻) hướng vào trong, 2 hạt H (trắng, δ⁺) hướng ra ngoài -> rot = sang
-                        // - Bao quanh Cl- (anion âm): 2 hạt H (trắng, δ⁺) hướng vào trong, đầu O (đỏ, δ⁻) hướng ra ngoài -> rot = sang + Math.PI
-                        const rot = (ion.type === 'Na') ? sang : sang + Math.PI;
+                        const rot = isCl ? (sang + Math.PI) : sang;
                         drawWaterMolecule(sx, sy, rot);
                     }
+                    ctx.restore();
                 }
             });
 
@@ -2304,28 +2337,55 @@
             ctx.translate(x, y);
             ctx.rotate(angle);
 
-            // Nguyên tử Oxi (Đỏ, mang điện tích âm bán phần δ⁻)
-            ctx.fillStyle = '#EF4444';
-            ctx.beginPath();
-            ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
-            ctx.fill();
-
-            // 2 Nguyên tử Hydro (Trắng viền xám, mang điện tích dương bán phần δ⁺)
-            const hDist = 6.5;
+            // 2 Nguyên tử Hydro (Trắng viền xám 3D, mang điện tích dương bán phần δ⁺)
+            const hDist = 6.6;
             const hAng = 0.65; // ~104.5 độ
+            const rH = 3.6;
 
             // H1
-            ctx.fillStyle = '#F8FAFC';
-            ctx.strokeStyle = '#94A3B8';
-            ctx.lineWidth = 0.8;
+            const h1x = Math.cos(hAng) * hDist;
+            const h1y = Math.sin(hAng) * hDist;
+            const gH1 = ctx.createRadialGradient(h1x - 1, h1y - 1, 0.4, h1x, h1y, rH);
+            gH1.addColorStop(0, '#FFFFFF');
+            gH1.addColorStop(0.55, '#F1F5F9');
+            gH1.addColorStop(1, '#94A3B8');
+            ctx.fillStyle = gH1;
             ctx.beginPath();
-            ctx.arc(Math.cos(hAng) * hDist, Math.sin(hAng) * hDist, 3.2, 0, Math.PI * 2);
-            ctx.fill(); ctx.stroke();
+            ctx.arc(h1x, h1y, rH, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#64748B';
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
 
             // H2
+            const h2x = Math.cos(-hAng) * hDist;
+            const h2y = Math.sin(-hAng) * hDist;
+            const gH2 = ctx.createRadialGradient(h2x - 1, h2y - 1, 0.4, h2x, h2y, rH);
+            gH2.addColorStop(0, '#FFFFFF');
+            gH2.addColorStop(0.55, '#F1F5F9');
+            gH2.addColorStop(1, '#94A3B8');
+            ctx.fillStyle = gH2;
             ctx.beginPath();
-            ctx.arc(Math.cos(-hAng) * hDist, Math.sin(-hAng) * hDist, 3.2, 0, Math.PI * 2);
-            ctx.fill(); ctx.stroke();
+            ctx.arc(h2x, h2y, rH, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#64748B';
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
+
+            // Nguyên tử Oxi (Cục đỏ 3D, mang điện tích âm bán phần δ⁻)
+            const rO = 6.2;
+            const gO = ctx.createRadialGradient(-1.6, -1.6, 0.5, 0, 0, rO);
+            gO.addColorStop(0, '#FCA5A5');
+            gO.addColorStop(0.35, '#EF4444');
+            gO.addColorStop(0.85, '#DC2626');
+            gO.addColorStop(1, '#7F1D1D');
+            ctx.fillStyle = gO;
+            ctx.beginPath();
+            ctx.arc(0, 0, rO, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(127, 29, 29, 0.5)';
+            ctx.lineWidth = 0.6;
+            ctx.stroke();
 
             ctx.restore();
         }
