@@ -852,219 +852,319 @@ ro.observe(document.body);
 ________________________________________
 KỊCH BẢN VÀ KIẾN THỨC CHO GAME:
 
-FILE SẢN XUẤT SIMULATION
-Phản ứng của alk-1-yne với AgNO₃ trong NH₃
-Dạng: Thí nghiệm  |  Năng lực: NL2  |  Lớp: Hóa 11  |  Không chia Stage (1 thí nghiệm duy nhất)
-🎯  MỤC TIÊU STAGE
+Sự điện li — Phân loại chất điện li
 
-🔒  Hiển thị ở panel — dùng nguyên văn giáo viên cung cấp, không diễn đạt lại.
+STAGE 1  —  Mục tiêu & Giả thuyết
+🎯  Mục tiêu Stage
+Nêu được khái niệm sự điện li, chất điện li, chất không điện li.
+🖥️  Canvas
+Màn hình chia 2 phần:
+— Phần trên: tiêu đề bài + đoạn mục tiêu 2–3 câu.
+— Phần dưới: khung nền xanh nhạt hiển thị giả thuyết in đậm.
+"Giả thuyết: Tất cả các chất có thể tan trong nước đều có khả năng dẫn điện khi hòa tan; mức độ dẫn điện phụ thuộc vào lượng chất tan."
+Nút "Bắt đầu thí nghiệm" ở cuối màn hình.
+🤖  Robot
+"Trước khi bắt đầu, đây là giả thuyết chúng ta sẽ kiểm tra hôm nay."
+"Đọc kỹ và ghi nhớ — ở cuối bài bạn sẽ cần đánh giá lại xem giả thuyết này đúng không!"
+👆  Thao tác học sinh
+Đọc mục tiêu và giả thuyết → nhấn nút "Bắt đầu thí nghiệm".
+💡  Aha moment
+Giả thuyết khoa học cần được kiểm chứng bằng thực nghiệm — không phải sự thật hiển nhiên.
+▶  Điều kiện chuyển Stage
+Nhấn nút "Bắt đầu thí nghiệm".
+STAGE 2  —  Giới thiệu bộ thí nghiệm
+🎯  Mục tiêu Stage
+Học sinh làm quen với giao diện: 7 cốc, điện cực, bóng đèn.
+🖥️  Canvas
+7 cốc thủy tinh đặt hàng ngang, có nhãn tên chất bên dưới mỗi cốc:
+(1) NaCl rắn  (2) dd NaCl  (3) dd HCl  (4) dd NaOH  (5) dd CH₃COOH  (6) dd đường  (7) dd ethanol
+Mỗi cốc có 1 cặp điện cực treo phía trên, nối với bóng đèn riêng.
+Tất cả đèn đang tắt. Mũi tên nhấp nháy chỉ vào điện cực cốc 1.
+Bảng báo cáo (7 dòng trống) hiển thị bên phải màn hình.
+🤖  Robot
+"Đây là 7 mẫu chất bạn sẽ thử hôm nay."
+"Mỗi cốc có một cặp điện cực — kéo điện cực xuống cắm vào cốc để kiểm tra tính dẫn điện."
+"Quan sát bóng đèn và điền kết quả vào bảng. Bắt đầu thôi!"
+👆  Thao tác học sinh
+Quan sát giao diện → nhấn "Tiếp tục".
+💡  Aha moment
+7 mẫu chất khác nhau — kết quả có thể khác nhau bất ngờ.
+▶  Điều kiện chuyển Stage
+Nhấn "Tiếp tục" hoặc tự động sau 3 giây.
+STAGE 3  —  Thử tính dẫn điện — Pha 1
+🎯  Mục tiêu Stage
+Học sinh tự thử tính dẫn điện 7 mẫu và ghi kết quả vào bảng báo cáo.
+🖥️  Canvas
+Giao diện giống Stage 2. Caption duy nhất ở đầu màn hình:
+"Cắm điện cực vào từng cốc để thử tính dẫn điện. Quan sát bóng đèn và điền kết quả vào bảng."
+Kết quả từng cốc khi cắm điện cực:
+— Cốc 1 (NaCl rắn): đèn KHÔNG sáng.
+— Cốc 2 (dd NaCl): đèn SÁNG MẠNH.
+— Cốc 3 (dd HCl): đèn SÁNG MẠNH.
+— Cốc 4 (dd NaOH): đèn SÁNG MẠNH.
+— Cốc 5 (dd CH₃COOH): đèn SÁNG YẾU (~20% độ sáng so với cốc 2–4).
+— Cốc 6 (dd đường): đèn KHÔNG sáng. Chú thích nhỏ bên cốc: "Đường tan hoàn toàn trong nước".
+— Cốc 7 (dd ethanol): đèn KHÔNG sáng.
+Sau khi cắm: điện cực giữ nguyên trong cốc, đèn hiển thị kết quả.
+🤖  Robot
+Không nói gì trong quá trình thử — chỉ nhắc khi HS bỏ qua mẫu (xem Phản hồi).
+👆  Thao tác học sinh
+Kéo/nhấn điện cực xuống cắm vào từng cốc (theo thứ tự hoặc tự chọn).
+Quan sát đèn sau mỗi lần cắm.
+Điền vào bảng báo cáo: cột "Hiện tượng đèn" (gợi ý 3 lựa chọn: Sáng mạnh / Sáng yếu / Không sáng) và cột "Dẫn điện?" (Có / Không).
+⚠️  Phản hồi khi sai
+HS nhấn "Tiếp tục" khi còn dòng trống trong bảng → thông báo: "Bảng báo cáo còn [X] cốc chưa thử."
+HS điền khác hiện tượng đã thấy → gợi ý nhẹ: "Bạn có muốn xem lại cốc số [X] không?"
+💡  Aha moment
+7 mẫu cho ra 3 nhóm kết quả khác nhau — dữ liệu sẵn sàng để phân tích.
+▶  Điều kiện chuyển Stage
+Điền đủ 7 dòng bảng báo cáo (cả 2 cột).
+STAGE 4  —  Câu hỏi nhóm 1 — NaCl rắn vs dd NaCl
+🎯  Mục tiêu Stage
+Học sinh tự rút ra: sự điện li cần môi trường nước → ion mới chuyển động tự do được.
+🖥️  Canvas
+Hệ thống highlight 2 dòng đầu bảng báo cáo (NaCl rắn và dd NaCl).
+Hiển thị câu hỏi + 3 phương án bên dưới bảng.
+Sau khi HS chọn: hiện giải thích đầy đủ (dù đúng hay sai).
+Sau giải thích: xuất hiện nút "Xem vai trò của nước trong sự điện li NaCl".
+Khi HS nhấn nút → Animation:
+  · Mạng tinh thể NaCl với Na⁺ (tím) và Cl⁻ (xanh lá) xếp xen kẽ
+  · Các phân tử H₂O (có ký hiệu δ⁺ ở đầu H, δ⁻ ở đầu O) tiến lại gần bề mặt tinh thể
+  · Đầu δ⁻ của H₂O hướng vào Na⁺; đầu δ⁺ của H₂O hướng vào Cl⁻
+  · Từng ion bị kéo ra khỏi mạng tinh thể, được bao quanh bởi các phân tử H₂O
+  · Ion khuếch tán tự do vào dung dịch
+  · Phương trình hiển thị: NaCl(aq) → Na⁺(aq) + Cl⁻(aq)
+❓  Câu hỏi
+"Cùng là NaCl nhưng NaCl rắn không dẫn điện còn dung dịch NaCl dẫn điện tốt. Điều này chứng tỏ điều gì?"
+A. NaCl rắn không có ion; khi tan vào nước mới tạo thành ion Na⁺ và Cl⁻
+B. Nước là chất dẫn điện tốt, làm cho dung dịch NaCl dẫn điện được
+C. NaCl chỉ dẫn điện khi hòa tan vào nước vì lúc đó các ion mới có thể chuyển động tự do
+→ Đáp án đúng: C
+✅  Giải thích (hiện với cả đúng lẫn sai)
+"Trong tinh thể NaCl, ion Na⁺ và Cl⁻ đã tồn tại nhưng bị giữ cố định trong mạng tinh thể — không thể di chuyển nên không dẫn điện."
+"Khi hòa tan vào nước, các phân tử nước phân cực kéo ion ra khỏi mạng tinh thể và giải phóng chúng vào dung dịch → ion chuyển động tự do → dẫn điện."
+"Lưu ý: phương án A sai vì ion đã có sẵn trong tinh thể NaCl rồi, không phải đến khi tan mới tạo ra."
+🤖  Robot
+"Bạn vừa quan sát thấy điều gì khác nhau giữa NaCl rắn và dung dịch NaCl? Hãy chọn câu trả lời đúng nhất."
+💡  Aha moment
+Ion đã có trong tinh thể NaCl — nước không tạo ra ion mà giải phóng ion để chúng chuyển động tự do.
+▶  Điều kiện chuyển Stage
+Trả lời câu hỏi + xem animation (hoặc bỏ qua animation).
+STAGE 5  —  Câu hỏi nhóm 2 — dd NaCl, HCl, NaOH
+🎯  Mục tiêu Stage
+Học sinh tự rút ra đặc trưng của chất điện li mạnh: phân li gần như hoàn toàn.
+🖥️  Canvas
+Hệ thống highlight 3 dòng tương ứng trong bảng báo cáo.
+Hiển thị câu hỏi + 3 phương án.
+Sau khi HS chọn: hiện giải thích đầy đủ.
+❓  Câu hỏi
+"Ba dung dịch NaCl, HCl, NaOH đều làm đèn sáng mạnh. Điểm chung nào giải thích điều này?"
+A. Cả ba đều là hợp chất vô cơ nên dẫn điện tốt
+B. Cả ba đều phân li gần như hoàn toàn thành ion khi tan vào nước
+C. Cả ba đều có khối lượng phân tử nhỏ nên dễ phân li
+→ Đáp án đúng: B
+✅  Giải thích (hiện với cả đúng lẫn sai)
+"NaCl là muối, HCl là acid mạnh, NaOH là base mạnh — tuy thuộc loại hợp chất khác nhau nhưng điểm chung là đều phân li gần như hoàn toàn thành ion khi tan vào nước."
+"Càng nhiều ion tự do trong dung dịch, dòng điện càng mạnh, đèn càng sáng. Đây là đặc trưng của chất điện li mạnh."
+"Phương án A sai vì tính dẫn điện không phụ thuộc vào loại hợp chất (vô cơ hay hữu cơ) mà phụ thuộc vào khả năng phân li ra ion."
+🤖  Robot
+"Ba dung dịch này đều cho kết quả giống nhau. Điều gì ở cấp độ phân tử giải thích điểm chung đó?"
+💡  Aha moment
+Acid mạnh, base mạnh, muối → đều là chất điện li mạnh — phân li gần như hoàn toàn (→).
+▶  Điều kiện chuyển Stage
+Trả lời câu hỏi.
+STAGE 6  —  Câu hỏi nhóm 3 — CH₃COOH vs HCl
+🎯  Mục tiêu Stage
+Học sinh tự rút ra: CH₃COOH phân li một phần → chất điện li yếu.
+🖥️  Canvas
+Hệ thống highlight dòng CH₃COOH, đặt cạnh dòng HCl để so sánh trực tiếp.
+Hiển thị câu hỏi + 3 phương án.
+Sau khi HS chọn: hiện giải thích đầy đủ.
+❓  Câu hỏi
+"CH₃COOH cũng là acid nhưng đèn sáng yếu hơn HCl rõ rệt. Nguyên nhân đúng nhất là gì?"
+A. CH₃COOH có nồng độ thấp hơn HCl nên ít ion hơn
+B. CH₃COOH chỉ phân li một phần — phần lớn vẫn tồn tại dưới dạng phân tử trong dung dịch
+C. CH₃COOH là acid hữu cơ nên bản chất không dẫn điện tốt bằng acid vô cơ
+→ Đáp án đúng: B
+✅  Giải thích (hiện với cả đúng lẫn sai)
+"HCl phân li gần như hoàn toàn (→): gần như không còn phân tử HCl nguyên vẹn trong dung dịch."
+"CH₃COOH là acid yếu, phân li thuận nghịch (⇌): phần lớn tồn tại dưới dạng phân tử CH₃COOH, chỉ một phần nhỏ phân li ra ion H⁺ và CH₃COO⁻."
+"Ít ion hơn → dòng điện yếu hơn → đèn sáng yếu hơn. Đây là chất điện li yếu."
+"Phương án A sai vì hai dung dịch có cùng nồng độ trong thí nghiệm này."
+🤖  Robot
+"Cùng là acid nhưng kết quả lại khác nhau. Bạn nghĩ nguyên nhân là gì? Pha 2 sẽ cho bạn thấy rõ hơn ở cấp độ phân tử!"
+💡  Aha moment
+Không phải acid nào cũng điện li như nhau — mức độ phân li tạo ra sự khác biệt điện li mạnh/yếu.
+▶  Điều kiện chuyển Stage
+Trả lời câu hỏi.
+STAGE 7  —  Câu hỏi nhóm 4 — Đường và ethanol
+🎯  Mục tiêu Stage
+Học sinh tự rút ra: tan được ≠ điện li → khái niệm chất không điện li.
+🖥️  Canvas
+Hệ thống highlight 2 dòng cuối bảng báo cáo, đặt cạnh dòng dd NaCl để so sánh.
+Hiển thị câu hỏi + 3 phương án.
+Sau khi HS chọn: hiện giải thích đầy đủ.
+❓  Câu hỏi
+"Đường tan hoàn toàn trong nước nhưng đèn không sáng. Kết luận nào đúng?"
+A. Đường không tan trong nước nên không có hạt mang điện
+B. Đường tan trong nước nhưng không phân li ra ion — phân tử đường vẫn nguyên vẹn trong dung dịch
+C. Đường dẫn điện kém vì phân tử quá lớn, ion không thể di chuyển tự do
+→ Đáp án đúng: B
+✅  Giải thích (hiện với cả đúng lẫn sai)
+"Đường saccharose tan rất tốt trong nước nhưng không phân li thành ion — phân tử C₁₂H₂₂O₁₁ tồn tại nguyên vẹn trong dung dịch."
+"Không có ion → không có hạt mang điện tự do → không dẫn điện. Tương tự với ethanol."
+"Đây là chất không điện li. Điểm mấu chốt: tan được KHÔNG có nghĩa là điện li."
+"Phương án A sai vì thực tế đường tan rất tốt trong nước."
+🤖  Robot
+"Đường đã tan hoàn toàn — vậy tại sao đèn vẫn không sáng? Hãy suy nghĩ về điều gì thực sự cần thiết để dung dịch dẫn điện."
+💡  Aha moment
+Tan được ≠ điện li. Điều kiện để dẫn điện là phải có ion tự do — không phải chỉ cần tan.
+▶  Điều kiện chuyển Stage
+Trả lời câu hỏi.
+STAGE 8  —  Kết luận
+🎯  Mục tiêu Stage
+Học sinh tự điền kết luận từ dữ liệu đã thu thập → hệ thống chốt kiến thức bản chất.
+🖥️  Canvas
+Phần 5A — Hiển thị câu kết luận với 5 ô trống:
+"Quá trình ___(1)___ các chất trong nước tạo thành ___(2)___ được gọi là sự điện li. Những chất khi tan trong nước phân li ra ion được gọi là ___(3)___. Chất điện li mạnh phân li ___(4)___ hoàn toàn; chất điện li yếu chỉ phân li ___(5)___ một phần."
+Đáp án: (1) phân li  (2) ion  (3) chất điện li  (4) gần như  (5) ra ion
 
-Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng của alk-1-yne với AgNO₃ trong NH₃.
-🖥️  CANVAS
+Phần 5B — Sau khi HS điền xong, hiện đoạn chốt kiến thức:
+"Sự điện li là quá trình phân li các chất trong nước tạo thành ion. Chỉ các chất phân li được ra ion mới làm dung dịch dẫn điện — đó là lý do NaCl rắn không dẫn điện nhưng dung dịch NaCl dẫn điện tốt: ion chỉ xuất hiện khi chất tan vào nước."
+"Chất điện li mạnh (HCl, NaOH, NaCl...) phân li gần như hoàn toàn — phương trình dùng mũi tên một chiều (→). Chất điện li yếu (CH₃COOH...) chỉ phân li một phần — phương trình dùng mũi tên thuận nghịch (⇌)."
+"Đường và ethanol tan trong nước nhưng không phân li ra ion — đây là chất không điện li. Điểm mấu chốt: tan được ≠ điện li."
+🤖  Robot
+"Dựa vào những gì vừa quan sát và phân tích, hãy điền vào chỗ trống để hoàn thành kết luận nhé!"
+👆  Thao tác học sinh
+Điền 5 từ khóa vào chỗ trống. Đọc đoạn chốt bài.
+💡  Aha moment
+Tan ≠ điện li. Điện li = phân li thành ion. Mức độ phân li → mạnh / yếu / không điện li.
+▶  Điều kiện chuyển Stage
+Điền đủ 5 ô trống.
+STAGE 9  —  Pha 2 — Mô hình phân tử/ion HCl vs CH₃COOH
+🎯  Mục tiêu Stage
+Học sinh quan sát trực quan ở cấp độ vi mô sự khác biệt giữa điện li mạnh và điện li yếu.
+🖥️  Canvas
+Màn hình hiển thị 2 cốc song song:
+— Trái: cốc HCl 0,1M, đèn sáng mạnh (từ Pha 1)
+— Phải: cốc CH₃COOH 0,1M, đèn sáng yếu (từ Pha 1)
+Mỗi cốc có điện cực và bóng đèn nối sẵn.
+Caption: "Tại sao hai dung dịch acid này lại cho kết quả khác nhau? Nhấn Zoom để quan sát bên trong."
 
-⚠️  Canvas chỉ chứa thao tác thí nghiệm. KHÔNG đặt mục tiêu, giả thuyết, bảng báo cáo, kết luận, câu hỏi vào canvas.
+Khi HS nhấn nút ZOOM duy nhất → cả 2 cốc zoom đồng thời:
+— Cốc HCl: gần như toàn bộ phân tử HCl tách thành H⁺ và Cl⁻ chuyển động tự do.
+   Bộ đếm: "Ion: ~1994 / Phân tử còn lại: ~3"
+   Phương trình: HCl → H⁺ + Cl⁻
+— Cốc CH₃COOH: phần lớn vẫn là phân tử CH₃COOH nguyên vẹn, chỉ một phần nhỏ tách thành H⁺ và CH₃COO⁻.
+   Bộ đếm: "Ion: ~6 / Phân tử còn lại: ~997"
+   Phương trình: CH₃COOH ⇌ H⁺ + CH₃COO⁻
+Độ sáng đèn tương ứng hiện bên dưới mỗi cốc để đối chiếu.
+🤖  Robot
+"Nhấn Zoom để thấy bên trong hai dung dịch acid này ở cấp độ phân tử. Chú ý đến số ion so với số phân tử còn lại ở mỗi cốc."
+👆  Thao tác học sinh
+Nhấn nút Zoom duy nhất → quan sát 2 animation chạy song song → đọc bộ đếm ion.
+💡  Aha moment
+HCl: phân li gần hoàn toàn → mũi tên một chiều (→).
+CH₃COOH: phân li một phần, thuận nghịch → mũi tên hai chiều (⇌).
+▶  Điều kiện chuyển Stage
+Quan sát xong animation (tự động sau 6 giây) hoặc nhấn "Tiếp tục".
+STAGE 10  —  Đánh giá giả thuyết
+🎯  Mục tiêu Stage
+Học sinh đối chiếu kết quả thực nghiệm với giả thuyết ban đầu — luyện tư duy khoa học.
+🖥️  Canvas
+Hiển thị lại giả thuyết ban đầu (nền xanh nhạt) đặt cạnh bảng kết quả thực nghiệm đã điền.
+Ba nút lựa chọn: [Đúng] [Sai] [Đúng một phần]
+Ô điền giải thích ngắn bên dưới.
+Sau khi HS trả lời: hệ thống hiện phân tích (không phán xét đúng/sai câu trả lời của HS):
+"Giả thuyết đúng một phần: Vế thứ nhất sai — đường và ethanol tan trong nước nhưng không dẫn điện vì không phân li ra ion. Vế thứ hai cũng chưa chính xác — mức độ dẫn điện phụ thuộc vào số lượng ion trong dung dịch, không đơn giản là lượng chất tan."
+🤖  Robot
+"Đây là giả thuyết bạn đã đọc trước khi bắt đầu. Dựa vào tất cả những gì vừa quan sát và phân tích, bạn đánh giá giả thuyết này như thế nào?"
+👆  Thao tác học sinh
+Chọn [Đúng / Sai / Đúng một phần] + điền giải thích ngắn → nhấn Xác nhận.
+💡  Aha moment
+Giả thuyết khoa học có thể đúng một phần — điều đó không phải thất bại mà là cơ sở để hoàn thiện hiểu biết.
+▶  Điều kiện chuyển Stage
+Nhấn Xác nhận sau khi chọn và điền giải thích.
+STAGE 11  —  Câu hỏi MCQ — NL1
+🎯  Mục tiêu Stage
+Học sinh vận dụng kiến thức vừa xây dựng để trả lời 3 câu hỏi NL1.
+🖥️  Canvas
+3 câu MCQ lần lượt. Mỗi câu: hiện câu hỏi + 4 phương án → HS chọn → hiện giải thích → chuyển câu tiếp.
+❓  Câu 1
+"Dung dịch HCl và dung dịch CH₃COOH có cùng nồng độ, nhưng dung dịch HCl làm đèn sáng mạnh hơn. Nguyên nhân đúng nhất là:"
+A. HCl có khối lượng phân tử nhỏ hơn CH₃COOH
+B. HCl phân li hoàn toàn tạo nhiều ion hơn CH₃COOH trong cùng thể tích dung dịch  ← ĐÚNG
+C. HCl là acid vô cơ còn CH₃COOH là acid hữu cơ nên tính dẫn điện khác nhau
+D. CH₃COOH không phải chất điện li nên không dẫn điện
+Đúng: "HCl phân li gần như hoàn toàn (→), ~997/1000 phân tử tạo ion; CH₃COOH phân li thuận nghịch (⇌), chỉ ~3/1000 phân tử tạo ion. Nhiều ion hơn → dòng điện mạnh hơn → đèn sáng hơn."
+Gợi ý khi sai: "Nhìn lại animation Pha 2 — bộ đếm ion ở hai cốc chênh lệch bao nhiêu?"
+❓  Câu 2
+"Tinh thể NaCl không dẫn điện, nhưng dung dịch NaCl dẫn điện tốt. Điều này chứng tỏ:"
+A. NaCl không phải chất điện li
+B. Sự điện li của NaCl chỉ xảy ra khi NaCl được hòa tan vào nước  ← ĐÚNG
+C. Nước là chất dẫn điện tốt nên làm cho dung dịch NaCl dẫn điện
+D. NaCl rắn không có ion, chỉ khi đun nóng mới tạo ra ion
+Đúng: "Trong tinh thể NaCl, ion Na⁺ và Cl⁻ đã tồn tại nhưng bị giữ cố định trong mạng tinh thể → không dẫn điện. Khi tan vào nước, phân tử nước phân cực kéo ion ra → ion chuyển động tự do → dẫn điện."
+Gợi ý khi sai: "NaCl rắn có ion không? Điều gì thay đổi khi bạn thêm nước vào?"
+❓  Câu 3
+"Một học sinh cho rằng: 'Dung dịch đường không dẫn điện vì đường không tan trong nước.' Nhận định này:"
+A. Đúng, đường khó tan nên không có ion
+B. Sai về cả hai vế — đường tan tốt và có ion trong dung dịch
+C. Đúng về kết quả nhưng sai về nguyên nhân — đường tan được nhưng không điện li nên không có ion  ← ĐÚNG
+D. Đúng hoàn toàn
+Đúng: "Đường saccharose tan rất tốt trong nước nhưng không phân li thành ion — phân tử đường tồn tại nguyên vẹn. Không có ion → không dẫn điện. Đây là chất không điện li: không phải không tan mà là tan nhưng không phân li."
+Gợi ý khi sai: "Khi cho đường vào nước, đường có tan không? Nếu tan hoàn toàn mà đèn vẫn không sáng, lý do thực sự là gì?"
+✅  Phản hồi MCQ
+Đúng: hiện giải thích bản chất → chuyển câu tiếp.
+Sai: hiện gợi ý hướng suy nghĩ (không lộ đáp án) → cho thử lại tối đa 2 lần → sau 2 lần mới hiện đáp án đúng + giải thích đầy đủ.
+Vị trí đáp án đúng: Câu 1 = B, Câu 2 = B, Câu 3 = C — không trùng vị trí liên tiếp.
+💡  Aha moment
+Bản chất của sự điện li và phân loại chất điện li nằm ở mức độ phân li ra ion — không phải loại chất hay khả năng tan.
+▶  Điều kiện chuyển Stage
+Hoàn thành cả 3 câu MCQ.
 
-Bố cục canvas:
-• Nền trắng, bàn thí nghiệm ngang giữa canvas.
-• Ống nghiệm 1 (trái): kẹp trên giá, ban đầu rỗng. Nhãn "Ống 1" phía trên.
-• Ống nghiệm 2 (phải): kẹp trên giá, ban đầu rỗng. Nhãn "Ống 2" phía trên.
-• Ống dẫn khí: ban đầu ẩn, hiện ra sau khi học sinh bấm "Nối ống dẫn".
-• Khu vực nút bấm: góc trên trái (3 nút chuẩn bị ống 1), góc trên phải (nút CaC₂), giữa dưới (nút bơm H₂O).
-
-Trình tự animation theo từng bước:
-
-BƯỚC 1 — Chuẩn bị dung dịch AgNO₃/NH₃ (ống 1):
-• Học sinh bấm nút "Thêm AgNO₃": dung dịch trong suốt đổ vào ống 1 đến 1/3 chiều cao ống. Nhãn "AgNO₃" xuất hiện cạnh ống.
-• Học sinh bấm nút "Nhỏ NH₃ từng giọt": animation từng giọt NH₃ nhỏ xuống từ trên. Dung dịch trong ống 1 vẫn trong suốt (không đổi màu). Nhãn cập nhật thành "AgNO₃ + NH₃".
-• Học sinh bấm nút "Thêm H₂O": vài giọt nước thêm vào. Nhãn cập nhật thành "AgNO₃/NH₃" (dung dịch Tollens). Nút "Thêm AgNO₃", "Nhỏ NH₃", "Thêm H₂O" mờ đi (không bấm được nữa).
-
-BƯỚC 2 — Cho CaC₂ vào ống 2:
-• Học sinh bấm nút "Cho CaC₂": 3–4 viên CaC₂ màu xám rơi xuống đáy ống 2. Nhãn "CaC₂" xuất hiện cạnh ống. Nút mờ đi sau khi bấm.
-
-BƯỚC 3 — Nối ống dẫn khí:
-• Học sinh bấm nút "Nối ống dẫn": animation ống thủy tinh cong xuất hiện, nối từ miệng ống 2 → nhúng vào dung dịch trong ống 1. Ống dẫn sáng lên màu xanh nhạt để xác nhận đã kết nối. Nút mờ đi sau khi bấm.
-
-BƯỚC 4 — Bơm H₂O vào ống 2:
-• Học sinh bấm nút "Bơm H₂O": nước chảy vào ống 2 từ trên xuống.
-• Ngay khi nước chạm CaC₂: bọt khí sủi mạnh trong ống 2 (animation bọt liên tục). Nhãn "C₂H₂↑" xuất hiện trong ống 2.
-• Bọt khí C₂H₂ di chuyển dọc theo ống dẫn sang ống 1 (animation các chấm nhỏ chạy theo ống dẫn). Nút mờ đi sau khi bấm.
-
-BƯỚC 5 — Quan sát ống 1:
-• Sau 2–3 giây khí sục vào: kết tủa màu vàng nhạt xuất hiện dần trong dung dịch ống 1, lắng xuống đáy.
-• Nhãn "C₂Ag₂↓" xuất hiện cạnh kết tủa ở đáy ống 1.
-• Bọt khí trong ống 2 giảm dần, dừng hẳn sau ~5 giây.
-
-Phản hồi thị giác khi thao tác sai:
-
-Tình huống
-Hệ thống hiển thị
-Học sinh tự sửa
-Học sinh bấm "Bơm H₂O" trước khi bấm "Nối ống dẫn khí"
-Khí C₂H₂ thoát thẳng lên khỏi ống 2, biến mất (animation bọt khí bay ra ngoài). Ống 1 không có hiện tượng gì. Nút "Thử lại" xuất hiện.
-Bấm "Thử lại" → thực hiện đúng thứ tự: bấm "Nối ống dẫn" trước → rồi mới "Bơm H₂O".
-
-📋  PANEL BÊN CẠNH CANVAS
-
-⚠️  Panel hiển thị tuần tự theo tiến trình: Mục tiêu → Giả thuyết → Bảng báo cáo (mở dần) → Kết luận → Câu hỏi.
-
-📌 PANEL 1 — Mục tiêu  Hiển thị khi học sinh mở bài
-Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng của alk-1-yne với AgNO₃ trong NH₃.
-→ Nút: [Tiếp tục]
-
-📌 PANEL 2 — Giả thuyết  Hiển thị sau khi học sinh bấm Tiếp tục ở Panel 1
-Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, sẽ xuất hiện kết tủa.
-→ Nút: [Bắt đầu thí nghiệm] — hệ thống ghi nhớ giả thuyết này để hiển thị lại ở Panel 5 (câu hỏi 6A).
-
-📌 PANEL 3 — Bảng báo cáo  Mở ra sau khi học sinh hoàn thành Bước 5 trên canvas
-⚠️  Ô màu vàng = học sinh tự điền. Hệ thống đưa gợi ý lựa chọn nhưng không điền hộ.
-
-STT
-Thí nghiệm / Chất tham gia
-Hiện tượng quan sát được
+CHECKLIST BÀN GIAO — ĐỘI BUILD
+#
+Hạng mục kiểm tra
+Ghi chú kỹ thuật
 1
-Sục khí C₂H₂ vào dung dịch AgNO₃/NH₃
-Học sinh tự điềnGợi ý: Xuất hiện kết tủa vàng nhạt / Dung dịch vẫn trong suốt / Xuất hiện kết tủa trắng
+Đủ 6 nội dung bắt buộc (Mục tiêu / Giả thuyết / Tiến trình / Bảng báo cáo / Kết luận / Câu hỏi)
+✅
 2
-Màu sắc kết tủa (nếu có)
-Học sinh tự điềnGợi ý: Vàng nhạt / Trắng / Xanh nhạt
+Giả thuyết do hệ thống đưa ra, học sinh chỉ đọc (Stage 1)
+✅
+3
+Stage 3 (tiến trình Pha 1): KHÔNG có câu hỏi xen vào
+✅
+4
+Phản hồi khi sai Stage 3: chỉ thông báo nhẹ, không phán xét
+✅
+5
+Bảng báo cáo: hiện tượng → gợi ý 3 lựa chọn; dẫn điện → Có/Không. Không điền hộ.
+✅
+6
+Stage 10 (đánh giá giả thuyết) đứng trước Stage 11 (MCQ)
+✅
+7
+Câu hỏi nhóm 6A (Stage 4–7): 3 phương án, dù đúng hay sai đều hiện giải thích ngay, không cho chọn lại
+✅
+8
+Animation Stage 4: mạng tinh thể NaCl + H₂O phân cực (δ⁺/δ⁻) + ion bị kéo ra + khuếch tán vào dung dịch
+Tham khảo hình SGK đã cung cấp
+9
+Animation Stage 9: 2 cốc zoom đồng thời, bộ đếm ion HCl (~1994) vs CH₃COOH (~6), mũi tên → vs ⇌
+Số liệu bám theo SGK: 0,1M, ~3/1000
+10
+MCQ Stage 11: sai → gợi ý → thử lại tối đa 2 lần → mới hiện đáp án. Vị trí đúng: B, B, C
+✅
+11
+Robot: không giải thích thay simulation, tối đa 3 câu mỗi Stage
+✅
+12
+Canvas Stage 9: màn hình chia đôi đủ rộng, bộ đếm ion hiển thị rõ ràng
+Ưu tiên desktop layout
 
 
-→ Nút: [Xem kết luận] — chỉ hiện khi học sinh đã điền đủ cả 2 ô.
-→ Nếu học sinh bấm [Xem kết luận] khi chưa điền đủ: thông báo nhẹ "Bạn chưa điền đủ bảng quan sát."
-
-📌 PANEL 4 — Kết luận  Hiển thị sau khi học sinh bấm Xem kết luận
-4A — Học sinh điền vào chỗ trống:
-Khí C₂H₂ phản ứng với dung dịch AgNO₃/NH₃ tạo thành kết tủa màu __________, đó là chất __________. Phản ứng này dùng để nhận biết các __________ có liên kết ba ở đầu mạch.
-Từ khóa hệ thống đối chiếu: (1) vàng nhạt — (2) C₂Ag₂ — (3) alkyne
-→ Nút: [Kiểm tra] sau khi điền xong.
-
-4B — Chốt kiến thức (hệ thống hiển thị sau khi học sinh bấm Kiểm tra):
-Alk-1-yne có nguyên tử H linh động gắn trực tiếp vào C mang liên kết ba ở đầu mạch. H này bị thay thế bởi Ag⁺ trong thuốc thử AgNO₃/NH₃, tạo kết tủa vàng nhạt C₂Ag₂.
-Phương trình: C₂H₂ + 2AgNO₃ + 2NH₃ → C₂Ag₂↓ + 2NH₄NO₃
-Lưu ý: Alkyne có liên kết ba ở giữa mạch (VD: but-2-yne: CH₃–C≡C–CH₃) không có H linh động ở vị trí đó → không phản ứng với AgNO₃/NH₃ → không tạo kết tủa. Đây là lý do phản ứng này nhận biết đặc trưng cho alk-1-yne.
-→ Nút: [Trả lời câu hỏi]
-
-📌 PANEL 5 — Câu hỏi  Hiển thị sau khi học sinh bấm Trả lời câu hỏi
-6A — Đánh giá giả thuyết (bắt buộc, đặt đầu tiên):
-Hệ thống hiển thị lại:
-Giả thuyết ban đầu: "Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, sẽ xuất hiện kết tủa."
-Câu hỏi: Dựa vào kết quả thực nghiệm vừa thực hiện, giả thuyết trên là đúng, sai hay đúng một phần? Hãy giải thích.
-→ Học sinh chọn: [Đúng] / [Sai] / [Đúng một phần] + ô nhập giải thích ngắn.
-→ Phản hồi hệ thống (hiện sau khi học sinh xác nhận):
-Giả thuyết đúng về việc có kết tủa xuất hiện. Tuy nhiên chưa nêu được màu sắc đặc trưng (vàng nhạt) và tên chất kết tủa (C₂Ag₂) — đây là điểm cần bổ sung để giả thuyết đầy đủ hơn về mặt khoa học.
-
-6B — Câu hỏi MCQ (3 câu, đặt sau 6A):
-⚠️  Vị trí đáp án đúng: C – A – D. Build team lưu ý shuffle khi triển khai để tránh học sinh nhận ra quy luật.
-
-
-Câu 1: Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, hiện tượng quan sát được là:
-A. Dung dịch chuyển sang màu xanh lam.
-B. Có khí không màu thoát ra, dung dịch không đổi màu.
-C. Xuất hiện kết tủa màu vàng nhạt.
-D. Dung dịch mất màu hoàn toàn.
-✔ Đáp án đúng: C
-📖 Giải thích khi đúng: C₂H₂ phản ứng với AgNO₃/NH₃ tạo silver acetylide (C₂Ag₂) không tan, có màu vàng nhạt, lắng xuống đáy ống nghiệm.
-💡 Gợi ý khi sai: Hãy nhớ lại hiện tượng bạn vừa quan sát trong thí nghiệm — trạng thái và màu sắc của chất mới xuất hiện ở ống 1 là gì?
-
-Câu 2: Sản phẩm kết tủa tạo thành khi C₂H₂ tác dụng với AgNO₃/NH₃ có công thức là:
-A. C₂Ag₂
-B. Ag₂O
-C. AgOH
-D. Ag₂CO₃
-✔ Đáp án đúng: A
-📖 Giải thích khi đúng: Phương trình: C₂H₂ + 2AgNO₃ + 2NH₃ → C₂Ag₂↓ + 2NH₄NO₃. Kết tủa C₂Ag₂ (silver acetylide) hình thành do Ag⁺ thay thế 2 nguyên tử H linh động ở 2 đầu mạch của C₂H₂.
-💡 Gợi ý khi sai: Hãy nhìn lại phương trình phản ứng — sản phẩm nào được tạo thành ngoài NH₄NO₃?
-
-Câu 3: Có 4 chất khí: ethylene (CH₂=CH₂), propyne (HC≡C–CH₃), but-2-yne (CH₃–C≡C–CH₃), ethane (CH₃–CH₃). Dùng dung dịch AgNO₃/NH₃ có thể nhận biết được chất nào?
-A. Ethylene
-B. But-2-yne
-C. Ethane
-D. Propyne
-✔ Đáp án đúng: D
-📖 Giải thích khi đúng: Propyne (HC≡C–CH₃) là alk-1-yne — có H linh động ở C đầu mạch mang liên kết ba → phản ứng với AgNO₃/NH₃ tạo kết tủa vàng nhạt. Ba chất còn lại không có cấu trúc này nên không phản ứng.
-💡 Gợi ý khi sai: Điều kiện để phản ứng với AgNO₃/NH₃ là gì? Trong 4 chất trên, chất nào có cấu trúc thỏa mãn điều kiện đó?
-🤖  ROBOT — LỜI THOẠI ĐẦY ĐỦ
-
-⚠️  Giọng điệu: trung tính. Robot hướng dẫn thao tác + gợi mở quan sát. KHÔNG giải thích thay canvas. Mỗi lời thoại ngắn gọn, rõ ràng.
-
-Lời thoại 1 — Khi học sinh vào bài (Panel mục tiêu):
-🤖 Robot: "Trong thí nghiệm này, bạn sẽ điều chế khí acetylene và quan sát phản ứng của nó với dung dịch AgNO₃/NH₃. Hãy đọc mục tiêu và bấm Tiếp tục."
-
-Lời thoại 2 — Khi học sinh đọc giả thuyết (Panel giả thuyết):
-🤖 Robot: "Đây là giả thuyết cho thí nghiệm hôm nay. Hãy ghi nhớ để đối chiếu với kết quả sau khi làm. Bấm Bắt đầu thí nghiệm khi sẵn sàng."
-
-Lời thoại 3 — Hướng dẫn Bước 1 (chuẩn bị ống 1):
-🤖 Robot: "Bước 1: Chuẩn bị dung dịch AgNO₃/NH₃ trong ống 1. Bấm lần lượt ba nút ở góc trên bên trái canvas: Thêm AgNO₃ → Nhỏ NH₃ từng giọt → Thêm H₂O."
-
-Lời thoại 4 — Sau khi hoàn thành Bước 1:
-🤖 Robot: "Dung dịch trong ống 1 đã sẵn sàng. Đây là thuốc thử AgNO₃/NH₃. Tiếp tục sang bước 2."
-
-Lời thoại 5 — Hướng dẫn Bước 2 (cho CaC₂ vào ống 2):
-🤖 Robot: "Bước 2: Bấm nút Cho CaC₂ ở góc trên bên phải canvas để thêm đất đèn vào ống 2."
-
-Lời thoại 6 — Hướng dẫn Bước 3 (nối ống dẫn):
-🤖 Robot: "Bước 3: Trước khi bơm nước, bạn cần nối ống dẫn khí. Bấm nút Nối ống dẫn để kết nối ống 2 với ống 1."
-
-Lời thoại 7 — Hướng dẫn Bước 4 (bơm H₂O):
-🤖 Robot: "Bước 4: Bấm nút Bơm H₂O phía dưới ống 2. Quan sát hiện tượng xảy ra trong cả hai ống nghiệm."
-
-Lời thoại 8 — Hướng dẫn Bước 5 (quan sát):
-🤖 Robot: "Quan sát kỹ ống 1. Mô tả những gì bạn thấy xảy ra trong dung dịch. Sau đó điền kết quả vào bảng báo cáo ở panel bên phải."
-
-Lời thoại 9 — Khi học sinh điền xong bảng báo cáo:
-🤖 Robot: "Bạn đã ghi lại kết quả quan sát. Bấm Xem kết luận để tiếp tục."
-
-Lời thoại 10 — Phản hồi khi học sinh bơm H₂O trước khi nối ống dẫn (thao tác sai):
-🤖 Robot: "Khí vừa thoát ra ngoài môi trường. Hãy thử lại và chú ý thứ tự các bước."
-
-👆  THAO TÁC HỌC SINH
-
-Trên canvas:
-• Bấm nút "Thêm AgNO₃" (góc trên trái canvas)
-• Bấm nút "Nhỏ NH₃ từng giọt" (góc trên trái canvas)
-• Bấm nút "Thêm H₂O" (góc trên trái canvas)
-• Bấm nút "Cho CaC₂" (góc trên phải canvas)
-• Bấm nút "Nối ống dẫn" (giữa canvas, giữa 2 ống nghiệm)
-• Bấm nút "Bơm H₂O" (phía dưới ống 2)
-• Quan sát ống 1 sau khi khí sục vào
-
-Trên panel:
-• Đọc mục tiêu → bấm [Tiếp tục]
-• Đọc giả thuyết → bấm [Bắt đầu thí nghiệm]
-• Điền bảng báo cáo (2 ô, sau Bước 5) → bấm [Xem kết luận]
-• Điền chỗ trống kết luận (3 ô) → bấm [Kiểm tra]
-• Đọc chốt kiến thức → bấm [Trả lời câu hỏi]
-• Trả lời 6A: chọn Đúng/Sai/Đúng một phần + điền giải thích
-• Trả lời 3 câu MCQ (6B)
-💡  AHA MOMENT
-
-Alk-1-yne tạo kết tủa vàng nhạt với AgNO₃/NH₃ vì có H linh động ở C đầu mạch — đây là thuốc thử nhận biết đặc trưng.
-▶  ĐIỀU KIỆN HOÀN THÀNH
-
-• Học sinh đã thực hiện đủ 5 bước thao tác trên canvas.
-• Học sinh đã điền đủ 2 ô trong bảng báo cáo ở panel.
-• Học sinh đã hoàn thành điền chỗ trống kết luận (5A).
-• Học sinh đã trả lời 6A (đánh giá giả thuyết).
-• Học sinh đã trả lời đủ 3 câu MCQ (6B).
-✔  CHECKLIST TRƯỚC KHI BÀN GIAO
-
-☑ Đủ 6 nội dung bắt buộc trong bài.
-☑ Mục tiêu ở panel: dùng nguyên văn giáo viên cung cấp — không diễn đạt lại.
-☑ Canvas chỉ chứa thao tác thí nghiệm — không chứa mục tiêu, giả thuyết, bảng, kết luận, câu hỏi.
-☑ Mục tiêu, giả thuyết, bảng báo cáo, kết luận, câu hỏi đều hiển thị ở panel.
-☑ Không chia Stage — bài chỉ có 1 thí nghiệm duy nhất.
-☑ Giả thuyết do hệ thống đưa ra, học sinh chỉ đọc.
-☑ Tiến trình thao tác trên canvas: không có câu hỏi xen vào.
-☑ Phản hồi khi sai: chỉ thị giác (animation khí thoát), không phán xét.
-☑ Bảng báo cáo: học sinh tự điền hiện tượng (có gợi ý lựa chọn), không điền hộ.
-☑ Câu hỏi: 6A (đánh giá giả thuyết) đứng trước 6B (MCQ).
-☑ Hiện tượng hóa học chính xác: kết tủa vàng nhạt C₂Ag₂.
-☑ Aha moment: 1 câu, nêu rõ bản chất.
-☑ Đáp án MCQ phân bố: C – A – D (random, không trùng vị trí liên tiếp).
-☑ Canvas: mô tả theo trình tự thời gian, đủ chi tiết để dựng animation.
-☑ Robot: không giải thích thay canvas, lời thoại ngắn gọn, trung tính.
-
-⚠️  Lưu ý kỹ thuật đặc thù bài này: cần xử lý kỹ trạng thái "chưa nối ống dẫn" vs "đã nối" — đây là điều kiện tiên quyết để animation khí đi đúng hướng. Build team cần khóa nút "Bơm H₂O" cho đến khi học sinh đã bấm "Nối ống dẫn", HOẶC để nút mở nhưng kích hoạt phản hồi thị giác khi bấm sai thứ tự.
 
 ________________________________________
 Hãy sinh ra toàn bộ code HTML/CSS/JS hoàn chỉnh, không cắt xén. Ưu tiên giao diện đẹp, tinh tế, nhất quán theo đúng design system "Haugomat editorial flat" trước khi nghĩ đến logic phức tạp.

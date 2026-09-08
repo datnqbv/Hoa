@@ -1,0 +1,3120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự Điện Li — Phân Loại Chất Điện Li - Aiducation LMS</title>
+
+    <!-- Google Fonts: Be Vietnam Pro (UI) & JetBrains Mono (Canvas / Số liệu) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+    <!-- Tabler Icons (Webfont line icons chuẩn design system) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css">
+
+    <!-- ATHENA LMS METADATA CONTEXT -->
+    <script type="application/json" id="athena-context">
+    {
+        "appId": "H11_SuDienLi_PhanLoai",
+        "title": "Sự Điện Li — Phân Loại Chất Điện Li",
+        "subject": "Hóa học",
+        "grade": "11",
+        "objectives": [
+            "Nêu được khái niệm sự điện li, chất điện li, chất không điện li thông qua thí nghiệm dẫn điện",
+            "Phân biệt chất điện li mạnh, chất điện li yếu và chất không điện li dựa trên mức độ phân li ra ion",
+            "Quan sát và giải thích được vai trò của phân tử nước phân cực trong việc phân li tinh thể NaCl",
+            "Giải thích được sự khác biệt về khả năng dẫn điện giữa dung dịch HCl và dung dịch CH3COOH ở cấp độ vi mô"
+        ],
+        "structure": [
+            { "id": "stage1", "title": "Mục tiêu & Giả thuyết ban đầu" },
+            { "id": "stage2_3", "title": "Khảo sát tính dẫn điện của 7 mẫu chất (Pha 1)" },
+            { "id": "stage4", "title": "Phân tích NaCl rắn vs dung dịch NaCl & Mô phỏng hòa tan" },
+            { "id": "stage5", "title": "Phân tích chất điện li mạnh (NaCl, HCl, NaOH)" },
+            { "id": "stage6", "title": "Phân tích chất điện li yếu (CH3COOH vs HCl)" },
+            { "id": "stage7", "title": "Phân tích chất không điện li (Đường, Ethanol)" },
+            { "id": "stage8", "title": "Hoàn thành kết luận bản chất sự điện li" },
+            { "id": "stage9", "title": "Mô hình vi mô phân tử/ion HCl vs CH3COOH (Pha 2)" },
+            { "id": "stage10", "title": "Đánh giá lại giả thuyết ban đầu" },
+            { "id": "stage11", "title": "Câu hỏi trắc nghiệm năng lực NL1" }
+        ],
+        "athenaGuidance": "Thí nghiệm giúp học sinh THPT khám phá bản chất của sự điện li bằng cách thử tính dẫn điện của 7 cốc chất khác nhau (NaCl rắn, dd NaCl, dd HCl, dd NaOH, dd CH3COOH, dd đường, dd ethanol) và quan sát mô hình phân tử vi mô. Danh sách câu hỏi trắc nghiệm củng cố gồm 3 câu NL1. Quy tắc hỗ trợ của Athena: Chỉ đưa ra câu hỏi gợi mở, hướng học sinh suy nghĩ từ hiện tượng thực tế, không đưa ra đáp án trực tiếp."
+    }
+    </script>
+
+    <style>
+
+        :root {
+            --cream: #FAF7F0;
+            --cream-2: #F0EADD;
+            --cream-3: #E7DECC;
+            --paper-line: #E5DECF;
+            --ink: #1A1A1A;
+            --ink-2: #514C44;
+            --jade: #3CA57A;
+            --jade-deep: #2D8B6F;
+            --jade-text: #1B5E48;
+            --jade-pale: #DCEAE1;
+            --sage: #A8C9B8;
+            --sage-pale: #E1ECE4;
+            --accent: #E8A24A;
+            --correct: #2D8B6F;
+            --correct-bg: #DCEAE1;
+            --wrong: #C15F3C;
+            --wrong-bg: #F3E2D6;
+            --warning: #C58A2E;
+            --warning-bg: #F5E7CB;
+            --info: #4E7F92;
+            --info-bg: #DCE7EB;
+            --font-main: 'Be Vietnam Pro', system-ui, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 16px;
+            padding: 24px clamp(16px, 2.5vw, 40px);
+            width: 100%;
+        }
+
+        .app-shell {
+            width: 100%;
+            min-width: 0;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+        }
+
+        p {
+            max-width: none;
+        }
+
+        em {
+            font-style: italic;
+        }
+
+        button {
+            font-family: var(--font-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid transparent;
+            min-height: 44px;
+            white-space: nowrap;
+        }
+
+        button:focus-visible {
+            outline: 2px solid var(--jade);
+            outline-offset: 2px;
+        }
+
+        button:disabled {
+            opacity: 0.55;
+            cursor: not-allowed !important;
+        }
+
+        .btn-primary {
+            background-color: var(--jade);
+            color: var(--cream);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background-color: var(--jade-deep);
+        }
+
+        .btn-secondary {
+            border: 1.5px solid var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-reset {
+            border: 1.5px dashed var(--jade);
+            color: var(--jade-text);
+            background-color: transparent;
+        }
+
+        .btn-reset:hover:not(:disabled) {
+            background-color: var(--jade-pale);
+        }
+
+        .btn-warning {
+            background-color: var(--accent);
+            color: #fff;
+        }
+
+        .btn-warning:hover:not(:disabled) {
+            background-color: #D68F36;
+        }
+
+        /* BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS */
+        .briefing {
+            width: 100%;
+            margin: 0;
+            background-color: var(--jade-pale);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .briefing-main {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .goal-label {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: var(--jade-text);
+        }
+
+        .goal-divider {
+            flex-shrink: 0;
+            align-self: stretch;
+            width: 1px;
+            margin: 3px 0;
+            background-color: var(--sage);
+        }
+
+        .goal-text {
+            font-size: 15px;
+            color: var(--ink);
+            line-height: 1.5;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .briefing-details {
+            margin: 8px 0 0;
+            color: var(--ink-2);
+            line-height: 1.55;
+            font-size: 14.5px;
+        }
+
+        .briefing.is-collapsed .briefing-details {
+            display: none;
+        }
+
+        .briefing-toggle {
+            margin-left: auto;
+            flex-shrink: 0;
+            background: transparent;
+            border: 0;
+            color: var(--jade-text);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+            min-height: 32px;
+        }
+
+        .briefing-toggle:hover {
+            background-color: rgba(60, 165, 122, 0.15);
+        }
+
+        /* HYPOTHESIS BANNER CARD */
+        .hypothesis-box {
+            width: 100%;
+            margin: 0;
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hypothesis-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15.5px;
+            color: var(--ink);
+        }
+
+        .hypothesis-content i {
+            color: var(--jade-text);
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .hypothesis-content strong {
+            color: var(--jade-text);
+            font-weight: 700;
+        }
+
+        /* LAB WRAPPER - FULL WIDTH */
+        .lab-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            margin: 0;
+        }
+
+        .card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+        }
+
+        .side-card {
+            padding: 16px 18px;
+        }
+
+        .side-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .side-card h3 i {
+            color: var(--jade);
+        }
+
+        /* AI GUIDE */
+        .ai-guide {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: var(--jade-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: background-color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .ai-guide.state-wrong {
+            background-color: var(--wrong-bg);
+            border-color: var(--wrong);
+            border-left: 4px solid var(--wrong);
+        }
+
+        .ai-guide.state-correct {
+            background-color: #C8E8D8;
+            border-color: var(--correct);
+            border-left: 4px solid var(--correct);
+        }
+
+        .ai-avatar {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: transparent;
+            border: 2px solid var(--sage);
+        }
+
+        .ai-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .ai-text {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .ai-text.fading {
+            opacity: 0;
+            transform: translateY(4px);
+        }
+
+        .ai-step-badge {
+            background-color: var(--cream);
+            border: 1px solid var(--sage);
+            color: var(--jade-text);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* CONTROLS CARD - 1 ROW ONLY */
+        .controls-card {
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 12px;
+            padding: 8px 14px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            min-height: 60px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            white-space: nowrap;
+        }
+
+        .controls-card .spacer {
+            flex: 1;
+        }
+
+        .controls-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stepper-dots {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .step-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background-color: var(--cream-2);
+            border: 2px solid var(--paper-line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--ink-2);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .step-dot.active {
+            width: 28px;
+            height: 28px;
+            background-color: var(--cream);
+            border-color: var(--jade);
+            color: var(--jade-text);
+            box-shadow: 0 0 0 3px rgba(60, 165, 122, 0.2);
+        }
+
+        .step-dot.done {
+            background-color: var(--jade);
+            border-color: var(--jade);
+            color: var(--cream);
+            font-size: 12px;
+        }
+
+        @media (max-width: 767px) {
+            .canvas-glow-wrap {
+                height: clamp(280px, 46vh, 380px);
+            }
+
+            body {
+                gap: 9px;
+                padding: 12px 12px 82px;
+            }
+
+            .app-shell,
+            .lab-wrapper {
+                gap: 9px;
+            }
+
+            .briefing {
+                padding: 7px 10px;
+            }
+
+            .briefing-details {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .goal-label {
+                gap: 4px;
+                font-size: 10px;
+                letter-spacing: 0.45px;
+            }
+
+            .goal-text {
+                font-size: 13px;
+                line-height: 1.4;
+            }
+
+            .ai-guide {
+                align-items: flex-start;
+                gap: 8px;
+                padding: 8px 10px;
+            }
+
+            .ai-avatar {
+                flex-basis: 32px;
+                width: 32px;
+                height: 32px;
+                border-width: 1.5px;
+            }
+
+            .ai-text {
+                font-size: 12.5px;
+                line-height: 1.4;
+            }
+
+            .controls-card {
+                position: fixed !important;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 50;
+                background-color: var(--cream-2);
+                border-top: 1px solid var(--paper-line);
+                border-radius: 0;
+                box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.10);
+                padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+                margin: 0 !important;
+            }
+
+            body {
+                padding-bottom: 86px;
+            }
+        }
+
+        /* CANVAS CARD */
+        .canvas-card {
+            width: 100%;
+            padding: 4px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .canvas-glow-wrap {
+            position: relative;
+            width: 100%;
+            height: clamp(320px, 42vw, 500px);
+            padding: 2px;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .canvas-glow-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -80%;
+            background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+            animation: canvasBorderSpin 4.5s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes canvasBorderSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #labCanvas {
+            position: relative;
+            z-index: 1;
+            background-color: var(--cream);
+            border-radius: 8px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            touch-action: none;
+            flex: 1;
+        }
+
+        .canvas-lock-overlay {
+            position: absolute;
+            inset: 4px;
+            z-index: 2;
+            border-radius: 8px;
+            background-color: rgba(250, 247, 240, 0.90);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+            padding: 20px;
+            color: var(--ink-2);
+            font-weight: 600;
+            font-size: 15.5px;
+        }
+
+        .canvas-lock-overlay i {
+            font-size: 32px;
+            color: var(--jade-text);
+        }
+
+        /* OBSERVATION TABLE */
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 6px;
+        }
+
+        .observation-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 15px;
+            min-width: 620px;
+        }
+
+        .observation-table th {
+            background-color: var(--jade-pale);
+            color: var(--jade-text);
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--paper-line);
+            text-align: left;
+        }
+
+        .observation-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .observation-table select {
+            width: 100%;
+            padding: 7px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--paper-line);
+            background-color: var(--cream);
+            font-family: var(--font-main);
+            font-size: 14.5px;
+            color: var(--ink);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .observation-table select:focus {
+            border-color: var(--jade);
+        }
+
+        .observation-table select:disabled {
+            background-color: var(--cream-2);
+            color: var(--ink-2);
+            cursor: not-allowed;
+        }
+
+        .observation-table select.correct-field {
+            border: 2px solid var(--correct) !important;
+            background-color: var(--correct-bg) !important;
+            color: var(--jade-text) !important;
+            font-weight: 600;
+        }
+
+        .observation-table select.wrong-field {
+            border: 2px solid var(--wrong) !important;
+            background-color: var(--wrong-bg) !important;
+            color: var(--wrong) !important;
+            font-weight: 600;
+        }
+
+        .obs-inline-fb {
+            margin-top: 6px;
+            font-size: 12.5px;
+            line-height: 1.4;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 8px;
+            border-radius: 6px;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .obs-inline-fb.correct {
+            display: flex;
+            background-color: #C8E8D8;
+            color: #0F4A37;
+            border: 1px solid var(--correct);
+            font-weight: 600;
+        }
+
+        .obs-inline-fb.warning {
+            display: flex;
+            background-color: #FDE8CF;
+            color: #422006;
+            border: 1px solid var(--warning);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .obs-feedback {
+            margin-top: 12px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14.5px;
+            line-height: 1.55;
+            display: none;
+            align-items: flex-start;
+            gap: 10px;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .obs-feedback.correct {
+            display: flex;
+            background-color: #C8E8D8;
+            border: 1px solid var(--correct);
+            border-left: 5px solid var(--correct);
+            color: #0F4A37;
+            box-shadow: 0 2px 8px rgba(15, 74, 55, 0.08);
+        }
+
+        .obs-feedback.warning {
+            display: flex;
+            background-color: #FDE8CF;
+            border: 1px solid var(--warning);
+            border-left: 5px solid var(--warning);
+            color: #422006;
+            box-shadow: 0 2px 8px rgba(66, 32, 6, 0.08);
+        }
+
+        /* CONCLUSION & QUIZ CARD */
+        .explanation-box {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .concl-block {
+            background-color: var(--sage-pale);
+            border: 1px solid var(--sage);
+            border-left: 4px solid var(--jade);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .concl-block.done {
+            background-color: var(--correct-bg);
+            border-left: 4px solid var(--correct);
+        }
+
+        .concl-block h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .concl-block h4 i {
+            color: var(--jade-text);
+        }
+
+        .concl-block p {
+            font-size: 15.5px;
+            color: var(--ink);
+            line-height: 1.7;
+            max-width: none;
+        }
+
+        .chem-eq-box {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-family: var(--font-mono);
+            font-size: 14.5px;
+            color: var(--jade-text);
+            font-weight: 700;
+            text-align: center;
+            overflow-x: auto;
+            margin: 4px 0;
+        }
+
+        .fill-blank-select {
+            font-family: var(--font-main);
+            font-weight: 700;
+            color: var(--jade-text);
+            background-color: var(--cream);
+            border: 1.5px solid var(--jade);
+            border-radius: 6px;
+            padding: 3px 6px;
+            font-size: 15px;
+            margin: 0 2px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .fill-blank-select:focus {
+            border-color: var(--jade-deep);
+            box-shadow: 0 0 0 2px rgba(60, 165, 122, 0.25);
+        }
+
+        .fill-blank-select.correct-field {
+            border: 2px solid var(--correct) !important;
+            background-color: var(--correct-bg) !important;
+            color: var(--jade-text) !important;
+            font-weight: 600;
+        }
+
+        .fill-blank-select.wrong-field {
+            border: 2px solid var(--wrong) !important;
+            background-color: var(--wrong-bg) !important;
+            color: var(--wrong) !important;
+            font-weight: 600;
+        }
+
+        /* COMPARE GRID (6A) */
+        .compare-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        @media (max-width: 640px) {
+            .compare-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .compare-cell {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 14.5px;
+            line-height: 1.5;
+        }
+
+        .compare-cell strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--jade-text);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        textarea.free-text {
+            width: 100%;
+            font-family: var(--font-main);
+            font-size: 15px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--paper-line);
+            background-color: var(--cream);
+            resize: vertical;
+            min-height: 60px;
+            color: var(--ink);
+            outline: none;
+        }
+
+        textarea.free-text:focus {
+            border-color: var(--jade);
+        }
+
+        /* QUIZ OPTIONS - STRICT ALIGNMENT */
+        .quiz-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .quiz-item {
+            background-color: var(--cream);
+            border: 1px solid var(--paper-line);
+            border-radius: 10px;
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .quiz-question-title {
+            font-size: 15.5px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.5;
+        }
+
+        .quiz-options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .quiz-option-btn {
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+            width: 100%;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            color: var(--ink);
+            font-family: var(--font-main);
+            font-size: 15px;
+            line-height: 1.5;
+            cursor: pointer;
+            transition: all 0.18s ease;
+            gap: 10px;
+            white-space: normal;
+            height: auto;
+            min-height: 44px;
+        }
+
+        .quiz-option-btn:hover:not(:disabled) {
+            background-color: var(--cream-3);
+            border-color: var(--sage);
+        }
+
+        .quiz-option-key {
+            flex: 0 0 24px;
+            font-weight: 700;
+            color: var(--ink-2);
+        }
+
+        .quiz-option-text {
+            flex: 1;
+        }
+
+        .quiz-option-feedback-icon {
+            flex: 0 0 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .quiz-option-btn.opt-correct {
+            background-color: #C8E8D8;
+            border-color: var(--correct);
+            color: #0F4A37;
+            font-weight: 600;
+        }
+
+        .quiz-option-btn.opt-correct .quiz-option-key {
+            color: #0F4A37;
+        }
+
+        .quiz-option-btn.opt-wrong {
+            background-color: #FCE0D4;
+            border-color: var(--wrong);
+            color: #7C2D12;
+        }
+
+        .quiz-option-btn.opt-wrong .quiz-option-key {
+            color: #7C2D12;
+        }
+
+        .feedback-box {
+            padding: 12px 14px;
+            border-radius: 8px;
+            font-size: 14.5px;
+            line-height: 1.55;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .feedback-box.correct {
+            background-color: #C8E8D8;
+            border: 1px solid var(--correct);
+            border-left: 5px solid var(--correct);
+            color: #0F4A37;
+            box-shadow: 0 2px 6px rgba(15, 74, 55, 0.06);
+        }
+
+        .feedback-box.wrong {
+            background-color: #FCE0D4;
+            border: 1px solid var(--wrong);
+            border-left: 5px solid var(--wrong);
+            color: #7C2D12;
+            box-shadow: 0 2px 6px rgba(124, 45, 18, 0.06);
+        }
+
+        .feedback-box.info {
+            background-color: #CFE2EB;
+            border: 1px solid var(--info);
+            border-left: 5px solid var(--info);
+            color: #164E63;
+            box-shadow: 0 2px 6px rgba(22, 78, 99, 0.06);
+        }
+
+        .summary-card {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+
+        .summary-score {
+            font-family: var(--font-mono);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--jade-text);
+        }
+
+        .summary-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 6px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01s !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01s !important;
+            }
+
+            .canvas-glow-wrap::before {
+                animation: none;
+            }
+        }
+
+        /* CELEBRATION MODAL */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 999;
+            background-color: rgba(26, 26, 26, 0.65);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-card {
+            position: relative;
+            background-color: var(--cream);
+            border: 2px solid var(--jade);
+            border-radius: 16px;
+            padding: 28px 24px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.22);
+            animation: modalPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+        }
+
+        @keyframes modalPopIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.85) translateY(16px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            min-height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--paper-line);
+            background-color: var(--cream-2);
+            color: var(--ink-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            background-color: var(--wrong-bg);
+            color: var(--wrong);
+            border-color: var(--wrong);
+        }
+
+        .modal-icon-badge {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--jade-pale), var(--jade));
+            color: var(--cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(60, 165, 122, 0.35);
+        }
+
+        .modal-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--ink);
+            line-height: 1.3;
+        }
+
+        .modal-desc {
+            font-size: 14.5px;
+            color: var(--ink-2);
+            line-height: 1.55;
+            max-width: 420px;
+        }
+
+        .modal-score-box {
+            background-color: var(--jade-pale);
+            border: 1.5px solid var(--sage);
+            border-radius: 12px;
+            padding: 10px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            width: 100%;
+        }
+
+        .modal-score-num {
+            font-family: var(--font-mono);
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--jade-text);
+        }
+
+        .modal-score-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ink-2);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-keypoints {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            text-align: left;
+            background-color: var(--cream-2);
+            border: 1px solid var(--paper-line);
+            border-radius: 10px;
+            padding: 12px 14px;
+        }
+
+        .modal-keypoint-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13.5px;
+            color: var(--ink);
+            line-height: 1.45;
+        }
+
+        .modal-keypoint-item i {
+            color: var(--jade);
+            font-size: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 4px;
+        }
+    
+
+        /* Tùy chỉnh bổ sung cho bảng 7 cốc và kính hiển vi vi mô */
+        .sample-tag {
+            display: inline-block;
+            font-weight: 700;
+            color: var(--jade-text);
+            background: var(--jade-pale);
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+        .sample-sub {
+            font-size: 12.5px;
+            color: var(--ink-2);
+            display: block;
+            margin-top: 2px;
+        }
+        .hypo-choice.active {
+            background: var(--jade) !important;
+            color: #FFF !important;
+            border-color: var(--jade) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- APP SHELL CONTAINER -->
+    <div class="app-shell">
+
+        <!-- 1. BRIEFING: MỤC TIÊU + MÔ TẢ GỘP CHUẨN AIDUCATION LMS -->
+        <section class="briefing" id="briefing">
+            <div class="briefing-main">
+                <span class="goal-label"><i class="ti ti-target"></i> Mục tiêu</span>
+                <span class="goal-divider"></span>
+                <span class="goal-text" id="briefingGoalText">Kiểm chứng sự điện li và mức độ dẫn điện của 7 mẫu chất (Pha 1) &amp; Khảo sát vi mô phân tử/ion (Pha 2).</span>
+                <button class="briefing-toggle" id="briefingToggle" aria-expanded="true" type="button">Thu gọn</button>
+            </div>
+            <p class="briefing-details" id="briefingDetails">
+                Trong bài học này, bạn sẽ tiến hành khảo sát tính dẫn điện của 7 cốc chất (NaCl rắn, dd NaCl, dd HCl, dd NaOH, dd CH₃COOH, dd đường, dd ethanol), quan sát sự solvat hóa ion NaCl bởi phân tử nước và phân tích nồng độ ion vi mô giữa acid mạnh và acid yếu.
+            </p>
+        </section>
+
+        <!-- 2. HYPOTHESIS BANNER -->
+        <div class="hypothesis-box" id="hypoBanner">
+            <div class="hypothesis-content">
+                <i class="ti ti-bulb"></i>
+                <div>
+                    <strong>Giả thuyết ban đầu:</strong>
+                    <span>"Tất cả các chất có thể tan trong nước đều có khả năng dẫn điện khi hòa tan; mức độ dẫn điện phụ thuộc vào lượng chất tan."</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. LAB WRAPPER -->
+        <main class="lab-wrapper">
+
+            <!-- ATHENA AI GUIDE -->
+            <div class="ai-guide" id="aiGuideBar">
+                <div class="ai-avatar">
+                    <img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena AI">
+                </div>
+                <div class="ai-text" id="aiText" aria-live="polite">
+                    Chào bạn! Trước khi bắt đầu, hãy đọc kỹ giả thuyết khoa học ở trên. Bấm "Bắt đầu thí nghiệm" trên thanh công cụ để mở khóa bộ 7 mẫu chất!
+                </div>
+            </div>
+
+            <!-- CONTROLS CARD (1 ROW ONLY) -->
+            <div class="card controls-card" id="controlsCard">
+                <div class="spacer"></div>
+                <div class="controls-group" id="controlsGroup">
+                    <button class="btn-primary" id="btnStartLab" onclick="startLab()">
+                        <i class="ti ti-player-play"></i> Bắt đầu thí nghiệm
+                    </button>
+                    <button class="btn-reset" id="btnResetLab" onclick="resetLab()" disabled>
+                        <i class="ti ti-refresh"></i> Làm lại
+                    </button>
+                </div>
+            </div>
+
+            <!-- CANVAS CARD -->
+            <div class="card canvas-card">
+                <div class="canvas-glow-wrap">
+                    <canvas id="labCanvas" width="760" height="380" role="img" aria-label="Mô phỏng thí nghiệm sự điện li và phân loại chất điện li"></canvas>
+                </div>
+                <div class="canvas-lock-overlay" id="canvasLockOverlay">
+                    <i class="ti ti-lock"></i>
+                    <span>Nhấn "Bắt đầu thí nghiệm" ở thanh công cụ để mở khóa hệ thống thí nghiệm.</span>
+                    <button class="btn-primary" onclick="startLab()"><i class="ti ti-player-play"></i> Bắt đầu thí nghiệm</button>
+                </div>
+            </div>
+
+            <!-- OBSERVATION TABLE (PANEL 3) -->
+            <div class="card side-card hidden" id="observeCard">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                    <h3><i class="ti ti-table"></i> Bảng báo cáo quan sát thực nghiệm (7 Mẫu chất)</h3>
+                    <span id="obsProgressBadge" style="font-size: 13px; font-weight: 700; color: var(--jade-text); background: var(--jade-pale); padding: 4px 10px; border-radius: 12px;">
+                        Đã điền: 0/7 cốc
+                    </span>
+                </div>
+                <p style="font-size: 14.5px; color: var(--ink-2); margin-top: 6px; margin-bottom: 10px;">
+                    Cắm điện cực vào từng cốc trên bàn thí nghiệm, quan sát bóng đèn và chọn hiện tượng tương ứng:
+                </p>
+                <div class="table-wrap">
+                    <table class="observation-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 8%;">Cốc</th>
+                                <th style="width: 36%;">Mẫu thử nghiệm</th>
+                                <th style="width: 32%;">Hiện tượng bóng đèn</th>
+                                <th style="width: 24%;">Dẫn điện?</th>
+                            </tr>
+                        </thead>
+                        <tbody id="obsTableBody">
+                            <!-- Injected by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 14px; display: flex; justify-content: flex-end;">
+                    <button class="btn-primary" id="btnConfirmObs" onclick="verifyObservations()" disabled>
+                        <i class="ti ti-check"></i> Xác nhận kết quả bảng &amp; Tiếp tục
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONCLUSION & QUESTIONS (PANELS 4 & 5 CONSOLIDATED) -->
+            <div class="card side-card hidden" id="conclusionCard">
+                <h3><i class="ti ti-checklist"></i> Kết luận &amp; Câu hỏi củng cố</h3>
+                <div class="explanation-box" id="explanationBox">
+
+                    <!-- STAGE 4: NaCl rắn vs dd NaCl -->
+                    <div class="concl-block" id="blockStage4">
+                        <h4><i class="ti ti-bulb"></i> 4A — Phân tích Cốc 1 &amp; Cốc 2: NaCl rắn vs Dung dịch NaCl</h4>
+                        <div class="quiz-item" style="border:none; padding:0; background:transparent;">
+                            <div class="quiz-question-title">
+                                Cùng là NaCl nhưng NaCl rắn không dẫn điện còn dung dịch NaCl dẫn điện tốt. Điều này chứng tỏ điều gì?
+                            </div>
+                            <div class="quiz-options-list">
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(4, 'A')">
+                                    <span class="quiz-option-key">A</span>
+                                    <span class="quiz-option-text">NaCl rắn không có ion; khi tan vào nước mới tạo thành ion Na⁺ và Cl⁻</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(4, 'B')">
+                                    <span class="quiz-option-key">B</span>
+                                    <span class="quiz-option-text">Nước là chất dẫn điện tốt, làm cho dung dịch NaCl dẫn điện được</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(4, 'C')">
+                                    <span class="quiz-option-key">C</span>
+                                    <span class="quiz-option-text">NaCl chỉ dẫn điện khi hòa tan vào nước vì lúc đó các ion mới có thể chuyển động tự do</span>
+                                </button>
+                            </div>
+                            <div class="feedback-box correct hidden" id="fbConcept4"></div>
+                            <div id="actionStage4" style="margin-top: 10px; display: none;">
+                                <button class="btn-primary" onclick="showNaClDissolutionAnimation()">
+                                    <i class="ti ti-movie"></i> Xem mô phỏng phân tử nước hòa tan tinh thể NaCl (Mô hình vi mô)
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 5: Chất điện li mạnh -->
+                    <div class="concl-block hidden" id="blockStage5">
+                        <h4><i class="ti ti-bulb"></i> 4B — Phân tích nhóm đèn sáng mạnh (NaCl, HCl, NaOH)</h4>
+                        <div class="quiz-item" style="border:none; padding:0; background:transparent;">
+                            <div class="quiz-question-title">
+                                Ba dung dịch NaCl, HCl, NaOH đều làm đèn sáng mạnh. Điểm chung nào ở cấp độ vi mô giải thích điều này?
+                            </div>
+                            <div class="quiz-options-list">
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(5, 'A')">
+                                    <span class="quiz-option-key">A</span>
+                                    <span class="quiz-option-text">Cả ba đều là hợp chất vô cơ nên dẫn điện tốt</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(5, 'B')">
+                                    <span class="quiz-option-key">B</span>
+                                    <span class="quiz-option-text">Cả ba đều phân li gần như hoàn toàn thành ion khi tan vào nước</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(5, 'C')">
+                                    <span class="quiz-option-key">C</span>
+                                    <span class="quiz-option-text">Cả ba đều có khối lượng phân tử nhỏ nên dễ phân li</span>
+                                </button>
+                            </div>
+                            <div class="feedback-box correct hidden" id="fbConcept5"></div>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 6: Chất điện li yếu -->
+                    <div class="concl-block hidden" id="blockStage6">
+                        <h4><i class="ti ti-bulb"></i> 4C — Phân tích sự khác biệt giữa HCl và CH₃COOH</h4>
+                        <div class="quiz-item" style="border:none; padding:0; background:transparent;">
+                            <div class="quiz-question-title">
+                                CH₃COOH cũng là acid nhưng đèn sáng yếu hơn HCl rõ rệt. Nguyên nhân đúng nhất là gì?
+                            </div>
+                            <div class="quiz-options-list">
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(6, 'A')">
+                                    <span class="quiz-option-key">A</span>
+                                    <span class="quiz-option-text">CH₃COOH có nồng độ thấp hơn HCl nên ít ion hơn</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(6, 'B')">
+                                    <span class="quiz-option-key">B</span>
+                                    <span class="quiz-option-text">CH₃COOH chỉ phân li một phần — phần lớn vẫn tồn tại dưới dạng phân tử trong dung dịch</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(6, 'C')">
+                                    <span class="quiz-option-key">C</span>
+                                    <span class="quiz-option-text">CH₃COOH là acid hữu cơ nên bản chất không dẫn điện tốt bằng acid vô cơ</span>
+                                </button>
+                            </div>
+                            <div class="feedback-box correct hidden" id="fbConcept6"></div>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 7: Chất không điện li -->
+                    <div class="concl-block hidden" id="blockStage7">
+                        <h4><i class="ti ti-bulb"></i> 4D — Phân tích dung dịch đường và ethanol</h4>
+                        <div class="quiz-item" style="border:none; padding:0; background:transparent;">
+                            <div class="quiz-question-title">
+                                Đường tan hoàn toàn trong nước nhưng đèn không sáng. Kết luận nào đúng?
+                            </div>
+                            <div class="quiz-options-list">
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(7, 'A')">
+                                    <span class="quiz-option-key">A</span>
+                                    <span class="quiz-option-text">Đường không tan trong nước nên không có hạt mang điện</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(7, 'B')">
+                                    <span class="quiz-option-key">B</span>
+                                    <span class="quiz-option-text">Đường tan trong nước nhưng không phân li ra ion — phân tử đường vẫn nguyên vẹn trong dung dịch</span>
+                                </button>
+                                <button class="quiz-option-btn" onclick="answerConceptQuiz(7, 'C')">
+                                    <span class="quiz-option-key">C</span>
+                                    <span class="quiz-option-text">Đường dẫn điện kém vì phân tử quá lớn, ion không thể di chuyển tự do</span>
+                                </button>
+                            </div>
+                            <div class="feedback-box correct hidden" id="fbConcept7"></div>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 8: Điền từ khuyết định nghĩa -->
+                    <div class="concl-block hidden" id="blockStage8">
+                        <h4><i class="ti ti-edit"></i> 5 — Rút ra kết luận: Bản chất của sự điện li (Điền vào chỗ trống)</h4>
+                        <p style="line-height: 2.2;">
+                            Quá trình 
+                            <select class="fill-blank-select" id="cloze1" onchange="checkClozeCompletion()">
+                                <option value="">-- (1) --</option>
+                                <option value="hòa tan">hòa tan</option>
+                                <option value="phân li">phân li</option>
+                                <option value="khuếch tán">khuếch tán</option>
+                            </select>
+                            các chất trong nước tạo thành 
+                            <select class="fill-blank-select" id="cloze2" onchange="checkClozeCompletion()">
+                                <option value="">-- (2) --</option>
+                                <option value="nguyên tử">nguyên tử</option>
+                                <option value="phân tử">phân tử</option>
+                                <option value="ion">ion</option>
+                            </select>
+                            được gọi là sự điện li. Những chất khi tan trong nước phân li ra ion được gọi là 
+                            <select class="fill-blank-select" id="cloze3" onchange="checkClozeCompletion()">
+                                <option value="">-- (3) --</option>
+                                <option value="chất điện li">chất điện li</option>
+                                <option value="dung dịch dẫn điện">dung dịch dẫn điện</option>
+                                <option value="chất tan">chất tan</option>
+                            </select>. 
+                            Chất điện li mạnh phân li 
+                            <select class="fill-blank-select" id="cloze4" onchange="checkClozeCompletion()">
+                                <option value="">-- (4) --</option>
+                                <option value="gần như">gần như</option>
+                                <option value="hoàn toàn">hoàn toàn 100%</option>
+                                <option value="chỉ một phần">chỉ một phần</option>
+                            </select>
+                            hoàn toàn; chất điện li yếu chỉ phân li 
+                            <select class="fill-blank-select" id="cloze5" onchange="checkClozeCompletion()">
+                                <option value="">-- (5) --</option>
+                                <option value="ra ion">ra ion</option>
+                                <option value="rất ít">rất ít</option>
+                                <option value="tùy lúc">tùy lúc</option>
+                            </select>
+                            một phần.
+                        </p>
+                        <div style="margin-top: 10px; display:flex; justify-content: flex-end;">
+                            <button class="btn-primary" id="btnSubmitCloze" onclick="submitCloze()" disabled>
+                                <i class="ti ti-check"></i> Kiểm tra kết luận
+                            </button>
+                        </div>
+                        <div class="feedback-box correct hidden" id="clozeMasterSummary">
+                            <i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                            <div>
+                                <strong>Chốt Kiến Thức Cốt Lõi:</strong>
+                                <ul style="margin-left: 20px; margin-top: 6px; line-height: 1.6;">
+                                    <li><strong>Sự điện li</strong> là quá trình phân li các chất trong nước tạo thành ion. Dòng điện trong dung dịch được dẫn bởi các ion chuyển động tự do.</li>
+                                    <li><strong>Chất điện li mạnh</strong> (HCl, NaOH, NaCl...): phân li gần như hoàn toàn ra ion (phương trình mũi tên 1 chiều →).</li>
+                                    <li><strong>Chất điện li yếu</strong> (CH₃COOH...): chỉ phân li một phần thuận nghịch (phương trình mũi tên thuận nghịch ⇌).</li>
+                                    <li><strong>Chất không điện li</strong> (đường, ethanol): tan tốt nhưng phân tử vẫn nguyên vẹn, không có ion. <em>(Tan được ≠ Điện li)</em>.</li>
+                                </ul>
+                                <div class="chem-eq-box" style="margin-top: 10px;">
+                                    HCl → H⁺ + Cl⁻ &nbsp;&nbsp;|&nbsp;&nbsp; NaOH → Na⁺ + OH⁻<br>
+                                    CH₃COOH ⇌ CH₃COO⁻ + H⁺ (thuận nghịch, ít ion)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 9: Pha 2 vi mô -->
+                    <div class="concl-block hidden" id="blockStage9">
+                        <h4><i class="ti ti-microscope"></i> 6 — Khảo sát vi mô: Kính hiển vi phân tử HCl vs CH₃COOH</h4>
+                        <p>
+                            Để chứng kiến trực quan sự chênh lệch nồng độ ion tự do ở cấp độ vi mô, hãy bấm vào nút bên dưới để mở kính hiển vi phân tử so sánh đồng thời cốc HCl 0,1M và CH₃COOH 0,1M:
+                        </p>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                            <button class="btn-primary" onclick="startStage9ZoomAcid()">
+                                <i class="ti ti-zoom-in"></i> Mở kính hiển vi vi mô (Pha 2)
+                            </button>
+                            <button class="btn-secondary hidden" id="btnGoToStage10" onclick="proceedToStage10()">
+                                Tiếp tục: Đánh giá giả thuyết ban đầu <i class="ti ti-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- STAGE 10: Đánh giá lại giả thuyết ban đầu -->
+                    <div class="concl-block hidden" id="blockStage10">
+                        <h4><i class="ti ti-scale"></i> 7 — Đánh giá lại giả thuyết ban đầu</h4>
+                        <div class="compare-grid">
+                            <div class="compare-cell">
+                                <strong>Giả thuyết ban đầu</strong>
+                                "Tất cả các chất có thể tan trong nước đều có khả năng dẫn điện khi hòa tan; mức độ dẫn điện phụ thuộc vào lượng chất tan."
+                            </div>
+                            <div class="compare-cell">
+                                <strong>Kết quả thực nghiệm &amp; Vi mô</strong>
+                                Đường và ethanol tan rất tốt nhưng không dẫn điện. Cùng 0,1M nhưng HCl dẫn điện mạnh, CH₃COOH dẫn điện yếu.
+                            </div>
+                        </div>
+                        <p style="margin-top:8px;">Dựa vào kết quả thực nghiệm vừa thực hiện, giả thuyết trên là đúng, sai hay đúng một phần? Hãy chọn và giải thích ngắn gọn:</p>
+                        <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                            <button class="btn-secondary hypo-choice" data-val="Đúng" onclick="selectHypo('Đúng')">Đúng</button>
+                            <button class="btn-secondary hypo-choice" data-val="Đúng một phần" onclick="selectHypo('Đúng một phần')">Đúng một phần</button>
+                            <button class="btn-secondary hypo-choice" data-val="Sai" onclick="selectHypo('Sai')">Sai</button>
+                        </div>
+                        <textarea class="free-text" id="hypoNote" placeholder="Giải thích ngắn gọn nhận định của bạn dựa trên kết quả thí nghiệm..." oninput="checkHypoReady()"></textarea>
+                        <div style="display: flex; justify-content: flex-end;">
+                            <button class="btn-primary" id="btnConfirmHypo" onclick="confirmHypo()" disabled>
+                                <i class="ti ti-send"></i> Xác nhận đánh giá
+                            </button>
+                        </div>
+                        <div class="feedback-box info hidden" id="hypoFeedback"></div>
+                    </div>
+
+                    <!-- STAGE 11: 3 câu trắc nghiệm NL1 -->
+                    <div class="concl-block hidden" id="blockStage11">
+                        <h4><i class="ti ti-help-circle"></i> 8 — Câu hỏi trắc nghiệm củng cố (3 câu)</h4>
+                        <div class="quiz-container" id="nl1QuizContainer"></div>
+                    </div>
+
+                    <!-- SUMMARY BLOCK -->
+                    <div class="concl-block hidden" id="blockSummary">
+                        <h4><i class="ti ti-trophy"></i> Hoàn thành bài học</h4>
+                        <div class="summary-card">
+                            <div>Bạn đã hoàn thành xuất sắc bài học và trả lời đúng</div>
+                            <div class="summary-score" id="summaryScore">3/3</div>
+                            <div>câu hỏi củng cố kiến thức về Sự Điện Li!</div>
+                            <div class="summary-actions">
+                                <button class="btn-secondary" onclick="reviewLesson()"><i class="ti ti-refresh"></i> Xem lại bài</button>
+                                <button class="btn-primary" onclick="showCelebrationModal()"><i class="ti ti-trophy"></i> Xem vinh danh</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div> <!-- end .app-shell -->
+
+    <!-- CELEBRATION MODAL -->
+    <div class="modal-backdrop hidden" id="celebrationModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeCelebrationModal()" aria-label="Đóng popup"><i class="ti ti-x"></i></button>
+            <div class="modal-icon-badge"><i class="ti ti-trophy"></i></div>
+            <h2 class="modal-title" id="modalTitle">Chúc Mừng Bạn Đã Hoàn Thành!</h2>
+            <p class="modal-desc">Bạn đã thành thạo khảo sát tính dẫn điện của 7 mẫu chất và nắm vững bản chất <strong>Sự Điện Li</strong> ở cấp độ vi mô phân tử/ion.</p>
+            <div class="modal-score-box">
+                <div class="modal-score-num" id="modalScoreText">3/3</div>
+                <div class="modal-score-label">Câu hỏi trắc nghiệm hoàn thành xuất sắc</div>
+            </div>
+            <div class="modal-keypoints">
+                <div class="modal-keypoint-item"><i class="ti ti-check"></i> <span>Dung dịch dẫn điện được là nhờ các <strong>ion tự do</strong> di chuyển mang điện tích (chất tan trong nước phân li ra ion).</span></div>
+                <div class="modal-keypoint-item"><i class="ti ti-check"></i> <span><strong>Chất điện li mạnh</strong> phân li gần như hoàn toàn (HCl, NaOH, NaCl...); <strong>Chất điện li yếu</strong> chỉ phân li một phần (CH₃COOH...).</span></div>
+                <div class="modal-keypoint-item"><i class="ti ti-check"></i> <span><strong>Chất không điện li</strong> (đường, ethanol) tan được trong nước nhưng không phân li ra ion: <em>Tan ≠ Điện li</em>.</span></div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn-secondary" onclick="reviewLessonFromModal()"><i class="ti ti-refresh"></i> Xem lại bài</button>
+                <button class="btn-primary" onclick="closeCelebrationModal()"><i class="ti ti-check"></i> Hoàn tất</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN JAVASCRIPT ENGINE -->
+    <script>
+
+        // SAFE ACCESSIBLE LMS INTERFACE (Chuẩn Aiducation)
+        function LMS() {
+            if (window.AiducationLMS) return window.AiducationLMS;
+            return {
+                ready: () => {},
+                progress: () => {},
+                event: () => {},
+                complete: () => {},
+                state: () => {},
+                resize: () => {}
+            };
+        }
+
+        // AUTO RESIZE OBSERVER
+        function reportHeight() {
+            const h = document.documentElement.scrollHeight;
+            LMS().resize({ height: h });
+        }
+        window.addEventListener('load', reportHeight);
+        const _ro = new ResizeObserver(() => {
+            clearTimeout(window._rz);
+            window._rz = setTimeout(reportHeight, 100);
+        });
+        _ro.observe(document.body);
+
+        // BRIEFING TOGGLE
+        function initBriefing() {
+            const briefing = document.getElementById('briefing');
+            const toggleBtn = document.getElementById('briefingToggle');
+            if (!briefing || !toggleBtn) return;
+            toggleBtn.addEventListener('click', () => {
+                const isCollapsed = briefing.classList.toggle('is-collapsed');
+                toggleBtn.innerHTML = isCollapsed 
+                    ? '<i class="ti ti-chevron-down"></i> Xem thêm' 
+                    : '<i class="ti ti-chevron-up"></i> Thu gọn';
+                toggleBtn.setAttribute('aria-expanded', String(!isCollapsed));
+                reportHeight();
+            });
+        }
+
+        // UTILITY FUNCTIONS
+        function lerp(a, b, t) { return a + (b - a) * t; }
+        function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+        function easeOut(t) { t = clamp(t, 0, 1); return 1 - (1 - t) * (1 - t); }
+        function easeInOut(t) { t = clamp(t, 0, 1); return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+
+        function setGuide(text, stateClass) {
+            const guideBar = document.getElementById('aiGuideBar');
+            const aiText = document.getElementById('aiText');
+            aiText.classList.add('fading');
+            setTimeout(() => {
+                aiText.textContent = text;
+                aiText.classList.remove('fading');
+            }, 160);
+            guideBar.classList.remove('state-wrong', 'state-correct');
+            if (stateClass) guideBar.classList.add(stateClass);
+        }
+
+        function showCard(id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.classList.remove('hidden');
+            el.classList.add('fade-in');
+            setTimeout(() => {
+                el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                reportHeight();
+            }, 60);
+        }
+
+        // ======================================================
+        // DATA MODEL: 7 MẪU THỬ NGHIỆM
+        // ======================================================
+        const SAMPLES = [
+            { id: 1, name: 'NaCl (rắn)', formula: 'NaCl(s)', desc: 'Tinh thể muối khan', light: 'none', conduct: 'no', color: '#FFFFFF', isSolid: true },
+            { id: 2, name: 'dd NaCl 0,1M', formula: 'NaCl(aq)', desc: 'Dung dịch muối ăn', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 3, name: 'dd HCl 0,1M', formula: 'HCl(aq)', desc: 'Acid mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 4, name: 'dd NaOH 0,1M', formula: 'NaOH(aq)', desc: 'Base mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 5, name: 'dd CH₃COOH 0,1M', formula: 'CH₃COOH(aq)', desc: 'Acid yếu (giấm)', light: 'weak', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 6, name: 'dd Đường 0,1M', formula: 'C₁₂H₂₂O₁₁(aq)', desc: 'Đường tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(220, 240, 248, 0.50)', isSolid: false },
+            { id: 7, name: 'dd Ethanol 0,1M', formula: 'C₂H₅OH(aq)', desc: 'Cồn tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(215, 238, 245, 0.45)', isSolid: false }
+        ];
+
+        // SIMULATION STATE
+        const simState = {
+            stage: 1, // 1 -> 11
+            started: false,
+            canvasMode: '7cups', // '7cups', 'nacl_anim', 'zoom_acid'
+            activeCup: 1,
+            cupElectrodes: [0, 0, 0, 0, 0, 0, 0], // progress 0 -> 1 for 7 cups
+            testedCups: [false, false, false, false, false, false, false],
+            observations: [
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' }
+            ],
+            // NaCl Dissolution Animation (Stage 4)
+            naclAnimTimer: 0,
+            naclAnimActive: false,
+            // Zoom Acid (Stage 9)
+            zoomActive: false,
+            zoomScale: 1.0,
+            zoomTimer: 0
+        };
+
+        // CANVAS ENGINE
+        const canvas = document.getElementById('labCanvas');
+        const ctx = canvas.getContext('2d');
+        const W = 760, H = 380;
+        let time = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.getBoundingClientRect();
+            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
+                canvas.width = Math.round(rect.width);
+                canvas.height = Math.round(rect.height);
+            }
+        }
+        window.addEventListener('resize', resizeCanvas);
+
+        // ======================================================
+        // MAIN ANIMATION LOOP
+        // ======================================================
+        function renderLoop() {
+            time += 0.035;
+            resizeCanvas();
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const scaleX = canvas.width / W;
+            const scaleY = canvas.height / H;
+            ctx.save();
+            ctx.scale(scaleX, scaleY);
+
+            // Update electrode smooth motions
+            for (let i = 0; i < 7; i++) {
+                const target = simState.cupElectrodes[i] ? 1 : 0;
+                // cupElectrodes value transitions smoothly
+            }
+
+            if (simState.canvasMode === '7cups') {
+                draw7CupsScene();
+            } else if (simState.canvasMode === 'nacl_anim') {
+                drawNaClDissolutionScene();
+            } else if (simState.canvasMode === 'zoom_acid') {
+                drawZoomAcidScene();
+            }
+
+            ctx.restore();
+            requestAnimationFrame(renderLoop);
+        }
+
+        // ------------------------------------------------------
+        // CẢNH 1: BÀN THÍ NGHIỆM 7 CỐC
+        // ------------------------------------------------------
+        function draw7CupsScene() {
+            // 1. Mặt bàn thí nghiệm đá composite
+            drawLabBench();
+
+            // 2. Vẽ 7 cốc thủy tinh
+            const startX = 35;
+            const spacing = 100;
+            const cupW = 68;
+            const cupH = 88;
+            const cupY = 220;
+
+            for (let i = 0; i < 7; i++) {
+                const cx = startX + i * spacing + cupW / 2;
+                const sample = SAMPLES[i];
+                const isTested = simState.testedCups[i];
+                const isCurrent = (simState.activeCup === (i + 1));
+                const electrodeProg = simState.cupElectrodes[i];
+
+                drawSingleCupApparatus(i, cx, cupY, cupW, cupH, sample, electrodeProg, isCurrent);
+            }
+        }
+
+        function drawLabBench() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
+            ctx.fillRect(15, 312, 730, 18);
+
+            const tableGrad = ctx.createLinearGradient(0, 308, 0, 328);
+            tableGrad.addColorStop(0, '#EDE6D8');
+            tableGrad.addColorStop(1, '#D8CFBE');
+            ctx.fillStyle = tableGrad;
+            ctx.beginPath();
+            ctx.roundRect(15, 308, 730, 20, 4);
+            ctx.fill();
+
+            ctx.strokeStyle = '#FAF7F0';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(17, 309);
+            ctx.lineTo(743, 309);
+            ctx.stroke();
+        }
+
+        function drawSingleCupApparatus(idx, cx, cy, w, h, sample, elProgress, isCurrent) {
+            ctx.save();
+
+            // Khung highlight cốc đang chọn
+            if (isCurrent && simState.started) {
+                ctx.fillStyle = 'rgba(60, 165, 122, 0.08)';
+                ctx.strokeStyle = 'rgba(60, 165, 122, 0.4)';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.roundRect(cx - w / 2 - 8, cy - 145, w + 16, h + 185, 8);
+                ctx.fill();
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                // Mũi tên chỉ dẫn nếu chưa cắm
+                if (!elProgress) {
+                    ctx.fillStyle = '#3CA57A';
+                    const bounceY = cy - 150 + Math.sin(time * 5) * 4;
+                    ctx.beginPath();
+                    ctx.moveTo(cx, bounceY + 8);
+                    ctx.lineTo(cx - 5, bounceY);
+                    ctx.lineTo(cx + 5, bounceY);
+                    ctx.closePath();
+                    ctx.fill();
+                }
+            }
+
+            // Bóng đèn phía trên cốc
+            const bulbY = cy - 110;
+            drawLightBulb(cx, bulbY, sample.light, elProgress);
+
+            // Dây dẫn điện từ bóng đèn xuống cặp điện cực
+            const elBaseY = cy - 65;
+            const elCurrentY = lerp(elBaseY, cy + 22, elProgress);
+
+            ctx.strokeStyle = '#525252';
+            ctx.lineWidth = 1.4;
+            // Dây cực âm
+            ctx.beginPath();
+            ctx.moveTo(cx - 8, bulbY + 12);
+            ctx.lineTo(cx - 10, elCurrentY);
+            ctx.stroke();
+            // Dây cực dương
+            ctx.beginPath();
+            ctx.moveTo(cx + 8, bulbY + 12);
+            ctx.lineTo(cx + 10, elCurrentY);
+            ctx.stroke();
+
+            // Cặp điện cực than chì (Graphite rods)
+            const rodW = 4.5, rodH = 45;
+            ctx.fillStyle = '#262626';
+            ctx.fillRect(cx - 12, elCurrentY, rodW, rodH);
+            ctx.fillRect(cx + 12 - rodW, elCurrentY, rodW, rodH);
+
+            // Thanh ngang giữ điện cực
+            ctx.fillStyle = '#737373';
+            ctx.fillRect(cx - 16, elCurrentY, 32, 4);
+
+            // CỐC THỦY TINH
+            // Nền chất lỏng / chất rắn
+            if (sample.isSolid) {
+                // Tinh thể NaCl rắn ở đáy
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+                ctx.beginPath();
+                ctx.roundRect(cx - w / 2 + 3, cy + h - 22, w - 6, 20, [0, 0, 4, 4]);
+                ctx.fill();
+                // Vẽ các hạt tinh thể lập phương li ti
+                ctx.fillStyle = '#D4D4D8';
+                for (let k = 0; k < 12; k++) {
+                    const hx = cx - w / 2 + 8 + (k * 4.8);
+                    const hy = cy + h - 14 + (k % 3) * 3;
+                    ctx.fillRect(hx, hy, 3.5, 3.5);
+                }
+            } else {
+                // Dung dịch lỏng
+                const liqTopY = cy + h * 0.35;
+                ctx.fillStyle = sample.color;
+                ctx.beginPath();
+                ctx.roundRect(cx - w / 2 + 2, liqTopY, w - 4, h * 0.65 - 2, [0, 0, 5, 5]);
+                ctx.fill();
+
+                // Mặt thoáng dung dịch có gợn sóng nhẹ khi cắm điện cực
+                ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+                ctx.lineWidth = 1.2;
+                ctx.beginPath();
+                ctx.ellipse(cx, liqTopY, w / 2 - 3, 3, 0, 0, Math.PI * 2);
+                ctx.stroke();
+            }
+
+            // Thành cốc thủy tinh
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.moveTo(cx - w / 2, cy);
+            ctx.lineTo(cx - w / 2, cy + h - 6);
+            ctx.arcTo(cx - w / 2, cy + h, cx - w / 2 + 6, cy + h, 6);
+            ctx.lineTo(cx + w / 2 - 6, cy + h);
+            ctx.arcTo(cx + w / 2, cy + h, cx + w / 2, cy + h - 6, 6);
+            ctx.lineTo(cx + w / 2, cy);
+            ctx.stroke();
+
+            // Miệng loe cốc
+            ctx.beginPath();
+            ctx.ellipse(cx, cy, w / 2 + 1.5, 3.5, 0, 0, Math.PI * 2);
+            ctx.stroke();
+
+            // Vạch chia độ cốc
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 1;
+            for (let v = 1; v <= 3; v++) {
+                const vy = cy + h - v * 18;
+                ctx.beginPath();
+                ctx.moveTo(cx - w / 2 + 4, vy);
+                ctx.lineTo(cx - w / 2 + 10, vy);
+                ctx.stroke();
+            }
+
+            // Nhãn tên cốc
+            ctx.font = '700 11px "JetBrains Mono", monospace';
+            ctx.fillStyle = isCurrent ? '#1B5E48' : '#334155';
+            ctx.textAlign = 'center';
+            ctx.fillText(sample.name, cx, cy + h + 18);
+
+            ctx.font = '500 9.5px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#64748B';
+            ctx.fillText(sample.desc, cx, cy + h + 31);
+
+            // Số thứ tự cốc
+            ctx.fillStyle = isCurrent ? '#3CA57A' : '#94A3B8';
+            ctx.beginPath();
+            ctx.arc(cx, cy - 134, 9, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = '700 10.5px "JetBrains Mono", monospace';
+            ctx.fillText(String(idx + 1), cx, cy - 130);
+
+            ctx.restore();
+        }
+
+        function drawLightBulb(x, y, lightType, elProgress) {
+            ctx.save();
+
+            const isLit = elProgress > 0.85;
+
+            // Đui đèn kim loại
+            ctx.fillStyle = '#78716C';
+            ctx.fillRect(x - 6, y + 6, 12, 6);
+            ctx.strokeStyle = '#44403C';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(x - 6, y + 6, 12, 6);
+
+            // Bóng thủy tinh
+            if (isLit && lightType === 'strong') {
+                // Quầng sáng rực rỡ
+                const radGrad = ctx.createRadialGradient(x, y - 2, 4, x, y - 2, 34);
+                radGrad.addColorStop(0, 'rgba(254, 240, 138, 0.95)');
+                radGrad.addColorStop(0.4, 'rgba(250, 204, 21, 0.55)');
+                radGrad.addColorStop(1, 'rgba(250, 204, 21, 0)');
+                ctx.fillStyle = radGrad;
+                ctx.beginPath();
+                ctx.arc(x, y - 2, 34, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Tia sáng phát tán
+                ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+                ctx.lineWidth = 1.5;
+                for (let a = 0; a < 8; a++) {
+                    const ang = a * (Math.PI / 4) + (time * 0.4);
+                    ctx.beginPath();
+                    ctx.moveTo(x + Math.cos(ang) * 16, y - 2 + Math.sin(ang) * 16);
+                    ctx.lineTo(x + Math.cos(ang) * 25, y - 2 + Math.sin(ang) * 25);
+                    ctx.stroke();
+                }
+            } else if (isLit && lightType === 'weak') {
+                // Quầng sáng mờ yếu (~20%)
+                const radGrad = ctx.createRadialGradient(x, y - 2, 2, x, y - 2, 18);
+                radGrad.addColorStop(0, 'rgba(254, 240, 138, 0.65)');
+                radGrad.addColorStop(0.6, 'rgba(250, 204, 21, 0.20)');
+                radGrad.addColorStop(1, 'rgba(250, 204, 21, 0)');
+                ctx.fillStyle = radGrad;
+                ctx.beginPath();
+                ctx.arc(x, y - 2, 18, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            // Thân bóng tròn
+            ctx.fillStyle = (isLit && lightType !== 'none') ? '#FEF08A' : 'rgba(248, 250, 252, 0.85)';
+            ctx.strokeStyle = (isLit && lightType !== 'none') ? '#F59E0B' : '#94A3B8';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.arc(x, y - 2, 10, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+
+            // Sợi đốt Vonfram
+            ctx.strokeStyle = (isLit && lightType !== 'none') ? '#B45309' : '#78716C';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(x - 3, y + 4);
+            ctx.lineTo(x - 2, y - 3);
+            ctx.lineTo(x, y - 5);
+            ctx.lineTo(x + 2, y - 3);
+            ctx.lineTo(x + 3, y + 4);
+            ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // ------------------------------------------------------
+        // CẢNH 2: MÔ PHỎNG MẠNG TINH THỂ NaCl & NƯỚC (STAGE 4)
+        // ------------------------------------------------------
+        let naclIons = [];
+        let waterMolecules = [];
+
+        function initNaClSimulation() {
+            naclIons = [];
+            waterMolecules = [];
+
+            // Khởi tạo mạng tinh thể 4x4 ở giữa
+            const gridX = 260, gridY = 130;
+            const step = 28;
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 5; c++) {
+                    const isNa = (r + c) % 2 === 0;
+                    naclIons.push({
+                        type: isNa ? 'Na' : 'Cl',
+                        x: gridX + c * step,
+                        y: gridY + r * step,
+                        origX: gridX + c * step,
+                        origY: gridY + r * step,
+                        r: isNa ? 8.5 : 12,
+                        color: isNa ? '#8B5CF6' : '#10B981',
+                        label: isNa ? 'Na⁺' : 'Cl⁻',
+                        pulled: false,
+                        pullProgress: 0,
+                        targetX: 0,
+                        targetY: 0
+                    });
+                }
+            }
+
+            // Khởi tạo các phân tử H2O xung quanh
+            for (let i = 0; i < 28; i++) {
+                const ang = Math.random() * Math.PI * 2;
+                const dist = 160 + Math.random() * 80;
+                waterMolecules.push({
+                    x: 330 + Math.cos(ang) * dist,
+                    y: 180 + Math.sin(ang) * dist,
+                    angle: ang + Math.PI,
+                    speed: 0.8 + Math.random() * 0.6,
+                    attachedTo: null
+                });
+            }
+        }
+
+        function drawNaClDissolutionScene() {
+            ctx.save();
+
+            // Tiêu đề mô phỏng
+            ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#1B5E48';
+            ctx.textAlign = 'center';
+            ctx.fillText('MÔ PHỎNG CẤP ĐỘ PHÂN TỬ: VAI TRÒ CỦA NƯỚC PHÂN CỰC KHI HÒA TAN NaCl', W / 2, 35);
+
+            ctx.font = '600 12.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#047857';
+            ctx.fillText('Phương trình: NaCl(s) ⟶ Na⁺(aq) + Cl⁻(aq)', W / 2, 58);
+
+            // Chú giải màu sắc
+            ctx.font = '600 11.5px "Be Vietnam Pro", sans-serif';
+            // Na+
+            ctx.fillStyle = '#8B5CF6';
+            ctx.beginPath(); ctx.arc(160, 85, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#1A1A1A'; ctx.textAlign = 'left';
+            ctx.fillText('Ion Na⁺ (tím)', 175, 89);
+
+            // Cl-
+            ctx.fillStyle = '#10B981';
+            ctx.beginPath(); ctx.arc(280, 85, 9, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#1A1A1A';
+            ctx.fillText('Ion Cl⁻ (xanh lá)', 296, 89);
+
+            // H2O phân cực
+            ctx.fillStyle = '#EF4444'; ctx.beginPath(); ctx.arc(430, 85, 6, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#1A1A1A';
+            ctx.fillText('O (δ⁻ đỏ) / H (δ⁺ trắng) — Phân tử H₂O phân cực', 444, 89);
+
+            // Khung bể chứa nước
+            ctx.fillStyle = 'rgba(224, 242, 254, 0.45)';
+            ctx.strokeStyle = '#BAE6FD';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.roundRect(80, 105, 600, 240, 10);
+            ctx.fill();
+            ctx.stroke();
+
+            simState.naclAnimTimer += 0.02;
+            const timer = simState.naclAnimTimer;
+
+            // Kéo dần từng ion ra khỏi mạng tinh thể
+            naclIons.forEach((ion, idx) => {
+                const delay = idx * 0.45;
+                if (timer > delay) {
+                    ion.pulled = true;
+                    if (ion.pullProgress < 1) {
+                        ion.pullProgress += 0.012;
+                        const p = easeOut(ion.pullProgress);
+                        const outAng = (idx * 0.8);
+                        const outDist = 65 + (idx % 4) * 28;
+                        ion.x = lerp(ion.origX, ion.origX + Math.cos(outAng) * outDist, p);
+                        ion.y = lerp(ion.origY, ion.origY + Math.sin(outAng) * outDist, p);
+                    } else {
+                        // Dao động nhiệt nhẹ
+                        ion.x += Math.sin(time * 3 + idx) * 0.25;
+                        ion.y += Math.cos(time * 3 + idx) * 0.25;
+                    }
+                }
+            });
+
+            // Vẽ các ion
+            naclIons.forEach((ion) => {
+                ctx.save();
+                ctx.fillStyle = ion.color;
+                ctx.beginPath();
+                ctx.arc(ion.x, ion.y, ion.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.strokeStyle = '#FFFFFF';
+                ctx.lineWidth = 1.2;
+                ctx.stroke();
+
+                ctx.font = '700 9.5px "JetBrains Mono", monospace';
+                ctx.fillStyle = '#FFFFFF';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(ion.label, ion.x, ion.y);
+                ctx.restore();
+
+                // Nếu đã tách ra, vẽ các phân tử H2O bao quanh định hướng đúng đầu tích điện
+                if (ion.pullProgress > 0.3) {
+                    const sheathCount = 4;
+                    for (let s = 0; s < sheathCount; s++) {
+                        const sang = s * (Math.PI * 2 / sheathCount) + time * 0.5;
+                        const sx = ion.x + Math.cos(sang) * (ion.r + 14);
+                        const sy = ion.y + Math.sin(sang) * (ion.r + 14);
+                        // Với Na+, đầu O (đỏ, âm) quay vào trong
+                        // Với Cl-, đầu H (trắng, dương) quay vào trong
+                        const rot = (ion.type === 'Na') ? sang + Math.PI : sang;
+                        drawWaterMolecule(sx, sy, rot);
+                    }
+                }
+            });
+
+            ctx.restore();
+        }
+
+        function drawWaterMolecule(x, y, angle) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(angle);
+
+            // Nguyên tử Oxi (Đỏ, mang điện tích âm bán phần δ⁻)
+            ctx.fillStyle = '#EF4444';
+            ctx.beginPath();
+            ctx.arc(0, 0, 5.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // 2 Nguyên tử Hydro (Trắng viền xám, mang điện tích dương bán phần δ⁺)
+            const hDist = 6.5;
+            const hAng = 0.65; // ~104.5 độ
+
+            // H1
+            ctx.fillStyle = '#F8FAFC';
+            ctx.strokeStyle = '#94A3B8';
+            ctx.lineWidth = 0.8;
+            ctx.beginPath();
+            ctx.arc(Math.cos(hAng) * hDist, Math.sin(hAng) * hDist, 3.2, 0, Math.PI * 2);
+            ctx.fill(); ctx.stroke();
+
+            // H2
+            ctx.beginPath();
+            ctx.arc(Math.cos(-hAng) * hDist, Math.sin(-hAng) * hDist, 3.2, 0, Math.PI * 2);
+            ctx.fill(); ctx.stroke();
+
+            ctx.restore();
+        }
+
+        // ------------------------------------------------------
+        // CẢNH 3: ZOOM VI MÔ SO SÁNH HCl VS CH3COOH (STAGE 9)
+        // ------------------------------------------------------
+        let hclParticles = [];
+        let ch3coohParticles = [];
+
+        function initZoomAcidSimulation() {
+            hclParticles = [];
+            ch3coohParticles = [];
+
+            // Cốc HCl: Gần như 100% ion H+ và Cl- (1994 ion vs 3 phân tử)
+            for (let i = 0; i < 34; i++) {
+                hclParticles.push({
+                    type: (i % 2 === 0) ? 'H' : 'Cl',
+                    x: 60 + Math.random() * 260,
+                    y: 110 + Math.random() * 190,
+                    vx: (Math.random() - 0.5) * 1.4,
+                    vy: (Math.random() - 0.5) * 1.4
+                });
+            }
+
+            // Cốc CH3COOH: Phần lớn là phân tử CH3COOH (997 phân tử vs 6 ion)
+            for (let i = 0; i < 28; i++) {
+                // Chỉ 2 ion lẻ tẻ, còn lại là phân tử nguyên vẹn
+                const isIon = (i === 0 || i === 1);
+                ch3coohParticles.push({
+                    type: isIon ? (i === 0 ? 'H' : 'CH3COO') : 'CH3COOH_MOL',
+                    x: 420 + Math.random() * 260,
+                    y: 110 + Math.random() * 190,
+                    vx: (Math.random() - 0.5) * 0.9,
+                    vy: (Math.random() - 0.5) * 0.9
+                });
+            }
+        }
+
+        function drawZoomAcidScene() {
+            ctx.save();
+
+            // Tiêu đề
+            ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#1B5E48';
+            ctx.textAlign = 'center';
+            ctx.fillText('SO SÁNH CẤP ĐỘ PHÂN TỬ: CHẤT ĐIỆN LI MẠNH (HCl) VS CHẤT ĐIỆN LI YẾU (CH₃COOH)', W / 2, 32);
+
+            // KHỐI BÊN TRÁI: DUNG DỊCH HCl 0,1M
+            ctx.fillStyle = 'rgba(236, 253, 245, 0.7)';
+            ctx.strokeStyle = '#34D399';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.roundRect(40, 50, 320, 275, 10);
+            ctx.fill(); ctx.stroke();
+
+            // Header HCl
+            ctx.fillStyle = '#065F46';
+            ctx.font = '700 13px "JetBrains Mono", monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText('dd HCl 0,1M — ĐIỆN LI MẠNH', 56, 75);
+
+            ctx.font = '600 11.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#047857';
+            ctx.fillText('HCl ⟶ H⁺ + Cl⁻  (mũi tên 1 chiều →)', 56, 94);
+
+            // Bộ đếm hạt HCl
+            ctx.fillStyle = '#064E3B';
+            ctx.font = '700 12px "JetBrains Mono", monospace';
+            ctx.fillText('⚡ Bộ đếm: Ion ~1994 | Phân tử còn lại: ~3', 56, 114);
+
+            // Cập nhật hạt HCl
+            hclParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 55 || p.x > 345) p.vx *= -1;
+                if (p.y < 125 || p.y > 310) p.vy *= -1;
+
+                ctx.save();
+                if (p.type === 'H') {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('H⁺', p.x, p.y + 2.5);
+                } else {
+                    ctx.fillStyle = '#10B981';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 8, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 8px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('Cl⁻', p.x, p.y + 3);
+                }
+                ctx.restore();
+            });
+
+            // Mini bóng đèn sáng mạnh
+            drawLightBulb(200, 345, 'strong', 1.0);
+            ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#B45309'; ctx.textAlign = 'center';
+            ctx.fillText('Đèn sáng mạnh', 200, 372);
+
+            // KHỐI BÊN PHẢI: DUNG DỊCH CH3COOH 0,1M
+            ctx.fillStyle = 'rgba(254, 243, 199, 0.5)';
+            ctx.strokeStyle = '#FBBF24';
+            ctx.lineWidth = 1.8;
+            ctx.beginPath();
+            ctx.roundRect(400, 50, 320, 275, 10);
+            ctx.fill(); ctx.stroke();
+
+            // Header CH3COOH
+            ctx.fillStyle = '#92400E';
+            ctx.font = '700 13px "JetBrains Mono", monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText('dd CH₃COOH 0,1M — ĐIỆN LI YẾU', 416, 75);
+
+            ctx.font = '600 11.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#B45309';
+            ctx.fillText('CH₃COOH ⇌ H⁺ + CH₃COO⁻  (thuận nghịch ⇌)', 416, 94);
+
+            // Bộ đếm hạt CH3COOH
+            ctx.fillStyle = '#78350F';
+            ctx.font = '700 12px "JetBrains Mono", monospace';
+            ctx.fillText('⚡ Bộ đếm: Ion ~6 | Phân tử còn lại: ~997', 416, 114);
+
+            // Cập nhật hạt CH3COOH
+            ch3coohParticles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                if (p.x < 415 || p.x > 705) p.vx *= -1;
+                if (p.y < 125 || p.y > 310) p.vy *= -1;
+
+                ctx.save();
+                if (p.type === 'H') {
+                    ctx.fillStyle = '#EF4444';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('H⁺', p.x, p.y + 2.5);
+                } else if (p.type === 'CH3COO') {
+                    ctx.fillStyle = '#3B82F6';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, Math.PI * 2); ctx.fill();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('Ac⁻', p.x, p.y + 2.5);
+                } else {
+                    // Phân tử CH3COOH nguyên vẹn (hình elip đôi kết hợp)
+                    ctx.fillStyle = '#94A3B8';
+                    ctx.strokeStyle = '#475569';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.roundRect(p.x - 14, p.y - 7, 28, 14, 4);
+                    ctx.fill(); ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7.5px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('CH₃COOH', p.x, p.y + 2.5);
+                }
+                ctx.restore();
+            });
+
+            // Mini bóng đèn sáng yếu
+            drawLightBulb(560, 345, 'weak', 1.0);
+            ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#B45309'; ctx.textAlign = 'center';
+            ctx.fillText('Đèn sáng yếu (~20%)', 560, 372);
+
+            ctx.restore();
+        }
+
+        // ======================================================
+        // INTERACTIVE LOGIC & STEP CONTROLLER
+        // ======================================================
+
+        // ======================================================
+        // GIAI ĐOẠN 2 & 3: KHẢO SÁT 7 MẪU CHẤT & BẢNG QUAN SÁT
+        // ======================================================
+        function initObservationTable() {
+            const tbody = document.getElementById('obsTableBody');
+            tbody.innerHTML = '';
+
+            SAMPLES.forEach((sample, idx) => {
+                const tr = document.createElement('tr');
+                tr.id = 'obsRow_' + (idx + 1);
+                tr.innerHTML = `
+                    <td style="text-align: center; font-weight: 700;">${idx + 1}</td>
+                    <td>
+                        <strong style="color: var(--ink);">${sample.formula}</strong><br>
+                        <span class="sample-tag">${sample.name}</span>
+                        <span class="sample-sub">${sample.desc}</span>
+                    </td>
+                    <td>
+                        <select id="selLight_${idx + 1}" onchange="handleObsChange(${idx + 1})">
+                            <option value="">-- Chọn hiện tượng đèn --</option>
+                            <option value="strong">Đèn sáng mạnh</option>
+                            <option value="weak">Đèn sáng yếu</option>
+                            <option value="none">Đèn không sáng</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id="selConduct_${idx + 1}" onchange="handleObsChange(${idx + 1})">
+                            <option value="">-- Dẫn điện? --</option>
+                            <option value="yes">Có dẫn điện</option>
+                            <option value="no">Không dẫn điện</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function handleObsChange(cupId) {
+            const lVal = document.getElementById('selLight_' + cupId).value;
+            const cVal = document.getElementById('selConduct_' + cupId).value;
+
+            simState.observations[cupId - 1] = { light: lVal, conduct: cVal };
+
+            let filledCount = 0;
+            for (let i = 0; i < 7; i++) {
+                if (simState.observations[i].light && simState.observations[i].conduct) {
+                    filledCount++;
+                }
+            }
+
+            document.getElementById('obsProgressBadge').textContent = 'Đã điền: ' + filledCount + '/7 cốc';
+            document.getElementById('btnConfirmObs').disabled = (filledCount < 7);
+        }
+
+        function verifyObservations() {
+            let hasWrong = false;
+            for (let i = 0; i < 7; i++) {
+                const actual = SAMPLES[i];
+                const obs = simState.observations[i];
+                const selL = document.getElementById('selLight_' + (i + 1));
+                const selC = document.getElementById('selConduct_' + (i + 1));
+
+                const isLightMatch = (obs.light === actual.light);
+                const isConductMatch = (obs.conduct === actual.conduct);
+
+                selL.classList.remove('correct-field', 'wrong-field');
+                selC.classList.remove('correct-field', 'wrong-field');
+
+                if (isLightMatch && isConductMatch) {
+                    selL.classList.add('correct-field');
+                    selC.classList.add('correct-field');
+                } else {
+                    hasWrong = true;
+                    if (!isLightMatch) selL.classList.add('wrong-field');
+                    if (!isConductMatch) selC.classList.add('wrong-field');
+                }
+            }
+
+            if (hasWrong) {
+                setGuide("Bạn ơi, có một vài kết quả chưa khớp với hiện tượng quan sát thực tế trên đèn. Bạn hãy kiểm tra lại các ô có viền đỏ nhé!", 'state-wrong');
+                return;
+            }
+
+            // Điền đúng toàn bộ
+            setGuide("Tuyệt vời! Bạn đã hoàn thành chính xác bảng báo cáo của cả 7 cốc. Hãy tiếp tục phân tích bản chất ở cấp độ vi mô bên dưới!", 'state-correct');
+            document.getElementById('btnConfirmObs').disabled = true;
+            document.getElementById('btnConfirmObs').innerHTML = '<i class="ti ti-check"></i> Đã hoàn thành bảng quan sát';
+
+            document.querySelectorAll('.observation-table select').forEach(s => s.disabled = true);
+
+            // Mở khóa Stage 4
+            simState.stage = 4;
+            LMS().progress({ done: 3, total: 10 });
+            document.getElementById('conclusionCard').classList.remove('hidden');
+            document.getElementById('blockStage4').classList.remove('hidden');
+            document.getElementById('conclusionCard').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            reportHeight();
+        }
+
+        function startLab() {
+            simState.started = true;
+            simState.stage = 2;
+            document.getElementById('canvasLockOverlay').classList.add('hidden');
+            document.getElementById('observeCard').classList.remove('hidden');
+
+            // Thu gọn briefing tự động theo chuẩn UX
+            const briefing = document.getElementById('briefing');
+            if (briefing) briefing.classList.add('is-collapsed');
+
+            updateControlsForStage2();
+            setGuide("Stage 2: Đây là bộ 7 mẫu chất. Nhấn nút 'Cắm điện cực' để thử tính dẫn điện lần lượt từng cốc hoặc click trực tiếp vào cốc trên bàn.");
+            LMS().state({ currentStep: 2, totalSteps: 11, lastAction: 'startLab' });
+            reportHeight();
+        }
+
+        function updateControlsForStage2() {
+            const group = document.getElementById('controlsGroup');
+            group.innerHTML = `
+                <button class="btn-primary" id="btnTestCurrent" onclick="testCurrentCup()">
+                    <i class="ti ti-bolt"></i> Cắm điện cực Cốc ${simState.activeCup} (${SAMPLES[simState.activeCup - 1].formula})
+                </button>
+                <button class="btn-secondary" id="btnTestAll" onclick="testAllCups()">
+                    <i class="ti ti-player-track-next"></i> Thử nghiệm tự động tất cả
+                </button>
+                <button class="btn-reset" id="btnResetLab" onclick="resetLab()">
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            `;
+        }
+
+        function testCurrentCup() {
+            const cupIdx = simState.activeCup - 1;
+            simState.cupElectrodes[cupIdx] = 1;
+            simState.testedCups[cupIdx] = true;
+
+            const sample = SAMPLES[cupIdx];
+            let guideMsg = '';
+            if (sample.light === 'strong') guideMsg = `Cốc ${simState.activeCup} (${sample.name}): Đèn sáng mạnh! Dung dịch dẫn điện tốt.`;
+            else if (sample.light === 'weak') guideMsg = `Cốc ${simState.activeCup} (${sample.name}): Đèn sáng yếu (mờ). Dung dịch dẫn điện yếu.`;
+            else guideMsg = `Cốc ${simState.activeCup} (${sample.name}): Đèn không sáng! Mẫu thử không dẫn điện.`;
+
+            setGuide(guideMsg);
+
+            // Tự động chuyển activeCup sang cốc kế tiếp chưa thử
+            let nextCup = -1;
+            for (let i = 0; i < 7; i++) {
+                if (!simState.testedCups[i]) {
+                    nextCup = i + 1;
+                    break;
+                }
+            }
+            if (nextCup !== -1) {
+                simState.activeCup = nextCup;
+            }
+            updateControlsForStage2();
+        }
+
+        function testAllCups() {
+            let delay = 0;
+            for (let i = 0; i < 7; i++) {
+                setTimeout(() => {
+                    simState.activeCup = i + 1;
+                    simState.cupElectrodes[i] = 1;
+                    simState.testedCups[i] = true;
+                    updateControlsForStage2();
+                    if (i === 6) {
+                        setGuide("Đã cắm điện cực cho cả 7 cốc. Hãy quan sát độ sáng bóng đèn và hoàn thành bảng báo cáo bên dưới!");
+                    }
+                }, delay);
+                delay += 550;
+            }
+        }
+
+        // ======================================================
+        // CÁC STAGE PHÂN TÍCH NHÓM CHẤT (STAGE 4 -> 7)
+        // ======================================================
+        function answerConceptQuiz(stageNum, chosen) {
+            const block = document.getElementById('blockStage' + stageNum);
+            const fb = document.getElementById('fbConcept' + stageNum);
+            const allBtns = block.querySelectorAll('.quiz-option-btn');
+
+            allBtns.forEach(btn => btn.disabled = true);
+
+            if (stageNum === 4) {
+                const correctOpt = 'C';
+                allBtns.forEach(btn => {
+                    const opt = btn.querySelector('.quiz-option-key').textContent.trim();
+                    if (opt === correctOpt) btn.classList.add('opt-correct');
+                    else if (opt === chosen) btn.classList.add('opt-wrong');
+                });
+
+                fb.className = 'feedback-box correct';
+                fb.classList.remove('hidden');
+                fb.innerHTML = `
+                    <i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                    <div>
+                        <strong>${chosen === 'C' ? 'Chính xác!' : 'Giải thích khoa học:'}</strong><br>
+                        • Trong tinh thể NaCl, ion Na⁺ và Cl⁻ đã tồn tại sẵn nhưng bị giữ cố định trong mạng tinh thể — không thể di chuyển nên không dẫn điện.<br>
+                        • Khi hòa tan vào nước, các phân tử nước phân cực kéo ion ra khỏi mạng tinh thể và giải phóng chúng vào dung dịch ⟶ ion chuyển động tự do mang điện tích ⟶ dẫn điện.<br>
+                        <em>Lưu ý: Phương án A sai vì ion đã có sẵn trong tinh thể rắn rồi, không phải khi tan mới tạo ra.</em>
+                    </div>
+                `;
+
+                document.getElementById('actionStage4').style.display = 'block';
+                setGuide("Đúng bản chất! Hãy bấm nút bên dưới để xem mô hình phân tử nước kéo ion Na⁺ và Cl⁻ ra khỏi mạng tinh thể.");
+            } else if (stageNum === 5) {
+                const correctOpt = 'B';
+                allBtns.forEach(btn => {
+                    const opt = btn.querySelector('.quiz-option-key').textContent.trim();
+                    if (opt === correctOpt) btn.classList.add('opt-correct');
+                    else if (opt === chosen) btn.classList.add('opt-wrong');
+                });
+
+                fb.className = 'feedback-box correct';
+                fb.classList.remove('hidden');
+                fb.innerHTML = `
+                    <i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                    <div>
+                        <strong>${chosen === 'B' ? 'Chính xác!' : 'Giải thích khoa học:'}</strong><br>
+                        • NaCl là muối, HCl là acid mạnh, NaOH là base mạnh — tuy thuộc loại hợp chất khác nhau nhưng điểm chung là đều <strong>phân li gần như hoàn toàn</strong> thành ion khi tan vào nước.<br>
+                        • Càng nhiều ion tự do trong dung dịch, dòng điện càng mạnh, đèn càng sáng. Đây là đặc trưng của <strong>chất điện li mạnh</strong>.
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    document.getElementById('blockStage6').classList.remove('hidden');
+                    simState.stage = 6;
+                    setGuide("Câu hỏi 3: Cùng là acid cùng nồng độ 0,1M nhưng vì sao đèn CH₃COOH sáng yếu hơn HCl rất nhiều?");
+                    reportHeight();
+                }, 800);
+            } else if (stageNum === 6) {
+                const correctOpt = 'B';
+                allBtns.forEach(btn => {
+                    const opt = btn.querySelector('.quiz-option-key').textContent.trim();
+                    if (opt === correctOpt) btn.classList.add('opt-correct');
+                    else if (opt === chosen) btn.classList.add('opt-wrong');
+                });
+
+                fb.className = 'feedback-box correct';
+                fb.classList.remove('hidden');
+                fb.innerHTML = `
+                    <i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                    <div>
+                        <strong>${chosen === 'B' ? 'Chính xác!' : 'Giải thích khoa học:'}</strong><br>
+                        • HCl phân li gần như hoàn toàn (→): hầu như không còn phân tử HCl nguyên vẹn.<br>
+                        • CH₃COOH là acid yếu, phân li thuận nghịch (⇌): phần lớn tồn tại dưới dạng phân tử CH₃COOH, chỉ một phần nhỏ phân li ra ion H⁺ và CH₃COO⁻.<br>
+                        • Ít ion hơn ⟶ dòng điện yếu hơn ⟶ đèn sáng yếu hơn. Đây là <strong>chất điện li yếu</strong>.
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    document.getElementById('blockStage7').classList.remove('hidden');
+                    simState.stage = 7;
+                    setGuide("Câu hỏi 4: Đường tan rất tốt trong nước nhưng vì sao đèn lại không sáng? Hãy suy nghĩ kỹ về bản chất.");
+                    reportHeight();
+                }, 800);
+            } else if (stageNum === 7) {
+                const correctOpt = 'B';
+                allBtns.forEach(btn => {
+                    const opt = btn.querySelector('.quiz-option-key').textContent.trim();
+                    if (opt === correctOpt) btn.classList.add('opt-correct');
+                    else if (opt === chosen) btn.classList.add('opt-wrong');
+                });
+
+                fb.className = 'feedback-box correct';
+                fb.classList.remove('hidden');
+                fb.innerHTML = `
+                    <i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                    <div>
+                        <strong>${chosen === 'B' ? 'Chính xác!' : 'Giải thích khoa học:'}</strong><br>
+                        • Đường saccharose tan rất tốt trong nước nhưng không phân li thành ion — phân tử C₁₂H₂₂O₁₁ tồn tại nguyên vẹn trong dung dịch.<br>
+                        • Không có ion ⟶ không có hạt mang điện tự do ⟶ không dẫn điện. Tương tự với ethanol.<br>
+                        • Đây là <strong>chất không điện li</strong>. Điểm mấu chốt: <strong>Tan được KHÔNG có nghĩa là điện li</strong>.
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    document.getElementById('blockStage8').classList.remove('hidden');
+                    simState.stage = 8;
+                    setGuide("Xuất sắc! Bạn đã phân tích thấu đáo 4 nhóm chất. Hãy hoàn thành 5 từ khuyết ở phần Kết luận nhé!");
+                    reportHeight();
+                }, 800);
+            }
+
+            reportHeight();
+        }
+
+        function showNaClDissolutionAnimation() {
+            simState.canvasMode = 'nacl_anim';
+            initNaClSimulation();
+            simState.naclAnimTimer = 0;
+
+            const group = document.getElementById('controlsGroup');
+            group.innerHTML = `
+                <button class="btn-primary" onclick="backTo7CupsAndStage5()">
+                    <i class="ti ti-arrow-right"></i> Tiếp tục Câu hỏi nhóm 2 (Chất điện li mạnh)
+                </button>
+                <button class="btn-secondary" onclick="initNaClSimulation(); simState.naclAnimTimer = 0;">
+                    <i class="ti ti-reload"></i> Phát lại mô phỏng
+                </button>
+            `;
+
+            setGuide("Quan sát: Các phân tử H₂O phân cực (đầu O màu đỏ δ⁻ hướng vào Na⁺ tím; đầu H màu trắng δ⁺ hướng vào Cl⁻ xanh) kéo tách từng ion ra khỏi mạng tinh thể!");
+            canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function backTo7CupsAndStage5() {
+            simState.canvasMode = '7cups';
+            simState.stage = 5;
+            updateControlsForStage2();
+            document.getElementById('blockStage5').classList.remove('hidden');
+            document.getElementById('blockStage5').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            setGuide("Câu hỏi 2: Ba dung dịch NaCl, HCl, NaOH đều làm đèn sáng mạnh. Điểm chung ở cấp độ phân tử là gì?");
+            reportHeight();
+        }
+
+        // ======================================================
+        // STAGE 8: ĐIỀN TỪ KHUYẾT KẾT LUẬN
+        // ======================================================
+        function checkClozeCompletion() {
+            const v1 = document.getElementById('cloze1').value;
+            const v2 = document.getElementById('cloze2').value;
+            const v3 = document.getElementById('cloze3').value;
+            const v4 = document.getElementById('cloze4').value;
+            const v5 = document.getElementById('cloze5').value;
+
+            document.getElementById('btnSubmitCloze').disabled = !(v1 && v2 && v3 && v4 && v5);
+        }
+
+        function submitCloze() {
+            const s1 = document.getElementById('cloze1');
+            const s2 = document.getElementById('cloze2');
+            const s3 = document.getElementById('cloze3');
+            const s4 = document.getElementById('cloze4');
+            const s5 = document.getElementById('cloze5');
+
+            const is1 = (s1.value === 'phân li');
+            const is2 = (s2.value === 'ion');
+            const is3 = (s3.value === 'chất điện li');
+            const is4 = (s4.value === 'gần như');
+            const is5 = (s5.value === 'ra ion');
+
+            [s1, s2, s3, s4, s5].forEach((s, idx) => {
+                s.classList.remove('correct-field', 'wrong-field');
+                const ok = [is1, is2, is3, is4, is5][idx];
+                s.classList.add(ok ? 'correct-field' : 'wrong-field');
+            });
+
+            if (is1 && is2 && is3 && is4 && is5) {
+                document.getElementById('btnSubmitCloze').disabled = true;
+                const summary = document.getElementById('clozeMasterSummary');
+                summary.classList.remove('hidden');
+                setGuide("Hoàn hảo! Bạn đã nắm trọn vẹn bản chất của sự điện li. Giờ hãy qua Pha 2 để so sánh trực tiếp HCl và CH₃COOH dưới kính hiển vi phân tử!", 'state-correct');
+
+                document.getElementById('blockStage9').classList.remove('hidden');
+
+                const group = document.getElementById('controlsGroup');
+                group.innerHTML = `
+                    <button class="btn-primary" onclick="startStage9ZoomAcid()">
+                        <i class="ti ti-zoom-in"></i> Chuyển sang Pha 2: So sánh vi mô HCl vs CH₃COOH
+                    </button>
+                    <button class="btn-reset" onclick="resetLab()"><i class="ti ti-refresh"></i> Làm lại</button>
+                `;
+                reportHeight();
+            } else {
+                setGuide("Có một vài chỗ điền chưa chính xác. Bạn hãy kiểm tra lại các ô màu đỏ nhé!", 'state-wrong');
+            }
+        }
+
+        // ======================================================
+        // STAGE 9: PHA 2 - MÔ HÌNH PHÂN TỬ / ION HCl VS CH3COOH
+        // ======================================================
+        function startStage9ZoomAcid() {
+            simState.stage = 9;
+            simState.canvasMode = 'zoom_acid';
+            initZoomAcidSimulation();
+
+            canvas.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setGuide("Stage 9: Quan sát sự khác biệt ở cấp độ vi mô giữa cốc HCl 0,1M (gần như 100% ion) và cốc CH₃COOH 0,1M (đa số phân tử nguyên vẹn, rất ít ion).");
+
+            const group = document.getElementById('controlsGroup');
+            group.innerHTML = `
+                <button class="btn-primary" onclick="proceedToStage10()">
+                    <i class="ti ti-scale"></i> Tiếp tục: Đánh giá lại Giả thuyết ban đầu (Stage 10)
+                </button>
+                <button class="btn-secondary" onclick="initZoomAcidSimulation()">
+                    <i class="ti ti-reload"></i> Chạy lại chuyển động vi mô
+                </button>
+                <button class="btn-reset" onclick="resetLab()"><i class="ti ti-refresh"></i> Làm lại</button>
+            `;
+
+            const btnGo = document.getElementById('btnGoToStage10');
+            if (btnGo) btnGo.classList.remove('hidden');
+            reportHeight();
+        }
+
+        function proceedToStage10() {
+            simState.stage = 10;
+            const b10 = document.getElementById('blockStage10');
+            b10.classList.remove('hidden');
+            b10.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            setGuide("Stage 10: Dựa trên tất cả những gì vừa quan sát, bạn đánh giá giả thuyết ban đầu là Đúng, Sai hay Đúng một phần?");
+            reportHeight();
+        }
+
+        // ======================================================
+        // STAGE 10: ĐÁNH GIÁ GIẢ THUYẾT BAN ĐẦU
+        // ======================================================
+        let chosenHypo = '';
+
+        function selectHypo(val) {
+            chosenHypo = val;
+            document.querySelectorAll('.hypo-choice').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-val') === val);
+            });
+            checkHypoReady();
+        }
+
+        function checkHypoReady() {
+            const note = document.getElementById('hypoNote') ? document.getElementById('hypoNote').value.trim() : '';
+            document.getElementById('btnConfirmHypo').disabled = !(chosenHypo && note.length > 0);
+        }
+
+        function confirmHypo() {
+            document.getElementById('btnConfirmHypo').disabled = true;
+            const fb = document.getElementById('hypoFeedback');
+            fb.classList.remove('hidden');
+            fb.innerHTML = `
+                <i class="ti ti-info-circle" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i>
+                <div>
+                    <strong>Phân tích khoa học: Giả thuyết ban đầu chỉ đúng một phần</strong><br>
+                    • Vế thứ nhất sai: Đường và ethanol tan rất tốt trong nước nhưng hoàn toàn không dẫn điện vì không phân li ra ion.<br>
+                    • Vế thứ hai cũng chưa chính xác: Mức độ dẫn điện phụ thuộc vào <strong>nồng độ ion tự do</strong> trong dung dịch, không đơn giản là lượng chất tan (cùng nồng độ 0,1M nhưng HCl dẫn điện mạnh hơn CH₃COOH rất nhiều).
+                </div>
+            `;
+            setGuide("Rất sâu sắc! Bạn đã đánh giá chính xác: tính dẫn điện phụ thuộc vào nồng độ ion tự do, không phải lượng chất tan.", 'state-correct');
+
+            setTimeout(() => {
+                document.getElementById('blockStage11').classList.remove('hidden');
+                simState.stage = 11;
+                loadNL1Quiz();
+            }, 700);
+            reportHeight();
+        }
+
+        // ======================================================
+        // STAGE 11: 3 CÂU HỎI TRẮC NGHIỆM NĂNG LỰC NL1
+        // ======================================================
+        const NL1_QUESTIONS = [
+            {
+                id: 'nl1_1',
+                q: 'Dung dịch HCl và dung dịch CH₃COOH có cùng nồng độ 0,1M, nhưng dung dịch HCl làm đèn sáng mạnh hơn rõ rệt. Nguyên nhân đúng nhất là:',
+                opts: [
+                    'A. HCl có khối lượng phân tử nhỏ hơn CH₃COOH',
+                    'B. HCl phân li gần như hoàn toàn tạo nhiều ion hơn CH₃COOH trong cùng một thể tích',
+                    'C. HCl là acid vô cơ còn CH₃COOH là acid hữu cơ nên tính dẫn điện khác nhau',
+                    'D. CH₃COOH không phải chất điện li nên không dẫn điện'
+                ],
+                correct: 'B',
+                explain: 'HCl phân li gần như hoàn toàn (→), gần 100% phân tử tạo ion; CH₃COOH phân li thuận nghịch (⇌), chỉ một phần rất nhỏ phân tử phân li ra ion. Nhiều ion tự do hơn ⟶ dòng điện mạnh hơn ⟶ đèn sáng hơn.',
+                hint: 'Nhìn lại bộ đếm ion ở mô hình Pha 2 — số lượng ion ở cốc HCl và CH₃COOH chênh lệch như thế nào?'
+            },
+            {
+                id: 'nl1_2',
+                q: 'Tinh thể NaCl không dẫn điện, nhưng dung dịch NaCl dẫn điện tốt. Điều này chứng tỏ:',
+                opts: [
+                    'A. NaCl không phải chất điện li',
+                    'B. Sự điện li của NaCl chỉ xảy ra khi NaCl được hòa tan vào nước',
+                    'C. Nước là chất dẫn điện tốt nên làm cho dung dịch NaCl dẫn điện',
+                    'D. NaCl rắn không có ion, chỉ khi đun nóng mới tạo ra ion'
+                ],
+                correct: 'B',
+                explain: 'Trong tinh thể NaCl, ion Na⁺ và Cl⁻ đã tồn tại nhưng bị giữ cố định trong mạng tinh thể ⟶ không dẫn điện. Khi tan vào nước, phân tử nước phân cực kéo ion ra ⟶ ion chuyển động tự do ⟶ dẫn điện.',
+                hint: 'Trong tinh thể rắn muối ăn đã có sẵn ion chưa? Nước đóng vai trò gì để giải phóng các ion đó?'
+            },
+            {
+                id: 'nl1_3',
+                q: 'Một học sinh cho rằng: "Dung dịch đường không dẫn điện vì đường không tan trong nước." Nhận định này:',
+                opts: [
+                    'A. Đúng, đường khó tan nên không có ion',
+                    'B. Sai về cả hai vế — đường tan tốt và có ion trong dung dịch',
+                    'C. Đúng về kết quả nhưng sai về nguyên nhân — đường tan được nhưng không điện li nên không có ion',
+                    'D. Đúng hoàn toàn'
+                ],
+                correct: 'C',
+                explain: 'Đường saccharose tan rất tốt trong nước nhưng không phân li thành ion — phân tử đường tồn tại nguyên vẹn. Không có ion ⟶ không dẫn điện. Đây là chất không điện li: không phải không tan mà là tan nhưng không phân li.',
+                hint: 'Khi bạn pha nước đường, đường có tan hết không? Nếu tan hoàn toàn mà đèn vẫn tắt, lý do thực sự là gì?'
+            }
+        ];
+
+        let currentNL1Index = 0;
+        let nl1Attempts = [0, 0, 0];
+
+        function loadNL1Quiz() {
+            const q = NL1_QUESTIONS[currentNL1Index];
+            const container = document.getElementById('nl1QuizContainer');
+            container.innerHTML = `
+                <div class="quiz-item" id="blockNL1_${currentNL1Index}">
+                    <div class="quiz-question-title">
+                        <span style="display:inline-block; font-weight:700; color:var(--jade-text); background:var(--jade-pale); padding:2px 8px; border-radius:6px; font-size:12px; margin-right:6px;">Câu ${currentNL1Index + 1}/3</span>
+                        ${q.q}
+                    </div>
+                    <div class="quiz-options-list">
+                        ${q.opts.map(opt => {
+                            const letter = opt.substring(0, 1);
+                            const text = opt.substring(3);
+                            return `
+                                <button class="quiz-option-btn" onclick="handleNL1Answer('${letter}', this)">
+                                    <span class="quiz-option-key">${letter}</span>
+                                    <span class="quiz-option-text">${text}</span>
+                                    <span class="quiz-option-feedback-icon"></span>
+                                </button>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div class="feedback-box hidden" id="fbNL1"></div>
+                    <div id="nl1NextAction" style="display: none; margin-top: 10px; justify-content: flex-end;">
+                        <button class="btn-primary" onclick="nextNL1Question()">
+                            ${currentNL1Index < 2 ? 'Câu tiếp theo <i class="ti ti-arrow-right"></i>' : 'Xem tổng kết & Vinh danh <i class="ti ti-trophy"></i>'}
+                        </button>
+                    </div>
+                </div>
+            `;
+            reportHeight();
+        }
+
+        function handleNL1Answer(chosen, btnEl) {
+            const q = NL1_QUESTIONS[currentNL1Index];
+            const fb = document.getElementById('fbNL1');
+            const block = document.getElementById('blockNL1_' + currentNL1Index);
+            const allBtns = block.querySelectorAll('.quiz-option-btn');
+
+            nl1Attempts[currentNL1Index]++;
+
+            if (chosen === q.correct) {
+                allBtns.forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.querySelector('.quiz-option-key').textContent.trim() === q.correct) {
+                        btn.classList.add('opt-correct');
+                        btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-check" style="color:var(--correct);"></i>';
+                    }
+                });
+
+                fb.className = 'feedback-box correct';
+                fb.classList.remove('hidden');
+                fb.innerHTML = '<i class="ti ti-circle-check" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i><div><strong>Rất chính xác!</strong><br>' + q.explain + '</div>';
+                document.getElementById('nl1NextAction').style.display = 'flex';
+                setGuide("Chính xác tuyệt đối! Bạn đã áp dụng rất tốt kiến thức bài học.", 'state-correct');
+                LMS().event('answered', { id: q.id, chosen: chosen, correct: true });
+            } else {
+                if (nl1Attempts[currentNL1Index] < 2) {
+                    btnEl.classList.add('opt-wrong');
+                    btnEl.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-x" style="color:var(--wrong);"></i>';
+                    fb.className = 'feedback-box wrong';
+                    fb.classList.remove('hidden');
+                    fb.innerHTML = '<i class="ti ti-alert-triangle" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i><div><strong>Chưa chính xác (Lần thử ' + nl1Attempts[currentNL1Index] + '/2):</strong><br><em>Gợi ý tư duy:</em> ' + q.hint + '</div>';
+                    setGuide("Chưa đúng rồi! Hãy đọc gợi ý của Athena và thử chọn lại nhé.", 'state-wrong');
+                    LMS().event('answered', { id: q.id, chosen: chosen, correct: false });
+                } else {
+                    allBtns.forEach(btn => {
+                        btn.disabled = true;
+                        const opt = btn.querySelector('.quiz-option-key').textContent.trim();
+                        if (opt === q.correct) {
+                            btn.classList.add('opt-correct');
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-check" style="color:var(--correct);"></i>';
+                        } else if (opt === chosen) {
+                            btn.classList.add('opt-wrong');
+                            btn.querySelector('.quiz-option-feedback-icon').innerHTML = '<i class="ti ti-x" style="color:var(--wrong);"></i>';
+                        }
+                    });
+
+                    fb.className = 'feedback-box info';
+                    fb.classList.remove('hidden');
+                    fb.innerHTML = '<i class="ti ti-info-circle" style="font-size:20px; flex-shrink:0; margin-top:2px;"></i><div><strong>Đáp án đúng là ' + q.correct + ':</strong><br>' + q.explain + '</div>';
+                    document.getElementById('nl1NextAction').style.display = 'flex';
+                    setGuide('Đáp án đúng là ' + q.correct + '. Hãy đọc kỹ phần giải thích để ghi nhớ bản chất.');
+                    LMS().event('answered', { id: q.id, chosen: chosen, correct: false });
+                }
+            }
+            reportHeight();
+        }
+
+        function nextNL1Question() {
+            if (currentNL1Index < 2) {
+                currentNL1Index++;
+                loadNL1Quiz();
+            } else {
+                // Hoàn thành 100% bài học
+                setGuide("CHÚC MỪNG BẠN! Bạn đã hoàn thành xuất sắc toàn bộ bài học và kiểm tra về Sự Điện Li!", 'state-correct');
+                document.getElementById('blockSummary').classList.remove('hidden');
+                document.getElementById('summaryScore').textContent = '3/3';
+                document.getElementById('modalScoreText').textContent = '3/3';
+
+                LMS().complete({
+                    summary: "Hoàn thành toàn diện 11 Stage bài học Sự điện li — Phân loại chất điện li",
+                    score: 100,
+                    max: 100,
+                    items: NL1_QUESTIONS.map(q => ({
+                        id: q.id,
+                        prompt: q.q,
+                        options: q.opts,
+                        correct: q.correct,
+                        isCorrect: true
+                    }))
+                });
+
+                setTimeout(() => {
+                    showCelebrationModal();
+                }, 700);
+            }
+        }
+
+        // ======================================================
+        // CELEBRATION MODAL CONTROLS
+        // ======================================================
+        function showCelebrationModal() {
+            const modal = document.getElementById('celebrationModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+        function closeCelebrationModal() {
+            const modal = document.getElementById('celebrationModal');
+            if (modal) modal.classList.add('hidden');
+        }
+        function reviewLesson() {
+            const card = document.getElementById('conclusionCard');
+            if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        function reviewLessonFromModal() {
+            closeCelebrationModal();
+            reviewLesson();
+        }
+
+        // ======================================================
+        // RESET LAB (TRẢ VỀ TRẠNG THÁI BAN ĐẦU)
+        // ======================================================
+        function resetLab() {
+            simState.stage = 1;
+            simState.started = false;
+            simState.canvasMode = '7cups';
+            simState.activeCup = 1;
+            simState.cupElectrodes = [0, 0, 0, 0, 0, 0, 0];
+            simState.testedCups = [false, false, false, false, false, false, false];
+            simState.observations = [
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' },
+                { light: '', conduct: '' }
+            ];
+
+            document.getElementById('canvasLockOverlay').classList.remove('hidden');
+
+            const group = document.getElementById('controlsGroup');
+            group.innerHTML = `
+                <button class="btn-primary" id="btnStartLab" onclick="startLab()">
+                    <i class="ti ti-player-play"></i> Bắt đầu thí nghiệm
+                </button>
+                <button class="btn-reset" id="btnResetLab" onclick="resetLab()" disabled>
+                    <i class="ti ti-refresh"></i> Làm lại
+                </button>
+            `;
+
+            // Reset table
+            initObservationTable();
+            document.getElementById('obsProgressBadge').textContent = 'Đã điền: 0/7 cốc';
+            document.getElementById('btnConfirmObs').disabled = true;
+            document.getElementById('btnConfirmObs').innerHTML = '<i class="ti ti-check"></i> Xác nhận kết quả bảng &amp; Tiếp tục';
+
+            // Hide cards
+            document.getElementById('observeCard').classList.add('hidden');
+            document.getElementById('conclusionCard').classList.add('hidden');
+
+            // Hide subordinate blocks
+            ['blockStage5', 'blockStage6', 'blockStage7', 'blockStage8', 'blockStage9', 'blockStage10', 'blockStage11', 'blockSummary'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add('hidden');
+            });
+
+            // Reset block 4 buttons
+            const b4 = document.getElementById('blockStage4');
+            if (b4) {
+                b4.querySelectorAll('.quiz-option-btn').forEach(b => {
+                    b.disabled = false;
+                    b.classList.remove('opt-correct', 'opt-wrong');
+                });
+                const fb4 = document.getElementById('fbConcept4');
+                if (fb4) fb4.classList.add('hidden');
+                const a4 = document.getElementById('actionStage4');
+                if (a4) a4.style.display = 'none';
+            }
+
+            // Reset cloze
+            ['cloze1', 'cloze2', 'cloze3', 'cloze4', 'cloze5'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.value = '';
+                    el.classList.remove('correct-field', 'wrong-field');
+                }
+            });
+            document.getElementById('btnSubmitCloze').disabled = true;
+            const clozeSum = document.getElementById('clozeMasterSummary');
+            if (clozeSum) clozeSum.classList.add('hidden');
+
+            // Reset hypo
+            chosenHypo = '';
+            document.querySelectorAll('.hypo-choice').forEach(b => b.classList.remove('active'));
+            if (document.getElementById('hypoNote')) document.getElementById('hypoNote').value = '';
+            document.getElementById('btnConfirmHypo').disabled = true;
+            const hypoFb = document.getElementById('hypoFeedback');
+            if (hypoFb) hypoFb.classList.add('hidden');
+
+            // Reset NL1
+            currentNL1Index = 0;
+            nl1Attempts = [0, 0, 0];
+
+            closeCelebrationModal();
+
+            setGuide("Hệ thống đã được đặt lại ban đầu. Bấm 'Bắt đầu thí nghiệm' để bắt đầu khảo sát.");
+            reportHeight();
+        }
+
+        // TƯƠNG TÁC CHẠM / CLICK TRỰC TIẾP TRÊN CANVAS
+        canvas.addEventListener('click', (e) => {
+            if (!simState.started || simState.canvasMode !== '7cups') return;
+
+            const rect = canvas.getBoundingClientRect();
+            const px = (e.clientX - rect.left) * (W / rect.width);
+            const py = (e.clientY - rect.top) * (H / rect.height);
+
+            const startX = 35;
+            const spacing = 100;
+            const cupW = 68;
+            const cupY = 220;
+
+            for (let i = 0; i < 7; i++) {
+                const cx = startX + i * spacing + cupW / 2;
+                if (px >= cx - cupW / 2 - 8 && px <= cx + cupW / 2 + 8 && py >= cupY - 140 && py <= cupY + 100) {
+                    simState.activeCup = i + 1;
+                    testCurrentCup();
+                    break;
+                }
+            }
+        });
+
+        // INITIALIZATION
+        window.addEventListener('load', () => {
+            initBriefing();
+            initObservationTable();
+            resizeCanvas();
+            requestAnimationFrame(renderLoop);
+            reportHeight();
+            LMS().ready();
+        });
+    </script>
+</body>
+</html>
