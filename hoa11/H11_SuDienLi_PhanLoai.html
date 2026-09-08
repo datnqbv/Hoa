@@ -403,6 +403,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
+            justify-content: flex-end;
             gap: 10px;
             min-height: 60px;
             overflow-x: auto;
@@ -412,12 +413,14 @@
 
         .controls-card .spacer {
             flex: 1;
+            min-width: 0;
         }
 
         .controls-group {
             display: flex;
             align-items: center;
             gap: 8px;
+            margin-left: auto;
         }
 
         .stepper-dots {
@@ -576,29 +579,6 @@
             display: block;
             touch-action: none;
             flex: 1;
-        }
-
-        .canvas-lock-overlay {
-            position: absolute;
-            inset: 4px;
-            z-index: 2;
-            border-radius: 8px;
-            background-color: rgba(250, 247, 240, 0.90);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            text-align: center;
-            padding: 20px;
-            color: var(--ink-2);
-            font-weight: 600;
-            font-size: 15.5px;
-        }
-
-        .canvas-lock-overlay i {
-            font-size: 32px;
-            color: var(--jade-text);
         }
 
         /* OBSERVATION TABLE */
@@ -1278,7 +1258,7 @@
                     <img src="https://www.aiducation.edu.vn/athena/athena_idle.webp" alt="Athena AI">
                 </div>
                 <div class="ai-text" id="aiText" aria-live="polite">
-                    Chào bạn! Trước khi bắt đầu, hãy đọc kỹ giả thuyết khoa học ở trên. Bấm "Bắt đầu thí nghiệm" trên thanh công cụ để mở khóa bộ 7 mẫu chất!
+                    Học sinh cắm điện cực vào từng cốc trên bàn thí nghiệm để quan sát độ sáng bóng đèn và tính dẫn điện.
                 </div>
             </div>
 
@@ -1286,10 +1266,13 @@
             <div class="card controls-card" id="controlsCard">
                 <div class="spacer"></div>
                 <div class="controls-group" id="controlsGroup">
-                    <button class="btn-primary" id="btnStartLab" onclick="startLab()">
-                        <i class="ti ti-player-play"></i> Bắt đầu thí nghiệm
+                    <button class="btn-primary" id="btnTestCurrent" onclick="testCurrentCup()">
+                        <i class="ti ti-bolt"></i> Cắm điện cực Cốc 1 (NaCl)
                     </button>
-                    <button class="btn-reset" id="btnResetLab" onclick="resetLab()" disabled>
+                    <button class="btn-secondary" id="btnTestAll" onclick="testAllCups()">
+                        <i class="ti ti-player-track-next"></i> Thử nghiệm tự động tất cả
+                    </button>
+                    <button class="btn-reset" id="btnResetLab" onclick="resetLab()">
                         <i class="ti ti-refresh"></i> Làm lại
                     </button>
                 </div>
@@ -1300,15 +1283,10 @@
                 <div class="canvas-glow-wrap">
                     <canvas id="labCanvas" width="760" height="380" role="img" aria-label="Mô phỏng thí nghiệm sự điện li và phân loại chất điện li"></canvas>
                 </div>
-                <div class="canvas-lock-overlay" id="canvasLockOverlay">
-                    <i class="ti ti-lock"></i>
-                    <span>Nhấn "Bắt đầu thí nghiệm" ở thanh công cụ để mở khóa hệ thống thí nghiệm.</span>
-                    <button class="btn-primary" onclick="startLab()"><i class="ti ti-player-play"></i> Bắt đầu thí nghiệm</button>
-                </div>
             </div>
 
             <!-- OBSERVATION TABLE (PANEL 3) -->
-            <div class="card side-card hidden" id="observeCard">
+            <div class="card side-card" id="observeCard">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                     <h3><i class="ti ti-table"></i> Bảng báo cáo quan sát thực nghiệm (7 Mẫu chất)</h3>
                     <span id="obsProgressBadge" style="font-size: 13px; font-weight: 700; color: var(--jade-text); background: var(--jade-pale); padding: 4px 10px; border-radius: 12px;">
@@ -1694,8 +1672,9 @@
 
         // SIMULATION STATE
         const simState = {
-            stage: 1, // 1 -> 11
-            started: false,
+            stage: 2, // 1 -> 11 (Bắt đầu trực tiếp ở Stage 2 tương tác 7 cốc)
+            started: true,
+            hasScrolledToObs: false,
             canvasMode: '7cups', // '7cups', 'nacl_anim', 'zoom_acid'
             activeCup: 1,
             cupElectrodes: [0, 0, 0, 0, 0, 0, 0], // progress 0 -> 1 for 7 cups
@@ -2558,6 +2537,11 @@
         }
 
         function handleObsChange(cupId) {
+            const selL = document.getElementById('selLight_' + cupId);
+            const selC = document.getElementById('selConduct_' + cupId);
+            if (selL) selL.classList.remove('wrong-field', 'correct-field');
+            if (selC) selC.classList.remove('wrong-field', 'correct-field');
+
             const lVal = document.getElementById('selLight_' + cupId).value;
             const cVal = document.getElementById('selConduct_' + cupId).value;
 
@@ -2588,13 +2572,19 @@
                 selL.classList.remove('correct-field', 'wrong-field');
                 selC.classList.remove('correct-field', 'wrong-field');
 
-                if (isLightMatch && isConductMatch) {
+                // Từng ô chọn đúng đều chuyển sang màu xanh lá, ô sai báo đỏ
+                if (isLightMatch) {
                     selL.classList.add('correct-field');
+                } else {
+                    hasWrong = true;
+                    selL.classList.add('wrong-field');
+                }
+
+                if (isConductMatch) {
                     selC.classList.add('correct-field');
                 } else {
                     hasWrong = true;
-                    if (!isLightMatch) selL.classList.add('wrong-field');
-                    if (!isConductMatch) selC.classList.add('wrong-field');
+                    selC.classList.add('wrong-field');
                 }
             }
 
@@ -2622,24 +2612,24 @@
         function startLab() {
             simState.started = true;
             simState.stage = 2;
-            document.getElementById('canvasLockOverlay').classList.add('hidden');
+            const lock = document.getElementById('canvasLockOverlay');
+            if (lock) lock.classList.add('hidden');
             document.getElementById('observeCard').classList.remove('hidden');
 
-            // Thu gọn briefing tự động theo chuẩn UX
-            const briefing = document.getElementById('briefing');
-            if (briefing) briefing.classList.add('is-collapsed');
-
             updateControlsForStage2();
-            setGuide("Stage 2: Đây là bộ 7 mẫu chất. Nhấn nút 'Cắm điện cực' để thử tính dẫn điện lần lượt từng cốc hoặc click trực tiếp vào cốc trên bàn.");
+            setGuide("HS cắm điện cực vào từng cốc trên bàn thí nghiệm để quan sát độ sáng bóng đèn và tính dẫn điện.");
             LMS().state({ currentStep: 2, totalSteps: 11, lastAction: 'startLab' });
             reportHeight();
         }
 
         function updateControlsForStage2() {
             const group = document.getElementById('controlsGroup');
+            if (!group) return;
+            const currentSample = SAMPLES[simState.activeCup - 1];
+            const formulaText = currentSample ? ` (${currentSample.formula})` : '';
             group.innerHTML = `
                 <button class="btn-primary" id="btnTestCurrent" onclick="testCurrentCup()">
-                    <i class="ti ti-bolt"></i> Cắm điện cực Cốc ${simState.activeCup} (${SAMPLES[simState.activeCup - 1].formula})
+                    <i class="ti ti-bolt"></i> Cắm điện cực Cốc ${simState.activeCup}${formulaText}
                 </button>
                 <button class="btn-secondary" id="btnTestAll" onclick="testAllCups()">
                     <i class="ti ti-player-track-next"></i> Thử nghiệm tự động tất cả
@@ -2674,6 +2664,19 @@
             if (nextCup !== -1) {
                 simState.activeCup = nextCup;
             }
+
+            // Tự động cuộn xuống bảng quan sát khi đã cắm điện cực cả 7 cốc
+            const testedCount = simState.testedCups.filter(Boolean).length;
+            if (testedCount === 7 && !simState.hasScrolledToObs) {
+                simState.hasScrolledToObs = true;
+                setGuide("Đã cắm điện cực cho cả 7 cốc! Hãy quan sát hiện tượng bóng đèn và hoàn thành bảng báo cáo bên dưới.");
+                setTimeout(() => {
+                    const obsCard = document.getElementById('observeCard');
+                    if (obsCard) {
+                        obsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 600);
+            }
             updateControlsForStage2();
         }
 
@@ -2686,7 +2689,14 @@
                     simState.testedCups[i] = true;
                     updateControlsForStage2();
                     if (i === 6) {
-                        setGuide("Đã cắm điện cực cho cả 7 cốc. Hãy quan sát độ sáng bóng đèn và hoàn thành bảng báo cáo bên dưới!");
+                        simState.hasScrolledToObs = true;
+                        setGuide("Đã cắm điện cực cho cả 7 cốc! Hãy quan sát hiện tượng bóng đèn và hoàn thành bảng báo cáo bên dưới.");
+                        setTimeout(() => {
+                            const obsCard = document.getElementById('observeCard');
+                            if (obsCard) {
+                                obsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 600);
                     }
                 }, delay);
                 delay += 550;
@@ -3156,10 +3166,11 @@
         // RESET LAB (TRẢ VỀ TRẠNG THÁI BAN ĐẦU)
         // ======================================================
         function resetLab() {
-            simState.stage = 1;
-            simState.started = false;
+            simState.started = true;
+            simState.stage = 2;
             simState.canvasMode = '7cups';
             simState.activeCup = 1;
+            simState.hasScrolledToObs = false;
             simState.cupElectrodes = [0, 0, 0, 0, 0, 0, 0];
             simState.testedCups = [false, false, false, false, false, false, false];
             simState.observations = [
@@ -3172,17 +3183,10 @@
                 { light: '', conduct: '' }
             ];
 
-            document.getElementById('canvasLockOverlay').classList.remove('hidden');
+            const lock = document.getElementById('canvasLockOverlay');
+            if (lock) lock.classList.add('hidden');
 
-            const group = document.getElementById('controlsGroup');
-            group.innerHTML = `
-                <button class="btn-primary" id="btnStartLab" onclick="startLab()">
-                    <i class="ti ti-player-play"></i> Bắt đầu thí nghiệm
-                </button>
-                <button class="btn-reset" id="btnResetLab" onclick="resetLab()" disabled>
-                    <i class="ti ti-refresh"></i> Làm lại
-                </button>
-            `;
+            updateControlsForStage2();
 
             // Reset table
             initObservationTable();
@@ -3190,8 +3194,8 @@
             document.getElementById('btnConfirmObs').disabled = true;
             document.getElementById('btnConfirmObs').innerHTML = '<i class="ti ti-check"></i> Xác nhận kết quả bảng &amp; Tiếp tục';
 
-            // Hide cards
-            document.getElementById('observeCard').classList.add('hidden');
+            // Keep observeCard visible
+            document.getElementById('observeCard').classList.remove('hidden');
             document.getElementById('conclusionCard').classList.add('hidden');
 
             // Hide subordinate blocks
@@ -3239,11 +3243,36 @@
 
             closeCelebrationModal();
 
-            setGuide("Hệ thống đã được đặt lại ban đầu. Bấm 'Bắt đầu thí nghiệm' để bắt đầu khảo sát.");
+            setGuide("HS cắm điện cực vào từng cốc trên bàn thí nghiệm để quan sát độ sáng bóng đèn và tính dẫn điện.");
             reportHeight();
         }
 
         // TƯƠNG TÁC CHẠM / CLICK TRỰC TIẾP TRÊN CANVAS
+        canvas.addEventListener('mousemove', (e) => {
+            if (!simState.started || simState.canvasMode !== '7cups') {
+                canvas.style.cursor = 'default';
+                return;
+            }
+            const rect = canvas.getBoundingClientRect();
+            const px = (e.clientX - rect.left) * (W / rect.width);
+            const py = (e.clientY - rect.top) * (H / rect.height);
+
+            const startX = 40;
+            const spacing = 102;
+            const cupW = 64;
+            const cupY = 196;
+
+            let hoveringCup = false;
+            for (let i = 0; i < 7; i++) {
+                const cx = startX + i * spacing + cupW / 2;
+                if (px >= cx - cupW / 2 - 10 && px <= cx + cupW / 2 + 10 && py >= cupY - 140 && py <= 365) {
+                    hoveringCup = true;
+                    break;
+                }
+            }
+            canvas.style.cursor = hoveringCup ? 'pointer' : 'default';
+        });
+
         canvas.addEventListener('click', (e) => {
             if (!simState.started || simState.canvasMode !== '7cups') return;
 
