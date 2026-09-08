@@ -1683,13 +1683,13 @@
         // DATA MODEL: 7 MẪU THỬ NGHIỆM
         // ======================================================
         const SAMPLES = [
-            { id: 1, name: 'NaCl (rắn)', formula: 'NaCl(s)', desc: 'Tinh thể muối khan', light: 'none', conduct: 'no', color: '#FFFFFF', isSolid: true },
-            { id: 2, name: 'dd NaCl 0,1M', formula: 'NaCl(aq)', desc: 'Dung dịch muối ăn', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
-            { id: 3, name: 'dd HCl 0,1M', formula: 'HCl(aq)', desc: 'Acid mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
-            { id: 4, name: 'dd NaOH 0,1M', formula: 'NaOH(aq)', desc: 'Base mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
-            { id: 5, name: 'dd CH₃COOH 0,1M', formula: 'CH₃COOH(aq)', desc: 'Acid yếu (giấm)', light: 'weak', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
-            { id: 6, name: 'dd Đường 0,1M', formula: 'C₁₂H₂₂O₁₁(aq)', desc: 'Đường tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(220, 240, 248, 0.50)', isSolid: false },
-            { id: 7, name: 'dd Ethanol 0,1M', formula: 'C₂H₅OH(aq)', desc: 'Cồn tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(215, 238, 245, 0.45)', isSolid: false }
+            { id: 1, name: 'NaCl (rắn)', canvasName: 'NaCl (rắn)', canvasDesc: 'Muối khan', formula: 'NaCl(s)', desc: 'Tinh thể muối khan', light: 'none', conduct: 'no', color: '#FFFFFF', isSolid: true },
+            { id: 2, name: 'dd NaCl 0,1M', canvasName: 'NaCl 0,1M', canvasDesc: 'Dung dịch muối', formula: 'NaCl(aq)', desc: 'Dung dịch muối ăn', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 3, name: 'dd HCl 0,1M', canvasName: 'HCl 0,1M', canvasDesc: 'Acid mạnh', formula: 'HCl(aq)', desc: 'Acid mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 4, name: 'dd NaOH 0,1M', canvasName: 'NaOH 0,1M', canvasDesc: 'Base mạnh', formula: 'NaOH(aq)', desc: 'Base mạnh', light: 'strong', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 5, name: 'dd CH₃COOH 0,1M', canvasName: 'CH₃COOH 0,1M', canvasDesc: 'Acid yếu (giấm)', formula: 'CH₃COOH(aq)', desc: 'Acid yếu (giấm)', light: 'weak', conduct: 'yes', color: 'rgba(210, 235, 245, 0.45)', isSolid: false },
+            { id: 6, name: 'dd Đường 0,1M', canvasName: 'Đường 0,1M', canvasDesc: 'Saccarose tan', formula: 'C₁₂H₂₂O₁₁(aq)', desc: 'Đường tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(220, 240, 248, 0.50)', isSolid: false },
+            { id: 7, name: 'dd Ethanol 0,1M', canvasName: 'Ethanol 0,1M', canvasDesc: 'Cồn rượu tan', formula: 'C₂H₅OH(aq)', desc: 'Cồn tan hoàn toàn', light: 'none', conduct: 'no', color: 'rgba(215, 238, 245, 0.45)', isSolid: false }
         ];
 
         // SIMULATION STATE
@@ -1726,9 +1726,12 @@
 
         function resizeCanvas() {
             const rect = canvas.getBoundingClientRect();
-            if (canvas.width !== Math.round(rect.width) || canvas.height !== Math.round(rect.height)) {
-                canvas.width = Math.round(rect.width);
-                canvas.height = Math.round(rect.height);
+            const dpr = Math.min(window.devicePixelRatio || 1, 3);
+            const targetW = Math.max(1, Math.round(rect.width * dpr));
+            const targetH = Math.max(1, Math.round(rect.height * dpr));
+            if (canvas.width !== targetW || canvas.height !== targetH) {
+                canvas.width = targetW;
+                canvas.height = targetH;
             }
         }
         window.addEventListener('resize', resizeCanvas);
@@ -1741,6 +1744,8 @@
             resizeCanvas();
 
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
 
             const scaleX = canvas.width / W;
             const scaleY = canvas.height / H;
@@ -1773,11 +1778,11 @@
             drawLabBench();
 
             // 2. Vẽ 7 cốc thủy tinh
-            const startX = 35;
-            const spacing = 100;
-            const cupW = 68;
-            const cupH = 88;
-            const cupY = 220;
+            const startX = 40;
+            const spacing = 102;
+            const cupW = 64;
+            const cupH = 82;
+            const cupY = 196;
 
             for (let i = 0; i < 7; i++) {
                 const cx = startX + i * spacing + cupW / 2;
@@ -1791,22 +1796,25 @@
         }
 
         function drawLabBench() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-            ctx.fillRect(15, 312, 730, 18);
+            // Bóng đổ mặt bàn
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(15, 280, 730, 20);
 
-            const tableGrad = ctx.createLinearGradient(0, 308, 0, 328);
+            // Bề mặt bàn đá composite
+            const tableGrad = ctx.createLinearGradient(0, 278, 0, 298);
             tableGrad.addColorStop(0, '#EDE6D8');
             tableGrad.addColorStop(1, '#D8CFBE');
             ctx.fillStyle = tableGrad;
             ctx.beginPath();
-            ctx.roundRect(15, 308, 730, 20, 4);
+            ctx.roundRect(15, 278, 730, 20, 4);
             ctx.fill();
 
+            // Viền phản quang sáng cạnh trên của bàn
             ctx.strokeStyle = '#FAF7F0';
             ctx.lineWidth = 1.5;
             ctx.beginPath();
-            ctx.moveTo(17, 309);
-            ctx.lineTo(743, 309);
+            ctx.moveTo(17, 279);
+            ctx.lineTo(743, 279);
             ctx.stroke();
         }
 
@@ -1815,12 +1823,12 @@
 
             // Khung highlight cốc đang chọn
             if (isCurrent && simState.started) {
-                ctx.fillStyle = 'rgba(60, 165, 122, 0.08)';
-                ctx.strokeStyle = 'rgba(60, 165, 122, 0.4)';
+                ctx.fillStyle = 'rgba(60, 165, 122, 0.06)';
+                ctx.strokeStyle = 'rgba(60, 165, 122, 0.45)';
                 ctx.lineWidth = 1.5;
                 ctx.setLineDash([4, 4]);
                 ctx.beginPath();
-                ctx.roundRect(cx - w / 2 - 8, cy - 145, w + 16, h + 185, 8);
+                ctx.roundRect(cx - w / 2 - 8, cy - 138, w + 16, h + 224, 8);
                 ctx.fill();
                 ctx.stroke();
                 ctx.setLineDash([]);
@@ -1828,7 +1836,7 @@
                 // Mũi tên chỉ dẫn nếu chưa cắm
                 if (!elProgress) {
                     ctx.fillStyle = '#3CA57A';
-                    const bounceY = cy - 150 + Math.sin(time * 5) * 4;
+                    const bounceY = cy - 146 + Math.sin(time * 5) * 4;
                     ctx.beginPath();
                     ctx.moveTo(cx, bounceY + 8);
                     ctx.lineTo(cx - 5, bounceY);
@@ -1839,15 +1847,15 @@
             }
 
             // Bóng đèn phía trên cốc
-            const bulbY = cy - 110;
+            const bulbY = cy - 98;
             drawLightBulb(cx, bulbY, sample.light, elProgress);
 
             // Dây dẫn điện từ bóng đèn xuống cặp điện cực
-            const elBaseY = cy - 65;
+            const elBaseY = cy - 56;
             const elCurrentY = lerp(elBaseY, cy + 22, elProgress);
 
-            ctx.strokeStyle = '#525252';
-            ctx.lineWidth = 1.4;
+            ctx.strokeStyle = '#262626';
+            ctx.lineWidth = 2.2;
             // Dây cực âm
             ctx.beginPath();
             ctx.moveTo(cx - 8, bulbY + 12);
@@ -1860,14 +1868,18 @@
             ctx.stroke();
 
             // Cặp điện cực than chì (Graphite rods)
-            const rodW = 4.5, rodH = 45;
-            ctx.fillStyle = '#262626';
-            ctx.fillRect(cx - 12, elCurrentY, rodW, rodH);
-            ctx.fillRect(cx + 12 - rodW, elCurrentY, rodW, rodH);
+            const rodW = 5, rodH = 46;
+            ctx.fillStyle = '#171717';
+            ctx.fillRect(cx - 13, elCurrentY, rodW, rodH);
+            ctx.fillRect(cx + 13 - rodW, elCurrentY, rodW, rodH);
+            ctx.strokeStyle = '#0A0A0A';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(cx - 13, elCurrentY, rodW, rodH);
+            ctx.strokeRect(cx + 13 - rodW, elCurrentY, rodW, rodH);
 
             // Thanh ngang giữ điện cực
-            ctx.fillStyle = '#737373';
-            ctx.fillRect(cx - 16, elCurrentY, 32, 4);
+            ctx.fillStyle = '#404040';
+            ctx.fillRect(cx - 16, elCurrentY, 32, 4.5);
 
             // CỐC THỦY TINH
             // Nền chất lỏng / chất rắn
@@ -1880,7 +1892,7 @@
                 // Vẽ các hạt tinh thể lập phương li ti
                 ctx.fillStyle = '#D4D4D8';
                 for (let k = 0; k < 12; k++) {
-                    const hx = cx - w / 2 + 8 + (k * 4.8);
+                    const hx = cx - w / 2 + 8 + (k * 4.6);
                     const hy = cy + h - 14 + (k % 3) * 3;
                     ctx.fillRect(hx, hy, 3.5, 3.5);
                 }
@@ -1901,8 +1913,8 @@
             }
 
             // Thành cốc thủy tinh
-            ctx.strokeStyle = '#94A3B8';
-            ctx.lineWidth = 1.8;
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 2.2;
             ctx.beginPath();
             ctx.moveTo(cx - w / 2, cy);
             ctx.lineTo(cx - w / 2, cy + h - 6);
@@ -1918,8 +1930,8 @@
             ctx.stroke();
 
             // Vạch chia độ cốc
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+            ctx.lineWidth = 1.5;
             for (let v = 1; v <= 3; v++) {
                 const vy = cy + h - v * 18;
                 ctx.beginPath();
@@ -1928,24 +1940,69 @@
                 ctx.stroke();
             }
 
-            // Nhãn tên cốc
-            ctx.font = '700 11px "JetBrains Mono", monospace';
-            ctx.fillStyle = isCurrent ? '#1B5E48' : '#334155';
-            ctx.textAlign = 'center';
-            ctx.fillText(sample.name, cx, cy + h + 18);
+            // Thẻ nhãn mẫu chất (Placard badge) độc lập dưới chân mỗi cốc
+            const cardW = 86;
+            const cardH = 50;
+            const cardX = cx - cardW / 2;
+            const cardY = 308;
 
-            ctx.font = '500 9.5px "Be Vietnam Pro", sans-serif';
-            ctx.fillStyle = '#64748B';
-            ctx.fillText(sample.desc, cx, cy + h + 31);
+            ctx.save();
+            // Nền thẻ nhãn
+            if (isCurrent && simState.started) {
+                ctx.fillStyle = '#F0FDF4'; // jade pale
+                ctx.strokeStyle = '#10B981'; // jade
+                ctx.lineWidth = 1.8;
+            } else {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.strokeStyle = '#CBD5E1'; // paper line
+                ctx.lineWidth = 1.2;
+            }
 
-            // Số thứ tự cốc
-            ctx.fillStyle = isCurrent ? '#3CA57A' : '#94A3B8';
+            // Đổ bóng nhẹ
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.06)';
+            ctx.shadowBlur = 4;
+            ctx.shadowOffsetY = 2;
             ctx.beginPath();
-            ctx.arc(cx, cy - 134, 9, 0, Math.PI * 2);
+            ctx.roundRect(cardX, cardY, cardW, cardH, 6);
             ctx.fill();
+            ctx.shadowColor = 'transparent';
+            ctx.stroke();
+
+            // Dòng 1: Tên hóa chất / nồng độ (JetBrains Mono bold)
+            ctx.font = '700 11px "JetBrains Mono", monospace';
+            ctx.fillStyle = isCurrent ? '#065F46' : '#0F172A';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(sample.canvasName, cx, cardY + 16, cardW - 6);
+
+            // Đường kẻ mảnh phân tách
+            ctx.strokeStyle = isCurrent ? '#A7F3D0' : '#F1F5F9';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cardX + 6, cardY + 28);
+            ctx.lineTo(cardX + cardW - 6, cardY + 28);
+            ctx.stroke();
+
+            // Dòng 2: Bản chất / trạng thái ngắn gọn (Be Vietnam Pro)
+            ctx.font = '600 10px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = isCurrent ? '#047857' : '#475569';
+            ctx.fillText(sample.canvasDesc, cx, cardY + 39, cardW - 6);
+
+            ctx.restore();
+
+            // Số thứ tự cốc (Badge trên đỉnh)
+            ctx.fillStyle = isCurrent ? '#3CA57A' : '#64748B';
+            ctx.beginPath();
+            ctx.arc(cx, cy - 124, 11, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = '#FFFFFF';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
             ctx.fillStyle = '#FFFFFF';
-            ctx.font = '700 10.5px "JetBrains Mono", monospace';
-            ctx.fillText(String(idx + 1), cx, cy - 130);
+            ctx.font = '700 12px "JetBrains Mono", monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(String(idx + 1), cx, cy - 124);
 
             ctx.restore();
         }
@@ -2020,21 +2077,54 @@
         }
 
         // ------------------------------------------------------
+        // ------------------------------------------------------
         // CẢNH 2: MÔ PHỎNG MẠNG TINH THỂ NaCl & NƯỚC (STAGE 4)
         // ------------------------------------------------------
         let naclIons = [];
         let waterMolecules = [];
 
+        const DISSOLVED_TARGETS = [
+            // 7 ion tỏa đều về khoang bên trái (x: 115 -> 245, y: 145 -> 326)
+            { x: 115, y: 150 },
+            { x: 215, y: 145 },
+            { x: 135, y: 210 },
+            { x: 245, y: 210 },
+            { x: 120, y: 275 },
+            { x: 220, y: 280 },
+            { x: 165, y: 326 },
+
+            // 7 ion tỏa đều về khoang bên phải (x: 515 -> 645, y: 145 -> 326)
+            { x: 545, y: 145 },
+            { x: 645, y: 150 },
+            { x: 515, y: 210 },
+            { x: 625, y: 210 },
+            { x: 540, y: 280 },
+            { x: 640, y: 275 },
+            { x: 595, y: 326 },
+
+            // 3 ion tỏa về phía trên mạng tinh thể (y: 142 -> 148)
+            { x: 325, y: 148 },
+            { x: 380, y: 142 },
+            { x: 435, y: 148 },
+
+            // 3 ion tỏa về phía dưới mạng tinh thể (y: 322 -> 326)
+            { x: 325, y: 322 },
+            { x: 380, y: 326 },
+            { x: 435, y: 322 }
+        ];
+
         function initNaClSimulation() {
             naclIons = [];
             waterMolecules = [];
 
-            // Khởi tạo mạng tinh thể 4x4 ở giữa
-            const gridX = 260, gridY = 130;
-            const step = 28;
+            // Khởi tạo mạng tinh thể 4x5 ở giữa bể chứa
+            const gridX = 328, gridY = 194;
+            const step = 26;
             for (let r = 0; r < 4; r++) {
                 for (let c = 0; c < 5; c++) {
+                    const idx = r * 5 + c;
                     const isNa = (r + c) % 2 === 0;
+                    const target = DISSOLVED_TARGETS[idx];
                     naclIons.push({
                         type: isNa ? 'Na' : 'Cl',
                         x: gridX + c * step,
@@ -2042,26 +2132,24 @@
                         origX: gridX + c * step,
                         origY: gridY + r * step,
                         r: isNa ? 8.5 : 12,
-                        color: isNa ? '#8B5CF6' : '#10B981',
+                        color: isNa ? '#7C3AED' : '#059669',
                         label: isNa ? 'Na⁺' : 'Cl⁻',
                         pulled: false,
                         pullProgress: 0,
-                        targetX: 0,
-                        targetY: 0
+                        targetX: target.x,
+                        targetY: target.y
                     });
                 }
             }
 
-            // Khởi tạo các phân tử H2O xung quanh
-            for (let i = 0; i < 28; i++) {
-                const ang = Math.random() * Math.PI * 2;
-                const dist = 160 + Math.random() * 80;
+            // Khởi tạo các phân tử H2O tự do bơi lội bên trong lòng khung xanh
+            for (let i = 0; i < 20; i++) {
                 waterMolecules.push({
-                    x: 330 + Math.cos(ang) * dist,
-                    y: 180 + Math.sin(ang) * dist,
-                    angle: ang + Math.PI,
-                    speed: 0.8 + Math.random() * 0.6,
-                    attachedTo: null
+                    x: 90 + Math.random() * 580,
+                    y: 130 + Math.random() * 200,
+                    vx: (Math.random() - 0.5) * 0.7,
+                    vy: (Math.random() - 0.5) * 0.7,
+                    angle: Math.random() * Math.PI * 2
                 });
             }
         }
@@ -2070,67 +2158,118 @@
             ctx.save();
 
             // Tiêu đề mô phỏng
-            ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
-            ctx.fillStyle = '#1B5E48';
+            ctx.font = '700 16px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#064E3B';
             ctx.textAlign = 'center';
             ctx.fillText('MÔ PHỎNG CẤP ĐỘ PHÂN TỬ: VAI TRÒ CỦA NƯỚC PHÂN CỰC KHI HÒA TAN NaCl', W / 2, 35);
 
-            ctx.font = '600 12.5px "JetBrains Mono", monospace';
+            ctx.font = '700 13.5px "JetBrains Mono", monospace';
             ctx.fillStyle = '#047857';
             ctx.fillText('Phương trình: NaCl(s) ⟶ Na⁺(aq) + Cl⁻(aq)', W / 2, 58);
 
             // Chú giải màu sắc
-            ctx.font = '600 11.5px "Be Vietnam Pro", sans-serif';
+            ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
             // Na+
-            ctx.fillStyle = '#8B5CF6';
-            ctx.beginPath(); ctx.arc(160, 85, 7, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#1A1A1A'; ctx.textAlign = 'left';
-            ctx.fillText('Ion Na⁺ (tím)', 175, 89);
+            ctx.fillStyle = '#7C3AED';
+            ctx.beginPath(); ctx.arc(155, 85, 8, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = '#0F172A'; ctx.textAlign = 'left';
+            ctx.fillText('Ion Na⁺ (tím)', 170, 89);
 
             // Cl-
-            ctx.fillStyle = '#10B981';
-            ctx.beginPath(); ctx.arc(280, 85, 9, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#1A1A1A';
+            ctx.fillStyle = '#059669';
+            ctx.beginPath(); ctx.arc(280, 85, 10, 0, Math.PI * 2); ctx.fill();
+            ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.5; ctx.stroke();
+            ctx.fillStyle = '#0F172A';
             ctx.fillText('Ion Cl⁻ (xanh lá)', 296, 89);
 
             // H2O phân cực
-            ctx.fillStyle = '#EF4444'; ctx.beginPath(); ctx.arc(430, 85, 6, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = '#1A1A1A';
-            ctx.fillText('O (δ⁻ đỏ) / H (δ⁺ trắng) — Phân tử H₂O phân cực', 444, 89);
+            ctx.fillStyle = '#DC2626'; ctx.beginPath(); ctx.arc(430, 85, 7, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = '#0F172A';
+            ctx.fillText('O (δ⁻ đỏ) / H (δ⁺ trắng) — Phân tử H₂O phân cực', 445, 89);
 
-            // Khung bể chứa nước
+            // Khung bể chứa nước (blue box)
+            const boxX = 60, boxY = 106, boxW = 640, boxH = 254, boxR = 12;
             ctx.fillStyle = 'rgba(224, 242, 254, 0.45)';
-            ctx.strokeStyle = '#BAE6FD';
+            ctx.strokeStyle = '#38BDF8';
             ctx.lineWidth = 2;
             ctx.beginPath();
-            ctx.roundRect(80, 105, 600, 240, 10);
+            ctx.roundRect(boxX, boxY, boxW, boxH, boxR);
             ctx.fill();
             ctx.stroke();
+
+            // Gợn sóng nhẹ mép trên mặt nước
+            ctx.strokeStyle = 'rgba(186, 230, 253, 0.7)';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(boxX + 16, boxY + 8);
+            ctx.lineTo(boxX + boxW - 16, boxY + 8);
+            ctx.stroke();
+
+            // GIỚI HẠN VÙNG VẼ TUYỆT ĐỐI BÊN TRONG KHUNG XANH BẰNG CLIP
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(boxX + 2, boxY + 2, boxW - 4, boxH - 4, boxR - 2);
+            ctx.clip();
+
+            // 1. Cập nhật và vẽ các phân tử H2O tự do bơi lội bên trong bể nước
+            waterMolecules.forEach(w => {
+                w.x += w.vx;
+                w.y += w.vy;
+                w.angle += 0.01;
+                if (w.x < boxX + 18 || w.x > boxX + boxW - 18) w.vx *= -1;
+                if (w.y < boxY + 18 || w.y > boxY + boxH - 18) w.vy *= -1;
+                drawWaterMolecule(w.x, w.y, w.angle);
+            });
+
+            // 2. Vẽ lưới liên kết tĩnh điện giữa các ion chưa tan trong mạng tinh thể
+            ctx.strokeStyle = 'rgba(148, 163, 184, 0.4)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([2, 2]);
+            for (let r = 0; r < 4; r++) {
+                for (let c = 0; c < 5; c++) {
+                    const idx = r * 5 + c;
+                    const ion = naclIons[idx];
+                    if (ion && !ion.pulled) {
+                        if (c < 4 && naclIons[idx + 1] && !naclIons[idx + 1].pulled) {
+                            ctx.beginPath();
+                            ctx.moveTo(ion.x, ion.y);
+                            ctx.lineTo(naclIons[idx + 1].x, naclIons[idx + 1].y);
+                            ctx.stroke();
+                        }
+                        if (r < 3 && naclIons[idx + 5] && !naclIons[idx + 5].pulled) {
+                            ctx.beginPath();
+                            ctx.moveTo(ion.x, ion.y);
+                            ctx.lineTo(naclIons[idx + 5].x, naclIons[idx + 5].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+            ctx.setLineDash([]);
 
             simState.naclAnimTimer += 0.02;
             const timer = simState.naclAnimTimer;
 
-            // Kéo dần từng ion ra khỏi mạng tinh thể
+            // 3. Kéo dần từng ion ra khỏi mạng tinh thể tới target an toàn
             naclIons.forEach((ion, idx) => {
-                const delay = idx * 0.45;
+                const delay = idx * 0.4;
                 if (timer > delay) {
                     ion.pulled = true;
                     if (ion.pullProgress < 1) {
                         ion.pullProgress += 0.012;
                         const p = easeOut(ion.pullProgress);
-                        const outAng = (idx * 0.8);
-                        const outDist = 65 + (idx % 4) * 28;
-                        ion.x = lerp(ion.origX, ion.origX + Math.cos(outAng) * outDist, p);
-                        ion.y = lerp(ion.origY, ion.origY + Math.sin(outAng) * outDist, p);
+                        ion.x = lerp(ion.origX, ion.targetX, p);
+                        ion.y = lerp(ion.origY, ion.targetY, p);
                     } else {
-                        // Dao động nhiệt nhẹ
-                        ion.x += Math.sin(time * 3 + idx) * 0.25;
-                        ion.y += Math.cos(time * 3 + idx) * 0.25;
+                        // Dao động nhiệt nhẹ quanh vị trí an toàn
+                        ion.x = ion.targetX + Math.sin(time * 2.5 + idx) * 2.2;
+                        ion.y = ion.targetY + Math.cos(time * 2.5 + idx * 1.4) * 2.2;
                     }
                 }
             });
 
-            // Vẽ các ion
+            // 4. Vẽ các ion và lớp vỏ hydrat hóa (phân tử H2O định hướng đúng đầu tích điện)
             naclIons.forEach((ion) => {
                 ctx.save();
                 ctx.fillStyle = ion.color;
@@ -2138,18 +2277,18 @@
                 ctx.arc(ion.x, ion.y, ion.r, 0, Math.PI * 2);
                 ctx.fill();
                 ctx.strokeStyle = '#FFFFFF';
-                ctx.lineWidth = 1.2;
+                ctx.lineWidth = 1.4;
                 ctx.stroke();
 
-                ctx.font = '700 9.5px "JetBrains Mono", monospace';
+                ctx.font = '700 11px "JetBrains Mono", monospace';
                 ctx.fillStyle = '#FFFFFF';
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'middle';
                 ctx.fillText(ion.label, ion.x, ion.y);
                 ctx.restore();
 
-                // Nếu đã tách ra, vẽ các phân tử H2O bao quanh định hướng đúng đầu tích điện
-                if (ion.pullProgress > 0.3) {
+                // Lớp vỏ hydrat hóa bao quanh ion đã tách ra
+                if (ion.pullProgress > 0.25) {
                     const sheathCount = 4;
                     for (let s = 0; s < sheathCount; s++) {
                         const sang = s * (Math.PI * 2 / sheathCount) + time * 0.5;
@@ -2162,6 +2301,9 @@
                     }
                 }
             });
+
+            // Đóng vùng clip giới hạn
+            ctx.restore();
 
             ctx.restore();
         }
@@ -2236,121 +2378,139 @@
             ctx.save();
 
             // Tiêu đề
-            ctx.font = '700 15px "Be Vietnam Pro", sans-serif';
-            ctx.fillStyle = '#1B5E48';
+            ctx.font = '700 16px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#064E3B';
             ctx.textAlign = 'center';
             ctx.fillText('SO SÁNH CẤP ĐỘ PHÂN TỬ: CHẤT ĐIỆN LI MẠNH (HCl) VS CHẤT ĐIỆN LI YẾU (CH₃COOH)', W / 2, 32);
 
             // KHỐI BÊN TRÁI: DUNG DỊCH HCl 0,1M
-            ctx.fillStyle = 'rgba(236, 253, 245, 0.7)';
-            ctx.strokeStyle = '#34D399';
-            ctx.lineWidth = 1.8;
+            ctx.fillStyle = 'rgba(236, 253, 245, 0.75)';
+            ctx.strokeStyle = '#10B981';
+            ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.roundRect(40, 50, 320, 275, 10);
             ctx.fill(); ctx.stroke();
 
             // Header HCl
-            ctx.fillStyle = '#065F46';
-            ctx.font = '700 13px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#064E3B';
+            ctx.font = '700 14px "JetBrains Mono", monospace';
             ctx.textAlign = 'left';
             ctx.fillText('dd HCl 0,1M — ĐIỆN LI MẠNH', 56, 75);
 
-            ctx.font = '600 11.5px "JetBrains Mono", monospace';
+            ctx.font = '700 12.5px "JetBrains Mono", monospace';
             ctx.fillStyle = '#047857';
-            ctx.fillText('HCl ⟶ H⁺ + Cl⁻  (mũi tên 1 chiều →)', 56, 94);
+            ctx.fillText('HCl ⟶ H⁺ + Cl⁻  (mũi tên 1 chiều →)', 56, 95);
 
-            // Bộ đếm hạt HCl
-            ctx.fillStyle = '#064E3B';
-            ctx.font = '700 12px "JetBrains Mono", monospace';
-            ctx.fillText('⚡ Bộ đếm: Ion ~1994 | Phân tử còn lại: ~3', 56, 114);
+            // Khung badge bộ đếm hạt HCl
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeStyle = '#A7F3D0';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(52, 106, 296, 24, 6);
+            ctx.fill(); ctx.stroke();
+
+            ctx.fillStyle = '#065F46';
+            ctx.font = '700 12.5px "JetBrains Mono", monospace';
+            ctx.fillText('⚡ Bộ đếm: Ion ~1994 | Phân tử: ~3', 58, 122);
 
             // Cập nhật hạt HCl
             hclParticles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 if (p.x < 55 || p.x > 345) p.vx *= -1;
-                if (p.y < 125 || p.y > 310) p.vy *= -1;
+                if (p.y < 136 || p.y > 310) p.vy *= -1;
 
                 ctx.save();
                 if (p.type === 'H') {
                     ctx.fillStyle = '#EF4444';
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fill();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('H⁺', p.x, p.y + 2.5);
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 6.5, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 8.5px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('H⁺', p.x, p.y + 3);
                 } else {
                     ctx.fillStyle = '#10B981';
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 8, 0, Math.PI * 2); ctx.fill();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 8px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('Cl⁻', p.x, p.y + 3);
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 9.5, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 10px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('Cl⁻', p.x, p.y + 3.5);
                 }
                 ctx.restore();
             });
 
             // Mini bóng đèn sáng mạnh
             drawLightBulb(200, 345, 'strong', 1.0);
-            ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
-            ctx.fillStyle = '#B45309'; ctx.textAlign = 'center';
+            ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#92400E'; ctx.textAlign = 'center';
             ctx.fillText('Đèn sáng mạnh', 200, 372);
 
             // KHỐI BÊN PHẢI: DUNG DỊCH CH3COOH 0,1M
-            ctx.fillStyle = 'rgba(254, 243, 199, 0.5)';
-            ctx.strokeStyle = '#FBBF24';
-            ctx.lineWidth = 1.8;
+            ctx.fillStyle = 'rgba(254, 243, 199, 0.6)';
+            ctx.strokeStyle = '#F59E0B';
+            ctx.lineWidth = 2;
             ctx.beginPath();
             ctx.roundRect(400, 50, 320, 275, 10);
             ctx.fill(); ctx.stroke();
 
             // Header CH3COOH
-            ctx.fillStyle = '#92400E';
-            ctx.font = '700 13px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#78350F';
+            ctx.font = '700 14px "JetBrains Mono", monospace';
             ctx.textAlign = 'left';
             ctx.fillText('dd CH₃COOH 0,1M — ĐIỆN LI YẾU', 416, 75);
 
-            ctx.font = '600 11.5px "JetBrains Mono", monospace';
-            ctx.fillStyle = '#B45309';
-            ctx.fillText('CH₃COOH ⇌ H⁺ + CH₃COO⁻  (thuận nghịch ⇌)', 416, 94);
+            ctx.font = '700 12.5px "JetBrains Mono", monospace';
+            ctx.fillStyle = '#92400E';
+            ctx.fillText('CH₃COOH ⇌ H⁺ + CH₃COO⁻  (thuận nghịch ⇌)', 416, 95);
 
-            // Bộ đếm hạt CH3COOH
+            // Khung badge bộ đếm hạt CH3COOH
+            ctx.fillStyle = '#FFFFFF';
+            ctx.strokeStyle = '#FDE68A';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.roundRect(412, 106, 296, 24, 6);
+            ctx.fill(); ctx.stroke();
+
             ctx.fillStyle = '#78350F';
-            ctx.font = '700 12px "JetBrains Mono", monospace';
-            ctx.fillText('⚡ Bộ đếm: Ion ~6 | Phân tử còn lại: ~997', 416, 114);
+            ctx.font = '700 12.5px "JetBrains Mono", monospace';
+            ctx.fillText('⚡ Bộ đếm: Ion ~6 | Phân tử: ~997', 418, 122);
 
             // Cập nhật hạt CH3COOH
             ch3coohParticles.forEach(p => {
                 p.x += p.vx;
                 p.y += p.vy;
                 if (p.x < 415 || p.x > 705) p.vx *= -1;
-                if (p.y < 125 || p.y > 310) p.vy *= -1;
+                if (p.y < 136 || p.y > 310) p.vy *= -1;
 
                 ctx.save();
                 if (p.type === 'H') {
                     ctx.fillStyle = '#EF4444';
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 5, 0, Math.PI * 2); ctx.fill();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('H⁺', p.x, p.y + 2.5);
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 6.5, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 8.5px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('H⁺', p.x, p.y + 3);
                 } else if (p.type === 'CH3COO') {
-                    ctx.fillStyle = '#3B82F6';
-                    ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, Math.PI * 2); ctx.fill();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('Ac⁻', p.x, p.y + 2.5);
+                    ctx.fillStyle = '#2563EB';
+                    ctx.beginPath(); ctx.arc(p.x, p.y, 10.5, 0, Math.PI * 2); ctx.fill();
+                    ctx.strokeStyle = '#FFFFFF'; ctx.lineWidth = 1.4; ctx.stroke();
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 9.5px monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('Ac⁻', p.x, p.y + 3);
                 } else {
-                    // Phân tử CH3COOH nguyên vẹn (hình elip đôi kết hợp)
-                    ctx.fillStyle = '#94A3B8';
-                    ctx.strokeStyle = '#475569';
-                    ctx.lineWidth = 1;
+                    // Phân tử CH3COOH nguyên vẹn
+                    ctx.fillStyle = '#64748B';
+                    ctx.strokeStyle = '#334155';
+                    ctx.lineWidth = 1.4;
                     ctx.beginPath();
-                    ctx.roundRect(p.x - 14, p.y - 7, 28, 14, 4);
+                    ctx.roundRect(p.x - 17, p.y - 9, 34, 18, 5);
                     ctx.fill(); ctx.stroke();
-                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 7.5px monospace'; ctx.textAlign = 'center';
-                    ctx.fillText('CH₃COOH', p.x, p.y + 2.5);
+                    ctx.fillStyle = '#FFFFFF'; ctx.font = '700 9.5px "JetBrains Mono", monospace'; ctx.textAlign = 'center';
+                    ctx.fillText('CH₃COOH', p.x, p.y + 3);
                 }
                 ctx.restore();
             });
 
             // Mini bóng đèn sáng yếu
             drawLightBulb(560, 345, 'weak', 1.0);
-            ctx.font = '700 11px "Be Vietnam Pro", sans-serif';
-            ctx.fillStyle = '#B45309'; ctx.textAlign = 'center';
+            ctx.font = '700 12.5px "Be Vietnam Pro", sans-serif';
+            ctx.fillStyle = '#92400E'; ctx.textAlign = 'center';
             ctx.fillText('Đèn sáng yếu (~20%)', 560, 372);
 
             ctx.restore();
@@ -3091,14 +3251,14 @@
             const px = (e.clientX - rect.left) * (W / rect.width);
             const py = (e.clientY - rect.top) * (H / rect.height);
 
-            const startX = 35;
-            const spacing = 100;
-            const cupW = 68;
-            const cupY = 220;
+            const startX = 40;
+            const spacing = 102;
+            const cupW = 64;
+            const cupY = 196;
 
             for (let i = 0; i < 7; i++) {
                 const cx = startX + i * spacing + cupW / 2;
-                if (px >= cx - cupW / 2 - 8 && px <= cx + cupW / 2 + 8 && py >= cupY - 140 && py <= cupY + 100) {
+                if (px >= cx - cupW / 2 - 10 && px <= cx + cupW / 2 + 10 && py >= cupY - 140 && py <= 365) {
                     simState.activeCup = i + 1;
                     testCurrentCup();
                     break;
