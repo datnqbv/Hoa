@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Phản ứng nitro hóa của phenol — Tổng hợp picric acid</title>
   <script>
-    function LMS(){return window.AiducationLMS||{ready:function(){},progress:function(){},event:function(){},state:function(){},complete:function(){},resize:function(){}};}
+    function LMS() { return window.AiducationLMS || { ready: function () { }, progress: function () { }, event: function () { }, state: function () { }, complete: function () { }, resize: function () { } }; }
   </script>
   <script type="application/json" id="athena-context">
   {
@@ -28,232 +29,1045 @@
     @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont/tabler-icons.min.css');
 
     :root {
-      --cream:#FAF7F0; --cream-2:#F0EADD; --paper-line:#E5DECF;
-      --ink:#1A1A1A; --ink-2:#514C44; --jade:#3CA57A; --jade-deep:#2D8B6F;
-      --jade-text:#1B5E48; --jade-pale:#DCEAE1; --sage:#A8C9B8; --sage-pale:#E1ECE4;
-      --accent:#E8A24A; --correct:#2D8B6F; --correct-bg:#DCEAE1;
-      --wrong:#C15F3C; --wrong-bg:#F3E2D6; --warning:#C58A2E; --warning-bg:#F5E7CB;
-      --info:#4E7F92; --info-bg:#DCE7EB;
+      --cream: #FAF7F0;
+      --cream-2: #F0EADD;
+      --paper-line: #E5DECF;
+      --ink: #1A1A1A;
+      --ink-2: #514C44;
+      --jade: #3CA57A;
+      --jade-deep: #2D8B6F;
+      --jade-text: #1B5E48;
+      --jade-pale: #DCEAE1;
+      --sage: #A8C9B8;
+      --sage-pale: #E1ECE4;
+      --accent: #E8A24A;
+      --correct: #2D8B6F;
+      --correct-bg: #DCEAE1;
+      --wrong: #C15F3C;
+      --wrong-bg: #F3E2D6;
+      --warning: #C58A2E;
+      --warning-bg: #F5E7CB;
+      --info: #4E7F92;
+      --info-bg: #DCE7EB;
     }
-    * { box-sizing:border-box; }
-    html { background:var(--cream); overflow-x:hidden; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: var(--cream);
+      overflow-x: hidden;
+    }
+
     body {
-      margin:0; display:flex; flex-direction:column; align-items:center; gap:16px;
-      padding:24px clamp(20px,2.5vw,48px); background:var(--cream); color:var(--ink);
-      font-family:'Be Vietnam Pro',system-ui,sans-serif; font-size:17px; line-height:1.7;
-      overflow-x:hidden;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 24px clamp(20px, 2.5vw, 48px);
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Be Vietnam Pro', system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      overflow-x: hidden;
     }
-    button, select, textarea { font:inherit; }
-    button { min-height:44px; }
-    button:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline:3px solid var(--accent); outline-offset:2px;
-    }
-    .app-shell { width:100%; min-width:0; max-width:100%; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
-    .briefing { width:100%; background:var(--jade-pale); border:1px solid var(--sage); border-left:4px solid var(--jade); border-radius:12px; overflow:hidden; }
-    .briefing-main { display:flex; align-items:center; gap:10px; min-height:48px; padding:8px 12px; }
-    .briefing-details { margin:0; padding:0 14px 11px; color:var(--ink-2); font-size:14px; line-height:1.55; transition:max-height .2s ease,opacity .2s ease,padding .2s ease; }
-    .briefing.is-collapsed .briefing-details { max-height:0; padding-top:0; padding-bottom:0; opacity:0; overflow:hidden; }
-    .briefing-toggle { flex-shrink:0; min-height:32px; padding:4px 8px; border:1px solid var(--sage); border-radius:7px; background:var(--cream); color:var(--jade-text); font-size:12px; font-weight:700; cursor:pointer; }
-    .goal-label {
-      display:flex; align-items:center; gap:6px; flex-shrink:0; color:var(--jade-text);
-      font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; white-space:nowrap;
-    }
-    .goal-divider { flex-shrink:0; align-self:stretch; width:1px; margin:3px 0; background:var(--sage); }
-    .goal-text { min-width:0; overflow-wrap:anywhere; font-size:17px; color:var(--ink); line-height:1.55; }
-    .lab-wrapper { display:flex; flex-direction:column; gap:16px; width:100%; min-width:0; max-width:100%; margin:0 auto; }
-    .card { width:100%; min-width:0; max-width:100%; background:var(--cream-2); border:1px solid var(--paper-line); border-radius:12px; }
-    .ai-guide {
-      display:flex; align-items:center; gap:9px; width:100%; min-height:48px; padding:7px 12px;
-      background:var(--jade-pale); border:1px solid var(--sage); border-radius:12px;
-    }
-    .ai-avatar { flex:0 0 30px; width:30px; height:30px; overflow:hidden; border:1.5px solid var(--sage); border-radius:50%; }
-    .ai-avatar img { width:100%; height:100%; object-fit:cover; display:block; }
-    .guide-text { flex:1; min-width:0; color:var(--ink); font-size:.95rem; font-weight:600; line-height:1.5; transition:opacity .2s ease,transform .2s ease; }
-    .guide-text.is-changing { opacity:0; transform:translateY(4px); }
-    .controls-card {
-      height:60px; padding:7px 12px; display:flex; flex-wrap:nowrap; align-items:center; justify-content:flex-end; gap:8px;
-      overflow-x:auto; overflow-y:hidden; scrollbar-width:thin; background:var(--cream-2);
-    }
-    .control-actions { display:flex; gap:7px; align-items:center; flex-shrink:0; }
-    .btn {
-      display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:44px;
-      padding:9px 13px; border-radius:9px; border:1.5px solid var(--jade); cursor:pointer;
-      font-size:.82rem; font-weight:700; line-height:1.2; white-space:nowrap; transition:background .18s ease,border-color .18s ease,color .18s ease;
-    }
-    .btn:disabled { opacity:.55; cursor:not-allowed; }
-    .btn-primary { background:var(--jade); color:var(--cream); }
-    .btn-primary:hover:not(:disabled) { background:var(--jade-deep); border-color:var(--jade-deep); }
-    .btn-secondary { background:transparent; color:var(--jade-text); }
-    .btn-secondary:hover:not(:disabled) { background:var(--jade-pale); }
-    .btn-reset { background:transparent; border-style:dashed; color:var(--jade-text); }
-    .btn-reset:hover:not(:disabled) { background:var(--jade-pale); }
-    .ti-loader-2 { animation:spin .9s linear infinite; }
-    @keyframes spin { to { transform:rotate(360deg); } }
-    .canvas-card { width:100%; padding:4px; display:flex; justify-content:center; background:var(--cream-2); }
-    .canvas-glow-wrap {
-      position:relative; width:100%; height:clamp(320px,42vw,540px); padding:2px; border-radius:10px;
-      overflow:hidden; display:flex;
-    }
-    .canvas-glow-wrap::before {
-      content:''; position:absolute; inset:-80%;
-      background:conic-gradient(from 0deg,transparent 0deg,transparent 170deg,var(--jade) 220deg,var(--jade) 340deg,transparent 360deg);
-      animation:canvasBorderSpin 4.5s linear infinite; z-index:0;
-    }
-    @keyframes canvasBorderSpin { to { transform:rotate(360deg); } }
-    #labCanvas {
-      position:relative; z-index:1; width:100%; height:100%; display:block; flex:1;
-      border-radius:8px; background:var(--cream); touch-action:none;
-    }
-    .content-card { padding:14px 16px; }
-    .section-title { display:flex; align-items:center; gap:8px; margin:0 0 12px; font-size:1.18rem; line-height:1.35; font-weight:700; }
-    .section-title i { color:var(--jade); }
-    .hypothesis-box, .knowledge-box, .evaluation-box {
-      padding:14px 16px; margin-bottom:14px; background:var(--sage-pale); border:1px solid var(--sage);
-      border-left:4px solid var(--jade); border-radius:10px;
-    }
-    .hypothesis-box p, .knowledge-box p, .evaluation-box p { margin:.35rem 0; max-width:64ch; overflow-wrap:anywhere; }
-    .eyebrow { color:var(--jade-text); font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.6px; }
-    .table-wrap { width:100%; min-width:0; max-width:100%; overflow:visible; }
-    table { width:100%; border-collapse:collapse; min-width:0; table-layout:fixed; font-size:.86rem; line-height:1.5; }
-    th:nth-child(1) { width:7%; } th:nth-child(2) { width:27%; } th:nth-child(3) { width:46%; } th:nth-child(4) { width:20%; }
-    th { padding:10px 12px; background:var(--jade-pale); color:var(--jade-text); text-align:left; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; }
-    td { padding:11px 12px; border-bottom:1px solid var(--paper-line); vertical-align:top; }
-    tr.is-locked { display:none; }
-    tr.is-complete td { background:var(--correct-bg); }
-    tr.cell-flash td { animation:cellFlash 1s ease; }
-    @keyframes cellFlash { 0%,100%{background:transparent} 35%{background:var(--jade-pale)} }
-    .obs-select, .fill-select {
-      width:100%; min-height:44px; padding:8px 34px 8px 10px; border:1px solid var(--sage);
-      border-radius:8px; background:var(--cream); color:var(--ink); font-size:.86rem;
-    }
-    .obs-select:disabled, .fill-select:disabled { opacity:.65; }
-    .custom-select { position:relative; width:100%; min-width:0; }
-    .custom-select.is-open { z-index:90; }
-    .custom-select-trigger, .custom-select-menu { display:none; }
-    .custom-select > select { position:absolute; width:1px; height:1px; opacity:0; pointer-events:none; }
-    .custom-select-trigger {
-      display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; min-width:0;
-      min-height:44px; padding:8px 10px; border:1px solid var(--sage); border-radius:8px;
-      background:var(--cream); color:var(--ink); text-align:left; font-size:16px; cursor:pointer;
-    }
-    .custom-select-trigger span { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    .custom-select-trigger:disabled { opacity:.65; cursor:not-allowed; }
-    .custom-select-trigger .ti-chevron-down { transition:transform .2s ease; flex-shrink:0; }
-    .custom-select.is-open .custom-select-trigger .ti-chevron-down { transform:rotate(180deg); }
-    .custom-select-menu {
-      position:absolute; top:calc(100% + 4px); left:0; z-index:80; width:100%; min-width:0; max-height:360px;
-      overflow-y:auto; padding:4px; border:1px solid var(--sage); border-radius:8px;
-      background:var(--cream); box-shadow:0 8px 18px rgba(26,26,26,.16);
-    }
-    .custom-select.is-open .custom-select-menu { display:block; }
-    .field.has-open-select, tr.has-open-select { position:relative; z-index:95; }
-    .custom-select-option {
-      display:block; width:100%; min-height:42px; padding:8px 10px; border:0; border-radius:6px;
-      background:transparent; color:var(--ink); text-align:left; white-space:normal; line-height:1.35; cursor:pointer;
-    }
-    .custom-select-option:hover, .custom-select-option:focus-visible, .custom-select-option.is-selected { background:var(--jade-pale); color:var(--jade-text); }
-    .inline-feedback { min-height:1.4em; margin:6px 0 0; color:var(--ink-2); font-size:.82rem; line-height:1.5; }
-    .inline-feedback.is-wrong { color:var(--wrong); }
-    .inline-feedback.is-correct { color:var(--correct); }
-    .locked-note { color:var(--ink-2); font-size:.9rem; }
-    .hidden { display:none !important; }
-    .reveal-block { animation:reveal .28s ease both; }
-    @keyframes reveal { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-    .fill-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin:12px 0; }
-    .field { display:flex; flex-direction:column; gap:5px; align-self:start; }
-    .field label { color:var(--ink-2); font-size:.82rem; font-weight:600; }
-    .feedback-box {
-      margin-top:10px; padding:11px 13px; border-radius:9px; border:1px solid var(--sage);
-      background:var(--sage-pale); color:var(--ink); font-size:.9rem; line-height:1.6;
-    }
-    .feedback-box.correct { border-left:4px solid var(--correct); background:var(--correct-bg); }
-    .feedback-box.wrong { border-left:4px solid var(--wrong); background:var(--wrong-bg); }
-    .feedback-box.warning { border-left:4px solid var(--warning); background:var(--warning-bg); }
-    .choice-row { display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; }
-    .choice-btn {
-      padding:8px 12px; min-height:44px; border:1.5px solid var(--jade); border-radius:9px;
-      background:transparent; color:var(--jade-text); font-weight:600; cursor:pointer;
-    }
-    .choice-btn.is-selected { background:var(--jade); color:var(--cream); }
+
+    button,
+    select,
     textarea {
-      width:100%; min-height:96px; resize:vertical; padding:10px 12px; border:1px solid var(--sage);
-      border-radius:9px; background:var(--cream); color:var(--ink); font-size:.92rem; line-height:1.6;
+      font: inherit;
     }
-    .quiz-list { display:flex; flex-direction:column; gap:14px; margin-top:14px; }
+
+    button {
+      min-height: 44px;
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .app-shell {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .briefing {
+      width: 100%;
+      background: var(--jade-pale);
+      border: 1px solid var(--sage);
+      border-left: 4px solid var(--jade);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .briefing-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 8px 12px;
+    }
+
+    .briefing-details {
+      margin: 0;
+      padding: 0 14px 11px;
+      color: var(--ink-2);
+      font-size: 14px;
+      line-height: 1.55;
+      transition: max-height .2s ease, opacity .2s ease, padding .2s ease;
+    }
+
+    .briefing.is-collapsed .briefing-details {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .briefing-toggle {
+      flex-shrink: 0;
+      min-height: 32px;
+      padding: 4px 8px;
+      border: 1px solid var(--sage);
+      border-radius: 7px;
+      background: var(--cream);
+      color: var(--jade-text);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .goal-label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      color: var(--jade-text);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+      white-space: nowrap;
+    }
+
+    .goal-divider {
+      flex-shrink: 0;
+      align-self: stretch;
+      width: 1px;
+      margin: 3px 0;
+      background: var(--sage);
+    }
+
+    .goal-text {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-size: 17px;
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    .lab-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .card {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      background: var(--cream-2);
+      border: 1px solid var(--paper-line);
+      border-radius: 12px;
+    }
+
+    .ai-guide {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      width: 100%;
+      min-height: 48px;
+      padding: 7px 12px;
+      background: var(--jade-pale);
+      border: 1px solid var(--sage);
+      border-radius: 12px;
+    }
+
+    .ai-avatar {
+      flex: 0 0 30px;
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      border: 1.5px solid var(--sage);
+      border-radius: 50%;
+    }
+
+    .ai-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .guide-text {
+      flex: 1;
+      min-width: 0;
+      color: var(--ink);
+      font-size: .95rem;
+      font-weight: 600;
+      line-height: 1.5;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .guide-text.is-changing {
+      opacity: 0;
+      transform: translateY(4px);
+    }
+
+    .controls-card {
+      height: 60px;
+      padding: 7px 12px;
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scrollbar-width: thin;
+      background: var(--cream-2);
+    }
+
+    .control-actions {
+      display: flex;
+      gap: 7px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 44px;
+      padding: 9px 13px;
+      border-radius: 9px;
+      border: 1.5px solid var(--jade);
+      cursor: pointer;
+      font-size: .82rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      transition: background .18s ease, border-color .18s ease, color .18s ease;
+    }
+
+    .btn:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--jade);
+      color: var(--cream);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--jade-deep);
+      border-color: var(--jade-deep);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--jade-text);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: var(--jade-pale);
+    }
+
+    .btn-reset {
+      background: transparent;
+      border-style: dashed;
+      color: var(--jade-text);
+    }
+
+    .btn-reset:hover:not(:disabled) {
+      background: var(--jade-pale);
+    }
+
+    .ti-loader-2 {
+      animation: spin .9s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .canvas-card {
+      width: 100%;
+      padding: 4px;
+      display: flex;
+      justify-content: center;
+      background: var(--cream-2);
+    }
+
+    .canvas-glow-wrap {
+      position: relative;
+      width: 100%;
+      height: clamp(320px, 42vw, 540px);
+      padding: 2px;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+    }
+
+    .canvas-glow-wrap::before {
+      content: '';
+      position: absolute;
+      inset: -80%;
+      background: conic-gradient(from 0deg, transparent 0deg, transparent 170deg, var(--jade) 220deg, var(--jade) 340deg, transparent 360deg);
+      animation: canvasBorderSpin 4.5s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes canvasBorderSpin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #labCanvas {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      flex: 1;
+      border-radius: 8px;
+      background: var(--cream);
+      touch-action: none;
+    }
+
+    .content-card {
+      padding: 14px 16px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      font-size: 1.18rem;
+      line-height: 1.35;
+      font-weight: 700;
+    }
+
+    .section-title i {
+      color: var(--jade);
+    }
+
+    .hypothesis-box,
+    .knowledge-box,
+    .evaluation-box {
+      padding: 14px 16px;
+      margin-bottom: 14px;
+      background: var(--sage-pale);
+      border: 1px solid var(--sage);
+      border-left: 4px solid var(--jade);
+      border-radius: 10px;
+    }
+
+    .hypothesis-box p,
+    .knowledge-box p,
+    .evaluation-box p {
+      margin: .35rem 0;
+      max-width: 64ch;
+      overflow-wrap: anywhere;
+    }
+
+    .eyebrow {
+      color: var(--jade-text);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .table-wrap {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      overflow: visible;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 0;
+      table-layout: fixed;
+      font-size: .86rem;
+      line-height: 1.5;
+    }
+
+    th:nth-child(1) {
+      width: 7%;
+    }
+
+    th:nth-child(2) {
+      width: 27%;
+    }
+
+    th:nth-child(3) {
+      width: 46%;
+    }
+
+    th:nth-child(4) {
+      width: 20%;
+    }
+
+    th {
+      padding: 10px 12px;
+      background: var(--jade-pale);
+      color: var(--jade-text);
+      text-align: left;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--paper-line);
+      vertical-align: top;
+    }
+
+    tr.is-locked {
+      display: none;
+    }
+
+    tr.is-complete td {
+      background: var(--correct-bg);
+    }
+
+    tr.cell-flash td {
+      animation: cellFlash 1s ease;
+    }
+
+    @keyframes cellFlash {
+
+      0%,
+      100% {
+        background: transparent
+      }
+
+      35% {
+        background: var(--jade-pale)
+      }
+    }
+
+    .obs-select,
+    .fill-select {
+      width: 100%;
+      min-height: 44px;
+      padding: 8px 34px 8px 10px;
+      border: 1px solid var(--sage);
+      border-radius: 8px;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: .86rem;
+    }
+
+    .obs-select:disabled,
+    .fill-select:disabled {
+      opacity: .65;
+    }
+
+    .custom-select {
+      position: relative;
+      width: 100%;
+      min-width: 0;
+    }
+
+    .custom-select.is-open {
+      z-index: 90;
+    }
+
+    .custom-select-trigger,
+    .custom-select-menu {
+      display: none;
+    }
+
+    .custom-select>select {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .custom-select-trigger {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-width: 0;
+      min-height: 44px;
+      padding: 8px 10px;
+      border: 1px solid var(--sage);
+      border-radius: 8px;
+      background: var(--cream);
+      color: var(--ink);
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .custom-select-trigger span {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .custom-select-trigger:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+    }
+
+    .custom-select-trigger .ti-chevron-down {
+      transition: transform .2s ease;
+      flex-shrink: 0;
+    }
+
+    .custom-select.is-open .custom-select-trigger .ti-chevron-down {
+      transform: rotate(180deg);
+    }
+
+    .custom-select-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      z-index: 80;
+      width: 100%;
+      min-width: 0;
+      max-height: 360px;
+      overflow-y: auto;
+      padding: 4px;
+      border: 1px solid var(--sage);
+      border-radius: 8px;
+      background: var(--cream);
+      box-shadow: 0 8px 18px rgba(26, 26, 26, .16);
+    }
+
+    .custom-select.is-open .custom-select-menu {
+      display: block;
+    }
+
+    .field.has-open-select,
+    tr.has-open-select {
+      position: relative;
+      z-index: 95;
+    }
+
+    .custom-select-option {
+      display: block;
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 10px;
+      border: 0;
+      border-radius: 6px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      white-space: normal;
+      line-height: 1.35;
+      cursor: pointer;
+    }
+
+    .custom-select-option:hover,
+    .custom-select-option:focus-visible,
+    .custom-select-option.is-selected {
+      background: var(--jade-pale);
+      color: var(--jade-text);
+    }
+
+    .inline-feedback {
+      min-height: 1.4em;
+      margin: 6px 0 0;
+      color: var(--ink-2);
+      font-size: .82rem;
+      line-height: 1.5;
+    }
+
+    .inline-feedback.is-wrong {
+      color: var(--wrong);
+    }
+
+    .inline-feedback.is-correct {
+      color: var(--correct);
+    }
+
+    .locked-note {
+      color: var(--ink-2);
+      font-size: .9rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .reveal-block {
+      animation: reveal .28s ease both;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    .fill-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-self: start;
+    }
+
+    .field label {
+      color: var(--ink-2);
+      font-size: .82rem;
+      font-weight: 600;
+    }
+
+    .feedback-box {
+      margin-top: 10px;
+      padding: 11px 13px;
+      border-radius: 9px;
+      border: 1px solid var(--sage);
+      background: var(--sage-pale);
+      color: var(--ink);
+      font-size: .9rem;
+      line-height: 1.6;
+    }
+
+    .feedback-box.correct {
+      border-left: 4px solid var(--correct);
+      background: var(--correct-bg);
+    }
+
+    .feedback-box.wrong {
+      border-left: 4px solid var(--wrong);
+      background: var(--wrong-bg);
+    }
+
+    .feedback-box.warning {
+      border-left: 4px solid var(--warning);
+      background: var(--warning-bg);
+    }
+
+    .choice-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+
+    .choice-btn {
+      padding: 8px 20px;
+      min-height: 44px;
+      min-width: 84px;
+      border: 1.5px solid var(--jade);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--jade-text);
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .choice-btn.is-selected {
+      background: var(--jade);
+      color: var(--cream);
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 96px;
+      resize: vertical;
+      padding: 10px 12px;
+      border: 1px solid var(--sage);
+      border-radius: 9px;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+
+    .quiz-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
     .quiz-card {
-      padding:14px; background:var(--sage-pale); border:1px solid var(--sage);
-      border-left:4px solid var(--jade); border-radius:10px;
+      padding: 14px;
+      background: var(--sage-pale);
+      border: 1px solid var(--sage);
+      border-left: 4px solid var(--jade);
+      border-radius: 10px;
     }
-    .quiz-card.is-complete { background:var(--correct-bg); border-left-color:var(--correct); }
-    .quiz-title { margin:0 0 10px; font-weight:700; line-height:1.55; }
-    .quiz-options { display:flex; flex-direction:column; gap:7px; margin:0; padding:0; list-style:none; }
+
+    .quiz-card.is-complete {
+      background: var(--correct-bg);
+      border-left-color: var(--correct);
+    }
+
+    .quiz-title {
+      margin: 0 0 10px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
     .quiz-option {
-      display:flex; align-items:flex-start; gap:10px; width:100%; min-height:44px; padding:10px 14px;
-      border:1px solid var(--sage); border-radius:9px; background:var(--cream); color:var(--ink);
-      text-align:left; cursor:pointer; line-height:1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 14px;
+      border: 1px solid var(--sage);
+      border-radius: 9px;
+      background: var(--cream);
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      line-height: 1.5;
     }
-    .quiz-option:hover:not(:disabled) { border-color:var(--jade); background:var(--jade-pale); }
-    .option-letter { flex:0 0 24px; color:var(--jade-text); font-weight:800; }
-    .option-text { flex:1; min-width:0; }
-    .option-icon { flex:0 0 20px; margin-top:2px; }
-    .quiz-option.is-correct { border-color:var(--correct); background:var(--correct-bg); }
-    .quiz-option.is-wrong { border-color:var(--wrong); background:var(--wrong-bg); }
+
+    .quiz-option:hover:not(:disabled) {
+      border-color: var(--jade);
+      background: var(--jade-pale);
+    }
+
+    .option-letter {
+      flex: 0 0 24px;
+      color: var(--jade-text);
+      font-weight: 800;
+    }
+
+    .option-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .option-icon {
+      flex: 0 0 20px;
+      margin-top: 2px;
+    }
+
+    .quiz-option.is-correct {
+      border-color: var(--correct);
+      background: var(--correct-bg);
+    }
+
+    .quiz-option.is-wrong {
+      border-color: var(--wrong);
+      background: var(--wrong-bg);
+    }
+
     .completion-banner {
-      display:flex; align-items:flex-start; gap:10px; margin-top:14px; padding:14px 16px;
-      background:var(--correct-bg); border:1px solid var(--sage); border-left:4px solid var(--correct); border-radius:10px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--correct-bg);
+      border: 1px solid var(--sage);
+      border-left: 4px solid var(--correct);
+      border-radius: 10px;
     }
-    .completion-banner i { color:var(--correct); font-size:1.35rem; margin-top:2px; }
-    .muted { color:var(--ink-2); }
+
+    .completion-banner i {
+      color: var(--correct);
+      font-size: 1.35rem;
+      margin-top: 2px;
+    }
+
+    .muted {
+      color: var(--ink-2);
+    }
+
     @media (max-width:767px) {
-      body { gap:9px; padding:12px 12px 82px; }
-      .app-shell, .lab-wrapper { gap:9px; }
-      .briefing-main { min-height:40px; padding:5px 8px; gap:6px; }
-      .briefing-details { padding:0 9px 8px; font-size:12px; line-height:1.4; }
-      .briefing-toggle { min-height:30px; padding:3px 6px; font-size:10px; }
-      .goal-label { gap:4px; font-size:10px; letter-spacing:.45px; }
-      .goal-divider { margin:2px 0; }
-      .goal-text { font-size:13px; line-height:1.4; }
-      .ai-guide { min-height:42px; align-items:center; gap:7px; padding:5px 8px; border-radius:9px; }
-      .ai-avatar { flex-basis:28px; width:28px; height:28px; }
-      .guide-text { display:-webkit-box; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; line-clamp:2; font-size:12px; line-height:1.35; }
-      .canvas-glow-wrap { height:clamp(300px,48vh,420px); }
+      body {
+        gap: 9px;
+        padding: 12px 12px 82px;
+      }
+
+      .app-shell,
+      .lab-wrapper {
+        gap: 9px;
+      }
+
+      .briefing-main {
+        min-height: 40px;
+        padding: 5px 8px;
+        gap: 6px;
+      }
+
+      .briefing-details {
+        padding: 0 9px 8px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .briefing-toggle {
+        min-height: 30px;
+        padding: 3px 6px;
+        font-size: 10px;
+      }
+
+      .goal-label {
+        gap: 4px;
+        font-size: 10px;
+        letter-spacing: .45px;
+      }
+
+      .goal-divider {
+        margin: 2px 0;
+      }
+
+      .goal-text {
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .ai-guide {
+        min-height: 42px;
+        align-items: center;
+        gap: 7px;
+        padding: 5px 8px;
+        border-radius: 9px;
+      }
+
+      .ai-avatar {
+        flex-basis: 28px;
+        width: 28px;
+        height: 28px;
+      }
+
+      .guide-text {
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .canvas-glow-wrap {
+        height: clamp(300px, 48vh, 420px);
+      }
+
       .controls-card {
-        position:fixed !important; left:0; right:0; bottom:0; z-index:50; width:100%; border-radius:0;
-        border-left:0; border-right:0; border-bottom:0; border-top:1px solid var(--paper-line);
-        box-shadow:0 -4px 16px rgba(0,0,0,.10); padding:8px 14px calc(8px + env(safe-area-inset-bottom,0px)); margin:0 !important;
+        position: fixed !important;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        width: 100%;
+        border-radius: 0;
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+        border-top: 1px solid var(--paper-line);
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, .10);
+        padding: 8px 14px calc(8px + env(safe-area-inset-bottom, 0px));
+        margin: 0 !important;
       }
-      .fill-grid { grid-template-columns:1fr; }
-      .btn { padding-inline:11px; }
-      .table-wrap { overflow:visible; }
-      table { min-width:0; display:block; }
-      thead { display:none; }
-      tbody { display:flex; flex-direction:column; gap:10px; }
-      tbody tr { display:block; padding:10px; border:1px solid var(--paper-line); border-left:4px solid var(--jade); border-radius:9px; background:var(--cream); }
-      tbody tr.is-locked { display:none; }
-      tbody tr.is-complete { background:var(--correct-bg); border-left-color:var(--correct); }
-      tbody td { display:grid; grid-template-columns:92px minmax(0,1fr); gap:8px; padding:6px 2px; border:0; font-size:13px; }
-      tbody td::before { content:attr(data-label); color:var(--jade-text); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; }
-      .field, .hypothesis-box, .evaluation-box { min-width:0; max-width:100%; }
-      .obs-select, .fill-select, textarea {
-        display:block; width:100%; min-width:0; max-width:100%; font-size:16px;
+
+      .fill-grid {
+        grid-template-columns: 1fr;
       }
-      .obs-select, .fill-select { text-overflow:ellipsis; white-space:nowrap; }
-      .obs-select option, .fill-select option { font-size:16px; }
+
+      .btn {
+        padding-inline: 11px;
+      }
+
+      .table-wrap {
+        overflow: visible;
+      }
+
+      table {
+        min-width: 0;
+        display: block;
+      }
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      tbody tr {
+        display: block;
+        padding: 10px;
+        border: 1px solid var(--paper-line);
+        border-left: 4px solid var(--jade);
+        border-radius: 9px;
+        background: var(--cream);
+      }
+
+      tbody tr.is-locked {
+        display: none;
+      }
+
+      tbody tr.is-complete {
+        background: var(--correct-bg);
+        border-left-color: var(--correct);
+      }
+
+      tbody td {
+        display: grid;
+        grid-template-columns: 92px minmax(0, 1fr);
+        gap: 8px;
+        padding: 6px 2px;
+        border: 0;
+        font-size: 13px;
+      }
+
+      tbody td::before {
+        content: attr(data-label);
+        color: var(--jade-text);
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .4px;
+      }
+
+      .field,
+      .hypothesis-box,
+      .evaluation-box {
+        min-width: 0;
+        max-width: 100%;
+      }
+
+      .obs-select,
+      .fill-select,
+      textarea {
+        display: block;
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        font-size: 16px;
+      }
+
+      .obs-select,
+      .fill-select {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .obs-select option,
+      .fill-select option {
+        font-size: 16px;
+      }
     }
+
     @media (max-width:640px) {
-      body { padding-left:12px; padding-right:12px; font-size:16px; }
-      .content-card { padding:13px 12px; }
-      .section-title { font-size:1.12rem; }
-      .hide-mobile { display:none; }
+      body {
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 16px;
+      }
+
+      .content-card {
+        padding: 13px 12px;
+      }
+
+      .section-title {
+        font-size: 1.12rem;
+      }
+
+      .hide-mobile {
+        display: none;
+      }
     }
+
     @media (prefers-reduced-motion:reduce) {
-      *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; }
-      .canvas-glow-wrap::before { animation:none; background:var(--jade); }
-      .reveal-block, tr.cell-flash td { animation:none; }
-      .ti-loader-2 { animation:spin .9s linear infinite; }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+
+      .canvas-glow-wrap::before {
+        animation: none;
+        background: var(--jade);
+      }
+
+      .reveal-block,
+      tr.cell-flash td {
+        animation: none;
+      }
+
+      .ti-loader-2 {
+        animation: spin .9s linear infinite;
+      }
     }
   </style>
 </head>
+
 <body>
   <main class="app-shell">
     <section class="briefing" id="briefing" aria-label="Mục tiêu và hướng dẫn thí nghiệm">
@@ -261,11 +1075,13 @@
         <span class="goal-label"><i class="ti ti-target" aria-hidden="true"></i>Mục tiêu</span>
         <span class="goal-divider" aria-hidden="true"></span>
         <span class="goal-text">Kiểm chứng giả thuyết: Phenol có khả năng phản ứng với HNO₃ đặc.</span>
-        <button type="button" class="briefing-toggle" id="briefingToggle" aria-expanded="true" aria-controls="briefingDetails">
+        <button type="button" class="briefing-toggle" id="briefingToggle" aria-expanded="true"
+          aria-controls="briefingDetails">
           <span id="briefingToggleLabel">Thu gọn</span><i class="ti ti-chevron-up" aria-hidden="true"></i>
         </button>
       </div>
-      <p class="briefing-details" id="briefingDetails">Tiến hành phản ứng nitro hóa phenol, theo dõi sự biến đổi của hỗn hợp và dùng bằng chứng quan sát để đánh giá giả thuyết.</p>
+      <p class="briefing-details" id="briefingDetails">Tiến hành phản ứng nitro hóa phenol, theo dõi sự biến đổi của hỗn
+        hợp và dùng bằng chứng quan sát để đánh giá giả thuyết.</p>
     </section>
 
     <section class="lab-wrapper">
@@ -287,7 +1103,8 @@
 
       <section class="card canvas-card">
         <div class="canvas-glow-wrap">
-          <canvas id="labCanvas" width="760" height="380" role="img" aria-label="Mô phỏng phản ứng nitro hóa phenol trong ống nghiệm, qua các giai đoạn thêm hóa chất, gia nhiệt, làm lạnh và kết tinh"></canvas>
+          <canvas id="labCanvas" width="760" height="380" role="img"
+            aria-label="Mô phỏng phản ứng nitro hóa phenol trong ống nghiệm, qua các giai đoạn thêm hóa chất, gia nhiệt, làm lạnh và kết tinh"></canvas>
         </div>
       </section>
 
@@ -296,39 +1113,64 @@
         <div class="hypothesis-box" id="hypothesisBox">
           <div class="eyebrow">Giả thuyết ban đầu</div>
           <p><strong>Phenol có khả năng phản ứng với HNO₃ đặc.</strong></p>
-          <p class="muted">Ba dòng báo cáo sẽ lần lượt mở sau các bước 3, 5 và 8. Hãy chọn hiện tượng đúng với những gì bạn quan sát trên canvas.</p>
+          <p class="muted">Ba dòng báo cáo sẽ lần lượt mở sau các bước 3, 5 và 8. Hãy chọn hiện tượng đúng với những gì
+            bạn quan sát trên canvas.</p>
         </div>
-        <p class="locked-note" id="observationEmpty"><i class="ti ti-eye-off" aria-hidden="true"></i> Bảng quan sát sẽ mở sau bước 3.</p>
+        <p class="locked-note" id="observationEmpty"><i class="ti ti-eye-off" aria-hidden="true"></i> Bảng quan sát sẽ
+          mở sau bước 3.</p>
         <div class="table-wrap hidden" id="observationTableWrap">
           <table>
-            <thead><tr><th>STT</th><th>Giai đoạn thí nghiệm</th><th>Hiện tượng quan sát được</th><th>Trạng thái</th></tr></thead>
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Giai đoạn thí nghiệm</th>
+                <th>Hiện tượng quan sát được</th>
+                <th>Trạng thái</th>
+              </tr>
+            </thead>
             <tbody>
               <tr id="obsRow1" class="is-locked">
-                <td data-label="STT">1</td><td data-label="Giai đoạn">Đun nóng phenol với H₂SO₄ đặc</td>
+                <td data-label="STT">1</td>
+                <td data-label="Giai đoạn">Đun nóng phenol với H₂SO₄ đặc</td>
                 <td data-label="Hiện tượng">
-                  <select class="obs-select" id="obs1" disabled aria-label="Hiện tượng sau khi đun phenol với axit sulfuric đặc">
-                    <option value="">?</option><option value="homogeneous">Hỗn hợp trở thành chất lỏng đồng nhất</option><option value="precipitate">Xuất hiện kết tủa</option><option value="boil">Hỗn hợp sôi mạnh</option>
+                  <select class="obs-select" id="obs1" disabled
+                    aria-label="Hiện tượng sau khi đun phenol với axit sulfuric đặc">
+                    <option value="">?</option>
+                    <option value="homogeneous">Hỗn hợp trở thành chất lỏng đồng nhất</option>
+                    <option value="precipitate">Xuất hiện kết tủa</option>
+                    <option value="boil">Hỗn hợp sôi mạnh</option>
                   </select>
                   <p class="inline-feedback" id="obsFeedback1"></p>
-                </td><td data-label="Trạng thái" id="obsStatus1">Mở sau bước 3</td>
+                </td>
+                <td data-label="Trạng thái" id="obsStatus1">Mở sau bước 3</td>
               </tr>
               <tr id="obsRow2" class="is-locked">
-                <td data-label="STT">2</td><td data-label="Giai đoạn">Nhỏ từ từ HNO₃ đặc và lắc nhẹ</td>
+                <td data-label="STT">2</td>
+                <td data-label="Giai đoạn">Nhỏ từ từ HNO₃ đặc và lắc nhẹ</td>
                 <td data-label="Hiện tượng">
                   <select class="obs-select" id="obs2" disabled aria-label="Hiện tượng sau khi thêm axit nitric đặc">
-                    <option value="">?</option><option value="dark-red">Hỗn hợp nhuốm màu đỏ tối</option><option value="none">Không có thay đổi rõ rệt</option><option value="yellow">Xuất hiện tinh thể vàng</option>
+                    <option value="">?</option>
+                    <option value="dark-red">Hỗn hợp nhuốm màu đỏ tối</option>
+                    <option value="none">Không có thay đổi rõ rệt</option>
+                    <option value="yellow">Xuất hiện tinh thể vàng</option>
                   </select>
                   <p class="inline-feedback" id="obsFeedback2"></p>
-                </td><td data-label="Trạng thái" id="obsStatus2">Mở sau bước 5</td>
+                </td>
+                <td data-label="Trạng thái" id="obsStatus2">Mở sau bước 5</td>
               </tr>
               <tr id="obsRow3" class="is-locked">
-                <td data-label="STT">3</td><td data-label="Giai đoạn">Rót hỗn hợp sau phản ứng vào nước lạnh</td>
+                <td data-label="STT">3</td>
+                <td data-label="Giai đoạn">Rót hỗn hợp sau phản ứng vào nước lạnh</td>
                 <td data-label="Hiện tượng">
                   <select class="obs-select" id="obs3" disabled aria-label="Hiện tượng khi rót hỗn hợp vào nước lạnh">
-                    <option value="">?</option><option value="yellow-crystals">Xuất hiện tinh thể màu vàng</option><option value="clear">Dung dịch vẫn trong suốt</option><option value="white-solid">Xuất hiện chất rắn màu trắng</option>
+                    <option value="">?</option>
+                    <option value="yellow-crystals">Xuất hiện tinh thể màu vàng</option>
+                    <option value="clear">Dung dịch vẫn trong suốt</option>
+                    <option value="white-solid">Xuất hiện chất rắn màu trắng</option>
                   </select>
                   <p class="inline-feedback" id="obsFeedback3"></p>
-                </td><td data-label="Trạng thái" id="obsStatus3">Mở sau bước 8</td>
+                </td>
+                <td data-label="Trạng thái" id="obsStatus3">Mở sau bước 8</td>
               </tr>
             </tbody>
           </table>
@@ -337,19 +1179,45 @@
 
       <section class="card content-card hidden" id="conclusionCard">
         <h2 class="section-title"><i class="ti ti-checklist" aria-hidden="true"></i>Kết luận &amp; Câu hỏi</h2>
-        <p class="locked-note" id="conclusionLocked"><i class="ti ti-lock" aria-hidden="true"></i> Hoàn thành 8 bước và điền đủ bảng quan sát để mở phần kết luận.</p>
+        <p class="locked-note" id="conclusionLocked"><i class="ti ti-lock" aria-hidden="true"></i> Hoàn thành 8 bước và
+          điền đủ bảng quan sát để mở phần kết luận.</p>
 
         <div id="conclusionSection" class="hidden">
           <div class="hypothesis-box reveal-block">
             <div class="eyebrow">Phần 5A — Rút kết luận</div>
-            <p>Trong điều kiện thí nghiệm, phenol phản ứng với HNO₃ đặc theo phản ứng <strong>_____</strong> trên vòng benzene. Các nhóm –NO₂ ưu tiên thế vào các vị trí <strong>_____</strong> so với nhóm –OH, tạo thành sản phẩm là <strong>_____</strong> có dạng tinh thể màu <strong>_____</strong>.</p>
+            <p>Trong điều kiện thí nghiệm, phenol phản ứng với HNO₃ đặc theo phản ứng <strong>_____</strong> trên vòng
+              benzene. Các nhóm –NO₂ ưu tiên thế vào các vị trí <strong>_____</strong> so với nhóm –OH, tạo thành sản
+              phẩm là <strong>_____</strong> có dạng tinh thể màu <strong>_____</strong>.</p>
             <div class="fill-grid">
-              <div class="field"><label for="fillReaction">Loại phản ứng</label><select id="fillReaction" class="fill-select"><option value="">Chọn đáp án</option><option value="substitution">Thế</option><option value="addition">Cộng</option><option value="decomposition">Phân hủy</option></select></div>
-              <div class="field"><label for="fillPosition">Vị trí ưu tiên</label><select id="fillPosition" class="fill-select"><option value="">Chọn đáp án</option><option value="ortho-para">Ortho và para</option><option value="meta">Meta</option><option value="random">Bất kỳ</option></select></div>
-              <div class="field"><label for="fillProduct">Sản phẩm</label><select id="fillProduct" class="fill-select"><option value="">Chọn đáp án</option><option value="picric">2,4,6-trinitrophenol</option><option value="benzene">Benzene</option><option value="phenolate">Sodium phenolate</option></select></div>
-              <div class="field"><label for="fillColor">Màu tinh thể</label><select id="fillColor" class="fill-select"><option value="">Chọn đáp án</option><option value="yellow">Vàng</option><option value="white">Trắng</option><option value="blue">Xanh lam</option></select></div>
+              <div class="field"><label for="fillReaction">Loại phản ứng</label><select id="fillReaction"
+                  class="fill-select">
+                  <option value="">Chọn đáp án</option>
+                  <option value="substitution">Thế</option>
+                  <option value="addition">Cộng</option>
+                  <option value="decomposition">Phân hủy</option>
+                </select></div>
+              <div class="field"><label for="fillPosition">Vị trí ưu tiên</label><select id="fillPosition"
+                  class="fill-select">
+                  <option value="">Chọn đáp án</option>
+                  <option value="ortho-para">Ortho và para</option>
+                  <option value="meta">Meta</option>
+                  <option value="random">Bất kỳ</option>
+                </select></div>
+              <div class="field"><label for="fillProduct">Sản phẩm</label><select id="fillProduct" class="fill-select">
+                  <option value="">Chọn đáp án</option>
+                  <option value="picric">2,4,6-trinitrophenol</option>
+                  <option value="benzene">Benzene</option>
+                  <option value="phenolate">Sodium phenolate</option>
+                </select></div>
+              <div class="field"><label for="fillColor">Màu tinh thể</label><select id="fillColor" class="fill-select">
+                  <option value="">Chọn đáp án</option>
+                  <option value="yellow">Vàng</option>
+                  <option value="white">Trắng</option>
+                  <option value="blue">Xanh lam</option>
+                </select></div>
             </div>
-            <button type="button" class="btn btn-primary" id="submitConclusion"><i class="ti ti-check" aria-hidden="true"></i>Kiểm tra kết luận</button>
+            <button type="button" class="btn btn-primary" id="submitConclusion"><i class="ti ti-check"
+                aria-hidden="true"></i>Kiểm tra kết luận</button>
             <div id="conclusionFeedback" aria-live="polite"></div>
           </div>
         </div>
@@ -357,7 +1225,10 @@
         <div id="knowledgeSection" class="hidden">
           <div class="knowledge-box reveal-block">
             <div class="eyebrow">Phần 5B — Chốt kiến thức</div>
-            <p>Trong điều kiện thí nghiệm, phenol bị nitro hóa tạo <strong>2,4,6-trinitrophenol (picric acid)</strong>. Nhóm –OH hoạt hóa vòng benzene và định hướng phản ứng thế vào các vị trí ortho, para, vì vậy phenol tham gia phản ứng thế trên vòng dễ hơn benzene. Khi rót hỗn hợp sau phản ứng vào nước lạnh, picric acid ít tan nên tách ra dưới dạng tinh thể màu vàng.</p>
+            <p>Trong điều kiện thí nghiệm, phenol bị nitro hóa tạo <strong>2,4,6-trinitrophenol (picric acid)</strong>.
+              Nhóm –OH hoạt hóa vòng benzene và định hướng phản ứng thế vào các vị trí ortho, para, vì vậy phenol tham
+              gia phản ứng thế trên vòng dễ hơn benzene. Khi rót hỗn hợp sau phản ứng vào nước lạnh, picric acid ít tan
+              nên tách ra dưới dạng tinh thể màu vàng.</p>
           </div>
         </div>
 
@@ -365,16 +1236,15 @@
           <div class="evaluation-box reveal-block">
             <div class="eyebrow">Phần 6A — Đánh giá giả thuyết</div>
             <p><strong>Giả thuyết:</strong> “Phenol có khả năng phản ứng với HNO₃ đặc.”</p>
-            <p><strong>Kết quả đã ghi:</strong> hỗn hợp đồng nhất sau khi đun; hỗn hợp đỏ tối sau khi thêm HNO₃; tinh thể vàng xuất hiện trong nước lạnh.</p>
-            <p>Dựa vào các bằng chứng trên, giả thuyết có được ủng hộ không? Hãy chọn và giải thích ngắn gọn.</p>
+            <p><strong>Kết quả đã ghi:</strong> hỗn hợp đồng nhất sau khi đun; hỗn hợp đỏ tối sau khi thêm HNO₃; tinh
+              thể vàng xuất hiện trong nước lạnh.</p>
+            <p>Dựa vào các bằng chứng trên, giả thuyết là đúng hay sai?</p>
             <div class="choice-row" id="hypothesisChoices">
-              <button type="button" class="choice-btn" data-value="support">Ủng hộ</button>
-              <button type="button" class="choice-btn" data-value="reject">Không ủng hộ</button>
-              <button type="button" class="choice-btn" data-value="insufficient">Chưa đủ cơ sở kết luận</button>
+              <button type="button" class="choice-btn" data-value="correct">Đúng</button>
+              <button type="button" class="choice-btn" data-value="wrong">Sai</button>
             </div>
-            <label class="eyebrow" for="hypothesisExplain">Giải thích bằng bằng chứng quan sát</label>
-            <textarea id="hypothesisExplain" placeholder="Ví dụ: viện dẫn sự thay đổi màu hoặc chất rắn thu được sau phản ứng..."></textarea>
-            <button type="button" class="btn btn-primary" id="submitHypothesis"><i class="ti ti-send" aria-hidden="true"></i>Gửi đánh giá</button>
+            <button type="button" class="btn btn-primary" id="submitHypothesis"><i class="ti ti-send"
+                aria-hidden="true"></i>Gửi đánh giá</button>
             <div id="hypothesisFeedback" aria-live="polite"></div>
           </div>
         </div>
@@ -385,7 +1255,8 @@
 
         <div id="completionBanner" class="completion-banner hidden" aria-live="polite">
           <i class="ti ti-rosette-discount-check" aria-hidden="true"></i>
-          <div><strong>Hoàn thành thí nghiệm</strong><br><span class="muted">Bạn đã thực hiện đủ quy trình, ghi nhận bằng chứng và hoàn thành các câu hỏi.</span></div>
+          <div><strong>Hoàn thành thí nghiệm</strong><br><span class="muted">Bạn đã thực hiện đủ quy trình, ghi nhận
+              bằng chứng và hoàn thành các câu hỏi.</span></div>
         </div>
       </section>
     </section>
@@ -396,7 +1267,7 @@
 
     const W = 760, H = 380;
     const mobileCanvasQuery = window.matchMedia('(max-width: 767px)');
-    function getSceneScale(){return mobileCanvasQuery.matches ? .88 : .67;}
+    function getSceneScale() { return mobileCanvasQuery.matches ? .88 : .67; }
     const canvas = document.getElementById('labCanvas');
     const ctx = canvas.getContext('2d');
     let canvasW = W, canvasH = H;
@@ -404,605 +1275,629 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const stepData = [
-      { id:'phenol', label:'Cho phenol vào ống nghiệm', icon:'ti-flask', duration:2600,
-        idle:'Bước 1: Bấm “Cho phenol vào ống nghiệm” để bắt đầu. Quan sát chất rắn được đưa vào đáy ống.',
-        running:'Spatula đang đưa phenol rắn vào ống nghiệm. Hãy theo dõi các hạt trắng lắng xuống đáy.',
-        done:'Đã cho 0,5 g phenol vào ống nghiệm. Tiếp theo, thêm từ từ H₂SO₄ đặc.' },
-      { id:'sulfuric', label:'Thêm H₂SO₄ đặc', icon:'ti-droplet', duration:2900,
-        idle:'Bước 2: Bấm “Thêm H₂SO₄ đặc”. Quan sát trạng thái của hỗn hợp trước khi gia nhiệt.',
-        running:'H₂SO₄ đặc đang được nhỏ từ từ vào ống nghiệm. Các gợn nhỏ đánh dấu từng giọt chạm hỗn hợp.',
-        done:'Đã thêm 1,5 mL H₂SO₄ đặc; hỗn hợp chưa đồng nhất. Tiếp theo, đun nóng nhẹ.' },
-      { id:'heat', label:'Đun nóng', icon:'ti-flame', duration:3700,
-        idle:'Bước 3: Bấm “Đun nóng” và quan sát đến khi hỗn hợp trở thành chất lỏng đồng nhất.',
-        running:'Ống nghiệm đang được đun nóng nhẹ. Nhiệt độ tăng, các hạt rắn tan dần và hỗn hợp trở nên đồng nhất.',
-        done:'Hỗn hợp đã trở thành chất lỏng đồng nhất. Ghi hiện tượng vào bảng rồi làm lạnh ống nghiệm.' },
-      { id:'cool', label:'Làm lạnh', icon:'ti-snowflake', duration:3500,
-        idle:'Bước 4: Bấm “Làm lạnh” và chờ nhiệt độ ổn định trong chậu nước đá trước khi thêm HNO₃.',
-        running:'Ống nghiệm đang được làm lạnh. Theo dõi nhiệt kế giảm dần và chờ hỗn hợp ổn định.',
-        done:'Hỗn hợp đã được làm lạnh ổn định. Bây giờ có thể thêm HNO₃ đặc một cách kiểm soát.' },
-      { id:'nitric', label:'Nhỏ HNO₃ đặc + lắc nhẹ', icon:'ti-droplet-filled', duration:4300,
-        idle:'Bước 5: Bấm “Nhỏ HNO₃ đặc + lắc nhẹ”. Chú ý sự thay đổi màu của hỗn hợp.',
-        running:'HNO₃ đặc đang được nhỏ từ từ, sau đó ống nghiệm sẽ được lắc nhẹ để trộn đều.',
-        done:'Hỗn hợp đã chuyển sang màu đỏ tối và đồng nhất. Ghi hiện tượng rồi chuyển sang đun cách thủy.' },
-      { id:'bath', label:'Đun cách thủy', icon:'ti-temperature', duration:4800,
-        idle:'Bước 6: Bấm “Đun cách thủy” và theo dõi hỗn hợp trong giai đoạn đun tăng tốc.',
-        running:'Ống nghiệm đang được đun cách thủy trong nồi nước sôi, hơi nước bốc nhẹ.',
-        done:'Giai đoạn đun cách thủy đã hoàn tất. Tiếp theo, để hỗn hợp nguội gần nhiệt độ phòng.' },
-      { id:'rest', label:'Để nguội', icon:'ti-temperature-minus', duration:3300,
-        idle:'Bước 7: Bấm “Để nguội” và chờ hỗn hợp về gần nhiệt độ phòng.',
-        running:'Ống nghiệm đã được đặt lên giá. Nhiệt độ đang giảm dần về gần nhiệt độ phòng.',
-        done:'Hỗn hợp đỏ tối đã nguội. Bây giờ có thể rót từ từ vào cốc nước lạnh.' },
-      { id:'pour', label:'Rót vào nước lạnh', icon:'ti-transfer-in', duration:6800,
-        idle:'Bước 8: Bấm “Rót vào nước lạnh” và quan sát thật kỹ hiện tượng xảy ra trong cốc.',
-        running:'Hỗn hợp đang được rót từ từ vào nước lạnh. Quan sát màu dung dịch và các hạt rắn mới hình thành.',
-        done:'Dung dịch nhạt màu và tinh thể vàng đã lắng xuống đáy cốc. Hãy hoàn thành dòng cuối của bảng quan sát.' }
+      {
+        id: 'phenol', label: 'Cho phenol vào ống nghiệm', icon: 'ti-flask', duration: 2600,
+        idle: 'Bước 1: Bấm “Cho phenol vào ống nghiệm” để bắt đầu. Quan sát chất rắn được đưa vào đáy ống.',
+        running: 'Spatula đang đưa phenol rắn vào ống nghiệm. Hãy theo dõi các hạt trắng lắng xuống đáy.',
+        done: 'Đã cho 0,5 g phenol vào ống nghiệm. Tiếp theo, thêm từ từ H₂SO₄ đặc.'
+      },
+      {
+        id: 'sulfuric', label: 'Thêm H₂SO₄ đặc', icon: 'ti-droplet', duration: 2900,
+        idle: 'Bước 2: Bấm “Thêm H₂SO₄ đặc”. Quan sát trạng thái của hỗn hợp trước khi gia nhiệt.',
+        running: 'H₂SO₄ đặc đang được nhỏ từ từ vào ống nghiệm. Các gợn nhỏ đánh dấu từng giọt chạm hỗn hợp.',
+        done: 'Đã thêm 1,5 mL H₂SO₄ đặc; hỗn hợp chưa đồng nhất. Tiếp theo, đun nóng nhẹ.'
+      },
+      {
+        id: 'heat', label: 'Đun nóng', icon: 'ti-flame', duration: 3700,
+        idle: 'Bước 3: Bấm “Đun nóng” và quan sát đến khi hỗn hợp trở thành chất lỏng đồng nhất.',
+        running: 'Ống nghiệm đang được đun nóng nhẹ. Nhiệt độ tăng, các hạt rắn tan dần và hỗn hợp trở nên đồng nhất.',
+        done: 'Hỗn hợp đã trở thành chất lỏng đồng nhất. Ghi hiện tượng vào bảng rồi làm lạnh ống nghiệm.'
+      },
+      {
+        id: 'cool', label: 'Làm lạnh', icon: 'ti-snowflake', duration: 3500,
+        idle: 'Bước 4: Bấm “Làm lạnh” và chờ nhiệt độ ổn định trong chậu nước đá trước khi thêm HNO₃.',
+        running: 'Ống nghiệm đang được làm lạnh. Theo dõi nhiệt kế giảm dần và chờ hỗn hợp ổn định.',
+        done: 'Hỗn hợp đã được làm lạnh ổn định. Bây giờ có thể thêm HNO₃ đặc một cách kiểm soát.'
+      },
+      {
+        id: 'nitric', label: 'Nhỏ HNO₃ đặc + lắc nhẹ', icon: 'ti-droplet-filled', duration: 4300,
+        idle: 'Bước 5: Bấm “Nhỏ HNO₃ đặc + lắc nhẹ”. Chú ý sự thay đổi màu của hỗn hợp.',
+        running: 'HNO₃ đặc đang được nhỏ từ từ, sau đó ống nghiệm sẽ được lắc nhẹ để trộn đều.',
+        done: 'Hỗn hợp đã chuyển sang màu đỏ tối và đồng nhất. Ghi hiện tượng rồi chuyển sang ngâm cách thủy.'
+      },
+      {
+        id: 'bath', label: 'Ngâm cách thủy', icon: 'ti-temperature', duration: 4800,
+        idle: 'Bước 6: Bấm “Ngâm cách thủy” và theo dõi hỗn hợp trong giai đoạn gia nhiệt cách thủy.',
+        running: 'Ống nghiệm đang được ngâm cách thủy trong nồi nước sôi, hơi nước bốc nhẹ.',
+        done: 'Giai đoạn ngâm cách thủy đã hoàn tất. Tiếp theo, để hỗn hợp nguội gần nhiệt độ phòng.'
+      },
+      {
+        id: 'rest', label: 'Để nguội', icon: 'ti-temperature-minus', duration: 3300,
+        idle: 'Bước 7: Bấm “Để nguội” và chờ hỗn hợp về gần nhiệt độ phòng.',
+        running: 'Ống nghiệm đã được đặt lên giá. Nhiệt độ đang giảm dần về gần nhiệt độ phòng.',
+        done: 'Hỗn hợp đỏ tối đã nguội. Bây giờ có thể rót từ từ vào cốc nước lạnh.'
+      },
+      {
+        id: 'pour', label: 'Rót vào nước lạnh', icon: 'ti-transfer-in', duration: 6800,
+        idle: 'Bước 8: Bấm “Rót vào nước lạnh” và quan sát thật kỹ hiện tượng xảy ra trong cốc.',
+        running: 'Hỗn hợp đang được rót từ từ vào nước lạnh. Quan sát màu dung dịch và các hạt rắn mới hình thành.',
+        done: 'Dung dịch nhạt màu và tinh thể vàng đã lắng xuống đáy cốc. Hãy hoàn thành dòng cuối của bảng quan sát.'
+      }
     ];
 
     const quizData = [
-      { id:'q1', prompt:'Trong thí nghiệm, hiện tượng nào là bằng chứng trực tiếp cho thấy sản phẩm rắn được tách ra sau phản ứng?',
-        options:[
+      {
+        id: 'q1', prompt: 'Trong thí nghiệm, hiện tượng nào là bằng chứng trực tiếp cho thấy sản phẩm rắn được tách ra sau phản ứng?',
+        options: [
           'Hỗn hợp trở thành chất lỏng đồng nhất khi đun với H₂SO₄ đặc',
           'Xuất hiện tinh thể màu vàng khi rót hỗn hợp vào nước lạnh',
           'Nhiệt độ hỗn hợp giảm khi làm lạnh',
           'Hỗn hợp được đun trong bể cách thủy'
-        ], correct:'B', hint:'Hãy tập trung vào hiện tượng xuất hiện một chất rắn mới sau khi hoàn tất phản ứng.',
-        explanation:'Tinh thể màu vàng xuất hiện khi rót hỗn hợp sau phản ứng vào nước lạnh là bằng chứng quan sát trực tiếp cho thấy sản phẩm rắn đã được tách ra.' },
-      { id:'q2', prompt:'Tại sao cần để hỗn hợp sau phản ứng nguội trước khi rót vào nước lạnh?',
-        options:[
+        ], correct: 'B', hint: 'Hãy tập trung vào hiện tượng xuất hiện một chất rắn mới sau khi hoàn tất phản ứng.',
+        explanation: 'Tinh thể màu vàng xuất hiện khi rót hỗn hợp sau phản ứng vào nước lạnh là bằng chứng quan sát trực tiếp cho thấy sản phẩm rắn đã được tách ra.'
+      },
+      {
+        id: 'q2', prompt: 'Tại sao cần để hỗn hợp sau phản ứng nguội trước khi rót vào nước lạnh?',
+        options: [
           'Để HNO₃ chuyển hoàn toàn thành H₂SO₄',
           'Để phenol bay hơi hết khỏi hỗn hợp',
           'Để làm phản ứng nitro hóa xảy ra nhanh hơn',
           'Để hạn chế hiện tượng sôi, bắn mạnh khi hỗn hợp acid nóng tiếp xúc với nước'
-        ], correct:'D', hint:'Hãy nghĩ đến điều có thể xảy ra khi một hỗn hợp acid đang nóng tiếp xúc với nước.',
-        explanation:'Hỗn hợp sau phản ứng còn nóng và chứa acid mạnh. Để nguội trước khi rót vào nước lạnh giúp hạn chế hiện tượng sôi và bắn mạnh, làm thao tác an toàn hơn.' },
-      { id:'q3', prompt:'Nhận xét nào đúng về ảnh hưởng của nhóm –OH đến phản ứng thế trên vòng benzene của phenol?',
-        options:[
+        ], correct: 'D', hint: 'Hãy nghĩ đến điều có thể xảy ra khi một hỗn hợp acid đang nóng tiếp xúc với nước.',
+        explanation: 'Hỗn hợp sau phản ứng còn nóng và chứa acid mạnh. Để nguội trước khi rót vào nước lạnh giúp hạn chế hiện tượng sôi và bắn mạnh, làm thao tác an toàn hơn.'
+      },
+      {
+        id: 'q3', prompt: 'Nhận xét nào đúng về ảnh hưởng của nhóm –OH đến phản ứng thế trên vòng benzene của phenol?',
+        options: [
           'Nhóm –OH hoạt hóa vòng benzene và định hướng thế vào các vị trí ortho, para',
           'Nhóm –OH làm vòng benzene kém phản ứng hơn benzene',
           'Nhóm –OH chỉ định hướng thế vào vị trí meta',
           'Nhóm –OH không ảnh hưởng đến khả năng phản ứng của vòng benzene'
-        ], correct:'A', hint:'Hãy xem lại phần chốt kiến thức về tác dụng định hướng của nhóm –OH trên vòng benzene.',
-        explanation:'Nhóm –OH hoạt hóa vòng benzene, làm phenol dễ tham gia phản ứng thế hơn benzene và định hướng tác nhân thế vào các vị trí ortho, para.' }
+        ], correct: 'A', hint: 'Hãy xem lại phần chốt kiến thức về tác dụng định hướng của nhóm –OH trên vòng benzene.',
+        explanation: 'Nhóm –OH hoạt hóa vòng benzene, làm phenol dễ tham gia phản ứng thế hơn benzene và định hướng tác nhân thế vào các vị trí ortho, para.'
+      }
     ];
 
-    function freshState(){
+    function freshState() {
       return {
-        started:false, currentStep:0, subStep:0, isAnimating:false, completedSteps:[], lastAction:'Mở bài',
-        reportAnswers:{obs1:null,obs2:null,obs3:null}, reportCorrect:{obs1:false,obs2:false,obs3:false},
-        conclusionAnswers:{reaction:'',position:'',product:'',color:''}, conclusionDone:false,
-        hypothesis:{choice:null,explanation:'',accepted:false},
-        quiz:{
-          q1:{chosen:null,attempts:0,completed:false,revealed:false,isCorrect:false},
-          q2:{chosen:null,attempts:0,completed:false,revealed:false,isCorrect:false},
-          q3:{chosen:null,attempts:0,completed:false,revealed:false,isCorrect:false}
-        }, completed:false
+        started: false, currentStep: 0, subStep: 0, isAnimating: false, completedSteps: [], lastAction: 'Mở bài',
+        reportAnswers: { obs1: null, obs2: null, obs3: null }, reportCorrect: { obs1: false, obs2: false, obs3: false },
+        conclusionAnswers: { reaction: '', position: '', product: '', color: '' }, conclusionDone: false,
+        hypothesis: { choice: null, explanation: '', accepted: false },
+        quiz: {
+          q1: { chosen: null, attempts: 0, completed: false, revealed: false, isCorrect: false },
+          q2: { chosen: null, attempts: 0, completed: false, revealed: false, isCorrect: false },
+          q3: { chosen: null, attempts: 0, completed: false, revealed: false, isCorrect: false }
+        }, completed: false
       };
     }
     let state = freshState();
     const scene = {
-      phenol:0, acid:0, homogeneous:0, cold:0, nitric:0, dark:0, waterBath:0,
-      cooled:0, pour:0, crystals:0, temp:25, shake:0, clock:15, tool:null, toolProgress:0
+      phenol: 0, acid: 0, homogeneous: 0, cold: 0, nitric: 0, dark: 0, waterBath: 0,
+      cooled: 0, pour: 0, crystals: 0, temp: 25, shake: 0, clock: 15, tool: null, toolProgress: 0
     };
-    const animation = {step:0,start:0,duration:0,lastDrop:-1,lastGrain:-1,finished:false};
+    const animation = { step: 0, start: 0, duration: 0, lastDrop: -1, lastGrain: -1, finished: false };
     let particles = [], rings = [];
-    const powderSeeds = Array.from({length:58},()=>({x:(Math.random()-.5)*46,y:Math.random()*27,size:2+Math.random()*3}));
-    const crystalSeeds = Array.from({length:68},()=>({x:(Math.random()-.5)*102,targetY:480+Math.random()*24,size:2+Math.random()*4,angle:(Math.random()-.5)*1.2,delay:Math.random()*.55,wobble:.3+Math.random()*.6}));
+    const powderSeeds = Array.from({ length: 58 }, () => ({ x: (Math.random() - .5) * 46, y: Math.random() * 27, size: 2 + Math.random() * 3 }));
+    const crystalSeeds = Array.from({ length: 68 }, () => ({ x: (Math.random() - .5) * 102, targetY: 480 + Math.random() * 24, size: 2 + Math.random() * 4, angle: (Math.random() - .5) * 1.2, delay: Math.random() * .55, wobble: .3 + Math.random() * .6 }));
 
     const $ = id => document.getElementById(id);
     const actionButton = $('actionButton');
     const resetButton = $('resetButton');
 
-    function setBriefingCollapsed(collapsed){
-      const briefing=$('briefing'),toggle=$('briefingToggle'),icon=toggle.querySelector('i');
-      briefing.classList.toggle('is-collapsed',collapsed);
-      toggle.setAttribute('aria-expanded',String(!collapsed));
-      $('briefingToggleLabel').textContent=collapsed?'Xem thêm':'Thu gọn';
-      icon.className=`ti ${collapsed?'ti-chevron-down':'ti-chevron-up'}`;
+    function setBriefingCollapsed(collapsed) {
+      const briefing = $('briefing'), toggle = $('briefingToggle'), icon = toggle.querySelector('i');
+      briefing.classList.toggle('is-collapsed', collapsed);
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      $('briefingToggleLabel').textContent = collapsed ? 'Xem thêm' : 'Thu gọn';
+      icon.className = `ti ${collapsed ? 'ti-chevron-down' : 'ti-chevron-up'}`;
       reportHeight();
     }
 
-    function lerp(a,b,t){return a+(b-a)*t;}
-    function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
-    function easeOut(t){return 1-(1-t)*(1-t);}
-    function easeInOut(t){return t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;}
-    function smoothstep(a,b,t){t=clamp((t-a)/(b-a),0,1);return t*t*(3-2*t);}
-    function lerpColor(a,b,t){
-      const p=clamp(t,0,1); return `rgb(${Math.round(a[0]+(b[0]-a[0])*p)},${Math.round(a[1]+(b[1]-a[1])*p)},${Math.round(a[2]+(b[2]-a[2])*p)})`;
+    function lerp(a, b, t) { return a + (b - a) * t; }
+    function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+    function easeOut(t) { return 1 - (1 - t) * (1 - t); }
+    function easeInOut(t) { return t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2; }
+    function smoothstep(a, b, t) { t = clamp((t - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); }
+    function lerpColor(a, b, t) {
+      const p = clamp(t, 0, 1); return `rgb(${Math.round(a[0] + (b[0] - a[0]) * p)},${Math.round(a[1] + (b[1] - a[1]) * p)},${Math.round(a[2] + (b[2] - a[2]) * p)})`;
     }
 
-    function resizeCanvas(){
-      const rect=canvas.getBoundingClientRect();
-      const rw=Math.max(1,Math.round(rect.width)),rh=Math.max(1,Math.round(rect.height));
-      if(canvas.width!==rw||canvas.height!==rh){canvas.width=rw;canvas.height=rh;canvasW=rw;canvasH=rh;}
+    function resizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const rw = Math.max(1, Math.round(rect.width)), rh = Math.max(1, Math.round(rect.height));
+      if (canvas.width !== rw || canvas.height !== rh) { canvas.width = rw; canvas.height = rh; canvasW = rw; canvasH = rh; }
     }
 
-    function updateAIGuide(message){
-      const el=$('guideText'); el.classList.add('is-changing');
-      window.setTimeout(()=>{el.textContent=message;el.classList.remove('is-changing');reportHeight();},160);
+    function updateAIGuide(message) {
+      const el = $('guideText'); el.classList.add('is-changing');
+      window.setTimeout(() => { el.textContent = message; el.classList.remove('is-changing'); reportHeight(); }, 160);
     }
 
-    function responsiveStepGuide(step,phase){
-      const item=stepData[step-1];
-      if(!mobileCanvasQuery.matches)return item[phase];
-      if(phase==='idle')return `Bước ${step}: Bấm “${item.label}” và quan sát.`;
-      if(phase==='running')return `Đang ${item.label.toLocaleLowerCase('vi-VN')}... Hãy quan sát trên canvas.`;
-      return step<8?`Đã xong bước ${step}. Tiếp theo: ${stepData[step].label}.`:'Đã xong 8 bước. Hãy hoàn thành bảng quan sát.';
+    function responsiveStepGuide(step, phase) {
+      const item = stepData[step - 1];
+      if (!mobileCanvasQuery.matches) return item[phase];
+      if (phase === 'idle') return `Bước ${step}: Bấm “${item.label}” và quan sát.`;
+      if (phase === 'running') return `Đang ${item.label.toLocaleLowerCase('vi-VN')}... Hãy quan sát trên canvas.`;
+      return step < 8 ? `Đã xong bước ${step}. Tiếp theo: ${stepData[step].label}.` : 'Đã xong 8 bước. Hãy hoàn thành bảng quan sát.';
     }
 
-    function syncCustomSelect(select){
-      const wrap=select.closest('.custom-select');if(!wrap)return;
-      const selected=select.options[select.selectedIndex],trigger=wrap.querySelector('.custom-select-trigger');
-      trigger.querySelector('span').textContent=selected?selected.textContent:'Chọn đáp án';trigger.disabled=select.disabled;
-      wrap.querySelectorAll('.custom-select-option').forEach(option=>option.classList.toggle('is-selected',option.dataset.value===select.value));
+    function syncCustomSelect(select) {
+      const wrap = select.closest('.custom-select'); if (!wrap) return;
+      const selected = select.options[select.selectedIndex], trigger = wrap.querySelector('.custom-select-trigger');
+      trigger.querySelector('span').textContent = selected ? selected.textContent : 'Chọn đáp án'; trigger.disabled = select.disabled;
+      wrap.querySelectorAll('.custom-select-option').forEach(option => option.classList.toggle('is-selected', option.dataset.value === select.value));
     }
-    function closeCustomSelects(except){
-      let changed=false;
-      document.querySelectorAll('.custom-select.is-open').forEach(wrap=>{
-        if(wrap!==except){
+    function closeCustomSelects(except) {
+      let changed = false;
+      document.querySelectorAll('.custom-select.is-open').forEach(wrap => {
+        if (wrap !== except) {
           wrap.classList.remove('is-open');
-          wrap.style.marginBottom='';
-          const trigger=wrap.querySelector('.custom-select-trigger');
-          if(trigger)trigger.setAttribute('aria-expanded','false');
-          const parentContainer=wrap.closest('.field, tr');
-          if(parentContainer)parentContainer.classList.remove('has-open-select');
-          changed=true;
+          wrap.style.marginBottom = '';
+          const trigger = wrap.querySelector('.custom-select-trigger');
+          if (trigger) trigger.setAttribute('aria-expanded', 'false');
+          const parentContainer = wrap.closest('.field, tr');
+          if (parentContainer) parentContainer.classList.remove('has-open-select');
+          changed = true;
         }
       });
-      if(changed)reportHeight();
+      if (changed) reportHeight();
     }
-    function enhanceSelects(){
-      document.querySelectorAll('.obs-select,.fill-select').forEach(select=>{
-        if(select.closest('.custom-select'))return;
-        const wrap=document.createElement('div');wrap.className='custom-select';select.parentNode.insertBefore(wrap,select);wrap.appendChild(select);
-        const trigger=document.createElement('button');trigger.type='button';trigger.className='custom-select-trigger';trigger.setAttribute('aria-haspopup','listbox');trigger.setAttribute('aria-expanded','false');trigger.innerHTML='<span></span><i class="ti ti-chevron-down" aria-hidden="true"></i>';
-        const menu=document.createElement('div');menu.className='custom-select-menu';menu.setAttribute('role','listbox');
-        Array.from(select.options).forEach(nativeOption=>{const option=document.createElement('button');option.type='button';option.className='custom-select-option';option.dataset.value=nativeOption.value;option.textContent=nativeOption.textContent;option.setAttribute('role','option');option.addEventListener('click',()=>{select.value=nativeOption.value;syncCustomSelect(select);closeCustomSelects();select.dispatchEvent(new Event('change',{bubbles:true}));});menu.appendChild(option);});
-        wrap.append(trigger,menu);trigger.addEventListener('click',()=>{
-          if(select.disabled)return;
-          const opening=!wrap.classList.contains('is-open');
+    function enhanceSelects() {
+      document.querySelectorAll('.obs-select,.fill-select').forEach(select => {
+        if (select.closest('.custom-select')) return;
+        const wrap = document.createElement('div'); wrap.className = 'custom-select'; select.parentNode.insertBefore(wrap, select); wrap.appendChild(select);
+        const trigger = document.createElement('button'); trigger.type = 'button'; trigger.className = 'custom-select-trigger'; trigger.setAttribute('aria-haspopup', 'listbox'); trigger.setAttribute('aria-expanded', 'false'); trigger.innerHTML = '<span></span><i class="ti ti-chevron-down" aria-hidden="true"></i>';
+        const menu = document.createElement('div'); menu.className = 'custom-select-menu'; menu.setAttribute('role', 'listbox');
+        Array.from(select.options).forEach(nativeOption => { const option = document.createElement('button'); option.type = 'button'; option.className = 'custom-select-option'; option.dataset.value = nativeOption.value; option.textContent = nativeOption.textContent; option.setAttribute('role', 'option'); option.addEventListener('click', () => { select.value = nativeOption.value; syncCustomSelect(select); closeCustomSelects(); select.dispatchEvent(new Event('change', { bubbles: true })); }); menu.appendChild(option); });
+        wrap.append(trigger, menu); trigger.addEventListener('click', () => {
+          if (select.disabled) return;
+          const opening = !wrap.classList.contains('is-open');
           closeCustomSelects(wrap);
-          wrap.classList.toggle('is-open',opening);
-          const parentContainer=wrap.closest('.field, tr');
-          if(parentContainer)parentContainer.classList.toggle('has-open-select',opening);
-          trigger.setAttribute('aria-expanded',String(opening));
-          if(opening){
+          wrap.classList.toggle('is-open', opening);
+          const parentContainer = wrap.closest('.field, tr');
+          if (parentContainer) parentContainer.classList.toggle('has-open-select', opening);
+          trigger.setAttribute('aria-expanded', String(opening));
+          if (opening) {
             syncCustomSelect(select);
-            const menuHeight=menu.offsetHeight||menu.scrollHeight||(select.options.length*44+16);
-            wrap.style.marginBottom=(menuHeight+14)+'px';
+            const menuHeight = menu.offsetHeight || menu.scrollHeight || (select.options.length * 44 + 16);
+            wrap.style.marginBottom = (menuHeight + 14) + 'px';
             reportHeight();
-            requestAnimationFrame(()=>{
-              const bottomNavHeight=mobileCanvasQuery.matches?76:16;
-              const menuRect=menu.getBoundingClientRect();
-              const availableBelow=window.innerHeight-bottomNavHeight-menuRect.bottom;
-              if(availableBelow<0){
-                window.scrollBy({top:-availableBelow+16,behavior:reduceMotion?'auto':'smooth'});
+            requestAnimationFrame(() => {
+              const bottomNavHeight = mobileCanvasQuery.matches ? 76 : 16;
+              const menuRect = menu.getBoundingClientRect();
+              const availableBelow = window.innerHeight - bottomNavHeight - menuRect.bottom;
+              if (availableBelow < 0) {
+                window.scrollBy({ top: -availableBelow + 16, behavior: reduceMotion ? 'auto' : 'smooth' });
               }
             });
-          }else{
-            wrap.style.marginBottom='';
+          } else {
+            wrap.style.marginBottom = '';
             reportHeight();
           }
         });
-        new MutationObserver(()=>{if(select.disabled)closeCustomSelects();syncCustomSelect(select);}).observe(select,{attributes:true,attributeFilter:['disabled']});syncCustomSelect(select);
+        new MutationObserver(() => { if (select.disabled) closeCustomSelects(); syncCustomSelect(select); }).observe(select, { attributes: true, attributeFilter: ['disabled'] }); syncCustomSelect(select);
       });
-      document.addEventListener('click',event=>{if(!event.target.closest('.custom-select'))closeCustomSelects();});
+      document.addEventListener('click', event => { if (!event.target.closest('.custom-select')) closeCustomSelects(); });
     }
 
-    function renderControls(){
-      const icon=actionButton.querySelector('i');
-      if(state.isAnimating){
-        icon.className='ti ti-loader-2'; $('actionLabel').textContent='Đang thực hiện...'; actionButton.disabled=true;
-      }else if(!state.started){
-        icon.className='ti ti-player-play'; $('actionLabel').textContent='Bắt đầu thí nghiệm'; actionButton.disabled=false;
-      }else if(state.currentStep>=1&&state.currentStep<=8&&!state.completedSteps.includes(state.currentStep)){
-        const s=stepData[state.currentStep-1]; icon.className=`ti ${s.icon}`; $('actionLabel').textContent=s.label; actionButton.disabled=false;
-      }else{
-        icon.className='ti ti-check'; $('actionLabel').textContent='Đã xong 8 bước'; actionButton.disabled=true;
+    function renderControls() {
+      const icon = actionButton.querySelector('i');
+      if (state.isAnimating) {
+        icon.className = 'ti ti-loader-2'; $('actionLabel').textContent = 'Đang thực hiện...'; actionButton.disabled = true;
+      } else if (!state.started) {
+        icon.className = 'ti ti-player-play'; $('actionLabel').textContent = 'Bắt đầu thí nghiệm'; actionButton.disabled = false;
+      } else if (state.currentStep >= 1 && state.currentStep <= 8 && !state.completedSteps.includes(state.currentStep)) {
+        const s = stepData[state.currentStep - 1]; icon.className = `ti ${s.icon}`; $('actionLabel').textContent = s.label; actionButton.disabled = false;
+      } else {
+        icon.className = 'ti ti-check'; $('actionLabel').textContent = 'Đã xong 8 bước'; actionButton.disabled = true;
       }
-      resetButton.disabled=state.isAnimating;
+      resetButton.disabled = state.isAnimating;
     }
 
-    function handleAction(){
-      if(state.isAnimating)return;
-      if(!state.started){
-        state.started=true; state.currentStep=1; state.lastAction='Bắt đầu thí nghiệm';
+    function handleAction() {
+      if (state.isAnimating) return;
+      if (!state.started) {
+        state.started = true; state.currentStep = 1; state.lastAction = 'Bắt đầu thí nghiệm';
         setBriefingCollapsed(true);
-        updateAIGuide(responsiveStepGuide(1,'idle')); renderControls(); syncLMS('experiment_started',{id:'exp1'}); return;
+        updateAIGuide(responsiveStepGuide(1, 'idle')); renderControls(); syncLMS('experiment_started', { id: 'exp1' }); return;
       }
-      if(state.currentStep>=1&&state.currentStep<=8)startStep(state.currentStep);
+      if (state.currentStep >= 1 && state.currentStep <= 8) startStep(state.currentStep);
     }
 
-    function startStep(step){
-      if(state.isAnimating||state.completedSteps.includes(step))return;
-      if(step===5&&!state.completedSteps.includes(4)){runSafetyFeedback('nitric');return;}
-      if(step===8&&!state.completedSteps.includes(7)){runSafetyFeedback('pour');return;}
-      state.isAnimating=true; state.subStep=1; state.lastAction=`Bắt đầu bước ${step}: ${stepData[step-1].label}`;
-      animation.step=step; animation.start=performance.now(); animation.duration=stepData[step-1].duration*(reduceMotion?.58:1); animation.lastDrop=-1; animation.lastGrain=-1; animation.finished=false;
-      scene.tool=step; scene.toolProgress=0;
-      updateAIGuide(responsiveStepGuide(step,'running')); renderControls(); saveState();
+    function startStep(step) {
+      if (state.isAnimating || state.completedSteps.includes(step)) return;
+      if (step === 5 && !state.completedSteps.includes(4)) { runSafetyFeedback('nitric'); return; }
+      if (step === 8 && !state.completedSteps.includes(7)) { runSafetyFeedback('pour'); return; }
+      state.isAnimating = true; state.subStep = 1; state.lastAction = `Bắt đầu bước ${step}: ${stepData[step - 1].label}`;
+      animation.step = step; animation.start = performance.now(); animation.duration = stepData[step - 1].duration * (reduceMotion ? .58 : 1); animation.lastDrop = -1; animation.lastGrain = -1; animation.finished = false;
+      scene.tool = step; scene.toolProgress = 0;
+      updateAIGuide(responsiveStepGuide(step, 'running')); renderControls(); saveState();
     }
 
-    function finishStep(step){
-      if(animation.finished)return; animation.finished=true;
-      state.isAnimating=false; state.subStep=4;
-      if(!state.completedSteps.includes(step))state.completedSteps.push(step);
-      applyStepFinal(step); state.lastAction=`Hoàn thành bước ${step}: ${stepData[step-1].label}`;
-      state.currentStep=step<8?step+1:9; scene.tool=null; scene.toolProgress=0;
-      updateAIGuide(responsiveStepGuide(step,'done')); unlockObservationRows(); renderControls();
-      LMS().event('step_completed',{id:'exp1',step,label:stepData[step-1].label}); updateProgress(); saveState();
-      if(step===8)window.setTimeout(()=>{$('observationCard').scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'});},250);
+    function finishStep(step) {
+      if (animation.finished) return; animation.finished = true;
+      state.isAnimating = false; state.subStep = 4;
+      if (!state.completedSteps.includes(step)) state.completedSteps.push(step);
+      applyStepFinal(step); state.lastAction = `Hoàn thành bước ${step}: ${stepData[step - 1].label}`;
+      state.currentStep = step < 8 ? step + 1 : 9; scene.tool = null; scene.toolProgress = 0;
+      updateAIGuide(responsiveStepGuide(step, 'done')); unlockObservationRows(); renderControls();
+      LMS().event('step_completed', { id: 'exp1', step, label: stepData[step - 1].label }); updateProgress(); saveState();
+      if (step === 8) window.setTimeout(() => { $('observationCard').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }); }, 250);
       checkUnlocks(); reportHeight();
     }
 
-    function runSafetyFeedback(kind){
-      state.isAnimating=true; renderControls();
-      if(kind==='nitric'){
-        scene.shake=.14; for(let i=0;i<22;i++)spawnSteam(380,165,'danger');
+    function runSafetyFeedback(kind) {
+      state.isAnimating = true; renderControls();
+      if (kind === 'nitric') {
+        scene.shake = .14; for (let i = 0; i < 22; i++)spawnSteam(380, 165, 'danger');
         updateAIGuide('Phản ứng diễn ra quá mạnh. Hãy thử lại từ bước làm lạnh.');
-      }else{
-        for(let i=0;i<26;i++)spawnSplash(550,405,'#C58A2E',true);
+      } else {
+        for (let i = 0; i < 26; i++)spawnSplash(550, 405, '#C58A2E', true);
         updateAIGuide('Hãy thử lại — cần để hỗn hợp nguội trước khi rót vào nước lạnh.');
       }
-      window.setTimeout(()=>{scene.shake=0;state.isAnimating=false;renderControls();},1500);
+      window.setTimeout(() => { scene.shake = 0; state.isAnimating = false; renderControls(); }, 1500);
     }
 
-    function applyStepFinal(step){
-      if(step>=1)scene.phenol=1;
-      if(step>=2)scene.acid=1;
-      if(step>=3){scene.homogeneous=1;scene.temp=72;}
-      if(step>=4){scene.cold=1;scene.temp=8;}
-      if(step>=5){scene.nitric=1;scene.dark=1;scene.temp=10;}
-      if(step>=6){scene.waterBath=1;scene.temp=78;scene.clock=0;}
-      if(step>=7){scene.cooled=1;scene.temp=27;}
-      if(step>=8){scene.pour=1;scene.crystals=1;scene.temp=23;}
+    function applyStepFinal(step) {
+      if (step >= 1) scene.phenol = 1;
+      if (step >= 2) scene.acid = 1;
+      if (step >= 3) { scene.homogeneous = 1; scene.temp = 72; }
+      if (step >= 4) { scene.cold = 1; scene.temp = 8; }
+      if (step >= 5) { scene.nitric = 1; scene.dark = 1; scene.temp = 10; }
+      if (step >= 6) { scene.waterBath = 1; scene.temp = 78; scene.clock = 0; }
+      if (step >= 7) { scene.cooled = 1; scene.temp = 27; }
+      if (step >= 8) { scene.pour = 1; scene.crystals = 1; scene.temp = 23; }
     }
 
-    function rebuildScene(){
-      Object.assign(scene,{phenol:0,acid:0,homogeneous:0,cold:0,nitric:0,dark:0,waterBath:0,cooled:0,pour:0,crystals:0,temp:25,shake:0,clock:15,tool:null,toolProgress:0});
-      const highest=state.completedSteps.length?Math.max(...state.completedSteps):0;
-      if(highest)applyStepFinal(highest);
+    function rebuildScene() {
+      Object.assign(scene, { phenol: 0, acid: 0, homogeneous: 0, cold: 0, nitric: 0, dark: 0, waterBath: 0, cooled: 0, pour: 0, crystals: 0, temp: 25, shake: 0, clock: 15, tool: null, toolProgress: 0 });
+      const highest = state.completedSteps.length ? Math.max(...state.completedSteps) : 0;
+      if (highest) applyStepFinal(highest);
     }
 
-    function updateStepAnimation(now){
-      if(!state.isAnimating||!animation.step)return;
-      const t=clamp((now-animation.start)/animation.duration,0,1); scene.toolProgress=t;
-      const step=animation.step;
-      if(step===1){
-        scene.phenol=smoothstep(.58,.90,t);
+    function updateStepAnimation(now) {
+      if (!state.isAnimating || !animation.step) return;
+      const t = clamp((now - animation.start) / animation.duration, 0, 1); scene.toolProgress = t;
+      const step = animation.step;
+      if (step === 1) {
+        scene.phenol = smoothstep(.58, .90, t);
         emitPhenolGrains(t);
-      }else if(step===2){
+      } else if (step === 2) {
         /* Acid tăng liên tục theo thời gian rót để mặt chất lỏng dâng lên rõ ràng. */
-        scene.acid=smoothstep(.20,.90,t);
-        emitTimedDrops(t,.20,.86,7,'#d8e6e8',270);
-      }else if(step===3){
-        const heat=smoothstep(.08,.88,t); scene.temp=lerp(25,72,heat); scene.homogeneous=smoothstep(.25,.9,t);
-        if(t>.25&&t<.88&&Math.random()<.16)spawnBubble(380,410);
-        if(t>.55&&Math.random()<.055)spawnSteam(380,145);
-      }else if(step===4){
-        const cool=smoothstep(.18,.9,t); scene.cold=cool; scene.temp=lerp(72,8,cool);
-        if(t>.18&&t<.94&&Math.random()<(reduceMotion?.035:.14))spawnSnowflake();
-      }else if(step===5){
-        scene.nitric=smoothstep(.18,.58,t); emitTimedDrops(t,.18,.55,5,'#f1e6bf',252);
-        if(t>.2&&t<.68)scene.dark=smoothstep(.28,.72,t);
-        if(t>.6&&t<.92)scene.shake=Math.sin(t*80)*.075*(1-smoothstep(.82,.93,t)); else scene.shake=0;
-      }else if(step===6){
-        scene.waterBath=smoothstep(.05,.25,t); scene.temp=lerp(10,78,smoothstep(.2,.82,t)); scene.clock=Math.max(0,Math.ceil(15*(1-smoothstep(.18,.88,t))));
-        if(t>.22&&t<.92&&Math.random()<.11)spawnSteam(380,292);
-      }else if(step===7){
-        scene.cooled=smoothstep(.12,.9,t); scene.temp=lerp(78,27,scene.cooled);
-        if(t<.55&&Math.random()<.035)spawnSteam(380,145);
-      }else if(step===8){
-        scene.pour=smoothstep(.24,.84,t); scene.crystals=smoothstep(.48,.94,t);
-        if(t>.25&&t<.85&&Math.random()<.22)spawnPourImpact();
+        scene.acid = smoothstep(.20, .90, t);
+        emitTimedDrops(t, .20, .86, 7, '#d8e6e8', 270);
+      } else if (step === 3) {
+        const heat = smoothstep(.08, .88, t); scene.temp = lerp(25, 72, heat); scene.homogeneous = smoothstep(.25, .9, t);
+        if (t > .25 && t < .88 && Math.random() < .16) spawnBubble(380, 410);
+        if (t > .55 && Math.random() < .055) spawnSteam(380, 145);
+      } else if (step === 4) {
+        const cool = smoothstep(.18, .9, t); scene.cold = cool; scene.temp = lerp(72, 8, cool);
+        if (t > .18 && t < .94 && Math.random() < (reduceMotion ? .035 : .14)) spawnSnowflake();
+      } else if (step === 5) {
+        scene.nitric = smoothstep(.18, .58, t); emitTimedDrops(t, .18, .55, 5, '#f1e6bf', 252);
+        if (t > .2 && t < .68) scene.dark = smoothstep(.28, .72, t);
+        if (t > .6 && t < .92) scene.shake = Math.sin(t * 80) * .075 * (1 - smoothstep(.82, .93, t)); else scene.shake = 0;
+      } else if (step === 6) {
+        scene.waterBath = smoothstep(.05, .25, t); scene.temp = lerp(10, 78, smoothstep(.2, .82, t)); scene.clock = Math.max(0, Math.ceil(15 * (1 - smoothstep(.18, .88, t))));
+        if (t > .22 && t < .92 && Math.random() < .11) spawnSteam(380, 292);
+      } else if (step === 7) {
+        scene.cooled = smoothstep(.12, .9, t); scene.temp = lerp(78, 27, scene.cooled);
+        if (t < .55 && Math.random() < .035) spawnSteam(380, 145);
+      } else if (step === 8) {
+        scene.pour = smoothstep(.24, .84, t); scene.crystals = smoothstep(.48, .94, t);
+        if (t > .25 && t < .85 && Math.random() < .22) spawnPourImpact();
       }
-      if(t>=1)finishStep(step);
+      if (t >= 1) finishStep(step);
     }
 
-    function emitTimedDrops(t,start,end,count,color,targetY){
-      if(t<start||t>end)return;
-      const bucket=Math.min(count-1,Math.floor(((t-start)/(end-start))*count));
-      if(bucket!==animation.lastDrop){animation.lastDrop=bucket;spawnFallingDrop(380,targetY,color);}
+    function emitTimedDrops(t, start, end, count, color, targetY) {
+      if (t < start || t > end) return;
+      const bucket = Math.min(count - 1, Math.floor(((t - start) / (end - start)) * count));
+      if (bucket !== animation.lastDrop) { animation.lastDrop = bucket; spawnFallingDrop(380, targetY, color); }
     }
 
-    function emitPhenolGrains(t){
-      const start=.30,end=.72,count=28;
-      if(t<start||t>end)return;
-      const bucket=Math.min(count-1,Math.floor(((t-start)/(end-start))*count));
-      if(bucket===animation.lastGrain)return;
-      for(let i=animation.lastGrain+1;i<=bucket;i++)spawnPhenolGrain(i);
-      animation.lastGrain=bucket;
+    function emitPhenolGrains(t) {
+      const start = .30, end = .72, count = 28;
+      if (t < start || t > end) return;
+      const bucket = Math.min(count - 1, Math.floor(((t - start) / (end - start)) * count));
+      if (bucket === animation.lastGrain) return;
+      for (let i = animation.lastGrain + 1; i <= bucket; i++)spawnPhenolGrain(i);
+      animation.lastGrain = bucket;
     }
 
-    function spawnPhenolGrain(index){
+    function spawnPhenolGrain(index) {
       particles.push({
-        type:'phenol', x:384+(Math.random()-.5)*22, y:91+Math.random()*5,
-        vx:(Math.random()-.5)*.34, vy:1.2+Math.random()*.65,
-        targetY:394+Math.random()*17, size:1.7+Math.random()*2.2,
-        life:1, phase:index*.73+Math.random()*2
+        type: 'phenol', x: 384 + (Math.random() - .5) * 22, y: 91 + Math.random() * 5,
+        vx: (Math.random() - .5) * .34, vy: 1.2 + Math.random() * .65,
+        targetY: 394 + Math.random() * 17, size: 1.7 + Math.random() * 2.2,
+        life: 1, phase: index * .73 + Math.random() * 2
       });
     }
 
-    function spawnFallingDrop(x,targetY,color){particles.push({type:'drop',x,y:55,targetY,color,life:1,vy:5.8});}
-    function spawnBubble(x,y){particles.push({type:'bubble',x:x+(Math.random()-.5)*38,y,topY:260,vy:.8+Math.random()*.7,size:1.2+Math.random()*1.5,life:1,phase:Math.random()*6});}
-    function spawnSteam(x,y,kind){particles.push({type:'steam',x:x+(Math.random()-.5)*28,y,vx:(Math.random()-.5)*.35,vy:.35+Math.random()*.5,size:5+Math.random()*7,life:1,kind});}
-    function spawnSnowflake(){
-      const side=Math.random()<.5?-1:1;
+    function spawnFallingDrop(x, targetY, color) { particles.push({ type: 'drop', x, y: 55, targetY, color, life: 1, vy: 5.8 }); }
+    function spawnBubble(x, y) { particles.push({ type: 'bubble', x: x + (Math.random() - .5) * 38, y, topY: 260, vy: .8 + Math.random() * .7, size: 1.2 + Math.random() * 1.5, life: 1, phase: Math.random() * 6 }); }
+    function spawnSteam(x, y, kind) { particles.push({ type: 'steam', x: x + (Math.random() - .5) * 28, y, vx: (Math.random() - .5) * .35, vy: .35 + Math.random() * .5, size: 5 + Math.random() * 7, life: 1, kind }); }
+    function spawnSnowflake() {
+      const side = Math.random() < .5 ? -1 : 1;
       particles.push({
-        type:'snow', x:380+side*(48+Math.random()*58), y:350+Math.random()*115,
-        vx:side*(.22+Math.random()*.42), vy:-(.25+Math.random()*.48),
-        size:3+Math.random()*3.2, spin:Math.random()*Math.PI, spinSpeed:(Math.random()-.5)*.045,
-        life:1, phase:Math.random()*Math.PI*2
+        type: 'snow', x: 380 + side * (48 + Math.random() * 58), y: 350 + Math.random() * 115,
+        vx: side * (.22 + Math.random() * .42), vy: -(.25 + Math.random() * .48),
+        size: 3 + Math.random() * 3.2, spin: Math.random() * Math.PI, spinSpeed: (Math.random() - .5) * .045,
+        life: 1, phase: Math.random() * Math.PI * 2
       });
     }
-    function spawnSplash(x,y,color,large=false){
-      rings.push({x,y,r:2,maxR:large?22:14,alpha:.65,color});
-      for(let i=0;i<(large?8:4);i++)particles.push({type:'splash',x,y,vx:(Math.random()-.5)*(large?5:3),vy:-(Math.random()*2+1),size:1.4+Math.random()*1.5,life:1,color});
+    function spawnSplash(x, y, color, large = false) {
+      rings.push({ x, y, r: 2, maxR: large ? 22 : 14, alpha: .65, color });
+      for (let i = 0; i < (large ? 8 : 4); i++)particles.push({ type: 'splash', x, y, vx: (Math.random() - .5) * (large ? 5 : 3), vy: -(Math.random() * 2 + 1), size: 1.4 + Math.random() * 1.5, life: 1, color });
     }
-    function getReceiverSurfaceY(){return lerp(443,414,clamp(scene.pour,0,1));}
-    function spawnPourImpact(){spawnSplash(585+(Math.random()-.5)*8,getReceiverSurfaceY(),'#8d4630');}
+    function getReceiverSurfaceY() { return lerp(443, 414, clamp(scene.pour, 0, 1)); }
+    function spawnPourImpact() { spawnSplash(585 + (Math.random() - .5) * 8, getReceiverSurfaceY(), '#8d4630'); }
 
-    function updateParticles(dt){
-      const f=dt/16.67;
-      for(const p of particles){
-        if(p.type==='phenol'){
-          p.vy+=.115*f;p.y+=p.vy*f;p.x+=(p.vx+Math.sin(time*7+p.phase)*.08)*f;
-          if(p.y>=p.targetY){p.y=p.targetY;p.life=0;}
-        }else if(p.type==='drop'){
-          p.y+=p.vy*f;
-          if(p.y>=p.targetY){p.life=0;spawnSplash(p.x,p.targetY,p.color);}
-        }else if(p.type==='bubble'){
-          p.y-=p.vy*f;p.x+=Math.sin(time*3+p.phase)*.35*f;p.life-=.006*f;p.size+=.012*f;if(p.y<p.topY)p.life=0;
-        }else if(p.type==='steam'){
-          p.y-=p.vy*f;p.x+=(p.vx+Math.sin(time*2+p.y*.03)*.22)*f;p.size+=.055*f;p.life-=.012*f;
-        }else if(p.type==='splash'){
-          p.x+=p.vx*f;p.y+=p.vy*f;p.vy+=.14*f;p.life-=.05*f;
-        }else if(p.type==='snow'){
-          p.x+=(p.vx+Math.sin(time*2.5+p.phase)*.18)*f;p.y+=p.vy*f;p.spin+=p.spinSpeed*f;p.life-=.009*f;
+    function updateParticles(dt) {
+      const f = dt / 16.67;
+      for (const p of particles) {
+        if (p.type === 'phenol') {
+          p.vy += .115 * f; p.y += p.vy * f; p.x += (p.vx + Math.sin(time * 7 + p.phase) * .08) * f;
+          if (p.y >= p.targetY) { p.y = p.targetY; p.life = 0; }
+        } else if (p.type === 'drop') {
+          p.y += p.vy * f;
+          if (p.y >= p.targetY) { p.life = 0; spawnSplash(p.x, p.targetY, p.color); }
+        } else if (p.type === 'bubble') {
+          p.y -= p.vy * f; p.x += Math.sin(time * 3 + p.phase) * .35 * f; p.life -= .006 * f; p.size += .012 * f; if (p.y < p.topY) p.life = 0;
+        } else if (p.type === 'steam') {
+          p.y -= p.vy * f; p.x += (p.vx + Math.sin(time * 2 + p.y * .03) * .22) * f; p.size += .055 * f; p.life -= .012 * f;
+        } else if (p.type === 'splash') {
+          p.x += p.vx * f; p.y += p.vy * f; p.vy += .14 * f; p.life -= .05 * f;
+        } else if (p.type === 'snow') {
+          p.x += (p.vx + Math.sin(time * 2.5 + p.phase) * .18) * f; p.y += p.vy * f; p.spin += p.spinSpeed * f; p.life -= .009 * f;
         }
       }
-      particles=particles.filter(p=>p.life>0);
-      for(const r of rings){r.r+=.65*f;r.alpha-=.038*f;}
-      rings=rings.filter(r=>r.alpha>0&&r.r<r.maxR);
+      particles = particles.filter(p => p.life > 0);
+      for (const r of rings) { r.r += .65 * f; r.alpha -= .038 * f; }
+      rings = rings.filter(r => r.alpha > 0 && r.r < r.maxR);
     }
 
-    function drawGrid(){
-      ctx.save();ctx.strokeStyle='rgba(26,26,26,.05)';ctx.lineWidth=1;
-      for(let x=0;x<=canvasW;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,canvasH);ctx.stroke();}
-      for(let y=0;y<=canvasH;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvasW,y);ctx.stroke();}
+    function drawGrid() {
+      ctx.save(); ctx.strokeStyle = 'rgba(26,26,26,.05)'; ctx.lineWidth = 1;
+      for (let x = 0; x <= canvasW; x += 30) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvasH); ctx.stroke(); }
+      for (let y = 0; y <= canvasH; y += 30) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvasW, y); ctx.stroke(); }
       ctx.restore();
     }
 
-    function roundedRect(x,y,w,h,r){ctx.beginPath();if(ctx.roundRect)ctx.roundRect(x,y,w,h,r);else{ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);} }
-    function drawBench(){
-      ctx.fillStyle='#E9E0CF';ctx.strokeStyle='#D2C5AD';ctx.lineWidth=2;roundedRect(48,510,664,30,8);ctx.fill();ctx.stroke();
-      ctx.fillStyle='rgba(26,26,26,.08)';ctx.beginPath();ctx.ellipse(380,542,310,15,0,0,Math.PI*2);ctx.fill();
+    function roundedRect(x, y, w, h, r) { ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(x, y, w, h, r); else { ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); } }
+    function drawBench() {
+      ctx.fillStyle = '#E9E0CF'; ctx.strokeStyle = '#D2C5AD'; ctx.lineWidth = 2; roundedRect(48, 510, 664, 30, 8); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = 'rgba(26,26,26,.08)'; ctx.beginPath(); ctx.ellipse(380, 542, 310, 15, 0, 0, Math.PI * 2); ctx.fill();
     }
-    function drawStand(){
-      ctx.strokeStyle='#53606b';ctx.lineCap='round';ctx.lineWidth=9;ctx.beginPath();ctx.moveTo(230,185);ctx.lineTo(230,505);ctx.stroke();
-      ctx.fillStyle='#44505a';roundedRect(155,500,150,14,5);ctx.fill();
-      ctx.strokeStyle='#697681';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(230,220);ctx.lineTo(342,220);ctx.stroke();
-      ctx.strokeStyle='#89949c';ctx.lineWidth=3;ctx.beginPath();ctx.arc(365,220,27,Math.PI*.65,Math.PI*1.35);ctx.stroke();
+    function drawStand() {
+      ctx.strokeStyle = '#53606b'; ctx.lineCap = 'round'; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(230, 185); ctx.lineTo(230, 505); ctx.stroke();
+      ctx.fillStyle = '#44505a'; roundedRect(155, 500, 150, 14, 5); ctx.fill();
+      ctx.strokeStyle = '#697681'; ctx.lineWidth = 5; ctx.beginPath(); ctx.moveTo(230, 220); ctx.lineTo(342, 220); ctx.stroke();
+      ctx.strokeStyle = '#89949c'; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(365, 220, 27, Math.PI * .65, Math.PI * 1.35); ctx.stroke();
     }
 
-    function tubeGeometry(){
-      let x=380,y=115,angle=scene.shake,scale=1;
-      if(animation.step===8&&state.isAnimating){
-        const t=scene.toolProgress;
-        if(t<.14){const p=easeInOut(t/.14);x=lerp(380,450,p);y=lerp(115,170,p)-Math.sin(p*Math.PI)*34;angle=0;}
-        else if(t<.27){const p=easeInOut((t-.14)/.13);x=450;y=170;angle=lerp(0,.95,p);}
-        else if(t<.85){x=450;y=170;angle=.95;}
-        else{const p=easeInOut((t-.85)/.15);x=lerp(450,380,p);y=lerp(170,115,p)-Math.sin(p*Math.PI)*24;angle=lerp(.95,0,p);}
+    function tubeGeometry() {
+      let x = 380, y = 115, angle = scene.shake, scale = 1;
+      if (animation.step === 8 && state.isAnimating) {
+        const t = scene.toolProgress;
+        if (t < .14) { const p = easeInOut(t / .14); x = lerp(380, 450, p); y = lerp(115, 170, p) - Math.sin(p * Math.PI) * 34; angle = 0; }
+        else if (t < .27) { const p = easeInOut((t - .14) / .13); x = 450; y = 170; angle = lerp(0, .95, p); }
+        else if (t < .85) { x = 450; y = 170; angle = .95; }
+        else { const p = easeInOut((t - .85) / .15); x = lerp(450, 380, p); y = lerp(170, 115, p) - Math.sin(p * Math.PI) * 24; angle = lerp(.95, 0, p); }
       }
-      return{x,y,angle,scale};
+      return { x, y, angle, scale };
     }
 
-    function drawTestTube(){
-      const g=tubeGeometry(),w=84,h=310,r=w/2;
-      ctx.save();ctx.translate(g.x,g.y+h/2);ctx.rotate(g.angle);ctx.scale(g.scale,g.scale);ctx.translate(-g.x,-(g.y+h/2));
-      const x=g.x-w/2,y=g.y;
-      const emptying=animation.step===8&&state.isAnimating?smoothstep(.24,.84,scene.toolProgress):scene.pour;
+    function drawTestTube() {
+      const g = tubeGeometry(), w = 84, h = 310, r = w / 2;
+      ctx.save(); ctx.translate(g.x, g.y + h / 2); ctx.rotate(g.angle); ctx.scale(g.scale, g.scale); ctx.translate(-g.x, -(g.y + h / 2));
+      const x = g.x - w / 2, y = g.y;
+      const emptying = animation.step === 8 && state.isAnimating ? smoothstep(.24, .84, scene.toolProgress) : scene.pour;
       /* Bước H2SO4: nội suy trực tiếp chiều cao chất lỏng, không bật ngay lên mức cuối. */
-      let fill=scene.acid>0?lerp(.08,.60,scene.acid):0; fill*=1-emptying*.92;
-      if(fill>0.01){
-        ctx.save();ctx.beginPath();ctx.moveTo(x+4,y+4);ctx.lineTo(x+4,y+h-r);ctx.arc(g.x,y+h-r,r-4,Math.PI,0,true);ctx.lineTo(x+w-4,y+4);ctx.closePath();ctx.clip();
-        const liqH=(h-26)*fill,surface=y+h-liqH;
-        const pourTilt=animation.step===8&&state.isAnimating?Math.min(.82,g.angle):0;
+      let fill = scene.acid > 0 ? lerp(.08, .60, scene.acid) : 0; fill *= 1 - emptying * .92;
+      if (fill > 0.01) {
+        ctx.save(); ctx.beginPath(); ctx.moveTo(x + 4, y + 4); ctx.lineTo(x + 4, y + h - r); ctx.arc(g.x, y + h - r, r - 4, Math.PI, 0, true); ctx.lineTo(x + w - 4, y + 4); ctx.closePath(); ctx.clip();
+        const liqH = (h - 26) * fill, surface = y + h - liqH;
+        const pourTilt = animation.step === 8 && state.isAnimating ? Math.min(.82, g.angle) : 0;
         /* Tạo cả khối dung dịch dạng nêm/dốc, cao rõ ở phía miệng rót. */
-        const surfaceSlope=Math.min(62,Math.tan(pourTilt)*(w*.60)),slosh=reduceMotion?0:Math.sin(time*5.2)*(1.4+pourTilt*1.5);
-        const surfaceLeft=surface+surfaceSlope+slosh,surfaceRight=surface-surfaceSlope-slosh;
-        const pale=[213,221,202],red=[104,35,32],color=lerpColor(pale,red,scene.dark);
-        const grad=ctx.createLinearGradient(x,Math.min(surfaceLeft,surfaceRight),x,y+h);grad.addColorStop(0,color);grad.addColorStop(1,scene.dark>.2?'#4d1d1c':'#bfcab7');ctx.fillStyle=grad;
-        ctx.beginPath();ctx.moveTo(x-8,surfaceLeft);ctx.lineTo(x+w+8,surfaceRight);ctx.lineTo(x+w+8,y+h+12);ctx.lineTo(x-8,y+h+12);ctx.closePath();ctx.fill();
-        if(scene.homogeneous<.95&&scene.phenol>0){
-          const visible=(1-scene.homogeneous)*(1-emptying);ctx.globalAlpha=visible;
-          for(let i=0;i<powderSeeds.length;i++){
-            const p=powderSeeds[i];ctx.fillStyle=i%3===0?'#fffdf0':'#f2dfad';ctx.strokeStyle='#8b7041';ctx.lineWidth=1.05;
-            ctx.beginPath();ctx.arc(g.x+p.x,y+h-14-p.y,p.size,0,Math.PI*2);ctx.fill();ctx.stroke();
+        const surfaceSlope = Math.min(62, Math.tan(pourTilt) * (w * .60)), slosh = reduceMotion ? 0 : Math.sin(time * 5.2) * (1.4 + pourTilt * 1.5);
+        const surfaceLeft = surface + surfaceSlope + slosh, surfaceRight = surface - surfaceSlope - slosh;
+        const pale = [213, 221, 202], red = [104, 35, 32], color = lerpColor(pale, red, scene.dark);
+        const grad = ctx.createLinearGradient(x, Math.min(surfaceLeft, surfaceRight), x, y + h); grad.addColorStop(0, color); grad.addColorStop(1, scene.dark > .2 ? '#4d1d1c' : '#bfcab7'); ctx.fillStyle = grad;
+        ctx.beginPath(); ctx.moveTo(x - 8, surfaceLeft); ctx.lineTo(x + w + 8, surfaceRight); ctx.lineTo(x + w + 8, y + h + 12); ctx.lineTo(x - 8, y + h + 12); ctx.closePath(); ctx.fill();
+        if (scene.homogeneous < .95 && scene.phenol > 0) {
+          const visible = (1 - scene.homogeneous) * (1 - emptying); ctx.globalAlpha = visible;
+          for (let i = 0; i < powderSeeds.length; i++) {
+            const p = powderSeeds[i]; ctx.fillStyle = i % 3 === 0 ? '#fffdf0' : '#f2dfad'; ctx.strokeStyle = '#8b7041'; ctx.lineWidth = 1.05;
+            ctx.beginPath(); ctx.arc(g.x + p.x, y + h - 14 - p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
           }
-          ctx.globalAlpha=1;
+          ctx.globalAlpha = 1;
         }
-        const wave=reduceMotion?0:Math.sin(time*4.1)*1.4;
-        ctx.strokeStyle='rgba(255,255,255,.68)';ctx.lineWidth=2.6;ctx.beginPath();ctx.moveTo(x+5,surfaceLeft);ctx.quadraticCurveTo(g.x,surface+wave,x+w-5,surfaceRight);ctx.stroke();
+        const wave = reduceMotion ? 0 : Math.sin(time * 4.1) * 1.4;
+        ctx.strokeStyle = 'rgba(255,255,255,.68)'; ctx.lineWidth = 2.6; ctx.beginPath(); ctx.moveTo(x + 5, surfaceLeft); ctx.quadraticCurveTo(g.x, surface + wave, x + w - 5, surfaceRight); ctx.stroke();
         ctx.restore();
-      }else if(scene.phenol>0&&scene.acid===0){
-        const settledAlpha=animation.step===1&&state.isAnimating?smoothstep(.56,.88,scene.toolProgress):1;
-        ctx.save();ctx.globalAlpha=settledAlpha;
-        for(let i=0;i<powderSeeds.length;i++){
-          const p=powderSeeds[i],py=y+h-14-p.y;ctx.fillStyle=i%3===0?'#fffdf0':'#f2dfad';ctx.strokeStyle='#80663a';ctx.lineWidth=1.15;
-          ctx.beginPath();ctx.arc(g.x+p.x,py,p.size,0,Math.PI*2);ctx.fill();ctx.stroke();
-        }
-        ctx.restore();
-      }
-      ctx.fillStyle='rgba(225,239,248,.10)';ctx.strokeStyle='#8c9aa5';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x,y+h-r);ctx.arc(g.x,y+h-r,r,Math.PI,0,true);ctx.lineTo(x+w,y);ctx.fill();ctx.stroke();
-      ctx.strokeStyle='#687781';ctx.lineWidth=3.5;ctx.beginPath();ctx.ellipse(g.x,y,r+4,6,0,0,Math.PI*2);ctx.stroke();
-      ctx.strokeStyle='rgba(255,255,255,.75)';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(x+11,y+14);ctx.lineTo(x+11,y+h-r-15);ctx.stroke();
-      for(let i=0;i<4;i++){ctx.strokeStyle='rgba(81,76,68,.38)';ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(x+3,y+105+i*38);ctx.lineTo(x+14+(i%2)*5,y+105+i*38);ctx.stroke();}
-      ctx.restore();
-    }
-
-    function drawSpatula(){
-      if(animation.step!==1||!state.isAnimating)return;
-      const t=scene.toolProgress;let x,y,a=0;
-      if(t<.28){const p=easeOut(t/.28);x=lerp(650,410,p);y=lerp(80,86,p);}else if(t<.78){x=410;y=86;a=lerp(0,-.45,smoothstep(.28,.5,t));}else{const p=easeOut((t-.78)/.22);x=lerp(410,650,p);y=lerp(86,60,p);}
-      ctx.save();ctx.translate(x,y);ctx.rotate(a);
-      const metal=ctx.createLinearGradient(-36,-10,140,8);metal.addColorStop(0,'#cbd4d8');metal.addColorStop(.45,'#78858e');metal.addColorStop(1,'#3f4b54');
-      ctx.fillStyle=metal;roundedRect(-8,-3,150,7,3);ctx.fill();
-      ctx.fillStyle='#d6dde0';ctx.beginPath();ctx.ellipse(-13,0,24,11,0,0,Math.PI*2);ctx.fill();ctx.strokeStyle='#65727c';ctx.lineWidth=2;ctx.stroke();
-      ctx.strokeStyle='rgba(255,255,255,.7)';ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(-16,-2,16,5,0,Math.PI,Math.PI*2);ctx.stroke();
-      const pile=1-smoothstep(.30,.66,t);
-      if(pile>.02){
-        ctx.save();ctx.globalAlpha=pile;
-        for(let i=0;i<22;i++){
-          const row=Math.floor(i/7),col=i%7;
-          const gx=-30+col*5.2+(row%2)*2.2,gy=-5-row*2.9+Math.sin(i*2.1)*.65;
-          ctx.fillStyle=i%3===0?'#fffdf5':'#eee9d9';ctx.beginPath();ctx.arc(gx,gy,1.7+(i%4)*.18,0,Math.PI*2);ctx.fill();
+      } else if (scene.phenol > 0 && scene.acid === 0) {
+        const settledAlpha = animation.step === 1 && state.isAnimating ? smoothstep(.56, .88, scene.toolProgress) : 1;
+        ctx.save(); ctx.globalAlpha = settledAlpha;
+        for (let i = 0; i < powderSeeds.length; i++) {
+          const p = powderSeeds[i], py = y + h - 14 - p.y; ctx.fillStyle = i % 3 === 0 ? '#fffdf0' : '#f2dfad'; ctx.strokeStyle = '#80663a'; ctx.lineWidth = 1.15;
+          ctx.beginPath(); ctx.arc(g.x + p.x, py, p.size, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
         }
         ctx.restore();
       }
+      ctx.fillStyle = 'rgba(225,239,248,.10)'; ctx.strokeStyle = '#8c9aa5'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x, y + h - r); ctx.arc(g.x, y + h - r, r, Math.PI, 0, true); ctx.lineTo(x + w, y); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = '#687781'; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.ellipse(g.x, y, r + 4, 6, 0, 0, Math.PI * 2); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.75)'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(x + 11, y + 14); ctx.lineTo(x + 11, y + h - r - 15); ctx.stroke();
+      for (let i = 0; i < 4; i++) { ctx.strokeStyle = 'rgba(81,76,68,.38)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(x + 3, y + 105 + i * 38); ctx.lineTo(x + 14 + (i % 2) * 5, y + 105 + i * 38); ctx.stroke(); }
       ctx.restore();
     }
 
-    function dropperPose(){
-      const t=scene.toolProgress,step=animation.step;
-      if(!(step===2||step===5)||!state.isAnimating)return null;
-      let y;if(t<.2)y=lerp(-100,48,easeOut(t/.2));else if(t<.82)y=48;else y=lerp(48,-120,easeOut((t-.82)/.18));
-      return{x:380,y,label:step===2?'H2SO4 đặc':'HNO3 đặc',color:step===2?'rgba(218,231,234,.9)':'rgba(244,231,190,.9)'};
-    }
-    function drawDropper(){
-      const d=dropperPose();if(!d)return;const{x,y}=d;ctx.save();
-      ctx.fillStyle='#b84c3b';ctx.beginPath();ctx.moveTo(x-12,y-14);ctx.quadraticCurveTo(x-19,y-55,x,y-63);ctx.quadraticCurveTo(x+19,y-55,x+12,y-14);ctx.closePath();ctx.fill();
-      ctx.fillStyle='rgba(255,255,255,.3)';ctx.beginPath();ctx.ellipse(x-5,y-42,4,11,-.2,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='rgba(220,235,255,.45)';ctx.strokeStyle='#8c9aa5';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x-9,y-14);ctx.lineTo(x-8,y+34);ctx.lineTo(x-2,y+82);ctx.lineTo(x+2,y+82);ctx.lineTo(x+8,y+34);ctx.lineTo(x+9,y-14);ctx.closePath();ctx.fill();ctx.stroke();
-      ctx.fillStyle=d.color;ctx.beginPath();ctx.moveTo(x-6,y);ctx.lineTo(x-2,y+75);ctx.lineTo(x+2,y+75);ctx.lineTo(x+6,y);ctx.closePath();ctx.fill();
-      ctx.fillStyle='#1A1A1A';ctx.font="bold 13px 'JetBrains Mono', monospace";ctx.textAlign='center';ctx.fillText(d.label,x,y-73);ctx.restore();
+    function drawSpatula() {
+      if (animation.step !== 1 || !state.isAnimating) return;
+      const t = scene.toolProgress; let x, y, a = 0;
+      if (t < .28) { const p = easeOut(t / .28); x = lerp(650, 410, p); y = lerp(80, 86, p); } else if (t < .78) { x = 410; y = 86; a = lerp(0, -.45, smoothstep(.28, .5, t)); } else { const p = easeOut((t - .78) / .22); x = lerp(410, 650, p); y = lerp(86, 60, p); }
+      ctx.save(); ctx.translate(x, y); ctx.rotate(a);
+      const metal = ctx.createLinearGradient(-36, -10, 140, 8); metal.addColorStop(0, '#cbd4d8'); metal.addColorStop(.45, '#78858e'); metal.addColorStop(1, '#3f4b54');
+      ctx.fillStyle = metal; roundedRect(-8, -3, 150, 7, 3); ctx.fill();
+      ctx.fillStyle = '#d6dde0'; ctx.beginPath(); ctx.ellipse(-13, 0, 24, 11, 0, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = '#65727c'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.ellipse(-16, -2, 16, 5, 0, Math.PI, Math.PI * 2); ctx.stroke();
+      const pile = 1 - smoothstep(.30, .66, t);
+      if (pile > .02) {
+        ctx.save(); ctx.globalAlpha = pile;
+        for (let i = 0; i < 22; i++) {
+          const row = Math.floor(i / 7), col = i % 7;
+          const gx = -30 + col * 5.2 + (row % 2) * 2.2, gy = -5 - row * 2.9 + Math.sin(i * 2.1) * .65;
+          ctx.fillStyle = i % 3 === 0 ? '#fffdf5' : '#eee9d9'; ctx.beginPath(); ctx.arc(gx, gy, 1.7 + (i % 4) * .18, 0, Math.PI * 2); ctx.fill();
+        }
+        ctx.restore();
+      }
+      ctx.restore();
     }
 
-    function drawBurner(){
-      const active=animation.step===3&&state.isAnimating&&scene.toolProgress>.08&&scene.toolProgress<.94;if(!active)return;
-      const t=scene.toolProgress,fade=smoothstep(.08,.18,t)*(1-smoothstep(.86,.94,t));
-      const flick=reduceMotion?0:Math.sin(time*12)*2.4+Math.sin(time*21)*1.1;
-      const sway=reduceMotion?0:Math.sin(time*8)*2.2;
-      ctx.save();ctx.globalAlpha=fade;
-      const glow=ctx.createRadialGradient(380,380,4,380,388,82);glow.addColorStop(0,'rgba(255,176,49,.62)');glow.addColorStop(.42,'rgba(238,104,31,.24)');glow.addColorStop(1,'rgba(232,92,28,0)');ctx.fillStyle=glow;ctx.beginPath();ctx.arc(380,388,82,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='rgba(190,218,226,.48)';ctx.strokeStyle='#647681';ctx.lineWidth=2.5;ctx.beginPath();ctx.moveTo(337,492);ctx.quadraticCurveTo(340,446,358,440);ctx.lineTo(402,440);ctx.quadraticCurveTo(420,446,423,492);ctx.quadraticCurveTo(380,507,337,492);ctx.closePath();ctx.fill();ctx.stroke();
-      const alcohol=ctx.createLinearGradient(0,458,0,498);alcohol.addColorStop(0,'rgba(122,196,218,.35)');alcohol.addColorStop(1,'rgba(61,139,165,.62)');ctx.fillStyle=alcohol;ctx.beginPath();ctx.moveTo(341,478);ctx.quadraticCurveTo(380,470,419,478);ctx.lineTo(422,492);ctx.quadraticCurveTo(380,502,338,492);ctx.closePath();ctx.fill();
-      ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(350,456);ctx.quadraticCurveTo(345,474,350,487);ctx.stroke();
-      ctx.fillStyle='#59656e';roundedRect(359,427,42,17,5);ctx.fill();ctx.fillStyle='#252b2f';roundedRect(376,415,8,18,3);ctx.fill();
+    function dropperPose() {
+      const t = scene.toolProgress, step = animation.step;
+      if (!(step === 2 || step === 5) || !state.isAnimating) return null;
+      let y; if (t < .2) y = lerp(-100, 48, easeOut(t / .2)); else if (t < .82) y = 48; else y = lerp(48, -120, easeOut((t - .82) / .18));
+      return { x: 380, y, label: step === 2 ? 'H2SO4 đặc' : 'HNO3 đặc', color: step === 2 ? 'rgba(218,231,234,.9)' : 'rgba(244,231,190,.9)' };
+    }
+    function drawDropper() {
+      const d = dropperPose(); if (!d) return; const { x, y } = d; ctx.save();
+      ctx.fillStyle = '#b84c3b'; ctx.beginPath(); ctx.moveTo(x - 12, y - 14); ctx.quadraticCurveTo(x - 19, y - 55, x, y - 63); ctx.quadraticCurveTo(x + 19, y - 55, x + 12, y - 14); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.beginPath(); ctx.ellipse(x - 5, y - 42, 4, 11, -.2, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(220,235,255,.45)'; ctx.strokeStyle = '#8c9aa5'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(x - 9, y - 14); ctx.lineTo(x - 8, y + 34); ctx.lineTo(x - 2, y + 82); ctx.lineTo(x + 2, y + 82); ctx.lineTo(x + 8, y + 34); ctx.lineTo(x + 9, y - 14); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = d.color; ctx.beginPath(); ctx.moveTo(x - 6, y); ctx.lineTo(x - 2, y + 75); ctx.lineTo(x + 2, y + 75); ctx.lineTo(x + 6, y); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#1A1A1A'; ctx.font = "bold 13px 'JetBrains Mono', monospace"; ctx.textAlign = 'center'; ctx.fillText(d.label, x, y - 73); ctx.restore();
+    }
+
+    function drawBurner() {
+      const active = animation.step === 3 && state.isAnimating && scene.toolProgress > .08 && scene.toolProgress < .94; if (!active) return;
+      const t = scene.toolProgress, fade = smoothstep(.08, .18, t) * (1 - smoothstep(.86, .94, t));
+      const flick = reduceMotion ? 0 : Math.sin(time * 12) * 2.4 + Math.sin(time * 21) * 1.1;
+      const sway = reduceMotion ? 0 : Math.sin(time * 8) * 2.2;
+      ctx.save(); ctx.globalAlpha = fade;
+      const glow = ctx.createRadialGradient(380, 380, 4, 380, 388, 82); glow.addColorStop(0, 'rgba(255,176,49,.62)'); glow.addColorStop(.42, 'rgba(238,104,31,.24)'); glow.addColorStop(1, 'rgba(232,92,28,0)'); ctx.fillStyle = glow; ctx.beginPath(); ctx.arc(380, 388, 82, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = 'rgba(190,218,226,.48)'; ctx.strokeStyle = '#647681'; ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(337, 492); ctx.quadraticCurveTo(340, 446, 358, 440); ctx.lineTo(402, 440); ctx.quadraticCurveTo(420, 446, 423, 492); ctx.quadraticCurveTo(380, 507, 337, 492); ctx.closePath(); ctx.fill(); ctx.stroke();
+      const alcohol = ctx.createLinearGradient(0, 458, 0, 498); alcohol.addColorStop(0, 'rgba(122,196,218,.35)'); alcohol.addColorStop(1, 'rgba(61,139,165,.62)'); ctx.fillStyle = alcohol; ctx.beginPath(); ctx.moveTo(341, 478); ctx.quadraticCurveTo(380, 470, 419, 478); ctx.lineTo(422, 492); ctx.quadraticCurveTo(380, 502, 338, 492); ctx.closePath(); ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(350, 456); ctx.quadraticCurveTo(345, 474, 350, 487); ctx.stroke();
+      ctx.fillStyle = '#59656e'; roundedRect(359, 427, 42, 17, 5); ctx.fill(); ctx.fillStyle = '#252b2f'; roundedRect(376, 415, 8, 18, 3); ctx.fill();
       /* Ngọn lửa minh họa dạng giọt: vỏ đỏ, lớp cam và lõi vàng. */
       ctx.save();
-      ctx.shadowColor='rgba(224,68,43,.38)';ctx.shadowBlur=8;
-      ctx.fillStyle='#e33f32';ctx.strokeStyle='#c9342c';ctx.lineWidth=2.4;ctx.lineJoin='round';
-      ctx.beginPath();ctx.moveTo(380,420);
-      ctx.bezierCurveTo(363,419,352,408,352,391);
-      ctx.bezierCurveTo(352,376,361+sway*.25,365,370+sway*.55,355-flick*.25);
-      ctx.bezierCurveTo(376+sway,348-flick,377+sway,341-flick*.6,378+sway,335-flick*.45);
-      ctx.bezierCurveTo(382+sway*.7,348-flick*.25,399+sway*.25,354,405,368);
-      ctx.bezierCurveTo(416,393,403,414,380,420);ctx.closePath();ctx.fill();ctx.stroke();
-      ctx.shadowBlur=0;
-      ctx.fillStyle='#f27a2a';ctx.beginPath();ctx.moveTo(380,416);
-      ctx.bezierCurveTo(366,414,360,404,362,391);
-      ctx.bezierCurveTo(364,380,370+sway*.35,370,374+sway*.45,360-flick*.25);
-      ctx.bezierCurveTo(382+sway*.25,369,397,379,398,392);
-      ctx.bezierCurveTo(399,405,391,414,380,416);ctx.closePath();ctx.fill();
-      ctx.fillStyle='#ffd83f';ctx.beginPath();ctx.moveTo(380,414);
-      ctx.bezierCurveTo(370,410,367,402,369,394);
-      ctx.bezierCurveTo(371,386,377+sway*.18,379,380+sway*.2,371-flick*.12);
-      ctx.bezierCurveTo(384,380,393,390,392,400);
-      ctx.bezierCurveTo(391,408,386,412,380,414);ctx.closePath();ctx.fill();
-      ctx.fillStyle='rgba(255,245,151,.72)';ctx.beginPath();ctx.ellipse(378,400,5,10,-.22,0,Math.PI*2);ctx.fill();
+      ctx.shadowColor = 'rgba(224,68,43,.38)'; ctx.shadowBlur = 8;
+      ctx.fillStyle = '#e33f32'; ctx.strokeStyle = '#c9342c'; ctx.lineWidth = 2.4; ctx.lineJoin = 'round';
+      ctx.beginPath(); ctx.moveTo(380, 420);
+      ctx.bezierCurveTo(363, 419, 352, 408, 352, 391);
+      ctx.bezierCurveTo(352, 376, 361 + sway * .25, 365, 370 + sway * .55, 355 - flick * .25);
+      ctx.bezierCurveTo(376 + sway, 348 - flick, 377 + sway, 341 - flick * .6, 378 + sway, 335 - flick * .45);
+      ctx.bezierCurveTo(382 + sway * .7, 348 - flick * .25, 399 + sway * .25, 354, 405, 368);
+      ctx.bezierCurveTo(416, 393, 403, 414, 380, 420); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.shadowBlur = 0;
+      ctx.fillStyle = '#f27a2a'; ctx.beginPath(); ctx.moveTo(380, 416);
+      ctx.bezierCurveTo(366, 414, 360, 404, 362, 391);
+      ctx.bezierCurveTo(364, 380, 370 + sway * .35, 370, 374 + sway * .45, 360 - flick * .25);
+      ctx.bezierCurveTo(382 + sway * .25, 369, 397, 379, 398, 392);
+      ctx.bezierCurveTo(399, 405, 391, 414, 380, 416); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = '#ffd83f'; ctx.beginPath(); ctx.moveTo(380, 414);
+      ctx.bezierCurveTo(370, 410, 367, 402, 369, 394);
+      ctx.bezierCurveTo(371, 386, 377 + sway * .18, 379, 380 + sway * .2, 371 - flick * .12);
+      ctx.bezierCurveTo(384, 380, 393, 390, 392, 400);
+      ctx.bezierCurveTo(391, 408, 386, 412, 380, 414); ctx.closePath(); ctx.fill();
+      ctx.fillStyle = 'rgba(255,245,151,.72)'; ctx.beginPath(); ctx.ellipse(378, 400, 5, 10, -.22, 0, Math.PI * 2); ctx.fill();
       ctx.restore();
-      ctx.fillStyle='#514C44';ctx.font="bold 11px 'JetBrains Mono', monospace";ctx.textAlign='center';ctx.fillText('Đèn cồn',380,525);
+      ctx.fillStyle = '#514C44'; ctx.font = "bold 11px 'JetBrains Mono', monospace"; ctx.textAlign = 'center'; ctx.fillText('Đèn cồn', 380, 525);
       ctx.restore();
     }
 
-    function drawBath(kind){
-      let showIce=false;
-      let iceAlpha=1;
-      let iceOffsetY=0;
+    function drawBath(kind) {
+      let showIce = false;
+      let iceAlpha = 1;
+      let iceOffsetY = 0;
 
-      if(kind==='ice'){
-        if(animation.step===4&&state.isAnimating){
-          showIce=true;
-          iceAlpha=smoothstep(.02,.2,scene.toolProgress);
-          iceOffsetY=lerp(40,0,iceAlpha);
-        }else if(animation.step===5&&state.isAnimating){
+      if (kind === 'ice') {
+        if (animation.step === 4 && state.isAnimating) {
+          showIce = true;
+          iceAlpha = smoothstep(.02, .2, scene.toolProgress);
+          iceOffsetY = lerp(40, 0, iceAlpha);
+        } else if (animation.step === 5 && state.isAnimating) {
           // Ở bước 5: chỉ hiển thị xô đá lúc đang nhỏ HNO3, trước khi lắc bình (t=0.6) thì xô đá trượt xuống và biến mất hoàn toàn
-          if(scene.toolProgress<.58){
-            showIce=true;
-            iceAlpha=1-smoothstep(.44,.58,scene.toolProgress);
-            iceOffsetY=lerp(0,50,1-iceAlpha);
+          if (scene.toolProgress < .58) {
+            showIce = true;
+            iceAlpha = 1 - smoothstep(.44, .58, scene.toolProgress);
+            iceOffsetY = lerp(0, 50, 1 - iceAlpha);
           }
-        }else if(!state.isAnimating&&state.currentStep===5&&state.completedSteps.includes(4)){
-          showIce=true;
-          iceAlpha=1;
-          iceOffsetY=0;
+        } else if (!state.isAnimating && state.currentStep === 5 && state.completedSteps.includes(4)) {
+          showIce = true;
+          iceAlpha = 1;
+          iceOffsetY = 0;
         }
-        if(!showIce)return;
+        if (!showIce) return;
       }
 
-      const showHot=(animation.step===6&&state.isAnimating);
-      if(kind==='hot'&&!showHot)return;
+      const showHot = (animation.step === 6 && state.isAnimating);
+      if (kind === 'hot' && !showHot) return;
 
-      const p=(kind==='ice')?iceAlpha:scene.waterBath;
-      ctx.save();ctx.globalAlpha=p;const x=292,y=350+(kind==='ice'?iceOffsetY:0),w=176,h=155;
-      ctx.fillStyle=kind==='ice'?'rgba(170,220,238,.55)':'rgba(225,180,96,.30)';ctx.strokeStyle=kind==='ice'?'#5995aa':'#b9873f';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+10,y+h);ctx.quadraticCurveTo(x+w/2,y+h+18,x+w-10,y+h);ctx.lineTo(x+w,y);ctx.closePath();ctx.fill();ctx.stroke();
-      ctx.strokeStyle='rgba(255,255,255,.65)';ctx.beginPath();ctx.moveTo(x+8,y+24);ctx.quadraticCurveTo(380,y+31+(kind==='ice'?iceOffsetY:0),x+w-8,y+24);ctx.stroke();
-      if(kind==='ice'){
-        ctx.save();ctx.beginPath();ctx.rect(x+7,y+4,w-14,h-9);ctx.clip();
-        for(let i=0;i<9;i++){
-          const ix=x+16+(i%5)*32,iy=y+70+Math.floor(i/5)*36;
-          ctx.fillStyle='rgba(220,246,255,.78)';ctx.strokeStyle='#83bdd1';ctx.lineWidth=1.5;
-          roundedRect(ix,iy,24,24,5);ctx.fill();ctx.stroke();
+      const p = (kind === 'ice') ? iceAlpha : scene.waterBath;
+      ctx.save(); ctx.globalAlpha = p; const x = 292, y = 350 + (kind === 'ice' ? iceOffsetY : 0), w = 176, h = 155;
+      ctx.fillStyle = kind === 'ice' ? 'rgba(170,220,238,.55)' : 'rgba(225,180,96,.30)'; ctx.strokeStyle = kind === 'ice' ? '#5995aa' : '#b9873f'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 10, y + h); ctx.quadraticCurveTo(x + w / 2, y + h + 18, x + w - 10, y + h); ctx.lineTo(x + w, y); ctx.closePath(); ctx.fill(); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,255,255,.65)'; ctx.beginPath(); ctx.moveTo(x + 8, y + 24); ctx.quadraticCurveTo(380, y + 31 + (kind === 'ice' ? iceOffsetY : 0), x + w - 8, y + 24); ctx.stroke();
+      if (kind === 'ice') {
+        ctx.save(); ctx.beginPath(); ctx.rect(x + 7, y + 4, w - 14, h - 9); ctx.clip();
+        for (let i = 0; i < 9; i++) {
+          const ix = x + 16 + (i % 5) * 32, iy = y + 70 + Math.floor(i / 5) * 36;
+          ctx.fillStyle = 'rgba(220,246,255,.78)'; ctx.strokeStyle = '#83bdd1'; ctx.lineWidth = 1.5;
+          roundedRect(ix, iy, 24, 24, 5); ctx.fill(); ctx.stroke();
         }
         ctx.restore();
       }
-      else{ctx.fillStyle='#8f6a36';roundedRect(x-8,y+h+3,w+16,16,6);ctx.fill();}
+      else {
+        ctx.fillStyle = '#8f6a36'; roundedRect(x - 8, y + h + 3, w + 16, 16, 6); ctx.fill();
+        ctx.fillStyle = '#1A1A1A'; ctx.font = "bold 12px 'JetBrains Mono', monospace"; ctx.textAlign = 'center';
+        ctx.fillText('Ngâm cách thủy', x + w / 2, y + h + 34);
+      }
       ctx.restore();
     }
 
-    function drawThermometer(){
-      const visible=(state.isAnimating&&animation.step>=4&&animation.step<8)||(!state.isAnimating&&state.completedSteps.includes(4)&&!state.completedSteps.includes(8));if(!visible)return;
-      const x=492,y=185,h=190;ctx.fillStyle='rgba(240,248,255,.7)';ctx.strokeStyle='#75838d';ctx.lineWidth=2;roundedRect(x-7,y,14,h,7);ctx.fill();ctx.stroke();
-      const frac=clamp(scene.temp/100,0,1);ctx.fillStyle='#c15f3c';ctx.fillRect(x-2,y+h-12-(h-24)*frac,4,(h-24)*frac);ctx.beginPath();ctx.arc(x,y+h-8,7,0,Math.PI*2);ctx.fill();
-      ctx.fillStyle='#1A1A1A';ctx.font="bold 13px 'JetBrains Mono', monospace";ctx.textAlign='left';ctx.fillText(`${Math.round(scene.temp)}°C`,x+15,y+18);
+    function drawThermometer() {
+      const visible = (state.isAnimating && animation.step >= 4 && animation.step < 8) || (!state.isAnimating && state.completedSteps.includes(4) && !state.completedSteps.includes(8)); if (!visible) return;
+      const x = 492, y = 185, h = 190; ctx.fillStyle = 'rgba(240,248,255,.7)'; ctx.strokeStyle = '#75838d'; ctx.lineWidth = 2; roundedRect(x - 7, y, 14, h, 7); ctx.fill(); ctx.stroke();
+      const frac = clamp(scene.temp / 100, 0, 1); ctx.fillStyle = '#c15f3c'; ctx.fillRect(x - 2, y + h - 12 - (h - 24) * frac, 4, (h - 24) * frac); ctx.beginPath(); ctx.arc(x, y + h - 8, 7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#1A1A1A'; ctx.font = "bold 13px 'JetBrains Mono', monospace"; ctx.textAlign = 'left'; ctx.fillText(`${Math.round(scene.temp)}°C`, x + 15, y + 18);
     }
 
-    function drawClock(){
-      // Đã bỏ hiển thị thời gian đun cách thủy theo yêu cầu
-    }
 
-    function drawBeaker(){
+
+    function drawBeaker() {
       // Bước 7 hiển thị bình thí nghiệm / cốc đong thủy tinh đựng nước lạnh sẵn sàng đón hỗn hợp
-      const visible=(animation.step>=7&&state.isAnimating)||state.currentStep>=7||scene.pour>=1;if(!visible)return;
-      const x=485,y=385,w=126,h=128,r=10;
-      const surface=getReceiverSurfaceY()+(reduceMotion?0:Math.sin(time*2.4)*1.2);
+      const visible = (animation.step >= 7 && state.isAnimating) || state.currentStep >= 7 || scene.pour >= 1; if (!visible) return;
+      const x = 485, y = 385, w = 126, h = 128, r = 10;
+      const surface = getReceiverSurfaceY() + (reduceMotion ? 0 : Math.sin(time * 2.4) * 1.2);
       ctx.save();
       // 1. Nước lạnh bên trong lòng cốc
       ctx.beginPath();
-      ctx.moveTo(x+3,y);
-      ctx.lineTo(x+3,y+h-r);
-      ctx.arcTo(x+3,y+h,x+3+r,y+h,r);
-      ctx.lineTo(x+w-3-r,y+h);
-      ctx.arcTo(x+w-3,y+h,x+w-3,y+h-r,r);
-      ctx.lineTo(x+w-3,y);
+      ctx.moveTo(x + 3, y);
+      ctx.lineTo(x + 3, y + h - r);
+      ctx.arcTo(x + 3, y + h, x + 3 + r, y + h, r);
+      ctx.lineTo(x + w - 3 - r, y + h);
+      ctx.arcTo(x + w - 3, y + h, x + w - 3, y + h - r, r);
+      ctx.lineTo(x + w - 3, y);
       ctx.closePath();
       ctx.clip();
-      const waterGrad=ctx.createLinearGradient(x,surface,x,y+h);
-      waterGrad.addColorStop(0,lerpColor([190,225,235],[224,205,119],scene.pour*.42));
-      waterGrad.addColorStop(1,lerpColor([120,185,205],[183,132,66],scene.pour*.34));
-      ctx.fillStyle=waterGrad;
-      ctx.fillRect(x,surface,w,y+h-surface+10);
-      ctx.strokeStyle='rgba(255,255,255,.78)';
-      ctx.lineWidth=2;
+      const waterGrad = ctx.createLinearGradient(x, surface, x, y + h);
+      waterGrad.addColorStop(0, lerpColor([190, 225, 235], [224, 205, 119], scene.pour * .42));
+      waterGrad.addColorStop(1, lerpColor([120, 185, 205], [183, 132, 66], scene.pour * .34));
+      ctx.fillStyle = waterGrad;
+      ctx.fillRect(x, surface, w, y + h - surface + 10);
+      ctx.strokeStyle = 'rgba(255,255,255,.78)';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(x+6,surface);
-      ctx.quadraticCurveTo(x+w/2,surface+4,x+w-6,surface);
+      ctx.moveTo(x + 6, surface);
+      ctx.quadraticCurveTo(x + w / 2, surface + 4, x + w - 6, surface);
       ctx.stroke();
-      if(scene.pour>.12&&scene.pour<.96){
-        ctx.fillStyle=`rgba(132,58,42,${.12*(1-scene.pour)})`;
-        for(let i=0;i<7;i++){
+      if (scene.pour > .12 && scene.pour < .96) {
+        ctx.fillStyle = `rgba(132,58,42,${.12 * (1 - scene.pour)})`;
+        for (let i = 0; i < 7; i++) {
           ctx.beginPath();
-          ctx.arc(555+Math.sin(time*2+i)*20,surface+18+i*7,8+i*2,0,Math.PI*2);
+          ctx.arc(555 + Math.sin(time * 2 + i) * 20, surface + 18 + i * 7, 8 + i * 2, 0, Math.PI * 2);
           ctx.fill();
         }
       }
@@ -1010,280 +1905,282 @@
 
       // 2. Thân cốc thủy tinh (Beaker) phòng thí nghiệm - không quai xô
       ctx.save();
-      ctx.fillStyle='rgba(230,244,249,.16)';
-      ctx.strokeStyle='#64748B';
-      ctx.lineWidth=2.4;
+      ctx.fillStyle = 'rgba(230,244,249,.16)';
+      ctx.strokeStyle = '#64748B';
+      ctx.lineWidth = 2.4;
       ctx.beginPath();
-      ctx.moveTo(x-4,y);
-      ctx.lineTo(x+2,y+5);
-      ctx.lineTo(x+3,y+h-r);
-      ctx.arcTo(x+3,y+h,x+3+r,y+h,r);
-      ctx.lineTo(x+w-3-r,y+h);
-      ctx.arcTo(x+w-3,y+h,x+w-3,y+h-r,r);
-      ctx.lineTo(x+w-3,y);
+      ctx.moveTo(x - 4, y);
+      ctx.lineTo(x + 2, y + 5);
+      ctx.lineTo(x + 3, y + h - r);
+      ctx.arcTo(x + 3, y + h, x + 3 + r, y + h, r);
+      ctx.lineTo(x + w - 3 - r, y + h);
+      ctx.arcTo(x + w - 3, y + h, x + w - 3, y + h - r, r);
+      ctx.lineTo(x + w - 3, y);
       ctx.closePath();
       ctx.fill();
       ctx.stroke();
 
       // Miệng loe cốc
       ctx.beginPath();
-      ctx.ellipse(x+w/2,y,w/2+1,5,0,0,Math.PI*2);
+      ctx.ellipse(x + w / 2, y, w / 2 + 1, 5, 0, 0, Math.PI * 2);
       ctx.stroke();
 
       // Vạch phản chiếu ánh sáng thủy tinh
-      ctx.strokeStyle='rgba(255,255,255,.65)';
-      ctx.lineWidth=3;
+      ctx.strokeStyle = 'rgba(255,255,255,.65)';
+      ctx.lineWidth = 3;
       ctx.beginPath();
-      ctx.moveTo(x+10,y+15);
-      ctx.lineTo(x+10,y+h-14);
+      ctx.moveTo(x + 10, y + 15);
+      ctx.lineTo(x + 10, y + h - 14);
       ctx.stroke();
 
       // Vạch chia độ cốc thủy tinh
-      ctx.strokeStyle='rgba(80,95,110,.55)';
-      ctx.lineWidth=1.2;
-      for(let v=1;v<=4;v++){
-        const vy=y+h-v*20;
+      ctx.strokeStyle = 'rgba(80,95,110,.55)';
+      ctx.lineWidth = 1.2;
+      for (let v = 1; v <= 4; v++) {
+        const vy = y + h - v * 20;
         ctx.beginPath();
-        ctx.moveTo(x+5,vy);
-        ctx.lineTo(x+16+(v%2)*5,vy);
+        ctx.moveTo(x + 5, vy);
+        ctx.lineTo(x + 16 + (v % 2) * 5, vy);
         ctx.stroke();
       }
 
       // Tinh thể picric acid kết tủa màu vàng
-      if(scene.crystals>0){
+      if (scene.crystals > 0) {
         ctx.save();
         ctx.beginPath();
-        ctx.rect(x+8,y+34,w-16,h-34);
+        ctx.rect(x + 8, y + 34, w - 16, h - 34);
         ctx.clip();
-        for(let i=0;i<crystalSeeds.length;i++){
-          const c=crystalSeeds[i],p=clamp((scene.crystals-c.delay)/(1-c.delay),0,1);
-          if(p<=0)continue;
-          const sx=x+w/2+c.x*.65,sy=lerp(y+42+((i*17)%50),c.targetY,p);
-          const wob=Math.sin(time*2+i)*c.wobble*(1-p);
+        for (let i = 0; i < crystalSeeds.length; i++) {
+          const c = crystalSeeds[i], p = clamp((scene.crystals - c.delay) / (1 - c.delay), 0, 1);
+          if (p <= 0) continue;
+          const sx = x + w / 2 + c.x * .65, sy = lerp(y + 42 + ((i * 17) % 50), c.targetY, p);
+          const wob = Math.sin(time * 2 + i) * c.wobble * (1 - p);
           ctx.save();
-          ctx.translate(sx+wob,sy);
+          ctx.translate(sx + wob, sy);
           ctx.rotate(c.angle);
-          ctx.globalAlpha=.35+.65*p;
-          ctx.fillStyle='#e6c52f';
-          ctx.fillRect(-c.size*.35,-c.size*1.2,c.size*.7,c.size*2.4);
+          ctx.globalAlpha = .35 + .65 * p;
+          ctx.fillStyle = '#e6c52f';
+          ctx.fillRect(-c.size * .35, -c.size * 1.2, c.size * .7, c.size * 2.4);
           ctx.restore();
         }
         ctx.restore();
       }
 
       // Nhãn tên bình / cốc thí nghiệm
-      ctx.fillStyle='#1A1A1A';
-      ctx.font="bold 12px 'JetBrains Mono', monospace";
-      ctx.textAlign='center';
-      ctx.fillText('Cốc nước lạnh ~20 mL',x+w/2,y+h+26);
+      ctx.fillStyle = '#1A1A1A';
+      ctx.font = "bold 12px 'JetBrains Mono', monospace";
+      ctx.textAlign = 'center';
+      ctx.fillText('Cốc nước lạnh ~20 mL', x + w / 2, y + h + 26);
       ctx.restore();
     }
 
-    function drawPourStream(){
-      if(animation.step!==8||!state.isAnimating)return;const t=scene.toolProgress;if(t<.24||t>.85)return;
-      const g=tubeGeometry(),centerY=g.y+155,localX=34,localY=-155,cos=Math.cos(g.angle),sin=Math.sin(g.angle);
-      const sourceX=g.x+localX*cos-localY*sin,sourceY=centerY+localX*sin+localY*cos;
-      const targetX=clamp(sourceX,505,600),targetY=getReceiverSurfaceY();
-      const pulse=reduceMotion?0:Math.sin(time*13)*.38,flowStrength=smoothstep(.24,.34,t)*(1-smoothstep(.76,.85,t));
-      ctx.save();ctx.lineCap='round';
-      const streamGrad=ctx.createLinearGradient(sourceX,sourceY,targetX,targetY);streamGrad.addColorStop(0,'rgba(83,28,27,.96)');streamGrad.addColorStop(1,'rgba(139,68,43,.82)');
-      ctx.strokeStyle=streamGrad;ctx.lineWidth=2+flowStrength*4+pulse;ctx.beginPath();ctx.moveTo(sourceX,sourceY);ctx.quadraticCurveTo(sourceX+12,(sourceY+targetY)/2-8,targetX,targetY);ctx.stroke();
-      ctx.strokeStyle='rgba(255,224,204,.34)';ctx.lineWidth=1.35;ctx.beginPath();ctx.moveTo(sourceX-1,sourceY);ctx.quadraticCurveTo(sourceX+9,(sourceY+targetY)/2-10,targetX-1,targetY);ctx.stroke();
+    function drawPourStream() {
+      if (animation.step !== 8 || !state.isAnimating) return; const t = scene.toolProgress; if (t < .24 || t > .85) return;
+      const g = tubeGeometry(), centerY = g.y + 155, localX = 34, localY = -155, cos = Math.cos(g.angle), sin = Math.sin(g.angle);
+      const sourceX = g.x + localX * cos - localY * sin, sourceY = centerY + localX * sin + localY * cos;
+      const targetX = clamp(sourceX, 505, 600), targetY = getReceiverSurfaceY();
+      const pulse = reduceMotion ? 0 : Math.sin(time * 13) * .38, flowStrength = smoothstep(.24, .34, t) * (1 - smoothstep(.76, .85, t));
+      ctx.save(); ctx.lineCap = 'round';
+      const streamGrad = ctx.createLinearGradient(sourceX, sourceY, targetX, targetY); streamGrad.addColorStop(0, 'rgba(83,28,27,.96)'); streamGrad.addColorStop(1, 'rgba(139,68,43,.82)');
+      ctx.strokeStyle = streamGrad; ctx.lineWidth = 2 + flowStrength * 4 + pulse; ctx.beginPath(); ctx.moveTo(sourceX, sourceY); ctx.quadraticCurveTo(sourceX + 12, (sourceY + targetY) / 2 - 8, targetX, targetY); ctx.stroke();
+      ctx.strokeStyle = 'rgba(255,224,204,.34)'; ctx.lineWidth = 1.35; ctx.beginPath(); ctx.moveTo(sourceX - 1, sourceY); ctx.quadraticCurveTo(sourceX + 9, (sourceY + targetY) / 2 - 10, targetX - 1, targetY); ctx.stroke();
       ctx.restore();
     }
 
-    function drawParticles(){
-      for(const p of particles){ctx.save();ctx.globalAlpha=clamp(p.life,0,1);
-        if(p.type==='phenol'){
-          ctx.fillStyle='#f7f2df';ctx.strokeStyle='rgba(111,105,91,.28)';ctx.lineWidth=.7;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.stroke();
-        }else if(p.type==='drop'){ctx.fillStyle=p.color;ctx.beginPath();ctx.moveTo(p.x,p.y-8);ctx.quadraticCurveTo(p.x-5,p.y-1,p.x-4,p.y+2);ctx.quadraticCurveTo(p.x,p.y+6,p.x+4,p.y+2);ctx.quadraticCurveTo(p.x+5,p.y-1,p.x,p.y-8);ctx.fill();}
-        else if(p.type==='bubble'){const grow=clamp((410-p.y)/150,0,1);ctx.strokeStyle='rgba(255,255,255,.8)';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(p.x,p.y,p.size+grow*3,0,Math.PI*2);ctx.stroke();}
-        else if(p.type==='steam'){ctx.fillStyle=p.kind==='danger'?'rgba(196,180,160,.35)':'rgba(255,255,255,.38)';ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();}
-        else if(p.type==='splash'){ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();}
-        else if(p.type==='snow'){
-          ctx.translate(p.x,p.y);ctx.rotate(p.spin);ctx.strokeStyle='rgba(116,190,218,.95)';ctx.lineWidth=1.25;ctx.lineCap='round';
-          for(let arm=0;arm<3;arm++){ctx.rotate(Math.PI/3);ctx.beginPath();ctx.moveTo(-p.size,0);ctx.lineTo(p.size,0);ctx.stroke();ctx.beginPath();ctx.moveTo(p.size*.45,0);ctx.lineTo(p.size*.72,-p.size*.28);ctx.moveTo(p.size*.45,0);ctx.lineTo(p.size*.72,p.size*.28);ctx.stroke();}
+    function drawParticles() {
+      for (const p of particles) {
+        ctx.save(); ctx.globalAlpha = clamp(p.life, 0, 1);
+        if (p.type === 'phenol') {
+          ctx.fillStyle = '#f7f2df'; ctx.strokeStyle = 'rgba(111,105,91,.28)'; ctx.lineWidth = .7; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+        } else if (p.type === 'drop') { ctx.fillStyle = p.color; ctx.beginPath(); ctx.moveTo(p.x, p.y - 8); ctx.quadraticCurveTo(p.x - 5, p.y - 1, p.x - 4, p.y + 2); ctx.quadraticCurveTo(p.x, p.y + 6, p.x + 4, p.y + 2); ctx.quadraticCurveTo(p.x + 5, p.y - 1, p.x, p.y - 8); ctx.fill(); }
+        else if (p.type === 'bubble') { const grow = clamp((410 - p.y) / 150, 0, 1); ctx.strokeStyle = 'rgba(255,255,255,.8)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(p.x, p.y, p.size + grow * 3, 0, Math.PI * 2); ctx.stroke(); }
+        else if (p.type === 'steam') { ctx.fillStyle = p.kind === 'danger' ? 'rgba(196,180,160,.35)' : 'rgba(255,255,255,.38)'; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); }
+        else if (p.type === 'splash') { ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); }
+        else if (p.type === 'snow') {
+          ctx.translate(p.x, p.y); ctx.rotate(p.spin); ctx.strokeStyle = 'rgba(116,190,218,.95)'; ctx.lineWidth = 1.25; ctx.lineCap = 'round';
+          for (let arm = 0; arm < 3; arm++) { ctx.rotate(Math.PI / 3); ctx.beginPath(); ctx.moveTo(-p.size, 0); ctx.lineTo(p.size, 0); ctx.stroke(); ctx.beginPath(); ctx.moveTo(p.size * .45, 0); ctx.lineTo(p.size * .72, -p.size * .28); ctx.moveTo(p.size * .45, 0); ctx.lineTo(p.size * .72, p.size * .28); ctx.stroke(); }
         }
-        ctx.restore();}
-      for(const r of rings){ctx.save();ctx.globalAlpha=r.alpha;ctx.strokeStyle=r.color;ctx.lineWidth=lerp(2,.5,r.r/r.maxR);ctx.beginPath();ctx.ellipse(r.x,r.y,r.r,r.r*.34,0,0,Math.PI*2);ctx.stroke();ctx.restore();}
+        ctx.restore();
+      }
+      for (const r of rings) { ctx.save(); ctx.globalAlpha = r.alpha; ctx.strokeStyle = r.color; ctx.lineWidth = lerp(2, .5, r.r / r.maxR); ctx.beginPath(); ctx.ellipse(r.x, r.y, r.r, r.r * .34, 0, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); }
     }
 
-    function drawLabels(){
-      ctx.textAlign='center';ctx.font="bold 12px 'JetBrains Mono', monospace";ctx.fillStyle='#1A1A1A';
-      let labels=[];if(scene.phenol>0)labels.push('C6H5OH — 0,5 g');if(scene.acid>0)labels.push('H2SO4 đặc — 1,5 mL');if(scene.nitric>0)labels.push('HNO3 đặc — 1 mL');
-      labels.forEach((s,i)=>{const w=ctx.measureText(s).width+18,x=92,y=90+i*34;ctx.fillStyle='rgba(250,247,240,.94)';ctx.strokeStyle='#A8C9B8';ctx.lineWidth=1.5;roundedRect(x-w/2,y-17,w,26,6);ctx.fill();ctx.stroke();ctx.fillStyle='#1A1A1A';ctx.fillText(s,x,y+1);});
+    function drawLabels() {
+      ctx.textAlign = 'center'; ctx.font = "bold 12px 'JetBrains Mono', monospace"; ctx.fillStyle = '#1A1A1A';
+      let labels = []; if (scene.phenol > 0) labels.push('C6H5OH — 0,5 g'); if (scene.acid > 0) labels.push('H2SO4 đặc — 1,5 mL'); if (scene.nitric > 0) labels.push('HNO3 đặc — 1 mL');
+      labels.forEach((s, i) => { const w = ctx.measureText(s).width + 18, x = 92, y = 90 + i * 34; ctx.fillStyle = 'rgba(250,247,240,.94)'; ctx.strokeStyle = '#E5DECF'; ctx.lineWidth = 1.5; roundedRect(x - w / 2, y - 17, w, 26, 6); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#1A1A1A'; ctx.fillText(s, x, y + 1); });
     }
 
-    function drawScene(){
-      drawBench();drawStand();drawBath('ice');drawBath('hot');drawBurner();drawBeaker();drawTestTube();drawPourStream();drawSpatula();drawDropper();drawThermometer();drawParticles();drawLabels();
+    function drawScene() {
+      drawBench(); drawStand(); drawBath('ice'); drawBath('hot'); drawBurner(); drawBeaker(); drawTestTube(); drawPourStream(); drawSpatula(); drawDropper(); drawThermometer(); drawParticles(); drawLabels();
     }
 
-    function loop(now){
-      resizeCanvas();const dt=Math.min(40,now-lastFrame||16.67);lastFrame=now;time+=dt/1000;updateStepAnimation(now);updateParticles(dt);
-      ctx.clearRect(0,0,canvasW,canvasH);drawGrid();
-      const scaleX=canvasW/W,scaleY=canvasH/H,fitScale=Math.min(scaleX,scaleY),offsetX=(canvasW-W*fitScale)/2,offsetY=(canvasH-H*fitScale)/2;
-      const sceneScale=getSceneScale(),sceneOffsetX=(W-W*sceneScale)/2;
-      ctx.save();ctx.translate(offsetX,offsetY);ctx.scale(fitScale,fitScale);
-      ctx.translate(sceneOffsetX,0);ctx.scale(sceneScale,sceneScale);drawScene();
-      ctx.restore();requestAnimationFrame(loop);
+    function loop(now) {
+      resizeCanvas(); const dt = Math.min(40, now - lastFrame || 16.67); lastFrame = now; time += dt / 1000; updateStepAnimation(now); updateParticles(dt);
+      ctx.clearRect(0, 0, canvasW, canvasH); drawGrid();
+      const scaleX = canvasW / W, scaleY = canvasH / H, fitScale = Math.min(scaleX, scaleY), offsetX = (canvasW - W * fitScale) / 2, offsetY = (canvasH - H * fitScale) / 2;
+      const sceneScale = getSceneScale(), sceneOffsetX = (W - W * sceneScale) / 2;
+      ctx.save(); ctx.translate(offsetX, offsetY); ctx.scale(fitScale, fitScale);
+      ctx.translate(sceneOffsetX, 0); ctx.scale(sceneScale, sceneScale); drawScene();
+      ctx.restore(); requestAnimationFrame(loop);
     }
 
-    const observationConfig={
-      obs1:{unlock:3,correct:'homogeneous'},obs2:{unlock:5,correct:'dark-red'},obs3:{unlock:8,correct:'yellow-crystals'}
+    const observationConfig = {
+      obs1: { unlock: 3, correct: 'homogeneous' }, obs2: { unlock: 5, correct: 'dark-red' }, obs3: { unlock: 8, correct: 'yellow-crystals' }
     };
-    function unlockObservationRows(){
-      const hasObservation=state.completedSteps.some(step=>step>=3);
-      $('observationEmpty').classList.toggle('hidden',hasObservation);
-      $('observationTableWrap').classList.toggle('hidden',!hasObservation);
-      Object.entries(observationConfig).forEach(([id,cfg],idx)=>{
-        const unlocked=state.completedSteps.includes(cfg.unlock),row=$(`obsRow${idx+1}`),select=$(id),status=$(`obsStatus${idx+1}`);
-        select.disabled=!unlocked||state.reportCorrect[id];row.classList.toggle('is-locked',!unlocked);row.classList.toggle('is-complete',!!state.reportCorrect[id]);
-        status.textContent=state.reportCorrect[id]?'Đã ghi nhận':unlocked?'Chờ bạn chọn':`Mở sau bước ${cfg.unlock}`;
-        if(state.reportAnswers[id])select.value=state.reportAnswers[id];
+    function unlockObservationRows() {
+      const hasObservation = state.completedSteps.some(step => step >= 3);
+      $('observationEmpty').classList.toggle('hidden', hasObservation);
+      $('observationTableWrap').classList.toggle('hidden', !hasObservation);
+      Object.entries(observationConfig).forEach(([id, cfg], idx) => {
+        const unlocked = state.completedSteps.includes(cfg.unlock), row = $(`obsRow${idx + 1}`), select = $(id), status = $(`obsStatus${idx + 1}`);
+        select.disabled = !unlocked || state.reportCorrect[id]; row.classList.toggle('is-locked', !unlocked); row.classList.toggle('is-complete', !!state.reportCorrect[id]);
+        status.textContent = state.reportCorrect[id] ? 'Đã ghi nhận' : unlocked ? 'Chờ bạn chọn' : `Mở sau bước ${cfg.unlock}`;
+        if (state.reportAnswers[id]) select.value = state.reportAnswers[id];
       });
       document.querySelectorAll('.obs-select').forEach(syncCustomSelect);
     }
-    function handleObservation(id,index){
-      const select=$(id),cfg=observationConfig[id],value=select.value;state.reportAnswers[id]=value;
-      const ok=value===cfg.correct;state.reportCorrect[id]=ok;const fb=$(`obsFeedback${index}`);
-      if(!value){fb.textContent='';fb.className='inline-feedback';}
-      else if(ok){fb.textContent='Đã ghi nhận hiện tượng.';fb.className='inline-feedback is-correct';$(`obsRow${index}`).classList.add('cell-flash');window.setTimeout(()=>$(`obsRow${index}`).classList.remove('cell-flash'),1000);}
-      else{fb.textContent='Bạn có muốn xem lại hiện tượng ở bước này không?';fb.className='inline-feedback is-wrong';}
-      unlockObservationRows();LMS().event('observation_answered',{id,chosen:value,correct:ok});state.lastAction=`Điền ${id}`;updateProgress();saveState();checkUnlocks();
+    function handleObservation(id, index) {
+      const select = $(id), cfg = observationConfig[id], value = select.value; state.reportAnswers[id] = value;
+      const ok = value === cfg.correct; state.reportCorrect[id] = ok; const fb = $(`obsFeedback${index}`);
+      if (!value) { fb.textContent = ''; fb.className = 'inline-feedback'; }
+      else if (ok) { fb.textContent = 'Đã ghi nhận hiện tượng.'; fb.className = 'inline-feedback is-correct'; $(`obsRow${index}`).classList.add('cell-flash'); window.setTimeout(() => $(`obsRow${index}`).classList.remove('cell-flash'), 1000); }
+      else { fb.textContent = 'Bạn có muốn xem lại hiện tượng ở bước này không?'; fb.className = 'inline-feedback is-wrong'; }
+      unlockObservationRows(); LMS().event('observation_answered', { id, chosen: value, correct: ok }); state.lastAction = `Điền ${id}`; updateProgress(); saveState(); checkUnlocks();
     }
 
-    function allReportsDone(){return Object.values(state.reportCorrect).every(Boolean);}
-    function checkUnlocks(){
-      const canConclusion=state.completedSteps.length===8&&allReportsDone();
-      $('conclusionCard').classList.toggle('hidden',!canConclusion&&!state.conclusionDone);
-      $('conclusionLocked').classList.toggle('hidden',canConclusion);$('conclusionSection').classList.toggle('hidden',!canConclusion&&!state.conclusionDone);
-      if(canConclusion&&!state.conclusionDone){updateAIGuide('Tốt lắm! Bạn đã ghi nhận đầy đủ hiện tượng. Bây giờ hãy rút kết luận từ những gì quan sát được.');}
-      $('knowledgeSection').classList.toggle('hidden',!state.conclusionDone);
-      $('evaluationSection').classList.toggle('hidden',!state.conclusionDone);
-      $('quizSection').classList.toggle('hidden',!state.hypothesis.accepted);
-      if(state.hypothesis.accepted)renderQuiz();
-      $('completionBanner').classList.toggle('hidden',!state.completed);
+    function allReportsDone() { return Object.values(state.reportCorrect).every(Boolean); }
+    function checkUnlocks() {
+      const canConclusion = state.completedSteps.length === 8 && allReportsDone();
+      $('conclusionCard').classList.toggle('hidden', !canConclusion && !state.conclusionDone);
+      $('conclusionLocked').classList.toggle('hidden', canConclusion); $('conclusionSection').classList.toggle('hidden', !canConclusion && !state.conclusionDone);
+      if (canConclusion && !state.conclusionDone) { updateAIGuide('Tốt lắm! Bạn đã ghi nhận đầy đủ hiện tượng. Bây giờ hãy rút kết luận từ những gì quan sát được.'); }
+      $('knowledgeSection').classList.toggle('hidden', !state.conclusionDone);
+      $('evaluationSection').classList.toggle('hidden', !state.conclusionDone);
+      $('quizSection').classList.toggle('hidden', !state.hypothesis.accepted);
+      if (state.hypothesis.accepted) renderQuiz();
+      $('completionBanner').classList.toggle('hidden', !state.completed);
       reportHeight();
     }
 
-    function submitConclusion(){
-      const answers={reaction:$('fillReaction').value,position:$('fillPosition').value,product:$('fillProduct').value,color:$('fillColor').value};state.conclusionAnswers=answers;
-      const complete=Object.values(answers).every(Boolean),correct=answers.reaction==='substitution'&&answers.position==='ortho-para'&&answers.product==='picric'&&answers.color==='yellow';
-      if(!complete){showBox('conclusionFeedback','Hãy hoàn thành đủ bốn chỗ trống trước khi kiểm tra.','warning');return;}
-      if(!correct){showBox('conclusionFeedback','Một hoặc nhiều lựa chọn chưa phù hợp với hiện tượng và phần định hướng của nhóm –OH. Hãy xem lại bảng quan sát.','wrong');LMS().event('conclusion_answered',{id:'conclusion_5A',correct:false});return;}
-      state.conclusionDone=true;['fillReaction','fillPosition','fillProduct','fillColor','submitConclusion'].forEach(id=>$(id).disabled=true);
-      showBox('conclusionFeedback','Chính xác. Phenol tham gia phản ứng thế trên vòng và tạo tinh thể 2,4,6-trinitrophenol màu vàng.','correct');
-      updateAIGuide('Bạn đã rút ra kết luận đúng. Tiếp theo, hãy đánh giá giả thuyết bằng ít nhất một bằng chứng quan sát được.');
-      LMS().event('conclusion_answered',{id:'conclusion_5A',correct:true});state.lastAction='Hoàn thành kết luận 5A';updateProgress();saveState();checkUnlocks();
-      window.setTimeout(()=>$('knowledgeSection').scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'}),220);
+    function submitConclusion() {
+      const answers = { reaction: $('fillReaction').value, position: $('fillPosition').value, product: $('fillProduct').value, color: $('fillColor').value }; state.conclusionAnswers = answers;
+      const complete = Object.values(answers).every(Boolean), correct = answers.reaction === 'substitution' && answers.position === 'ortho-para' && answers.product === 'picric' && answers.color === 'yellow';
+      if (!complete) { showBox('conclusionFeedback', 'Hãy hoàn thành đủ bốn chỗ trống trước khi kiểm tra.', 'warning'); return; }
+      if (!correct) { showBox('conclusionFeedback', 'Một hoặc nhiều lựa chọn chưa phù hợp với hiện tượng và phần định hướng của nhóm –OH. Hãy xem lại bảng quan sát.', 'wrong'); LMS().event('conclusion_answered', { id: 'conclusion_5A', correct: false }); return; }
+      state.conclusionDone = true;['fillReaction', 'fillPosition', 'fillProduct', 'fillColor', 'submitConclusion'].forEach(id => $(id).disabled = true);
+      showBox('conclusionFeedback', 'Chính xác. Phenol tham gia phản ứng thế trên vòng và tạo tinh thể 2,4,6-trinitrophenol màu vàng.', 'correct');
+      updateAIGuide('Bạn đã rút ra kết luận đúng. Tiếp theo, hãy đánh giá xem giả thuyết ban đầu là Đúng hay Sai.');
+      LMS().event('conclusion_answered', { id: 'conclusion_5A', correct: true }); state.lastAction = 'Hoàn thành kết luận 5A'; updateProgress(); saveState(); checkUnlocks();
+      window.setTimeout(() => $('knowledgeSection').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }), 220);
     }
 
-    function chooseHypothesis(e){
-      const btn=e.target.closest('.choice-btn');if(!btn||state.hypothesis.accepted)return;
-      state.hypothesis.choice=btn.dataset.value;document.querySelectorAll('.choice-btn').forEach(b=>b.classList.toggle('is-selected',b===btn));saveState();
+    function chooseHypothesis(e) {
+      const btn = e.target.closest('.choice-btn'); if (!btn || state.hypothesis.accepted) return;
+      state.hypothesis.choice = btn.dataset.value; document.querySelectorAll('#hypothesisChoices .choice-btn').forEach(b => b.classList.toggle('is-selected', b === btn)); saveState();
     }
-    function normalizeText(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');}
-    function hasEvidence(text){const t=normalizeText(text);return ['tinh the','mau vang','do toi','thay doi mau','san pham moi','chat ran','ket tinh'].some(k=>t.includes(k));}
-    function submitHypothesis(){
-      const explanation=$('hypothesisExplain').value.trim();state.hypothesis.explanation=explanation;
-      if(!state.hypothesis.choice){showBox('hypothesisFeedback','Hãy chọn mức độ ủng hộ giả thuyết.','warning');return;}
-      if(!hasEvidence(explanation)){showBox('hypothesisFeedback','Hãy bổ sung ít nhất một bằng chứng quan sát phù hợp, chẳng hạn sự thay đổi màu hoặc sự xuất hiện chất rắn.','warning');return;}
-      state.hypothesis.accepted=true;document.querySelectorAll('.choice-btn').forEach(b=>b.disabled=true);$('hypothesisExplain').disabled=true;$('submitHypothesis').disabled=true;
-      const prefix=state.hypothesis.choice==='support'?'Lập luận có bằng chứng phù hợp.':'Bạn đã viện dẫn được bằng chứng; hãy đối chiếu lại lựa chọn với kết quả.';
-      showBox('hypothesisFeedback',`${prefix} Kết quả thực nghiệm ủng hộ giả thuyết: hỗn hợp biến đổi sau khi thêm HNO₃ và cuối cùng tạo tinh thể vàng, cho thấy sản phẩm mới đã hình thành.`,'correct');
+    function submitHypothesis() {
+      if (!state.hypothesis.choice) { showBox('hypothesisFeedback', 'Hãy chọn đánh giá của bạn (Đúng hoặc Sai).', 'warning'); return; }
+      const isCorrect = state.hypothesis.choice === 'correct' || state.hypothesis.choice === 'support';
+      if (!isCorrect) {
+        showBox('hypothesisFeedback', 'Chưa chính xác. Hỗn hợp đổi sang màu đỏ tối và xuất hiện tinh thể vàng khi rót vào nước lạnh chứng tỏ đã xảy ra phản ứng hóa học tạo sản phẩm mới. Hãy thử chọn lại.', 'wrong');
+        LMS().event('answered', { id: 'hypothesis_6A', chosen: state.hypothesis.choice, correct: false });
+        return;
+      }
+      state.hypothesis.accepted = true; document.querySelectorAll('#hypothesisChoices .choice-btn').forEach(b => b.disabled = true); $('submitHypothesis').disabled = true;
+      showBox('hypothesisFeedback', 'Chính xác! Các bằng chứng thực nghiệm (hỗn hợp đổi màu đỏ tối và xuất hiện tinh thể vàng khi rót vào nước) chứng minh phenol phản ứng với HNO₃ đặc, giả thuyết là Đúng.', 'correct');
       updateAIGuide('Đánh giá đã được ghi nhận. Hãy vận dụng kết quả thí nghiệm để hoàn thành 3 câu hỏi cuối.');
-      LMS().event('answered',{id:'hypothesis_6A',chosen:state.hypothesis.choice,correct:null});state.lastAction='Hoàn thành đánh giá giả thuyết';updateProgress();saveState();checkUnlocks();
-      window.setTimeout(()=>$('quizSection').scrollIntoView({behavior:reduceMotion?'auto':'smooth',block:'nearest'}),220);
+      LMS().event('answered', { id: 'hypothesis_6A', chosen: state.hypothesis.choice, correct: true }); state.lastAction = 'Hoàn thành đánh giá giả thuyết'; updateProgress(); saveState(); checkUnlocks();
+      window.setTimeout(() => $('quizSection').scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest' }), 220);
     }
 
-    function renderQuiz(){
-      $('quizList').innerHTML=quizData.map((q,qi)=>{
-        const qs=state.quiz[q.id],letters=['A','B','C','D'];
-        const options=q.options.map((text,i)=>{
-          const l=letters[i],correctShown=qs.completed&&(l===q.correct),wrongShown=qs.chosen===l&&!qs.isCorrect;
-          const cls=correctShown?'is-correct':wrongShown?'is-wrong':'';
-          const icon=correctShown?'<i class="ti ti-check option-icon" aria-hidden="true"></i>':wrongShown?'<i class="ti ti-x option-icon" aria-hidden="true"></i>':'<span class="option-icon"></span>';
-          return `<li><button type="button" class="quiz-option ${cls}" data-qid="${q.id}" data-choice="${l}" ${qs.completed?'disabled':''}><span class="option-letter">${l}</span><span class="option-text">${text}</span>${icon}</button></li>`;
+    function renderQuiz() {
+      $('quizList').innerHTML = quizData.map((q, qi) => {
+        const qs = state.quiz[q.id], letters = ['A', 'B', 'C', 'D'];
+        const options = q.options.map((text, i) => {
+          const l = letters[i], correctShown = qs.completed && (l === q.correct), wrongShown = qs.chosen === l && !qs.isCorrect;
+          const cls = correctShown ? 'is-correct' : wrongShown ? 'is-wrong' : '';
+          const icon = correctShown ? '<i class="ti ti-check option-icon" aria-hidden="true"></i>' : wrongShown ? '<i class="ti ti-x option-icon" aria-hidden="true"></i>' : '<span class="option-icon"></span>';
+          return `<li><button type="button" class="quiz-option ${cls}" data-qid="${q.id}" data-choice="${l}" ${qs.completed ? 'disabled' : ''}><span class="option-letter">${l}</span><span class="option-text">${text}</span>${icon}</button></li>`;
         }).join('');
-        let feedback='';if(qs.completed)feedback=`<div class="feedback-box ${qs.isCorrect?'correct':'warning'}">${qs.isCorrect?'Chính xác. ':`Đáp án phù hợp là ${q.correct}. `}${q.explanation}</div>`;
-        else if(qs.attempts>0)feedback=`<div class="feedback-box wrong">${q.hint} Bạn còn ${Math.max(0,2-qs.attempts)} lượt thử trước khi xem giải thích.</div>`;
-        return `<section class="quiz-card ${qs.completed?'is-complete':''}" id="card-${q.id}"><p class="quiz-title">Câu ${qi+1}. ${q.prompt}</p><ul class="quiz-options">${options}</ul><div aria-live="polite">${feedback}</div></section>`;
+        let feedback = ''; if (qs.completed) feedback = `<div class="feedback-box ${qs.isCorrect ? 'correct' : 'warning'}">${qs.isCorrect ? 'Chính xác. ' : `Đáp án phù hợp là ${q.correct}. `}${q.explanation}</div>`;
+        else if (qs.attempts > 0) feedback = `<div class="feedback-box wrong">${q.hint} Bạn còn ${Math.max(0, 2 - qs.attempts)} lượt thử trước khi xem giải thích.</div>`;
+        return `<section class="quiz-card ${qs.completed ? 'is-complete' : ''}" id="card-${q.id}"><p class="quiz-title">Câu ${qi + 1}. ${q.prompt}</p><ul class="quiz-options">${options}</ul><div aria-live="polite">${feedback}</div></section>`;
       }).join('');
-      document.querySelectorAll('.quiz-option').forEach(b=>b.addEventListener('click',answerQuiz));reportHeight();
+      document.querySelectorAll('.quiz-option').forEach(b => b.addEventListener('click', answerQuiz)); reportHeight();
     }
 
-    function answerQuiz(e){
-      const btn=e.currentTarget,qid=btn.dataset.qid,chosen=btn.dataset.choice,q=quizData.find(item=>item.id===qid),qs=state.quiz[qid];if(qs.completed)return;
-      qs.chosen=chosen;const correct=chosen===q.correct;
-      if(correct){qs.completed=true;qs.isCorrect=true;}
-      else{qs.attempts++;qs.isCorrect=false;if(qs.attempts>=2){qs.completed=true;qs.revealed=true;}}
-      LMS().event('answered',{id:qid,chosen,correct});state.lastAction=`Trả lời ${qid}: ${chosen}`;renderQuiz();updateProgress();saveState();checkCompletion();
-      const next=quizData.find(item=>!state.quiz[item.id].completed);if(!next&&Object.values(state.quiz).every(qs0=>qs0.completed))updateAIGuide('Bạn đã hoàn thành các câu hỏi. Hãy xem lại kết quả và chốt kiến thức của thí nghiệm.');
+    function answerQuiz(e) {
+      const btn = e.currentTarget, qid = btn.dataset.qid, chosen = btn.dataset.choice, q = quizData.find(item => item.id === qid), qs = state.quiz[qid]; if (qs.completed) return;
+      qs.chosen = chosen; const correct = chosen === q.correct;
+      if (correct) { qs.completed = true; qs.isCorrect = true; }
+      else { qs.attempts++; qs.isCorrect = false; if (qs.attempts >= 2) { qs.completed = true; qs.revealed = true; } }
+      LMS().event('answered', { id: qid, chosen, correct }); state.lastAction = `Trả lời ${qid}: ${chosen}`; renderQuiz(); updateProgress(); saveState(); checkCompletion();
+      const next = quizData.find(item => !state.quiz[item.id].completed); if (!next && Object.values(state.quiz).every(qs0 => qs0.completed)) updateAIGuide('Bạn đã hoàn thành các câu hỏi. Hãy xem lại kết quả và chốt kiến thức của thí nghiệm.');
     }
 
-    function showBox(id,text,type){const el=$(id);el.className=`feedback-box ${type}`;el.textContent=text;reportHeight();}
-    function calculateDone(){return state.completedSteps.length+Object.values(state.reportCorrect).filter(Boolean).length+(state.conclusionDone?1:0)+(state.hypothesis.accepted?1:0)+Object.values(state.quiz).filter(q=>q.completed).length;}
-    function updateProgress(){LMS().progress({done:calculateDone(),total:16,id:'exp1'});checkCompletion();}
-    function checkCompletion(){
-      const ready=state.completedSteps.length===8&&allReportsDone()&&state.conclusionDone&&state.hypothesis.accepted&&Object.values(state.quiz).every(q=>q.completed);
-      if(!ready||state.completed)return;
-      state.completed=true;$('completionBanner').classList.remove('hidden');
-      const score=quizData.filter(q=>state.quiz[q.id].isCorrect).length;
-      LMS().complete({summary:'Hoàn thành mô phỏng phản ứng nitro hóa phenol và phần đánh giá.',score,max:3,items:quizData.map(q=>({id:q.id,prompt:q.prompt,options:q.options.map((o,i)=>`${String.fromCharCode(65+i)}) ${o}`),chosen:state.quiz[q.id].chosen,correct:q.correct,isCorrect:state.quiz[q.id].isCorrect}))});
-      state.lastAction='Hoàn thành toàn bộ bài';saveState();checkUnlocks();
+    function showBox(id, text, type) { const el = $(id); el.className = `feedback-box ${type}`; el.textContent = text; reportHeight(); }
+    function calculateDone() { return state.completedSteps.length + Object.values(state.reportCorrect).filter(Boolean).length + (state.conclusionDone ? 1 : 0) + (state.hypothesis.accepted ? 1 : 0) + Object.values(state.quiz).filter(q => q.completed).length; }
+    function updateProgress() { LMS().progress({ done: calculateDone(), total: 16, id: 'exp1' }); checkCompletion(); }
+    function checkCompletion() {
+      const ready = state.completedSteps.length === 8 && allReportsDone() && state.conclusionDone && state.hypothesis.accepted && Object.values(state.quiz).every(q => q.completed);
+      if (!ready || state.completed) return;
+      state.completed = true; $('completionBanner').classList.remove('hidden');
+      const score = quizData.filter(q => state.quiz[q.id].isCorrect).length;
+      LMS().complete({ summary: 'Hoàn thành mô phỏng phản ứng nitro hóa phenol và phần đánh giá.', score, max: 3, items: quizData.map(q => ({ id: q.id, prompt: q.prompt, options: q.options.map((o, i) => `${String.fromCharCode(65 + i)}) ${o}`), chosen: state.quiz[q.id].chosen, correct: q.correct, isCorrect: state.quiz[q.id].isCorrect })) });
+      state.lastAction = 'Hoàn thành toàn bộ bài'; saveState(); checkUnlocks();
     }
-    function syncLMS(name,payload){LMS().event(name,payload);updateProgress();saveState();}
-    function serializableState(){return JSON.parse(JSON.stringify(state));}
-    function saveState(){LMS().state({id:'exp1',...serializableState(),totalSteps:8,answeredSoFar:{q1:state.quiz.q1.chosen,q2:state.quiz.q2.chosen,q3:state.quiz.q3.chosen}});}
+    function syncLMS(name, payload) { LMS().event(name, payload); updateProgress(); saveState(); }
+    function serializableState() { return JSON.parse(JSON.stringify(state)); }
+    function saveState() { LMS().state({ id: 'exp1', ...serializableState(), totalSteps: 8, answeredSoFar: { q1: state.quiz.q1.chosen, q2: state.quiz.q2.chosen, q3: state.quiz.q3.chosen } }); }
 
-    function resetLab(){
-      if(!window.confirm('Bạn muốn làm lại toàn bộ thí nghiệm từ đầu?'))return;
+    function resetLab() {
+      if (!window.confirm('Bạn muốn làm lại toàn bộ thí nghiệm từ đầu?')) return;
       closeCustomSelects();
-      state=freshState();particles=[];rings=[];rebuildScene();
-      document.querySelectorAll('.obs-select,.fill-select').forEach(el=>{el.value='';el.disabled=false;});
-      document.querySelectorAll('.inline-feedback').forEach(el=>{el.textContent='';el.className='inline-feedback';});
-      ['conclusionFeedback','hypothesisFeedback'].forEach(id=>{$(id).className='';$(id).textContent='';});
-      document.querySelectorAll('.choice-btn').forEach(b=>{b.disabled=false;b.classList.remove('is-selected');});
-      $('hypothesisExplain').value='';$('hypothesisExplain').disabled=false;$('submitHypothesis').disabled=false;$('submitConclusion').disabled=false;
+      state = freshState(); particles = []; rings = []; rebuildScene();
+      document.querySelectorAll('.obs-select,.fill-select').forEach(el => { el.value = ''; el.disabled = false; });
+      document.querySelectorAll('.inline-feedback').forEach(el => { el.textContent = ''; el.className = 'inline-feedback'; });
+      ['conclusionFeedback', 'hypothesisFeedback'].forEach(id => { $(id).className = ''; $(id).textContent = ''; });
+      document.querySelectorAll('.choice-btn').forEach(b => { b.disabled = false; b.classList.remove('is-selected'); });
+      $('submitHypothesis').disabled = false; $('submitConclusion').disabled = false;
       setBriefingCollapsed(mobileCanvasQuery.matches);
       updateAIGuide('Đọc giả thuyết rồi bấm “Bắt đầu thí nghiệm”.');
-      unlockObservationRows();renderControls();checkUnlocks();updateProgress();LMS().event('reset',{id:'exp1'});saveState();window.scrollTo({top:0,behavior:reduceMotion?'auto':'smooth'});
+      unlockObservationRows(); renderControls(); checkUnlocks(); updateProgress(); LMS().event('reset', { id: 'exp1' }); saveState(); window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     }
 
-    function restoreFormState(){
-      $('fillReaction').value=state.conclusionAnswers.reaction||'';$('fillPosition').value=state.conclusionAnswers.position||'';$('fillProduct').value=state.conclusionAnswers.product||'';$('fillColor').value=state.conclusionAnswers.color||'';
-      if(state.conclusionDone){['fillReaction','fillPosition','fillProduct','fillColor','submitConclusion'].forEach(id=>$(id).disabled=true);showBox('conclusionFeedback','Kết luận đã hoàn thành.','correct');}
-      $('hypothesisExplain').value=state.hypothesis.explanation||'';
-      document.querySelectorAll('.choice-btn').forEach(b=>{b.classList.toggle('is-selected',b.dataset.value===state.hypothesis.choice);b.disabled=state.hypothesis.accepted;});
-      $('hypothesisExplain').disabled=state.hypothesis.accepted;$('submitHypothesis').disabled=state.hypothesis.accepted;
-      if(state.hypothesis.accepted)showBox('hypothesisFeedback','Đánh giá giả thuyết đã được ghi nhận.','correct');
+    function restoreFormState() {
+      $('fillReaction').value = state.conclusionAnswers.reaction || ''; $('fillPosition').value = state.conclusionAnswers.position || ''; $('fillProduct').value = state.conclusionAnswers.product || ''; $('fillColor').value = state.conclusionAnswers.color || '';
+      if (state.conclusionDone) { ['fillReaction', 'fillPosition', 'fillProduct', 'fillColor', 'submitConclusion'].forEach(id => $(id).disabled = true); showBox('conclusionFeedback', 'Kết luận đã hoàn thành.', 'correct'); }
+      document.querySelectorAll('#hypothesisChoices .choice-btn').forEach(b => { b.classList.toggle('is-selected', b.dataset.value === state.hypothesis.choice); b.disabled = state.hypothesis.accepted; });
+      $('submitHypothesis').disabled = state.hypothesis.accepted;
+      if (state.hypothesis.accepted) showBox('hypothesisFeedback', 'Chính xác! Giả thuyết là Đúng theo các bằng chứng thực nghiệm.', 'correct');
       document.querySelectorAll('.obs-select,.fill-select').forEach(syncCustomSelect);
     }
 
-    function safeResume(saved){
-      if(!saved||saved.id!=='exp1')return;
-      const base=freshState();
-      state={...base,...saved,reportAnswers:{...base.reportAnswers,...saved.reportAnswers},reportCorrect:{...base.reportCorrect,...saved.reportCorrect},conclusionAnswers:{...base.conclusionAnswers,...saved.conclusionAnswers},hypothesis:{...base.hypothesis,...saved.hypothesis},quiz:{q1:{...base.quiz.q1,...saved.quiz?.q1},q2:{...base.quiz.q2,...saved.quiz?.q2},q3:{...base.quiz.q3,...saved.quiz?.q3}}};
-      state.isAnimating=false;state.subStep=0;state.completedSteps=(state.completedSteps||[]).filter(n=>Number.isInteger(n)&&n>=1&&n<=8);
-      if(state.started&&state.currentStep<1)state.currentStep=1;if(state.completedSteps.length===8)state.currentStep=9;
-      rebuildScene();unlockObservationRows();restoreFormState();renderControls();checkUnlocks();
-      const msg=state.completed?'Bài đã hoàn thành. Bạn có thể xem lại hiện tượng và phần chốt kiến thức.':state.currentStep<=8?responsiveStepGuide(Math.max(1,state.currentStep),'idle'):'Hãy hoàn thành bảng quan sát và phần kết luận.';
-      updateAIGuide(msg);updateProgress();reportHeight();
+    function safeResume(saved) {
+      if (!saved || saved.id !== 'exp1') return;
+      const base = freshState();
+      state = { ...base, ...saved, reportAnswers: { ...base.reportAnswers, ...saved.reportAnswers }, reportCorrect: { ...base.reportCorrect, ...saved.reportCorrect }, conclusionAnswers: { ...base.conclusionAnswers, ...saved.conclusionAnswers }, hypothesis: { ...base.hypothesis, ...saved.hypothesis }, quiz: { q1: { ...base.quiz.q1, ...saved.quiz?.q1 }, q2: { ...base.quiz.q2, ...saved.quiz?.q2 }, q3: { ...base.quiz.q3, ...saved.quiz?.q3 } } };
+      state.isAnimating = false; state.subStep = 0; state.completedSteps = (state.completedSteps || []).filter(n => Number.isInteger(n) && n >= 1 && n <= 8);
+      if (state.started && state.currentStep < 1) state.currentStep = 1; if (state.completedSteps.length === 8) state.currentStep = 9;
+      rebuildScene(); unlockObservationRows(); restoreFormState(); renderControls(); checkUnlocks();
+      const msg = state.completed ? 'Bài đã hoàn thành. Bạn có thể xem lại hiện tượng và phần chốt kiến thức.' : state.currentStep <= 8 ? responsiveStepGuide(Math.max(1, state.currentStep), 'idle') : 'Hãy hoàn thành bảng quan sát và phần kết luận.';
+      updateAIGuide(msg); updateProgress(); reportHeight();
     }
 
-    actionButton.addEventListener('click',handleAction);resetButton.addEventListener('click',resetLab);
-    $('briefingToggle').addEventListener('click',()=>setBriefingCollapsed(!$('briefing').classList.contains('is-collapsed')));
-    mobileCanvasQuery.addEventListener?.('change',event=>{if(!state.started)setBriefingCollapsed(event.matches);});
-    $('obs1').addEventListener('change',()=>handleObservation('obs1',1));$('obs2').addEventListener('change',()=>handleObservation('obs2',2));$('obs3').addEventListener('change',()=>handleObservation('obs3',3));
-    $('submitConclusion').addEventListener('click',submitConclusion);$('hypothesisChoices').addEventListener('click',chooseHypothesis);$('submitHypothesis').addEventListener('click',submitHypothesis);
-    $('hypothesisExplain').addEventListener('input',()=>{state.hypothesis.explanation=$('hypothesisExplain').value;});
+    actionButton.addEventListener('click', handleAction); resetButton.addEventListener('click', resetLab);
+    $('briefingToggle').addEventListener('click', () => setBriefingCollapsed(!$('briefing').classList.contains('is-collapsed')));
+    mobileCanvasQuery.addEventListener?.('change', event => { if (!state.started) setBriefingCollapsed(event.matches); });
+    $('obs1').addEventListener('change', () => handleObservation('obs1', 1)); $('obs2').addEventListener('change', () => handleObservation('obs2', 2)); $('obs3').addEventListener('change', () => handleObservation('obs3', 3));
+    $('submitConclusion').addEventListener('click', submitConclusion); $('hypothesisChoices').addEventListener('click', chooseHypothesis); $('submitHypothesis').addEventListener('click', submitHypothesis);
 
-    function reportHeight(){const h=document.documentElement.scrollHeight;LMS().resize({height:h});}
-    window.addEventListener('load',reportHeight);
-    const ro=new ResizeObserver(()=>{clearTimeout(window._rz);window._rz=setTimeout(reportHeight,100);});ro.observe(document.body);
-    if(window.AiducationLMS)window.AiducationLMS.onResume=safeResume;
+    function reportHeight() { const h = document.documentElement.scrollHeight; LMS().resize({ height: h }); }
+    window.addEventListener('load', reportHeight);
+    const ro = new ResizeObserver(() => { clearTimeout(window._rz); window._rz = setTimeout(reportHeight, 100); }); ro.observe(document.body);
+    if (window.AiducationLMS) window.AiducationLMS.onResume = safeResume;
 
-    enhanceSelects();setBriefingCollapsed(mobileCanvasQuery.matches);unlockObservationRows();renderControls();checkUnlocks();LMS().ready({id:'exp1'});updateProgress();saveState();requestAnimationFrame(loop);
+    enhanceSelects(); setBriefingCollapsed(mobileCanvasQuery.matches); unlockObservationRows(); renderControls(); checkUnlocks(); LMS().ready({ id: 'exp1' }); updateProgress(); saveState(); requestAnimationFrame(loop);
   </script>
 </body>
+
 </html>
