@@ -852,5 +852,219 @@ ro.observe(document.body);
 ________________________________________
 KỊCH BẢN VÀ KIẾN THỨC CHO GAME:
 
+FILE SẢN XUẤT SIMULATION
+Phản ứng của alk-1-yne với AgNO₃ trong NH₃
+Dạng: Thí nghiệm  |  Năng lực: NL2  |  Lớp: Hóa 11  |  Không chia Stage (1 thí nghiệm duy nhất)
+🎯  MỤC TIÊU STAGE
+
+🔒  Hiển thị ở panel — dùng nguyên văn giáo viên cung cấp, không diễn đạt lại.
+
+Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng của alk-1-yne với AgNO₃ trong NH₃.
+🖥️  CANVAS
+
+⚠️  Canvas chỉ chứa thao tác thí nghiệm. KHÔNG đặt mục tiêu, giả thuyết, bảng báo cáo, kết luận, câu hỏi vào canvas.
+
+Bố cục canvas:
+• Nền trắng, bàn thí nghiệm ngang giữa canvas.
+• Ống nghiệm 1 (trái): kẹp trên giá, ban đầu rỗng. Nhãn "Ống 1" phía trên.
+• Ống nghiệm 2 (phải): kẹp trên giá, ban đầu rỗng. Nhãn "Ống 2" phía trên.
+• Ống dẫn khí: ban đầu ẩn, hiện ra sau khi học sinh bấm "Nối ống dẫn".
+• Khu vực nút bấm: góc trên trái (3 nút chuẩn bị ống 1), góc trên phải (nút CaC₂), giữa dưới (nút bơm H₂O).
+
+Trình tự animation theo từng bước:
+
+BƯỚC 1 — Chuẩn bị dung dịch AgNO₃/NH₃ (ống 1):
+• Học sinh bấm nút "Thêm AgNO₃": dung dịch trong suốt đổ vào ống 1 đến 1/3 chiều cao ống. Nhãn "AgNO₃" xuất hiện cạnh ống.
+• Học sinh bấm nút "Nhỏ NH₃ từng giọt": animation từng giọt NH₃ nhỏ xuống từ trên. Dung dịch trong ống 1 vẫn trong suốt (không đổi màu). Nhãn cập nhật thành "AgNO₃ + NH₃".
+• Học sinh bấm nút "Thêm H₂O": vài giọt nước thêm vào. Nhãn cập nhật thành "AgNO₃/NH₃" (dung dịch Tollens). Nút "Thêm AgNO₃", "Nhỏ NH₃", "Thêm H₂O" mờ đi (không bấm được nữa).
+
+BƯỚC 2 — Cho CaC₂ vào ống 2:
+• Học sinh bấm nút "Cho CaC₂": 3–4 viên CaC₂ màu xám rơi xuống đáy ống 2. Nhãn "CaC₂" xuất hiện cạnh ống. Nút mờ đi sau khi bấm.
+
+BƯỚC 3 — Nối ống dẫn khí:
+• Học sinh bấm nút "Nối ống dẫn": animation ống thủy tinh cong xuất hiện, nối từ miệng ống 2 → nhúng vào dung dịch trong ống 1. Ống dẫn sáng lên màu xanh nhạt để xác nhận đã kết nối. Nút mờ đi sau khi bấm.
+
+BƯỚC 4 — Bơm H₂O vào ống 2:
+• Học sinh bấm nút "Bơm H₂O": nước chảy vào ống 2 từ trên xuống.
+• Ngay khi nước chạm CaC₂: bọt khí sủi mạnh trong ống 2 (animation bọt liên tục). Nhãn "C₂H₂↑" xuất hiện trong ống 2.
+• Bọt khí C₂H₂ di chuyển dọc theo ống dẫn sang ống 1 (animation các chấm nhỏ chạy theo ống dẫn). Nút mờ đi sau khi bấm.
+
+BƯỚC 5 — Quan sát ống 1:
+• Sau 2–3 giây khí sục vào: kết tủa màu vàng nhạt xuất hiện dần trong dung dịch ống 1, lắng xuống đáy.
+• Nhãn "C₂Ag₂↓" xuất hiện cạnh kết tủa ở đáy ống 1.
+• Bọt khí trong ống 2 giảm dần, dừng hẳn sau ~5 giây.
+
+Phản hồi thị giác khi thao tác sai:
+
+Tình huống
+Hệ thống hiển thị
+Học sinh tự sửa
+Học sinh bấm "Bơm H₂O" trước khi bấm "Nối ống dẫn khí"
+Khí C₂H₂ thoát thẳng lên khỏi ống 2, biến mất (animation bọt khí bay ra ngoài). Ống 1 không có hiện tượng gì. Nút "Thử lại" xuất hiện.
+Bấm "Thử lại" → thực hiện đúng thứ tự: bấm "Nối ống dẫn" trước → rồi mới "Bơm H₂O".
+
+📋  PANEL BÊN CẠNH CANVAS
+
+⚠️  Panel hiển thị tuần tự theo tiến trình: Mục tiêu → Giả thuyết → Bảng báo cáo (mở dần) → Kết luận → Câu hỏi.
+
+📌 PANEL 1 — Mục tiêu  Hiển thị khi học sinh mở bài
+Trình bày được các tính chất hoá học của alkene, alkyne: phản ứng của alk-1-yne với AgNO₃ trong NH₃.
+→ Nút: [Tiếp tục]
+
+📌 PANEL 2 — Giả thuyết  Hiển thị sau khi học sinh bấm Tiếp tục ở Panel 1
+Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, sẽ xuất hiện kết tủa.
+→ Nút: [Bắt đầu thí nghiệm] — hệ thống ghi nhớ giả thuyết này để hiển thị lại ở Panel 5 (câu hỏi 6A).
+
+📌 PANEL 3 — Bảng báo cáo  Mở ra sau khi học sinh hoàn thành Bước 5 trên canvas
+⚠️  Ô màu vàng = học sinh tự điền. Hệ thống đưa gợi ý lựa chọn nhưng không điền hộ.
+
+STT
+Thí nghiệm / Chất tham gia
+Hiện tượng quan sát được
+1
+Sục khí C₂H₂ vào dung dịch AgNO₃/NH₃
+Học sinh tự điềnGợi ý: Xuất hiện kết tủa vàng nhạt / Dung dịch vẫn trong suốt / Xuất hiện kết tủa trắng
+2
+Màu sắc kết tủa (nếu có)
+Học sinh tự điềnGợi ý: Vàng nhạt / Trắng / Xanh nhạt
+
+
+→ Nút: [Xem kết luận] — chỉ hiện khi học sinh đã điền đủ cả 2 ô.
+→ Nếu học sinh bấm [Xem kết luận] khi chưa điền đủ: thông báo nhẹ "Bạn chưa điền đủ bảng quan sát."
+
+📌 PANEL 4 — Kết luận  Hiển thị sau khi học sinh bấm Xem kết luận
+4A — Học sinh điền vào chỗ trống:
+Khí C₂H₂ phản ứng với dung dịch AgNO₃/NH₃ tạo thành kết tủa màu __________, đó là chất __________. Phản ứng này dùng để nhận biết các __________ có liên kết ba ở đầu mạch.
+Từ khóa hệ thống đối chiếu: (1) vàng nhạt — (2) C₂Ag₂ — (3) alkyne
+→ Nút: [Kiểm tra] sau khi điền xong.
+
+4B — Chốt kiến thức (hệ thống hiển thị sau khi học sinh bấm Kiểm tra):
+Alk-1-yne có nguyên tử H linh động gắn trực tiếp vào C mang liên kết ba ở đầu mạch. H này bị thay thế bởi Ag⁺ trong thuốc thử AgNO₃/NH₃, tạo kết tủa vàng nhạt C₂Ag₂.
+Phương trình: C₂H₂ + 2AgNO₃ + 2NH₃ → C₂Ag₂↓ + 2NH₄NO₃
+Lưu ý: Alkyne có liên kết ba ở giữa mạch (VD: but-2-yne: CH₃–C≡C–CH₃) không có H linh động ở vị trí đó → không phản ứng với AgNO₃/NH₃ → không tạo kết tủa. Đây là lý do phản ứng này nhận biết đặc trưng cho alk-1-yne.
+→ Nút: [Trả lời câu hỏi]
+
+📌 PANEL 5 — Câu hỏi  Hiển thị sau khi học sinh bấm Trả lời câu hỏi
+6A — Đánh giá giả thuyết (bắt buộc, đặt đầu tiên):
+Hệ thống hiển thị lại:
+Giả thuyết ban đầu: "Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, sẽ xuất hiện kết tủa."
+Câu hỏi: Dựa vào kết quả thực nghiệm vừa thực hiện, giả thuyết trên là đúng, sai hay đúng một phần? Hãy giải thích.
+→ Học sinh chọn: [Đúng] / [Sai] / [Đúng một phần] + ô nhập giải thích ngắn.
+→ Phản hồi hệ thống (hiện sau khi học sinh xác nhận):
+Giả thuyết đúng về việc có kết tủa xuất hiện. Tuy nhiên chưa nêu được màu sắc đặc trưng (vàng nhạt) và tên chất kết tủa (C₂Ag₂) — đây là điểm cần bổ sung để giả thuyết đầy đủ hơn về mặt khoa học.
+
+6B — Câu hỏi MCQ (3 câu, đặt sau 6A):
+⚠️  Vị trí đáp án đúng: C – A – D. Build team lưu ý shuffle khi triển khai để tránh học sinh nhận ra quy luật.
+
+
+Câu 1: Khi dẫn khí C₂H₂ vào dung dịch AgNO₃/NH₃, hiện tượng quan sát được là:
+A. Dung dịch chuyển sang màu xanh lam.
+B. Có khí không màu thoát ra, dung dịch không đổi màu.
+C. Xuất hiện kết tủa màu vàng nhạt.
+D. Dung dịch mất màu hoàn toàn.
+✔ Đáp án đúng: C
+📖 Giải thích khi đúng: C₂H₂ phản ứng với AgNO₃/NH₃ tạo silver acetylide (C₂Ag₂) không tan, có màu vàng nhạt, lắng xuống đáy ống nghiệm.
+💡 Gợi ý khi sai: Hãy nhớ lại hiện tượng bạn vừa quan sát trong thí nghiệm — trạng thái và màu sắc của chất mới xuất hiện ở ống 1 là gì?
+
+Câu 2: Sản phẩm kết tủa tạo thành khi C₂H₂ tác dụng với AgNO₃/NH₃ có công thức là:
+A. C₂Ag₂
+B. Ag₂O
+C. AgOH
+D. Ag₂CO₃
+✔ Đáp án đúng: A
+📖 Giải thích khi đúng: Phương trình: C₂H₂ + 2AgNO₃ + 2NH₃ → C₂Ag₂↓ + 2NH₄NO₃. Kết tủa C₂Ag₂ (silver acetylide) hình thành do Ag⁺ thay thế 2 nguyên tử H linh động ở 2 đầu mạch của C₂H₂.
+💡 Gợi ý khi sai: Hãy nhìn lại phương trình phản ứng — sản phẩm nào được tạo thành ngoài NH₄NO₃?
+
+Câu 3: Có 4 chất khí: ethylene (CH₂=CH₂), propyne (HC≡C–CH₃), but-2-yne (CH₃–C≡C–CH₃), ethane (CH₃–CH₃). Dùng dung dịch AgNO₃/NH₃ có thể nhận biết được chất nào?
+A. Ethylene
+B. But-2-yne
+C. Ethane
+D. Propyne
+✔ Đáp án đúng: D
+📖 Giải thích khi đúng: Propyne (HC≡C–CH₃) là alk-1-yne — có H linh động ở C đầu mạch mang liên kết ba → phản ứng với AgNO₃/NH₃ tạo kết tủa vàng nhạt. Ba chất còn lại không có cấu trúc này nên không phản ứng.
+💡 Gợi ý khi sai: Điều kiện để phản ứng với AgNO₃/NH₃ là gì? Trong 4 chất trên, chất nào có cấu trúc thỏa mãn điều kiện đó?
+🤖  ROBOT — LỜI THOẠI ĐẦY ĐỦ
+
+⚠️  Giọng điệu: trung tính. Robot hướng dẫn thao tác + gợi mở quan sát. KHÔNG giải thích thay canvas. Mỗi lời thoại ngắn gọn, rõ ràng.
+
+Lời thoại 1 — Khi học sinh vào bài (Panel mục tiêu):
+🤖 Robot: "Trong thí nghiệm này, bạn sẽ điều chế khí acetylene và quan sát phản ứng của nó với dung dịch AgNO₃/NH₃. Hãy đọc mục tiêu và bấm Tiếp tục."
+
+Lời thoại 2 — Khi học sinh đọc giả thuyết (Panel giả thuyết):
+🤖 Robot: "Đây là giả thuyết cho thí nghiệm hôm nay. Hãy ghi nhớ để đối chiếu với kết quả sau khi làm. Bấm Bắt đầu thí nghiệm khi sẵn sàng."
+
+Lời thoại 3 — Hướng dẫn Bước 1 (chuẩn bị ống 1):
+🤖 Robot: "Bước 1: Chuẩn bị dung dịch AgNO₃/NH₃ trong ống 1. Bấm lần lượt ba nút ở góc trên bên trái canvas: Thêm AgNO₃ → Nhỏ NH₃ từng giọt → Thêm H₂O."
+
+Lời thoại 4 — Sau khi hoàn thành Bước 1:
+🤖 Robot: "Dung dịch trong ống 1 đã sẵn sàng. Đây là thuốc thử AgNO₃/NH₃. Tiếp tục sang bước 2."
+
+Lời thoại 5 — Hướng dẫn Bước 2 (cho CaC₂ vào ống 2):
+🤖 Robot: "Bước 2: Bấm nút Cho CaC₂ ở góc trên bên phải canvas để thêm đất đèn vào ống 2."
+
+Lời thoại 6 — Hướng dẫn Bước 3 (nối ống dẫn):
+🤖 Robot: "Bước 3: Trước khi bơm nước, bạn cần nối ống dẫn khí. Bấm nút Nối ống dẫn để kết nối ống 2 với ống 1."
+
+Lời thoại 7 — Hướng dẫn Bước 4 (bơm H₂O):
+🤖 Robot: "Bước 4: Bấm nút Bơm H₂O phía dưới ống 2. Quan sát hiện tượng xảy ra trong cả hai ống nghiệm."
+
+Lời thoại 8 — Hướng dẫn Bước 5 (quan sát):
+🤖 Robot: "Quan sát kỹ ống 1. Mô tả những gì bạn thấy xảy ra trong dung dịch. Sau đó điền kết quả vào bảng báo cáo ở panel bên phải."
+
+Lời thoại 9 — Khi học sinh điền xong bảng báo cáo:
+🤖 Robot: "Bạn đã ghi lại kết quả quan sát. Bấm Xem kết luận để tiếp tục."
+
+Lời thoại 10 — Phản hồi khi học sinh bơm H₂O trước khi nối ống dẫn (thao tác sai):
+🤖 Robot: "Khí vừa thoát ra ngoài môi trường. Hãy thử lại và chú ý thứ tự các bước."
+
+👆  THAO TÁC HỌC SINH
+
+Trên canvas:
+• Bấm nút "Thêm AgNO₃" (góc trên trái canvas)
+• Bấm nút "Nhỏ NH₃ từng giọt" (góc trên trái canvas)
+• Bấm nút "Thêm H₂O" (góc trên trái canvas)
+• Bấm nút "Cho CaC₂" (góc trên phải canvas)
+• Bấm nút "Nối ống dẫn" (giữa canvas, giữa 2 ống nghiệm)
+• Bấm nút "Bơm H₂O" (phía dưới ống 2)
+• Quan sát ống 1 sau khi khí sục vào
+
+Trên panel:
+• Đọc mục tiêu → bấm [Tiếp tục]
+• Đọc giả thuyết → bấm [Bắt đầu thí nghiệm]
+• Điền bảng báo cáo (2 ô, sau Bước 5) → bấm [Xem kết luận]
+• Điền chỗ trống kết luận (3 ô) → bấm [Kiểm tra]
+• Đọc chốt kiến thức → bấm [Trả lời câu hỏi]
+• Trả lời 6A: chọn Đúng/Sai/Đúng một phần + điền giải thích
+• Trả lời 3 câu MCQ (6B)
+💡  AHA MOMENT
+
+Alk-1-yne tạo kết tủa vàng nhạt với AgNO₃/NH₃ vì có H linh động ở C đầu mạch — đây là thuốc thử nhận biết đặc trưng.
+▶  ĐIỀU KIỆN HOÀN THÀNH
+
+• Học sinh đã thực hiện đủ 5 bước thao tác trên canvas.
+• Học sinh đã điền đủ 2 ô trong bảng báo cáo ở panel.
+• Học sinh đã hoàn thành điền chỗ trống kết luận (5A).
+• Học sinh đã trả lời 6A (đánh giá giả thuyết).
+• Học sinh đã trả lời đủ 3 câu MCQ (6B).
+✔  CHECKLIST TRƯỚC KHI BÀN GIAO
+
+☑ Đủ 6 nội dung bắt buộc trong bài.
+☑ Mục tiêu ở panel: dùng nguyên văn giáo viên cung cấp — không diễn đạt lại.
+☑ Canvas chỉ chứa thao tác thí nghiệm — không chứa mục tiêu, giả thuyết, bảng, kết luận, câu hỏi.
+☑ Mục tiêu, giả thuyết, bảng báo cáo, kết luận, câu hỏi đều hiển thị ở panel.
+☑ Không chia Stage — bài chỉ có 1 thí nghiệm duy nhất.
+☑ Giả thuyết do hệ thống đưa ra, học sinh chỉ đọc.
+☑ Tiến trình thao tác trên canvas: không có câu hỏi xen vào.
+☑ Phản hồi khi sai: chỉ thị giác (animation khí thoát), không phán xét.
+☑ Bảng báo cáo: học sinh tự điền hiện tượng (có gợi ý lựa chọn), không điền hộ.
+☑ Câu hỏi: 6A (đánh giá giả thuyết) đứng trước 6B (MCQ).
+☑ Hiện tượng hóa học chính xác: kết tủa vàng nhạt C₂Ag₂.
+☑ Aha moment: 1 câu, nêu rõ bản chất.
+☑ Đáp án MCQ phân bố: C – A – D (random, không trùng vị trí liên tiếp).
+☑ Canvas: mô tả theo trình tự thời gian, đủ chi tiết để dựng animation.
+☑ Robot: không giải thích thay canvas, lời thoại ngắn gọn, trung tính.
+
+⚠️  Lưu ý kỹ thuật đặc thù bài này: cần xử lý kỹ trạng thái "chưa nối ống dẫn" vs "đã nối" — đây là điều kiện tiên quyết để animation khí đi đúng hướng. Build team cần khóa nút "Bơm H₂O" cho đến khi học sinh đã bấm "Nối ống dẫn", HOẶC để nút mở nhưng kích hoạt phản hồi thị giác khi bấm sai thứ tự.
+
 ________________________________________
 Hãy sinh ra toàn bộ code HTML/CSS/JS hoàn chỉnh, không cắt xén. Ưu tiên giao diện đẹp, tinh tế, nhất quán theo đúng design system "Haugomat editorial flat" trước khi nghĩ đến logic phức tạp.
